@@ -57,6 +57,8 @@ def make_agent(llm: Any = None, uskg: Any = None) -> TraceabilityAgent:
         uskg=uskg,
         embedder=FakeEmbedder(VECTORS),  # type: ignore[arg-type]
         llm=llm or MagicMock(),
+        retrieval="embeddings",  # the fake embedder only drives this method
+        similarity_threshold=0.5,
     )
 
 
@@ -215,3 +217,21 @@ def test_latencies_are_recorded(req, targets):
     agent = make_agent(llm=llm)
     agent.verify_candidates(agent.find_candidates([req], targets, top_k=1))
     assert len(agent.verification_latencies) == 1
+
+
+def test_run_logger_records_shortlist_and_verdicts(req, targets, tmp_path):
+    import json
+
+    from agents.traceability_agent.run_log import RunLogger
+
+    llm = llm_returning(
+        {"is_linked": True, "confidence": 0.9, "reasoning": "yes"},
+        {"is_linked": False, "confidence": 0.1, "reasoning": "no"},
+    )
+    agent = make_agent(llm=llm)
+    agent.run_logger = RunLogger(tmp_path / "events.jsonl")
+    agent.verify_candidates(agent.find_candidates([req], targets))
+    events = [json.loads(l) for l in (tmp_path / "events.jsonl").read_text().splitlines()]
+    assert [e["type"] for e in events] == ["shortlist", "verify_start", "verdict", "verdict"]
+    assert [t["id"] for t in events[0]["targets"]] == ["C1", "C2"]
+    assert events[2]["kept"] is True and events[3]["kept"] is False

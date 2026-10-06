@@ -1,14 +1,21 @@
-"""Baselines the full pipeline is compared against (no LLM verification step).
+"""Candidate generators without LLM verification: the baselines, and the hybrid retriever.
 
 * TF-IDF / cosine: classic information-retrieval baseline.
-* Embeddings only: the agent's stage 1 on its own, without the LLM stage.
+* Embeddings only: the agent's stage 1 with sentence embeddings alone.
+* Hybrid: TF-IDF and embeddings fused by summing per-source z-scores.
 """
 
-from typing import Any, Sequence
+from typing import Any, Optional, Sequence
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-from agents.traceability_agent.retrieval import Candidate, cosine_matrix, select_candidates
+from agents.traceability_agent.preprocess import retrieval_text
+from agents.traceability_agent.retrieval import (
+    Candidate,
+    TextFn,
+    embedding_matrix,
+    hybrid_matrix,
+    select_candidates,
+    tfidf_matrix,
+)
 from shared.schemas.traceability import Artifact
 
 
@@ -17,27 +24,25 @@ def tfidf_candidates(
     targets: Sequence[Artifact],
     top_k: int = 10,
     threshold: float = 0.1,
+    text_fn: TextFn = retrieval_text,
+    chunk_size: Optional[int] = None,
 ) -> list[Candidate]:
     """TF-IDF cosine-similarity baseline.
-
-    The vocabulary is fitted on all source and target texts together.
 
     Args:
         sources: Source artifacts.
         targets: Target artifacts.
         top_k: Max targets kept per source.
         threshold: Minimum cosine similarity.
+        text_fn: Text extractor (default cleans code; pass ``lambda a: a.text`` for raw).
+        chunk_size: Score each target as its best ``chunk_size``-word chunk (None = whole text).
 
     Returns:
         Predicted pairs as candidates.
     """
     if not sources or not targets:
         return []
-    matrix = TfidfVectorizer(lowercase=True, stop_words="english").fit_transform(
-        [a.text for a in list(sources) + list(targets)]
-    )
-    src, tgt = matrix[: len(sources)].toarray(), matrix[len(sources) :].toarray()
-    return select_candidates(sources, targets, cosine_matrix(src, tgt), top_k, threshold)
+    return select_candidates(sources, targets, tfidf_matrix(sources, targets, text_fn, chunk_size), top_k, threshold)
 
 
 def embedding_candidates(
@@ -46,6 +51,8 @@ def embedding_candidates(
     embedder: Any,
     top_k: int = 10,
     threshold: float = 0.5,
+    text_fn: TextFn = retrieval_text,
+    chunk_size: Optional[int] = None,
 ) -> list[Candidate]:
     """Embeddings-only baseline (sentence-transformers similarity, no LLM).
 
@@ -55,14 +62,44 @@ def embedding_candidates(
         embedder: Object with ``embed_batch(list[str])``.
         top_k: Max targets kept per source.
         threshold: Minimum cosine similarity.
+        text_fn: Text extractor (default cleans code).
+        chunk_size: Score each target as its best ``chunk_size``-word chunk (None = whole text).
 
     Returns:
         Predicted pairs as candidates.
     """
     if not sources or not targets:
         return []
-    sims = cosine_matrix(
-        embedder.embed_batch([a.text for a in sources]),
-        embedder.embed_batch([a.text for a in targets]),
+    return select_candidates(
+        sources, targets, embedding_matrix(sources, targets, embedder, text_fn, chunk_size), top_k, threshold
     )
-    return select_candidates(sources, targets, sims, top_k, threshold)
+
+
+def hybrid_candidates(
+    sources: Sequence[Artifact],
+    targets: Sequence[Artifact],
+    embedder: Any,
+    top_k: int = 10,
+    threshold: float = float("-inf"),
+    text_fn: TextFn = retrieval_text,
+    chunk_size: Optional[int] = None,
+) -> list[Candidate]:
+    """Hybrid retrieval: TF-IDF and embedding scores fused by z-score.
+
+    Args:
+        sources: Source artifacts.
+        targets: Target artifacts.
+        embedder: Object with ``embed_batch(list[str])``.
+        top_k: Max targets kept per source.
+        threshold: Minimum fused z-score sum; the default of -inf ranks by top-k only.
+        text_fn: Text extractor (default cleans code).
+        chunk_size: Score each target as its best ``chunk_size``-word chunk (None = whole text).
+
+    Returns:
+        Predicted pairs as candidates.
+    """
+    if not sources or not targets:
+        return []
+    return select_candidates(
+        sources, targets, hybrid_matrix(sources, targets, embedder, text_fn, chunk_size), top_k, threshold
+    )

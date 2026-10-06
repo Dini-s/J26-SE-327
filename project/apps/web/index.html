@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traceability Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js"></script>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1c2430;--muted:#667085;--line:#e3e6eb;--accent:#2f6fed;
+  --ok:#1a9e5c;--warn:#e8890c;--bad:#d64545;--idle:#98a2b3;--req:#2f6fed;--code:#7a8699;--chip:#eef1f6}
+@media (prefers-color-scheme:dark){:root{--bg:#10141b;--card:#1a2029;--text:#e6e9ef;--muted:#8d97a8;--line:#2a323e;
+  --accent:#6b9bff;--ok:#38c07a;--warn:#f0a23a;--bad:#ef6b6b;--idle:#6b7686;--req:#6b9bff;--code:#8b97ab;--chip:#232b37}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--card)}
+h1{font-size:17px;margin:0 8px 0 0}
+.pill{display:inline-flex;gap:6px;align-items:center;padding:3px 10px;border-radius:99px;background:var(--chip);font-size:12.5px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--idle)}
+.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}.dot.warn{background:var(--warn)}
+main{padding:16px 20px;display:grid;gap:16px;max-width:1500px;margin:auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.card .k{color:var(--muted);font-size:12px}.card .v{font-size:22px;font-weight:600;margin-top:2px}
+.card .s{color:var(--muted);font-size:12px;margin-top:2px}
+.bar{height:6px;border-radius:4px;background:var(--chip);margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);width:0}
+.grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(300px,1fr);gap:16px}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.panel h2{font-size:14px;margin:0;padding:11px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+#graph{height:520px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;padding:8px 14px;border-top:1px solid var(--line);font-size:12px}
+.legend label{display:inline-flex;gap:5px;align-items:center;cursor:pointer;color:var(--muted)}
+.sw{width:18px;height:0;border-top:3px solid}
+#feed{max-height:520px;overflow:auto}
+.item{padding:9px 14px;border-bottom:1px solid var(--line);font-size:13px}
+.item .t{display:flex;justify-content:space-between;gap:8px}
+.badge{font-size:11px;padding:1px 7px;border-radius:99px;color:#fff}
+.badge.yes{background:var(--ok)}.badge.no{background:var(--idle)}.badge.err{background:var(--bad)}
+.item .r{color:var(--muted);margin-top:3px;font-size:12.5px}
+.truth{color:var(--ok)}.nottruth{color:var(--warn)}
+#detail{padding:12px 14px;white-space:pre-wrap;font-size:12.5px;max-height:220px;overflow:auto;color:var(--muted)}
+select,button{font:inherit;color:var(--text);background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+.empty{padding:18px 14px;color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;padding:12px 14px}
+.controls label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}
+.controls input{width:90px}
+input{font:inherit;color:var(--text);background:var(--chip);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent);padding:5px 16px;font-weight:600;cursor:pointer}
+button.danger{background:var(--bad);color:#fff;border-color:var(--bad);padding:5px 16px;font-weight:600;cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+#r-msg{padding:0 14px 12px;color:var(--muted);font-size:12.5px;white-space:pre-wrap}
+#r-msg.err{color:var(--bad)}
+table{border-collapse:collapse;width:100%}td{padding:5px 14px;border-bottom:1px solid var(--line)}td:first-child{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Traceability Dashboard</h1>
+  <span class="pill" id="p-neo"><span class="dot"></span><span>Neo4j</span></span>
+  <span class="pill" id="p-llm"><span class="dot"></span><span>LLM server</span></span>
+  <span class="pill" id="p-run"><span class="dot"></span><span>no run</span></span>
+  <span style="flex:1"></span>
+  <label>Graph source
+    <select id="source"><option value="run">Latest run</option><option value="neo4j">Neo4j (USKG)</option></select>
+  </label>
+</header>
+<main>
+  <section class="panel" id="runner">
+    <h2>Run controls <span class="pill" id="r-state">checking...</span></h2>
+    <div class="controls">
+      <label>Dataset<select id="r-dataset"></select></label>
+      <label>Requirements (blank = all)<input id="r-limit" type="number" min="1" max="500" value="10"></label>
+      <label>Top-k per requirement<input id="r-topk" type="number" min="1" max="50" value="5"></label>
+      <label>Stage-1 retrieval<select id="r-retrieval"></select></label>
+      <button class="primary" id="r-start">Start run</button>
+      <button class="danger" id="r-stop" disabled>Stop run</button>
+      <span id="r-est" class="pill"></span>
+    </div>
+    <div id="r-msg"></div>
+  </section>
+  <section class="cards" id="cards"></section>
+  <section class="grid">
+    <div class="panel">
+      <h2><span id="graph-title">Trace graph</span><span id="graph-meta" class="pill"></span></h2>
+      <div id="graph"></div>
+      <div class="legend" id="legend"></div>
+      <div id="detail">Click a node or an edge to inspect it.</div>
+    </div>
+    <div class="panel">
+      <h2>Live verdicts <span class="pill" id="feed-count">0</span></h2>
+      <div id="feed"><div class="empty">Waiting for a run. Start one with <code>evaluate.py --method full</code>.</div></div>
+    </div>
+  </section>
+  <section class="panel">
+    <h2>Neo4j / USKG</h2>
+    <div id="neo"><div class="empty">Checking...</div></div>
+  </section>
+</main>
+<script>
+const CATS = {
+  verified_correct:{label:"Verified, correct",color:"#1a9e5c",dashes:false,width:3},
+  verified_wrong:{label:"Verified, not in gold (false positive)",color:"#e8890c",dashes:false,width:3},
+  rejected_true:{label:"Rejected but true (LLM miss)",color:"#9b5de5",dashes:[6,4],width:2},
+  rejected:{label:"Rejected",color:"#98a2b3",dashes:[3,5],width:1},
+  pending:{label:"Shortlisted, pending",color:"#2f6fed",dashes:[6,4],width:1.5},
+  missed:{label:"True link not shortlisted (stage-1 miss)",color:"#d64545",dashes:[2,6],width:1.5},
+  verified:{label:"VERIFIED_TRACE",color:"#1a9e5c",dashes:false,width:3},
+  decayed:{label:"Decayed",color:"#d64545",dashes:false,width:3},
+};
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const pct = x => x == null ? "–" : (x * 100).toFixed(1) + "%";
+const fmt = x => x == null ? "–" : x.toFixed(1) + "s";
+
+let network, nodes = new vis.DataSet(), edges = new vis.DataSet(), hidden = new Set(), feedAfter = 0, feedN = 0, lastSig = "";
+
+function setPill(id, cls, text){ const p = $(id); p.firstElementChild.className = "dot " + cls; p.lastElementChild.textContent = text; }
+
+function renderCards(s){
+  const c = $("cards"); c.replaceChildren();
+  const add = (k, v, sub, bar) => { const d = el("div","card"); d.append(el("div","k",k), el("div","v",v)); if (sub) d.append(el("div","s",sub));
+    if (bar != null){ const b = el("div","bar"); const i = el("i"); i.style.width = Math.min(100, bar*100) + "%"; b.append(i); d.append(b);} c.append(d); };
+  if (s.state === "none"){ add("Run","No run yet","Start: evaluate.py --method full"); return; }
+  add("Progress", `${s.done} / ${s.total ?? "?"}`, `${s.state} · ${s.sources} requirements × top-${s.top_k}`, s.total ? s.done/s.total : 0);
+  add("Links kept", s.kept, `${s.malformed} malformed replies`);
+  add("Precision (live)", pct(s.precision), `TP ${s.tp} · FP ${s.fp}`);
+  add("Recall (so far)", pct(s.recall), `FN ${s.fn} of ${s.true_links} true links`);
+  add("F1 (live)", pct(s.f1), s.state === "finished" ? "final" : "provisional");
+  add("Stage-1 recall ceiling", pct(s.true_links ? s.shortlisted_true / s.true_links : 0), `${s.shortlisted_true} of ${s.true_links} true links shortlisted`);
+  add("LLM latency", fmt(s.mean_latency), `p95 ${fmt(s.p95_latency)} (target ≤ 5s)`);
+}
+
+function renderFeed(items){
+  const f = $("feed");
+  if (feedN === 0 && items.length) f.replaceChildren();
+  for (const e of items){
+    const d = el("div","item"), t = el("div","t");
+    t.append(el("span", null, `${e.source_id} → ${e.target_id}`));
+    if (e.type === "malformed") t.append(el("span","badge err","malformed"));
+    else t.append(el("span", "badge " + (e.kept ? "yes" : "no"), (e.kept ? "linked " : "rejected ") + e.confidence.toFixed(2)));
+    d.append(t);
+    if (e.type === "verdict"){
+      const g = el("span", e.truth ? "truth" : "nottruth", e.truth ? "in gold" : "not in gold");
+      const r = el("div","r"); r.append(g, document.createTextNode(` · ${e.latency}s · ${e.reasoning}`)); d.append(r);
+    } else d.append(el("div","r",e.error));
+    f.prepend(d); feedN++;
+  }
+  $("feed-count").textContent = feedN;
+}
+
+function renderNeo(n){
+  const box = $("neo"); box.replaceChildren();
+  if (!n.connected){
+    const m = el("div","empty"); m.append(el("div",null,"Not connected to " + n.uri));
+    m.append(el("div",null, (n.error || "") ));
+    m.append(el("div",null,"Start Neo4j and set NEO4J_URI / NEO4J_USERNAME / NEO4J_PASSWORD in .env; the page will reconnect on its own."));
+    box.append(m); return;
+  }
+  const t = document.createElement("table");
+  for (const [k,v] of Object.entries(n.counts)){ const r = t.insertRow(); r.insertCell().textContent = k.replace("_"," "); r.insertCell().textContent = v; }
+  box.append(t);
+}
+
+function renderLegend(cats){
+  const l = $("legend"); l.replaceChildren();
+  for (const c of cats){
+    const spec = CATS[c]; if (!spec) continue;
+    const lab = el("label"), cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = !hidden.has(c);
+    cb.onchange = () => { cb.checked ? hidden.delete(c) : hidden.add(c); applyHidden(); };
+    const sw = el("span","sw"); sw.style.borderColor = spec.color; if (spec.dashes) sw.style.borderTopStyle = "dashed";
+    lab.append(cb, sw, document.createTextNode(spec.label)); l.append(lab);
+  }
+}
+function applyHidden(){ edges.update(edges.get().map(e => ({id:e.id, hidden: hidden.has(e.category)}))); }
+
+function renderGraph(g){
+  const sig = JSON.stringify([g.source, g.nodes.length, g.edges.map(e => e.from + e.to + e.category)]);
+  if (sig === lastSig) return; lastSig = sig;
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const fontColor = dark ? "#e6e9ef" : "#1c2430";
+  nodes.clear(); edges.clear();
+  nodes.add(g.nodes.map(n => n.kind === "requirement"
+    ? {id:n.id,label:n.label,shape:"box",color:{background:"#2f6fed",border:"#2f6fed"},font:{color:"#fff",size:13},raw:n}
+    : {id:n.id,label:n.label,shape:"dot",size:9,color:{background:"#8b97ab",border:"#8b97ab"},font:{color:fontColor,size:11},raw:n}));
+  edges.add(g.edges.map((e,i) => { const c = CATS[e.category] || CATS.rejected;
+    return {id:i,from:e.from,to:e.to,category:e.category,color:{color:c.color,highlight:c.color},dashes:c.dashes,width:c.width,
+            hidden:hidden.has(e.category),arrows:"to",raw:e}; }));
+  renderLegend([...new Set(g.edges.map(e => e.category))]);
+  $("graph-meta").textContent = `${g.nodes.length} nodes · ${g.edges.length} edges`;
+  if (!network){
+    network = new vis.Network($("graph"), {nodes, edges}, {
+      physics:{solver:"forceAtlas2Based",forceAtlas2Based:{gravitationalConstant:-45,springLength:110},stabilization:{iterations:120}},
+      interaction:{hover:true,tooltipDelay:150},edges:{smooth:false}});
+    network.on("click", p => {
+      const d = $("detail");
+      if (p.nodes.length){ const n = nodes.get(p.nodes[0]).raw; d.textContent = `${n.kind.toUpperCase()}  ${n.label}\n\n${n.text || "(no text)"}`; }
+      else if (p.edges.length){ const e = edges.get(p.edges[0]).raw; const c = CATS[e.category];
+        d.textContent = `${c ? c.label : e.category}\n${e.from.slice(2)} → ${e.to.slice(2)}\n` +
+          (e.truth === true ? "In ground truth\n" : e.truth === false ? "Not in ground truth\n" : "") +
+          (e.similarity != null ? `Stage-1 score: ${e.similarity}\n` : "") +
+          (e.confidence != null ? `LLM confidence: ${e.confidence}\n` : "") + (e.reasoning ? `\n${e.reasoning}` : ""); }
+    });
+  }
+}
+
+async function j(url){ const r = await fetch(url); if (!r.ok) throw new Error(url + " " + r.status); return r.json(); }
+
+async function pollRun(){
+  try {
+    const r = await j("/api/run?after=" + feedAfter);
+    if (r.id && r.id !== window._runId){ window._runId = r.id; feedAfter = 0; feedN = 0; lastSig = ""; $("feed").replaceChildren(el("div","empty","Loading run...")); return pollRun(); }
+    feedAfter = r.next; renderFeed(r.feed); renderCards(r.summary);
+    const st = r.summary.state;
+    setPill("p-run", st === "finished" ? "ok" : st === "none" ? "" : "warn", r.id ? `${st} · ${r.id}` : "no run");
+    if ($("source").value === "run") renderGraph(await j("/api/graph?source=run"));
+  } catch(e){ setPill("p-run","bad","API unreachable"); }
+}
+async function pollStatus(){
+  try {
+    const s = await j("/api/status");
+    setPill("p-neo", s.neo4j.connected ? "ok" : "bad", s.neo4j.connected ? "Neo4j connected" : "Neo4j offline");
+    const l = s.llm; setPill("p-llm", !l.configured ? "" : l.reachable ? "ok" : "bad",
+      !l.configured ? "LLM: OpenAI/default" : l.reachable ? `LLM ${l.model}` : "LLM unreachable");
+    renderNeo(s.neo4j);
+  } catch(e){}
+}
+$("source").onchange = async () => { lastSig = ""; try { renderGraph(await j("/api/graph?source=" + $("source").value)); $("graph-title").textContent = $("source").value === "neo4j" ? "USKG graph (Neo4j)" : "Trace graph (latest run)"; }
+  catch(e){ $("detail").textContent = "Could not load graph: " + e.message; } };
+const HDR = {"Content-Type":"application/json","X-Requested-With":"dashboard"};
+const runnerParams = () => ({dataset:$("r-dataset").value, retrieval:$("r-retrieval").value,
+  top_k:+$("r-topk").value, limit_sources:$("r-limit").value === "" ? null : +$("r-limit").value});
+function msg(text, err){ const m = $("r-msg"); m.textContent = text; m.className = err ? "err" : ""; }
+async function post(url, body){
+  const r = await fetch(url, {method:"POST", headers:HDR, body: body ? JSON.stringify(body) : undefined});
+  const data = await r.json().catch(() => ({})); if (!r.ok) throw new Error(data.detail || r.status); return data;
+}
+async function refreshEstimate(){
+  try { const e = await post("/api/runner/estimate", runnerParams());
+    $("r-est").textContent = `≈ ${e.calls} LLM calls · ~${e.minutes} min`; window._est = e; }
+  catch(e){ $("r-est").textContent = e.message; window._est = null; }
+}
+let runnerInit = false;
+async function pollRunner(){
+  try {
+    const s = await j("/api/runner");
+    if (!runnerInit){ runnerInit = true;
+      $("r-dataset").replaceChildren(...s.datasets.map(d => new Option(d, d, d === "itrust", d === "itrust")));
+      $("r-retrieval").replaceChildren(...s.retrievals.map(d => new Option(d, d)));
+      for (const id of ["r-dataset","r-limit","r-topk","r-retrieval"]) $(id).oninput = refreshEstimate; refreshEstimate(); }
+    const busy = s.state !== "idle";
+    const st = $("r-state"); st.textContent = {idle:"idle", running:"running (started here)", external:"a run is active (started elsewhere)"}[s.state];
+    $("r-start").disabled = busy || !s.allowed; $("r-stop").disabled = s.state !== "running";
+    if (!s.allowed) msg("Starting runs is disabled on this dashboard (DASHBOARD_ALLOW_RUN=0).", true);
+    else if (s.state === "external") msg(`A pipeline run started outside this dashboard is active (pid ${s.external_pids[0]}). Wait for it to finish; it will not appear live because it has no event log.`);
+    else if (s.state === "idle" && s.last_exit_code != null && s.last_exit_code !== 0) msg(`Last run exited with code ${s.last_exit_code}.\n${s.log}`, true);
+    else if (s.state === "running" && !window._runId) msg("Starting: loading the embedding model; the run appears in a few seconds...");
+  } catch(e){ $("r-state").textContent = "API unreachable"; }
+}
+$("r-start").onclick = async () => {
+  const e = window._est; if (!e) return;
+  if (!confirm(`Start a run?\n\n${e.requirements} requirements × top-${$("r-topk").value} = ${e.calls} LLM calls, about ${e.minutes} minutes on the CPU server.`)) return;
+  try { const r = await post("/api/runner/start", runnerParams()); msg(`Started (pid ${r.pid}). The live view switches to the new run once it begins.`); }
+  catch(err){ msg(err.message, true); }
+  pollRunner();
+};
+$("r-stop").onclick = async () => {
+  if (!confirm("Stop the running pipeline? Results so far stay in the live view but no final metrics are produced.")) return;
+  try { await post("/api/runner/stop"); msg("Stop signal sent."); } catch(err){ msg(err.message, true); }
+  pollRunner();
+};
+pollStatus(); pollRun(); pollRunner(); setInterval(pollRunner, 3000); setInterval(pollRun, 2000); setInterval(pollStatus, 5000);
+</script>
+</body>
+</html>

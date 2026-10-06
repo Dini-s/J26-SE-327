@@ -13,6 +13,7 @@ from typing import Any, Optional
 
 from agents.traceability_agent.config import PASS_THRESHOLD
 from agents.traceability_agent.events import DecayEventPublisher
+from agents.traceability_agent.preprocess import llm_text
 from agents.traceability_agent.utils import content_hash
 from shared.llm.client import LLMClient
 from shared.schemas.traceability import Artifact, TraceabilityLink
@@ -75,7 +76,10 @@ class DecayDetector:
             What happened.
         """
         try:
-            verdict = self.llm.verify_link(requirement, target)
+            verdict = self.llm.verify_link(
+                requirement.model_copy(update={"text": llm_text(requirement)}),
+                target.model_copy(update={"text": llm_text(target)}),
+            )
             confidence = float(verdict["confidence"])
             passed = bool(verdict["is_linked"]) and confidence >= self.pass_threshold
             reasoning = str(verdict["reasoning"])

@@ -69,6 +69,7 @@ def test_llm_client_uses_self_hosted_endpoint(monkeypatch):
 
     from shared.llm.client import LLMClient
 
+    monkeypatch.setattr("shared.llm.client.load_dotenv", lambda *a, **k: None)  # ignore the real .env
     monkeypatch.setenv("LLM_BASE_URL", "http://localhost:11434/v1")
     monkeypatch.setenv("LLM_MODEL", "llama3.1-8k")
     monkeypatch.delenv("LLM_API_KEY", raising=False)
