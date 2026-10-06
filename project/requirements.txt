@@ -1,0 +1,8 @@
+neo4j==5.28.7
+openai==2.48.0
+sentence-transformers==5.1.2
+pydantic==2.13.5
+pytest==8.4.2
+python-dotenv==1.2.1
+redis>=5.0
+pyarrow==21.0.0

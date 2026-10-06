@@ -6,3 +6,4 @@ node_modules/
 .ipynb_checkpoints/
 .DS_Store
 data/raw/
+.pytest_cache/
