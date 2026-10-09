@@ -1,0 +1,4 @@
+source_package,target_package
+org.springframework.samples.petclinic,org.springframework.samples.petclinic.vet
+org.springframework.samples.petclinic.owner,org.springframework.samples.petclinic
+org.springframework.samples.petclinic.vet,org.springframework.samples.petclinic
