@@ -97,6 +97,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--limit-sources", type=int, help="only use the first N requirements (cheaper LLM runs); gold is filtered to match")
     parser.add_argument("--embedding-model", help="sentence-transformers model name (default: EMBEDDING_MODEL_NAME)")
     parser.add_argument("--chunk-size", type=int, default=CHUNK_WORDS, help="words per chunk; 0 = whole text (default: config.CHUNK_WORDS)")
+    parser.add_argument("--prompt", choices=["expert", "generic"], default="expert", help="LLM prompt: the traceability-expert persona or a plain generic one (ablation)")
     parser.add_argument("--raw-text", action="store_true", help="skip code cleaning (imports/identifier splitting) to compare")
     parser.add_argument("--retrieval", choices=["embeddings", "tfidf", "hybrid"], default="hybrid", help="stage-1 method for --method full")
     parser.add_argument("--ceiling", action="store_true", help="print stage-1 recall ceiling (threshold 0) for several top-k, then exit")
@@ -161,9 +162,17 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     from agents.traceability_agent.agent import TraceabilityAgent
     from shared.embeddings.embedder import Embedder
 
+    from agents.traceability_agent import prompts
+    from shared.llm.client import LLMClient
+
+    system, template = (
+        (prompts.SYSTEM_PROMPT, prompts.USER_PROMPT_TEMPLATE)
+        if args.prompt == "expert"
+        else (prompts.GENERIC_SYSTEM_PROMPT, prompts.GENERIC_USER_PROMPT_TEMPLATE)
+    )
     agent = TraceabilityAgent(
         uskg=store, embedder=Embedder(args.embedding_model), retrieval=args.retrieval, top_k=args.top_k,
-        chunk_size=chunk,
+        chunk_size=chunk, llm=LLMClient(system_prompt=system, user_prompt_template=template),
     )
     th = args.threshold  # None = agent default (no cutoff, rank by top-k)
     if args.method == "hybrid":
@@ -182,13 +191,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     from agents.traceability_agent.run_log import RunLogger
 
     runs_dir = Path(__file__).resolve().parents[2] / "data" / "runs"
-    logger = RunLogger.new(runs_dir, f"{args.retrieval}-top{args.top_k}")
+    logger = RunLogger.new(runs_dir, f"{args.retrieval}-top{args.top_k}-{args.prompt}")
     agent.run_logger = logger  # the dashboard (apps/web) reads this file live
     logger.emit(
         "run_start",
         dataset=args.artifacts.parent.name if args.artifacts else "neo4j",
         method="full",
         retrieval=args.retrieval,
+        prompt=args.prompt,
         top_k=args.top_k,
         chunk_size=chunk,
         sources=[a.id for a in sources],

@@ -117,13 +117,26 @@ def run_injection(
 def main(argv: Optional[Sequence[str]] = None) -> int:
     """CLI: run the harness with the real LLM and print the results."""
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--artifacts", type=Path, required=True)
-    parser.add_argument("--links", type=Path, required=True, help="traces.json of known-good links")
+    parser.add_argument("--artifacts", type=Path, help="artifacts.json (omit with --neo4j)")
+    parser.add_argument("--links", type=Path, help="traces.json of known-good links (omit with --neo4j)")
+    parser.add_argument("--neo4j", action="store_true", help="read artifacts and VERIFIED links from the USKG (read-only; mutations are applied in memory)")
     parser.add_argument("--sample", type=int, default=10, help="number of links to use")
     args = parser.parse_args(argv)
 
-    artifacts = [Artifact(**a) for a in json.loads(args.artifacts.read_text(encoding="utf-8"))]
-    links = [TraceabilityLink(**l) for l in json.loads(args.links.read_text(encoding="utf-8"))]
+    if args.neo4j:
+        from shared.uskg.client import USKGClient
+
+        with USKGClient() as uskg:
+            artifacts = [a for t in ("requirement", "code", "test", "design") for a in uskg.get_artifacts(t)]
+            links = uskg.get_traces(status="verified")
+    elif args.artifacts and args.links:
+        artifacts = [Artifact(**a) for a in json.loads(args.artifacts.read_text(encoding="utf-8"))]
+        links = [TraceabilityLink(**l) for l in json.loads(args.links.read_text(encoding="utf-8"))]
+    else:
+        parser.error("pass --neo4j, or both --artifacts and --links")
+    if not links:
+        print("No verified links to mutate. Run the `link` command first.", file=sys.stderr)
+        return 1
     links = links[: args.sample]
 
     from agents.traceability_agent.prompts import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE

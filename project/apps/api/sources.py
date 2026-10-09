@@ -231,3 +231,20 @@ def llm_status() -> dict[str, Any]:
     except Exception as exc:
         return {"configured": True, "reachable": False, "model": os.getenv("LLM_MODEL"),
                 "error": f"{type(exc).__name__}"}
+
+
+def neo4j_completeness() -> dict[str, Any]:
+    """Completeness score per requirement and the orphan list, from the live USKG."""
+    from agents.traceability_agent.completeness import completeness_scores
+    from shared.uskg.client import USKGClient
+
+    with USKGClient() as uskg:
+        results = completeness_scores(uskg.get_artifacts("requirement"), uskg.get_traces())
+    rows = sorted((r.model_dump() for r in results), key=lambda r: r["score"])
+    orphans = [r["requirement_id"] for r in rows if r["is_orphan"]]
+    return {
+        "requirements": len(rows),
+        "orphans": orphans,
+        "mean_score": sum(r["score"] for r in rows) / len(rows) if rows else 0.0,
+        "rows": rows,
+    }

@@ -45,6 +45,18 @@ pip install -r requirements.txt
 cp .env.example .env   # fill in NEO4J_*, OPENAI_API_KEY; REDIS_URL for decay events
 ```
 
+## Commands
+
+```bash
+python -m agents.traceability_agent setup                 # create Neo4j indexes (idempotent)
+python -m agents.traceability_agent link --top-k 5        # find + verify links, write VERIFIED_TRACE (--dry-run to skip writing)
+python -m agents.traceability_agent monitor --once        # decay pass; without --once it polls every --interval seconds
+python -m agents.traceability_agent score                 # completeness per requirement + orphans
+bash scripts/final_evaluation.sh                          # persona ablation, CM-1 write run, decay-injection (hours on a CPU LLM server)
+```
+
+Integration tests run against a real Neo4j when one is reachable (they use `__c4test__` ids and clean up); they skip otherwise. A draft of the report with measured results is in `docs/traceability_report_draft.md`.
+
 ## Run
 
 ```bash

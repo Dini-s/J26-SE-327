@@ -89,6 +89,14 @@ def graph(source: str = "run") -> dict[str, Any]:
     return {"source": "run", **sources.build_run_graph(events, dataset["artifacts"], dataset["truth"])}
 
 
+@app.get("/api/completeness")
+def completeness() -> dict[str, Any]:
+    """Traceability completeness and orphan requirements (needs Neo4j)."""
+    if not sources.neo4j_status()["connected"]:
+        raise HTTPException(503, "Neo4j is not connected")
+    return sources.neo4j_completeness()
+
+
 @app.get("/api/runs")
 def runs() -> list[str]:
     """Names of all recorded runs, newest last."""

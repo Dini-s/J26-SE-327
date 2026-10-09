@@ -71,3 +71,30 @@ def test_neo4j_status_reports_offline_without_raising(monkeypatch):
 def test_llm_status_not_configured(monkeypatch):
     monkeypatch.delenv("LLM_BASE_URL", raising=False)
     assert sources.llm_status() == {"configured": False}
+
+
+def test_vetted_write_statements_pass_the_ownership_guard():
+    import pytest as _pytest
+
+    from shared.uskg import client
+
+    for query in client._WRITE_QUERIES:
+        client.validate_write_query(query)
+    for bad in ("MATCH (n) DETACH DELETE n", "MERGE (n:CodeEntity {id: 'x'})", "CREATE (n:Requirement)"):
+        with _pytest.raises(PermissionError):
+            client.validate_write_query(bad)
+
+
+def test_neo4j_completeness_shape(monkeypatch):
+    from unittest.mock import MagicMock
+
+    from shared.schemas.traceability import Artifact, TraceabilityLink
+
+    uskg = MagicMock()
+    uskg.__enter__.return_value = uskg
+    uskg.get_artifacts.return_value = [Artifact(id="R1", type="requirement", text="a"), Artifact(id="R2", type="requirement", text="b")]
+    uskg.get_traces.return_value = [TraceabilityLink(source_id="R1", target_id="C1", link_type="t", confidence=0.8, justification="j")]
+    monkeypatch.setattr("shared.uskg.client.USKGClient", lambda: uskg)
+    result = sources.neo4j_completeness()
+    assert result["orphans"] == ["R2"] and result["requirements"] == 2
+    assert result["rows"][0]["requirement_id"] == "R2" and abs(result["mean_score"] - 40.0) < 1e-9

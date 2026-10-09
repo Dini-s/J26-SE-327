@@ -17,6 +17,7 @@ ever matched, never created, modified or deleted.
 """
 
 import os
+import re
 from datetime import datetime
 from typing import Any, Optional
 
@@ -69,6 +70,47 @@ CREATE (r)-[:HAS_DECAY]->(d:DecayFlag {
     previousConfidence: previous, reason: $reason})
 RETURN count(d) AS flagged
 """
+
+
+_WRITE_QUERIES = frozenset({_WRITE_LINK_QUERY, _MARK_DECAYED_QUERY})
+
+# --- write ownership -------------------------------------------------------------------
+# C4 may only create/modify VERIFIED_TRACE edges, DecayFlag nodes and HAS_DECAY edges.
+# Every write goes through USKGClient._write_count, which only runs statements from this
+# registry after checking them, so a future edit cannot quietly write C1/C2/C3 types.
+# (This is a code-level guard; Neo4j Community has no role-based access control.)
+OWNED_WRITE_TYPES = frozenset({"VERIFIED_TRACE", "DecayFlag", "HAS_DECAY"})
+_FORBIDDEN_WRITE_KEYWORDS = re.compile(r"\b(DELETE|DETACH|REMOVE|DROP)\b", re.IGNORECASE)
+_PATTERN_TYPES = re.compile(r"[(\[]\s*\w*\s*:\s*(\w+)")  # labels and rel types: (x:Label) / [x:TYPE]
+
+
+def validate_write_query(query: str) -> None:
+    """Reject a write statement that could touch types C4 does not own.
+
+    Every MERGE/CREATE may only mention owned labels/relationship types, and
+    DELETE/REMOVE/DROP are never allowed.
+
+    Raises:
+        PermissionError: If the statement violates the ownership rules.
+    """
+    if _FORBIDDEN_WRITE_KEYWORDS.search(query):
+        raise PermissionError("C4 write layer: DELETE/REMOVE/DROP statements are not allowed")
+    for line in query.splitlines():
+        if re.match(r"\s*(MERGE|CREATE)\b", line, re.IGNORECASE) or re.search(r"\bCREATE\b|\bMERGE\b", line):
+            for name in _PATTERN_TYPES.findall(line):
+                if name not in OWNED_WRITE_TYPES:
+                    raise PermissionError(f"C4 write layer: {name!r} is owned by another component")
+
+
+# Plain (non-unique) indexes: they make the id lookups in write_link / get_traces O(log n)
+# instead of a full scan, without constraining how C1/C2 create their nodes.
+SCHEMA_STATEMENTS = [
+    "CREATE INDEX requirement_id IF NOT EXISTS FOR (n:Requirement) ON (n.id)",
+    "CREATE INDEX codeentity_id IF NOT EXISTS FOR (n:CodeEntity) ON (n.id)",
+    "CREATE INDEX codeentity_kind IF NOT EXISTS FOR (n:CodeEntity) ON (n.kind)",
+    "CREATE INDEX verified_trace_status IF NOT EXISTS FOR ()-[v:VERIFIED_TRACE]-() ON (v.status)",
+    "CREATE INDEX decayflag_code IF NOT EXISTS FOR (d:DecayFlag) ON (d.codeEntityId)",
+]
 
 
 def _to_datetime(value: Any) -> Optional[datetime]:
@@ -125,12 +167,26 @@ class USKGClient:
             return session.execute_read(work)
 
     def _write_count(self, query: str, key: str, **params: Any) -> int:
+        if query not in _WRITE_QUERIES:
+            raise PermissionError("C4 write layer: only the vetted write statements may run")
+        validate_write_query(query)
+
         def work(tx: Any) -> int:
             record = tx.run(query, **params).single()
             return int(record[key]) if record else 0
 
         with self._driver.session() as session:
             return session.execute_write(work)
+
+    def ensure_schema(self) -> list[str]:
+        """Create the indexes the trace queries rely on (idempotent).
+
+        Returns:
+            The statements that were run.
+        """
+        for statement in SCHEMA_STATEMENTS:
+            self._driver.execute_query(statement)
+        return list(SCHEMA_STATEMENTS)
 
     def get_artifacts(self, artifact_type: str) -> list[Artifact]:
         """Fetch all artifacts of one type (read-only).

@@ -92,6 +92,10 @@ table{border-collapse:collapse;width:100%}td{padding:5px 14px;border-bottom:1px 
     </div>
   </section>
   <section class="panel">
+    <h2>Traceability completeness <span class="pill" id="comp-meta">–</span></h2>
+    <div id="comp"><div class="empty">Needs Neo4j.</div></div>
+  </section>
+  <section class="panel">
     <h2>Neo4j / USKG</h2>
     <div id="neo"><div class="empty">Checking...</div></div>
   </section>
@@ -159,6 +163,23 @@ function renderNeo(n){
   const t = document.createElement("table");
   for (const [k,v] of Object.entries(n.counts)){ const r = t.insertRow(); r.insertCell().textContent = k.replace("_"," "); r.insertCell().textContent = v; }
   box.append(t);
+}
+
+async function pollCompleteness(){
+  const box = $("comp");
+  try {
+    const c = await j("/api/completeness");
+    $("comp-meta").textContent = `${c.requirements} requirements · ${c.orphans.length} orphan · mean ${c.mean_score.toFixed(1)}%`;
+    const t = document.createElement("table");
+    for (const r of c.rows.slice(0, 40)){
+      const row = t.insertRow(); row.insertCell().textContent = r.requirement_id;
+      const bar = row.insertCell(); bar.style.width = "50%";
+      const b = el("div","bar"); const i = el("i"); i.style.width = r.score + "%"; i.style.background = r.is_orphan ? "var(--bad)" : "var(--ok)"; b.append(i); bar.append(b);
+      row.insertCell().textContent = r.is_orphan ? "ORPHAN" : r.score.toFixed(1) + "%";
+    }
+    box.replaceChildren(t);
+    if (c.rows.length > 40) box.append(el("div","empty",`... and ${c.rows.length - 40} more (lowest scores shown first)`));
+  } catch(e){ $("comp-meta").textContent = "–"; box.replaceChildren(el("div","empty","Needs a connected Neo4j with requirements loaded.")); }
 }
 
 function renderLegend(cats){
@@ -268,7 +289,7 @@ $("r-stop").onclick = async () => {
   try { await post("/api/runner/stop"); msg("Stop signal sent."); } catch(err){ msg(err.message, true); }
   pollRunner();
 };
-pollStatus(); pollRun(); pollRunner(); setInterval(pollRunner, 3000); setInterval(pollRun, 2000); setInterval(pollStatus, 5000);
+pollStatus(); pollRun(); pollRunner(); pollCompleteness(); setInterval(pollCompleteness, 10000); setInterval(pollRunner, 3000); setInterval(pollRun, 2000); setInterval(pollStatus, 5000);
 </script>
 </body>
 </html>

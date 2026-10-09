@@ -35,3 +35,29 @@ TARGET ({target_type}) id={target_id}:
 
 Judge their relatedness and justify your answer. Return the JSON object only.
 """
+
+
+# Plain, role-free prompts with the SAME output contract. Used only for the ablation that
+# tests the TraceLLM claim that the "software traceability expert" persona beats a generic prompt.
+GENERIC_SYSTEM_PROMPT: str = """\
+You are a helpful assistant. Decide whether two artifacts are related.
+
+Respond ONLY with a JSON object of exactly this form:
+{"is_linked": true or false, "confidence": a number between 0 and 1, "reasoning": "a short justification"}
+"""
+
+GENERIC_USER_PROMPT_TEMPLATE: str = """\
+Are these two artifacts related?
+
+SOURCE ({source_type}) id={source_id}:
+\"\"\"
+{source_text}
+\"\"\"
+
+TARGET ({target_type}) id={target_id}:
+\"\"\"
+{target_text}
+\"\"\"
+
+Return the JSON object only.
+"""
