@@ -1,0 +1,3061 @@
+[
+  {
+    "profile_id": "EP-REQ-PET-001-RVU-01",
+    "rvu_id": "REQ-PET-001-RVU-01",
+    "requirement_id": "REQ-PET-001",
+    "ac_id": "AC-PET-001-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SEARCH",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall return matching owner records when a valid owner last name is supplied."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-001-RVU-02",
+    "rvu_id": "REQ-PET-001-RVU-02",
+    "requirement_id": "REQ-PET-001",
+    "ac_id": "AC-PET-001-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SEARCH",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall handle an owner search when no registered owner matches the supplied last name."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-001-RVU-03",
+    "rvu_id": "REQ-PET-001-RVU-03",
+    "requirement_id": "REQ-PET-001",
+    "ac_id": "AC-PET-001-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SEARCH",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall allow a matching owner record to be selected for detailed viewing."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-002-RVU-01",
+    "rvu_id": "REQ-PET-002-RVU-01",
+    "requirement_id": "REQ-PET-002",
+    "ac_id": "AC-PET-002-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SEARCH_RESULT_HANDLING",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall display owner search results when multiple owners satisfy the supplied search criterion."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-002-RVU-02",
+    "rvu_id": "REQ-PET-002-RVU-02",
+    "requirement_id": "REQ-PET-002",
+    "ac_id": "AC-PET-002-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SEARCH_RESULT_HANDLING",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall allow the details of a uniquely matched owner to be viewed."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-002-RVU-03",
+    "rvu_id": "REQ-PET-002-RVU-03",
+    "requirement_id": "REQ-PET-002",
+    "ac_id": "AC-PET-002-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SEARCH_RESULT_HANDLING",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall provide an observable no-match outcome when an owner search returns no records."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-003-RVU-01",
+    "rvu_id": "REQ-PET-003-RVU-01",
+    "requirement_id": "REQ-PET-003",
+    "ac_id": "AC-PET-003-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall create a new owner when all mandatory owner information is valid."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-003-RVU-02",
+    "rvu_id": "REQ-PET-003-RVU-02",
+    "requirement_id": "REQ-PET-003",
+    "ac_id": "AC-PET-003-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The newly created owner shall receive a persistent owner identifier."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-003-RVU-03",
+    "rvu_id": "REQ-PET-003-RVU-03",
+    "requirement_id": "REQ-PET-003",
+    "ac_id": "AC-PET-003-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The newly created owner shall be available through the owner workflow after successful registration."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-004-RVU-01",
+    "rvu_id": "REQ-PET-004-RVU-01",
+    "requirement_id": "REQ-PET-004",
+    "ac_id": "AC-PET-004-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "UPDATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall persist valid changes made to an existing owner's information."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-004-RVU-02",
+    "rvu_id": "REQ-PET-004-RVU-02",
+    "requirement_id": "REQ-PET-004",
+    "ac_id": "AC-PET-004-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "UPDATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall preserve the owner identifier when owner information is updated."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-004-RVU-03",
+    "rvu_id": "REQ-PET-004-RVU-03",
+    "requirement_id": "REQ-PET-004",
+    "ac_id": "AC-PET-004-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "UPDATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall display the updated owner information after a successful update."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-005-RVU-01",
+    "rvu_id": "REQ-PET-005-RVU-01",
+    "requirement_id": "REQ-PET-005",
+    "ac_id": "AC-PET-005-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall display the stored information of the selected owner."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-005-RVU-02",
+    "rvu_id": "REQ-PET-005-RVU-02",
+    "requirement_id": "REQ-PET-005",
+    "ac_id": "AC-PET-005-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall display pets associated with the selected owner."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-005-RVU-03",
+    "rvu_id": "REQ-PET-005-RVU-03",
+    "requirement_id": "REQ-PET-005",
+    "ac_id": "AC-PET-005-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall display available visit information associated with the selected owner's pets."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-006-RVU-01",
+    "rvu_id": "REQ-PET-006-RVU-01",
+    "requirement_id": "REQ-PET-006",
+    "ac_id": "AC-PET-006-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall reject an owner submission when mandatory owner information is missing."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-006-RVU-02",
+    "rvu_id": "REQ-PET-006-RVU-02",
+    "requirement_id": "REQ-PET-006",
+    "ac_id": "AC-PET-006-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall provide validation feedback when invalid owner information is submitted."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-006-RVU-03",
+    "rvu_id": "REQ-PET-006-RVU-03",
+    "requirement_id": "REQ-PET-006",
+    "ac_id": "AC-PET-006-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "An invalid owner submission shall not create or persist a valid owner record."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-007-RVU-01",
+    "rvu_id": "REQ-PET-007-RVU-01",
+    "requirement_id": "REQ-PET-007",
+    "ac_id": "AC-PET-007-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall create a pet record when valid pet information is submitted for an existing owner."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-007-RVU-02",
+    "rvu_id": "REQ-PET-007-RVU-02",
+    "requirement_id": "REQ-PET-007",
+    "ac_id": "AC-PET-007-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The created pet shall remain associated with the owner under whom it was registered."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-007-RVU-03",
+    "rvu_id": "REQ-PET-007-RVU-03",
+    "requirement_id": "REQ-PET-007",
+    "ac_id": "AC-PET-007-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The newly registered pet shall be visible in the selected owner's information."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-008-RVU-01",
+    "rvu_id": "REQ-PET-008-RVU-01",
+    "requirement_id": "REQ-PET-008",
+    "ac_id": "AC-PET-008-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "UPDATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall persist valid changes made to an existing pet's information."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-008-RVU-02",
+    "rvu_id": "REQ-PET-008-RVU-02",
+    "requirement_id": "REQ-PET-008",
+    "ac_id": "AC-PET-008-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "UPDATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The pet shall remain associated with the same owner after its information is updated."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-008-RVU-03",
+    "rvu_id": "REQ-PET-008-RVU-03",
+    "requirement_id": "REQ-PET-008",
+    "ac_id": "AC-PET-008-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "UPDATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall display the updated pet information after a successful update."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-009-RVU-01",
+    "rvu_id": "REQ-PET-009-RVU-01",
+    "requirement_id": "REQ-PET-009",
+    "ac_id": "AC-PET-009-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall reject a pet submission when mandatory pet information is missing."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-009-RVU-02",
+    "rvu_id": "REQ-PET-009-RVU-02",
+    "requirement_id": "REQ-PET-009",
+    "ac_id": "AC-PET-009-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall provide validation feedback when invalid pet information is submitted."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-009-RVU-03",
+    "rvu_id": "REQ-PET-009-RVU-03",
+    "requirement_id": "REQ-PET-009",
+    "ac_id": "AC-PET-009-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "An invalid pet submission shall not create or persist a valid pet record."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-010-RVU-01",
+    "rvu_id": "REQ-PET-010-RVU-01",
+    "requirement_id": "REQ-PET-010",
+    "ac_id": "AC-PET-010-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "DATA_INTEGRITY",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A newly registered pet shall reference the owner under whom the pet was created."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-010-RVU-02",
+    "rvu_id": "REQ-PET-010-RVU-02",
+    "requirement_id": "REQ-PET-010",
+    "ac_id": "AC-PET-010-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "DATA_INTEGRITY",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "Updating pet information shall not silently change the pet's owner association."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-010-RVU-03",
+    "rvu_id": "REQ-PET-010-RVU-03",
+    "requirement_id": "REQ-PET-010",
+    "ac_id": "AC-PET-010-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "DATA_INTEGRITY",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The associated pet shall remain visible from the corresponding owner details."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-011-RVU-01",
+    "rvu_id": "REQ-PET-011-RVU-01",
+    "requirement_id": "REQ-PET-011",
+    "ac_id": "AC-PET-011-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall create a visit when valid visit information is supplied for an existing pet."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-011-RVU-02",
+    "rvu_id": "REQ-PET-011-RVU-02",
+    "requirement_id": "REQ-PET-011",
+    "ac_id": "AC-PET-011-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The newly created visit shall remain associated with the selected pet."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-011-RVU-03",
+    "rvu_id": "REQ-PET-011-RVU-03",
+    "requirement_id": "REQ-PET-011",
+    "ac_id": "AC-PET-011-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "CREATE",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The newly created visit shall become visible in the selected pet's visit history."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-012-RVU-01",
+    "rvu_id": "REQ-PET-012-RVU-01",
+    "requirement_id": "REQ-PET-012",
+    "ac_id": "AC-PET-012-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall reject visit creation when mandatory visit information is missing."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-012-RVU-02",
+    "rvu_id": "REQ-PET-012-RVU-02",
+    "requirement_id": "REQ-PET-012",
+    "ac_id": "AC-PET-012-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall provide validation feedback when invalid visit information is submitted."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-012-RVU-03",
+    "rvu_id": "REQ-PET-012-RVU-03",
+    "requirement_id": "REQ-PET-012",
+    "ac_id": "AC-PET-012-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "An invalid visit submission shall not create a valid visit record."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-013-RVU-01",
+    "rvu_id": "REQ-PET-013-RVU-01",
+    "requirement_id": "REQ-PET-013",
+    "ac_id": "AC-PET-013-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall display recorded visits associated with the selected pet."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-013-RVU-02",
+    "rvu_id": "REQ-PET-013-RVU-02",
+    "requirement_id": "REQ-PET-013",
+    "ac_id": "AC-PET-013-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "Each displayed visit shall remain associated with the correct pet."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-013-RVU-03",
+    "rvu_id": "REQ-PET-013-RVU-03",
+    "requirement_id": "REQ-PET-013",
+    "ac_id": "AC-PET-013-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A newly created valid visit shall be included in the pet's subsequent visit history."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-014-RVU-01",
+    "rvu_id": "REQ-PET-014-RVU-01",
+    "requirement_id": "REQ-PET-014",
+    "ac_id": "AC-PET-014-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall return the available veterinarian records."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-014-RVU-02",
+    "rvu_id": "REQ-PET-014-RVU-02",
+    "requirement_id": "REQ-PET-014",
+    "ac_id": "AC-PET-014-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "Each veterinarian record shall expose the veterinarian's name."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-014-RVU-03",
+    "rvu_id": "REQ-PET-014-RVU-03",
+    "requirement_id": "REQ-PET-014",
+    "ac_id": "AC-PET-014-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The veterinarian listing shall be available through the supported veterinarian listing workflow."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-015-RVU-01",
+    "rvu_id": "REQ-PET-015-RVU-01",
+    "requirement_id": "REQ-PET-015",
+    "ac_id": "AC-PET-015-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall display specialty information when specialty information exists for a veterinarian."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-015-RVU-02",
+    "rvu_id": "REQ-PET-015-RVU-02",
+    "requirement_id": "REQ-PET-015",
+    "ac_id": "AC-PET-015-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "Specialty information shall remain associated with the correct veterinarian."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-PET-015-RVU-03",
+    "rvu_id": "REQ-PET-015-RVU-03",
+    "requirement_id": "REQ-PET-015",
+    "ac_id": "AC-PET-015-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "READ",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A veterinarian without a recorded specialty shall remain valid in the veterinarian listing."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-016-RVU-01",
+    "rvu_id": "REQ-C3-F-016-RVU-01",
+    "requirement_id": "REQ-C3-F-016",
+    "ac_id": "AC-C3-F-016-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "BOUNDARY"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The account shall become locked after five consecutive failed authentication attempts."
+    ],
+    "required_assertions": [
+      "Assert behavior at and around the specified boundary or threshold."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-016-RVU-02",
+    "rvu_id": "REQ-C3-F-016-RVU-02",
+    "requirement_id": "REQ-C3-F-016",
+    "ac_id": "AC-C3-F-016-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The account shall remain locked for 30 minutes."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-016-RVU-03",
+    "rvu_id": "REQ-C3-F-016-RVU-03",
+    "requirement_id": "REQ-C3-F-016",
+    "ac_id": "AC-C3-F-016-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "BOUNDARY"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A successful authentication before the lockout threshold is reached shall reset the failed-attempt counter."
+    ],
+    "required_assertions": [
+      "Assert behavior at and around the specified boundary or threshold."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-016-RVU-04",
+    "rvu_id": "REQ-C3-F-016-RVU-04",
+    "requirement_id": "REQ-C3-F-016",
+    "ac_id": "AC-C3-F-016-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "Authentication shall be rejected while the account remains locked."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-017-RVU-01",
+    "rvu_id": "REQ-C3-F-017-RVU-01",
+    "requirement_id": "REQ-C3-F-017",
+    "ac_id": "AC-C3-F-017-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A valid unused reset token shall allow the user to set a new password."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-017-RVU-02",
+    "rvu_id": "REQ-C3-F-017-RVU-02",
+    "requirement_id": "REQ-C3-F-017",
+    "ac_id": "AC-C3-F-017-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "BOUNDARY"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A reset token shall expire 30 minutes after it is issued."
+    ],
+    "required_assertions": [
+      "Assert behavior at and around the specified boundary or threshold."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-017-RVU-03",
+    "rvu_id": "REQ-C3-F-017-RVU-03",
+    "requirement_id": "REQ-C3-F-017",
+    "ac_id": "AC-C3-F-017-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall reject an expired or previously consumed reset token."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-018-RVU-01",
+    "rvu_id": "REQ-C3-F-018-RVU-01",
+    "requirement_id": "REQ-C3-F-018",
+    "ac_id": "AC-C3-F-018-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "AUTHORIZATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "An authenticated administrator shall be allowed to perform an administrative account action."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-018-RVU-02",
+    "rvu_id": "REQ-C3-F-018-RVU-02",
+    "requirement_id": "REQ-C3-F-018",
+    "ac_id": "AC-C3-F-018-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "AUTHORIZATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A non-administrator shall be denied access to administrative account actions."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-018-RVU-03",
+    "rvu_id": "REQ-C3-F-018-RVU-03",
+    "requirement_id": "REQ-C3-F-018",
+    "ac_id": "AC-C3-F-018-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "AUTHORIZATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A denied administrative action shall not modify the target account."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-019-RVU-01",
+    "rvu_id": "REQ-C3-F-019-RVU-01",
+    "requirement_id": "REQ-C3-F-019",
+    "ac_id": "AC-C3-F-019-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "BOUNDARY_VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "BOUNDARY"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall accept an allowed file type when the file size is exactly 5 MB."
+    ],
+    "required_assertions": [
+      "Assert behavior at and around the specified boundary or threshold."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-019-RVU-02",
+    "rvu_id": "REQ-C3-F-019-RVU-02",
+    "requirement_id": "REQ-C3-F-019",
+    "ac_id": "AC-C3-F-019-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "BOUNDARY_VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall reject an uploaded file when its size is greater than 5 MB."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-019-RVU-03",
+    "rvu_id": "REQ-C3-F-019-RVU-03",
+    "requirement_id": "REQ-C3-F-019",
+    "ac_id": "AC-C3-F-019-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "BOUNDARY_VALIDATION",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "NEGATIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall reject an uploaded executable file type."
+    ],
+    "required_assertions": [
+      "Assert the invalid or prohibited condition is rejected and no invalid state is persisted."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-020-RVU-01",
+    "rvu_id": "REQ-C3-F-020-RVU-01",
+    "requirement_id": "REQ-C3-F-020",
+    "ac_id": "AC-C3-F-020-01",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "AUDIT",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "STATE_TRANSITION"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The system shall record an audit event when an administrator changes the state of a user account."
+    ],
+    "required_assertions": [
+      "Assert the expected state transition and resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-020-RVU-02",
+    "rvu_id": "REQ-C3-F-020-RVU-02",
+    "requirement_id": "REQ-C3-F-020",
+    "ac_id": "AC-C3-F-020-02",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "AUDIT",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "The audit event shall identify the administrator, target account, performed action, and event timestamp."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-F-020-RVU-03",
+    "rvu_id": "REQ-C3-F-020-RVU-03",
+    "requirement_id": "REQ-C3-F-020",
+    "ac_id": "AC-C3-F-020-03",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "AUDIT",
+    "evidence_type": "FUNCTIONAL_TEST_EVIDENCE",
+    "required_scenarios": [
+      "POSITIVE"
+    ],
+    "preconditions": [
+      "The system is in a valid state for exercising the RVU."
+    ],
+    "inputs": [
+      "Input data capable of triggering the behavior described by the RVU."
+    ],
+    "expected_outcomes": [
+      "A successful administrative account action shall have a corresponding audit record."
+    ],
+    "required_assertions": [
+      "Assert the required successful behavior or resulting state."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "SUPPORTED",
+    "support_reason": "Functional evidence strategy is supported by the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-021-RVU-01",
+    "rvu_id": "REQ-C3-NFR-021-RVU-01",
+    "requirement_id": "REQ-C3-NFR-021",
+    "ac_id": "AC-C3-NFR-021-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "The owner search operation shall maintain a p95 response time below 2 seconds with 100 concurrent users for 10 minutes."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": "response_time",
+    "percentile": "p95",
+    "operator": "<",
+    "threshold": 2.0,
+    "unit": "seconds",
+    "load": 100,
+    "duration_seconds": 600,
+    "scope": "Owner Search Response Performance",
+    "support_status": "SUPPORTED",
+    "support_reason": "Measurable performance evidence can be evaluated by the current adapter.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-021-RVU-02",
+    "rvu_id": "REQ-C3-NFR-021-RVU-02",
+    "requirement_id": "REQ-C3-NFR-021",
+    "ac_id": "AC-C3-NFR-021-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "The owner search operation shall maintain a failed-request rate below 1 percent with 100 concurrent users for 10 minutes."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": "error_rate",
+    "percentile": null,
+    "operator": "<",
+    "threshold": 1.0,
+    "unit": "percent",
+    "load": 100,
+    "duration_seconds": 600,
+    "scope": "Owner Search Response Performance",
+    "support_status": "SUPPORTED",
+    "support_reason": "Measurable performance evidence can be evaluated by the current adapter.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-021-RVU-03",
+    "rvu_id": "REQ-C3-NFR-021-RVU-03",
+    "requirement_id": "REQ-C3-NFR-021",
+    "ac_id": "AC-C3-NFR-021-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "The owner search workload shall complete without an unhandled application failure during the 10-minute test period."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": "unhandled_failures",
+    "percentile": null,
+    "operator": "==",
+    "threshold": 0.0,
+    "unit": "count",
+    "load": null,
+    "duration_seconds": 600,
+    "scope": "Owner Search Response Performance",
+    "support_status": "SUPPORTED",
+    "support_reason": "Measurable performance evidence can be evaluated by the current adapter.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-022-RVU-01",
+    "rvu_id": "REQ-C3-NFR-022-RVU-01",
+    "requirement_id": "REQ-C3-NFR-022",
+    "ac_id": "AC-C3-NFR-022-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "The veterinarian listing operation shall maintain a p95 response time below 1500 milliseconds with 100 concurrent users for 10 minutes."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": "response_time",
+    "percentile": "p95",
+    "operator": "<",
+    "threshold": 1500.0,
+    "unit": "milliseconds",
+    "load": 100,
+    "duration_seconds": 600,
+    "scope": "Veterinarian Listing Performance",
+    "support_status": "SUPPORTED",
+    "support_reason": "Measurable performance evidence can be evaluated by the current adapter.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-022-RVU-02",
+    "rvu_id": "REQ-C3-NFR-022-RVU-02",
+    "requirement_id": "REQ-C3-NFR-022",
+    "ac_id": "AC-C3-NFR-022-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "The veterinarian listing operation shall maintain a failed-request rate below 1 percent during the defined workload."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": "error_rate",
+    "percentile": null,
+    "operator": "<",
+    "threshold": 1.0,
+    "unit": "percent",
+    "load": null,
+    "duration_seconds": null,
+    "scope": "Veterinarian Listing Performance",
+    "support_status": "SUPPORTED",
+    "support_reason": "Measurable performance evidence can be evaluated by the current adapter.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-022-RVU-03",
+    "rvu_id": "REQ-C3-NFR-022-RVU-03",
+    "requirement_id": "REQ-C3-NFR-022",
+    "ac_id": "AC-C3-NFR-022-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "The veterinarian listing workload shall run for 10 minutes at the specified load before its performance evidence is considered complete."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": "test_duration",
+    "percentile": null,
+    "operator": ">=",
+    "threshold": 600.0,
+    "unit": "seconds",
+    "load": null,
+    "duration_seconds": 600,
+    "scope": "Veterinarian Listing Performance",
+    "support_status": "SUPPORTED",
+    "support_reason": "Measurable performance evidence can be evaluated by the current adapter.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-023-RVU-01",
+    "rvu_id": "REQ-C3-NFR-023-RVU-01",
+    "requirement_id": "REQ-C3-NFR-023",
+    "ac_id": "AC-C3-NFR-023-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "The visit registration operation shall maintain a p95 response time below 2 seconds with 50 concurrent users for 10 minutes."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": "response_time",
+    "percentile": "p95",
+    "operator": "<",
+    "threshold": 2.0,
+    "unit": "seconds",
+    "load": 50,
+    "duration_seconds": 600,
+    "scope": "Visit Registration Performance",
+    "support_status": "SUPPORTED",
+    "support_reason": "Measurable performance evidence can be evaluated by the current adapter.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-023-RVU-02",
+    "rvu_id": "REQ-C3-NFR-023-RVU-02",
+    "requirement_id": "REQ-C3-NFR-023",
+    "ac_id": "AC-C3-NFR-023-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "The visit registration operation shall maintain a failed-request rate below 1 percent during the defined workload."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": "error_rate",
+    "percentile": null,
+    "operator": "<",
+    "threshold": 1.0,
+    "unit": "percent",
+    "load": null,
+    "duration_seconds": null,
+    "scope": "Visit Registration Performance",
+    "support_status": "SUPPORTED",
+    "support_reason": "Measurable performance evidence can be evaluated by the current adapter.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-023-RVU-03",
+    "rvu_id": "REQ-C3-NFR-023-RVU-03",
+    "requirement_id": "REQ-C3-NFR-023",
+    "ac_id": "AC-C3-NFR-023-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "evidence_type": "PERFORMANCE_TEST_EVIDENCE",
+    "required_scenarios": [
+      "PERFORMANCE"
+    ],
+    "preconditions": [
+      "The target operation and test environment are available."
+    ],
+    "inputs": [
+      "A workload/configuration matching the measurable RVU conditions."
+    ],
+    "expected_outcomes": [
+      "Successful visit registrations completed during the performance test shall remain persistently available after the test run."
+    ],
+    "required_assertions": [
+      "Compare the measured result with the required metric, threshold, workload, duration and scope."
+    ],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": "Visit Registration Performance",
+    "support_status": "REVIEW_REQUIRED",
+    "support_reason": "The requirement is classified as PERFORMANCE but this RVU does not expose a supported measurable performance metric.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-024-RVU-01",
+    "rvu_id": "REQ-C3-NFR-024-RVU-01",
+    "requirement_id": "REQ-C3-NFR-024",
+    "ac_id": "AC-C3-NFR-024-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "RELIABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "RELIABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The application shall complete a 30-minute sustained workload test without an unhandled application failure."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "RELIABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-024-RVU-02",
+    "rvu_id": "REQ-C3-NFR-024-RVU-02",
+    "requirement_id": "REQ-C3-NFR-024",
+    "ac_id": "AC-C3-NFR-024-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "RELIABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "RELIABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The application shall maintain a failed-request rate below 1 percent during the 30-minute sustained workload test."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "RELIABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-024-RVU-03",
+    "rvu_id": "REQ-C3-NFR-024-RVU-03",
+    "requirement_id": "REQ-C3-NFR-024",
+    "ac_id": "AC-C3-NFR-024-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "RELIABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "RELIABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The application shall remain responsive at the end of the sustained workload test."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "RELIABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-025-RVU-01",
+    "rvu_id": "REQ-C3-NFR-025-RVU-01",
+    "requirement_id": "REQ-C3-NFR-025",
+    "ac_id": "AC-C3-NFR-025-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "AVAILABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "AVAILABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The deployed application shall achieve at least 99.9 percent availability during each calendar month."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "AVAILABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-025-RVU-02",
+    "rvu_id": "REQ-C3-NFR-025-RVU-02",
+    "requirement_id": "REQ-C3-NFR-025",
+    "ac_id": "AC-C3-NFR-025-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "AVAILABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "AVAILABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "Availability evidence shall distinguish scheduled maintenance from unexpected service unavailability."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "AVAILABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-025-RVU-03",
+    "rvu_id": "REQ-C3-NFR-025-RVU-03",
+    "requirement_id": "REQ-C3-NFR-025",
+    "ac_id": "AC-C3-NFR-025-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "AVAILABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "AVAILABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "Availability evidence shall identify the measurement period used to calculate monthly availability."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "AVAILABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-026-RVU-01",
+    "rvu_id": "REQ-C3-NFR-026-RVU-01",
+    "requirement_id": "REQ-C3-NFR-026",
+    "ac_id": "AC-C3-NFR-026-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "SCALABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "SCALABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The application shall support 100 concurrent users for 10 minutes without an unhandled application failure."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "SCALABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-026-RVU-02",
+    "rvu_id": "REQ-C3-NFR-026-RVU-02",
+    "requirement_id": "REQ-C3-NFR-026",
+    "ac_id": "AC-C3-NFR-026-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "SCALABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "SCALABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The application shall maintain a p95 response time below 3 seconds while serving 100 concurrent users for 10 minutes."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "SCALABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-026-RVU-03",
+    "rvu_id": "REQ-C3-NFR-026-RVU-03",
+    "requirement_id": "REQ-C3-NFR-026",
+    "ac_id": "AC-C3-NFR-026-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "SCALABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "SCALABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The application shall maintain a failed-request rate below 1 percent while serving 100 concurrent users for 10 minutes."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "SCALABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-027-RVU-01",
+    "rvu_id": "REQ-C3-NFR-027-RVU-01",
+    "requirement_id": "REQ-C3-NFR-027",
+    "ac_id": "AC-C3-NFR-027-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "USABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "USABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The application shall display validation feedback when a mandatory form field contains invalid information."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "USABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-027-RVU-02",
+    "rvu_id": "REQ-C3-NFR-027-RVU-02",
+    "requirement_id": "REQ-C3-NFR-027",
+    "ac_id": "AC-C3-NFR-027-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "USABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "USABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "Validation feedback shall identify the field or input condition that requires correction."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "USABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-027-RVU-03",
+    "rvu_id": "REQ-C3-NFR-027-RVU-03",
+    "requirement_id": "REQ-C3-NFR-027",
+    "ac_id": "AC-C3-NFR-027-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "USABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "USABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "Valid information already entered by the user shall remain available when the form is returned for correction where technically applicable."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "USABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-028-RVU-01",
+    "rvu_id": "REQ-C3-NFR-028-RVU-01",
+    "requirement_id": "REQ-C3-NFR-028",
+    "ac_id": "AC-C3-NFR-028-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "ACCESSIBILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "ACCESSIBILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "A user shall be able to reach interactive controls in the core owner form using keyboard navigation."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "ACCESSIBILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-028-RVU-02",
+    "rvu_id": "REQ-C3-NFR-028-RVU-02",
+    "requirement_id": "REQ-C3-NFR-028",
+    "ac_id": "AC-C3-NFR-028-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "ACCESSIBILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "ACCESSIBILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "A user shall be able to submit the core owner form without requiring a pointing device."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "ACCESSIBILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-028-RVU-03",
+    "rvu_id": "REQ-C3-NFR-028-RVU-03",
+    "requirement_id": "REQ-C3-NFR-028",
+    "ac_id": "AC-C3-NFR-028-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "ACCESSIBILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "ACCESSIBILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "Validation feedback for the core owner form shall be programmatically associated with the corresponding invalid input where supported by the interface technology."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "ACCESSIBILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-029-RVU-01",
+    "rvu_id": "REQ-C3-NFR-029-RVU-01",
+    "requirement_id": "REQ-C3-NFR-029",
+    "ac_id": "AC-C3-NFR-029-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "SECURITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "SECURITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "Ordinary client-facing error responses shall not expose application credentials."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "SECURITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-029-RVU-02",
+    "rvu_id": "REQ-C3-NFR-029-RVU-02",
+    "requirement_id": "REQ-C3-NFR-029",
+    "ac_id": "AC-C3-NFR-029-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "SECURITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "SECURITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "Ordinary client-facing error responses shall not expose database connection secrets."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "SECURITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-029-RVU-03",
+    "rvu_id": "REQ-C3-NFR-029-RVU-03",
+    "requirement_id": "REQ-C3-NFR-029",
+    "ac_id": "AC-C3-NFR-029-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "SECURITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "SECURITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "Application logs used for QA evidence shall not intentionally record plaintext authentication credentials."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "SECURITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-030-RVU-01",
+    "rvu_id": "REQ-C3-NFR-030-RVU-01",
+    "requirement_id": "REQ-C3-NFR-030",
+    "ac_id": "AC-C3-NFR-030-01",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "MAINTAINABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "MAINTAINABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The selected core validation and business-rule package shall achieve at least 80 percent line coverage in the configured coverage report."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "MAINTAINABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-030-RVU-02",
+    "rvu_id": "REQ-C3-NFR-030-RVU-02",
+    "requirement_id": "REQ-C3-NFR-030",
+    "ac_id": "AC-C3-NFR-030-02",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "MAINTAINABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "MAINTAINABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The selected core validation and business-rule package shall have no unresolved critical-severity static-analysis finding in the configured analysis run."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "MAINTAINABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  },
+  {
+    "profile_id": "EP-REQ-C3-NFR-030-RVU-03",
+    "rvu_id": "REQ-C3-NFR-030-RVU-03",
+    "requirement_id": "REQ-C3-NFR-030",
+    "ac_id": "AC-C3-NFR-030-03",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "MAINTAINABILITY",
+    "evidence_type": "SPECIALIZED_NFR_EVIDENCE",
+    "required_scenarios": [
+      "MAINTAINABILITY"
+    ],
+    "preconditions": [],
+    "inputs": [],
+    "expected_outcomes": [
+      "The evidence used to evaluate maintainability shall record the analysis tool and tool version."
+    ],
+    "required_assertions": [],
+    "metric": null,
+    "percentile": null,
+    "operator": null,
+    "threshold": null,
+    "unit": null,
+    "load": null,
+    "duration_seconds": null,
+    "scope": null,
+    "support_status": "UNSUPPORTED",
+    "support_reason": "MAINTAINABILITY requires a specialized evidence adapter/rule catalogue not enabled in the current prototype.",
+    "generation_method": "DETERMINISTIC_EXPECTED_EVIDENCE_V2"
+  }
+]
