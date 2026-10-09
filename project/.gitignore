@@ -1,8 +1,33 @@
+# Environment / secrets
 .env
-__pycache__/
-*.pyc
+.env.*
+!.env.example
+
+# Python
 .venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Node / Vite
 node_modules/
-.ipynb_checkpoints/
+dist/
+.vite/
+
+# IDE / OS
+.vscode/
+.idea/
 .DS_Store
-data/raw/
+Thumbs.db
+
+# Logs
+*.log
+
+# Notebook cache
+.ipynb_checkpoints/

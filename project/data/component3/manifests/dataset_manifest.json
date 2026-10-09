@@ -1,0 +1,40 @@
+{
+  "dataset_name": "ASPIRE C3 Standalone Development Corpus",
+  "dataset_version": "0.1.0",
+  "purpose": "Development and preliminary testing of Requirement-Centric QA Evidence and Test Adequacy Intelligence",
+  "primary_system": "Spring PetClinic",
+  "petclinic_commit": "500158f732419217507c7656904b8e6aa1bcc0d6",
+  "sources": [
+    "Researcher-curated requirements and acceptance criteria",
+    "Spring PetClinic JUnit test source",
+    "Spring PetClinic Maven Surefire execution results",
+    "Researcher-curated manual QA evidence",
+    "Controlled performance evidence"
+  ],
+  "petclinic_execution": {
+    "tests_run": 79,
+    "passed_or_non_failed": 77,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 2
+  },
+  "final_gold_standard": false,
+  "dataset_stage": "development",
+  "corpus_statistics": {
+    "requirements": 30,
+    "functional_requirements": 20,
+    "non_functional_requirements": 10,
+    "acceptance_criteria": 90,
+    "junit_source_files": 20,
+    "surefire_report_files": 18,
+    "surefire_testcases": 79,
+    "manual_evidence_records": 22,
+    "performance_evidence_records": 6
+  },
+  "provenance_policy": {
+    "petclinic_requirements": "PETCLINIC_CURATED",
+    "controlled_requirements": "C3_CONTROLLED_FIXTURE",
+    "manual_execution_results_fabricated": false,
+    "controlled_performance_fixtures_explicitly_labelled": true
+  }
+}
