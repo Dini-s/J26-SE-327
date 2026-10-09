@@ -46,6 +46,65 @@ def anlyze_structure(repo_path: str):
     return packages
 
 
+def analyze_multimodule_structure(repo_path: str):
+    """Analyze Java packages across multiple repository modules."""
+
+    path = Path(repo_path)
+
+    if not path.is_dir():
+        raise FileNotFoundError(f"Repository not found: {repo_path}")
+
+    source_paths = set()
+
+    # Discover nested src/main/java directories.
+    for java_file in path.rglob("*.java"):
+        relative_parts = java_file.relative_to(path).parts
+
+        # Ignore hidden folders and generated build output.
+        if any(part.startswith(".") for part in relative_parts):
+            continue
+
+        if any(part in {"build", "target"} for part in relative_parts):
+            continue
+
+        for i in range(len(relative_parts) - 2):
+            if relative_parts[i : i + 3] == ("src", "main", "java"):
+                source_paths.add(path.joinpath(*relative_parts[: i + 3]))
+                break
+
+    if not source_paths:
+        raise FileNotFoundError(f"No Java source directories found in {path}")
+
+    packages = {}
+
+    for source_path in sorted(source_paths):
+        for java_file in source_path.rglob("*.java"):
+            try:
+                with java_file.open("r", encoding="utf-8", errors="strict") as f:
+                    total_lines = sum(1 for _ in f)
+            except (UnicodeDecodeError, OSError) as exc:
+                print(f"Skipping {java_file}: {exc}")
+                continue
+
+            relative_path = java_file.parent.relative_to(source_path)
+            package_path = ".".join(relative_path.parts)
+
+            if not package_path:
+                package_path = "(default package)"
+
+            if package_path not in packages:
+                packages[package_path] = {
+                    "package_path": package_path,
+                    "java_files": 0,
+                    "lines_of_code": 0,
+                }
+
+            packages[package_path]["java_files"] += 1
+            packages[package_path]["lines_of_code"] += total_lines
+
+    return list(packages.values())
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Analyze the Java package structure of a repository"
@@ -57,7 +116,10 @@ if __name__ == "__main__":
 
     repo_path = Path(args.repo_path)
 
-    packages = anlyze_structure(repo_path)
+    if repo_path.name == "R03_jabref":
+        packages = analyze_multimodule_structure(repo_path)
+    else:
+        packages = anlyze_structure(repo_path)
 
     repo_name = repo_path.name
     # output file create
