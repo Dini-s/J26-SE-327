@@ -1,0 +1,12 @@
+repository,status,details
+R01_spring_petclinic,OK,5 packages matched; 4 unique dependency edges
+R02_common_lang,OK,18 packages matched; 51 unique dependency edges
+R03_jabref,OK,357 packages matched; 3670 unique dependency edges
+R04_argouml,OK,97 packages matched; 693 unique dependency edges
+R05_lucene,OK,316 packages matched; 1866 unique dependency edges
+R06_hadoop,WARNING,55 architecture packages missing from structural CSV. Their structural values were left blank. Examples: org.apache.hadoop.applications.mawo.server.common; org.apache.hadoop.applications.mawo.server.worker; org.apache.hadoop.yarn.appcatalog.model
+R07_junit,OK,82 packages matched; 377 unique dependency edges
+R08_apache_maven,WARNING,3 architecture packages missing from structural CSV. Their structural values were left blank. Examples: org.apache.maven.testing.di; org.apache.maven.testing.plugin; org.apache.maven.testing.plugin.stubs
+R09_kafca,OK,275 packages matched; 2415 unique dependency edges
+R10_teammates,OK,34 packages matched; 168 unique dependency edges
+R11_key_cloak,OK,762 packages matched; 6104 unique dependency edges
