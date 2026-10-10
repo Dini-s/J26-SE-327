@@ -1,3 +1,4 @@
+import re
 import csv
 from pathlib import Path
 import argparse
@@ -106,11 +107,13 @@ def analyze_multimodule_structure(repo_path: str):
 
 
 def discover_java_source_roots(repo_path: Path):
-    """Discover Java source roots in different project layouts."""
+    """Discover production Java source roots across repository modules."""
 
     source_roots = set()
     ignored_dirs = {
         ".git",
+        ".idea",
+        ".vscode",
         "build",
         "target",
         "out",
@@ -118,40 +121,58 @@ def discover_java_source_roots(repo_path: Path):
         "node_modules",
         "__pycache__",
     }
+    test_dirs = {
+        "test",
+        "tests",
+        "testing",
+        "testfixtures",
+        "integration-test",
+    }
 
     for java_file in repo_path.rglob("*.java"):
         relative = java_file.relative_to(repo_path)
-
-        if any(part.startswith(".") or part in ignored_dirs for part in relative.parts):
-            continue
-
         parts = relative.parts
 
-        # Standard Maven/Gradle source layout:
-        # module/src/main/java/org/example/Class.java
+        if any(part.startswith(".") or part.lower() in ignored_dirs for part in parts):
+            continue
+
+        lower_parts = tuple(part.lower() for part in parts)
+
+        # Standard Maven/Gradle production layout.
+        found_standard_root = False
+
         for i in range(len(parts) - 2):
-            if parts[i : i + 3] == ("src", "main", "java"):
+            if lower_parts[i : i + 3] == ("src", "main", "java"):
                 source_roots.add(repo_path.joinpath(*parts[: i + 3]))
+                found_standard_root = True
                 break
-        else:
-            # Legacy layout:
-            # module/src/org/example/Class.java
-            for i, part in enumerate(parts[:-1]):
-                if part == "src":
-                    source_root = repo_path.joinpath(*parts[: i + 1])
-                    source_roots.add(source_root)
-                    break
+
+        if found_standard_root:
+            continue
+
+        # Exclude test code from the production dataset.
+        if any(part in test_dirs for part in lower_parts):
+            continue
+
+        # Support legacy layouts such as src/org/example/Class.java.
+        for i, part in enumerate(lower_parts[:-1]):
+            if part == "src":
+                source_roots.add(repo_path.joinpath(*parts[: i + 1]))
+                break
 
     return sorted(source_roots)
 
 
 def analyze_discovered_structure(repo_path: Path, source_roots: list[Path]):
-    """Analyze packages across automatically discovered Java source roots."""
+    """Aggregate Java metrics by declared package across source roots."""
 
     packages = {}
+    processed_files = set()
 
     ignored_dirs = {
         ".git",
+        ".idea",
+        ".vscode",
         "build",
         "target",
         "out",
@@ -159,41 +180,70 @@ def analyze_discovered_structure(repo_path: Path, source_roots: list[Path]):
         "node_modules",
         "__pycache__",
     }
+    test_dirs = {
+        "test",
+        "tests",
+        "testing",
+        "testfixtures",
+        "integration-test",
+    }
+
+    package_pattern = re.compile(
+        r"^\s*package\s+([\w.]+)\s*;",
+        re.MULTILINE,
+    )
 
     for source_root in source_roots:
         for java_file in source_root.rglob("*.java"):
-            relative = java_file.relative_to(source_root)
+            resolved_file = java_file.resolve()
 
-            if any(
-                part.startswith(".") or part in ignored_dirs for part in relative.parts
-            ):
+            if resolved_file in processed_files:
+                continue
+
+            relative = java_file.relative_to(source_root)
+            parts = relative.parts
+            lower_parts = tuple(part.lower() for part in parts)
+
+            if any(part.startswith(".") or part in ignored_dirs for part in parts):
+                continue
+
+            if any(part in test_dirs for part in lower_parts):
+                continue
+
+            # A legacy src root can also contain src/main/java.
+            # Do not count those files a second time.
+            if len(lower_parts) >= 2 and lower_parts[:2] == ("main", "java"):
                 continue
 
             try:
-                with java_file.open("r", encoding="utf-8", errors="replace") as f:
-                    total_lines = sum(1 for _ in f)
+                content = java_file.read_text(
+                    encoding="utf-8",
+                    errors="replace",
+                )
             except OSError as exc:
                 print(f"Skipping {java_file}: {exc}")
                 continue
 
-            package_path = ".".join(java_file.parent.relative_to(source_root).parts)
+            processed_files.add(resolved_file)
 
-            if not package_path:
+            match = package_pattern.search(content)
+
+            if match:
+                package_path = match.group(1)
+            else:
                 package_path = "(default package)"
 
-            # Keep packages from different modules distinguishable.
-            module_name = source_root.parent.name
-            package_key = (module_name, package_path)
-
-            if package_key not in packages:
-                packages[package_key] = {
-                    "package_path": f"{module_name}:{package_path}",
+            if package_path not in packages:
+                packages[package_path] = {
+                    "package_path": package_path,
                     "java_files": 0,
                     "lines_of_code": 0,
                 }
 
-            packages[package_key]["java_files"] += 1
-            packages[package_key]["lines_of_code"] += total_lines
+            packages[package_path]["java_files"] += 1
+            packages[package_path]["lines_of_code"] += content.count("\n") + (
+                1 if content else 0
+            )
 
     return list(packages.values())
 
