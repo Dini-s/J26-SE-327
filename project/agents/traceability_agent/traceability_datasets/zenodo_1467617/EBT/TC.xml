@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<artifacts_collection>
+ <collection_info>
+    <name>Testcases</name> 
+    <version>1.1</version> 
+   <description>
+    Testcases
+   </description> 
+   <content_location>internal</content_location>
+ </collection_info>
+ <artifacts>
+        <artifact>
+           <id>141</id>
+           <testcase>
+           Establish Trace  (2.1.1)(2.2.1) Preconditions Subscriber is registered Steps Subscriber establishes a trace between a UML artifact and a requirement.
+          </testcase>
+ 	<Postconditions>
+           A trace is established between the UML artifact and the requirement.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+           <id>142</id>
+           <testcase>
+           Non-registered subscriber attempts to establish a trace (2.1.1) Preconditions The proposed Subscriber is not registered Steps Subscriber attempts to establish a trace between a UML artifact and a requirement.
+          </testcase>
+ 	<Postconditions>
+           No trace is established between the UML artifact and the requirement. </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+ 	<id>143</id>
+           <testcase>
+           Subscriber registers with subscriber manager (2.1.3)(2.2.2)(3.2.2?)(2.1.2?) Preconditions The subscriber is a valid subscriber At least one valid subscriber manager is in the system Steps The subscriber registers itself with the subscriber manager. 
+          </testcase>
+ 	<Postconditions>
+           The subscriber is registered under the subscriber manager.</Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>	
+	<id>144</id>
+           <testcase>
+            Subscriber fails to register with subscriber manager (2.1.3)(2.2.2)(3.2.2?) Preconditions The subscriber is a valid subscriber Steps The subscriber attempts to exit from the registration process without registering itself under a subscriber manager.
+          </testcase>
+ 	<Postconditions>The subscriber is removed from the system. </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>145</id>
+           <testcase>
+           Delete subscriptions (2.2.3) Preconditions At least one subscription has been established in the system Steps The user deletes the subscription.
+          </testcase>
+ 	<Postconditions>The subscription has been deleted. 
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>146</id>
+           <testcase>
+           Subscriber Manager registers with event server (3.1.1) Preconditions A subscriber manager has been created. Steps The subscriber manager registers its IP address  port  and name with the event server.
+          </testcase>
+ 	<Postconditions> The subscriber manager is registered with the event server. </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>147</id>
+           <testcase>
+           An event is published in real time (3.1.2) Preconditions: At least one subscriber manager is online at its designated IP address and port. The subscriber manager has subscribed to at least one requirement. Steps The requirement changes. An event notification is sent to the relevant subscriber manager.
+          </testcase>
+ 	<Postconditions> none </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>148</id>
+           <testcase>
+           Subscriber Manager comes online and checks for missed events (3.1.3) Preconditions: The subscriber manager is off line. The event server has stored an event notification that was not previously delivered to the subscriber manager. Steps: The subscriber manager comes online.
+          </testcase>
+ 	<Postconditions>
+            The subscriber manager has successfully downloaded the relevant event notifications from the event server.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>149</id>
+           <testcase>
+           Subscriber manager receives non-speculative event notification (3.2.1)(3.2.3)(3.3.1) Preconditions: The subscriber manager has registered subscribers Steps An event notification is sent to the subscriber manager for a registered subscriber. The relevant subscriber manager receives the event notification.
+          </testcase>
+ 	<Postconditions>The event notification message is stored in the local event log.</Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>150</id>
+           <testcase>
+           User constructs a speculative query (3.4.1) Preconditions: At least one performance model has been built. Requirements and constraints have been defined for this performance model. Steps: The user constructs a speculative query using a GUI tool.
+          </testcase>
+ 	<Postconditions>A speculative event message is received by the event server.</Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>151</id>
+           <testcase>
+           User constructs a speculative query (3.4.1) Preconditions: At least one performance model has been built. Requirements and constraints have been defined for this performance model. Steps: The user constructs a speculative query using a GUI tool.
+          </testcase>
+ 	<Postconditions>A speculative event message is received by the event server.</Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>152</id>
+           <testcase>
+           Speculative event message is processed by subscriber manager (3.4.2)(3.4.3)(3.4.4)(3.4.5) Preconditions: A speculative query has been issued and sent to the relevant subscriber manager. Steps: The subscriber manager receives the speculative event message. The subscriber manager parses the event message to determine that it is a speculative event. The subscriber manager injects values into the relevant performance model  re-executes the model  collates the results  restores the model to its prior state  and returns the results.
+          </testcase>
+ 	<Postconditions>
+             A response is sent to the speculative event. The performance model is restored to its original state
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>153</id>
+           <testcase>
+           Add New Requirement (4.1.)(4.1.1) Preconditions: The trigger driver is running. Steps The user specifies a new event. The user adds a new requirement.
+          </testcase>
+ 	<Postconditions>A new event message is sent</Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>154</id>
+           <testcase>
+           Decompose a Requirement (4.1)(4.1.2) Preconditions: The trigger driver is running. At least one requirement is defined. Steps The user specifies a decompose event. The user selects an existing requirement and decomposes it into two or more requirements.
+          </testcase>
+ 	<Postconditions>
+           The requirement is decomposed into two or more events. A decompose event message is sent. Temporary links are established between the original requirement and its decomposed parts.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>155</id>
+           <testcase>
+           Refine a requirement (4.1)(4.1.3) Preconditions: The trigger driver is running. At least one requirement is defined. Steps The user specifies a refine event. The user selects an existing requirement and adds an additional requirement related to it.
+          </testcase>
+ 	<Postconditions>
+           The requirement is refined by adding at least one related requirement. A refine event message is sent. Temporary links are established between the original requirement and its refinements.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>	
+	<id>156</id>
+           <testcase>
+          Modify a requirement (4.1)(4.1.4) Preconditions: The trigger driver is running. At least one requirement is defined Steps The user specifies a modify event. The user selects an existing requirement and changes it.
+          </testcase>
+ 	<Postconditions>
+            The requirement is changed. A modify event message is sent. Existing links from the original requirement are changed to tentative status.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>157</id>
+           <testcase>
+           Delete a requirement (4.1)(4.1.5) Preconditions: The trigger driver is running. At least one requirement is defined Steps The user specifies a delete event. The user selects an existing requirement and deletes it.
+          </testcase>
+ 	<Postconditions>
+            The status of the requirement is set to obsolete. A delete event message is sent. Existing links from the obsolete requirement are set to tentative status.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>158</id>
+           <testcase>
+           Merge two or more requirements (4.1)(4.1.6) Preconditions: The trigger driver is running. At least two requirements are defined Steps The user specifies a merge event. The user specifies two or more requirements to merge.
+          </testcase>
+ 	<Postconditions>
+            The requirements are merged. A merge event message is sent. Existing links from the original requirements are assigned to the newly merged requirement.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>159</id>
+           <testcase>
+           Event server receives message (5.1)(5.2)(5.4) Preconditions: The event server is running and waiting for incoming events at a well known port and IP address. The event trigger issues an event message. Steps The event server receives an event message. The event server parses the event message into its constituent parts. The event server categorizes each event according to whether it is speculative or evolutionary. The event server stores event details in its event log.
+          </testcase>
+ 	<Postconditions>
+            The event is stored in the log. The event is categorized according to whether it is evolutionary or speculative.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>160</id>
+           <testcase>
+           Notify subscribers when an evolutionary event occurs  (5.5) Preconditions: The event server has received an evolutionary event message. The event server has identified a list of subscribers. Steps: The event server identifies the subscriber manager for each subscriber. The event server identifies the IP address and port for each relevant subscriber manager. The event server builds a notification event message and sends it to each relevant subscriber manager.
+          </testcase>
+ 	<Postconditions>
+            The event message is received by each relevant subscriber manager or behalf of its managed subscribers.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>161</id>
+           <testcase>
+           Notify subscribers when an evolutionary event occurs  (5.5) Preconditions: The event server has received an evolutionary event message. The event server has identified a list of subscribers. Steps: The event server identifies the subscriber manager for each subscriber. The event server identifies the IP address and port for each relevant subscriber manager. The event server builds a notification event message and sends it to each relevant subscriber manager.
+          </testcase>
+ 	<Postconditions>
+            The event message is received by each relevant subscriber manager or behalf of its managed subscribers.
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>162</id>
+           <testcase>
+           Event server constructs composite event message for a speculate event (5.6)(5.6.1)(5.6.2)(5.6.3)(5.6.4) Preconditions: The event server has received a speculative event message. The event server has identified a list of subscribers. Steps: For each identified subscriber the event server identifies all additional requirements that are linked to the same artifact. The event server polls DOORS to obtain additional quantitative information for each of these additional requirements. The event server constructs a composite event message that includes the requirement that has changed  plus quantitative constraints obtained from other related requirements. The customized event message is sent to the relevant subscriber. 
+          </testcase>
+ 	<Postconditions>none </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>163</id>
+           <testcase>
+           Events are displayed in the order in which they are received.(6.1) Preconditions: At least three event messages received for a single artifact. Steps: The user activates the notification process tool. The user selects the artifact. Event messages are displayed in the order in which they were received. 
+          </testcase>
+ 	<Postconditions> None  </Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>164</id>
+           <testcase>
+           User attempts to process an event message in the incorrect order (6.1) Preconditions: At least three event messages have been received by a subscriber manager on behalf of a single subscriber. The notification processing tool is running. Steps: The user examines the event messages that have been received for a single subscriber. The user tries to process an event other than the first one received. The system prohibits the user from processing the events in the incorrect order.
+          </testcase>
+ 	<Postconditions> No events are processed.</Postconditions>
+          <parent_id/>
+        </artifact>
+	<artifact>
+	<id>165</id>
+           <testcase>
+           User processes an event message (6.2)(6.3)(6.4) Preconditions: Event messages are displayed for a single artifact. Steps: The user examines the first event message. The user applies any information from the event message to update the artifact accordingly. The user selects which of the tentative links should be made permanent and which ones should be discarded.
+          </testcase>
+ 	<Postconditions>
+            The links in the event server are changed according to the users directions. Any additional event messages that had previously been sent on the basis of a tentative link  and for which the tentative link has now been eliminated  are removed from the event processing list and display." 
+          </Postconditions>
+          <parent_id/>
+        </artifact>
+    </artifacts>
+  </artifacts_collection>
+

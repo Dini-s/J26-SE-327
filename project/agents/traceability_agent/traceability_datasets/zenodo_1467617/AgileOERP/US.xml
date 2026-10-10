@@ -1,0 +1,1760 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<artifacts_collection>
+ <collection_info>
+    <name>Tracker SHAMIL - UsreStories [US:10582]</name> 
+    <version>1.1</version> 
+   <description>
+    Task
+   </description> 
+ </collection_info>  
+   <artifact>
+    <id>US-9523</id>
+    <summary>mission (inhiert hr_employee)</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9522</id>
+    <summary>Mission transfer to accounting</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9521</id>
+    <summary>Mission Process</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9520</id>
+    <summary>Mission Security (Rules &amp; Access)</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9519</id>
+    <summary>Mission Translations</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9518</id>
+    <summary>Mission Reports</summary> 
+    <status>Rejected</status> 
+   </artifact>
+   <artifact>
+    <id>US-9517</id>
+    <summary>Mission Configuration</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9515</id>
+    <summary>عملية شراء الاجازة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9514</id>
+    <summary>access &amp; rules hr_holiday_custom</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9513</id>
+    <summary>hr_holiday_custom:ترجمة منظومة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9512</id>
+    <summary>تقارير الاجازات</summary> 
+    <status>Rejected</status> 
+   </artifact>
+   <artifact>
+    <id>US-9511</id>
+    <summary>عملية طلب الاجازة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9510</id>
+    <summary>HR- عملية اعدادات الاجازة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9508</id>
+    <summary>تقارير منظومة hr_process</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9507</id>
+    <summary>access &amp; rules hr_process</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9506</id>
+    <summary>hr_process:ترجمة منظومة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9505</id>
+    <summary>HR - عملية الانتداب و الاعاره</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9504</id>
+    <summary>HR - عملية النقل، عملية تغيير الوظائف-عملية الترقية، عملية الترشيح للعلاوه</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9502</id>
+    <summary>loan calculation with payroll.py</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9501</id>
+    <summary>تقارير- hr_loan</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9500</id>
+    <summary>HR - ارشيف السلفيات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9499</id>
+    <summary>HR - عملية طلب السلفية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9498</id>
+    <summary>HR - اعدادات السلفيات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9497</id>
+    <summary>HR - عملية ايقاف السلفية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9496</id>
+    <summary>HR - عملية ترحيل السلفية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9495</id>
+    <summary>HR - عملية دفع السلفية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9483</id>
+    <summary>wizard _عملية حساب الحافز</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9482</id>
+    <summary>new inherit from (qualification,family_relation) (payroll.py)</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9481</id>
+    <summary>create &amp; write on hr_allowances_deduction&amp;salary scale allowances deductions</summary> 
+    <status>Rejected</status> 
+   </artifact>
+   <artifact>
+    <id>US-9480</id>
+    <summary>create &amp; write on hr_employee</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9479</id>
+    <summary>payroll function enhancment(payroll.py)</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9478</id>
+    <summary>عملية حساب المرتب_wizard</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9477</id>
+    <summary>HR-  عملية الاستحقاقات و الخصومات الخاصة و الاستثناءات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9493</id>
+    <summary>عملية الانابة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9492</id>
+    <summary>معالج الترشيح للاعفاء الضريبي</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9491</id>
+    <summary>عملية التراجع عن المرتب</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9490</id>
+    <summary>استحقاقات نهاية الخدمة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9489</id>
+    <summary>عملية ترحيل الحوافز</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9488</id>
+    <summary>عملية ترحيل المرتبات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9487</id>
+    <summary>access &amp; rules hr_payroll_custom</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9486</id>
+    <summary>hr_payroll_custom:ترجمة منظومة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9485</id>
+    <summary>integration payroll with holidays</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9484</id>
+    <summary>HR- تقارير المرتبات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9476</id>
+    <summary>HR- عملية حساب المرتب</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9475</id>
+    <summary>HR- عملية التسكين</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9474</id>
+    <summary>HR- عملية اعدادات الهيكل اراتبي</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9473</id>
+    <summary>HR- عملية اعدادات الاستحقاقات والخصومات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9472</id>
+    <summary>HR- عملية الاستحقاقات الاضافية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9470</id>
+    <summary>عملية اعادة التعيين</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9469</id>
+    <summary>عملية انهاء الخدمة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9468</id>
+    <summary>الكفالات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9467</id>
+    <summary>المؤهلات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9466</id>
+    <summary>HR- تقارير الموظف</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9465</id>
+    <summary>HR-عملية التعيين</summary> 
+    <status>Accepted</status>
+   </artifact>
+   <artifact>
+    <id>US-10829</id>
+    <summary>fuel_USuest</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-44575</id>
+    <summary>shamil3/ HR / Bug Fixing</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-44275</id>
+    <summary>Shamil4/ Demo app</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-44136</id>
+    <summary>NCTR Support</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-44011</id>
+    <summary>shamil4/ date in demo data</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-43955</id>
+    <summary>Shamil4/ Accounting/ bug fixing</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-43818</id>
+    <summary>Micro Finance Module</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-43756</id>
+    <summary>shamil4/ Purchase / foreign purchase</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-42924</id>
+    <summary>Shamil4/ HR/ reports</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-42907</id>
+    <summary>Shamil4 / Common / Shamil link with BI</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-42352</id>
+    <summary>shamil4/ Shamil  Event</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-42046</id>
+    <summary>Shamil4/ Accounting/ bug fixing</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-41761</id>
+    <summary>shamil4/ Purchase / foreign purchase migration</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-41459</id>
+    <summary>shamil / shamil3 / nctr support</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-40921</id>
+    <summary>HR review 4 event</summary> 
+    <status>New</status>
+   </artifact>
+   <artifact>
+    <id>US-37849</id>
+    <summary>Attendance Module</summary> 
+    <status>New</status>
+   </artifact>
+   <artifact>
+    <id>US-35783</id>
+    <summary>NCTR / HR issue list</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-35683</id>
+    <summary>shamil / hr recruitment</summary> 
+    <status>New </status> 
+   </artifact>
+   <artifact>
+    <id>US-35556</id>
+    <summary>shamil / hr enhancement</summary> 
+    <status>New </status> 
+   </artifact>
+   <artifact>
+    <id>US-35363</id>
+    <summary>Shamil / strategy</summary> 
+    <status>New </status> 
+   </artifact>
+   <artifact>
+    <id>US-35352</id>
+    <summary>Shamil / hr XML report validation</summary> 
+    <status>New </status> 
+   </artifact>
+   <artifact>
+    <id>US-35337</id>
+    <summary>shamil / Project managment</summary> 
+    <status>New </status> 
+   </artifact>
+   <artifact>
+    <id>US-34951</id>
+    <summary>shamil / NCTR Support</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-34849</id>
+    <summary>converting hr reports to xml</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-32224</id>
+    <summary>shamil 4 / demo translation</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-31712</id>
+    <summary>Shamil / Shamil9</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-31465</id>
+    <summary>Shamil9 / Documentation</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-31353</id>
+    <summary>shamil / Stock / stock_inventory</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-30949</id>
+    <summary>Support NCTR</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-30649</id>
+    <summary>Shamil / Stock / stock_quality</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-30647</id>
+    <summary>Shamil / Stock / stock_negative</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-30642</id>
+    <summary>Shamil / Stock Exchange</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-30637</id>
+    <summary>Shamil / Purchase / Reports</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-30028</id>
+    <summary>Shamil / Accounting9 / Accounting financial ratification</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29813</id>
+    <summary>shamil / purchhase9 / purchase_custom</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29812</id>
+    <summary>shamil / purchase9 / purchase_USuisition_budget</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29811</id>
+    <summary>shamil / purchase9 / purchase_contracts</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29809</id>
+    <summary>shamil/ purchase9 / purchase_transportation</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29808</id>
+    <summary>shamil / purchase9 / purchase_clearance</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29807</id>
+    <summary>shamil / purchase9 / purchase_foreign</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29806</id>
+    <summary>shamil / purchase9 / purchase_USuisition_custom</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29327</id>
+    <summary>shamil / purchase9</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29326</id>
+    <summary>shamil / stock9 / stock_account_custom</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29115</id>
+    <summary>Shamil / Accounting9 / Fixed Assets</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29114</id>
+    <summary>Shamil / Accounting9 / Bank Statement</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29113</id>
+    <summary>Shamil / Accounting9 / Accounting Reports</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29112</id>
+    <summary>Shamil / Accounting9 / Budget Reports</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29111</id>
+    <summary>Shamil / Accounting9 / Budget Custom</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29110</id>
+    <summary>Shamil / Accounting9 / Account Voucher Custom</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29109</id>
+    <summary>Shamil / Accounting9 / Check Writting</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-29056</id>
+    <summary>Shamil / Accounting9 / Accounting Custom</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-28551</id>
+    <summary>Shamil / Accounting9</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-28333</id>
+    <summary>Shamil / HR9</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-26712</id>
+    <summary>تقارير في موديول الحضور</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-26710</id>
+    <summary>ربط موديول الحضور مع الاجر الاضافي</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-26709</id>
+    <summary>ربط موديول الحضور مع الاجازات</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-26707</id>
+    <summary>ربط موديول الحضور مع المخالفات والعقوبات</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-26639</id>
+    <summary>reset password from user interface</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-26323</id>
+    <summary>Shamil</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-25719</id>
+    <summary>Shamil / Test and Solve modules dependency issues</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-25136</id>
+    <summary>Shamil / HR / Payrol deposit form and tree</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-24927</id>
+    <summary>Shamil / Accounting / NISS</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-24876</id>
+    <summary>Shamil / NISS / HR / USuirement review</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-24834</id>
+    <summary>Shamil / co-operative / sale order to sell products to customer</summary>
+     <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-24832</id>
+    <summary>Shamil / Co-operative / NISS</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-24761</id>
+    <summary>Shamil / Co-operative /  stock / Rules and type</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-24751</id>
+    <summary>Shamil / Purchases / NISS / Create Partial Purchase Order</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-24741</id>
+    <summary>Shamil / NISS / custody /Custody Reports</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-24740</id>
+    <summary>Shamil / NISS / custody /Custody Search process</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24739</id>
+    <summary>Shamil / NISS / custody /Custody Stock Inventory process</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24738</id>
+    <summary>Shamil / NISS / custody /Custody Product Customization</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24734</id>
+    <summary>Shamil / NISS / custody /Return custody workflow</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24733</id>
+    <summary>Shamil / NISS / custody /Custody USuest workflow</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24721</id>
+    <summary>Shamil / NISS / custody /Custody USuest form</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24653</id>
+    <summary>Shamil  / Stock / customization exchange module</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24650</id>
+    <summary>Shamil / Stock / NISS / stock_account_internal</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-24648</id>
+    <summary>Shamil / Stock / Niss / stock_inventory</summary> 
+    <status>Defined</status>  
+   </artifact>
+   <artifact>
+    <id>US-24489</id>
+    <summary>shamil/NISS/custodies  analysis all  custodies  USuirments</summary>
+    <status>Accepted</status>  
+   </artifact>
+   <artifact>
+    <id>US-24483</id>
+    <summary>Review&amp; Testing for   Stock module</summary>
+    <status>Accepted</status>  
+   </artifact>
+   <artifact>
+    <id>US-24481</id>
+    <summary>review purchase modules</summary> 
+    <status>Accepted</status>  
+   </artifact>
+   <artifact>
+    <id>US-24380</id>
+    <summary>Shamil / NISS / Purchases / Reviewing and fixing of thre Purchases Module Bugs</summary> 
+    <status>Defined</status>  
+   </artifact>
+   <artifact>
+    <id>US-24298</id>
+    <summary>Shamil / NISS / stock / exchange order workflow</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-24297</id>
+    <summary>Shamil / NISS / stock / incoming shipment</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24295</id>
+    <summary>Shamil / NISS / stock / configuration</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24294</id>
+    <summary>Shamil / NISS / stock / Reports</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-24262</id>
+    <summary>Shamil /  Purchases / NISS</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-24261</id>
+    <summary>Shamil / NISS / Purchases / Reports</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-24259</id>
+    <summary>Shamil / NISS / Purchases / Workflow Customization</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24255</id>
+    <summary>Shamil / co-operative / sales research</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24238</id>
+    <summary>Shamil Interface update</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24221</id>
+    <summary>Shamil / co-operative /  Physical Inventory  is to show the value of goods last period to show the value of cost of goods sold last year to determine the gross profit and its monthly</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24220</id>
+    <summary>Shamil / co-operative / Delivery order to receive exchange / store order from one location to another</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24218</id>
+    <summary>Shamil / co-operative /  receive incoming shipment  from purchase contract in main warehouse</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24217</id>
+    <summary>Shamil / co-operative / stock configuration</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24216</id>
+    <summary>Shamil / co-operative / create purchase contract to purchase items from bank or direct from supplier and receive items in stock and pay to bank or supplier</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24215</id>
+    <summary>Shamil / Accounting / fgadfsjkl</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-24177</id>
+    <summary>شاشة الموظف</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24168</id>
+    <summary>HR/translation</summary> 
+    <status>Rejected</status> 
+   </artifact>
+   <artifact>
+    <id>US-24164</id>
+    <summary>الاستقالة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24156</id>
+    <summary>shamil/HR/NCTR/ calender for employee mission</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-24155</id>
+    <summary>Shamil / HR / NCTR reports</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-23855</id>
+    <summary>Shamil / HR / Transfer hr to analytic</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-23831</id>
+    <summary>تصفية مستحقات نهاية خدمة الموظف حسب المطلوبات المقدمة</summary> 
+    <status>Accepted</status>
+    </artifact>
+   <artifact>
+    <id>US-23825</id>
+    <summary>تجميع الموظفين حسب الادارات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-23434</id>
+    <summary>حساب الاثر الرجعي للمرتبات والحوافز</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-23266</id>
+    <summary>حساب المرتب نسبة وتناسب عند تغير تاريخ الترقية او النقل بتغير الدرجة والعلاوة</summary> 
+    <status>Rejected</status> 
+   </artifact>
+   <artifact>
+    <id>US-22997</id>
+    <summary>حساب استحقاق الاجازة في انهاء الخدمة</summary> 
+    <status>To UAT</status> 
+   </artifact>
+   <artifact>
+    <id>US-22714</id>
+    <summary>مشكلة ف عكس المعاملة</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-22589</id>
+    <summary>اذن الخروج من النظام(من بداية الاجراء حتي التصديق)</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-22587</id>
+    <summary>Admin Affairs code migration</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-22586</id>
+    <summary>Stock and Purchase code migration</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-22585</id>
+    <summary>Accounting and Assets code migration</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-22584</id>
+    <summary>HR and Payroll code migration</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-22192</id>
+    <summary>Shamil / Hr / Issues and bugs</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-22181</id>
+    <summary>مديول الشراء الخارجي</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-22174</id>
+    <summary>test</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-22173</id>
+    <summary>قيد المعاملة المولده من المخزن</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-22107</id>
+    <summary>رصيد الاجازة بتاريخ التعيين</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-22094</id>
+    <summary>Shamil / Issues</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-22083</id>
+    <summary>Shamil / HR / ترحيل المطالبات من الموارد البشرية بناء على الادارات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-22047</id>
+    <summary>خطا ف السندات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21999</id>
+    <summary>hr/hr_mission/ transfer</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21969</id>
+    <summary>حساب الحواز والبدلات نسبة وتناسة من تاريخ بداية ونهاية العقد</summary> 
+    <status>Rejected</status> 
+   </artifact>
+   <artifact>
+    <id>US-21952</id>
+    <summary>رقم المطالبة المالية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21925</id>
+    <summary>error in voucher payment</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21883</id>
+    <summary>الاجر الاضافي لايحسب قيمة الاستحقاق</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21873</id>
+    <summary>مشكلة في العملة افي ادخال المعاملات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21862</id>
+    <summary>تغير طريقة ادخال اعدادت الحسابات بالنسبة للعقودات و المناسبات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21858</id>
+    <summary>خطأ ف طباعة الشيكات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21857</id>
+    <summary>تقرير التدفق النقدي للسيولة</summary> 
+    <status>To UAT</status> 
+   </artifact>
+   <artifact>
+    <id>US-21833</id>
+    <summary>ارجاع اخر قسط من السلفية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21832</id>
+    <summary>تعديل قيمة السلفية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21800</id>
+    <summary>Shamil / Admin Affairs / شاشة تصنيف العقودات (خطا(</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21790</id>
+    <summary>Shamil / Stock / تفعيل فواتير العملاء</summary> 
+    <status>To UAT</status> 
+   </artifact>
+   <artifact>
+    <id>US-21789</id>
+    <summary>Shamil / Purchase / اسم الصنف لابد ان يكون فريد</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21788</id>
+    <summary>حذف الغرض</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21786</id>
+    <summary>Shamil / Purchase / ربط المخزن بالتصنيف</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21763</id>
+    <summary>Shamil / Admin Affairs / يظهراسم الوجبة و الوصف مثل خدمة الضيافة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21762</id>
+    <summary>في شاشة الوقود الاضافي تغيرنوع التاريخ</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21761</id>
+    <summary>Shamil / Admin Affairs / انشاء حالة في كل العمليات ماعد العقودات voucher</summary> 
+    <status>Accepted</status>
+    </artifact>
+   <artifact>
+    <id>US-21760</id>
+    <summary>Shamil / Admin Affairs / ترحيل كل المطالبات المالية في حالة الشئون الادارية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21759</id>
+    <summary>المرجع في شاشة النثرية يتضمن اسم النثرية والشهر</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21758</id>
+    <summary>Shamil / Admin Affairs / المرجع في شاشة الاجنبي يتضمن اسم الاجنبي</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21741</id>
+    <summary>تعديل شاشة موقع الاصل لاضافة العهد</summary> 
+    <status>Deffered</status> 
+   </artifact>
+   <artifact>
+    <id>US-21740</id>
+    <summary>بعد الاستلام في المخزن هنالك خيار اصل ولا تكلفة مبيعات</summary> 
+    <status>Deffered</status> 
+   </artifact>
+   <artifact>
+    <id>US-21739</id>
+    <summary>تعديل في شاشة ارشيف الاصل قيمة الاهلاك</summary> 
+    <status>Deffered</status> 
+   </artifact>
+   <artifact>
+    <id>US-21738</id>
+    <summary>اضافة مع  الاتلاف &gt;هبة او هدية&lt;</summary> 
+    <status>Deffered</status> 
+   </artifact>
+   <artifact>
+    <id>US-21737</id>
+    <summary>ربط الاصول مع المشتريات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21589</id>
+    <summary>Add Selection Field into purchase USuest form</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21524</id>
+    <summary>لا يبدا التنفيذ في اي عملية قبل المرور بالموازنة في المطالبة المالية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21523</id>
+    <summary>Check for budget in all state in ratification</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21505</id>
+    <summary>Shamil / HR / حساب فرق العلاوه من تاريخ التحاق الموظف بالعلاوه</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-21392</id>
+    <summary>Shamil / HR / (بدل الميل) بعض الاستحقاقات نسبة وتناسب مع الاجازة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21391</id>
+    <summary>Shamil / HR/ إضافة العملات في المأمورية</summary>  
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21390</id>
+    <summary>طلب الوظيفة يجب ان لا يغير في العدد المصدق بعدد الطلب</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21389</id>
+    <summary>في التفويض مراجعة استمرار السلفية</summary> 
+    <status>Rejected</status> 
+   </artifact>
+   <artifact>
+    <id>US-21388</id>
+    <summary>عمل Domain علي شاشة الموظفين والمتعاقدين والمجندين بالهيكل الراتبي المعني بكل شاشة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21366</id>
+    <summary>خطاء عند طباعة تقرير  العربات الموجرة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21341</id>
+    <summary>ربط الاجراءت بالماموريات و التدريب الخارجين</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21339</id>
+    <summary>Shamil / Admin Affairs / اضافة الضرائب للخدمات الفندقية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21338</id>
+    <summary>اضافة في شاشة خدمات الاجانب</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21337</id>
+    <summary>اخفاء حقل المورد عند اختيار النثرية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21336</id>
+    <summary>اضافة النثريات فى عدد من العمليات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21329</id>
+    <summary>Shamil / Hr / Issues and bugs</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-21292</id>
+    <summary>Shamil / HR / موديول البصمة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21243</id>
+    <summary>Shamil / Accounting / المطالبة المالية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21240</id>
+    <summary>Shamil / Admin Affairs / Un recognized am/pm on the arabic date-time fields</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21238</id>
+    <summary>Shamil / Admin Affairs / خطاء عند حساب ايجار عربة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21237</id>
+    <summary>Shamil / Admin Affairs / Fuel Management /خطاء عند حساب خطة الوقود</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21236</id>
+    <summary>Shamil / Purchase / اضافة المجمو عة لانها مرتبطة الحقل  السعر في شاشة المنتجات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21179</id>
+    <summary>شاشة صيانة  المباني</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21178</id>
+    <summary>شاشة التامين المباني</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21177</id>
+    <summary>شاشة الحوادث المباني</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21175</id>
+    <summary>تعديل تصديق المدير العام للمطالبة المالية(اضافة السقف للمدير العام(</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21106</id>
+    <summary>Shamil / Admin Affairs / التعديل في  شاشة اعدادات سقوفات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21101</id>
+    <summary>Shamil / Purchase / Add Rec No. to reference</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21095</id>
+    <summary>Error in installing account_custom module</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21052</id>
+    <summary>Shamil / Purchase / No Bugdet Message</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-21046</id>
+    <summary>Error in accounts</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20969</id>
+    <summary>اضافة الفيمة الكلية للمامورية في التقرير بقيمة الجديدة  حقل مصاريف النثرية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20968</id>
+    <summary>Shamil / Admin Affairs / تغير قيمة حقل مصاريف النثرية</summary> 
+    <status>Accepted</status>
+    </artifact>
+   <artifact>
+    <id>US-20948</id>
+    <summary>خطا في معالج تجديد العربات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20943</id>
+    <summary>شاشة المنتجات لايمكن اضافة اسبير</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20942</id>
+    <summary>خطاء عند الترحيل للحسابات فس شاشة خدمات المناسبات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20941</id>
+    <summary>خطاء عند الترحيل للحسابات فس شاشة العقودات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20940</id>
+    <summary>خطاء عند الترحيل للحسابات فس شاشة خدمات الاجانب</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20938</id>
+    <summary>Error in Wizared Rent Car</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20931</id>
+    <summary>Shamil / Stock / Edit in Exchange order</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20929</id>
+    <summary>Shamil / Accounting / نقل انواع التكاليف من النسخة القديمة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20925</id>
+    <summary>خطاء في شاشة الخدمة العامة عند اختيار النثرية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20890</id>
+    <summary>Error in  Leave USuest Form</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20889</id>
+    <summary>Shamil / Accounting / تقرير الايرادات والمصروفات النقدية</summary> 
+    <status>Defined</status> 
+   </artifact>
+   <artifact>
+    <id>US-20793</id>
+    <summary>تقارير المرتبات</summary> 
+    <status>Not clear description</status> 
+   </artifact>
+   <artifact>
+    <id>US-20721</id>
+    <summary>Hr/hr_payroll_custom/issues</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20713</id>
+    <summary>Hr/hr_loan/issues</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-20682</id>
+    <summary>HR/hr_custom/issues</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20655</id>
+    <summary>Products Category Field</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20530</id>
+    <summary>Sequence Error in  Accident building</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20529</id>
+    <summary>Sequence Error in  insure building</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20523</id>
+    <summary>Shamil / Admin Affairs / مراجعة شاشات تذكرة السفر(جزئية الترحيل للحسابات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20507</id>
+    <summary>Shamil / Admin Affairs / نقل تقارير العقودات الموجود فى 6.1 النسخة القديمة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20489</id>
+    <summary>شاشة طلب صيانة المباني اضافة Domain</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20488</id>
+    <summary>مراجعة شاشات المبانى</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20484</id>
+    <summary>مراجعة شاشات الخدمات الفندقية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20483</id>
+    <summary>Shamil / Admin Affairs / وضع قيد للماموريات و التدريب  الخارجية</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20482</id>
+    <summary>اضافة النثريات فى عدد من العمليات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20449</id>
+    <summary>موديول البصمة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20342</id>
+    <summary>Display Purchase USuisition Wizard if items not found in stock.</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20340</id>
+    <summary>ارانيك اذونات المرض والخروج - تعديل</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20339</id>
+    <summary>Shamil / HR / حساب ضريبة الدخل الشخصي بطريقة معينة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20338</id>
+    <summary>طلب الاجازة يجب ان يكون اكبر من عدد ايام محددة 8ايام</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20336</id>
+    <summary>ترحيل السلفيات بالشريك</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20334</id>
+    <summary>شهادة الاجازة وحساب الارصدة للاجازات+ ترحيل الاجازات كل عام</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20333</id>
+    <summary>تقرير معلومات الاجازات مفصل بحفظ السنين</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20332</id>
+    <summary>Shamil / HR / امكانية خصم السلفيات من المنح والبدلات</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20331</id>
+    <summary>امكانية اعفاء نسبة% من السلفيات- تحديد النسبة تهيئة</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20330</id>
+    <summary>حساب وخصم المخالفات والعقوبات</summary> 
+    <status>Not clear description</status> 
+   </artifact>
+   <artifact>
+    <id>US-20251</id>
+    <summary>Shamil / HR</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-20245</id>
+    <summary>Shamil / Base / Autamatic reset of the sequence</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19935</id>
+    <summary>teeeeest</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19831</id>
+    <summary>Shamil / Accounting / Moves</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19620</id>
+    <summary>Shamil / Accounting / Foregin currency bank reconcilation</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19529</id>
+    <summary>Accounting / Budget / consistency of move line and period budget</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19445</id>
+    <summary>Shamil / Accounting / Financial reports - ِAssset details</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19443</id>
+    <summary>Prepare NCTR DB</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19386</id>
+    <summary>Shamil / Accounting / Reporting</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19385</id>
+    <summary>Shmail / Accounting / Budget reporting</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-19384</id>
+    <summary>Shamil / Accounting / Financial reports (Disclosure no, Sign and Diivision)</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18353</id>
+    <summary>Shamil / Admin Affairs / Hospitality order taxes</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18352</id>
+    <summary>Shamil / Admin Affairs / Car maintenance taxes</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18351</id>
+    <summary>Shamil / Admin Affairs / Partial fuel picking</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18350</id>
+    <summary>Shamil / Admin Affairs / Multi supplier in fuel plan</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18349</id>
+    <summary>Shamil / Admin Affairs / Driver License and expiration of license</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18348</id>
+    <summary>Shamil / Admin Affairs / Taxes in hospitality order</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18346</id>
+    <summary>Shamil / Admin Affairs / Constraint of previous dates</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18345</id>
+    <summary>Shamil / Admin Affairs / Create hospitality from Hall lock</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18343</id>
+    <summary>Shamil / Stock / Products USuisition</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18342</id>
+    <summary>Shamil / Stock / Account moves</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18341</id>
+    <summary>Shamil / Stock / Transition locations</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18340</id>
+    <summary>Shamil / Stock / One company environment</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18339</id>
+    <summary>Shamil / Stock / Multi-company environment</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18338</id>
+    <summary>Shamil / Stock / Update product price</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18310</id>
+    <summary>Shamil / Stock / Return products issue - مشاكل سعر المتوسط</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18305</id>
+    <summary>Shamil / Asset / Barcode</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-18304</id>
+    <summary>Shamil / All modules / Demo data</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-14221</id>
+    <summary>Release Note</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-13609</id>
+    <summary>Product description</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-12815</id>
+    <summary>Code Documentation</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-11912</id>
+    <summary>Implementation USuirement</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-11909</id>
+    <summary>Asset translation</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-11679</id>
+    <summary>stock translation</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-11662</id>
+    <summary>Admin Affairs translation</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-11303</id>
+    <summary>purchase translation</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-11275</id>
+    <summary>stock translation</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-11274</id>
+    <summary>purchase translation</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10670</id>
+    <summary>Admin Affairs: Service</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10666</id>
+    <summary>Admin Affairs Media</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10660</id>
+    <summary>Fuel management</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10657</id>
+    <summary>Admin Affairs: extra insurance</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10655</id>
+    <summary>Admin Affairs: Migrate Maintenance</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10654</id>
+    <summary>car_operation</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10650</id>
+    <summary>building_management</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10648</id>
+    <summary>booking_custom</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10646</id>
+    <summary>admin_affairs_payments</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10644</id>
+    <summary>admin_affairs</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-10442</id>
+    <summary>foreign purchase</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-10012</id>
+    <summary>Assets</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9942</id>
+    <summary>account_financial_ratificatiion</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9936</id>
+    <summary>purchase_report</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9934</id>
+    <summary>procurement_custom</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9931</id>
+    <summary>purchase_no_pricelist</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9928</id>
+    <summary>purchase_custom_direct</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9924</id>
+    <summary>purchase_custom</summary> 
+    <status>New</status> 
+   </artifact>
+   <artifact>
+    <id>US-9922</id>
+    <summary>stock_quality</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9917</id>
+    <summary>exchange</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9915</id>
+    <summary>Stock_arabic_report</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9913</id>
+    <summary>stock_report</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9911</id>
+    <summary>stock_negative</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9908</id>
+    <summary>stock_multi_company</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9906</id>
+    <summary>stock_account</summary> 
+    <status>Rejected</status> 
+   </artifact>
+   <artifact>
+    <id>US-9900</id>
+    <summary>Module stock_inventory</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9525</id>
+    <summary>HR Access rules</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9524</id>
+    <summary>HR Translation</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9516</id>
+    <summary>HR_Missions</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9509</id>
+    <summary>hr_holiday_custom</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9503</id>
+    <summary>hr_process</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9494</id>
+    <summary>hr_loan</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9471</id>
+    <summary>hr_payroll_custom</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9464</id>
+    <summary>hr_custom</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9333</id>
+    <summary>Migration OpenERP 7</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-9110</id>
+    <summary>Design Common Report</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-8993</id>
+    <summary>ِaccounting bugs</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-8899</id>
+    <summary>HR Recruitment</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-8870</id>
+    <summary>HR Injuries</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-8867</id>
+    <summary>HR Subsidies</summary> 
+    <status>Accepted</status> 
+   </artifact>
+   <artifact>
+    <id>US-8839</id>
+    <summary>HR Trainee - recruit - contract</summary> 
+    <status>Accepted</status> 
+   </artifact>
+  </artifacts_collection>

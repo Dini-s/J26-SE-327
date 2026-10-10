@@ -235,3 +235,45 @@ def test_run_logger_records_shortlist_and_verdicts(req, targets, tmp_path):
     assert [e["type"] for e in events] == ["shortlist", "verify_start", "verdict", "verdict"]
     assert [t["id"] for t in events[0]["targets"]] == ["C1", "C2"]
     assert events[2]["kept"] is True and events[3]["kept"] is False
+
+
+def test_links_are_handed_to_on_link_as_soon_as_they_are_confirmed(req, targets):
+    seen = []
+    llm = llm_returning(
+        {"is_linked": True, "confidence": 0.9, "reasoning": "a"},
+        {"is_linked": True, "confidence": 0.8, "reasoning": "b"},
+    )
+    agent = make_agent(llm=llm)
+    agent.verify_candidates(agent.find_candidates([req], targets), on_link=seen.append)
+    assert [l.target_id for l in seen] == ["C1", "C2"]
+
+
+def test_a_failure_midway_keeps_links_already_written(req, targets):
+    from openai import APIConnectionError
+
+    seen = []
+    llm = MagicMock()
+    llm.verify_link.side_effect = [
+        {"is_linked": True, "confidence": 0.9, "reasoning": "ok"},
+        APIConnectionError(request=MagicMock()),
+        APIConnectionError(request=MagicMock()),
+        APIConnectionError(request=MagicMock()),
+    ]
+    many = targets + [art("C4", "code", "code login"), art("C5", "code", "code auth")]
+    agent = make_agent(llm=llm)
+    with pytest.raises(APIConnectionError):  # 3 consecutive failures = server down: stop loudly
+        agent.verify_candidates(agent.find_candidates([req], many, threshold=-1.0), on_link=seen.append)
+    assert [l.target_id for l in seen] == ["C1"]  # the first link survived
+
+
+def test_a_single_transient_llm_error_skips_only_that_candidate(req, targets):
+    from openai import APIConnectionError
+
+    llm = MagicMock()
+    llm.verify_link.side_effect = [
+        APIConnectionError(request=MagicMock()),
+        {"is_linked": True, "confidence": 0.9, "reasoning": "ok"},
+    ]
+    agent = make_agent(llm=llm)
+    links = agent.verify_candidates(agent.find_candidates([req], targets))
+    assert [l.target_id for l in links] == ["C2"]

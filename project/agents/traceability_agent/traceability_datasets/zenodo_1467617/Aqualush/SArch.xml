@@ -1,0 +1,815 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<artifacts_collection>
+ <collection_info>
+    <name>Aqualush software Architecture</name> 
+    <version>1.1</version> 
+   <description>
+    Test
+   </description> 
+ </collection_info>
+   <artifact>
+    <id>SArch1</id>
+    <content>1 Architectural Models AquaLush is a Relaxed Layered system, as shown in the layer diagram in Figure B-10-1.</content>
+   <Syntax/>
+    <Pre/>
+    <Post/>
+    </artifact>
+   <artifact>
+    <id>SArch2</id>
+    <content>Figure B-10-1 AquaLush Layers Overview</content>
+	<Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch3</id>
+    <content>Modules use only layers below them that they touch directly. A fielded system does not include the bottom Simulation layer, which is needed only as a stand-in for the hardware that would be present in a fielded system.</content>
+ <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch4</id>
+    <content>1.1 Layer Responsibilities Layer:Responsibilities. Startup:Create and connect all runtime components based on a configuration specification and whether the program is a simulation or a fielded product. Restore the state of the system from persistent store.User Interface:&#10;Implement a device-independent AquaLush text-based user interface.Irrigation:Control both manual and automatic irrigation.Device Interface:Implement virtual devices providing interfaces to all external entities, including hardware devices, a clock, and persistent storage.Simulation:Implement components simulating hardware devices, simulate an irrigation site, and provide views and controls for manipulating the simulation.&#10;</content>
+ <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch25</id>
+    <content>1.2 Startup Layer Decomposition The Startup layer contains the main program class, which may be either an application or an applet, assuming the program is written in Java. The main program uses a Configurer, which sets up the program based on the available hardware (real or simulated) and whether it is a simulation or a fielded program, and restores the previous program state. The Configurer reads a configuration specification to determine what sort of hardware (or simulated hardware) the program must use. It reads a persistent store to reset the program state. Figure B-10-3 shows the decomposition of the Startup layer.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+  <artifact>
+    <id>SArch876</id>
+    <content>Figure B-10-3 Startup Layer Structure</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+ <artifact>
+    <id>SArch26</id>
+    <content>1.2.1 Startup Layer Module Responsibilities Module:Responsibilities.AquaLushApplet:Ask the Simulation layer to create all GUI components and simulated entities, and create a Configurer that uses these simulation objects to configure the program. Obtain the configuration specification. Call the Configurer to configure the program.AquaLush: Create a Configurer that uses real hardware. Obtain the configuration specifications. Call the Configurer to configure the program.Configurer:Create and connect runtime components based on configuration specifications and whether the program is a simulation or a fielded product. Restore the state of the system from persistent store.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+  <artifact>
+    <id>SArch40</id>
+    <content>1.2.2 Startup Layer Interface Specifications</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+<artifact>
+    <id>SArch41</id>
+    <content>1.2.2.1 Services Provided</content>
+   <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+ <artifact>
+    <id>SArch42</id>
+    <content>1.2.2.1.1 Applet initialization</content>
+    <Syntax>init()</Syntax>
+    <Pre>None.</Pre>
+    <Post>The applet simulating AquaLush is initialized.</Post>
+   </artifact>
+<artifact>
+    <id>SArch53</id>
+    <content>1.2.2.1.2 Program execution</content>
+    <Syntax>main( args : String[] )</Syntax>
+    <Pre>None.</Pre>
+    <Post>The AquaLush program is set up according to its local configuration and its state is reset to what it was when it was last executing.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch64</id>
+    <content>1.2.2.2 Services Required</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch65</id>
+    <content>Simulation.create()—Create the AquaLush simulation, including GUI components simulating the control panel display, keypad, and screen buttons; the simulated irrigation site with valves and sensors; and simulated time and persistent store objects.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch66</id>
+    <content>DeviceFactory.createDeviceX()—Create various virtual devices already connected to real or simulated hardware.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch67</id>
+    <content>DeviceX.setListener()—Add a listener to a keypad or screen button virtual device.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch68</id>
+    <content>Irrigator.create()—Create irrigation control objects.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch69</id>
+    <content>Irrigator.addX()—Configure the Irrigator with zones, sensors, and valves, and configure the virtual devices controlling valve and sensor hardware.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch70</id>
+    <content>Irrigator.restoreState()—Restore the state of the program from persistent store.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch71</id>
+    <content>UserInterface.create()—Create the user interface.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch72</id>
+    <content>UserInterface.setDisplay()—Configure the user interface with the virtual display.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+    </artifact>
+   <artifact>
+   <id>SArch73</id>
+    <content>Reader.read()—Obtain an input character from the configuration specification.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch74</id>
+    <content>1.2.3 Startup Layer Design Rationale The configuration task could have been placed in the applet and application classes, but then there would have been two versions of very similar code. Separating this task into a separate component (the Configurer) that can be reused makes it easier to change and correct as well as faster to implement, though it takes more work to design originally. Note: This component will make use of the Abstract Factory pattern for virtual devices, which we discuss in the next section.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch75</id>
+    <content>1.3 Simulation Layer Decomposition The Simulation layer contains components that simulate the entire external environment during a simulation. Five of these are externally visible: a time simulator, a persistent storage simulator, a display device simulator, and sensor and valve simulators. In addition this layer has a façade class that hides other components (such as a simulated keypad, simulated screen buttons, the simulated site, and so forth). These components are pictured in Figure B-10-6.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch877</id>
+    <content>Figure B-10-6 Simulation Layer Structure</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch76</id>
+    <content>1.3.1 Simulation Layer Module Responsibilities Module:Responsibilities.Simulation:Simulate hardware devices and the real world, and display the simulation using GUI components.SimStore: Simulate a persistent store. A real file will be used if possible; if not, no real persistence will be simulated.&#10;SimDisplay:Simulate a 16-line-by-40-character monochrome textual display as a GUI component.&#10;SimSensor:Simulate a moisture sensor.&#10;SimValve:Simulate an irrigation valve. SimTime:Simulate the passage of time. Notify other components of the passage of simulated time.&#10;</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch99</id>
+    <content>1.3.2 Simulation Layer Interface Specifications</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch311</id>
+    <content>1.3.2.1 Services Provided All operations with preconditions on parameters throw IllegalArgumentExceptions if the preconditions are violated.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch100</id>
+    <content>1.3.2.1.1 Create the simulation object</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch113</id>
+    <content>1.3.2.1.2 Provide simulated persistent store</content>
+    <Syntax>getStore() : SimStore</Syntax>
+    <Pre>None.</Pre>
+    <Post>The simulated storage object is returned</Post>
+   </artifact>
+   <artifact>
+    <id>SArch124</id>
+    <content>1.3.2.1.3 Provide a simulated valve</content>
+    <Syntax>getValve( name : String ) : SimValve</Syntax>
+    <Pre>name is not null.</Pre>
+    <Post>The simulated valve whose identifier is name is returned, or null is returned if no such valve exists.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch135</id>
+    <content>1.3.2.1.4 Provide a simulated sensor</content>
+    <Syntax>getSensor( name : String ) : SimSensor</Syntax>
+    <Pre>name is not null.</Pre>
+    <Post>The simulated sensor whose identifier is name is returned, or null is returned if no such sensor exists.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch146</id>
+    <content>1.3.2.1.5 Provide the simulated display</content>
+    <Syntax>getDisplay() : SimDisplay</Syntax>
+    <Pre>None.</Pre>
+    <Post>The simulated display object is returned.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch157</id>
+    <content>1.3.2.1.6 Register a keypad listener</content>
+    <Syntax>setKeypadListener( l : KeypadListener )</Syntax>
+    <Pre>None.</Pre>
+    <Post>KeypadListener l will start to receive notifications of simulated keypad key presses.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch168</id>
+    <content>1.3.2.1.7 Register a screen button listener</content>
+    <Syntax>setScreenButtonListener( l : ScreenButtonListener )</Syntax>
+    <Pre>None.</Pre>
+    <Post>ScreenButtonListener l will start to receive notifications of simulated screen button presses.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch179</id>
+    <content>1.3.2.1.8 Record a value in simulated persistent store</content>
+    <Syntax>setData( name : String, value : String )</Syntax>
+    <Pre>name and value are not null.</Pre>
+    <Post>The name-value pair is recorded in persistent store. Throws DeviceFailureException if persistent store cannot be read.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch190</id>
+    <content>1.3.2.1.9 Fetch a value from simulated persistent store</content>
+    <Syntax>getData( name : String, default : String ) : String</Syntax>
+    <Pre>name is not null.</Pre>
+    <Post>Returns the value associated with the name in persistent store. If no value is associated with name and default is not null, then associates the default with the name and returns it. If no value is associated with the name and the default is null, then returns null. Throws DeviceFailureException if persistent store cannot be read.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch201</id>
+    <content>1.3.2.1.10 Remove data from simulated persistent store</content>
+    <Syntax>removeData( name : String )</Syntax>
+    <Pre>name is not null.</Pre>
+    <Post>The name and associated value are removed from persistent store. Throws DeviceFailureException if persistent store cannot be read.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch212</id>
+    <content>1.3.2.1.11 Write to the simulated display</content>
+    <Syntax>write( line : int, str : String )</Syntax>
+    <Pre>0 &lt;= line &lt; 16 and str is not null.</Pre>
+    <Post>String str is written to line number line of the simulated display, starting at position 0</Post>
+   </artifact>
+   <artifact>
+    <id>SArch223</id>
+    <content>1.3.2.1.12 Read a simulated sensor</content>
+    <Syntax>getLevel() : int throws DeviceFailureException</Syntax>
+    <Pre>None.</Pre>
+    <Post>The simulated moisture level for the sensor is returned. Throws DeviceFailureException if the sensor has a simulated failure.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch234</id>
+    <content>1.3.2.1.13 Open a simulated valve</content>
+    <Syntax>The simulated moisture level for the sensor is returned. Throws DeviceFailureException if the sensor has a simulated failure.</Syntax>
+    <Pre>None.</Pre>
+    <Post>Opens a simulated valve. Throws DeviceFailureException if the valve has a simulated failure.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch245</id>
+    <content>1.3.2.1.14 Close a simulated valve</content>
+    <Syntax>close() throws DeviceFailureException</Syntax>
+    <Pre>None.</Pre>
+    <Post>Closes a simulated valve. Throws DeviceFailureException if the valve has a simulated failure.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch256</id>
+    <content>1.3.2.1.15 Fetch the instance of SimTime</content>
+    <Syntax>SimTime.instance() : SimTime</Syntax>
+    <Pre>None.</Pre>
+    <Post>A single instance of the SimTime object will always be returned. The SimTime object always starts off with the current real time, but is stopped.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch267</id>
+    <content>1.3.2.1.16 Get the simulated time</content>
+    <Syntax>getDay() : Day getHour() : int getMinute() : int getSecond() : int</Syntax>
+    <Pre>None.</Pre>
+    <Post>Returns the requested component of the simulated time.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch278</id>
+    <content>1.3.2.1.17 Set the simulated time</content>
+    <Syntax>setDay( d : Day ) setHour( h : int ) setMinute( h : int ) setSecond( s : int )</Syntax>
+    <Pre>0 &lt;= h &lt; 24 and 0 &lt;= m, s &lt; 60.</Pre>
+    <Post>The simulated time is adjusted as indicated.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch289</id>
+    <content>1.3.2.1.18 Start and stop the simulated time</content>
+    <Syntax>start()                                      stop()</Syntax>
+    <Pre>None.</Pre>
+    <Post>The simulated time is paused or resumed. Starting simulated time when it is already going or stopping it when it is already stopped has no effect.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch300</id>
+    <content>1.3.2.1.19 Time notification</content>
+    <Syntax>The simulated time is paused or resumed. Starting simulated time when it is already going or stopping it when it is already stopped has no effect.</Syntax>
+    <Pre>None.</Pre>
+    <Post>Observer o will be notified when simulated time is not stopped and a simulated second has passed.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch312</id>
+    <content>1.3.2.2 Services Required The Simulation layer requires the services of a GUI toolkit (such as Java Swing). It requires a Day enumeration type. It also requires a mechanism for regular notification of the passage of time occurring at least once per second and ideally much faster so that simulated time can be sped up.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch313</id>
+    <content>1.3.2.3 Usage Guide The Simulation layer is needed only when AquaLush is being simulated. Create it first because it is used in every other layer and in constructing the objects in almost every other layer.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch314</id>
+    <content>1.3.3 Simulation Layer Design Rationale Many alternatives considered for the Simulation layer lacked various components or had functionality present in other layers. For example, the persistent store was not initially in this layer until it was realized that an applet may not be allowed to access a host operating system because of security concerns. Eventually it was realized that this layer needs to simulate everything in the environment of the software. As another example, in one alternative the simulation GUI construction process was left partly up to the applet, so that the applet requested a simulated control panel and a simulated environment from the Simulation layer, then combined them to form the applet. The present alternative is more cohesive.The SimTime class is a singleton class. This was deemed necessary because having more than one simulated time object would certainly cause the program to fail. Once SimTime is made a singleton there is no need for an operation to retrieve it from the Simulation layer façade, the role played by the Simulation class.&#10;SimTime is also a subject in the Observer pattern. If it were an invoker in the Command pattern, then it could have only a single reactor. However, several components in the simulation as well as the ClockDevice in the Device Interface layer need to be notified of the passage of simulated time.&#10;</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch315</id>
+    <content>1.4 Device Interface Layer Decomposition The Device Interface layer provides virtual devices to hide the real or simulated external entities manipulated by the program. Writing the program to interact only with virtual devices makes AquaLush highly configurable. The virtual devices provided in this layer are pictured in Figure B-10-9.&#10;Note that these entities are all interface types except for the Clock and the KeyPress enumeration. This layer also includes private realizations of these interfaces that actually do the work, but these are hidden at the architectural level of detail.&#10;</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch878</id>
+    <content>Figure B-10-9 Device Interface Layer Structure</content>
+  <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+<artifact>
+    <id>SArch316</id>
+    <content>1.4.1 Device Interface Layer Module Responsibilities Module:Responsibilities.ClockDevice Interface:&#10;Provide virtual clock hardware that keeps track of the day of the week and the time of the day, accurate to the minute.TickListener Interface:Guarantee that a module listening to the ClockDevice implements a tick() operation, which is needed for the Command pattern.StoreDevice Interface:Provide virtual persistent storage of name-value pairs.&#10;DisplayDevice Interface:Provide a virtual 16-line-by-40-character monochrome textual display device.&#10;SensorDevice Interface:Provide virtual moisture sensor hardware.&#10;ValveDevice Interface:Provide virtual irrigation valve hardware.&#10;KeypadDevice Interface:Provide a virtual 12-key keypad hardware device.&#10;KeypadListener Interface:Guarantee that a module registered as a Keypad listener implements the keyPress() operation, which is needed for the Command pattern. ScreenButtonDevice Interface:Provide a virtual hardware device with eight push buttons.&#10;ScreenButtonListener Interface:Guarantee that a module registered as a ScreenButton listener implements the screenButtonPress() operation, which is needed for the Command pattern.&#10;Clock:Provide the day of the week and the time of day, accurate to one minute. Notify observers of the passage of time every minute. The Clock should be used by the rest of the system; it relies on the ClockDevice.&#10;DeviceFactory Interface:Provide abstract factory methods for creating all virtual devices. This interface is needed as part of the Factory Method pattern.&#10;</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch357</id>
+    <content>1.4.2 Device Interface Layer Interface Specifications</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch358</id>
+    <content>1.4.2.1 Services Provided All operations with preconditions on parameters throw IllegalArgumentExceptions if the precondition is violated.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch359</id>
+    <content>1.4.2.1.1 Set the time of the day (Clock and ClockDevice)</content>
+    <Syntax>setTime( milTime : int )</Syntax>
+    <Pre>milTime is a legitimate military time specification.</Pre>
+    <Post>The clock device is reset to milTime.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch370</id>
+    <content>1.4.2.1.2 Get the time of the day (Clock and ClockDevice)</content>
+    <Syntax>getTime() : int</Syntax>
+    <Pre>None</Pre>
+    <Post>The current time is returned, accurate to the minute, in military time format.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch381</id>
+    <content>1.4.2.1.3 Set the day of the week (Clock and ClockDevice)</content>
+    <Syntax>setDay( d : Day )</Syntax>
+    <Pre>None.</Pre>
+    <Post>The clock device is reset to day d.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch392</id>
+    <content>1.4.2.1.4 Get the day of the week (Clock and ClockDevice)</content>
+    <Syntax>getDay() : Day</Syntax>
+    <Pre>None.</Pre>
+    <Post>The current day of the week is returned.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch403</id>
+    <content>1.4.2.1.5 Set the ClockDevice listener</content>
+    <Syntax>setListener( l : TickListener )</Syntax>
+    <Pre>None.</Pre>
+    <Post>TickListener l will start to receive notifications of the passage of time every minute. Any previous TickListener is replaced.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch414</id>
+    <content>1.4.2.1.6 Register a Clock observer</content>
+    <Syntax>addObserver( o : Observer )</Syntax>
+    <Pre>o is not null.</Pre>
+    <Post>Observer o will start to receive notifications every minute. Throws an exception if the precondition is violated.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch425</id>
+    <content>1.4.2.1.7 Register a ScreenButton listener</content>
+    <Syntax>setScreenButtonListener( l : ScreenButtonListener )</Syntax>
+    <Pre>None.</Pre>
+    <Post>ScreenButtonListener l will start to receive notifications of screen button presses.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch436</id>
+    <content>1.4.2.1.8 Register a Keypad listener</content>
+    <Syntax>setKeypadListener( l : KeypadListener</Syntax>
+    <Pre>None.</Pre>
+    <Post>KeypadListener l will start to receive notifications of keypad button presses.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch447</id>
+    <content>1.4.2.1.9 Record a value in persistent store</content>
+    <Syntax>setData( n : String, v : String )</Syntax>
+    <Pre>n and v are not null.</Pre>
+    <Post>The name-value pair is recorded in persistent store.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch458</id>
+    <content>1.4.2.1.10 Fetch a value from persistent store</content>
+    <Syntax>getData( n : String, v : String ) : String</Syntax>
+    <Pre>n is not null.</Pre>
+    <Post>Return the value associated with n in persistent store. If no value is associated with n and v is not null, then associate v with n and return v. If no value is associated with n and v is null, return null.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch469</id>
+    <content>1.4.2.1.11 Remove data from persistent store</content>
+    <Syntax>removeData( n : String )</Syntax>
+    <Pre>n is not null.</Pre>
+    <Post>Remove the association between n and a value (if any) from persistent store.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch480</id>
+    <content>1.4.2.1.12 Clear the display</content>
+    <Syntax>clear()</Syntax>
+    <Pre>None.</Pre>
+    <Post>The display is blanked.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch491</id>
+    <content>1.4.2.1.13 Clear all display highlighting</content>
+    <Syntax>clearHighlight()</Syntax>
+    <Pre>None.</Pre>
+    <Post>All highlighted lines are returned to regular display; the text is unaltered.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch502</id>
+    <content>1.4.2.1.14 Clear a line of the display</content>
+    <Syntax>clearLine( line : int )</Syntax>
+    <Pre>0 &lt;= line &lt; 16.</Pre>
+    <Post>The text (and highlighting) are removed from the designated line.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch513</id>
+    <content>1.4.2.1.15 Highlight a display line</content>
+    <Syntax>highlight( line : int, col : int, length : int )</Syntax>
+    <Pre>0 &lt;= line &lt; 16 and 0 &lt;= col &lt; 40 and 0 &lt;= length.</Pre>
+    <Post>The portion of line starting at the column and extending for the length of the characters (or until the end of the line) is highlighted.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch524</id>
+    <content>1.4.2.1.16 Write a string to the display</content>
+    <Syntax>write( line : int, col : int, str : String )</Syntax>
+    <Pre>0 &lt;= line &lt; 16 and 0 &lt;= col &lt;= 40 and str is not null.</Pre>
+    <Post>String str is written to line number line and column col of the simulated display. If str is too long to fit on the line it is truncated to fit. The line is not highlighted.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch535</id>
+    <content>1.4.2.1.17 Write a line to the display</content>
+    <Syntax>writeLine( line : int, str : String )</Syntax>
+    <Pre>0 &lt;= line &lt; 16 and str is not null.</Pre>
+    <Post>String str is written to line number line of the simulated display, starting at position 0. If str is more than 40 characters it is truncated to 40 characters. If it is less than 40 characters, then it is padded with blanks until it is 40 characters. The line is not highlighted.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch546</id>
+    <content>1.4.2.1.18 Read a sensor</content>
+    <Syntax>read() : int throws DeviceFailureException</Syntax>
+    <Pre>None.</Pre>
+    <Post>Returns the moisture level. Throws DeviceFailureException if the sensor fails.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch557</id>
+    <content>1.4.2.1.19 Open a valve</content>
+    <Syntax>open() throws DeviceFailureException</Syntax>
+    <Pre>None.</Pre>
+    <Post>Opens a valve. Throws DeviceFailureException if the valve fails.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch568</id>
+    <content>1.4.2.1.20 Close a valve</content>
+    <Syntax>close() throws DeviceFailureException</Syntax>
+    <Pre>None</Pre>
+    <Post>Closes a valve. Throws DeviceFailureException if the valve fails.</Post>
+   </artifact>
+ <artifact>
+    <id>SArch579</id>
+    <content>1.4.2.1.21 Create virtual devices</content>
+    <Syntax>createSensorDevice( id : String ) : SensorDevice createValveDevice( id : String, rate ) : ValveDevice createDisplayDevice() : DisplayDevice createKeypadDevice() : KeypadDevice createScreenButtonDevice() : ScreenButtonDevice createClockDevice() : ClockDevice createStorageDevice() : StorageDevice</Syntax>
+    <Pre>id is not null.</Pre>
+    <Post>The desired virtual device is created. The virtual device is fully configured and connected to real or simulated hardware.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch590</id>
+    <content>1.4.2.2 Services Required The Device Interface layer uses actual or simulated hardware. The details of these services vary: That is the point of having a device interface layer. This layer also requires a Day enumeration type and a DeviceFailureException class. The ClockDevice requires some sort of real or simulated device that notifies it when one minute has passed.</content>
+   <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch591</id>
+    <content>1.4.2.3 Usage Guide The Clock, not the ClockDevice, is the main time and time notification service provider. The Clock is a singleton, so it is globally visible. It is also an observable, so it can be accessed from any layer and arbitrarily many observers can register with it for time notifications.The extra parameter in getData() is there to make it easy to initialize the persistent store when the program is run for the first time. Default persistent values are supplied, and they will be written to the persistent store even if the store did not previously exist.&#10;All sensors, valves, and zones are identified across layers using String identifiers. Hence these must match up and be hooked into whatever mechanism is used to associate virtual devices with real or simulated hardware.&#10;</content>
+   <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch592</id>
+    <content>1.4.3 Device Interface Layer Design Rationale Other versions of this layer did not include the DeviceFactory. The DeviceFactory is part of the Abstract Factory pattern, which allows the details of virtual device configuration to be hidden inside concrete factories and makes it very easy to change the configuration. Design alternatives that include the Abstract Factory pattern are clearly superior.A question that was revisited several times was how the clock should be handled. Does there need to be a Clock distinct from a ClockDevice? On the one hand, the ClockDevice is supposed to provide a virtual device as an interface to real or simulated hardware, while a Clock provides time and notification services to clients. These are distinct responsibilities, so it appears that there ought to be two entities. On the other hand, in practice the services provided by a Clock are almost identical to those of a ClockDevice, and it is not good to multiply entities beyond necessity. In the end the alternative with a distinct Clock and ClockDevice was chosen to maintain uniformity with the rest of the modules in the Device Interface layer.Having resolved the issue of whether the Clock is distinct from the ClockDevice, the question of where the Clock should reside arises. On the one hand, the Clock is responsible for providing time and notification services rather than a uniform interface to hardware, suggesting that it should not be in the Device Interface layer. On the other hand, a Clock is a kind of device and it does not fit particularly well in any other layer, so perhaps the best home for it is the Device Interface layer. The latter argument seems slightly more persuasive, so the Clock is in the Device Interface layer. It could be moved easily, however.</content>
+   <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch593</id>
+    <content>1.5 Irrigation Layer Decomposition The Irrigation layer is the core of AquaLush in the sense that it realizes the program’s main function of controlling irrigation. Its architectural structure is quite simple: It contains a façade module that provides operations for configuration, setting irrigation parameters, and controlling manual irrigation. These operations depend on an enumeration type and several classes that merely package data about the state of the program for return from query functions. The class diagram in Figure B-10-12 illustrates this structure. The classes with the «constant» stereotype are immutable data containers that simply hold values returned by query operations.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch879</id>
+    <content>Figure B-10-12 Irrigation Layer Structure</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch594</id>
+    <content>1.5.1 Irrigation Layer Module Responsibilities Module:Responsibilities.Irrigator:Hold irrigation parameters, oversee irrigation cycles, and provide a façade to the rest of the irrigation-layer facilities.&#10;Mode:Enumeration values for program modes.&#10;ZoneReport:Record providing data about irrigation zones.&#10;ValveReport:Record providing data about the state of a valve.&#10;SensorReport:Record providing data about the state of a sensor.&#10;IrrigationReport:Record providing data about the state of an irrigation cycle.&#10;FailureReport:Record containing ValveReport and SensorReport instances for failed valves and sensors.&#10;</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch620</id>
+    <content>1.5.2 Irrigation Layer Interface Specifications</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch621</id>
+    <content>1.5.2.1 Services Provided All operations with preconditions on parameters throw IllegalArgumentExceptions if the preconditions are violated.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch622</id>
+    <content>1.5.2.1.1 Create irrigation objects</content>
+    <Syntax>create( s : StorageDevice )</Syntax>
+    <Pre>s is not null.</Pre>
+    <Post>Irrigation-layer objects are created and initialized.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch633</id>
+    <content>1.5.2.1.2 Set and get irrigation parameters</content>
+    <Syntax>setMode( m : Mode ) getMode() : Mode setAllocation( a : int ) getAllocation() : int setIrrigationTime( t : int ) &#10;getIrrigationTime() : t setIrrigationDays( s : Set ) &#10;getIrrigationDays() : Set&#10;</Syntax>
+    <Pre>0 &lt; a and t is a valid military time specification and s is a set of Day.</Pre>
+    <Post>The irrigation parameters are set or fetched. Changes are recorded in the persistent</Post>
+   </artifact>
+   <artifact>
+    <id>SArch644</id>
+    <content>1.5.2.1.3 Add a zone</content>
+    <Syntax>addZone( id : String, loc : String )</Syntax>
+    <Pre>id and loc are not null; id is unique.</Pre>
+    <Post>The layer is configured with a new zone.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch655</id>
+    <content>1.5.2.1.4 Add a sensor</content>
+    <Syntax>addSensor( zid: String, id : String, loc : String, d : SensorDevice )</Syntax>
+    <Pre>No parameter is null and the designated zone does not have a sensor.</Pre>
+    <Post>Adds a sensor to the designated zone. Throws an IllegalStateException if the zone already has a sensor.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch666</id>
+    <content>1.5.2.1.5 Add a valve</content>
+    <Syntax>addValve( zid: String, id : String, loc : String, rate : int, d : ValveDevice )</Syntax>
+    <Pre>No parameter is null and 0 &lt; rate and the designated zone does not have 32 valves</Pre>
+    <Post>Adds a sensor to the designated zone. Throws an IllegalStateException if the zone already has 32 valves.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch677</id>
+    <content>1.5.2.1.6 Restore program state</content>
+    <Syntax>restoreState()</Syntax>
+    <Pre>Layer configuration is complete.</Pre>
+    <Post>Persistent store is read and the previous state of the program is restored.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch688</id>
+    <content>1.5.2.1.7 Set or get a zone’s critical moisture level</content>
+    <Syntax>setCriticalMoistureLevel( zid : String, level : int ) getCriticalMoistureLevel( zid : String ) : int</Syntax>
+    <Pre>zid is not null and names a registered zone and 0 &lt;= level &lt;= 100.</Pre>
+    <Post>The designated zone’s critical moisture level is set or returned and 0 &lt;= result &lt;= 100. The change is recorded in persistent store.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch699</id>
+    <content>1.5.2.1.8 Start and end manual irrigation cycles</content>
+    <Syntax>startManualCycle() endManualCycle()</Syntax>
+    <Pre>mode is MANUAL</Pre>
+    <Post>A manual irrigation cycle is started or ended and waterUsed is set to zero when a cycle starts. Throws an IllegalStateException if mode is not MANUAL.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch710</id>
+    <content>1.5.2.1.9 Manually open or close a valve</content>
+    <Syntax>openValve( id : String ) closeValve( id : String )</Syntax>
+    <Pre>id is not null and id names a registered valve and mode is MANUAL.</Pre>
+    <Post>A valve is opened or closed. Attempts to open or close failed valves do nothing. Throws an IllegalStateException if mode is not MANUAL.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch721</id>
+    <content>1.5.2.1.10 Obtain irrigation cycle data</content>
+    <Syntax>getIrrigationReport() : IrrigationReport</Syntax>
+    <Pre>None.</Pre>
+    <Post>The IrrigationReport is populated and returned.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch732</id>
+    <content>1.5.2.1.11 Get zone data</content>
+    <Syntax>getZoneReports() : Collection getZoneReport( id : String ) : ZoneReport</Syntax>
+    <Pre>id is not null and names a registered zone.</Pre>
+    <Post>If no zone is identified, a collection of ZoneReports, one for each registered zone, is populated and returned. If a zone is identified, a report for that zone is populated and returned.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch743</id>
+    <content>1.5.2.1.12 Get sensor data</content>
+    <Syntax>getSensorReports() : Collection getSensorReport( id : String ) : SensorReport</Syntax>
+    <Pre>id is not null and names a registered sensor.</Pre>
+    <Post>If no sensor is identified, a collection of SensorReports, one for each registered sensor, is populated and returned. If a sensor is identified, a report for that sensor is populated and returned.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch754</id>
+    <content>1.5.2.1.13 Get valve data</content>
+    <Syntax>getValveReports() : Collection getValveReport( id : String ) : ValveReport</Syntax>
+    <Pre>id is not null and names a registered valve.</Pre>
+    <Post>If no valve is identified, a collection of ValveReports, one for each registered valve, is populated and returned. If a valve is identified, a report for that valve is populated and returned.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch765</id>
+    <content>1.5.2.1.14 Get a failed hardware report</content>
+    <Syntax>getFailureReport() : FailureReport</Syntax>
+    <Pre>A new FailureReport is created and populated. It will contain ValveReports and SensorReports only for failed devices.</Pre>
+    <Post>A new FailureReport is created and populated. It will contain ValveReports and SensorReports only for failed devices.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch776</id>
+    <content>1.5.2.1.15 Mark a device as repaired</content>
+    <Syntax>repairDevice( id : String )</Syntax>
+    <Pre>id is not null and names a registered valve or sensor.</Pre>
+    <Post>The indicated valve or sensor is marked as repaired. The change is recorded in persistent store.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch787</id>
+    <content>1.5.2.2 Services Required The Irrigation layer uses the following operations from the Device Interface layer: ValveDevice.open(), ValveDevice.close(), SensorDevice.read(), StorageDevice.setData(), StorageDevice.getData(), Clock.getTime(), Clock.setTime(), Clock.getDay(), Clock.setDay(), Clock.addObserver(). The Irrigator is the Clock observer.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch788</id>
+    <content>1.5.2.3 Usage Guide The Irrigation layer should be completely configured using the addX() operations before the restoreState() operation is called. The restoreState() operation uses the Irrigation layer configuration to obtain system state values such as device failure states; if the configuration is not complete, these state values will not be set correctly.The Irrigator registers itself with the Clock, so a client should not do this.The various report classes are merely containers for groups of values. They are intended to be used by the User Interface layer to populate screens with data about the state of the system, especially during manual irrigation. They are supposed to provide a wide range of information so they will not have to be changed even if the user interface is changed. Note that because the system is changing during irrigation, the values in the report become stale, so they need be retrieved anew every minute or after every change.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch789</id>
+    <content>1.5.3 Irrigation Layer Design Rationale There are many design alternatives that expose the internals of the Irrigation layer by making the Zone, Sensor, and Valve classes part of the layer interface. This makes the Irrigator class much simpler and obviates the need for the many report classes used to return data about the configuration, the state of irrigation, and device states. Such alternatives have two problems: By exposing the internal structure of this layer they make it much harder to change in the future because they do not hide information, and they make it much harder to enforce constraints on irrigation behavior. To illustrate this last point, the alternative previously documented does not allow valves to be manually opened or closed unless the mode is automatic. Allowing direct access to valves would make it harder to enforce this constraint. It seems clear that the previous alternative is the best choice because it favors information hiding and control over simplicity.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+  <artifact>
+    <id>SArch790</id>
+    <content>1.6 User Interface Layer Decomposition The User Interface layer is responsible for coordinating user interaction with output on a monochrome textual display and input from a 12-key keypad and 8 screen buttons. This layer has a UIController that executes a state machine derived from the user interface dialog map. The controller dispatches input from the keypad, screen buttons, and the clock to the currently active screen.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch880</id>
+    <content>Figure B-10-15 User Interface Layer Structure</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch791</id>
+    <content>1.6.1 User Interface Layer Module Responsibilities Module:Responsibilities.UIController: Execute a state machine whose states are screens from the dialog map. Dispatch user input and clock notifications to the current screen.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch799</id>
+    <content>1.6.2 User Interface Layer Interface Specifications</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch800</id>
+    <content>1.6.2.1 Services Provided All operations with preconditions on parameters throw IllegalArgumentExceptions if the preconditions are violated.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch801</id>
+    <content>1.6.2.1.1 Create the user interface</content>
+    <Syntax>create( d : DisplayDevice, w : Irrigator )</Syntax>
+    <Pre>d and w are not null.</Pre>
+    <Post>The user interface controller is created and the initial screen in the program is activated.</Post>
+   </artifact>
+   <artifact>
+    <id>SArch812</id>
+    <content>1.6.2.2 Services Required The User Interface layer uses almost all the operations from the Irrigation layer. From the Device Interface layer, it uses all the services provided by the DisplayDevice and the Clock, which it observes. This layer also uses the KeyPress enumeration from the Device Interface layer.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch813</id>
+    <content>1.6.2.3 Usage Guide The UIController must be registered as the listener for the KeypadDevice and the ScreenButtonDevice to receive notifications from them. It registers itself with the Clock.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch814</id>
+    <content>1.6.3 User Interface Layer Design Rationale Although the intent is for this layer to implement a state machine realizing the user interface dialog map, the architecture description is so general that any sort of implementation is possible: The UIController can be treated as a façade hiding all sorts of alternative implementations. This is perhaps the best reason to prefer this architectural alternative. Other alternatives would provide more detail that would constrain the detailed design alternatives.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch815</id>
+    <content>1.7 Runtime Components Figure B-10-18 depicts the runtime configuration of AquaLush.The Startup component executes first and configures the remaining parts of the program using the data it reads from the AquaLush Configuration data store. The User interacts with the AquaLush Control Panel, which interacts with the User Interface. The User Interface translates the User’s desires into interactions with the Irrigation Control component to set the mode of the program, set program parameters, and control manual irrigation. The Irrigation Control component maintains a copy of its state in the AquaLush State data store and uses it to recover its state when it starts up after loss of power. The Irrigation Control component interacts with the Valves/Sensors component, which reads hardware (or simulated) Sensors and controls hardware (or simulated) Valves.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch816</id>
+    <content>Figure B-10-18 AquaLush Runtime Structure</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch817</id>
+    <content>2 Mapping Between Models Table B-10-19 indicates the uses relations between layers and their constituents. The layers in the rows use the classes in the columns. User InterfaceIrrigation Device Interface Simulation&#10;Startup:UIControllerIrrigator&#10;DeviceFactory KeypadDevice ScreenButtonDevice&#10;Simulation&#10;User Interface: Irrigator Clock DisplayDevice&#10;Irrigation:   Clock ValveDevice SensorDevice StorageDevice&#10;Device Interface:     SimTime SimDisplay SimValve SimSensor SimStore&#10;</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+   <artifact>
+    <id>SArch849</id>
+    <content>The runtime components shown in Figure B-10-18 are comprised of the modules and data stores shown in Table B-10-20. Runtime Component:Modules&#10;Startup:Startup layer configuration module(s), plus DeviceInterface.DeviceFactory&#10;AquaLush Configuration:Configuration specification (file or applet parameters)&#10;Control Panel:DeviceInterface.DisplayDevice, DeviceInterface.KeypadDevice, and DeviceInterface.ScreenButtonDevice; display, keypad, and screen button hardware or Simulation.SimDisplay and a simulated keypad&#10;User Interface:UserInterface.UIController&#10;Irrigation Control:The objects in the Irrigation layer, plus DeviceInterface.StorageDevice, DeviceInterface.Clock, DeviceInterface.ClockDevice, Simulation.SimStore, or a configuration file, and Simulation.SimTime or real clock hardware&#10;Valves/Sensors:DeviceInterface.ValveDevice, DeviceInterface.SensorDevice&#10;Valves and Sensors:Simulation.SimValve, Simulation.SimSensor, or actual hardware sensors and valves&#10;</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+    <artifact>
+    <id>SArch875</id>
+    <content>3 Architectural Design Rationale The layers in this program are rather unusual, but they are arranged as they are to satisfy one of the most important AquaLush quality attributes: configurability. Because the core software, principally the contents of the Irrigation layer, must run unchanged in a simulation or in a fielded product, the program must be configurable so that all interactions with its environment can be changed. This includes things that are usually not considered part of the environment, such as time (because simulated time may be faster, slower, or even stop), and things that are usually taken for granted (such as the persistent store, which may not be accessible in an applet).There is no reasonable alternative except to have a Device Interface layer. It uses the Simulation layer to provide the entire external environment during a simulation and hardware devices, a file system, and the system clock in a fielded program. In either case, the Device Interface layer shields the rest of the program from having to deal with the differences occasioned by these radically different environments.User interfaces are usually coded using the user interface toolkit provided by a programming environment. However, since the AquaLush simulation uses a GUI and the fielded program uses ATM-like hardware, the user interface must either be coded in several versions or coded once in a device-independent component that uses virtual devices. The latter alternative is clearly preferable. Furthermore, it makes sense to separate the User Interface layer from the Irrigation layer so that the latter can be unchanged even if the user interface is altered.Finally, the complexity of the configuration problem suggests the need for a layer responsible for configuring the program at startup. Isolating this task in one place makes it easier to code, test, and modify. The Startup layer is responsible for this task.</content>
+    <Syntax/>
+    <Pre/>
+    <Post/>
+   </artifact>
+  </artifacts_collection>

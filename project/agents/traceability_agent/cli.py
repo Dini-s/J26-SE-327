@@ -64,10 +64,8 @@ def cmd_link(args: argparse.Namespace) -> int:
         candidates = agent.find_candidates(sources, targets)
         existing = {(t.source_id, t.target_id) for t in uskg.get_traces()}
         candidates = [c for c in candidates if (c.source.id, c.target.id) not in existing]
-        links = agent.verify_candidates(candidates)
-        if not args.dry_run:
-            for link in links:
-                uskg.write_link(link)
+        # each confirmed link is written immediately, so a failure mid-run keeps what was found
+        links = agent.verify_candidates(candidates, on_link=None if args.dry_run else uskg.write_link)
         logger.emit("run_end", metrics={}, links=len(links), written=not args.dry_run)
     print(f"{len(sources)} requirements, {len(candidates)} candidates verified, {len(links)} links "
           f"{'found (dry run, nothing written)' if args.dry_run else 'written'}. Run log: {logger.path}")

@@ -17,7 +17,9 @@ Why two stages (retrieval-then-verify)?
 
 import logging
 import time
-from typing import Any, Optional
+from typing import Any, Callable, Optional
+
+from openai import APIError
 
 from agents.traceability_agent.config import (
     CHUNK_WORDS,
@@ -43,6 +45,8 @@ from shared.schemas.traceability import Artifact, TraceabilityLink, Traceability
 from shared.uskg.client import USKGClient
 
 logger = logging.getLogger(__name__)
+
+MAX_CONSECUTIVE_LLM_FAILURES = 3  # abort instead of grinding through candidates while the LLM server is down
 
 __all__ = ["Candidate", "TraceabilityAgent"]
 
@@ -154,20 +158,30 @@ class TraceabilityAgent:
                 )
         return candidates
 
-    def verify_candidates(self, candidates: list[Candidate]) -> list[TraceabilityLink]:
+    def verify_candidates(
+        self,
+        candidates: list[Candidate],
+        on_link: Optional[Callable[[TraceabilityLink], None]] = None,
+    ) -> list[TraceabilityLink]:
         """Stage 2 (precision): have the LLM confirm each shortlisted pair.
 
         A pair is kept only if the LLM says ``is_linked`` with confidence at or
         above ``pass_threshold``. Candidates whose LLM reply is malformed are
-        logged and skipped so one bad reply cannot abort the whole run.
+        logged and skipped so one bad reply cannot abort the whole run. Transport errors
+        (server down, 5xx, timeouts after the SDK's own retries) skip that candidate too,
+        but ``MAX_CONSECUTIVE_LLM_FAILURES`` in a row means the server is down and the run
+        stops with the error rather than silently verifying nothing.
 
         Args:
             candidates: Pairs produced by :meth:`find_candidates`.
+            on_link: Called with each confirmed link immediately (e.g. to write it to the
+                graph), so a crash later in the run does not lose links already confirmed.
 
         Returns:
             Links for the pairs the LLM confirmed.
         """
         links: list[TraceabilityLink] = []
+        consecutive_failures = 0
         if self.run_logger:
             self.run_logger.emit("verify_start", total=len(candidates))
         for index, candidate in enumerate(candidates, start=1):
@@ -182,6 +196,7 @@ class TraceabilityAgent:
                 if elapsed > MAX_VERIFY_SECONDS:
                     logger.warning("Slow verification (%.1fs > %.1fs)", elapsed, MAX_VERIFY_SECONDS)
 
+                consecutive_failures = 0
                 is_linked = result["is_linked"]
                 if not isinstance(is_linked, bool):
                     raise ValueError(f"is_linked must be a bool, got {is_linked!r}")
@@ -202,16 +217,30 @@ class TraceabilityAgent:
                     )
                 if not kept:
                     continue
-                links.append(
-                    TraceabilityLink(
+                link = TraceabilityLink(
+                    source_id=candidate.source.id,
+                    target_id=candidate.target.id,
+                    link_type=f"{candidate.source.type}_to_{candidate.target.type}",
+                    confidence=confidence,
+                    justification=str(result["reasoning"]),
+                    text_hash=content_hash(candidate.source, candidate.target),
+                )
+                links.append(link)
+                if on_link is not None:
+                    on_link(link)
+            except APIError as exc:
+                consecutive_failures += 1
+                if self.run_logger:
+                    self.run_logger.emit(
+                        "llm_error",
+                        index=index,
                         source_id=candidate.source.id,
                         target_id=candidate.target.id,
-                        link_type=f"{candidate.source.type}_to_{candidate.target.type}",
-                        confidence=confidence,
-                        justification=str(result["reasoning"]),
-                        text_hash=content_hash(candidate.source, candidate.target),
+                        error=f"{type(exc).__name__}: {str(exc)[:150]}",
                     )
-                )
+                logger.warning("LLM call failed for %s -> %s: %s", candidate.source.id, candidate.target.id, type(exc).__name__)
+                if consecutive_failures >= MAX_CONSECUTIVE_LLM_FAILURES:
+                    raise
             except (KeyError, TypeError, ValueError) as exc:
                 if self.run_logger:
                     self.run_logger.emit(
@@ -245,8 +274,5 @@ class TraceabilityAgent:
         if skip_existing:
             existing = {(t.source_id, t.target_id) for t in self.uskg.get_traces()}
             candidates = [c for c in candidates if (c.source.id, c.target.id) not in existing]
-        links = self.verify_candidates(candidates)
-        if write:
-            for link in links:
-                self.uskg.write_link(link)
+        links = self.verify_candidates(candidates, on_link=self.uskg.write_link if write else None)
         return TraceabilityResponse(links=links)
