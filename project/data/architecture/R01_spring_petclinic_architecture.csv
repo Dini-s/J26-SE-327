@@ -1,7 +1,6 @@
 repository,package_path,java_files,lines_of_code,fan_in,fan_out,total_coupling,instability
-R01_spring_petclinic,org.springframework.samples.petclinic,3,90,0,3,3,1.0
-R01_spring_petclinic,org.springframework.samples.petclinic.model,4,179,4,0,4,0.0
-R01_spring_petclinic,org.springframework.samples.petclinic.owner,12,1130,2,1,3,0.3333333333333333
-R01_spring_petclinic,org.springframework.samples.petclinic.system,5,196,0,0,0,0.0
-R01_spring_petclinic,org.springframework.samples.petclinic.vet,6,304,2,1,3,0.3333333333333333
-R01_spring_petclinic,org.springframework.samples.petclinic.service,0,0,0,3,3,1.0
+R01_spring_petclinic,org.springframework.samples.petclinic,3,93,0,2,2,1.0
+R01_spring_petclinic,org.springframework.samples.petclinic.model,4,183,3,0,3,0.0
+R01_spring_petclinic,org.springframework.samples.petclinic.owner,12,1142,0,1,1,1.0
+R01_spring_petclinic,org.springframework.samples.petclinic.system,5,201,0,0,0,0.0
+R01_spring_petclinic,org.springframework.samples.petclinic.vet,6,310,1,1,2,0.5
