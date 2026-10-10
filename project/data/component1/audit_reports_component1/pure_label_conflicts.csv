@@ -1,0 +1,39 @@
+﻿sentence,NFR_boolean,id,label_column,security
+Any encrypted and integrity protected link.,1.0,eCFR — 45 CFR part 170 Complete  20130117 - parsed.json_296,NFR_boolean,
+Provide certain users with the ability to adjust notifications provided for drug-drug and drug-allergy interaction checks.,1.0,eCFR — 45 CFR part 170 Complete  20130117 - parsed.json_397,NFR_boolean,
+Enable a user to electronically check if drugs are in a formulary or preferred drug list.,0.0,eCFR — 45 CFR part 170 Complete  20130117 - parsed.json_399,NFR_boolean,
+Any encrypted and integrity protected link.,0.0,EMR-RFP12-009-ITS-CombinedRequirements - parsed.json_1811,NFR_boolean,
+Provide certain users with the ability to adjust notifications provided for drug-drug and drug-allergy interaction checks.,0.0,EMR-RFP12-009-ITS-CombinedRequirements - parsed.json_1822,NFR_boolean,
+Enable a user to electronically check if drugs are in a formulary or preferred drug list.,1.0,EMR-RFP12-009-ITS-CombinedRequirements - parsed.json_1824,NFR_boolean,
+(B) Review requests for disclosure on an individual basis in accordance with such criteria.,0.0,HIPAA Combined Rule - parsed.json_2135,NFR_boolean,
+(B) Review requests for disclosure on an individual basis in accordance with such criteria.,1.0,HIPAA Combined Rule - parsed.json_2146,NFR_boolean,
+#NAME?,0.0,LACountyEHR_Requirements - parsed.json_1055,NFR_boolean,
+#NAME?,0.0,LACountyEHR_Requirements - parsed.json_1056,NFR_boolean,
+#NAME?,0.0,LACountyEHR_Requirements - parsed.json_1057,NFR_boolean,
+#NAME?,0.0,LACountyEHR_Requirements - parsed.json_1058,NFR_boolean,
+#NAME?,0.0,LACountyEHR_Requirements - parsed.json_1067,NFR_boolean,
+#NAME?,0.0,LACountyEHR_Requirements - parsed.json_1068,NFR_boolean,
+#NAME?,1.0,LACountyEHR_Requirements - parsed.json_1080,NFR_boolean,
+Click the 'Continue' button.,1.0,OpenEMR_4_1_1_Linux_Installation - parsed.json_55,NFR_boolean,
+Click the 'Continue' button.,0.0,OpenEMR_4_1_1_Linux_Installation - parsed.json_64,NFR_boolean,
+Click the 'Continue' button.,0.0,OpenEMR_4_1_1_Linux_Installation - parsed.json_72,NFR_boolean,
+Click the 'Continue' button.,0.0,OpenEMR_4_1_1_Linux_Installation - parsed.json_79,NFR_boolean,
+Any encrypted and integrity protected link.,,eCFR — 45 CFR part 170 Complete  20130117 - parsed.json_296,security,1.0
+Provide certain users with the ability to adjust notifications provided for drug-drug and drug-allergy interaction checks.,,eCFR — 45 CFR part 170 Complete  20130117 - parsed.json_397,security,1.0
+Enable a user to electronically check if drugs are in a formulary or preferred drug list.,,eCFR — 45 CFR part 170 Complete  20130117 - parsed.json_399,security,0.0
+Any encrypted and integrity protected link.,,EMR-RFP12-009-ITS-CombinedRequirements - parsed.json_1811,security,0.0
+Provide certain users with the ability to adjust notifications provided for drug-drug and drug-allergy interaction checks.,,EMR-RFP12-009-ITS-CombinedRequirements - parsed.json_1822,security,0.0
+Enable a user to electronically check if drugs are in a formulary or preferred drug list.,,EMR-RFP12-009-ITS-CombinedRequirements - parsed.json_1824,security,1.0
+(B) Review requests for disclosure on an individual basis in accordance with such criteria.,,HIPAA Combined Rule - parsed.json_2135,security,0.0
+(B) Review requests for disclosure on an individual basis in accordance with such criteria.,,HIPAA Combined Rule - parsed.json_2146,security,1.0
+#NAME?,,LACountyEHR_Requirements - parsed.json_1055,security,0.0
+#NAME?,,LACountyEHR_Requirements - parsed.json_1056,security,0.0
+#NAME?,,LACountyEHR_Requirements - parsed.json_1057,security,0.0
+#NAME?,,LACountyEHR_Requirements - parsed.json_1058,security,0.0
+#NAME?,,LACountyEHR_Requirements - parsed.json_1067,security,0.0
+#NAME?,,LACountyEHR_Requirements - parsed.json_1068,security,0.0
+#NAME?,,LACountyEHR_Requirements - parsed.json_1080,security,1.0
+Click the 'Continue' button.,,OpenEMR_4_1_1_Linux_Installation - parsed.json_55,security,1.0
+Click the 'Continue' button.,,OpenEMR_4_1_1_Linux_Installation - parsed.json_64,security,0.0
+Click the 'Continue' button.,,OpenEMR_4_1_1_Linux_Installation - parsed.json_72,security,0.0
+Click the 'Continue' button.,,OpenEMR_4_1_1_Linux_Installation - parsed.json_79,security,0.0

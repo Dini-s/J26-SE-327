@@ -1,0 +1,153 @@
+﻿file_name,extension,file_size_bytes,modified_time,source_path
+nfr.arff,.arff,82460,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\nfr.arff
+P10_NFR_FR_trace.arff,.arff,11713,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P10_NFR_FR_trace.arff
+P1_NFR_FR_trace.arff,.arff,7259,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P1_NFR_FR_trace.arff
+P2_NFR_FR_trace.arff,.arff,8765,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P2_NFR_FR_trace.arff
+P3_NFR_FR_trace.arff,.arff,19914,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P3_NFR_FR_trace.arff
+P4_NFR_FR_trace.arff,.arff,16922,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P4_NFR_FR_trace.arff
+P5_NFR_FR_trace.arff,.arff,15619,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P5_NFR_FR_trace.arff
+P6_NFR_FR_trace.arff,.arff,17566,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P6_NFR_FR_trace.arff
+P7_NFR_FR_trace.arff,.arff,6565,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P7_NFR_FR_trace.arff
+P8_NFR_FR_trace.arff,.arff,19563,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P8_NFR_FR_trace.arff
+P9_NFR_FR_trace.arff,.arff,5852,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\P(1-10)_NFR_FR_trace\P9_NFR_FR_trace.arff
+basic.csv,.csv,31340,2025-07-17T16:22:14,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\comparison_datasets\2_synthetic_reqs\basic.csv
+brown.csv,.csv,21077403,2025-07-17T16:22:14,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\comparison_datasets\3_generic_text\brown.csv
+context.csv,.csv,30679,2025-07-17T16:22:14,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\comparison_datasets\2_synthetic_reqs\context.csv
+context_role.csv,.csv,39201,2025-07-17T16:22:14,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\comparison_datasets\2_synthetic_reqs\context_role.csv
+PROMISE-relabeled-NICE.csv,.csv,95725,2026-10-09T00:47:46,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\PROMISE-relabeled-NICE.csv
+promise.csv,.csv,85182,2026-10-09T00:33:22,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\comparison_datasets\1_real_life_reqs\promise.csv
+pure_subset.csv,.csv,1947289,2025-07-17T16:22:14,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\comparison_datasets\1_real_life_reqs\pure_subset.csv
+QuRE.csv,.csv,332770,2026-10-09T00:31:55,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\QuRE.csv
+security_requirements.csv,.csv,95193,2025-07-17T16:22:14,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\comparison_datasets\1_real_life_reqs\security_requirements.csv
+software_requirements_extended.csv,.csv,128376,2023-02-19T13:09:40,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\software_requirements_extended.csv
+user_stories.csv,.csv,248888,2025-07-17T16:22:14,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\comparison_datasets\1_real_life_reqs\user_stories.csv
+2000 - nasa x38.doc,.doc,922112,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2000 - nasa x38.doc
+2001 - libra.doc,.doc,92672,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - libra.doc
+2001 - npac.doc,.doc,2618368,2016-03-22T14:58:06,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - npac.doc
+2004 - ijis.doc,.doc,230400,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - ijis.doc
+2004 - jse.doc,.doc,692224,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - jse.doc
+2004 - philips.doc,.doc,214528,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - philips.doc
+2005 - clarus high.doc,.doc,1021952,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - clarus high.doc
+2007 - e-store.doc,.doc,105472,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - e-store.doc
+2007 - nlm.doc,.doc,3478016,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - nlm.doc
+2008 - viper.doc,.doc,1979904,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2008 - viper.doc
+2008 - virtual ed.doc,.doc,692736,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2008 - virtual ed.doc
+2009 - library.doc,.doc,100864,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - library.doc
+2011 - opensg 0.1.doc,.doc,470528,2016-03-22T14:58:05,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2011 - opensg 0.1.doc
+1999 - dii.htm,.htm,52687,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\1999 - dii.htm
+1999 - multi-mahjong.html,.html,93675,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\1999 - multi-mahjong.html
+2005 - nenios.html,.html,116136,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - nenios.html
+0000 - cctns.pdf,.pdf,350677,2016-03-22T14:57:57,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\0000 - cctns.pdf
+0000 - gamma j.pdf,.pdf,1292947,2016-03-22T14:57:57,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\0000 - gamma j.pdf
+0000 - inventory.pdf,.pdf,837509,2016-03-22T14:57:57,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\0000 - inventory.pdf
+1995 - gemini.pdf,.pdf,5128485,2016-03-22T14:57:57,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\1995 - gemini.pdf
+1998 - themas.pdf,.pdf,68429,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\1998 - themas.pdf
+1999 - tcs.pdf,.pdf,588229,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\1999 - tcs.pdf
+2001 - beyond.pdf,.pdf,604084,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - beyond.pdf
+2001 - ctc network.pdf,.pdf,277703,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - ctc network.pdf
+2001 - elsfork.pdf,.pdf,950557,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - elsfork.pdf
+2001 - esa.pdf,.pdf,102821,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - esa.pdf
+2001 - hats.pdf,.pdf,377900,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - hats.pdf
+2001 - space fractions.pdf,.pdf,103193,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - space fractions.pdf
+2001 - telescope.pdf,.pdf,701945,2016-03-22T14:57:58,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2001 - telescope.pdf
+2002 - evla back.pdf,.pdf,247337,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2002 - evla back.pdf
+2002 - evla corr.pdf,.pdf,57698,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2002 - evla corr.pdf
+2002 - sce api.pdf,.pdf,746386,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2002 - sce api.pdf
+2003 - agentmom.pdf,.pdf,28814,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2003 - agentmom.pdf
+2003 - pnnl.pdf,.pdf,1668868,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2003 - pnnl.pdf
+2003 - qheadache.pdf,.pdf,72966,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2003 - qheadache.pdf
+2003 - tachonet.pdf,.pdf,366464,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2003 - tachonet.pdf
+2004 - colorcast.pdf,.pdf,77602,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - colorcast.pdf
+2004 - grid bgc.pdf,.pdf,124522,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - grid bgc.pdf
+2004 - rlcs.pdf,.pdf,598933,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - rlcs.pdf
+2004 - sprat.pdf,.pdf,362599,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - sprat.pdf
+2004 - watcom gui.pdf,.pdf,828896,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - watcom gui.pdf
+2004 - watcom.pdf,.pdf,801604,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - watcom.pdf
+2005 - clarus low.pdf,.pdf,664919,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - clarus low.pdf
+2005 - grid 3D.pdf,.pdf,164056,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - grid 3D.pdf
+2005 - microcare.pdf,.pdf,639507,2016-03-22T14:58:00,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - microcare.pdf
+2005 - phin.pdf,.pdf,134701,2016-03-22T15:11:32,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - phin.pdf
+2005 - pontis.pdf,.pdf,2702800,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - pontis.pdf
+2005 - triangle.pdf,.pdf,111158,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - triangle.pdf
+2005 - znix.pdf,.pdf,157806,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2005 - znix.pdf
+2006 - eirene sys 15.pdf,.pdf,889601,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2006 - eirene sys 15.pdf
+2006 - stewards.pdf,.pdf,431631,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2006 - stewards.pdf
+2007 - central trading system.pdf,.pdf,186273,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - central trading system.pdf
+2007 - eirene fun 7.pdf,.pdf,393868,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - eirene fun 7.pdf
+2007 - ertms.pdf,.pdf,193210,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - ertms.pdf
+2007 - get real 0.2.pdf,.pdf,39711,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - get real 0.2.pdf
+2007 - mdot.pdf,.pdf,515595,2016-03-22T14:58:01,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - mdot.pdf
+2007 - nde.pdf,.pdf,376618,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - nde.pdf
+2007 - puget sound.pdf,.pdf,686573,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - puget sound.pdf
+2007 - water use.pdf,.pdf,201046,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2007 - water use.pdf
+2008 - caiso.pdf,.pdf,141978,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2008 - caiso.pdf
+2008 - keepass.pdf,.pdf,118767,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2008 - keepass.pdf
+2008 - peering.pdf,.pdf,1554816,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2008 - peering.pdf
+2008 - vub.pdf,.pdf,220333,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2008 - vub.pdf
+2009 - email.pdf,.pdf,113292,2016-03-22T14:58:02,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - email.pdf
+2009 - gaia.pdf,.pdf,432080,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - gaia.pdf
+2009 - inventory 2.0.pdf,.pdf,918592,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - inventory 2.0.pdf
+2009 - library.pdf,.pdf,120402,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - library.pdf
+2009 - model manager.pdf,.pdf,51864,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - model manager.pdf
+2009 - peazip.pdf,.pdf,789186,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - peazip.pdf
+2009 - peppol.pdf,.pdf,2114776,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - peppol.pdf
+2009 - video search.pdf,.pdf,80130,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - video search.pdf
+2009 - warc III.pdf,.pdf,549220,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2009 - warc III.pdf
+2010 - blit draft.pdf,.pdf,277514,2016-03-22T14:58:03,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2010 - blit draft.pdf
+2010 - fishing.pdf,.pdf,427907,2016-03-22T14:58:04,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2010 - fishing.pdf
+2010 - gparted.pdf,.pdf,1424942,2016-03-22T14:58:04,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2010 - gparted.pdf
+2010 - home 1.3.pdf,.pdf,132705,2016-03-22T14:58:04,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2010 - home 1.3.pdf
+2010 - mashboot.pdf,.pdf,573961,2016-03-22T14:58:04,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2010 - mashboot.pdf
+2010 - split merge.pdf,.pdf,2918527,2016-03-22T14:58:05,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2010 - split merge.pdf
+2004 - e-procurement.rtf,.rtf,1197411,2016-03-22T14:57:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\req\2004 - e-procurement.rtf
+g02-federalspending.txt,.txt,11235,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g02-federalspending.txt
+g03-loudoun.txt,.txt,9156,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g03-loudoun.txt
+g04-recycling.txt,.txt,6669,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g04-recycling.txt
+g05-openspending.txt,.txt,8718,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g05-openspending.txt
+g08-frictionless.txt,.txt,9695,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g08-frictionless.txt
+g10-scrumalliance.txt,.txt,13032,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g10-scrumalliance.txt
+g11-nsf.txt,.txt,9552,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g11-nsf.txt
+g12-camperplus.txt,.txt,7193,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g12-camperplus.txt
+g13-planningpoker.txt,.txt,7580,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g13-planningpoker.txt
+g14-datahub.txt,.txt,9441,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g14-datahub.txt
+g16-mis.txt,.txt,9001,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g16-mis.txt
+g17-cask.txt,.txt,8794,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g17-cask.txt
+g18-neurohub.txt,.txt,11958,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g18-neurohub.txt
+g19-alfred.txt,.txt,13272,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g19-alfred.txt
+g21-badcamp.txt,.txt,10263,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g21-badcamp.txt
+g22-rdadmp.txt,.txt,12210,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g22-rdadmp.txt
+g23-archivesspace.txt,.txt,4987,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g23-archivesspace.txt
+g24-unibath.txt,.txt,8270,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g24-unibath.txt
+g25-duraspace.txt,.txt,11612,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g25-duraspace.txt
+g26-racdam.txt,.txt,11779,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g26-racdam.txt
+g27-culrepo.txt,.txt,19389,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g27-culrepo.txt
+g28-zooniverse.txt,.txt,6241,2024-12-19T16:17:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\Requirements data sets (user stories)\g28-zooniverse.txt
+nfr.txt,.txt,67393,2020-03-22T11:35:16,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\archive (1)\nfr.txt
+README.txt,.txt,248,2016-06-02T21:17:25,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\nfr\README.txt
+test.txt,.txt,10618,2020-03-22T11:35:16,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\archive (1)\test.txt
+001_dataset1kv1.xlsx,.xlsx,123304,2020-11-10T21:48:38,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\001_dataset1kv1.xlsx
+002_dataset1kv1_smell_frequency_with_testability.xlsx,.xlsx,158356,2020-11-03T15:06:08,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\002_dataset1kv1_smell_frequency_with_testability.xlsx
+003_dataset1kv1_ARTA_result.xlsx,.xlsx,111225,2020-11-03T15:06:16,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\003_dataset1kv1_ARTA_result.xlsx
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,.xlsx,155017,2020-11-10T21:58:22,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx
+005_dataset1kv1_Smella_result.xlsx,.xlsx,104569,2020-10-26T15:15:42,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\005_dataset1kv1_Smella_result.xlsx
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,.xlsx,121176,2020-10-26T20:29:47,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,.xlsx,1420781,2025-07-11T15:32:24,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\User Story Ambiguity Dataset A Comprehensive Resea\Cornelius_2025_user_story_ambiguity_dataset.xlsx
+Cornelius_research_subsets.xlsx,.xlsx,1555001,2025-07-11T15:32:24,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\User Story Ambiguity Dataset A Comprehensive Resea\Cornelius_research_subsets.xlsx
+Cornelius_user_story_data_dictionary.xlsx,.xlsx,9459,2025-07-11T15:32:24,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\User Story Ambiguity Dataset A Comprehensive Resea\Cornelius_user_story_data_dictionary.xlsx
+dataset1kv1_ARTA_evaluation_metrics.xlsx,.xlsx,5720,2020-10-26T21:21:04,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\testability\dataset1kv1_ARTA_evaluation_metrics.xlsx
+dataset1kv1_ARTA_evaluation_metrics_1_EIRENE.xlsx,.xlsx,5728,2020-10-26T21:31:26,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\testability\dataset1kv1_ARTA_evaluation_metrics_1_EIRENE.xlsx
+dataset1kv1_ARTA_evaluation_metrics_2_ERTMS.xlsx,.xlsx,5726,2020-10-26T21:23:59,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\testability\dataset1kv1_ARTA_evaluation_metrics_2_ERTMS.xlsx
+dataset1kv1_ARTA_evaluation_metrics_3_CCTNS.xlsx,.xlsx,9746,2020-10-26T22:31:21,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\testability\dataset1kv1_ARTA_evaluation_metrics_3_CCTNS.xlsx
+dataset1kv1_ARTA_evaluation_metrics_4_Gamma-J.xlsx,.xlsx,9702,2020-10-26T22:33:06,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\testability\dataset1kv1_ARTA_evaluation_metrics_4_Gamma-J.xlsx
+dataset1kv1_ARTA_evaluation_metrics_5_KeePass.xlsx,.xlsx,9740,2020-10-26T22:35:19,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\testability\dataset1kv1_ARTA_evaluation_metrics_5_KeePass.xlsx
+dataset1kv1_ARTA_evaluation_metrics_6_Peering.xlsx,.xlsx,5715,2020-10-26T21:34:55,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\testability\dataset1kv1_ARTA_evaluation_metrics_6_Peering.xlsx
+dataset1kv1_evaluation.xlsx,.xlsx,12505,2020-10-29T11:45:31,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\smells\dataset1kv1_evaluation.xlsx
+dataset1kv1_evaluation_tabular_format.xlsx,.xlsx,11065,2020-10-26T00:56:56,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\smells\dataset1kv1_evaluation_tabular_format.xlsx
+dataset1kv1_evaluation_with_comparison_chart.xlsx,.xlsx,16363,2020-10-25T23:37:55,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\smells\dataset1kv1_evaluation_with_comparison_chart.xlsx
+dataset1kv1_Smella_evaluation_metrics.xlsx,.xlsx,5729,2020-10-26T20:42:51,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\DS1_Evaluation\testability\dataset1kv1_Smella_evaluation_metrics.xlsx
+DS1.xlsx,.xlsx,123805,2020-11-10T23:56:24,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\Datasets\DS1.xlsx
+DS2.xlsx,.xlsx,161080,2020-11-10T23:51:55,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\Datasets\DS2.xlsx
+DS3.xlsx,.xlsx,138502,2020-11-10T23:45:30,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\Datasets\DS3.xlsx
+DS4.xlsx,.xlsx,124809,2020-11-10T23:46:38,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\Datasets\DS4.xlsx
+FR_NFR_Dataset.xlsx,.xlsx,526985,2026-10-09T00:37:31,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\FR_NFR_Dataset.xlsx
+SmellyWordsDictionary.xlsx,.xlsx,42875,2020-11-10T23:58:36,C:\Users\shero\OneDrive - Sri Lanka Institute of Information Technology\Research Project\DataSets\ARTADataset_release1\Datasets\SmellyWordsDictionary.xlsx

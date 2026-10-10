@@ -1,0 +1,379 @@
+﻿file_name,column,label,count
+brown.csv,label,learned,7734
+brown.csv,label,belles_lettres,7209
+brown.csv,label,lore,4881
+brown.csv,label,adventure,4637
+brown.csv,label,news,4623
+brown.csv,label,romance,4431
+brown.csv,label,fiction,4249
+brown.csv,label,hobbies,4193
+brown.csv,label,mystery,3886
+brown.csv,label,government,3032
+brown.csv,label,editorial,2997
+brown.csv,label,reviews,1751
+brown.csv,label,religion,1716
+brown.csv,label,humor,1053
+brown.csv,label,science_fiction,948
+PROMISE-relabeled-NICE.csv,IsFunctional,0,314
+PROMISE-relabeled-NICE.csv,IsFunctional,1,308
+PROMISE-relabeled-NICE.csv,IsQuality,1,381
+PROMISE-relabeled-NICE.csv,IsQuality,0,241
+PROMISE-relabeled-NICE.csv,Performance (PE),0,559
+PROMISE-relabeled-NICE.csv,Performance (PE),1,63
+PROMISE-relabeled-NICE.csv,Security (SE),0,547
+PROMISE-relabeled-NICE.csv,Security (SE),1,75
+promise.csv,label,non-functional,370
+promise.csv,label,functional,255
+QuRE.csv,defect,ok,1536
+QuRE.csv,defect,defect,651
+software_requirements_extended.csv,Type,FR,312
+software_requirements_extended.csv,Type,F,209
+software_requirements_extended.csv,Type,NFR,110
+software_requirements_extended.csv,Type,US,63
+software_requirements_extended.csv,Type,O,58
+software_requirements_extended.csv,Type,SE,56
+software_requirements_extended.csv,Type,PE,54
+software_requirements_extended.csv,Type,LF,34
+software_requirements_extended.csv,Type,A,21
+software_requirements_extended.csv,Type,SC,21
+software_requirements_extended.csv,Type,MN,17
+software_requirements_extended.csv,Type,L,10
+software_requirements_extended.csv,Type,FT,10
+software_requirements_extended.csv,Type,PO,2
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,-,916
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,atleast,6
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,minimum,6
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,clearly,4
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,currently,4
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,end,3
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,particularly,3
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,maximum,2
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,too,2
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,back,2
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,possibility,2
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,accidental,2
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,automatically,2
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,next,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,directly*commonly,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,generally,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,usually,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,potentially,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,commonly,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,"previous*typically,recent",1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,previous,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,minimal,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,some,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,correctly,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,later,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,"appropriately,",1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,actually,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,similar,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,audible ,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,Detailed ,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,other,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,  functional ,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,freely,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,rather,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,easily,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj., dependent ,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,safety,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,immediately,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,Additionally,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,each,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,widely,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,extremely ,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,already ,1
+001_dataset1kv1.xlsx,Ambiguous_adv._adj.,upon,1
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,1,324
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,0,272
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,2,199
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,3,96
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,4,48
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,5,24
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,6,9
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,7,5
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,8,3
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,11,2
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,13,1
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,9,1
+002_dataset1kv1_smell_frequency_with_testability.xlsx,SmellyWords,15,1
+002_dataset1kv1_smell_frequency_with_testability.xlsx,Ambiguous,0,916
+002_dataset1kv1_smell_frequency_with_testability.xlsx,Ambiguous,1,67
+002_dataset1kv1_smell_frequency_with_testability.xlsx,Ambiguous,2,2
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,-,943
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,end,10
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,particularly,5
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,currently,5
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,rather,3
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,back,3
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,next,2
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,every,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,directly*commonly,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,generally,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,similar*similar*usually,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,commonly,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,previous*typically*recent,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,previous,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,later,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,last,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,actually,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,similar,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,rather*generally,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,rather*rather,1
+003_dataset1kv1_ARTA_result.xlsx,Ambiguous_adv._adj.,widely,1
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,1,226
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,2,206
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,0,183
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,3,146
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,4,84
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,5,44
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,6,35
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,7,20
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,9,13
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,8,9
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,11,6
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,10,4
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,12,3
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,16,2
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,13,2
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,19,1
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,SmellyWords,14,1
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,Ambiguous,0,943
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,Ambiguous,1,37
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,Ambiguous,2,3
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,Ambiguous,3,2
+005_dataset1kv1_Smella_result.xlsx,Ambiguous_adv._adj.,-,977
+005_dataset1kv1_Smella_result.xlsx,Ambiguous_adv._adj.,rather,4
+005_dataset1kv1_Smella_result.xlsx,Ambiguous_adv._adj.,likely,1
+005_dataset1kv1_Smella_result.xlsx,Ambiguous_adv._adj.,usually,1
+005_dataset1kv1_Smella_result.xlsx,Ambiguous_adv._adj.,minimal,1
+005_dataset1kv1_Smella_result.xlsx,Ambiguous_adv._adj.,rather*rather,1
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,0,409
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,1,307
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,2,165
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,3,54
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,4,24
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,5,13
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,7,5
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,6,3
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,8,2
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,11,2
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,SmellyWords,9,1
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,Ambiguous,0,977
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,Ambiguous,1,7
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,Ambiguous,2,1
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,HasAmbiguity,False,8520
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,HasAmbiguity,True,4327
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,0,8520
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,1,3144
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,2,971
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,3,198
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,4,14
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,SemanticAmbiguity,False,10016
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,SemanticAmbiguity,True,2831
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ScopeAmbiguity,False,11546
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ScopeAmbiguity,True,1301
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ActorAmbiguity,False,11982
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ActorAmbiguity,True,865
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AcceptanceAmbiguity,False,12449
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AcceptanceAmbiguity,True,398
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DependencyAmbiguity,False,12655
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DependencyAmbiguity,True,192
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,PriorityAmbiguity,False,12737
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,PriorityAmbiguity,True,110
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TechnicalAmbiguity,False,12808
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TechnicalAmbiguity,True,39
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,0,4989
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,1,4447
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,2,2212
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,3,832
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,4,279
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,5,63
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,6,18
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,7,6
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,8,1
+Cornelius_research_subsets.xlsx,HasAmbiguity,False,5653
+Cornelius_research_subsets.xlsx,AmbiguityCount,0,5653
+Cornelius_research_subsets.xlsx,SemanticAmbiguity,False,5653
+Cornelius_research_subsets.xlsx,ScopeAmbiguity,False,5653
+Cornelius_research_subsets.xlsx,ActorAmbiguity,False,5653
+Cornelius_research_subsets.xlsx,AcceptanceAmbiguity,False,5653
+Cornelius_research_subsets.xlsx,DependencyAmbiguity,False,5653
+Cornelius_research_subsets.xlsx,PriorityAmbiguity,False,5653
+Cornelius_research_subsets.xlsx,TechnicalAmbiguity,False,5653
+Cornelius_research_subsets.xlsx,DefectCount,0,2651
+Cornelius_research_subsets.xlsx,DefectCount,1,1985
+Cornelius_research_subsets.xlsx,DefectCount,2,772
+Cornelius_research_subsets.xlsx,DefectCount,3,201
+Cornelius_research_subsets.xlsx,DefectCount,4,38
+Cornelius_research_subsets.xlsx,DefectCount,5,4
+Cornelius_research_subsets.xlsx,DefectCount,7,2
+Cornelius_user_story_data_dictionary.xlsx,Data Type,Number,8
+Cornelius_user_story_data_dictionary.xlsx,Data Type,Boolean,8
+Cornelius_user_story_data_dictionary.xlsx,Data Type,Text,7
+Cornelius_user_story_data_dictionary.xlsx,Data Type,Date,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,<MISSING>,3
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.4897959183673469,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.3333333333333333,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.3380281690140845,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.04225352112676056,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.4,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.075,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.02705627705627706,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.006535947712418301,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.1564625850340136,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.29577464788732394,1
+dataset1kv1_evaluation.xlsx,Ambiguous_adv._adj.,0.325,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,<MISSING>,8
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.3380281690140845,2
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.875,2
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.4897959183673469,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.4,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,Recall,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.4885057471264368,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.2994350282485876,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.9333333333333333,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.6966292134831461,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.9814814814814815,1
+dataset1kv1_evaluation_tabular_format.xlsx,Ambiguous adv./ adj.,0.8322147651006712,1
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,Subjective,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,Ambiguous,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,NonVerifiable,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,Polysemy,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,Superlative,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,Comparative,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,Negative,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,VaguePron.,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,UncertainVerb,2
+dataset1kv1_evaluation_with_comparison_chart.xlsx,Smell,<MISSING>,1
+DS1.xlsx,Ambiguous_adv._adj.,-,916
+DS1.xlsx,Ambiguous_adv._adj.,atleast,6
+DS1.xlsx,Ambiguous_adv._adj.,minimum,6
+DS1.xlsx,Ambiguous_adv._adj.,clearly,4
+DS1.xlsx,Ambiguous_adv._adj.,currently,4
+DS1.xlsx,Ambiguous_adv._adj.,end,3
+DS1.xlsx,Ambiguous_adv._adj.,particularly,3
+DS1.xlsx,Ambiguous_adv._adj.,maximum,2
+DS1.xlsx,Ambiguous_adv._adj.,too,2
+DS1.xlsx,Ambiguous_adv._adj.,back,2
+DS1.xlsx,Ambiguous_adv._adj.,possibility,2
+DS1.xlsx,Ambiguous_adv._adj.,accidental,2
+DS1.xlsx,Ambiguous_adv._adj.,automatically,2
+DS1.xlsx,Ambiguous_adv._adj.,next,1
+DS1.xlsx,Ambiguous_adv._adj.,directly*commonly,1
+DS1.xlsx,Ambiguous_adv._adj.,generally,1
+DS1.xlsx,Ambiguous_adv._adj.,usually,1
+DS1.xlsx,Ambiguous_adv._adj.,potentially,1
+DS1.xlsx,Ambiguous_adv._adj.,commonly,1
+DS1.xlsx,Ambiguous_adv._adj.,"previous*typically,recent",1
+DS1.xlsx,Ambiguous_adv._adj.,previous,1
+DS1.xlsx,Ambiguous_adv._adj.,minimal,1
+DS1.xlsx,Ambiguous_adv._adj.,some,1
+DS1.xlsx,Ambiguous_adv._adj.,correctly,1
+DS1.xlsx,Ambiguous_adv._adj.,later,1
+DS1.xlsx,Ambiguous_adv._adj.,"appropriately,",1
+DS1.xlsx,Ambiguous_adv._adj.,actually,1
+DS1.xlsx,Ambiguous_adv._adj.,similar,1
+DS1.xlsx,Ambiguous_adv._adj.,audible ,1
+DS1.xlsx,Ambiguous_adv._adj.,Detailed ,1
+DS1.xlsx,Ambiguous_adv._adj.,other,1
+DS1.xlsx,Ambiguous_adv._adj.,  functional ,1
+DS1.xlsx,Ambiguous_adv._adj.,freely,1
+DS1.xlsx,Ambiguous_adv._adj.,rather,1
+DS1.xlsx,Ambiguous_adv._adj.,easily,1
+DS1.xlsx,Ambiguous_adv._adj., dependent ,1
+DS1.xlsx,Ambiguous_adv._adj.,safety,1
+DS1.xlsx,Ambiguous_adv._adj.,immediately,1
+DS1.xlsx,Ambiguous_adv._adj.,Additionally,1
+DS1.xlsx,Ambiguous_adv._adj.,each,1
+DS1.xlsx,Ambiguous_adv._adj.,widely,1
+DS1.xlsx,Ambiguous_adv._adj.,extremely ,1
+DS1.xlsx,Ambiguous_adv._adj.,already ,1
+DS1.xlsx,Ambiguous_adv._adj.,upon,1
+DS2.xlsx,ambiguous_adverbs_adjectives,-,449
+DS2.xlsx,ambiguous_adverbs_adjectives,necessary,35
+DS2.xlsx,ambiguous_adverbs_adjectives,capable,21
+DS2.xlsx,ambiguous_adverbs_adjectives,other,16
+DS2.xlsx,ambiguous_adverbs_adjectives,appropriate,13
+DS2.xlsx,ambiguous_adverbs_adjectives,only,10
+DS2.xlsx,ambiguous_adverbs_adjectives,standard,10
+DS2.xlsx,ambiguous_adverbs_adjectives,common,9
+DS2.xlsx,ambiguous_adverbs_adjectives,possible,9
+DS2.xlsx,ambiguous_adverbs_adjectives,external,8
+DS2.xlsx,ambiguous_adverbs_adjectives,available,8
+DS2.xlsx,ambiguous_adverbs_adjectives,specific,8
+DS2.xlsx,ambiguous_adverbs_adjectives,direct,8
+DS2.xlsx,ambiguous_adverbs_adjectives,current,6
+DS2.xlsx,ambiguous_adverbs_adjectives,minimum,6
+DS2.xlsx,ambiguous_adverbs_adjectives,mobile,6
+DS2.xlsx,ambiguous_adverbs_adjectives,real,5
+DS2.xlsx,ambiguous_adverbs_adjectives,such,5
+DS2.xlsx,ambiguous_adverbs_adjectives,capappropriate,5
+DS2.xlsx,ambiguous_adverbs_adjectives,other*other,5
+DS2.xlsx,ambiguous_adverbs_adjectives,national,5
+DS2.xlsx,ambiguous_adverbs_adjectives,additional,5
+DS2.xlsx,ambiguous_adverbs_adjectives,general,4
+DS2.xlsx,ambiguous_adverbs_adjectives,suitable,4
+DS2.xlsx,ambiguous_adverbs_adjectives,simple,4
+DS2.xlsx,ambiguous_adverbs_adjectives,automatic,4
+DS2.xlsx,ambiguous_adverbs_adjectives,short,4
+DS2.xlsx,ambiguous_adverbs_adjectives,individual,3
+DS2.xlsx,ambiguous_adverbs_adjectives,different,3
+DS2.xlsx,ambiguous_adverbs_adjectives,main,3
+DS2.xlsx,ambiguous_adverbs_adjectives,full,3
+DS2.xlsx,ambiguous_adverbs_adjectives,previous,3
+DS2.xlsx,ambiguous_adverbs_adjectives,particular,3
+DS2.xlsx,ambiguous_adverbs_adjectives,same,3
+DS2.xlsx,ambiguous_adverbs_adjectives,logical,3
+DS2.xlsx,ambiguous_adverbs_adjectives,successful,3
+DS2.xlsx,ambiguous_adverbs_adjectives,regular,3
+DS2.xlsx,ambiguous_adverbs_adjectives,technical,3
+DS2.xlsx,ambiguous_adverbs_adjectives,special,3
+DS2.xlsx,ambiguous_adverbs_adjectives,important,2
+DS2.xlsx,ambiguous_adverbs_adjectives,numerous*common,2
+DS2.xlsx,ambiguous_adverbs_adjectives,normal,2
+DS2.xlsx,ambiguous_adverbs_adjectives,last,2
+DS2.xlsx,ambiguous_adverbs_adjectives,internal,2
+DS2.xlsx,ambiguous_adverbs_adjectives,maximum*maximum,2
+DS2.xlsx,ambiguous_adverbs_adjectives,maximum,2
+DS2.xlsx,ambiguous_adverbs_adjectives,upper,2
+DS2.xlsx,ambiguous_adverbs_adjectives,minimum*proper,2
+DS2.xlsx,ambiguous_adverbs_adjectives,acceptable,2
+DS2.xlsx,ambiguous_adverbs_adjectives,other*appropriate,2
+DS3.xlsx,ambiguous_adverbs_adjectives,-,1484
+DS3.xlsx,ambiguous_adverbs_adjectives,minimum,8
+DS3.xlsx,ambiguous_adverbs_adjectives,different,3
+DS3.xlsx,ambiguous_adverbs_adjectives,specified,3
+DS3.xlsx,ambiguous_adverbs_adjectives,accurately,2
+DS3.xlsx,ambiguous_adverbs_adjectives,large,2
+DS3.xlsx,ambiguous_adverbs_adjectives,later,1
+DS3.xlsx,ambiguous_adverbs_adjectives,a few,1
+DS3.xlsx,ambiguous_adverbs_adjectives,various,1
+DS3.xlsx,ambiguous_adverbs_adjectives,period*various,1
+DS3.xlsx,ambiguous_adverbs_adjectives,high,1
+DS3.xlsx,ambiguous_adverbs_adjectives,medium,1
+DS3.xlsx,ambiguous_adverbs_adjectives,low,1
+DS3.xlsx,ambiguous_adverbs_adjectives,easy,1
+DS3.xlsx,ambiguous_adverbs_adjectives,timely manner,1
+DS3.xlsx,ambiguous_adverbs_adjectives,meaningful,1
+DS3.xlsx,ambiguous_adverbs_adjectives,small,1
+DS3.xlsx,ambiguous_adverbs_adjectives,several,1
+DS3.xlsx,ambiguous_adverbs_adjectives,specific,1
+DS3.xlsx,ambiguous_adverbs_adjectives,too long,1
+DS3.xlsx,ambiguous_adverbs_adjectives,minimal,1
+DS3.xlsx,ambiguous_adverbs_adjectives,short,1
+DS3.xlsx,ambiguous_adverbs_adjectives,specified*quickly,1
+DS3.xlsx,ambiguous_adverbs_adjectives,some ,1
+DS3.xlsx,ambiguous_adverbs_adjectives,too large,1
+DS3.xlsx,ambiguous_adverbs_adjectives,long-term,1
+DS4.xlsx,Ambiguouse_adverb_and_adjective,-,1140
+DS4.xlsx,Ambiguouse_adverb_and_adjective,minimal*,5
+DS4.xlsx,Ambiguouse_adverb_and_adjective,may*,5
+DS4.xlsx,Ambiguouse_adverb_and_adjective,much*,1
+DS4.xlsx,Ambiguouse_adverb_and_adjective,significant*bit*,1
+DS4.xlsx,Ambiguouse_adverb_and_adjective,significant*,1
+FR_NFR_Dataset.xlsx,Type,FR,3964
+FR_NFR_Dataset.xlsx,Type,NFR,2122
+FR_NFR_Dataset.xlsx,Type,<MISSING>,31
+SmellyWordsDictionary.xlsx,"Ambiguous Adv, Adj",<MISSING>,962
+SmellyWordsDictionary.xlsx,"Ambiguous Adv, Adj",T,38
