@@ -26,46 +26,74 @@ EXCLUDED_DIRS = {
 
 
 def read_java_file(java_file: Path):
-    """Read a Java source file safely."""
+    """Read Java source files, including long paths and legacy encodings."""
+
+    path_text = str(java_file.resolve())
+
+    # Support extended-length paths on Windows.
+    if path_text.startswith("\\\\"):
+        path_text = "\\\\?\\UNC\\" + path_text[2:]
+    elif len(path_text) >= 248 and not path_text.startswith("\\\\?\\"):
+        path_text = "\\\\?\\" + path_text
 
     try:
-        return java_file.read_text(encoding="utf-8")
-    except (UnicodeDecodeError, OSError):
+        return Path(path_text).read_text(encoding="utf-8")
+
+    except UnicodeDecodeError:
+        # Legacy source files may use a non-UTF-8 encoding.
+        try:
+            return Path(path_text).read_text(encoding="cp1252")
+        except (UnicodeDecodeError, OSError) as error:
+            print(f"[FILE ERROR] {java_file} | {error}")
+            return None
+
+    except OSError as error:
+        print(f"[FILE ERROR] {java_file} | {error}")
         return None
 
 
 def discover_java_files(repo_path: Path):
-    """Discover Java files across common source layouts"""
+    """Discover production Java files across modern and legacy layouts."""
 
+    repo_path = repo_path.resolve()
     java_files = set()
 
-    # common source roots
-    source_roots = [
+    excluded_dirs = EXCLUDED_DIRS | {
+        "test",
+        "tests",
+        "testFixtures",
+        "test-fixtures",
+        "testFramework",
+        "test-framework",
+        "integration-test",
+        "integration-tests",
+        "generated",
+        "generated-sources",
+    }
+
+    def is_excluded(path: Path) -> bool:
+        relative_parts = path.relative_to(repo_path).parts
+        return any(
+            part in excluded_dirs or part.startswith(".") for part in relative_parts
+        )
+
+    # Supported production source directory names.
+    source_root_names = {
         "src/main/java",
-        "src/test/java",
         "src/java",
         "src",
         "source",
         "java",
-    ]
+    }
 
-    for relative_root in source_roots:
-        source_root = repo_path / relative_root
-
-        if not source_root.is_dir():
-            continue
-
-        for java_file in source_root.rglob("*.java"):
-            if any(part in EXCLUDED_DIRS for part in java_file.parts):
+    for root_name in source_root_names:
+        for source_root in repo_path.rglob(root_name):
+            if not source_root.is_dir() or is_excluded(source_root):
                 continue
 
-            java_files.add(java_file.resolve())
-
-    for java_file in repo_path.rglob("*java"):
-        if any(part in EXCLUDED_DIRS for part in java_file.parts):
-            continue
-
-        java_files.add(java_file.resolve())
+            for java_file in source_root.rglob("*.java"):
+                if not is_excluded(java_file):
+                    java_files.add(java_file.resolve())
 
     return sorted(java_files)
 
