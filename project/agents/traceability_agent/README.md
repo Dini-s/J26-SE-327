@@ -1,153 +1,129 @@
-# Traceability Agent (Component 4)
+# Component 4: Traceability Agent: how to run it
 
-Generates, verifies and continuously re-checks trace links between requirements
-and code/design entities in the shared USKG (Neo4j) graph.
+This guide only covers running the component on your computer. Setup is done once; the "Run" section is what you do each time.
 
-**Approach (TraceLLM-style):** embedding similarity shortlists candidates (high
-recall), then an LLM prompted as a "software traceability expert" confirms,
-scores and explains each one (high precision). Pure embedding or rule-based
-matching must trade precision against recall; shortlist-then-verify gets both
-at bounded LLM cost.
+---
 
-## Graph contract
+## 1. Before you start
 
-| Node / edge | Owner | C4 access |
-|---|---|---|
-| `Requirement`, `CodeEntity` (`kind`: code/test/design) | C1 / C2 | read only |
-| `VERIFIED_TRACE` (Requirement -> CodeEntity): confidence, justification, status, verifiedAt, lastCheckedAt, textHash, linkType | **C4** | read/write |
-| `DecayFlag`, `(Requirement)-[:HAS_DECAY]->(DecayFlag)` | **C4** | read/write |
+Install and check these:
 
-`shared/uskg/client.py` is the only place Cypher lives; its only write statements
-touch `VERIFIED_TRACE` and `DecayFlag`. Text property names on C1/C2 nodes are an
-assumption (see that file's docstring), as is `CodeEntity.kind`. A relationship
-cannot be the endpoint of another relationship in Neo4j, so `HAS_DECAY` hangs off
-the requirement and the flag records `codeEntityId`.
-
-## Projects and commits
-
-One graph can hold many projects (repositories). A project is read from a node's `project`,
-`repo` or (demo loader) `dataset` property, so no schema change is needed; `link`, `monitor`,
-`score` and the dashboard take `--project` / the project selector.
-
-C2 (not C4) watches the repository. C4's side of the hook is `changed` / `listen`
-(`agents/traceability_agent/changes.py`): given the files a commit changed or added and any new
-requirements, it re-checks only the links to those files (unchanged text costs no LLM call),
-and looks for links only where something is new. The Redis channel `code_changed` and the message
-`{"project", "changed": [...], "added": [...], "requirementsAdded": [...]}` are **assumptions to confirm
-with C2**. The dashboard's "Code changes" page stands in for C2 by editing a file and calling the same code.
-
-## Pipeline
-
-1. **Load** – requirements and code entities from the USKG.
-2. **Clean + embed** – code is stripped of imports/licence headers and identifiers are split (`preprocess.py`); long files are cut into 60-word chunks and scored by their best chunk (`retrieval.py`); `shared/embeddings.Embedder` (sentence-transformers, `EMBEDDING_MODEL_NAME`) plus TF-IDF.
-3. **Candidates** – `find_candidates()`: TF-IDF and embedding scores fused by z-score (`hybrid`), top-k (10) per requirement, no similarity cutoff (a cutoff only lost recall). On iTrust this shortlists ~42% of true links at top-10 (vs 9% for the first embeddings-only version).
-4. **Verify** – `verify_candidates()`: LLM JSON verdict; kept if linked and confidence >= `PASS_THRESHOLD`; malformed replies are skipped; latency is recorded (target <= 5 s).
-5. **Write** – `VERIFIED_TRACE` via `MERGE` (idempotent). Pairs that already have an edge are not re-verified.
-
-**Decay** (`decay.py`): polls verified links; if either side's text hash differs from the stored `textHash`, re-verifies. A failed re-check sets `status=decayed`, creates a `DecayFlag` (the edge is never deleted) and publishes a `trace_decayed` JSON event on Redis (`events.py`). A Redis outage is logged but never loses the flag.
-
-**Completeness** (`completeness.py`): per requirement, 0 for orphans (no `verified` link), else `100 * (0.6 * mean confidence + 0.4 * C3 evidence coverage)`; without evidence data, `100 * mean confidence`. The C3 evidence figures are an input (`evidence_coverage` mapping) until C3's schema is agreed.
-
-Tunables are in `config.py`.
-
-## Setup (from the project root)
-
-```bash
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env   # fill in NEO4J_*, OPENAI_API_KEY; REDIS_URL for decay events
-python scripts/download_model.py   # once, needs internet: saves the embedding model to models/ (git-ignored)
-```
-
-The embedding model (`all-MiniLM-L6-v2`, ~87 MB) lives in `models/` inside the project, so runs work offline from
-the project folder. `Embedder` loads `models/<EMBEDDING_MODEL_NAME>` when it exists and otherwise falls back to the
-normal Hugging Face download cache.
-
-## Commands
-
-```bash
-python -m agents.traceability_agent setup                 # create Neo4j indexes (idempotent)
-python -m agents.traceability_agent link --top-k 5        # find + verify links, write VERIFIED_TRACE (--dry-run to skip writing)
-python -m agents.traceability_agent monitor --once        # decay pass; without --once it polls every --interval seconds
-python -m agents.traceability_agent score                 # completeness per requirement + orphans
-python -m agents.traceability_agent changed --project P --code-changed ID   # one commit: re-check only the links of that file
-python -m agents.traceability_agent listen                # wait for C2's change messages on Redis and handle each one
-bash scripts/final_evaluation.sh                          # persona ablation, CM-1 write run, decay-injection (hours on a CPU LLM server)
-```
-
-Integration tests run against a real Neo4j when one is reachable (they use `__c4test__` ids and clean up); they skip otherwise. A draft of the report with measured results is in `docs/traceability_report_draft.md`.
-
-## Run
-
-```bash
-python -c "from agents.traceability_agent.agent import TraceabilityAgent; print(TraceabilityAgent().run())"
-python -c "from agents.traceability_agent.decay import DecayDetector; ..."   # needs uskg, llm, DecayEventPublisher()
-```
-
-## Demo app (web)
-
-```bash
-.venv/bin/python -m apps.api.server     # then open http://127.0.0.1:8000 (this machine only)
-```
-
-One HTML page (`apps/web/index.html`, no build step, no external libraries) served with a small JSON API
-(`apps/api/server.py`, Python standard library only). Pick the project at the top. The bar under the header
-always shows whether something is running, with live progress; the dots show Neo4j, the AI model and Redis.
-
-| Tab | What it does |
+| Need | Check |
 |---|---|
-| **Link** | Type a new requirement; C4 shortlists code, the AI checks each candidate (click a row for its reasoning), confirmed links are saved to Neo4j. Every earlier result stays in the History list, newest first |
-| **Code change** | Pick a linked code file and a kind of change (stands in for C2 and a commit); C4 re-checks only that file's links, marks broken ones decayed with a DecayFlag and sends `trace_decayed` to C3. Shows confidence before and after, the message to C3, and the code before and after. "Undo my changes" restores everything |
-| **Graph** | The project's knowledge graph: drag, zoom, search, click a requirement, file, link or decay record for its details |
-| **Results** | Measured precision/recall/F1, stage-1 recall, decay detection and the targets from the spec |
+| Python 3.9+ | `python3 --version` |
+| Neo4j Desktop, database started | http://localhost:7474 opens |
+| Redis (only for decay messages to C3) | `redis-cli ping` → `PONG` (install with `brew install redis` if missing) |
+| LLM server | it answers at `LLM_BASE_URL` in `.env` |
 
-`apps/api` also holds `sources.py` (data access), `demo.py` (C1/C2 stand-ins, local Neo4j only), `runner.py`
-(background runs) and `history.py` (run history from the run logs). Load a dataset as a project with
-`python scripts/load_to_neo4j.py --artifacts data/processed/<name>/artifacts.json`.
+## 2. Setup (once)
 
-The typed requirement is created as a `Requirement` node marked `dataset = demo-new` (in the real system C1 does this).
-Demo writes only run against a local Neo4j and only touch nodes with a `dataset` property (never a teammate's data);
-`DASHBOARD_ALLOW_DEMO=0` disables them and `DASHBOARD_ALLOW_RUN=0` disables starting runs. Runs write
-`data/runs/<run>/events.jsonl`, which the screens read live; measured results are in `data/results/summary.json`.
-A single new requirement takes about 3 minutes on a CPU-only LLM server (about 50 s per candidate).
-
-## Self-hosted LLM
-
-Set `LLM_BASE_URL` (any OpenAI-compatible endpoint, e.g. Ollama at `http://host:8080/v1`), `LLM_MODEL`, `LLM_API_KEY`, `LLM_TIMEOUT` and `LLM_MAX_ARTIFACT_CHARS` in `.env`. On a CPU-only server expect ~1 minute per verification, so evaluate on a sample (`--limit-sources 10 --top-k 5`).
-
-## Tests (all mocked; no network, database or Redis)
+From the `project/` folder:
 
 ```bash
-pytest agents/traceability_agent/tests
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env          # then fill in NEO4J_PASSWORD, LLM_BASE_URL, LLM_MODEL, LLM_API_KEY
+python scripts/download_model.py   # saves the embedding model to models/ (needs internet once)
+python -m agents.traceability_agent setup   # creates the Neo4j indexes
 ```
 
-## Evaluation
+`.env` holds your secrets. Keep it private; it is git-ignored.
 
-Prepare a dataset (expects the raw files in `~/Downloads/traceability_datasets/`). **iTrust** (use cases -> Java/JSP code, 399 true links) is the primary requirement-to-code benchmark; CM-1 (requirements -> design) is a second check:
+## 3. Run
+
+Every time, in this order:
+
+1. Start Neo4j Desktop and its database.
+2. Start Redis in its own terminal. Redis only needs to run once per start-up; it keeps running until you stop it:
+   ```bash
+   redis-server
+   ```
+   To check it is up, open another terminal and run `redis-cli ping`. It answers `PONG`.
+3. Start the web app:
+   ```bash
+   source .venv/bin/activate
+   python -m apps.api.server
+   ```
+4. Open **http://127.0.0.1:8000**
+
+Keep the terminal of step 3 open. Closing it stops the app.
+
+## 4. See the Redis messages (what C3 receives)
+
+When a link breaks, C4 sends a `trace_decayed` message to Redis. C3 listens to the same channel. To see the messages yourself:
+
+1. Make sure Redis is running (`redis-cli ping` → `PONG`).
+2. Open a **new terminal tab** (not the one running `redis-server`) and start listening. It waits for messages:
+   ```bash
+   redis-cli subscribe trace_decayed
+   ```
+   It prints `subscribe` and `trace_decayed` and then waits. Leave it open.
+3. In the web app, open **Code changes**, pick a linked file, and press **Commit the change**.
+4. In the listening terminal, the message appears:
+   ```
+   message
+   trace_decayed
+   {"event": "trace_decayed", "requirementId": "...", "codeEntityId": "...", "previousConfidence": 0.8, "newConfidence": 0.0, "timestamp": "..."}
+   ```
+   A link that still holds sends no message.
+
+Notes:
+- Redis does not store messages. Start listening **before** you commit; a message sent while nobody listens is lost.
+- The message can take up to a minute, because C4 re-checks the link with the AI first. An empty file is reported at once.
+- To stop listening, press `Ctrl+C`. If the terminal shows `quote>`, a quote was not closed: press `Ctrl+C` and type the command again.
+- There must be only **one** Redis server. Check with `lsof -nP -iTCP:6379 -sTCP:LISTEN`: it should list one process. If two appear, stop the extra one (for example `redis-cli -h 127.0.0.1 shutdown nosave`) and start `redis-server` again.
+
+## 5. Load a dataset
+
+The graph starts empty. A dataset becomes a **project** when loaded:
 
 ```bash
-python scripts/load_dataset.py --dataset itrust   # writes data/processed/itrust/{artifacts,traces,gold}.json
-python scripts/load_dataset.py --dataset cm1
+python scripts/load_to_neo4j.py --artifacts data/processed/itrust/artifacts.json
 ```
 
-The examples below use CM-1 paths; swap in `data/processed/itrust/...`. For iTrust, `--limit-sources N` keeps LLM cost down (131 requirements x top-10 = 1,310 calls for the full run).
+Other ready datasets: `etour`, `cm1`, `libest` (change the folder name). Running it again is safe.
 
-Score a method against the gold pairs (precision / recall / F1):
+## 6. Use the web app
 
-```bash
-# classic IR baseline, fully offline
-python -m agents.traceability_agent.evaluate --gold data/processed/cm1/gold.json --artifacts data/processed/cm1/artifacts.json --method tfidf --sweep
-# embeddings-only baseline, then the full pipeline (needs the embedding model; full also needs OPENAI_API_KEY)
-python -m agents.traceability_agent.evaluate --gold ... --artifacts ... --method embeddings --sweep
-python -m agents.traceability_agent.evaluate --gold ... --artifacts ... --method full
-```
+Choose the **project** at the top, then:
 
-Decay-injection harness (mutates known-good targets, measures detection and false decays; needs `OPENAI_API_KEY`):
+| Tab | Steps | You see |
+|---|---|---|
+| **Link** | Type a requirement → choose 3 code files → **Find the code** | Candidate files, LINKED / NOT LINKED with the AI's reason. Links are saved to Neo4j |
+| **Code change** | Pick a linked file → pick a change → **Commit the change** → **Undo my changes** to restore | Broken links are marked decayed; a message goes to C3 over Redis |
+| **Graph** | Look at the project's graph; click a node | Requirements (R), code (C), links, decay records (!) |
+| **Results** | Read the measured numbers | Precision, recall, decay detection and the targets |
 
-```bash
-python -m agents.traceability_agent.decay_injection --artifacts data/processed/cm1/artifacts.json --links data/processed/cm1/traces.json --sample 10
-```
+The bar under the header shows what is running, with progress. A link takes about a minute per code file on the CPU LLM server, so run one at a time.
 
-CM-1 pairs requirements with *design* items, not code, so it validates link
-recovery but not requirement-to-code behaviour; use iTrust/EasyClinic or
-Defects4J for that.
+## 7. Command line
+
+From `project/`, with `.venv` active:
+
+| What | Command |
+|---|---|
+| Link all requirements of a project | `python -m agents.traceability_agent link --project iTrust --top-k 3` |
+| Link chosen requirements only | `python -m agents.traceability_agent link --project iTrust --requirement UC1 --requirement UC10` |
+| React to one commit | `python -m agents.traceability_agent changed --project iTrust --code-changed LoginFailureAction` |
+| Listen for commits from C2 on Redis | `python -m agents.traceability_agent listen` |
+| One decay check of all links | `python -m agents.traceability_agent monitor --once --project iTrust` |
+| Completeness and orphans | `python -m agents.traceability_agent score --project iTrust` |
+| Run the tests | `python -m pytest -q` |
+
+## 8. Stop
+
+- Web app: press `Ctrl+C` in its terminal.
+- Redis: `Ctrl+C` in its terminal.
+- Neo4j: stop the database in Neo4j Desktop.
+
+## 9. Problems
+
+| Message | What to do |
+|---|---|
+| `No such file or directory: .venv/bin/python` | Run step 2 again |
+| Port 8000 already in use | A copy is already running. Open http://127.0.0.1:8000, or stop it with `lsof -ti tcp:8000 \| xargs kill` |
+| "Neo4j is not reachable" | Start the database in Neo4j Desktop, then reload the page |
+| "AI model unreachable" | The LLM server is off, or `LLM_BASE_URL` in `.env` is wrong |
+| "Messages to C3 (Redis)" is orange | `redis-server` is not running. Links still work; only the message to C3 is recorded |
+| "Something is already running" | Wait for the bar under the header to finish |
