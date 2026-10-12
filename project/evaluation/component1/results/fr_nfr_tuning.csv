@@ -1,0 +1,17 @@
+﻿subtask,model,C,val_score
+fr_nfr,majority,,0.396349
+fr_nfr,rules,,0.689691
+fr_nfr,tfidf_lr,0.1,0.798171
+fr_nfr,tfidf_lr,1,0.845655
+fr_nfr,tfidf_lr,10,0.857369
+fr_nfr,tfidf_lr,100,0.857834
+fr_nfr,tfidf_lr,1000,0.849582
+fr_nfr,tfidf_svm,0.01,0.79527
+fr_nfr,tfidf_svm,0.1,0.847994
+fr_nfr,tfidf_svm,1,0.859339
+fr_nfr,tfidf_svm,10,0.851079
+fr_nfr,emb_lr,0.1,0.807193
+fr_nfr,emb_lr,1,0.81934
+fr_nfr,emb_lr,10,0.827823
+fr_nfr,emb_lr,100,0.830995
+fr_nfr,emb_lr,1000,0.832055

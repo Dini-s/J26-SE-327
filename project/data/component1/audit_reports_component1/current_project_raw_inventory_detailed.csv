@@ -1,0 +1,142 @@
+﻿file_name,relative_path,extension,top_level_folder,size_bytes
+001_dataset1kv1.xlsx,arta_evaluation/001_dataset1kv1.xlsx,.xlsx,arta_evaluation,123304
+002_dataset1kv1_smell_frequency_with_testability.xlsx,arta_evaluation/002_dataset1kv1_smell_frequency_with_testability.xlsx,.xlsx,arta_evaluation,158356
+003_dataset1kv1_ARTA_result.xlsx,arta_evaluation/003_dataset1kv1_ARTA_result.xlsx,.xlsx,arta_evaluation,111225
+004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,arta_evaluation/004_dataset1kv1_ARTA_result_smell_frequency_with_testability.xlsx,.xlsx,arta_evaluation,155017
+005_dataset1kv1_Smella_result.xlsx,arta_evaluation/005_dataset1kv1_Smella_result.xlsx,.xlsx,arta_evaluation,104569
+006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,arta_evaluation/006_dataset1kv1_Smella_result_smell_frequency_with_testability.xlsx,.xlsx,arta_evaluation,145450
+basic.csv,basic.csv,.csv,<root>,31340
+context.csv,context.csv,.csv,<root>,30679
+context_role.csv,context_role.csv,.csv,<root>,39201
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,Cornelius_2025_user_story_ambiguity_dataset.xlsx,.xlsx,<root>,1420781
+Cornelius_research_subsets.xlsx,Cornelius_research_subsets.xlsx,.xlsx,<root>,1555001
+Cornelius_user_story_data_dictionary.xlsx,Cornelius_user_story_data_dictionary.xlsx,.xlsx,<root>,9459
+1999 - dii.htm,documents/html/1999 - dii.htm,.htm,documents,52687
+1999 - multi-mahjong.html,documents/html/1999 - multi-mahjong.html,.html,documents,93675
+2005 - nenios.html,documents/html/2005 - nenios.html,.html,documents,116136
+0000 - cctns.pdf,documents/srs/0000 - cctns.pdf,.pdf,documents,350677
+0000 - gamma j.pdf,documents/srs/0000 - gamma j.pdf,.pdf,documents,1292947
+0000 - inventory.pdf,documents/srs/0000 - inventory.pdf,.pdf,documents,837509
+1995 - gemini.pdf,documents/srs/1995 - gemini.pdf,.pdf,documents,5128485
+1998 - themas.pdf,documents/srs/1998 - themas.pdf,.pdf,documents,68429
+1999 - tcs.pdf,documents/srs/1999 - tcs.pdf,.pdf,documents,588229
+2000 - nasa x38.doc,documents/srs/2000 - nasa x38.doc,.doc,documents,922112
+2001 - beyond.pdf,documents/srs/2001 - beyond.pdf,.pdf,documents,604084
+2001 - ctc network.pdf,documents/srs/2001 - ctc network.pdf,.pdf,documents,277703
+2001 - elsfork.pdf,documents/srs/2001 - elsfork.pdf,.pdf,documents,950557
+2001 - esa.pdf,documents/srs/2001 - esa.pdf,.pdf,documents,102821
+2001 - hats.pdf,documents/srs/2001 - hats.pdf,.pdf,documents,377900
+2001 - libra.doc,documents/srs/2001 - libra.doc,.doc,documents,92672
+2001 - npac.doc,documents/srs/2001 - npac.doc,.doc,documents,2618368
+2001 - space fractions.pdf,documents/srs/2001 - space fractions.pdf,.pdf,documents,103193
+2001 - telescope.pdf,documents/srs/2001 - telescope.pdf,.pdf,documents,701945
+2002 - evla back.pdf,documents/srs/2002 - evla back.pdf,.pdf,documents,247337
+2002 - evla corr.pdf,documents/srs/2002 - evla corr.pdf,.pdf,documents,57698
+2002 - sce api.pdf,documents/srs/2002 - sce api.pdf,.pdf,documents,746386
+2003 - agentmom.pdf,documents/srs/2003 - agentmom.pdf,.pdf,documents,28814
+2003 - pnnl.pdf,documents/srs/2003 - pnnl.pdf,.pdf,documents,1668868
+2003 - qheadache.pdf,documents/srs/2003 - qheadache.pdf,.pdf,documents,72966
+2003 - tachonet.pdf,documents/srs/2003 - tachonet.pdf,.pdf,documents,366464
+2004 - colorcast.pdf,documents/srs/2004 - colorcast.pdf,.pdf,documents,77602
+2004 - e-procurement.rtf,documents/srs/2004 - e-procurement.rtf,.rtf,documents,1197411
+2004 - grid bgc.pdf,documents/srs/2004 - grid bgc.pdf,.pdf,documents,124522
+2004 - ijis.doc,documents/srs/2004 - ijis.doc,.doc,documents,230400
+2004 - jse.doc,documents/srs/2004 - jse.doc,.doc,documents,692224
+2004 - philips.doc,documents/srs/2004 - philips.doc,.doc,documents,214528
+2004 - rlcs.pdf,documents/srs/2004 - rlcs.pdf,.pdf,documents,598933
+2004 - sprat.pdf,documents/srs/2004 - sprat.pdf,.pdf,documents,362599
+2004 - watcom gui.pdf,documents/srs/2004 - watcom gui.pdf,.pdf,documents,828896
+2004 - watcom.pdf,documents/srs/2004 - watcom.pdf,.pdf,documents,801604
+2005 - clarus high.doc,documents/srs/2005 - clarus high.doc,.doc,documents,1021952
+2005 - clarus low.pdf,documents/srs/2005 - clarus low.pdf,.pdf,documents,664919
+2005 - grid 3D.pdf,documents/srs/2005 - grid 3D.pdf,.pdf,documents,164056
+2005 - microcare.pdf,documents/srs/2005 - microcare.pdf,.pdf,documents,639507
+2005 - phin.pdf,documents/srs/2005 - phin.pdf,.pdf,documents,134701
+2005 - pontis.pdf,documents/srs/2005 - pontis.pdf,.pdf,documents,2702800
+2005 - triangle.pdf,documents/srs/2005 - triangle.pdf,.pdf,documents,111158
+2005 - znix.pdf,documents/srs/2005 - znix.pdf,.pdf,documents,157806
+2006 - eirene sys 15.pdf,documents/srs/2006 - eirene sys 15.pdf,.pdf,documents,889601
+2006 - stewards.pdf,documents/srs/2006 - stewards.pdf,.pdf,documents,431631
+2007 - central trading system.pdf,documents/srs/2007 - central trading system.pdf,.pdf,documents,186273
+2007 - e-store.doc,documents/srs/2007 - e-store.doc,.doc,documents,105472
+2007 - eirene fun 7.pdf,documents/srs/2007 - eirene fun 7.pdf,.pdf,documents,393868
+2007 - ertms.pdf,documents/srs/2007 - ertms.pdf,.pdf,documents,193210
+2007 - get real 0.2.pdf,documents/srs/2007 - get real 0.2.pdf,.pdf,documents,39711
+2007 - mdot.pdf,documents/srs/2007 - mdot.pdf,.pdf,documents,515595
+2007 - nde.pdf,documents/srs/2007 - nde.pdf,.pdf,documents,376618
+2007 - nlm.doc,documents/srs/2007 - nlm.doc,.doc,documents,3478016
+2007 - puget sound.pdf,documents/srs/2007 - puget sound.pdf,.pdf,documents,686573
+2007 - water use.pdf,documents/srs/2007 - water use.pdf,.pdf,documents,201046
+2008 - caiso.pdf,documents/srs/2008 - caiso.pdf,.pdf,documents,141978
+2008 - keepass.pdf,documents/srs/2008 - keepass.pdf,.pdf,documents,118767
+2008 - peering.pdf,documents/srs/2008 - peering.pdf,.pdf,documents,1554816
+2008 - viper.doc,documents/srs/2008 - viper.doc,.doc,documents,1979904
+2008 - virtual ed.doc,documents/srs/2008 - virtual ed.doc,.doc,documents,692736
+2008 - vub.pdf,documents/srs/2008 - vub.pdf,.pdf,documents,220333
+2009 - email.pdf,documents/srs/2009 - email.pdf,.pdf,documents,113292
+2009 - gaia.pdf,documents/srs/2009 - gaia.pdf,.pdf,documents,432080
+2009 - inventory 2.0.pdf,documents/srs/2009 - inventory 2.0.pdf,.pdf,documents,918592
+2009 - library.doc,documents/srs/2009 - library.doc,.doc,documents,100864
+2009 - library.pdf,documents/srs/2009 - library.pdf,.pdf,documents,120402
+2009 - model manager.pdf,documents/srs/2009 - model manager.pdf,.pdf,documents,51864
+2009 - peazip.pdf,documents/srs/2009 - peazip.pdf,.pdf,documents,789186
+2009 - peppol.pdf,documents/srs/2009 - peppol.pdf,.pdf,documents,2114776
+2009 - video search.pdf,documents/srs/2009 - video search.pdf,.pdf,documents,80130
+2009 - warc III.pdf,documents/srs/2009 - warc III.pdf,.pdf,documents,549220
+2010 - blit draft.pdf,documents/srs/2010 - blit draft.pdf,.pdf,documents,277514
+2010 - fishing.pdf,documents/srs/2010 - fishing.pdf,.pdf,documents,427907
+2010 - gparted.pdf,documents/srs/2010 - gparted.pdf,.pdf,documents,1424942
+2010 - home 1.3.pdf,documents/srs/2010 - home 1.3.pdf,.pdf,documents,132705
+2010 - mashboot.pdf,documents/srs/2010 - mashboot.pdf,.pdf,documents,573961
+2010 - split merge.pdf,documents/srs/2010 - split merge.pdf,.pdf,documents,2918527
+2011 - opensg 0.1.doc,documents/srs/2011 - opensg 0.1.doc,.doc,documents,470528
+DS1.xlsx,DS1.xlsx,.xlsx,<root>,123805
+DS2.xlsx,DS2.xlsx,.xlsx,<root>,161080
+DS3.xlsx,DS3.xlsx,.xlsx,<root>,138502
+DS4.xlsx,DS4.xlsx,.xlsx,<root>,124809
+FR_NFR_Dataset.xlsx,FR_NFR_Dataset.xlsx,.xlsx,<root>,526985
+nfr.arff,nfr.arff,.arff,<root>,82460
+P10_NFR_FR_trace.arff,nfr_fr_trace/P10_NFR_FR_trace.arff,.arff,nfr_fr_trace,11713
+P1_NFR_FR_trace.arff,nfr_fr_trace/P1_NFR_FR_trace.arff,.arff,nfr_fr_trace,7259
+P2_NFR_FR_trace.arff,nfr_fr_trace/P2_NFR_FR_trace.arff,.arff,nfr_fr_trace,8765
+P3_NFR_FR_trace.arff,nfr_fr_trace/P3_NFR_FR_trace.arff,.arff,nfr_fr_trace,19914
+P4_NFR_FR_trace.arff,nfr_fr_trace/P4_NFR_FR_trace.arff,.arff,nfr_fr_trace,16922
+P5_NFR_FR_trace.arff,nfr_fr_trace/P5_NFR_FR_trace.arff,.arff,nfr_fr_trace,15619
+P6_NFR_FR_trace.arff,nfr_fr_trace/P6_NFR_FR_trace.arff,.arff,nfr_fr_trace,17566
+P7_NFR_FR_trace.arff,nfr_fr_trace/P7_NFR_FR_trace.arff,.arff,nfr_fr_trace,6565
+P8_NFR_FR_trace.arff,nfr_fr_trace/P8_NFR_FR_trace.arff,.arff,nfr_fr_trace,19563
+P9_NFR_FR_trace.arff,nfr_fr_trace/P9_NFR_FR_trace.arff,.arff,nfr_fr_trace,5852
+nfr_labeled.txt,nfr_labeled.txt,.txt,<root>,67264
+nfr_project_before_replace.arff,nfr_project_before_replace.arff,.arff,<root>,82410
+nfr_README.txt,nfr_README.txt,.txt,<root>,248
+nfr_source_original.txt,nfr_source_original.txt,.txt,<root>,67393
+PROMISE-relabeled-NICE.csv,PROMISE-relabeled-NICE.csv,.csv,<root>,95725
+promise.csv,promise.csv,.csv,<root>,85182
+pure_subset.csv,pure_subset.csv,.csv,<root>,1947289
+QuRE.csv,QuRE.csv,.csv,<root>,332770
+security_requirements.csv,security_requirements.csv,.csv,<root>,95193
+software_requirements_extended.csv,software_requirements_extended.csv,.csv,<root>,128376
+test_labeled.txt,test_labeled.txt,.txt,<root>,10618
+g02-federalspending.txt,user_stories/g02-federalspending.txt,.txt,user_stories,11235
+g03-loudoun.txt,user_stories/g03-loudoun.txt,.txt,user_stories,9156
+g04-recycling.txt,user_stories/g04-recycling.txt,.txt,user_stories,6669
+g05-openspending.txt,user_stories/g05-openspending.txt,.txt,user_stories,8718
+g08-frictionless.txt,user_stories/g08-frictionless.txt,.txt,user_stories,9695
+g10-scrumalliance.txt,user_stories/g10-scrumalliance.txt,.txt,user_stories,13032
+g11-nsf.txt,user_stories/g11-nsf.txt,.txt,user_stories,9552
+g12-camperplus.txt,user_stories/g12-camperplus.txt,.txt,user_stories,7193
+g13-planningpoker.txt,user_stories/g13-planningpoker.txt,.txt,user_stories,7580
+g14-datahub.txt,user_stories/g14-datahub.txt,.txt,user_stories,9441
+g16-mis.txt,user_stories/g16-mis.txt,.txt,user_stories,9001
+g17-cask.txt,user_stories/g17-cask.txt,.txt,user_stories,8794
+g18-neurohub.txt,user_stories/g18-neurohub.txt,.txt,user_stories,11958
+g19-alfred.txt,user_stories/g19-alfred.txt,.txt,user_stories,13272
+g21-badcamp.txt,user_stories/g21-badcamp.txt,.txt,user_stories,10263
+g22-rdadmp.txt,user_stories/g22-rdadmp.txt,.txt,user_stories,12210
+g23-archivesspace.txt,user_stories/g23-archivesspace.txt,.txt,user_stories,4987
+g24-unibath.txt,user_stories/g24-unibath.txt,.txt,user_stories,8270
+g25-duraspace.txt,user_stories/g25-duraspace.txt,.txt,user_stories,11612
+g26-racdam.txt,user_stories/g26-racdam.txt,.txt,user_stories,11779
+g27-culrepo.txt,user_stories/g27-culrepo.txt,.txt,user_stories,19389
+g28-zooniverse.txt,user_stories/g28-zooniverse.txt,.txt,user_stories,6241
+user_stories.csv,user_stories.csv,.csv,<root>,248888

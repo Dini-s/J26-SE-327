@@ -1,0 +1,4 @@
+[ambiguity] qure_weak_word_rule: defect if the text contains any of the 23 QuRE weak words (collected from QuRE train rows only).
+[ambiguity] best model by validation macro-F1: tfidf_lr (0.7352)
+[ambiguity] CAUTION: ARTA labels are derived from smell-term columns and QuRE labels are human 'defect' judgements; the label definitions differ, so cross-source numbers measure transfer between two definitions, not only domain shift. ARTA labels come from smell-term columns, which the QuRE weak-word rule does not use.
+[ambiguity] 194 of 652 test rows misclassified by tfidf_lr; 30 sampled in errors file

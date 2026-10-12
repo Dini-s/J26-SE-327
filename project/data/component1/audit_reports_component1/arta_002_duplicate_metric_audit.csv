@@ -1,0 +1,10 @@
+﻿NormalizedRequirement,RecordCount,ReqIds,Words_UniqueValues,Words_Values,SmellyWords_UniqueValues,SmellyWords_Values,CleanWords_UniqueValues,CleanWords_Values,Cleanness_UniqueValues,Cleanness_Values,Testability_UniqueValues,Testability_Values,AnyMetricConflict
+"based on all relevant data, the etcs shall calculate an emergency braking curve and a service braking curve",2,"R97, R98",1,18,1,2,1,16,1,0.8888888888888888,1,0.8888888888888888,False
+deleted.,2,"R761, R856",2,3 | 6,1,0,1,1,1,1.0,1,1.0,True
+linking back to the home page or landmark pages: each page should contain a link leading to the home page of the application or to a landmark page that is easy to recognize for the user.,2,"R271, R276",1,58,2,5 | 3,2,31 | 33,2,0.4581419837657177 | 0.772570586926329,2,0.4581419837657177 | 0.772570586926329,True
+operational radios used for shunting shall be able to be switched between the following two operating modes by a maintenance function: (m),2,"R854, R871",2,34 | 35,1,0,1,22,1,1.0,1,1.0,True
+policies are in place to perform renegotiation for problem resolution.,2,"R984, R985",1,10,1,1,1,9,1,0.9,1,0.9,False
+the format for service information description is defined,3,"R962, R963, R971",2,8 | 18,2,0 | 1,2,8 | 7,2,1.0 | 0.875,2,1.0 | 0.875,True
+"the interaction protocol between web server-sr, sr-mediator is defined.",2,"R964, R967",1,9,1,0,1,9,1,1.0,1,1.0,False
+the solution should provide detailed context-sensitive help material for all the possible actions and scenarios on all user interfaces in the application.,2,"R200, R201",1,50,2,4 | 3,2,18 | 19,2,0.5691130619936232 | 0.6085132358831136,2,0.5691130619936232 | 0.6085132358831136,True
+the train trip function,2,"R136, R138",1,5,1,0,1,4,1,1.0,1,1.0,False

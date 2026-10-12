@@ -1,0 +1,10 @@
+{
+  "threshold": 0.955,
+  "dbscan_eps": 0.045,
+  "dbscan_min_samples": 2,
+  "embedding_model": "all-MiniLM-L6-v2",
+  "seed": 327,
+  "chosen_on": "seeded development pairs from the train split (max F1; ties to the higher threshold)",
+  "dev_f1": 0.8531,
+  "note": "seeded rule-made pairs only; real-world recall is unknown"
+}

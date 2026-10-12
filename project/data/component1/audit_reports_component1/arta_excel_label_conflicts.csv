@@ -1,0 +1,17 @@
+﻿Requirement_text,File,Subjective_lang.,Ambiguous_adv._adj.,Loophole,Nonverifiable_term,Superlative,Comparative,Negative,Vague_pron.,Uncertain_verb,Polysemy,ConflictingColumns
+"
+           Linking back to the home page or landmark pages: Each page should contain a link leading to the home page of the application or to a landmark page that is easy to recognize for the user.
+           ",0000 - cctns.xml,easy,back,-,-,-,-,-,-,should,page*application,"Subjective_lang., Uncertain_verb, Polysemy"
+"
+           Linking back to the home page or landmark pages: Each page should contain a link leading to the home page of the application or to a landmark page that is easy to recognize for the user.
+           ",0000 - cctns.xml,-,back,-,-,-,-,-,-,-,application*page,"Subjective_lang., Uncertain_verb, Polysemy"
+The format for service information description is defined,NEW - 2008 - peering.xml,-,-,-,-,-,-,-,-,-,-,Polysemy
+"The format for service information description is defined
+          ",NEW - 2008 - peering.xml,-,-,-,-,-,-,-,-,-,-,Polysemy
+The format for service information description is defined,NEW - 2008 - peering.xml,-,-,-,-,-,-,-,-,-,description,Polysemy
+"
+                The solution should provide detailed context-sensitive help material for all the possible actions and scenarios on all user interfaces in the application.
+            ",0000 - cctns.xml,-,-,-,possible,-,-,-,-,should,action*application,Polysemy
+"
+                The solution should provide detailed context-sensitive help material for all the possible actions and scenarios on all user interfaces in the application.
+            ",0000 - cctns.xml,-,-,-,possible,-,-,-,-,should,"action,application",Polysemy

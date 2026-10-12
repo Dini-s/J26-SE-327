@@ -1,0 +1,1158 @@
+﻿
+Office of Government Commerce
+
+eProcurement Functional Requirements Specification
+
+Version 4.0
+21st July 2004
+|
+|
+Title|eProcurement Functional Requirements Specification|
+Creator|Tim Benson (Abies Ltd)		
+Mark Leitch (Tritorr Ltd)|
+Subject|eProcurement Interoperability Requirements|
+Description|Specification of the requirements for interoperability specifications to support eProcurement throughout the public sector. The scope covers the eProcurement cycle from catalogue through to remittance.|
+Publisher|Office of Government Commerce, HM Treasury|
+Other Contributors|Martin Leverington (OGC), Adrian Kent (OeE), Paul Spencer (Boynings), Steven Baker (BASDA), Mike Adcock (APACS), Sue Probert, Umang Patel (e-Centre), Dennis Keeling (BASDA), David Chambers (HMCE), OGC/OeE Joint Interoperability Working Group|
+Date|21st July 2004|
+Type|Specification|
+Format|MS Word|
+Language|English|
+Rights|Crown Copyright|
+Audience|Analysts, domain experts, implementers|
+Contact|Amabel Grant
+Senior eCommerce Advisor
+Office of Government Commerce
+Email:	amabel.grant@ogc.gsi.gov.uk|
+Version|4.0|
+Status|Public|
+Project|eProcurement Interoperability|
+
+
+Version History|
+|
+Date|Version|Comment|
+21 July 2004|4.0|Major revision|
+13 November 2003|3.0c|Major revision|
+20 November 2002|2.0|Updated for public consultation.|
+10 October 2002|1.0|Updated with UML model for consultation.|
+12 August 2002|0.4|Updated document for discussion by sub-group.|
+16 July 2002|0.3c|Second Interim Report for the Interoperability Working Group for meeting on 18 July 2002.  Includes mapping of transactions and data elements.|
+20 May 2002|0.2|First Interim Report for the Interoperability Working Group 22 May 2002.  Includes scenarios, identification of documents and business domain model.|
+25 April 2002|0.1|Initial draft prepared after first meeting of Interoperability Working Group on 23 Apr 2002|
+
+
+Contents|
+|
+Section|Title|Page|
+|
+1.||Scope and Method|1|
+|1.1|Scope|1|
+|1.2|Benefits|2|
+|1.3|Method|2|
+|1.4|Conventions|2|
+2.||Business Processes|4|
+|2.1|Interactions|4|
+|2.2|Parties|7|
+|2.3|Codes and Identifiers|9|
+3.||Common Elements|10|
+|3.1|Packages|11|
+|3.2|Party|13|
+|3.3|Document|19|
+|3.4|Line|24|
+|3.5|Item|26|
+|3.6|Data Types|29|
+4.||Documents|30|
+|4.1|Catalogue|30|
+|4.2|RFQ (Request for Quotation)|31|
+|4.3|Quotation|32|
+|4.4|Purchase Order|33|
+|4.5|PO Response|35|
+|4.6|Fulfilment Notification|36|
+|4.7|Receipt Advice|38|
+|4.8|Rectification Advice|39|
+|4.9|Invoice|40|
+|4.10|Self Billed Invoice|41|
+|4.11|Credit Note|42|
+|4.12|Debit Note|43|
+|4.13|Remittance Advice|44|
+|4.14|Statement|45|
+5.||Abbreviations|46|
+
+|
+Tables|
+|
+Table|Title|Page|
+|
+1.|Documents Produced in Each Business Process|4|
+2.|Documents Sent and Received|7|
+
+
+Figures|
+|
+Figure|Title|Page|
+|
+1.|Packages|11|
+2.|Party|13|
+3.|Party Specialisations and Attributes|17|
+4.|Document|19|
+5.|Document Specialisations and Attributes|22|
+6.|Line|24|
+7.|Item|26|
+8.|Data Types|29|
+9.|Catalogue|30|
+10.|RFQ (Request for Quotation)|31|
+11.|Quotation|32|
+12.|Purchase Order|33|
+13.|PO Response|35|
+14.|Fulfilment Notification|36|
+15.|Receipt Advice|38|
+16.|Rectification Advice|39|
+17.|Invoice|40|
+18.|Self Billed Invoice|41|
+19.|Credit Note|42|
+20.|Debit Note|43|
+21.|Remittance Advice|44|
+22.|Statement|45|
+
+
+1.  Scope and Method|
+|
+1.1  Scope|
+|
+This document specifies the functional requirements for eProcurement interoperability in the UK public sector and covers the information content of messages exchanged between public sector Buyers and external Sellers through the procurement cycle from catalogue to remittance.  
+
+These requirements are not limited to any industry sector.  The approach provides a common ‘language’ for describing eProcurement documents that is modular and extensible to specialised business contexts. 
+
+The messages are specified for implementation as electronic documents, exchanged between Buyer and Seller, marked-up using eXtensible Markup Language (XML) and validated using XML schema, in compliance with the e-Government Interoperability Framework (e-GIF).  This specification does not include the XML schema to be used.
+
+No assumptions are made (other than good business practice) about how the internal systems at the Buyer and the Seller are designed or work; these systems are treated as ‘black boxes’.
+
+The following aspects of procurement are out of scope:
+·	Seller discovery; 
+·	on-line negotiation and e-auctions;
+·	e-tendering;
+·	negotiation of terms and conditions of trade;
+·	communication with third parties and intermediaries e.g. carriers, banks and fiscal authorities;
+·	message transport and security;
+·	data protection and retention rules;
+·	the application of public sector purchasing policy.
+
+eProcurement is a many-to-many electronic data interchange (EDI) problem on a large scale and requires both the sender and the receiver to interpret each and every data element in precisely the same way. 
+
+In practice, these Documents are likely to be introduced incrementally, starting with one or two Documents, such as Purchase Order and/or Invoice, and adding additional services as required.  Such an incremental approach demands that all Documents (those adopted earlier and later) represent the same things in a common way.
+
+This specification is not prescriptive regarding Document variants and, in particular, the business rules that may be required to provide automated support for the provision of copies, revisions and cancellations.
+
+A status attribute is mandatory in all documents with values of:
+·	‘original’
+o	the Document as first sent; 
+·	‘copy’
+o	a copy of the original Document, typically sent on request if the original has been misplaced; 
+·	‘revision’
+o	contains one or more changes from the original Document e.g. new, deleted or amended Item Lines.
+o	Note: for a revision, the whole Document may need to be re-issued and manual intervention may be required; 
+·	‘cancellation’
+o	cancellation of original Document in its entirety.|
+
+|
+1.2  Benefits|
+|
+These requirements support several Government initiatives, including: 
+·	the generation of value for money efficiency savings;
+·	the wish from ministerial level for the UK to be the best place to do e-business; 
+·	that 100% of interactions between Government and business be available electronically by 2005.
+
+The greatest benefits accrue when information persists through the purchasing cycle without re-keying and with manual intervention only where needed for business reasons.  
+
+One example is the ‘three-way match’ between Purchase Order, goods receipt and Invoice, usually performed in the accounts payable function before an Invoice is paid.  Automating the three-way match may reduce substantially the end-to-end costs of in the Buyer’s back office.
+
+Cross-Government eProcurement standards also benefit Sellers, particularly small to medium-sized enterprises (SMEs).  This specification provides a clear ‘stake in the ground’ for Sellers, for their trade with Government and, potentially, for trade across the private sector.  
+
+Similarly, a common Government standard reduces the need for software and service providers to cater for multiple specifications. |
+
+|
+1.3  Method|
+|
+This work has been undertaken within the e-Commerce team in the Office of Government Commerce (OGC), reporting to a joint eProcurement Interoperability Working Group of the OGC and the Office of the e-Envoy (OeE).  A working group compiled the basic requirements with representation from across Government, local authorities and the National Health Service.  These requirements have been refined through public consultation, meetings with IT suppliers and experts involved in relevant international standards and trade associations.
+
+The method used is based on the OeE’s e-Service Development Framework (e-SDF);  see www.govtalk.gov.uk/schemastandards/eservices.asp.|
+
+|
+1.4  Conventions|
+|
+·	the actual name of a Document, class or attribute is written with a Capital letter.
+|
+·	diagrams are all Unified Modelling Language (UML) class diagrams.  It is assumed that the reader is familiar with UML.
+|
+·	classes are colour coded for convenience, with colours indicating the parent Package of each class:
+o	Party		pink
+o	Document	cyan
+o	Line		green
+o	Item		purple.
+|
+·	chapter 3 of this specification covers common classes which are re-used in more than one Document.
+
+·	chapter 4 covers individual Document specifications.
+
+·	to save space, information is given once only, at the most generic level.  For this reason, each Document specification description contains only descriptions of the attributes that are specific to that Document.
+|
+·	mandatory elements are indicated as such.  All other elements are optional, although some may be required to support certain business processes.|
+
+
+2.  Business Processes|
+|
+The scope for this specification is the procurement of goods and services for public sector organisations.  This broad domain is broken down into four main business processes:|
+|
+Sourcing|includes activity prior to placing a formal order, including the exchange of Catalogue information, Requests For Quotation (RFQ) and Quotations.
+|
+Ordering|includes Purchase Orders and responses.
+|
+Fulfilment|includes delivery/despatch notification, receipt (including variances) and Seller's proposed rectification of any problems.
+|
+Accounting|includes Invoices (including Self Billed Invoices) Credit Notes, Debit Notes, Statements and Remittance Advice.|
+
+|
+2.1  Interactions|
+|
+Each business process involves the exchange of information between the Buyer and the Seller, using a number of Documents (see Table 1).  |
+|
+Table 1. Documents Produced in Each Business Process|
+Business Process|Buyer Document|Seller Document|
+Sourcing|Request for Quotation|Catalogue|
+||Quotation|
+Ordering|Purchase Order|Purchase Order Response|
+Fulfilment|Receipt Advice|Fulfilment Notification|
+||Rectification Advice|
+Accounting|Self Billed Invoice|Invoice|
+|Debit Note|Credit Note|
+|Remittance Advice|Statement|
+
+|
+2.1.1  Sourcing|
+|
+The Documents included are:|
+|
+Catalogue|is sent from the Seller to the Buyer to provide Item price and other information for use in locally held Catalogues.
+|
+RFQ
+(Request for Quotation)|is a request from the Buyer to the Seller to quote terms and conditions under which the Seller is willing to supply specific goods or services.
+|
+Quotation|is sent from sent from Seller to Buyer to: 
+·	set out the terms and conditions under which the Seller is willing or able to supply goods or services; or 
+·	in the case of “punch out” (where the Buyer orders on the Seller’s web site), to provide information for the Buyer’s internal processes. 
+|
+2.1.2  Ordering|
+|
+The Documents included are:|
+|
+Purchase Order|is sent by the Buyer to tell the Seller that the sender wishes to purchase goods and/or services.  It is a promise to buy. 
+
+Variants may support revision or cancellation of the Purchase Order either in content (Items ordered or quantity of Items) and/or in terms of fulfilment (changed delivery details, required by date etc).
+|
+PO Response|is sent by the Seller to inform the Buyer of the sender’s intention to supply goods or perform services in response to a Purchase Order.  It acknowledges that the Purchase Order has been received and that it will be fulfilled in total, in part or not at all.  It may also give additional information about specific delivery. |
+
+|
+2.1.3  Fulfilment|
+|
+The Documents included are:|
+|
+Fulfilment Notification|is sent by the Seller to tell the Buyer that goods have been despatched or delivered or that a service has been performed.  The Seller may use this Document to notify the Buyer of shipping details via a third party carrier and to notify partial or complete delivery of a Purchase Order.
+|
+Receipt Advice|is sent by the Buyer to the Seller to acknowledge receipt in full or in part and to describe discovered variances e.g. un-notified under-delivery, over-delivery, wrong Items delivered or damaged goods.
+|
+Rectification Advice|is sent from the Seller to the Buyer to tell the Buyer of action to be taken regarding the goods or services at variance from the actual requirement e.g. the Seller may ask the Buyer to return the goods, await collection of the goods (by the Seller or his carrier) or destroy the goods.|
+
+|
+2.1.4  Accounting|
+|
+The Documents included are:|
+|
+Invoice|is sent from the Seller to the Buyer to request payment for goods delivered or services performed. 
+
+Invoice is a Value Added Tax (VAT) Document.
+|
+Self Billed Invoice|is an Invoice sent from the Buyer to the Seller where the two have a self billing arrangement.
+
+For more information regarding HMCE requirements for self billing, see www.hmce.gov.uk/forms/notices/700-62.htm
+Self Billed Invoice is a VAT Document.
+|
+Credit Note|is sent from the Seller to the Buyer, confirming that the Seller owes money to the Buyer.  It may be used to rectify errors and/or variances in the invoicing process.  
+
+Credit Note is a VAT Document.
+|
+Debit Note|is sent from the Buyer to the Seller, stating that Buyer has deducted amounts from a Seller’s Invoice.  A Debit Note precludes the need for a Seller to raise a Credit Note. 
+
+Debit Note is a VAT Document.
+|
+Remittance Advice|is sent from the Buyer to the Seller, notifying payment and stating what Invoices, Credit and Debit Notes have been accounted for.
+|
+Statement|is sent from the Seller to the Buyer summarising the status of the Buyer’s account and the Invoices, Remittances, Debit and Credit Notes submitted within a specific time period.|
+
+
+2.2  Parties|
+|
+A Party is any person, organisation or computer system that sends or receives goods, services or information.
+
+A role is a job done by a particular Party.  One Party may play a number of roles in a Document. 
+
+Every Document has a sender and receiver, one of which is a Buyer role, the other a Seller role.  The Party types, roles names and Documents sent and received are shown in Table 2.|
+|
+Table 2. Documents Sent and Received|
+Party Type|Role Name|Documents Sent|Documents Received|
+Buyer|Purchasing Manager||Catalogue|
+|Originator|RFQ|Quotation|
+|Order Point|Purchase Order|Purchase Order Response|
+|Delivery Point|Receipt Advice|Fulfilment Notification|
+|||Rectification Advice|
+|Accounts Payable|Self Billed Invoice|Invoice|
+||Debit Note|Credit Note|
+||Remittance Advice|Statement|
+Seller|Sales Point|Catalogue|RFQ|
+||Quotation||
+||Purchase Order Response|Purchase Order|
+|Despatch Point|Fulfilment Notification||
+|Customer Service|Rectification Advice|Receipt Advice|
+|Accounts Receivable|Invoice|Self Billed Invoice|
+||Credit Note|Debit Note|
+||Statement|Remittance Advice|
+
+|
+2.2.1  Buyer Roles|
+|
+Buyer roles include:|
+|
+Purchasing Manager|is responsible for the arrangement and maintenance of trading agreements with suppliers, including Catalogue data. The Purchasing Manager is not involved in other transactions; if the Purchasing Manager requests or makes a purchase, that individual adopts the role of Originator or Order Point respectively.
+|
+Originator|also known as requisitioner, has the original demand for each Item of goods and/or services.  If Originator subsequently places a Purchase Order, the Originator adopts the role of Order Point.
+|
+Order Point|raises Purchase Order. Purchase Card (credit or debit card) information may be associated with the Order Point.
+|
+Delivery Point|also known as goods inwards, is where the goods or services are delivered and variances in receipt are identified.
+|
+Accounts Payable|also known as accounts payable, is responsible for Invoice processing and payment and, in some circumstances, the issuing of Self Billed Invoices.|
+|
+2.2.2  Seller Roles|
+|
+Seller roles include:|
+|
+Sales Point|is responsible for all communication with the Buyer up to and including the acceptance of a Purchase Order.
+|
+Despatch Point|is responsible for the despatch, delivery and shipping of goods and the performance of services. 
+|
+Customer Service|is responsible for resolving issues arising from Purchase Order fulfilment.
+|
+Accounts Receivable|is responsible for invoicing and credit control.  It may include Electronic Funds Transfer (EFT) information i.e. bank details.
+
+Note: Messages to and from banks are out of scope.|
+
+|
+2.2.3  Third Party Roles|
+|
+Third Party roles include:|
+|
+Carrier|is assigned by the Seller or the Buyer to deliver or return goods.  
+
+Note: Messages to and from carriers are out of scope.
+|
+
+
+2.3  Codes and Identifiers|
+|
+Semantic interoperability depends on the ability of computers to match identifiers and codes. 
+
+Identifiers and codes are needed to enable:
+·	the Seller to identify the Buyer;
+·	the Buyer to identify the Seller;
+·	both Seller and Buyer to identify the carrier and the consignment;
+·	Documents and Lines need to be referenced in subsequent transactions in the procurement cycle;
+·	internal instance identifiers may be used to avoid repetition of the same set of information many times within the same Document e.g. Delivery Point;
+·	Parties need to be identified for fiscal purposes (VAT No., Company Registration No. etc.);
+·	Documents need to be uniquely identifiable for audit purposes;
+·	Items are classified for management information e.g. commodity classification, and identified at individual or Catalogue Item level as appropriate.
+
+An identifier may refer to:
+·	an individual instance, such as a Document, a person or the serial number on a machine; or 
+·	to a category of things, such as the bar codes printed on packages (Global Trade Identification Number [GTIN]), or a commodity classification such as the United Nations Standard Product and Services Code (UNSPSC).
+
+The identifiers, coding and classification schemes used in this specification fall into five groups:|
+|
+International|used and maintained internationally, including:
+·	country codes (ISO 3166)
+·	currency codes (ISO 4217)
+·	D&B D-U-N-S company reference number
+·	Global Location Number (GLN)
+·	GTIN
+·	International Commercial Terms (INCOTERMS - International Chambers of Commerce)
+·	Units of Measure (UN Recommendation No. 20)
+·	UNSPSC
+|
+National|used and maintained nationally, including the OeE Government Data Standards Catalogue (GDSC).
+
+Examples include:
+·	Company registration number
+·	Postcode
+·	VAT reference number
+|
+Specified in this Document|developed for this specification including:
+·	Document status
+·	payment method 
+|
+Application-specific|a variety of application-specific identification schemes are supported.  These include:
+·	Seller reference for Buyer
+·	Buyer reference for Seller
+·	locally specified identifiers for instances of:
+o	Quotation
+o	Purchase Order
+o	Fulfilment Notification
+o	Invoice
+o	other document identifiers
+·	Line number
+·	consignment
+·	Item
+
+Because, such schemes are application-specific they can never be relied on to be 100% unique.
+|
+Universally Unique Identifiers|Universally Unique Identifier (UUID) is an instance identifier generated on the fly as specified in ISO 11587.  It is also known as a Globally Unique Identifier (GUID). 
+
+UUID is a 128 bit string usually formatted as 32 characters alphanumeric.  In this specification UUID is used for matching instances of Document and Line between Documents and for referring to multiple role instances of the same Party within a single Document. 
+
+UUIDs provide an effective means to ensure exact matching of identifiers at machine level, but are not well suited to visual matching, which is why existing ID data are also required.  |
+
+
+
+3.  Common Elements|
+|
+Each Document is made up of a common set of elements, which are described below.  
+
+The descriptions are illustrated with UML class diagrams.  A specialisation inherits all of the properties of its parent class.
+
+Some knowledge of UML is needed to understand the model fully, but the text is intended to be understandable to those who are not familiar with the UML notation. |
+
+|
+3.1  Packages|
+|
+Figure 1. Packages|
+|
+
+|
+The overall model is organised into 5 UML Packages:|
+|
+Party Package|contains information about each Party including organisation and person details, postal and electronic addresses.  A sender and a receiver are included in every Document.
+
+Party specialisations include:
+·	Buyer Parties
+o	Purchasing Manager
+o	Originator
+o	Order Point
+o	Delivery Point
+o	Accounts Payable
+·	Seller Parties
+o	Sales Point
+o	Despatch Point
+o	Customer Service
+o	Accounts Receivable
+|
+Document Package|contains information about Documents.
+
+Document specialisations include:
+·	Catalogue
+·	unpriced Document
+·	priced Document
+·	VAT Document
+·	summary Document
+|
+Line Package|contains information about Document Lines.  Every Document has at least one Line.  
+
+Line specialisations include:
+·	quantified Line
+o	priced Line
+§	VAT Line
+o	unpriced Line
+·	Catalogue Line
+·	summary Line
+|
+Item Package|contains information about products and services and their instances.
+
+Item specialisations include:
+·	priced Item
+o	priced Item validity
+|
+Data Types Package|contains the data types, including enumerations for codes defined within this specification.|
+
+
+	
+
+
+
+3.2  Party|
+|
+A Party is any person, organisation or computer system that sends or receives information, goods or services. 
+
+A role is a job done by a particular Party.  One Party may play a number of roles in a Document. 
+
+Figure 2. shows the common elements of Party.|
+|
+Figure 2. Party|
+|
+
+|
+3.2.1  Party|
+|
+Party UUID
+(mandatory)|is a universally unique identifier for an instance of Party.  This may be useful in providing references within a Document to the same Party in several different places.
+
+The full details of any Party only need to be provided once and other occurences of the same Party may be cross-referenced using Party UUID.  
+	|
+Contact Name|is the unstructured name of an individual within an organisation.  Unstructured name is typically entered manually at the time of the transaction.
+|
+Party Note|is a free text or Hyper Text Markup Language (HTML) note, that could, for example, could include a map showing Party location or an image.	
+|
+Location Name|is the name of the location (usually within an organisation) sending, receiving or referenced in any Document.
+|
+Address Line|Address may be unstructured or structured.
+
+When an unstructured address is used, it  must have 1 to 5 Lines.
+|
+Post Code|is the code issued by the postal authority to identify a group of postal delivery points. The UK Post Code is a combination of between five and seven letters and numbers which define four different levels of geographic unit.
+
+Although Post Code cannot be made mandatory in all circumstances, it should be present if known.
+|
+Country Code|according to ISO 3166 2 letter codes e.g. GB, FR, US.  This needs to be coded to enable collection of management data on source of imports and exports.
+|
+Registered Name|is the official name of the organisation.
+|
+Registration Number|is the organisation’s registration number.  For companies registered in England and Wales, this is the company Registration Number issued by Companies House, Cardiff.
+|
+Registered In|is the country where the organisation is registered.
+|
+Registered Address|is the registered address of the organisation.
+|
+VAT Identifier|is the VAT reference assigned to an organisation registered for VAT by the relevant national authority such as Customs and Excise in the UK.
+
+VAT Identifier includes Country Code (as above) and VAT number.
+|
+D-U-N-S Number|is an identifier (nn-nnn-nnnn) assigned to a company in the D&B Company Register. 
+|
+GLN|is the Global Location Number (13 digits) assigned to an organisation (or branch of an organisation). 
+|
+Direct Line|is an individual’s direct telephone number
+|
+Switchboard|is the organisation main telephone number.
+|
+Fax|is fax number
+|
+Mobile Phone|is mobile telephone number
+|
+E-Mail|is a string of characters that identifies an addressee’s post box on the Internet.  It is a specific Internet identifier that contains a locally interpreted string followed by the ‘at’ sign (@) followed by an Internet domain.|
+
+|
+3.2.2  Structured Postal Address|
+|
+Structured postal address attribute definitions are based on BS 7666, as used in the National Land and Property Gazeteer and as recommended in the GDSC  It includes:|
+|
+Party UUID
+(mandatory)|is a universally unique identifier for an instance of Party.  This may be useful in providing references within a Document to the same Party in several different places.
+
+The full details of any Party only need to be provided once and other occurences of the same Party may be cross-referenced using Party UUID.  
+	|
+Primary Addressable Object Name|(PAON) is the premise number and/or premise name, or where neithe rof these exist it is the name of the organisation in occupation or a description of the addressable object e.g. a building.
+|
+Secondary Addressable Object Name|(SAON) is the number, name or description used to identify a secondary address within a primary addressable object e.g. a flat, suite or floor in a building.
+|
+Street Description|is the street name or street description that has been allocated to a street by the street naming authority.
+|
+Locality|refers to a neighbourhood, suburb, district, village, estate, settlement or parish that may form part of a town or stand in its own right within the context of an administrative area.  
+
+Where an industrial estate contains streets it is defined as a locality in its own right.
+|
+Town|refers to a city or town that is not an administrative area, a suburb of an administrative area that is not part of another town, or a London district (Borough).
+|
+Administrative Area|is a geographic area that may be the highest level local administrative area, which may be a county or a unitary authority, an island or island group or London.
+|
+UK Internal Code|is a unique code representing a constituent part of the United Kingdom. 1 England; 2 Scotland; 3 Wales; 4 Northern Ireland; 5 Isle of Man; 6 Guernsey; 7 Sark; 8 Jersey; 9 Alderney; 10 Channel Islands.
+
+UK Internal Code is used if the Country Code is GB.|
+
+|
+3.2.3  Extended Electronic Address|
+|
+eAddress|is the number or string of the electronic address or telephone number.
+|
+eAddress Channel|is the specific type of electronic address of a Party, e.g. telephone, fax, mobile phone or email.
+|
+eAddress Use|specifies the circumstances under which an electronic address of a Party is to be used, e.g. direct line, switchboard, mobile phone, evenings, week-end or emergency.|
+|
+3.2.4  Person Structured Name|
+|
+Title|is an individual’s address title e.g. Mr, Ms, Dr.
+|
+Forename|is an individual’s forename or first name.
+|
+Surname|is an individual’s surname or family name.
+|
+Name Suffix|is a suffix to an individual’s name e.g. PhD, OBE, Jnr.
+|
+Job Title|is an individual’s job title within an organisation.
+|
+Department|is a department or sub-division of an organisation.
+|
+Known As|is the name by which an individual is commonly addressed or known e.g. Jim [where the Forename is James].|
+
+
+3.2.5  Party Specialisations|
+|
+Figure 3. Party Specialisations and Attributes|
+|
+
+|
+3.2.6  Buyer|
+|
+Seller Ref For Buyer|is the Seller’s reference for the Buyer, typically the customer account number.|
+
+|
+3.2.7  Seller|
+|
+Buyer Ref For Seller|is the Buyer’s reference for the Seller; supplier number.|
+
+|
+3.2.8  Order Point|
+|
+Card Number|is the (Purchase) Card number.
+
+Mandatory only where Purchase Card is used.
+|
+Cardholder Name|is the individual’s name on card and may include the name of the organisation.
+
+Mandatory only where Purchase Card is used.
+|
+Expiry Month|is the last month/year that the card is valid.
+
+Mandatory only where Purchase Card is used.
+|
+Valid-From Month|is the first month/year that the card is valid.
+
+Optional only where Purchase Card is used.
+|
+Card Verification Value (CVV)|is the 3 (or 4 in the case of American Express) digit number suffixing the card number on the card signature strip.
+
+Note: card verification value is normally given by the cardholder in response to a challenge from the Seller's point of sale application at the time of the transaction in order to determine that the cardholder has the physical card.
+
+Optional only where Purchase Card is used.
+|
+Issue Number|is the issue number of the card.
+
+Optional only where Purchase Card is used.|
+
+|
+3.2.9  Sales Point|
+|
+Preferred Payment Method|is the Seller’s preferred method of payment e.g BACS or Purchase Card.
+|
+Merchant Capability|is the Seller’s capability to send invoice data via the Purchase Card provider (VISA/MasterCard/American Express):
+·	Level 1 – no invoice data
+·	Level 2 – summary invoice data
+·	Level 3 – line level invoice data.
+|
+
+|
+3.2.10  Accounts Receivable|
+|
+Account Number|is the Bank account number.
+|
+Account Name|is the name of the organisation’s bank account.
+|
+Branch ID|is the Sort Code of the bank branch.
+|
+Bank Name|is the name of the bank.
+|
+SWIFT Code|is the bank code allocated by the Society of Worldwide Interbank Financial Telecommunications (SWIFT).|
+
+
+3.3  Document|
+|
+Document is the main container for information sent from a sender to a recipient.  All Documents have two or more Parties and one or more Lines. A single Line contains information about one Item.  
+
+Each Document is identified with a Document identifier, date and status e.g. original, copy or test and includes details of the sender and intended recipient as well as metadata (information about the Document itself).  
+
+Linkage at the Line level between Documents allows a many-to-many relationship between Documents such as Purchase Order and Invoice. |
+|
+Figure 4. Document|
+|
+
+|
+3.3.1  Document|
+|
+Document UUID
+(mandatory)|is a computer generated unique identifier for the Document, guaranteed to be unique.
+|
+Document ID
+(mandatory)|is the Document identifier within the sender's system e.g. Purchase Order Number.  If the original Document is revised, it may keep the original Document ID, but the Document status and UUID will be different.
+|
+Document Date
+(mandatory)|is the date or date/time assigned to the Document by the sender (using format – CCYYMMDDhhmmss which may be truncated from the right e.g. CCYYMMDD).
+
+Note:  for a copy, revision or cancellation, the Document date is the date of the revised Document, not the original.
+|
+Document Status
+(mandatory)|is the status of the Document (original, copy, revision, cancellation).  |
+Test Status
+(mandatory)|is a boolean.  If value is ‘true’, the Document is intended for test purposes only and does not to constitute a contractual commitment.
+|
+Sender Software Manufacturer
+(mandatory)|is identified by a Universal Resource Identifier (URI) of the manufacturer of the application software that sends the Document.  URI is used to ensure unique naming.  
+|
+Sender Software Product
+(mandatory)|is the software manufacturer’s name for the product|
+Sender Software Version
+(mandatory)|is the software manufacturer’s product version.|
+Schema Version
+(mandatory)|is the version of the XML schema with which this Document complies.  This should be the same as the value of the version attribute in the schema element of both the XML message instance and the schema.
+|
+Style Sheet Reference
+|is the URI at which a suitable style sheet may be found for rendering the Document for printing or display for human readability.
+|
+Sender System Identifier|is an identifier of the particular system that sends the Document.  This identifier is optional, but is recommended to be sent.  The format may be manufacturer specific, but could be a UUID.
+|
+Sender’s Logo|is the URI at which a logo can be found for insertion into a rendered Document.
+|
+Document Note|is free text note on Document.  This is used for non-structured header-level Document information, which is intended to be human readable.
+|
+Contract Reference|is a reference to a framework agreement or contract that governs this transaction. This information is should be sent if it is known to the sender.
+|
+Payment Method|is the method to be used for payment (cheque, direct debit, standing order, BACS, SWIFT, CHAPS, GIRO, promissory note, letter of credit, cash, cash on delivery, credit card, debit card, charge card, pre-paid).
+|
+Settlement Terms|is the terms set by the sender of the Document for the payment of the Invoice. This string may include details of the payment trigger event, the period between trigger event and payment and any agreed settlement terms.
+|
+Terms and Conditions|is text or a URI pointing to the sender's web-site stating the sender's terms and conditions associated with the Document.  This does not include delivery terms which may be Item-specific.
+|
+Payment Schedule|is text specifying the payment schedule.
+|
+Document Attachment|is any number of attached files or URIs at the Document level.  
+|
+Digital Signature|is an electronic signature that may be applied to the whole of the Document payload, with the exception of the signature element, using the World Wide Web Consortium (W3C) Digital Signature.  In an XML Document it is recommended that the Digital Signature be the final element of the payload. 
+
+Digital Signature should be sent if the sender system is able to generate it, but it is not essential for a receiving system to be able to process a Digital Signature unless it needs to authenticate the Document (the Digital Signature can safely be ignored). |
+
+
+3.3.2  Document Specialisations and Attributes|
+|
+Figure 5. Document Specialisations and Attributes|
+|
+
+|
+Document attributes specific to individual types of Document are illustrated and explained in Section 4. Documents, below.|
+||
+Total IncVAT|is the Document total including VAT.
+|
+Total Ex VAT|is the Document total excluding VAT.
+|
+VAT Evidence
+(mandatory)|indicates whether the Invoice can be used for VAT purposes (True/False).
+|
+Paid In Full
+(mandatory)|indicates whether the Invoice has 
+already been paid (True/False).
+|
+Tax Point|is the date on which the VAT is calculated.
+|
+Cash Discount|is the percentage cash discount offered.|
+
+
+3.4  Line|
+|
+Each Document contains one or more Lines.  Each Line relates to a single type of Item. |
+|
+Figure 6. Line|
+|
+3.4.1  Line|
+|
+Line UUID
+(mandatory)|is a unique instance identifier for Line.
+
+|
+Line Number
+(mandatory)|is the number of a Line within any Document.  This is a positive integer, starting with 1, representing Line 1, with a maximum value of 9999.
+|
+Line Status
+(mandatory)|is the status of the Line (original, revision, deletion).
+
+·	‘original’ is the Line as first sent;
+·	‘revision’ is a Line that contains change from the original e.g. different quantity or Item;
+·	‘deletion’ is deletion of a Line in its entirety.
+|
+Line Note|is a free text note at Line level.  This is used for non-structured Line-level information; intended to be human readable.
+|
+Project Reference|is a shared reference to a project, understood by both Buyer and Seller.
+|
+Line Attachment|is used as a holder for images, supporting Documents etc. that may be attached to a Line.|
+
+|
+3.4.3  Quantified Line|
+|
+Line Quantity
+(mandatory)|is the quantity of good or services on a Line.
+|
+
+|
+3.4.4  Priced Line|
+|
+Amount Ex VAT
+(mandatory)|is the monetary amount excluding VAT on the Line. 
+
+|
+Amount Inc VAT|is the monetary amount including VAT on the Line. |
+
+
+3.5  Item|
+|
+Figure 7. Item|
+|
+
+|
+3.5.1  Item|
+|
+Item Name
+(mandatory)|is the name of the Item in a form mutually understood by both Buyer and Seller.  Limit to one line 70 characters text. 
+|
+Unit of Measure
+(mandatory)|is a code describing the quantity in which goods and services are priced and ordered using a sub-set of UN recommendation No 20. The code is 2 or 3 characters (e.g. EA - each, PK - pack, MGM- milligram, GRM - gram, KGM - Kg, TNE - tonne, MMT - millimetre, MTR - metre, MTK - square metre, MTQ - cubic metre)
+
+A suggested default value is EA (each).|
+Item Description|is a full description of the Item (more than just name). No restriction of length or format.
+|
+Seller Item ID|is the identifier of the Item in the form used by the Seller.
+|
+GTIN|is the GTIN, most widely used as bar codes.
+
+Most GTINs are 8, 12,13 or 14 character.  Leading spaces in a 14-character string may be packed with zeroes.|
+
+|
+3.5.2  Priced Item|
+|
+Unit Price
+(mandatory)|is the unit price for the Item.  Price includes a currency code expressed using ISO 4217 3-character codes, e.g. GBP, EUR, USD. 
+|
+Commodity Class
+(mandatory)|is the commodity class for the Item using UNSPSC or another classification agreed with OGC.
+
+This is needed for management information.
+
+The format of UNSPSC is four pairs of characters (2..8). The first two pairs of digits (levels 1 and 2) are mandatory; the next two pairs (levels 3 and 4) are required. |
+
+|
+3.5.3  Priced Item Validity|
+|
+This class states the Item price validity in terms of quantity range and date range. |
+|
+Quantity From|is the lower value for the number of units that this unit price applies to.
+|
+Quantity To|is the upper value for the number of units that this unit price applies to.
+|
+Price Valid From|is the start date that this price is valid.
+|
+Price Valid To|is the end date that this price is valid.|
+
+|
+3.5.4  Item Instance|
+|
+Item Instance includes information about a particular instance of an Item that may be supplied, including: |
+|
+Serial Number|is the Item’s serial number for this instance of the Item.
+|
+Batch Number|is the manufacturer's batch number related to this instance of the Item.
+|
+Supplier Reference|is the supplier's own reference for this instance of the Item e.g. build number.
+|
+Registration Number|is the registration number for this instance of the Item e.g. of a car.
+|
+Manufacture Date|is the date of manufacture of this instance of the Item.
+|
+Registration Date|is the date of registration for this instance of the Item e.g. date of first registration of a car.
+|
+Expiry Date|is the use by date for this instance of the Item.|
+
+|
+3.5.5  Extended Item ID|
+|
+Extended Item ID
+(mandatory)|is any "part number" of the Item other than the Seller Item ID or GTIN e.g. the Original Equipment Manufacturer’s (OEM) reference. 
+
+Each Item may have any number of Extended Item IDs.
+|
+Extended Item ID Source
+(mandatory)|Extended Item ID Source qualifies the Extended Item ID by specifying its origin.  This should be a unique identifier for the source. 
+|
+
+|
+3.5.6  Aspect|
+|
+Aspect is used to capture miscellaneous domain-specific data about an Item, using the attributes:
+·	Aspect Name (e.g. colour, height, length width, weight, collar size);
+·	Aspect Value; and, optionally
+·	Aspect Value Unit. 
+
+Example: 
+·	aspect name =colour, aspect value = magenta;
+·	aspect name = length, aspect value = 100, aspect value unit = metre.
+|
+||
+Aspect Name
+(mandatory)|is the name of the aspect.|
+Aspect Value
+(mandatory)|is the value of the aspect.|
+Aspect Value Unit
+(mandatory)|is the value unit associated with the aspect value.|
+
+
+3.6  Data Types|
+|
+Figure 8. Data Types and Emunerations|
+|
+
+
+4.  Documents|
+|
+This section describes the structure of each of the 14 Documents introduced in Section 2 (Business Processes) using simplified UML class diagrams.  Only the main classes and associations are shown, along with the package to which they belong.  
+
+Full details of each class are shown in Section 3 (Common Elements), organised according to Package.|
+
+|
+4.1  Catalogue|
+|
+Catalogue is sent by the Sales Point (Seller) to the Purchasing Manager (Buyer) to provide Item price and other information for use in locally held Catalogues.
+
+Each Catalogue Line references a single priced Item, which may be associated with a quantity range and date interval. |
+|
+Figure 9. Catalogue|
+|
+
+
+4.2  RFQ|
+|
+RFQ is sent by the Originator (Buyer) to the Sales Point (Seller) to request the Seller to supply terms and conditions under which the it is willing to supply goods or services.
+
+Each Line specifies a Line Quantity and references a single Item.|
+|
+Figure 10. RFQ|
+|
+
+|
+Respond By Date|is the date/time by which a respose to the RFQ is required.
+|
+Requested Delivery Date
+(mandatory)|is the date/time required for delivery of goods or performance of a service.
+|
+Requested Delivery Terms|is the requested terms for delivery of goods or performance of a service.|
+
+
+4.3  Quotation|
+|
+Quotation is sent by the Sales Point (Seller) to Originator (Buyer) to inform the Buyer of the terms and conditions under which the Seller is willing or able to supply goods or services. 
+
+Quotation is also used as the response Document from the Sales Point (Seller) when the Originator (Buyer) has purchased directly from the Seller’s web site (also known as ‘punch out’).
+
+Each Quotation Line references a single priced Item, a quantity, Line value and Delivery Point.  It may also reference a corresponding RFQ.|
+|
+Figure 11. Quotation|
+|
+
+|
+Quotation Expiry Date|is the date up to which the Quotation is valid.
+|
+Quoted Delivery Date
+(mandatory)|is the quoted date/time for the delivery of goods or the performance of a service.
+|
+Quoted Delivery Terms|is the quoted terms for the delivery of goods or the performance of a service.
+|
+
+
+4.4  Purchase Order|
+|
+Purchase Order is sent by the Order Point (Buyer) to inform the Sales Point (Seller) that the Buyer wishes to purchase goods or services.  It is a promise to buy. Variants may support cancellation or revision of the Purchase Order either in content (Items ordered or quantity of Items) and/or in terms of fulfilment (changed delivery details, required by date etc.).|
+|
+Figure 12. Purchase Order|
+|
+
+|
+Required Invoice Currency|is the currency in which the Buyer wishes the Invoice to be expressed.  This is used when the Buyer wishes to be invoiced in a currency other than that used for the Purchase Order. 
+|
+Customer Reference Identifier (CRI)|is the data element transmitted by the Seller’s point of sale application used to enable transmission of Buyer specific information with a card transaction.
+|
+Required By Date
+(mandatory)|is the date/time at which the goods or services are required.
+
+Note: this attribute is required for Seller performance measurement.
+|
+Delivery Terms|is the INCOTERMS associated with delivery of the goods e.g. FOB (Free On Board – carrier’s responsibility to destination), CIF (Carriage Insured Freight - Seller to insure to destination).|
+
+
+4.5  PO Response|
+|
+PO (Purchase Order) Response is sent by the Sales Point (Seller) to inform the Order Point (Buyer) of the intention to supply goods or perform services in response to a Purchase Order.  It acknowledges that the Purchase Order has been received and that it will be fulfilled in total, in part or not at all.  |
+|
+Figure 13. PO Response|
+|
+
+|
+Sales Order Reference|is the Seller’s own reference for the order.
+|
+Expected Delivery Date|is the expected date/time for delivery of goods or performance of a service.|
+
+
+4.6  Fulfilment Notification|
+|
+Fulfilment Notification is sent by the Despatch Point (Seller) to inform the Delivery Point (Buyer) that goods have been despatched or delivered or that a service has been performed.  The Seller may use this Document to notify the Buyer of shipping details via a third party carrier and to notify partial or complete delivery of an order.|
+|
+Figure 14. Fulfilment Notification|
+|
+
+|
+Shipped Quantity Unit|is the quantity unit associated with the shipping of the goods; the unit of containment.
+|
+Despatch Date|is the date/time at which the goods are despatched.
+|
+Consignment Reference|is the consignment reference of the goods being shipped (usually assigned by the Carrier).
+|
+Estimated Time of Arrival|is the date/time at which the goods are estimated to be delivered.
+|
+Shipped Weight|is the weight of the consignment shipped.
+|
+Shipped Weight Unit|is the unit of measure qualifying the shipped weight.|
+Outstanding Quantity|is the undelivered quantity [to be delivered at a later date].
+|
+Expected Delivery Date|is the date/time at which a quantity oustanding is expected to be delivered.|
+
+
+4.7  Receipt Advice|
+|
+Receipt Advice is sent by the Delivery Point (Buyer) to Customer Service (Seller) acknowledging receipt in full or in part and describing discovered variances e.g. un-notified under-delivery, over-delivery, wrong Items delivered, damaged goods etc.  |
+|
+Figure 15. Receipt Advice|
+|
+
+|
+Actual Delivery Date|is the date/time at which goods are actually delivered or a service is performed.
+|
+Variance Quantity|is the difference between the ordered quantity and the delivered quantity.
+|
+Variance Condition|is a description of the variance e.g. short delivery, damaged goods, underperformance of service etc.
+|
+Proposed Remedy|is the Buyer’s suggested solution to the variance.|
+
+
+4.8  Rectification Advice|
+|
+Rectification Advice is sent from Customer Service (Seller) to Delivery Point (Buyer) to inform the Buyer of the action to be taken as regards the goods or services at variance from the actual requirement, such as an error in delivery.  This may be in response to a Receipt Advice that contains variance.  For example, the Seller may instruct the Buyer to return the goods, await collection of the goods (by the Seller or his carrier) or destroy the goods.|
+|
+Figure 16. Rectification Advice|
+|
+
+|
+Rectification Action
+(mandatory)|is the Seller’s intended solution to a variance.
+
+|
+Intended Rectification Date|is the date/time at which the Seller intends to rectify the variance.|
+
+
+4.9  Invoice|
+|
+Invoice is sent by Accounts Receivable (Seller) to Accounts Payable (Buyer)  to request payment for goods delivered or services performed.|
+|
+Figure 17. Invoice|
+|
+
+|
+Cost Centre Ref|is the Buyer’s cost centre reference (in cases where this has actually been communicated to the Seller).
+|
+Cost Code  Ref|is the Buyer’s cost code reference (in cases where this has actually been communicated to the Seller).|
+
+
+4.10  Self Billed Invoice|
+|
+A Self Billed Invoice is sent by Accounts Payable (Buyer) to Accounts Receivable (Seller), obviating the need for an Invoice as described above.
+ 
+Note:  The law in the UK requires the Self Billed Invoice to include the VAT Registration IDs of both Buyer and Seller and the statement:
+
+“THE VAT SHOWN IS YOUR OUTPUT TAX DUE TO CUSTOMS & EXCISE”
+
+For more information regarding HMCE requirements for self billing, see
+http://www.hmce.gov.uk/forms/notices/700-62.htm |
+|
+Figure 18. Self Billed Invoice|
+|
+
+
+4.11  Credit Note|
+|
+Credit Note is sent by Accounts Receivable (Seller) to Accounts Payable (Buyer), confirming that the Buyer owes money to the Seller.  It may be used to rectify errors and/or variances in the invoicing process.|
+|
+Figure 19. Credit Note|
+|
+
+
+4.12  Debit Note|
+|
+Debit Note is sent from Accounts Payable (Buyer) to Accounts Receivable (Seller), specifying that the Seller owes money to the Buyer.  A Debit Note obviates the need for the Seller to create a Credit Note.|
+|
+Figure 20. Debit Note|
+|
+
+
+4.13  Remittance Advice|
+|
+Remittance Advice is sent by Accounts Payable (Buyer) to Accounts Receivable (Seller) notifying payment.  It provides the recipient with a reference for payments made i.e. to which Invoice(s) payments relate and which Credit and Debit Note(s) are accounted for.|
+|
+Figure 21. Remittance Advice|
+|
+
+|
+Payment Reference|is the reference for the payment transaction made via BACS or SWIFT.
+|
+Payment Reference Date|is the date of the payment reference.
+|
+Payment Expected Date|is the date on which payment is expected to be made.|
+
+
+4.15  Statement|
+|
+Statement is sent from Accounts Receivable (Seller) to Accounts Payable (Buyer) summarising the status of the customer account, showing a summary of Invoices, payments, Debit and Credit Notes submitted within a given time period.|
+|
+Figure 22. Statement|
+|
+
+
+5.  Abbreviations|
+|
+Abbreviation|Meaning|
+BACS|Banks Automated Clearing System|
+D&B|D&B (formerly Dun & Bradstreet)|
+EFT|Electronic Funds Transfer|
+e-GIF|e[lectronic]-Government Interoperability Framework|
+e-SDF|e[lectronic]-Service Development Framework|
+GDSC|Government Data Standards Catalogue|
+GLN|Global Location Number|
+GPC|Government Procurement Card|
+GTIN|Global Trade Identification Number|
+GUID|Globally Unique Identifier|
+HMCE|Her Majesty’s Customs and Excise|
+HTML|Hypertext Markup Language|
+INCOTERM|International Commercial Term|
+ISO|International Standards Organisation|
+OeE|Office of the e-Envoy (as was)|
+OEM|Original Equipment Manufacturer|
+OGC|Office of Government Commerce|
+PO|Purchase Order|
+RFQ|Request For Quotation|
+SWIFT|Society of Worldwide Interbank Financial Telecommunications|
+T&C|Terms and Conditions|
+UML|Universal Modelling Language|
+UN|United Nations|
+UNSPSC|United Nations Standard Product and Services Code|
+URI|Universal Resource Identifier|
+UUID|Universally Unique Identifier|
+VAT|Value Added Tax|
+W3C|World Wide Web Consortium|
+XML|extensible Markup Language|
+

@@ -1,0 +1,337 @@
+﻿Software Requirements Specification 
+Version 2.0 
+December 15, 2001 
+"Space Fractions" 
+The Denominators (Team 10-2) 
+Stephen Babin 
+Gordon Brown 
+Charles Browning 
+Ingrid Chao 
+Maggie Fang 
+Roberto Zuniga 
+ 
+ 
+ 
+Table of Contents 
+1.0 Introduction 
+1.1 Purpose of this Document 
+1.2 Scope of the Development Project 
+1.3 Definitions, Acronyms, and Abbreviations 
+1.4 References 
+1.5 Overview of Document  
+2.0 General Description 
+2.1 User Personas and Characteristics 
+2.2 Product Perspective 
+2.3 Overview of Functional Requirements 
+2.4 Overview of Data Requirements 
+2.5 General Constraints, Assumptions, Dependencies, and Guidelines 
+2.6 User View of Product Use  
+3.0 Specific Requirements 
+3.1 External Interface Requirements 
+3.2 Detailed Description of Functional Requirements  
+3.2.1 Template for Describing Functional Requirements 
+3.2.2 Introductory Movie 
+3.2.3 Main Menu 
+3.2.4 Game Sequence 
+3.2.5 Ending Scene 
+3.2.6 Question Updater 
+Page 1 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html
+3.2.7 Math Umbrella  
+3.3 Performance Requirements 
+3.4 Quality Attributes 
+3.5 Other Requirements  
+Change Log 
+ 
+ 
+1.0 Introduction 
+1.1 Purpose of this Document 
+This is the Software Requirements Specification (SRS) for the "Space Fractions" project. The 
+purpose of the document is to describe the purpose and functionality of the software product 
+requested by Ms. Andrea Brooks of Pecan Springs Elementary School. The SRS will include 
+the details of the project's requirements, interface, design issues, and components. 
+1.2 Scope of the Development Project 
+The Space Fractions project is a learning tool created to help improve fraction-solving skills for 
+sixth-grade students. The product will be a web-based, interactive game. At the end of the 
+game, students will be given feedback based on their game scores. We are also providing an 
+umbrella for the past games created. The umbrella will be a web-based menu system allowing 
+the user to choose between the games. 
+1.3 Definitions, Acronyms, and Abbreviations 
+Term Definition
+HTML Hypertext Markup Language: the formatting language used to describe web pages.
+iMac A type of computer made by Apple Computers.
+KB Kilobytes: a measure of the amount of space available on a computer.
+Macromedia 
+Flash
+An application for creating dynamic graphics and sound, 
+generally intended to produce artifacts for display over the 
+World Wide Web.
+MB Megabytes: a measure of the amount of space available on a computer. One MB is equal to 1,024KB.
+plug-in A downloadable component for a web browser that provides additional functionality.
+S2S Student to Student: the designation representing the collective efforts of several hundred University of Texas 
+Computer Science students taking Software Engineering 
+Page 2 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html
+1.4 References 
+z Dr. Vicki L. Almstrum, professor at the University of Texas at Austin  
+z Ms. Andrea Brooks, client and teacher at Pecan Springs Elementary  
+z Class home page: http://www.cs.utexas.edu/users/almstrum/cs373/fa01/  
+z Mr. Keith Henning, team mentor  
+z Macromedia home page: http://www.macromedia.com  
+z S2S projects done in previous semesters: 
+http://www.cs.utexas.edu/users/s2s/admin/s2s-by-semester.html  
+z Schach, Stephen R. Object-Oriented and Classical Software Engineering, Fifth Edition. 
+McGraw-Hill, 2002  
+1.5 Overview of Document 
+This document is designed to provide information to both the client and the technical designers 
+of the software. Section one is a brief overview of the product, including definitions and 
+references. The definitions section is intended to assist the technical designers as well as the 
+client in clarifying the terms used throughout the document. Section two is a general 
+description of the product requirements from a user's perspective. This section includes 
+information such as functional and data requirements, general constraints, and assumptions. 
+Section three is a detailed requirements specification targeted toward technical designers. 
+Specific requirements and expectations regarding the components of the product are given in 
+this portion of the SRS document.  
+ 
+Back to Contents  
+ 
+ 
+2.0 General Description 
+2.1 User Personas and Characteristics 
+The target clients for our software are students in the sixth grade and their teacher. These 
+students are in the process of learning how to solve arithmetic problems involving fractions. 
+Moreover, these students (as well as the teacher) are assumed to have basic computer and 
+Internet skills that will enable them to use this software. The personas we will use to model our 
+intended users are: 
+z Alice, a sixth grade female student learning fractions who does not like to use computers; 
+z Bobby, a sixth grade male student learning fractions who is very competitive; and  
+with Dr. Vicki Almstrum. 
+SRS Software Requirements Specification: this document.
+umbrella A software product that consists of several independent programs that are unified under a single interface.
+web-based Able to be run over the web, without any permanent files on the user's computer.
+Page 3 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html
+z Claire, a sixth grade teacher with computer skills.  
+Detailed descriptions of these users follow. 
+User A (Alice) 
+Alice is a sixth grade female student learning fractions who does not like to use computers. 
+Although she has used computers for email and games, she considers computers to be boring. 
+She would rather read a story or talk with friends. However, she is really interested in learning 
+fractions and enjoys working with other students. 
+User B (Bobby) 
+Bobby is a sixth grade male student learning fractions who is very competitive. He enjoys 
+playing competitive sports and using computers, especially to play games. He has used 
+computers since age five. He particularly likes to play games where he can excel. He is only 
+somewhat interested in learning about fractions. 
+User C (Claire) 
+Claire is a sixth grade teacher who has computer skills. She enjoys teaching sixth graders and 
+is interested in finding innovative ways to teach her students. She has been teaching the sixth 
+grade for six years now. She finds that students have a particularly hard time learning about 
+the concepts related to fractions. 
+2.2 Product Perspective 
+z This program requires a web browser capable of running Flash movies.  
+z This program will not be dependent on any other software and is not a component of 
+another program.  
+z Since the product requires a Flash-supporting browser, the external interface will depend 
+on the configuration of the browser. Therefore, various environments may yield different 
+interfaces, but the behavior of the program will be the same.  
+z This program does not require any new hardware.  
+2.3 Overview of Functional Requirements 
+The umbrella will be a singular component, providing links to projects relating to fractions, 
+decimals, and percents in a format accessible over the World Wide Web. 
+The "Space Fractions" game will have the following functional components:  
+1. An introductory movie to  set up the storyline.  
+2. A main menu, including a brief help section.  
+3. A series of fraction questions (testing arithmetic, equivalence, graphical interpretation, 
+and improper versus proper fraction skills) that sequentially form a storyline related to the 
+introduction.  
+4. An ending scene where the user 's score is calculated and ranked, with an option to quit 
+the game or try again.  
+Page 4 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html
+In addition, a component accessible over the World Wide Web will allow the series of fraction 
+questions to be updated by an administrator of the game. 
+2.4 Overview of Data Requirements 
+The administrator of the program may wish to design a custom game complete with custom 
+fraction questions. This information must be saved in a file on the web server where the game 
+is hosted and will be easily edited through simplified administrative screens. The user's score 
+must be kept as local data within the game so that the results may be given at the end of the 
+game. Input will consist entirely of mouse clicks for the user to choose answer options and to 
+set preferences. Output will be sounds and animations through Flash movies to acknowledge 
+success or failure in answering the fraction questions. 
+2.5 General Constraints, Assumptions, Dependencies, and Guidelines 
+This program will run on any Internet-accessible computer with a web browser that supports 
+JavaScript and Macromedia Flash 5. 
+2.6 User View of Product Use 
+Upon starting the program, the user is taken through a brief introductory movie to provide 
+background story and information that will help them complete the fraction questions. There is 
+an option to skip the introduction, if desired. Otherwise, they will watch the movie to its 
+completion and be taken to the main screen. 
+At the main title screen, the user will be able to view a general help screen to reveal basic 
+instructions on game play. Also, a short summary of our team and a link to our website will be 
+provided. To start the game, the user will click on the corresponding button. The information 
+and interface will be effective so that Bobby will easily recognize what to do to start the game 
+immediately and Alice will have no problems navigating through the help section to understand 
+the rules and gameplay. Claire will be assured that the students will know what to do from this 
+main screen.  
+Next, the user progresses through a series of questions in the form of cartoon images that 
+comprise the main story. These questions will test the user's knowledge of basic fraction 
+operations and will be presented as a multiple-choice questionnaire. The user will be given a 
+problem and then must click the correct solution. A friendly robotic sidekick will assist with 
+general usability issues and give hints towards the correct response. Bobby will be captivated 
+by the storyline and will wish to progress as fast as possible. The gameplay will be dynamic 
+and adaptive to provide different storylines based on the user's progress.  
+After the last question, the main character's adventure will come to an end. The last scene will 
+be determined by the user's response on certain critical questions that impact the story's plot, 
+and an option to try again will be presented. In addition, the player's exact score will be given 
+with a customized message. This gives Bobby the competition he requires and allows Alice to 
+have a unique experience the next time through the program. Either way, the user will be 
+encouraged to try again and further better their fraction skills.  
+As the game administrator, Claire can use the question updater to change any of the questions 
+Page 5 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html
+in the game. She navigates to the updater page, which asks for a password. Upon correct 
+submission of her password, she uses an intuitive web forms interface to update the game to 
+her desiring.  
+ 
+Back to Contents  
+ 
+ 
+3.0 Specific Requirements 
+3.1 External Interface Requirements 
+The following table summarizes the external interface requirements for the "Space Fractions" 
+game. The characteristics of the user interface are presented, as are the interactions between 
+the product and existing hardware and software on the host platform. 
+3.2 Detailed Description of Functional Requirements 
+3.2.1 Template for Describing Functional Requirements 
+This section describes the template that is used to describe each of the functional components 
+of the "Space Fractions" game specified in section 2.3. Those components are described in 
+subsections 3.2.2 through 3.2.7. 
+User 
+Interface
+The interface for this program will be relatively simple. As the target users are 
+in the sixth grade, this product will be as graphically oriented and appealing as 
+possible. No portion of the interface will require the keyboard; all input will be 
+accomplished via mouse clicks.
+Hardware 
+Interaction
+This software will be developed in Macromedia Flash and HTML. These 
+technologies require a minimum hardware configuration, but no other 
+hardware requirements are needed. There is no explicit interaction with the 
+client's hardware. 
+Software 
+Interaction
+This product requires a web browser capable of running the Flash plug-in, 
+which has the system requirements specified here under the section 
+"Playback." Otherwise, this product has no software interaction. 
+Purpose A description of the functional requirement and its reason(s).
+Inputs Which inputs; in what form/format will inputs arrive; from what sources input will be derived, legal domains of each input element.
+Processing
+Describes the outcome rather than the implementation; includes any validity 
+checks on the data, exact timing of each operation (if needed), how to handle 
+unexpected or abnormal situations.
+Outputs
+The form, shape, destination, and volume of the output; output timing; range of 
+parameters in the output; unit measure of the output; process by which the 
+output is stored or destroyed; process for handling error messages produced as 
+output.
+Page 6 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html
+3.2.2 Introductory Movie 
+3.2.3 Main Menu 
+3.2.4 Game Sequence 
+Purpose A short movie to set up the storyline of the game and provide information to help the user complete the fraction questions.
+Inputs If the user clicks a mouse button while in this component, they will skip the movie and proceed to the main menu. No other input is recognized.
+Processing
+Upon entrance to the movie component, the introductory movie will begin 
+playing. If a mouse click is received, this component will terminate the movie 
+and forward the user to the main menu component. Otherwise, the movie will 
+continue to its completion and the user will be moved to the main menu.
+Outputs A movie is displayed on the screen.
+Purpose A menu that displays a brief section offering help on playing the game, and provides a link to the main game component and the Denominators' web page.
+Inputs The user can click on the corresponding button to begin the game or follow the link to the Denominators' web page.
+Processing
+This component will wait until the user selects a button. At that time, the user 
+will be forwarded to the game sequence component or the Denominators' web 
+page, depending on the button selected.
+Outputs This component will output either the game sequence or the Denominators' web page.
+Purpose A series of multiple-choice fraction questions, which sequentially form a storyline related to the introduction.
+Inputs The user will respond to questions by clicking on the desired answer from a set of choices.
+Processing
+This component will display a question, and then wait until the user chooses an 
+answer. 
+z If the user selects the correct answer, a message to this effect will be 
+displayed and the component will move to the next question.  
+z If the incorrect answer is selected, this component will inform the user of 
+this and give them another chance to answer the question. However, their 
+score will not count this question as being answered correctly.  
+z At certain "critical points," this component will choose different directions 
+in the plot based on whether the question at the critical point was 
+answered correctly.  
+z After the user has proceeded through a set number of questions, they will 
+be directed to the ending scene component. 
+This component will output plot-based questions with fractional numbers that 
+Page 7 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html
+3.2.5 Ending Scene 
+3.2.6 Question Updater 
+3.2.7 Math Umbrella 
+3.3 Performance Requirements 
+Only one person can use a single instance of the product. However, the product will reside on 
+the Internet so more than one user can access the product and download its content for use on 
+their computer. The product will consist of Flash movies linked together to form a web-based 
+Outputs are customizable by the game administrator, and offer feedback to the user based on their performance on individual questions.
+Purpose
+A screen offering a conclusion to the game's plot based on performance at 
+certain critical points in the game sequence, where the user's score is displayed 
+and the user is given a chance to exit or return to the main menu.
+Inputs The user can select either to end the game or return to the main menu via mouse clicks.
+Processing
+This component will wait until the user selects either to return to the main menu 
+or to exit the game. After receiving the user's input, the component will act 
+accordingly.
+Outputs The user's overall score is displayed, as well as a plot conclusion that is obviously related to the story in certain key questions.
+Purpose A web-accessible tool to allow questions in the game sequence to be updated by a game administrator.
+Inputs
+The user will input new data via pulldown menus and text fields. Each question 
+will be updated on a separate page, and the user will click a button to progress 
+between these pages.
+Processing
+The component will wait for the user to click a submission button for each 
+question. After the button is clicked, the component will check that the inputted 
+data is complete and makes sense in the context of the updated question.
+Outputs The component will generate a text file on the game server, which is used by the game sequence to dynamically load question data.
+Purpose
+This component will provide links to mature S2S projects dealing with 
+mathematics for sixth graders, organized by topic (for example, all fractions-
+related projects will be grouped together).
+Inputs The user will follow a number of links to World Wide Web documents.
+Processing This component will wait for a user to click a link, and then follow that link.
+Outputs The component opens the specified S2S product in a separate window.
+Page 8 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html
+game: there will be a small introductory movie (~200KB), a main menu movie (~100KB), and a 
+main game movie (1-2MB). Due to the relatively small size of the introductory and main menu 
+movies, they can be downloaded in approximately one minute with a modem connection. 
+Because Flash movies do not have to be fully downloaded to play, the main game can be 
+played within a few minutes with a regular modem connection to the Internet. 
+3.4 Quality Attributes 
+z The product will be as secure as the web browser that will run the product.  
+z The product will be available over the Internet via the S2S website.  
+z Reliability will be ensured by extensive testing by the team members and mentors, if 
+available.  
+z Maintainability is a primary goal for this project. For example, using appropriate sub-
+scenes in the main Flash game to split up the code will allow for easy alteration at a later 
+date.  
+3.5 Other Requirements 
+There are no additional requirements at this time.  
+ 
+Back to Contents  
+ 
+ 
+Change Log 
+z Version 2.0 (12-15-2001): Document updated to reflect changes in requirements.  
+z Version 1.1 (10-31-2001): Incorporated suggested changes.  
+z Version 1.0 (10-10-2001): Document created.  
+Page 9 of 9CS373 The Denominators (10-2), SRS Version 2.0
+1/22/2003http://www.cs.utexas.edu/users/s2s/latest/fractions4/doc/SRS.html

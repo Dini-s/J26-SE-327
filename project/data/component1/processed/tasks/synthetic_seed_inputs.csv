@@ -1,0 +1,151 @@
+﻿id,source,requirement_text,requirement_type
+FR_NFR:067cea7da3,FR_NFR,System shall ensure easy access to the registration form from the menu.,NFR
+FR_NFR:06826af4c7,FR_NFR,The application shall score the user globally to provide motivation.,FR
+FR_NFR:069252ba02,FR_NFR,The system shall securely process online payments using standard payment gateways.,FR
+FR_NFR:0a87b4cbe7,FR_NFR,The system shall allow administrators to control the visibility of specific metadata fields for different user groups.,FR
+FR_NFR:0b31f3a0a3,FR_NFR,System shall log the serial number in a log file.,FR
+FR_NFR:0c14bd6b7f,FR_NFR,The client will specify the header Content-Type: application/json in their requests as convention.,FR
+FR_NFR:145648b375,FR_NFR,Security concerns are mitigated as Light My Way doesn't create user profiles or access credentials.,NFR
+FR_NFR:18bbc38dd4,FR_NFR,User shall/will experience a system designed with built-in fault tolerance to minimize the impact of failures.,NFR
+FR_NFR:196679943c,FR_NFR,"System shall be able to provide channels for users to contact customer support, including email or chat.",FR
+FR_NFR:1aae18cd8f,FR_NFR,The CO will be able to play any version of the rules that are specified by the user who creates the game.,FR
+FR_NFR:1c87d09d48,FR_NFR,The software will only be operational when a user is registered.,NFR
+FR_NFR:21fcd8cd30,FR_NFR,Purchase managers shall manage product stocks.,FR
+FR_NFR:22d4b85505,FR_NFR,"Admin shall log in by entering admin ID, admin password, and admin name.",FR
+FR_NFR:23ad526e42,FR_NFR,Quitting will end the game immediately.,FR
+FR_NFR:294c855b44,FR_NFR,System shall help police personnel in planning and executing tasks efficiently.,FR
+FR_NFR:2cddbcc6aa,FR_NFR,Administrators shall be able to add edges to paths used in the route planner.,FR
+FR_NFR:30f2d009d7,FR_NFR,New features can be added to the passport management system.,NFR
+FR_NFR:397bb0dc46,FR_NFR,The system shall provide redundant storage of all databases on automatic switchover computers to ensure reliability.,NFR
+FR_NFR:3d918c4425,FR_NFR,System shall be able to assign different levels of access and privileges to users based on their roles.,FR
+FR_NFR:47509cd643,FR_NFR,User shall be able to access the main form after successful login.,FR
+FR_NFR:4cbd867ffb,FR_NFR,The TCS shall provide the necessary system capabilities required for AV flight control BLOS via uplink command to two MAE air vehicles.,FR
+FR_NFR:4da358cf51,FR_NFR,Customer shall be able to use offers available for the restaurants they have selected.,FR
+FR_NFR:4de5bfddd2,FR_NFR,The system shall show an indication when an estimator submits an estimate.,FR
+FR_NFR:4deb7b4a58,FR_NFR,"Agricultural experts shall be able to respond to user queries, which will be displayed on the user’s dashboard upon successful reply.",FR
+FR_NFR:5690e919a9,FR_NFR,"After adding a transportation route, the user shall be able to retrieve transportation requests from other users.",FR
+FR_NFR:5838d75cc3,FR_NFR,User shall be able to watch videos by selecting them.,FR
+FR_NFR:5917214fc5,FR_NFR,The system shall perform automatic animal species and attribute pre-classification in Snapshot Serengeti.,FR
+FR_NFR:5e51373c96,FR_NFR,System shall retrieve backups of the database from the server and save them in case of hardware failure or database corruption.,NFR
+FR_NFR:6239fb46fa,FR_NFR,"The system shall include measures of service quality, such as ease of booking, hassle-free check-in, efficient ticketing staff, regular announcements during flight delays, on-time performance, in-flight experience, baggage handling, and value for money.",FR
+FR_NFR:732038c3a1,FR_NFR,User shall input a new password.,FR
+FR_NFR:77992f5b23,FR_NFR,System shall ensure user data and personal information are securely managed and protected within the VivaVideo app.,NFR
+FR_NFR:7d8fef369f,FR_NFR,The system shall allow exporting transcripts as HTML files.,FR
+FR_NFR:7fb44e4c0f,FR_NFR,"When in billing mode, a surface computer shall display a representation of  every meal ordered that may each be dragged into a payment.",FR
+FR_NFR:7fb8abc16a,FR_NFR,The system shall have a responsive user interface (User).,NFR
+FR_NFR:7fdeec4e7b,FR_NFR,Photos and Cover Letters will be added to profiles and job applications.,FR
+FR_NFR:7fe07c34cb,FR_NFR,The system shall support Dutch as a user interface language.,FR
+FR_NFR:83c30ca354,FR_NFR,The accuracy of the Generic Answer Construction​ unit will be close to 70%.,NFR
+FR_NFR:888957ab9b,FR_NFR,System shall show titles of all news items available through the news RSS feeds on the title screen.,FR
+FR_NFR:8a4a51d0ef,FR_NFR,User shall receive notifications about new uploads in their channel after logging in.,FR
+FR_NFR:8e97ec7b6d,FR_NFR,The system shall allow archivists to link electronic publications to citations.,FR
+FR_NFR:94cecc03d7,FR_NFR,"User shall be able to submit feedback by entering their name, address, contact number, and feedback, and receive confirmation of successful submission.",FR
+FR_NFR:972e494b3c,FR_NFR,The app shall interface with a register for accurate payment processing.,FR
+FR_NFR:9e9e1a6bad,FR_NFR,The system shall allow publishers to restore deleted data packages using the command-line interface.,FR
+FR_NFR:a01ecb2728,FR_NFR,Adobe Illustrator shall provide access to advanced features and functionality with 64-bit support.,NFR
+FR_NFR:a46b9c80cb,FR_NFR,System shall provide a user-friendly interface for updating user profiles.,NFR
+FR_NFR:a73e255ed4,FR_NFR,System shall provide a user-friendly landing page for browsing training offerings.,NFR
+FR_NFR:a949b73dea,FR_NFR,The system shall be able to update inventory automatically upon user receipt of a requested asset.,FR
+FR_NFR:a9e4bf6f05,FR_NFR,User's access to administrative functions shall be restricted to authorized personnel through role-based access control (RBAC).,NFR
+FR_NFR:a9ee24112b,FR_NFR,The graphics card should have at least 1 GB of VRAM and support OpenGL version 4.0 for enabling GPU Performance (optional feature for enhanced performance with graphic-intensive tasks).,NFR
+FR_NFR:aa4e625390,FR_NFR,User shall/will be able to interact with the system with responses within two seconds under normal operating conditions.,NFR
+FR_NFR:addfcca30d,FR_NFR,"User shall have uninterrupted access to the system via a web browser, subject only to server downtime.",NFR
+FR_NFR:af300bc684,FR_NFR,The system should be able to handle a growing number of users and scores.,NFR
+FR_NFR:b03f64cfe7,FR_NFR,The system shall have high availability. ,NFR
+FR_NFR:b5cd96b473,FR_NFR,The system shall offer a Status main menu with Start Diagnostics and Stop Diagnostics in that order.,FR
+FR_NFR:b7f30bcb8d,FR_NFR,User shall have the option to select multiple search criteria.,FR
+FR_NFR:bad3df486d,FR_NFR,The system shall support the integration of external systems for importing and exporting EHR data.,FR
+FR_NFR:bbd111e825,FR_NFR,The system shall allow publishers to overwrite previously tagged data packages.,FR
+FR_NFR:bc8dc5782c,FR_NFR,User shall be able to determine if a sent snap has been received by the recipient.,FR
+FR_NFR:c14759dd7f,FR_NFR,The moderator shall be able to set a warning time to email users how many minutes are left in the current session.,FR
+FR_NFR:c77500e922,FR_NFR,User shall require approval from the university group for asset transfers outside the university.,FR
+FR_NFR:ce8f273cd3,FR_NFR,User shall experience a high data transfer rate.,NFR
+FR_NFR:d1e11b8ee1,FR_NFR,"System shall allow users to rate and review services by providing comments on tour plans or services, with comments stored in the database and a thank you message displayed.",FR
+FR_NFR:dbc74ac81e,FR_NFR,"The user interface shall be intuitive and accessible, catering to users with varying levels of technical expertise.",NFR
+FR_NFR:ddd97628a2,FR_NFR,VS Code shall require GLIBC version 2.28 or later.,NFR
+FR_NFR:e0537aede4,FR_NFR,User shall be able to generate reports on student course information. (Level 1),FR
+FR_NFR:e5f9a4dde6,FR_NFR,"System shall validate user data, verify credentials, and assign the account to the new user with all new user information upon successful validation.",FR
+FR_NFR:e643d1af49,FR_NFR,The system shall allow camp administrators to filter the event calendar for specific groups.,FR
+FR_NFR:ee215c2c51,FR_NFR,"The search response time for the system must consistently be within two seconds, with an ideal goal of one second, based on measurments from 1000 searches during testing.",NFR
+FR_NFR:eff112ecd4,FR_NFR,Database used for record-keeping shall be Oracle version 7.0.,FR
+FR_NFR:f005dd3664,FR_NFR,"User shall be able to use the application in multiple languages, including English and French.",NFR
+FR_NFR:f036ecff79,FR_NFR,The user shall be able to view past tasks by tapping the three-dotted menu widget on the top right corner of the screen.,FR
+FR_NFR:f342c0e163,FR_NFR,System shall acquire shipping charges within 2 seconds.,NFR
+FR_NFR:f9b75f2755,FR_NFR,Users shall be able to voluntarily give up their subsidy through the system.,FR
+FR_NFR:fa4806abc8,FR_NFR,"The torch will be able to be fired up by touching it, and objects will be able to be dropped by leaving them at their initial place.",FR
+FR_NFR:ff91baa7fe,FR_NFR,"User shall be able to record sales transactions, including customer information, medicine name, quantity sold, and unit price.",FR
+PROMISE:0cc0a01079,PROMISE,"For any systematic (non-user initiated) action that occurs on a case such as the disputes aging process, a case activity will be generated. Upon the next logon the user that initiated the dispute case must be notified that a systematic action has occurred on the dispute case.",FR
+PROMISE:0ccb606c2f,PROMISE,The system shall search for available recycled parts for the supplied vehicle parts and suppliers.,FR
+PROMISE:12227300f3,PROMISE,100\% of cardmember services representatives shall be able to successfully create a dispute case on the first encounter after completing the training course.',NFR
+PROMISE:12a4c66221,PROMISE,All business rules specified in the Disputes System shall be in compliance with the Merchant Operating Regulations.',NFR
+PROMISE:14fe1fd95f,PROMISE,The response shall be fast enough to avoid interrupting the user's flow of thought.  90\% of tasks shall complete within 5 seconds.  98\% of tasks shall complete within 8 seconds.',NFR
+PROMISE:16c3af1971,PROMISE,"The system shall resolve the zipcode for the street address, city, and state if zipcode is unknown.",FR
+PROMISE:1ade85e369,PROMISE,Maintenance releases will be offered to customers once a year.  The releases shall take no longer than 5 minutes for 80\% of the customer base to install.',NFR
+PROMISE:1cd4cf8176,PROMISE,The IQA subsystem shall take into account current inventory status and adjust inventory of substitutionary ingredients accordingly.,FR
+PROMISE:23e19129d1,PROMISE,The System shall generate Inventory Quantity Adjustment document based on product daily sales data and product formulas.,FR
+PROMISE:24e1da22fa,PROMISE,The product shall adhere to the corporate online availability schedule.  The application is brought down only within 98\% of the scheduled outages per the availability schedule.',NFR
+PROMISE:2591071a16,PROMISE,The product shall synchronize with the office system every hour.',NFR
+PROMISE:33053c286f,PROMISE,"Product formulas shall allow use of semi-products, which have own formulas.",FR
+PROMISE:34808aa723,PROMISE,The system shall help the user avoid making mistakes while scheduling classes and clinicals for the nursing students.',NFR
+PROMISE:3fc4655390,PROMISE,"The report of needed classes shall include (but not be limited to) classes to be offered, number of sections needed, number of labs needed, and room types needed.",FR
+PROMISE:4040a950ab,PROMISE,"Product shall allow entering, storing and modifying product menus used by POS terminals.",FR
+PROMISE:424effa830,PROMISE,The audit report shall include the total score of the audit which sums the indivual line items.,FR
+PROMISE:56aec915a2,PROMISE,The product will be able to delete conference rooms.,FR
+PROMISE:572619f9ba,PROMISE,The product shall comply with the estimatics laws relating to recycled parts usage.',NFR
+PROMISE:5975979028,PROMISE,The product will notify employees of meeting invitations.,FR
+PROMISE:5a65c78aed,PROMISE,The system shall be used within the specifications defined by the computers used by the Program Administrators/Nursing Staff Members.',NFR
+PROMISE:5ae51def51,PROMISE,Only authorized personnel can access sales information.',NFR
+PROMISE:5f9a4ef8fd,PROMISE,Website must interface with the CyberSource API to process credit card transactions.',NFR
+PROMISE:65893b2677,PROMISE,Only authorized users shall have access to students' personal information.',NFR
+PROMISE:6b04cc9e1c,PROMISE,The product shall be easy to learn by Adjusters and Collision Estimators.  The product shall be learned with two days onsite training',NFR
+PROMISE:7934a9681c,PROMISE,100\% of the cardmember and merchant services representatives shall use the Disputes application regularly after a 2-day training course.',NFR
+PROMISE:7b86305703,PROMISE,"The vehicle location shall include street address, city, state, and zipcode",FR
+PROMISE:7dbf223d37,PROMISE,The Disputes System must provide the ability to view existing dispute cases.,FR
+PROMISE:7f5a508d32,PROMISE,The product shall comply with corporate color scheme',NFR
+PROMISE:8440597ea7,PROMISE,The Dispute System shall provide the users with the ability to follow up on a dispute case via follow-up actions. The list of available follow up actions for a given dispute case must be filtered by the status of the case and the access level of the user.,FR
+PROMISE:85950c3ff4,PROMISE,The product must be able to interface with various database management systems. The product shall communicate successfully with the database management system on 100\% of all transactions.',NFR
+PROMISE:8af2f38fcc,PROMISE,The product shall record all the equipment that has been reserved.,FR
+PROMISE:9234de293c,PROMISE,The Disputes application must conform to the legal requirements as specified by Regulation E and Regulation Z that govern credit card disputes processing.',NFR
+PROMISE:9617bd5e9c,PROMISE,"Program Administrators/Nursing Staff Members shall have the ability to modify information relating to a Nursing Student, including student ID, student name, phone number, e-mail, status (full time or part time), and program of study.",FR
+PROMISE:b24722132d,PROMISE,The Disputes application shall interface with the Letters application.  This will allow the Disputes application to request letters as part of the dispute initiation and dispute follow up process. All letter requests must be sent to the Print Letter Utility application.',NFR
+PROMISE:b37d73e46b,PROMISE,"The system shall be able to display a printable summary for individual cohorts, which will include the students enlisted, the Program of study, sequence of classes, cohort progress through the program, and timeline of completion.",FR
+PROMISE:bfebcd3c98,PROMISE,The realtor shall be notified of new client appointments after automatic synchronization with office system,FR
+PROMISE:c4ec143bcd,PROMISE,The product shall be expected to operate within the maximum maintenance budget for a minimum of 2 years.',NFR
+PROMISE:c6dba91d7f,PROMISE,The Disputes System will provide the user the ability to create or initiate a ticket retrieval request. As part of ticket retrieval creation process the system must prompt the user to enter all the required information to create the ticket retrieval request. The ticket retrieval request is a document that is sent to merchant inquiring the validity of a transaction.,FR
+PROMISE:c93735d28e,PROMISE,The product shall comply with corporate User Interface Guidelines',NFR
+PROMISE:d6dffd59fc,PROMISE,The ratings shall include categories for attempted use of recycled parts and actual use of recycled parts,FR
+PROMISE:e23ce63f95,PROMISE,Program Administrators/Nursing Staff Members are the only people who shall have access to clinical site details.',NFR
+PROMISE:e8003227ef,PROMISE,Promotional updates to the website should take a day to update.',NFR
+PROMISE:ec9d419bad,PROMISE,"Program Administrators/Nursing Staff Members shall have the ability to modify information relating to a Program of Study within the Nursing Department, including the Program of study name, and required classes for that Program of Study.",FR
+PROMISE:f028fc56cb,PROMISE,2 out of 3 Program Administrators/Nursing Staff Members shall successfully be able to use the system to manage the scheduling of classes and clinicals.',NFR
+PROMISE:f32f72ced2,PROMISE,An employee will be able to successfully use the product within a few minutes.  After informally navigating the product for less than 15 minutes  users shall be able to successfully setup meetings and reserve conference rooms.',NFR
+PROMISE:f38ed0c883,PROMISE,The product shall store new conference rooms.,FR
+PROMISE:f4517820f2,PROMISE,The product shall prevent the input of malicious data.  The product and/or adjacent hardware/software systems' data shall remain 100\% uncorrupted each time malicious data is input into the product.',NFR
+PROMISE:f71cd8fea4,PROMISE,The user shall be able to get driving directions to a selected property,FR
+PROMISE:f951a6c7a7,PROMISE,A class shall be either a non-clinical class or a clinical class.,FR
+PROMISE:ffa82fdebb,PROMISE,Formula substitutionary ingredients shall be kept in persisted order,FR
+PURE:12749eb1fe,PURE,The solution should provide a date or time or user stamp of signature event (whether proactive or auto default) for encounter or progress notes.,NFR
+PURE:1478d81133,PURE,A patient wants to renew the patient's expired prescriptions (i.e.  prescriptions' end dates are earlier than the current date) and therefore wants to find the LHCPs who earlier wrote the patient's expired prescriptions (it is assumed that the doctors who wrote prescriptions are all LHCPs so no LHCP checks on the prescription-writing doctors are needed).,NFR
+PURE:1e22f7230d,PURE,To prescribe medication for this patient click 'Edit' next to the Prescriptions section in the Patient Summary window  and click 'Add'.,NFR
+PURE:207936fd89,PURE,"If the patient is also the insured party  then selecting ""self"" from the drop-down list will automatically populate the 'Subscriber' section with the relevant data for you.",NFR
+PURE:234f5ced02,PURE,An example of reflexive testing is when a confirmatory test is automatically ordered after a screening test is positive.,NFR
+PURE:271c85ae38,PURE,This information may be used by the healthcare facility to properly configure their network defenses (firewalls and routers).,NFR
+PURE:2d88ff09a6,PURE,The solution should provide mechanisms to ensure the authorization  monitoring  and control of all methods of remote access to the solution.,NFR
+PURE:302492d7e0,PURE,The iTrust user (patient or HCP) has been authenticated in the iTrust Medical Records system (UC3).,NFR
+PURE:33b9b9c316,PURE,The solution should provide the ability to grant and revoke access to electronic protected health information managed by the solution.,NFR
+PURE:371c83e572,PURE,The solution de-identification capability should include: Biometric identifiers  including finger and voice prints.,NFR
+PURE:3ae5b6365b,PURE,Once payment has been received  it can be entered into the invoice in the same manner as the insurance payments.,NFR
+PURE:52b85cfbee,PURE,When a person logs into iTrust  if he or she is a personal representative  they view their own records or those of the person or people they are representing.,NFR
+PURE:5dbf3b1228,PURE,The solution should provide the ability for an authorized user to group results into clinically logical sections.,NFR
+PURE:5fa2fd5530,PURE,Note that the administrator is not allowed through the system interface to delete an existing entry or modify the appointment type name in an existing entry.,NFR
+PURE:6237f06610,PURE,The patient can select a diagnosis and will be presented with the LHCPs in the patient's living area (based upon the first three numbers of their zip code) who have handled this diagnosis in the last three years.,NFR
+PURE:7c08ab5f51,PURE,The solution should print pharmacy inventory audit or cycle count  worksheet listing drug data  quantity-on-hand and last audit or verification date.,NFR
+PURE:7e352fac3d,PURE,To locate a patient in the system  enter all or part of their name into the search field in the bottom left corner of the screen (below the navigation list) and click 'Name'.,NFR
+PURE:84b2e0bafd,PURE,The solution should provide the ability to record solution maintenance events for re-activating of an archived patient record.,NFR
+PURE:a80b833459,PURE,Mousing over the patient's name displays a toot-tip with information about that patient  such as date of birth.,NFR
+PURE:bf4b072b4d,PURE,The solution should provide the ability to record solution maintenance events for creating and restoring of backup.,NFR
+PURE:c3f12df866,PURE,A receiving HCP views a list of received referrals .,NFR
+PURE:cd2866b622,PURE,After the patient logs in  an activity feed is displayed .,NFR
+PURE:dad03069ae,PURE,User ID  including National Provider Identifier (NPI) number if available  of person accessing the record,NFR
+PURE:e7fa7e36f4,PURE,Roles are mapped to user and data interfaces.,NFR
+PURE:e869c57b90,PURE,The patient then chooses the beginning and end date for the period of time they would like to view their access log for .,NFR

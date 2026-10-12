@@ -1,0 +1,77 @@
+﻿document,original_format,txt_rows,supported,new_words,new_rows,rows_identical_to_txt_path,share_of_txt_rows_found,note
+0000 - cctns,pdf,126,yes,5662,126,126,1.0,
+0000 - gamma j,pdf,271,yes,7053,271,215,1.0,
+0000 - inventory,pdf,10,yes,3668,10,10,1.0,
+1995 - gemini,pdf,423,yes,24211,423,420,1.0,1 of 96 PDF pages have no extractable text (scanned images are not read)
+1998 - themas,pdf,115,yes,6151,115,113,1.0,
+1999 - tcs,pdf,1049,yes,37495,1049,933,1.0,
+2000 - nasa x38,doc,492,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2001 - beyond,pdf,97,yes,11393,97,97,1.0,
+2001 - ctc network,pdf,111,yes,5689,111,110,1.0,
+2001 - elsfork,pdf,127,yes,17398,127,121,1.0,7 of 69 PDF pages have no extractable text (scanned images are not read)
+2001 - esa,pdf,70,yes,4614,70,66,1.0,
+2001 - hats,pdf,506,yes,21493,506,491,1.0,
+2001 - libra,doc,53,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2001 - npac,doc,1392,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2001 - space fractions,pdf,67,yes,3030,67,67,1.0,
+2001 - telescope,pdf,53,yes,22754,53,52,1.0,4 of 107 PDF pages have no extractable text (scanned images are not read)
+2002 - evla back,pdf,152,yes,5570,152,152,1.0,
+2002 - evla corr,pdf,97,yes,4411,97,97,1.0,
+2002 - sce api,pdf,99,yes,28987,99,99,1.0,
+2003 - agentmom,pdf,44,yes,1710,44,42,1.0,
+2003 - pnnl,pdf,259,yes,34096,259,247,1.0,
+2003 - qheadache,pdf,10,yes,2046,10,10,1.0,
+2003 - tachonet,pdf,162,yes,10813,162,135,1.0,
+2004 - colorcast,pdf,71,yes,3924,71,71,1.0,
+2004 - e-procurement,rtf,9,yes,7436,9,8,1.0,
+2004 - grid bgc,pdf,263,yes,6854,263,222,1.0,
+2004 - ijis,doc,8,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2004 - jse,doc,141,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2004 - philips,doc,6,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2004 - rlcs,pdf,285,yes,16343,285,278,1.0,
+2004 - sprat,pdf,168,yes,6760,168,167,1.0,
+2004 - watcom gui,pdf,151,yes,9849,151,147,1.0,
+2004 - watcom,pdf,83,yes,12032,83,80,1.0,
+2005 - clarus high,doc,196,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2005 - clarus low,pdf,528,yes,21500,528,483,1.0,
+2005 - grid 3D,pdf,17,yes,2364,17,17,1.0,
+2005 - microcare,pdf,138,yes,6945,138,137,1.0,
+2005 - phin,pdf,126,yes,5818,126,126,1.0,
+2005 - pontis,pdf,336,yes,19600,336,330,1.0,8 of 82 PDF pages have no extractable text (scanned images are not read)
+2005 - triangle,pdf,52,yes,4774,52,51,1.0,1 of 23 PDF pages have no extractable text (scanned images are not read)
+2005 - znix,pdf,35,yes,3662,35,35,1.0,
+2006 - eirene sys 15,pdf,396,yes,28426,396,388,1.0,1 of 138 PDF pages have no extractable text (scanned images are not read)
+2006 - stewards,pdf,165,yes,10497,165,165,1.0,
+2007 - central trading system,pdf,40,yes,2439,40,37,1.0,
+2007 - e-store,doc,114,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2007 - eirene fun 7,pdf,522,yes,21430,522,488,1.0,1 of 97 PDF pages have no extractable text (scanned images are not read)
+2007 - ertms,pdf,194,yes,8501,194,193,1.0,
+2007 - get real 0.2,pdf,16,yes,2567,16,16,1.0,
+2007 - mdot,pdf,201,yes,15602,201,201,1.0,
+2007 - nde,pdf,471,yes,22090,471,447,1.0,
+2007 - nlm,doc,159,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2007 - puget sound,pdf,93,yes,4288,93,93,1.0,
+2007 - water use,pdf,155,yes,15068,155,155,1.0,
+2008 - caiso,pdf,27,yes,2525,27,27,1.0,
+2008 - keepass,pdf,46,yes,7143,46,45,1.0,
+2008 - peering,pdf,51,yes,5617,51,49,1.0,
+2008 - viper,doc,130,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2008 - virtual ed,doc,187,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2008 - vub,pdf,98,yes,9559,98,96,1.0,
+2009 - email,pdf,34,yes,4118,34,34,1.0,
+2009 - gaia,pdf,39,yes,4464,39,39,1.0,
+2009 - inventory 2.0,pdf,251,yes,17242,251,188,1.0,
+2009 - library,doc,36,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
+2009 - library,pdf,36,yes,3886,24,6,0.167,
+2009 - model manager,pdf,73,yes,3758,73,71,1.0,
+2009 - peazip,pdf,38,yes,7802,38,38,1.0,
+2009 - peppol,pdf,534,yes,57006,534,528,1.0,
+2009 - video search,pdf,85,yes,2912,85,83,1.0,
+2009 - warc III,pdf,84,yes,3795,84,84,1.0,
+2010 - blit draft,pdf,64,yes,2172,64,64,1.0,
+2010 - fishing,pdf,147,yes,14946,147,113,1.0,
+2010 - gparted,pdf,17,yes,4610,17,17,1.0,
+2010 - home 1.3,pdf,87,yes,4069,87,87,1.0,
+2010 - mashboot,pdf,65,yes,4242,65,65,1.0,
+2010 - split merge,pdf,43,yes,5985,43,38,1.0,
+2011 - opensg 0.1,doc,9,no,,,,,"legacy binary .doc files are not supported (no extraction code). Convert the file to .docx, .pdf or .txt and run again."
