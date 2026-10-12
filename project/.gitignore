@@ -6,6 +6,9 @@ node_modules/
 .ipynb_checkpoints/
 .DS_Store
 data/raw/
+.pytest_cache/
+data/runs/
+models/
 
 # Component 1 baseline models and embedding cache (large, regenerable)
 models/component1/*.joblib
