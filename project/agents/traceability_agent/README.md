@@ -56,7 +56,12 @@ Tunables are in `config.py`.
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env   # fill in NEO4J_*, OPENAI_API_KEY; REDIS_URL for decay events
+python scripts/download_model.py   # once, needs internet: saves the embedding model to models/ (git-ignored)
 ```
+
+The embedding model (`all-MiniLM-L6-v2`, ~87 MB) lives in `models/` inside the project, so runs work offline from
+the project folder. `Embedder` loads `models/<EMBEDDING_MODEL_NAME>` when it exists and otherwise falls back to the
+normal Hugging Face download cache.
 
 ## Commands
 

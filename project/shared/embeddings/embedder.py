@@ -1,9 +1,13 @@
 """Thin wrapper around sentence-transformers, shared by all agents."""
 
 import os
+from pathlib import Path
 from typing import Any, Optional, Sequence
 
 from dotenv import load_dotenv
+
+
+LOCAL_MODELS_DIR = Path(__file__).resolve().parents[2] / "models"  # git-ignored copies of the models, so runs work offline
 
 
 class Embedder:
@@ -17,7 +21,8 @@ class Embedder:
         """Create an embedder.
 
         Args:
-            model_name: sentence-transformers model name. Falls back to the
+            model_name: sentence-transformers model name; if ``models/<name>`` exists in the project it is
+                loaded from there (no download, works offline). Falls back to the
                 ``EMBEDDING_MODEL_NAME`` environment variable.
 
         Raises:
@@ -29,7 +34,8 @@ class Embedder:
             raise ValueError(
                 "No embedding model configured: pass model_name or set EMBEDDING_MODEL_NAME."
             )
-        self.model_name: str = name
+        local = LOCAL_MODELS_DIR / name
+        self.model_name: str = str(local) if local.is_dir() else name  # a copy in models/ wins over the download cache
         self._model: Any = None
 
     @property
