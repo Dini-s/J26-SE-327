@@ -1,0 +1,925 @@
+﻿Software Requirements Speciﬁcation
+Software engineering: Group 1
+Thierry Coppens - Requirements Manager
+1st Master in Electronics and Information Technologies
+thierry.coppens@gmail.com se1 0708@elvas.vub.ac.be
+Professor: Dirk Vermeir
+Assistant: Eline Philips
+May 21, 2008
+Version History
+Revision Date Author Comment
+v0.1 15-10-2007 01:48:00 Thierry Coppens First Version/Draft SRS
+v0.2 29-10-2007 02:15:00 Thierry Coppens Second Version/Draft SRS
+v0.3 06-11-2007 00:08:00 Thierry Coppens Third Version/Draft SRS
+v0.4 12-11-2007 00:20:00 Thierry Coppens Fourth Version/Draft SRS
+v0.5 16-11-2007 Elke Durwael QA Review: ﬁxed some typo’s
+v0.6 02-12-2007 Elke Durwael added use cases
+v0.7 8-12-2007 Thierry Coppens Review of complete SRS and updating
+v0.8 16-12-2007 Thierry Coppens Final First Version without references and index
+v0.9 04-05-2008 Thierry Coppens Adjustments and added references
+v0.10 14-05-2008 Elke Durwael QA review
+
+3
+Abstract
+This document contains the Software Requirements Speciﬁcation(SRS) for a Publications
+Management System (PMS). It describes the requirements of the project and tries to follow
+the IEEE-standard for SRS-documents, IEEE Std 830-1998 [1], as closely as possible. This
+project is part of the course Software Engineering [2] teached by Prof. Dr. Dirk Vermeir at
+the Free University of Brussels.
+4
+Contents
+1 Introduction 7
+1.1 Purpose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+1.2 Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+1.3 Deﬁnitions, Acronyms and Abbreviations . . . . . . . . . . . . . . . . . . . . . 8
+1.4 Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+2 Overall Description 11
+2.1 Product perspective . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+2.2 Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+2.2.1 System Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+2.2.2 User Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+2.2.3 Communications Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . 13
+2.2.4 Memory Constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+2.2.5 Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+2.2.6 Site adaptation requirements . . . . . . . . . . . . . . . . . . . . . . . . 13
+2.3 Product functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+2.3.1 Guest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+2.3.2 VUB-Network User . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+2.3.3 Member . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+2.3.4 Publisher . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+2.3.5 Moderator . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+2.3.6 Administrator . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+2.3.7 Optional Functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+2.4 User characteristics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+2.5 Constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+2.6 Assumptions and dependencies . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+2.7 Apportioning of requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+3 Speciﬁc Requirements 25
+3.1 External Interface Requirements . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+3.1.1 Web Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+3.1.2 Command Line Interface . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+3.2 Functional Requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+3.2.1 Log in to the system from the internet . . . . . . . . . . . . . . . . . . . 26
+3.2.2 Log in to the system via the VUB-network . . . . . . . . . . . . . . . . 26
+3.2.3 Register for an account . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+3.2.4 Log oﬀ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+3.2.5 Change password . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+3.2.6 Search for publications . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+3.2.7 View the results of a Search . . . . . . . . . . . . . . . . . . . . . . . . . 28
+3.2.8 View publication details . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+5
+6 CONTENTS
+3.2.9 View detailed information for multiple publications. . . . . . . . . . . . 29
+3.2.10 Download a single publication . . . . . . . . . . . . . . . . . . . . . . . . 29
+3.2.11 Download multiple publications . . . . . . . . . . . . . . . . . . . . . . . 29
+3.2.12 Consult publication references . . . . . . . . . . . . . . . . . . . . . . . . 30
+3.2.13 Consult references for multiple publications . . . . . . . . . . . . . . . . 30
+3.2.14 Display the full text of a publication . . . . . . . . . . . . . . . . . . . 30
+3.2.15 View details of a reference . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+3.2.16 Export the references cited in a publication (BIB format) . . . . . . . . 31
+3.2.17 Export the references cited in a publication (RIS format) . . . . . . . . 31
+3.2.18 View authors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+3.2.19 Editing personal data . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+3.2.20 Access to your own publications . . . . . . . . . . . . . . . . . . . . . . 32
+3.2.21 Edit your own publications . . . . . . . . . . . . . . . . . . . . . . . . . 32
+3.2.22 Upload publications . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+3.2.23 Search users . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+3.2.24 Edit user settings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+3.2.25 Create User . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+3.2.26 Delete User . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+3.2.27 Create Group . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+3.2.28 Search Group . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+3.2.29 Delete Group . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+3.2.30 Edit group settings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+3.2.31 Edit system conﬁguration settings . . . . . . . . . . . . . . . . . . . . . 36
+3.3 Performance Requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+3.4 Logical Database Requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+3.5 Design Constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+3.6 Software System Attributes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+3.6.1 Reliability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+3.6.2 Availability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+3.6.3 Security . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+3.6.4 Maintainability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+3.6.5 Portability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+4 References 39
+4.1 References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+Chapter 1
+Introduction
+7
+8 CHAPTER 1. INTRODUCTION
+1.1 Purpose
+The purpose of this document is to present an overall description and listing of the func-
+tionality of a Publications Management System (PMS). This document is intended for the
+customer(s) and suppliers of the system including designers, testers and the implementation
+unit.
+1.2 Scope
+The product will support the functionality of a PMS, which can be accessed by command
+line and through a web browser (following the W3C XHTML-standards [3]). The PMS will
+manage a database with bibliographical information and have the possibility to save the entire
+text of a publication in pdf and postscript.
+It will be able to automatically retrieve bibliographical information (like author, title,
+etc.) out of the complete text of a publication and will provide the possibility to correct this
+manually, if the obtained information is incorrect or insuﬃcient. The concept ‘author’ (name,
+ﬁrst name, institute. . . ) will be explicitly known by the system and the user will be able
+to manually indicate that references like ‘D. Vermeir’ and ‘Dirk Vermeir’ refer to the same
+author. The possibility will also be provided to receive a ‘bulk update’.
+The system will support several types of accessing, including accessing of the contents of
+a publication, if the complete text (or only the abstract) is available and it will also support
+access control.
+1.3 Deﬁnitions, Acronyms and Abbreviations
+Customer: The person, or persons, who pay for the product and usually (but not necessarily)
+decide the requirements. In the context of this recommended practice the customer and
+the supplier may be members of the same organization.
+Supplier: The person, or persons, who produce a product for a customer. In the context of
+this recommended practice, the customer and the supplier may be members of the same
+organization.
+User: The person, or persons, who operate or interact directly with the product. The user(s)
+and the customer(s) are often not the same person(s).
+BibTEX: This is a tool for formatting lists of references. The BibT EXtool is typically used
+together with the LATEXdocument preparation system.
+Bulk Update: refers in this case to importing many publications(or abstracts) at once (e.g.
+through BibTeX ﬁles).
+CLI: Command Line Interface
+Git: a distributed revision control / software conﬁguration management project created by
+Linus Torvalds. [4]
+HTML: Hypertext Markup Language
+HTTP: Hypertext Transfer Protocol
+IEEE: Institute of Electrical and Electronics Engineers [5]
+OS: Operating System (e.g. Linux, MS Windows XP,Mac OS X)
+1.4. OVER VIEW 9
+PDF: Portable Document Format
+PMS: Publication Management System
+PS: Postscript
+RDoc: Document Generator for Ruby Source. [6]
+RIS: The RIS ﬁle format is a tagged format for expressing bibliographic citations.
+Ruby: This is a reﬂective, dynamic, object-oriented programming language.
+SCMP: Software Conﬁguration Management Plan
+SE1: Software Engineering group 1 [7]
+SQAP: Software Quality Asssurance Plan [12]
+SRS: Software Requirements Speciﬁcation
+STD: Software Test Plan [13]
+TBD: To Be Determined
+UML: Uniﬁed Modelling Language [11]
+VUB: Free University of Brussels [8]
+W3C: World Wide Web Consortium [9]
+Wilma: This is a multifunctional linux server for the students of the faculty of sciences at
+the VUB.
+1.4 Overview
+The remaining part of this document is divided into two sections.
+In section 2 we will describe the general factors that inﬂuence the product and its require-
+ments. This section does not state speciﬁc requirements. Instead, it provides a background
+for those requirements, which are deﬁned in detail in Section 3 of the SRS, and makes them
+easier to understand.
+Section 2 consists of six subsections, as follows:
+• Product perspective
+• Product functions
+• User characteristics
+• Constraints
+• Assumptions and dependencies
+• Apportioning of requirements
+10 CHAPTER 1. INTRODUCTION
+Section 3 will contain all of the software requirements to a level of detail suﬃcient to
+enable designers to design a system to satisfy those requirements, and testers to test if the
+system satisﬁes those requirements. Throughout this section, every stated requirement must
+be externally perceivable by users, operators, or other external systems. These requirements
+will include at a minimum a description of every input (stimulus) into the system, every
+output (response) from the system, and all functions performed by the system in response to
+an input or in support of an output.
+Section 3 consists of six subsections, as follows:
+• External interfaces
+• Functions
+• Performance requirements
+• Logical database requirements
+• Design constraints
+• Software system attributes
+Chapter 2
+Overall Description
+11
+12 CHAPTER 2. OVERALL DESCRIPTION
+2.1 Product perspective
+The PMS will rely on a database and a web server, which can be accessed by a web browser
+and by command line.
+There will be multiple types of users:
+• A Guest is an anonymous user that is not connected to the VUB-network. Therefore
+he/she will only be allowed to log in or register.
+• A VUB-Network User is connected to the VUB-network, but is not logged in. The
+PMS will recognize them by their IP-address. They can access the database, search for
+publications and download them.
+• A Member is a user that has logged into the PMS and whose account only allows him
+to search for publications and download them.
+• A Publisher is a logged in user that can search for, upload and download publications.
+• A Moderator has the same prerequisites and available functions as a Member, extended
+with the authority to edit and delete publications.
+• An Administrator has all the possibilities of a moderator extended with the responsibility
+for the technical aspects of the PMS. He/She also has the possibility to up or downgrade
+the accounts of users and in extreme cases he can even expel registered users.
+Accessing the PMS from outside the VUB-network is only possible for logged in users.
+Person(s) that are not logged in and/or connected to the VUB-network will only have Guest
+privileges. To be able to log in a user will have to register an account. This requires that the
+user provides their ﬁrst and last name, a password and a valid e-mail address. If a user is
+accepted, he/she will receive a validation mail and by that way he/she will be able to conﬁrm
+the registration of the user account.
+Any user will be able to search for publications by title, author(s), institute,. . . Also will
+the user be able to specify that ‘D. Vermeir’ and ‘Dirk Vermeir’ refer to the same author and
+that ‘VUB’ or ‘Vrije Universiteit Brussel’ refer to the same institute.
+2.2. INTERF ACES 13
+2.2 Interfaces
+2.2.1 System Interfaces
+• Database: The system contains an interface with a MySQL-Database.
+• Webserver: This Server is responsible for the execution of the PMS and the sending of
+queries to the database. It’s also responsible for generating the user interface for each
+user.
+2.2.2 User Interfaces
+• Users can access the PMS (taking into account their privileges) from any OS, using
+a web browser that has a connection to the web server running the PMS. The PMS
+should explicitly be accessible for users with Linux as OS and using a text based web
+browser(eg. Links2 ). Administrator(s) can acces the system by command line from
+within the VUB-network.
+• There are no speciﬁc hardware requirements for the users.
+• If an error would occur during a request, the user should receive an error message stating
+what was the cause of the error. The error should also be logged in the PMS to notify
+the Administrator(s) of the occurred technical diﬃculties.
+• The PMS web interface will comply with the W3C XHTML 1.0 Transitional standard
+[3].
+2.2.3 Communications Interfaces
+Communication between the PMS(or more speciﬁcally the webserver) and the users will be
+via a HTTP-connection using TCP/IP port 80.
+2.2.4 Memory Constraints
+There is no speciﬁc limit on the usage of memory by the PMS. The publications themselves
+nevertheless will have a maximum ﬁle size, which for the moment remains TBD.
+2.2.5 Operations
+• A user has to be logged into (and registered to) the PMS or connected to the VUB-
+network to be able to use (parts of) the functionality of the PMS.
+• The other necessary/available operations (functionalities) are discussed in section 2.3
+2.2.6 Site adaptation requirements
+The PMS will be easy to install, with Ruby 1.8 (or later) installed and will run under a
+Linux-based environment.
+14 CHAPTER 2. OVERALL DESCRIPTION
+2.3 Product functions
+This subsection of the SRS provides a summary of the major functions that the PMS will
+provide and for whome these functions will be available. These functions will be build up
+using a hierarchical user structure, where the following user (the child) inherits all of the
+available functions of the preceding one.
+The hierarchical user structure will be as follows:
+• Guest
+• VUB-Network User
+• Member
+• Publisher
+• Moderator
+• Administrator
+In this structure an Administrator has more functions than a Moderator, a Moderator
+more than a Member,. . .
+2.3. PRODUCT FUNCTIONS 15
+2.3.1 Guest
+A Guest is a person that is not connected to the VUB-network nor logged into the PMS.
+User Functions
+• Register an account
+Description: A Guest can register an account on the PMS by ﬁlling in a form.
+Prerequisites: none
+• Log into the PMS
+Description: This function allows the user to log into their account ( Member, Publisher,
+Moderator, Administrator).
+Prerequisites: The user has to have a valid account.
+• Validate a new account
+Description: To be able to complete the registration of a new account, it has to be
+validated by the requesting user.
+Prerequisites: The user ﬁrst has to ﬁll in the registration form and receive a validation
+mail.
+• Retrieve Password
+Description: This allows a user to retrieve his/her password.
+Prerequisites: The user has to have a valid account and is not logged in.
+Search Functions
+A Guest cannot search for publications.
+Result Functions
+A Guest cannot get results for search queries.
+Upload/Edit Functions
+A Guest cannot upload or edit publications.
+16 CHAPTER 2. OVERALL DESCRIPTION
+2.3.2 VUB-Network User
+A VUB-Network User is a person that is connected to the VUB-network, but is not logged in.
+Because of his connection to the VUB-network the PMS will recognize him by the IP-address
+and let this person access the PMS . This user will have the choice among the following
+functions:
+User Functions
+see section 2.3.1
+Search Functions
+• Search
+Description: The user can search for a publication by means of a form that contains
+multiple text input ﬁelds:
+– Keyword(s): The user can search for a publication, by typing in certain keywords
+using logical expressions(eg. AND, OR, NOT,. . . ) and certain symbols (eg.”, ’
+,. . . ).
+– Author(s): The user can search for a publication, by typing in the text input ﬁeld
+the name(s) of the author(s), ranked by importance.
+– Dates between: by ﬁlling in these ﬁelds of the form one can specify between which
+dates the publication they’re searching for was published .
+Prerequisites: The user has to be connected to the VUB-Network.
+• Advanced Search
+Description: A user can extend his Search by ﬁlling in an additional form, where they
+can specify one (or more) keyword(s) of the Publication and/or by specifying the Pub-
+lications that refer to it.
+Prerequisites: The user has to be connected to the VUB-Network.
+Result Functions
+Whenever a search is completed by the PMS the results will be shown and there will also be
+some functions available here.
+• Order Results
+Description: This function allows you to order the results by title, author(s) and year
+of publication.
+Prerequisites: The user has to be connected to the VUB-Network and has done a valid
+search query.
+• Export and Download Results
+Description: This function allows the user to export (and download) one or more of the
+obtained results. It will be possible to export publications to html, pdf and ps.
+Prerequisites: The user has to be connected to the VUB-Network and has done a valid
+search query.
+2.3. PRODUCT FUNCTIONS 17
+• Searching Publications on Similarity
+Description: The user can search for publications by the same author(s), publications
+that are mentioned in one of the results or publications by the same institute.
+Prerequisites: The user has to be connected to the VUB-Network and has done a valid
+search query.
+Upload/Edit Functions
+A VUB-Network User cannot upload or edit publications.
+18 CHAPTER 2. OVERALL DESCRIPTION
+2.3.3 Member
+A Member is a logged in user that has the following set of available functions.
+User Functions
+The set of available User Functions of a VUB-Network User (see section 2.3.2) is extended
+with:
+• Change Account Details
+Description: The user can change his account information (eg. password, e-mail ad-
+dress,. . . ). He/She can also send a request for an upgrade of his account to an Admin-
+istrator
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+• Log oﬀ the PMS
+Description: This function allows the user to log oﬀ their account. If the user is con-
+nected to the VUB network, then he/she should be redirected to the search page when
+he logs oﬀ. Otherwise he should be redirected to the login page.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+Search Functions
+see section 2.3.2
+Result Functions
+see section 2.3.2
+Upload/Edit Functions
+see section 2.3.2
+2.3. PRODUCT FUNCTIONS 19
+2.3.4 Publisher
+A Publisher is a logged in user that has the following set of available functions.
+User Functions
+see section 2.3.3
+Search Functions
+see section 2.3.3
+Result Functions
+see section 2.3.3
+Upload/Edit Functions
+The set of available Upload/Edit Functions of a Member (see section 2.3.3) is extended with:
+• Uploading a Publication
+Description: The user will be able to upload a publication (pdf, ps) following the
+bibTEXor RIS-format. The PMS will be able to automatically retrieve bibliographical
+information (eg. author, title, ) out of the complete text (or the abstract) of a publica-
+tion and will provide the possibility to correct this manually, if the obtained information
+is incorrect or insuﬃcient. Also will the user be able to specify that ’D. Vermeir’ and
+’Dirk Vermeir’ refer to the same author and that ’VUB’ or ’Vrije Universiteit Brussel’
+refer to the same institute.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+The provided document has to follow the before mentioned formats (RIS,bibT EX).
+• Edit your own publication
+Description: The user will only be able to edit the publication that he/she uploaded.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+To be able to edit a publication, they will ﬁrst have to upload one.
+• Bulk Uploading
+Description: This function will allow the user to import many publications(or abstracts)
+at once (e.g. through bibT EXﬁles).
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+The provided document has to follow the before mentioned formats (RIS, bibT EX).
+20 CHAPTER 2. OVERALL DESCRIPTION
+2.3.5 Moderator
+A Moderator is a logged in user that has the following set of available functions.
+User Functions
+The set of available User Functions of a Publisher (see section 2.3.4) is extended with:
+• Manage User Level(s)
+Description: A Moderator can decide to upgrade a Member (of his own department)
+to become a Publisher. He can also downgrade a Publisher (of his own department) to
+become a Member.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+He/She should be part of/belong to the speciﬁed department
+• Manage Group Permissions
+Description: A moderator can change the Group Permissions of any group that falls
+under his jurisdiction.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+He/She has to be a Moderator and has to have the responsability for that speciﬁc group.
+• Edit Author(s)
+Description: A moderator can change the information about the Author(s)
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+He/She has to be a Moderator.
+Search Functions
+see section 2.3.4
+Result Functions
+see section 2.3.4
+Upload/Edit Functions
+The set of available Upload/Edit Functions of a Publisher (see section 2.3.4) is extended with:
+• Edit Departmental Publication(s)
+Description: A moderator can change or overwrite the bibliographical details of every
+publication owned by the department of group he/she is connected to.
+Prerequisites: The user has to have a valid account and has to be logged into his/her
+account. He/She has to be a Moderator and should should be part of/belong to the
+speciﬁed department.
+2.3. PRODUCT FUNCTIONS 21
+2.3.6 Administrator
+User Functions:
+The set of available user functions of a Moderator (see section 2.3.5) is extended with:
+• Access to Control Panel
+Description: The user will have access to the Control Panel, from which he will be able
+to for example edit the user accounts (upgrade, downgrade or delete user accounts). A
+more complete set of possibilities of the Control Panel will be implemented later.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+He/She has to be an Administrator.
+• Create/Delete User(s)
+Description: An Administrator can create and delete any user of the PMS.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+He/She has to be an Administrator.
+• Create/Delete Group(s)
+Description: An Administrator can create and delete any Group of the PMS.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+He/She has to be an Administrator.
+• Manage User Level (extended version)
+Description: An Administrator can change the User Level of every user into any other
+User Level. Prerequisites: The user has to have a valid account and has to be logged
+into his account. He/She has to be an Administrator.
+Search Functions:
+see section 2.3.5
+Result Functions:
+see section 2.3.5
+Upload/Edit Functions:
+The set of available Upload/Edit Functions of a Moderator (see section 2.3.5) is extended
+with:
+• Edit All Publication(s)
+Description: This function allows the user to change the bibliographical details of (or
+overwrite) any publication.
+Prerequisites: The user has to have a valid account and has to be logged into his account.
+He/She also has to be at least an Administrator.
+22 CHAPTER 2. OVERALL DESCRIPTION
+2.3.7 Optional Functions
+The following functions are possible (future) expansions of the PMS .
+• Further extending of the supported formats (eg. MS WORD).
+• The possibility to view in the result page a list of documents that refer to this publication.
+• Make the PMS able to automatically to recognize that ‘D. Vermeir’ and ‘Dirk Vermeir’
+refer to the same author and that ‘VUB’ or ‘Vrije Universiteit Brussel’ refer to the same
+institute.
+• If a bibTEX-ﬁle with only abstracts and referring URL-ﬁelds is uploaded, the PMS would
+be able to get the full texts through those URL’s.
+• Expand the modular PMS system to make it able to also upload audio and video ﬁles
+(eg. mp3, mpeg) that are recognized automatically.
+2.4 User characteristics
+The users of the PMS are expected to be academic personnel and students with various
+technical backgrounds. All the users should have a basic knowledge of the internet.
+2.5 Constraints
+• The design of the PMS should be modular to simplify the design and implementation
+of expansions and replacements.
+• The PMS must be able to run on Linux, more speciﬁcally the Wilma web server.
+(http://wilma.vub.ac.be)
+• The web interface will be attractive, simple and standard (W3C XHTML [3])
+• All functions and options of the PMS should be available in the least amount of clicks,
+while maintaining a certain amount of structure.
+• The used programming language will be ruby.
+• The code will be documented using RDoc.
+• Git will be used for conﬁguration management.
+• The use of frameworks is not allowed.
+• The PMS web interface will comply with the W3C XHTML 1.0 Transitional standard
+[3].
+• Only free software can be used for the tools and for the end product. The use of certain
+libraries and aids is justiﬁed in the SCMP.
+• The PMS should be easily installable by using:
+TBD
+2.6. ASSUMPTIONS AND DEPENDENCIES 23
+2.6 Assumptions and dependencies
+• The users must have a web browser that supports W3C XHTML [3] and have a TCP/IP
+connection to the web server.
+• The http traﬃc must be possible on the network connection between server and client.
+• Command line users have access to the server shell. Therefore they also have all the
+Administrator privileges.
+2.7 Apportioning of requirements
+Following the demand of the customer(s) to have an early prototype available, the ﬁrst iter-
+ation of the PMS will include the basic functions. Afterwards, in the second iteration, more
+functions will be added to the PMS and the previous ones will be enhanced. For this purpose
+the diﬀerent functions will be marked in section 3 as:
+• Critical (C) (i.e. needed for the ﬁrst iteration)
+• Suﬃcient (S) (i.e. needed for the second iteration to have an adequate end product)
+• Optional (O) (i.e. implemented if there’s enough time left)
+24 CHAPTER 2. OVERALL DESCRIPTION
+Chapter 3
+Speciﬁc Requirements
+25
+26 CHAPTER 3. SPECIFIC REQUIREMENTS
+3.1 External Interface Requirements
+The External Interfaces are the interfaces related to the in and output of the PMS:
+• Web Access
+• Command Line Interface
+3.1.1 Web Interface
+The Web Interface is designed to be fast and eﬃcient, with the aim to be able to do fulﬁll
+all available tasks (upload, download, search,. . . ) in the smallest amount of pages and clicks.
+Although the esthetic part is less important, the clarity and structure of the web interface
+will be very important.
+3.1.2 Command Line Interface
+A user of the CLI is assumed to be accessing the Wilma machine locally. Therefore he/she
+will automatically be accredited with Administrator privileges. This does not mean that the
+administrator can only use the CLI.
+3.2 Functional Requirements
+3.2.1 Log in to the system from the internet
+• Summary: accessing the system from outside the VUB-network
+• Actors: everyone who wants to make use of the system
+• Preconditions: the actor needs a computer with internet access
+• Description: the actor gets a screen where he/she will be able to login
+• Exceptions: user must be registered and have a username and password
+• Result: the actor can login
+3.2.2 Log in to the system via the VUB-network
+• Summary: accessing the system whilst using the VUB-Network.
+• Actors: everyone who wants to make use of the system
+• Preconditions: be on a computer that is connected to the VUB network
+• Description: the actor gets a screen where he will be able to login or where he/she can
+start a search immediately
+• Exceptions: none
+• Result: the actor can login or can perform a search
+3.2. FUNCTIONAL REQUIREMENTS 27
+3.2.3 Register for an account
+• Summary: requesting access to the system (become a Member)
+• Actors: everyone who wants to make use of the system
+• Preconditions: the actor needs a computer with internet access or is connected to the
+VUB-network
+• Description:
+– the actor selects the Register function
+– the actor chooses a username and password and ﬁlls in personal data: name, login
+name, email address, university and department
+– the system checks if username already exists
+– the actor conﬁrms
+• Exceptions: none
+• Result: an email is sent to the Administrator
+3.2.4 Log oﬀ
+• Summary: Log oﬀ the system
+• Actors: Members , Publishers, Moderators and Administrators
+• Preconditions: the user is logged in to the system
+• Description: the actor selects the Logout function
+• Exceptions: none
+• Result: the actor is directed to the system start page where he/she can log in.
+3.2.5 Change password
+• Summary: A user who has forgotten his/her password, can request a new one.
+• Actors: VUB-network users, Members , Publishers, Moderators and Administrators
+• Preconditions: the user must have registered before, he/she must have a valid username
+on the system.
+• Description:
+– the actor chooses to change password
+– the actor ﬁlls in his user name and enters a new password
+– the actor conﬁrms
+• Exceptions: no valid username on the system
+• Result: an email is sent to the Administrator
+28 CHAPTER 3. SPECIFIC REQUIREMENTS
+3.2.6 Search for publications
+• Summary: searching for publications in the system
+• Actors: VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions: the actor needs to be logged in to the system or is connected to the
+VUB-network
+• Description:
+– The actor selects the Search Pubication function.
+– The actor ﬁlls in the search criteria: keyword, author, period of publication and/or
+more advanced search criteria such as keyword(s) and/or reference, etc.
+• Exceptions: none
+• Result: a list of publications fulﬁlling the search criteria.
+3.2.7 View the results of a Search
+• Summary : view of the results of a publication search
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having executed a Publication Search
+• Description : The actor gets one or more screens displaying one or more of the search
+results. For each result, the title and the main author of the publication are displayed.
+Navigation through diﬀerent screens of search results is possible with the next or previous
+page option.
+• Exceptions : when the search criteria did not give any result
+• Result : the actor will obtain the full list of all results satisfying his search criteria.
+3.2.8 View publication details
+• Summary : view details of a selected publication
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having executed a Search and viewed the search results screen
+• Description : the actor can view more detailed information of a selected publication by
+clicking the title of the publication or by clicking the view button located behind the
+title.
+• Exceptions : none
+• Result : the actor will obtain the title, authors, publication date, abstract, cited refer-
+ences, ... of the selected publication.
+3.2. FUNCTIONAL REQUIREMENTS 29
+3.2.9 View detailed information for multiple publications.
+• Summary : detailed view of multiple publications
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having executed a Search and viewed the search results screen
+• Description :
+– The actor selects some of the publications by ticking the box in front of the titles
+and selects the View function
+– or: The actor selects all publications by clicking the ’View All’ button at the bottom
+of the screen.
+• Exceptions : none
+• Result : the actor obtains a set of screens displaying the title, authors, publication date,
+abstract, cited references, ... of the selected publications.
+3.2.10 Download a single publication
+• Summary : downloading the full text of a publication
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions :
+– having executed a Search and viewed the search results screen
+– having entered the detailed view screen of a publication
+• Description :
+– in the results screen : the actor can download a selected publication by clicking on
+the Download button for the selected publication
+– in the detailed view screen of a publication : the actor can download the publication
+by clicking the Download button just beneath the abstract.
+• Exceptions : none
+• Result : the actor will obtain an electronic copy of the publication.
+3.2.11 Download multiple publications
+• Summary : downloading the full text of multiple publications
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having executed a Search and viewed the search results screen
+• Description : the actor can download all the publications in a search result by clicking
+on the Download button next to ”All” at the bottom of the screen.
+• Exceptions : none
+• Result : the actor will obtain an electronic copy of the publications.
+30 CHAPTER 3. SPECIFIC REQUIREMENTS
+3.2.12 Consult publication references
+• Summary : consult the references cited in a publication resulting from a search done on
+the system
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions :
+– having executed a Search and viewed the search results screen
+– having entered the detailed view screen of a publication
+• Description :
+– in the results screen : the actor clicks on the reference button located behind the
+publication title
+– in the detailed view screen of a publication : the actor clicks on the reference button
+just under the abstract.
+• Exceptions : none
+• Result : the actor will obtain a screen displaying the title, authors, publication date,
+abstract and cited references of the selected reference.
+3.2.13 Consult references for multiple publications
+• Summary : consult the references cited in all the publications resulting from a search
+done on the system
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having executed a Search and viewed the search results screen
+• Description : the actor can see all the references cited in the publications by clicking on
+the references button next to ”All” at the bottom of the screen.
+• Exceptions : none
+• Result : the actor will obtain a list of references cited in the publications.
+3.2.14 Display the full text of a publication
+• Summary : obtain a copy of the full text of a publication resulting from a search done
+on the system
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having entered the detailed view screen of a publication
+• Description : in the detailed view screen of a publication : the actor displays the full
+text of the publication by clicking the full text button just under the abstract.
+• Exceptions : full text must be available in the system
+• Result : the actor will see the full text of the publication.
+3.2. FUNCTIONAL REQUIREMENTS 31
+3.2.15 View details of a reference
+• Summary : view details of a selected reference cited in a publication resulting from a
+search done on the system
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having entered the detailed view screen of a publication
+• Description : in the detailed view screen of a publication, the actor can access directly
+to the detailed view screen of a cited reference by clicking on the reference
+• Exceptions : only when the reference is present in the system
+• Result : the actor will access the view screen (containing title, authors, data of publi-
+cation, abstract and cited reference) of the selected reference .
+3.2.16 Export the references cited in a publication (BIB format)
+• Summary : download the references cited in a publication in bib format
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having entered the detailed view screen of a publication
+• Description : in the detailed view screen of a publication : the actor selects the format
+(bib) for the exported references and conﬁrms.
+• Exceptions : none
+• Result : File with the references of a publication in bib format
+3.2.17 Export the references cited in a publication (RIS format)
+• Summary : download the references cited in a publication in RIS format
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having entered the detailed view screen of a publication
+• Description : in the detailed view screen of a publication : the actor selects the format
+(RIS) for the exported references and conﬁrms.
+• Exceptions : none
+• Result : ﬁle with the references of a publication in RIS format
+3.2.18 View authors
+• Summary : view information about an author of a publication in the system
+• Actors : VUB-network users and Members , Publishers, Moderators and Administrators
+• Preconditions : having executed a publication search and viewed the search results
+screen
+• Description : in the results screen : the actor clicks on the author name of one of the
+publications
+• Exceptions : none
+• Result : the system shows the author details
+32 CHAPTER 3. SPECIFIC REQUIREMENTS
+3.2.19 Editing personal data
+• Summary : editing personal data
+• Actors : Members , Publishers, Moderators and Administrators
+• Preconditions : the actor needs to be logged in to the system
+• Description :
+– the actor selects the Edit Settings function
+– the actor changes his personal data such as password, university, department
+– the actor conﬁrms
+• Exceptions : none
+• Result : the personal data of the user will be changed
+3.2.20 Access to your own publications
+• Summary : access directly to your own publications
+• Actors : Publishers, Moderators and Administrators
+• Preconditions : none
+• Description : the Publisher selects the ”My Publications” box
+• Exceptions : none
+• Result : the user obtains a set of screens displaying the title, authors, publication
+date, abstract and cited references of the all the publications that he/she has previously
+uploaded in the system
+3.2.21 Edit your own publications
+• Summary : possibility to modify information of your own publications by a Publisher
+• Actors : Publishers , Moderators and Administrators
+• Preconditions : the actor needs to be logged in to the system and has done a ”My
+Publications” search
+• Description :
+– in the results screen : the actor chooses a publication from the list, edits the
+publication and conﬁrms his changes.
+– via the My Publications search : the list of Publisher publications will be displayed
+and editing is possible by ticking the ”edit” box
+• Exceptions : only for publications owned by the actor
+• Result : changes are applied to the publication in the system.
+3.2. FUNCTIONAL REQUIREMENTS 33
+3.2.22 Upload publications
+• Summary : add a publication to the system
+• Actors : Publishers , Moderators and Administrators
+• Preconditions : The actor has a document in one of the supported formats: pdf, ps, odt
+• Description :
+– The actor selects the document to add to the system and conﬁrms.
+– The system tries to retrieve the publication details from the document.
+– The system shows the new publication with the retrieved information.
+– The actor either accepts or makes some changes to the publication and conﬁrms
+the changes.
+• Exceptions : none
+• Result : the system contains a new publication
+3.2.23 Search users
+• Summary : searching users in the system
+• Actors : Moderators and Administrators
+• Preconditions : the actor needs to be logged into the system
+• Description :
+– the actor selects the Search Users function.
+– the actor ﬁlls in some search criteria.
+– the system shows the results.
+• Exceptions : none
+• Result : list of users meeting the search criteria
+3.2.24 Edit user settings
+• Summary : Select a system user (Members, Publishers, Moderators) and change his
+settings
+• Actors : Moderators and Administrators
+• Preconditions : a list of users as resulting from the user search function.
+• Description :
+– The actor selects a user from a list of users resulting from a search query.
+– The actor changes the user settings.
+– The actor conﬁrms the changes.
+• Exceptions : none
+• Result : the user settings are changed
+34 CHAPTER 3. SPECIFIC REQUIREMENTS
+3.2.25 Create User
+• Summary : create a new user
+• Actors : Administrator
+• Preconditions : none
+• Description :
+– Administrator selects the Create User function
+– Administrator ﬁlls in user details: username, password, email, group
+– Administrator conﬁrms
+• Exceptions : the username already exists in the system
+• Result : the system contains a new user
+3.2.26 Delete User
+• Summary : delete an existing user
+• Actors : Administrator
+• Preconditions : none
+• Description :
+– Administrator selects the Delete User function
+– Administrator ﬁlls in username
+– System shows user details
+– Administrator conﬁrms
+• Exceptions : the username does not exist in the system
+• Result : the user is deleted in the system
+3.2.27 Create Group
+• Summary : create a new group
+• Actors : Administrator
+• Preconditions : none
+• Description :
+– Administrator selects the Create Group function
+– Administrator ﬁlls in group details: groupname, users
+– Administrator conﬁrms
+• Exceptions : the groupname already exists in the system
+• Result : the system contains a new group
+3.2. FUNCTIONAL REQUIREMENTS 35
+3.2.28 Search Group
+• Summary : select a group from a list in order to view the group details
+• Actors : Administrator
+• Preconditions : none
+• Description :
+– Administrator selects the Search Group function
+– Administrator ﬁlls in group details
+– System shows search results
+• Exceptions : none
+• Result : a list of groups fulﬁlling the search criteria
+3.2.29 Delete Group
+• Summary : delete an existing group in the system
+• Actors : Administrator
+• Preconditions : the group must be empty (no users)
+• Description :
+– Administrator selects the Delete Group function
+– Administrator ﬁlls in groupname
+– System shows group details
+– Administrator conﬁrms
+• Exceptions : the groupname does not exist in the system or the group is not empy
+• Result : the group is deleted in the system
+3.2.30 Edit group settings
+• Summary : Select a system group and change its settings
+• Actors : Administrators
+• Preconditions : a list of groups as resulting from the group search function.
+• Description :
+– The actor selects a group from a list of groups resulting from a search query.
+– The actor changes the group settings.
+– The actor conﬁrms the changes.
+• Exceptions : none
+• Result : the group settings are changed
+36 CHAPTER 3. SPECIFIC REQUIREMENTS
+3.2.31 Edit system conﬁguration settings
+• Summary : access the conﬁguration panel in order to change the system conﬁguration
+settings.
+• Actors : Administrators
+• Preconditions : none
+• Description :
+– Administrator accesses the conﬁguration panel.
+– Administrator changes the system conﬁguration settings
+– Administrator conﬁrms the changes
+• Exceptions : none
+• Result : conﬁguration changes are applied to the system
+3.3 Performance Requirements
+TBD
+3.4 Logical Database Requirements
+Logical database requirements All data will be saved in the database: static and dynamic
+information, statistics, publications, administrator-settings, ... It’s very important to keep the
+database consistent at all times: no pointers to deleted records, no redundant information,
+etc The database must be capable to handle serveral requests at once, these requests happen
+by using SQL-statements. A backup structure is also a requirement to save all the data in
+case of server of disk problems.
+3.5 Design Constraints
+• The PMS web interface must be conform W3C XHTML 1.0 Transitional standard [3].
+• The implementation must be compliant with the Coding Conventions of SE1 [10].
+• The implementation must be object-oriented.
+• Design diagrams must be made following the UML standard [11].
+3.6. SOFTW ARE SYSTEM ATTRIBUTES 37
+3.6 Software System Attributes
+3.6.1 Reliability
+• The PMS is developped so that it should not experience software faults. To be able
+to achieve the least amount of software bugs we use a spiral model with 2 iterations.
+For more information about the reliability of the PMS and the therefore used testing
+processes see the SQAP [12] and STD [13] of SE1.
+3.6.2 Availability
+• The PMS will be available at all times from any computer ( fulﬁlling assumptions and
+dependencies in Section 2.6 ), except when Wilma is not available. The availability of
+Wilma is an issue that should be handled by the customer.
+• In case of a corrupted database the Administrator should replace the database by the last
+available database backup. In case of another failure (hardware or software related) the
+problem should be ﬁrst solved and afterwards the PMS should be reinitialized. During
+this downtime the PMS should give an error to the visitors , stating that the PMS is
+temporarily down.
+3.6.3 Security
+• Every user account is protected with a personal password. Nobody except the speciﬁc
+user should be able to log into that account and change personal information.
+• The password of the user should be encrypted when submitted from user to server. It
+should also be saved in an encrypted way in the database and no-one except the PMS
+should be able to access these passwords.
+• Direct access to the data stored in the database is only allowed for Administrator(s)
+using the CLI.
+• The user levels (see section 2.3) should always be respected with regard to editing,
+deleting and uploading publications (and their bibliographical details) .
+3.6.4 Maintainability
+• The database of the PMS should be maintained by the Administrator(s).
+• The PMS (with concern to the user levels, special privileges,. . . ) should be maintained
+by the Administrators on a global level.
+• On the Departmental level the Moderator(s) will be able to maintain the PMS this way.
+If the PMS remains available under all circumstances, there are no other maintenance
+measures to keep in regard.
+3.6.5 Portability
+The PMS is developped and tested to be able to run on Wilma, as speciﬁed by the customer.
+Although this is a linux-based platform, it would be possible to relocate the PMS to
+a server with a diﬀerent OS as long as all necessary software is available on it and some
+adjustments are made. Because of the fact that this was not demanded by the customer, we
+did not fully implement this feature in the PMS.
+38 CHAPTER 3. SPECIFIC REQUIREMENTS
+Chapter 4
+References
+39
+40 CHAPTER 4. REFERENCES
+4.1 References
+(1) http://www.scribd.com/doc/2620639/IEEE-8301998
+(2) http://tinf2.vub.ac.be/~dvermeir/courses/software_engineering/projects/2007-2008/
+index.html
+(3) http://www.w3.org/TR/xhtml1/
+(4) http://git.or.cz/
+(5) http://www.ieee.org/
+(6) http://rdoc.sourceforge.net/
+(7) http://wilma.vub.ac.be/~se1_0708/
+(8) http://www.vub.ac.be
+(9) http://www.w3.org/
+(10) http://wilma.vub.ac.be/~se1_0708/docs/coding_conventions/conventions.pdf
+(11) http://www.uml.org/
+(12) http://wilma.vub.ac.be/~se1_0708/docs/sqap/sqap.pdf
+(13) TBDstdlink

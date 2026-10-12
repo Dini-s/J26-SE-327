@@ -1,0 +1,781 @@
+﻿ 
+ 
+Agency for Enterprise Information Technology (AEIT) 
+ 
+Enterprise E-mail Functional Requirements 
+Specification 
+ 
+Version 1.5 
+    
+ 
+  
+ 
+
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT ii 
+ 
+ 
+Revision History 
+ 
+Date  Version  Description  Author  
+8/27/2009 1.0 Basic and Extended requirements 
+added to document for review by 
+functional requirements team. 
+Scott Jecko 
+9/1/2009 1.1 Basic and extended requirements 
+updated based on feedback from 
+requirements team. 
+Scott Jecko 
+9/2/2009 1.2 Document updated (archiving 
+requirements added) in preparation 
+for sending to team and key 
+stakeholders for final review. 
+Scott Jecko 
+9/4/2009 1.3 Document updated: added basic 
+requirements 1.9 and 1.10 (public 
+folders) based on feedback from 
+technical team. 
+Scott Jecko 
+9/15/2009 1.4 Document updated: added basic 
+requirement 1.27 (ability for user to 
+customize their view in the client 
+application) based on feedback 
+from AEIT Advisory Committee. 
+Scott Jecko 
+9/17/2009 1.5 Document updated: modified 
+requirements 1.14, 1.22, 1.72, and 
+1.77 based on feedback from 
+HSMV. 
+Scott Jecko 
+ 
+ 
+ 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT iii 
+ 
+ 
+ 
+ 
+ 
+Table of Contents 
+1. Enterprise E-mail Scope 1 
+2. Requirements Workgroup Methodology 2 
+3. Requirements Workgroup Goals 3 
+4. Requirements Workgroup Glossary 4 
+5. Requirements Workgroup Team 5 
+6. Requirements Workgroup References 5 
+7. Basic Functional Requirements 6 
+8. Extended Functional Requirements 10 
+9. Functional Requirements Summary 12 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 1 
+ 
+ 
+Requirements Specification 
+1. Enterprise E-mail Scope 
+Define the scope of the “Enterprise E-mail” project .  (from F.S. 282.34 and Preliminary 
+Scope Statement).  
+282.34   Statewide e -mail system. --A state e-mail system that includes the service d elivery and 
+support for a statewide e-mail, messaging, and calendaring service is established as an 
+enterprise information technology service as defined in s. 282.0041.  The service shall be 
+designed to meet the needs of all executive branch agencies and reduce the current cost of 
+operation and support. 
+The product of this project will be a proposed plan for the establishment of the statewide 
+electronic mail system. By December 31, 2009, the AEIT shall submit the proposed plan 
+to the Governor, the President of the Senate, and the Speaker of the House of 
+Representatives. The plan shall be developed to reduce costs to the state and include, 
+at a minimum:  
+a) An analysis of the in-house and external sourcing options that should be considered 
+for delivery and support of the service. The analysis shall include an internally hosted 
+system option, an externally sourced system option, and, if necessary, a combined in-
+house and externally sourced option.  
+b) A cost-benefit analysis that estimates all major cost elements associated with each 
+sourcing option, including the nonrecurring and recurring costs of each option. The 
+analysis must also include a comparison of the total cost of each enterprise e-mail 
+sourcing option and the total cost of existing e-ma il services in order to determine the 
+level of savings that can be expected.  
+c) Estimated expenditures for each state agency associated with e-mail costs for the 
+2009-2010 fiscal year.  
+d) The plan must identify any existing e-mail infrastructure that should be considered for 
+reuse.  
+e) A concise analysis of the ability of each sourcing option to meet major system 
+requirements, including federal and state requireme nts for confidentiality, privacy, and 
+security.  
+f) A complete description of the scope of functionality, operations, and required 
+resources associated with each sourcing option.  
+g) Recommendations for standardizing the format of state e-mail addresses.  
+h) A reliable schedule for the decommission of all state agency e-mail systems and the 
+migration of all agencies to the new system beginning by July 1, 2010, and completing 
+by June 30, 2013.  
+ 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 2 
+ 
+ 
+2. Requirements Workgroup Methodology 
+Define the process by which requirements were gathe red and grouped as either “basic” 
+or “extended”.  
+The primary objective for the requirements workgrou p was to gather all functional requirements 
+for the state e-mail system (via excel spreadsheet) and compile all requirements into a 
+complete, concise, and categorized functional requirements specification. The activities required 
+to compile the requirements specification included reviewing the 2006 e-mail survey (and 
+additional historical documentation), creating the 2009 e-mail survey, sending 2009 survey to 
+agency e-mail (business) experts, compiling survey results into the formal requirements 
+specification, and obtaining requirements approval from key stakeholders. Note: There are two 
+subsequent surveys being sent out (to gather current agency inventory and financial 
+information); the results of these two subsequent surveys are not included in this document. 
+ 
+The workgroup reviewed the 2006 survey (and other d ata sources such as schedule IV-C data 
+and AEIT DCC questionnaire) and determined the list of categories and questions to be 
+included in the survey. Agencies were asked to respond to each requirement question by 
+selecting “currently have and use”, “do not have/do not use”, or “would like to have”.  Agreed 
+upon categories for the 2009 survey included E-mail, Calendar, & Contacts (user interface and 
+administrative requirements); Archiving, Retention, Search, Discovery requirements; Disaster 
+Recovery requirements, Backup & Restore requirement s; Security, Anti-Virus, Filtering 
+requirements; Remote Access & Mobile Messaging requ irements; Additional E-mail 
+requirements. The survey also provided a section for agencies to address their concerns/issues 
+regarding a statewide e-mail system. 
+ 
+Upon receiving all survey responses, the workgroup determined which requirements should be 
+recommended for inclusion in the “basic” and “exten ded” section of the functional requirements 
+specification. Factors that were considered in the basic or extended decision included, % of 
+agencies that currently provide, # of total users currently supported, and the legal necessity of 
+fulfilling the requirement. The workgroup also identified whether the requirement will be a user, 
+agency admin, or SSRC admin capability.  
+ 
+Once approval of this document is obtained from key stakeholders, these functional 
+requirements will be used as an attachment in upcom ing RFI’s and potential RFP’s (or ITN’s). 
+An in house or externally sourced solution should m eet the basic functional requirements 
+specified in this document (or provide ample reasoning why a requirement is not technically or 
+financially feasible).   
+ 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 3 
+ 
+ 
+3. Requirements Workgroup Goals 
+Goal ID: Name – Description  
+3.1 
+Manage Scope: Understand the preliminary scope statement for the statewide e-
+mail system and ensure that requirements remain within scope. 
+3.2  Manage Time:  Specification must be complete within 6 weeks (30 business days). 
+3.3 
+Manage Time : Workgroup will use the 2006 Messaging Optimization  Workgroup 
+Survey as a basis for the 2009 Enterprise e-mail su rvey. 
+3.4 
+Ensure Completeness: Specification must be complete and detailed enough to 
+submit to outside vendors as Request For Information (RFI) or Request For 
+Proposals (RFP) or an Invitation to Negotiate (ITN). 
+3.5 
+Ensure Complete ness : Specification must include an attachment which pro vides a 
+narrative and breakdown of existing agency resources (personnel, equipment – 
+including storage capabilities, software-licenses) and current spend (reuse IV-C data 
+where applicable) on e-mail . (Note: this information will be captured in the inventory 
+survey which is being compiled by the Enterprise E-mail technical team – and is not 
+included in this functional specification.)  
+3.6 
+Ensure Completeness : Specification must include an attachment which lists each 
+agencies’ risks, issues, or constraints (such as software-application dependencies, 
+contracts, or legal requirements) that may affect t heir ability to transition to an 
+Enterprise E-mail System. (Note: this information will be compiled into a FAQ 
+document which will be posted to the project web site and made available to all 
+stakeholders.) 
+ 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 4 
+ 
+ 
+4. Requirements Workgroup Glossary 
+Glossary 
+ID: 
+Name – Description  
+4.1 
+Basic requirements  - The functional requirements that should be met as part of the 
+“basic” (minimal) solution-offering (whether in house or outsourced). Note: all functional 
+requirements will be subject to a technical and financial feasibility analysis. 
+4.2 
+Extended requirements  - The functional requirements that could be met as  part of the 
+“extended” solution offering (potentially at an additional cost to the customer). Note: all 
+functional requirements will be subject to a technical and financial feasibility analysis.  
+4.3 E-mail , Calendar, Contacts  - The end-user services of an e-mail product that can be 
+found in all e-mail platforms in use by the State today.  
+4.4 
+Archiving, Retention, Discovery  - The method of retaining e-mail messages to comply  
+with the Freedom of Information Act, Florida Public Records Law, State and Federal 
+retention requirements, Sarbanes Oxley, HIPAA or agency-specific requirements; 
+Archiving is a systematic approach to saving and protecting e-mail messages in their 
+entirety which can be retrieved by the individual user and/or a system administrator; 
+Retention is a period of time e-mail messages are retained to meet agency and/or 
+federal requirements; Discovery is the ability to search e-mail archives, journals, etc. 
+based on specific criteria to provide information for legal and public records requests; 
+Search is the ability to scan e-mails based on specific criteria such as sender, date, 
+subject, content, etc. and produce results for review. E-mail Searches for compliance 
+with Federal Rules of Civil Procedure, public record requests, court ordered production 
+of electronic records, IG or internal investigations, etc. include various levels of 
+complexity, software utilities and their underlying databases.  
+4.5 
+Disaster Recovery  - The services that allow an agency to continue to work during 
+and/or soon after a disaster. Disasters can affect one agency in the loss of a server to 
+affecting multiple agencies after a natural disaster such as a hurricane. Business 
+continuity and recovery plans are designed to address all severity levels. 
+4.6 Backup & Restore  - Making copies of data so that these additional copies may be used 
+to recover the original after a data loss event.  
+4.7 Security, Anti -Virus, Filtering  - The services that protect the end-user from receiving 
+inappropriate, threatening and/or destructive messa ges as well as protecting sent data.  
+4.8 Remote Access, Mobile Messaging  - The method by which a user can access their e-
+mail and/or other services by means other than at their work site.  
+4.9 Additional E-mail  Services  - The features and services that allow users to 
+communicate with their co-workers, project team, et c. outside of sending an e-mail. 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 5 
+ 
+ 
+5. Requirements Workgroup Team 
+Name Role  Contact E-mail Contact Phone 
+Jason Allison Project Lead Jason.Allison@aeit.myflorida.com 414-8046 
+Scott Jecko Requirements Lead Scott.jecko@aeit.myflorida.com 414-6776 
+Terry Kester Requirements Lead Terry.Kester@aeit.myflorida.com 413-7906 
+Scott H. Higgins Workgroup Participant scott_higgins@dcf.state.fl.us 921-4487 
+Joel Gallay Workgroup Participant gallayj@fdva.state.fl.us 727.518.3202 ext. 507 
+James Payne Workgroup Participant James.Payne1@dot.state.fl.us 414-4057 
+Stacey Burns Workgroup Participant Stacey.Burns@dot.state.fl.us 414-4417 
+Phillip Gorden Workgroup Participant Phil.Gorden@dot.state.fl.us 728-6308 
+Kevin Kerckhoff Workgroup Participant Kevin.Kerckhoff@dep.state.fl.us 245-3117 
+George Powell Workgroup Participant George.Powell@ssrc.myflorida.com 414-2952 
+ 
+6. Requirements Workgroup References 
+Reference Name 
+and Description 
+Location 
+Preliminary Scope 
+Statement 
+AEIT Site 
+http://www.myflorida.com/myflorida/cabinet/aeit/index.php?pg=proj&proj 
+=ent_e-mail  
+Florida Statute 
+282.34 
+(Statewide e-mail 
+system) 
+Fl Senate Site 
+http://www.leg.state.fl.us/STATUTES/index.cfm?App_m ode=Display_Sta 
+tute&Search_String=&URL=Ch0282/SEC34.HTM&Title=-%3e 2009-
+%3eCh0282-%3eSection%2034%230282.34  
+Florida Statute 
+282.041 
+(Definitions) 
+Fl Senate Site 
+http://www.leg.state.fl.us/Statutes/index.cfm?App_m ode=Display_Statut 
+e&Search_String=&URL=Ch0282/SEC0041.HTM&Title=->200 8-
+>Ch0282->Section%200041#0282.0041   
+ 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 6 
+ 
+ 
+7. Basic Functional Requirements  
+Req. 
+# 
+Category   
+ 
+List the basic functional requirements – what capab ilities 
+should the service provide. 
+1.1 E-mail, Calendar, 
+Contacts 
+Ability for the user to send, receive, and delete e-mail and 
+attachments.  
+1.2 
+ 
+E-mail, Calendar, 
+Contacts 
+Ability for the user to reply to e-mail and attachm ents.  
+1.3 E-mail, Calendar, 
+Contacts 
+Ability for the user to forward e-mail and attachments.  
+1.4 E-mail, Calendar, 
+Contacts 
+Ability for the user to print e-mail messages.  
+1.5 E-mail, Calendar, 
+Contacts 
+Ability for the user to customize e-mail messages with word 
+processor like features for formatting of e-mail content. 
+1.6 E-mail, Calendar, 
+Contacts 
+Ability for the user to establish rules (auto reply, out of office reply, 
+temporary transfer to another party, move files to inbox folders).  
+1.7 E-mail, Calendar, 
+Contacts 
+Ability for the user to spell check.  
+1.8 E-mail, Calendar, 
+Contacts 
+Ability for the user to organize content into personal folders or 
+similar storage mechanism to aid with e-mail retrieval.  
+1.9 E-mail, Calendar, 
+Contacts 
+Ability for the agency admin to migrate existing public folders into 
+the statewide e-mail system.  
+1.10 E-mail, Calendar, 
+Contacts 
+Ability for the agency admin to create and manage public folders 
+or similar storage mechanism to aid with the collection, 
+organization, and sharing of information with other people in their 
+individual agency or organization.  
+1.11 E-mail, Calendar, 
+Contacts 
+Ability for the user to create contact lists, including those imported 
+from other sources.  
+1.12 E-mail, Calendar, 
+Contacts 
+Ability for the user to export contact lists.  
+1.13 E-mail, Calendar, 
+Contacts 
+Ability for the user to share contact lists / address book.  
+1.14 E-mail, Calendar, 
+Contacts 
+Ability for the agency admin to create and share distribution lists  
+(including the ability to create query based distribution lists from 
+LDAP-like directory services). 
+1.15 E-mail, Calendar, 
+Contacts 
+Ability for the user to create calendars and customize calendar  
+views.  
+1.16 E-mail, Calendar, 
+Contacts 
+Ability for the user to schedule resources such as conference 
+rooms, teleconference rooms, etc.  
+1.17 E-mail, Calendar, 
+Contacts 
+Ability for the user to create reminders and tasks. 
+1.18 E-mail, Calendar, 
+Contacts 
+Ability for the agency admin to accommodate program mer testing 
+of e-mail functionality embedded in software applications.  
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 7 
+ 
+ 
+1.19 E-mail, Calendar, 
+Contacts 
+Ability for the user to share inbox, calendar, and files with users,  
+given permission.   
+1.20 E-mail, Calendar, 
+Contacts 
+Ability for the user to delegate their permissions to another user.  
+1.21 E-mail, Calendar, 
+Contacts 
+Ability for the user to embed links to files and websites in e-mails.  
+1.22 E-mail, Calendar, 
+Contacts 
+Ability for the agency admin to provision e-mail accounts for their 
+individual agency or organization (including the ability to integrate 
+e-mail account provisioning with LDAP-like director y services). 
+1.23 E-mail, Calendar, 
+Contacts 
+Ability for the user to search for e-mails based on age, size, 
+sender, recipient, subject, key word, attachment content.  
+1.24 E-mail, Calendar, 
+Contacts 
+Ability for the agency admin to auto-enforce standard conventions 
+for creating accounts and distribution lists.  
+1.25 E-mail, Calendar, 
+Contacts 
+Ability for the data center admin to control message size limits for 
+e-mail (inbound and outbound).  
+1.26 E-mail, Calendar, 
+Contacts 
+Ability for the agency admin to create generic email 
+accounts/addresses to be accessed by multiple users .  
+1.27 E-mail, Calendar, 
+Contacts 
+Ability for the user to customize their view in the client application  
+(such as adding fields, arranging fields, and ordering emails by 
+fields).  
+1.28 Archiving, 
+Retention, 
+Discovery 
+Ability for the user to archive at the desktop.  
+1.29 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to provide a server based archiving 
+solution.  
+1.30 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to archive at various regularly defined 
+intervals.  
+1.31 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to search archive and forward, print 
+and restore in bulk items from archive.  
+1.32 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to filter archive by sender, recipient, 
+date, subject, content, attachments, keyword, etc.  
+1.33 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to provide long term r etention 
+separate from active e-mail system.  
+1.34 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to provide individual users the ability 
+to search their portion of the archive repository.  
+1.35 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to meet Federal regulations for 
+retention (i.e. Sarbanes Oxley, Gramm-Leach-Bliley Act (GLB), 
+HIPAA, etc.)  
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 8 
+ 
+ 
+1.36 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to satisfy legal requests for e-mail  
+discovery and provide printed or digital results.  
+1.37 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to capture all sent and received e-
+mails into the organization.  
+1.38 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to select the e-mail retention period 
+for a specific e-mail (e.g. 1 year, 3 year, or 5 year).  
+1.39 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to search the e-mail "header" 
+including Date: From, Subject, To, and CC.  
+1.40 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to search the "body" of the e-mail  
+including the header and all text contained within the e-mail itself.  
+1.41 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to perform a "full text" search 
+including the header, body and any attachments to the e-mail. 
+1.42 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to support litigation requests by 
+production of responsive e-mail in to a specified location, for read 
+and redaction purposes.  
+1.43 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to move older data to tiered storage 
+(lower cost storage) while maintaining accessibilit y.  
+1.44 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to import data from other sources 
+such as PST, NSF files into archiving solution.  
+1.45 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to put discovery search results on 
+legal hold to suspend deletion.  
+1.46 Archiving, 
+Retention, 
+Discovery 
+Ability for the user (Legal, OIG, etc.) to review and mark discovery 
+search results.  
+1.47 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to search using Boolean fields.  
+1.48 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to archive based on policy (i.e. e-mail  
+address, OU, group, organization, etc.)  
+1.49 Archiving, 
+Retention, 
+Discovery 
+Ability for the user to delete, or flag for deletion by system 
+administrators, e-mails that have met their retention, in 
+accordance with s.119.021(2)(c) which requires agencies to 
+“systematically dispose of records no longer needed.” (Note: 
+Deletion means complete removal/elimination of all copies of an e-
+mail from all portions of the system)”  
+ 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 9 
+ 
+ 
+1.50 Archiving, 
+Retention, 
+Discovery 
+Ability for the user to flag individual e-mails to not be archived.  
+1.51 Backup, Restore Ability for the data center admin to recover at the file level.  
+1.52 Backup, Restore Ability for the data center admin to recover all messages.  
+1.53 Backup, Restore Ability for the data center admin to recover a specific e-mail  
+message.  
+1.54 Backup, Restore Ability for the data center admin to recover by mailbox.  
+1.55 Backup, Restore Ability for the data center admin to recover by time.  
+1.56 Backup, Restore Ability for the data center admin to maintain backup and restore 
+event logs.  
+1.57 Backup, Restore Ability for the data center admin to restore previous backup 
+without service interruption.  
+1.58 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to provide pre-emptive e-mail  
+virus protection (scanning prior to delivery at the mail server).  
+1.59 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to provide pre-emptive e-mail  
+content filtering.  
+1.60 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to whitelist/blacklist senders by 
+domain or IP address.  
+1.61 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to block or allow e-mail based on 
+multiple message attributes.  
+1.62 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to integrate mess age hygiene 
+(antispam/antivirus) with LDAP.  
+1.63 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to provide message hygiene 
+(antispam/antivirus) statistical reports.  
+1.64 Security, Anti-
+Virus, Filtering 
+Ability for the user to encrypt outbound e-mail. 
+1.65 Security, Anti-
+Virus, Filtering 
+Ability for the user to establish TLS encryption with other 
+businesses or customers.  
+1.66 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to protect the reputation of 
+outbound mail gateways.  
+1.67 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to protect internal e-mail customer 
+identity.  
+1.68 Remote Access, 
+Mobile 
+Messaging 
+Ability for the user to access e-mail by secure web or client. 
+(Calendar, Address book, Ability to send and receive).  
+1.69 Remote Access, 
+Mobile 
+Messaging 
+Ability for the user to access e-mail with Blackber ry services using 
+BlackBerry device. 
+1.70 Remote Access, 
+Mobile 
+Messaging 
+Ability for the user to access e-mail with non-Blackberry mobile 
+data devices (iPhones, Treos, Pres. Etc.).  
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 10 
+ 
+ 
+1.71 Remote Access, 
+Mobile 
+Messaging 
+Ability for the agency admin to support other mobile device 
+protocols (ActiveSync).  
+1.72 Remote Access, 
+Mobile 
+Messaging 
+Ability for the agency admin to Create, Update and Delete  
+Blackberry accounts.  
+1.73 Remote Access, 
+Mobile 
+Messaging 
+Ability for the user to access mailbox and componen ts via a web 
+browser over a secure (encrypted) connection.  
+1.74 Additional E-mail 
+Services 
+Ability for the user to send/receive e-mails within workflow 
+applications.  
+1.75 Additional E-mail 
+Services 
+Ability for the user to provide resource reservations integrated into 
+e-mail. 
+1.76 Additional E-mail 
+Services 
+Ability for the user to access an SMTP bridgehead f or agency 
+applications.  
+1.77 Additional E-mail 
+Services 
+Ability for the user to integrate agency applications into the e-mail  
+and mobile messaging environments. 
+ 
+8. Extended Functional Requirements  
+Req. 
+# 
+Category   
+ 
+List the extended functional requirements – what ad ditional 
+capabilities could the service provide. 
+2.1 Archiving, 
+Retention, 
+Discovery 
+Ability for the user to manually archive to server from their client.  
+2.2 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to electronically redact information 
+from archival storage.  
+2.3 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to digitally certify search results.  
+2.4 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to catalog responsive e-mail (by case) 
+so that e-mail can be electronically certified as complete to fulfill 
+the production.  
+2.5 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to demonstrate due diligence and 
+maintain markings for privileged and non-responsive search 
+results.  
+2.6 Archiving, 
+Retention, 
+Discovery 
+Ability for the agency admin to provide a full audit trail of discovery 
+and review.  
+2.7 Disaster 
+Recovery 
+Ability for the data center admin to do real-time replication to 
+alternate site.  
+2.8 Disaster 
+Recovery 
+Ability for the data center admin to do near-time replication to 
+alternate site.  
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 11 
+ 
+ 
+2.9 Disaster 
+Recovery 
+Ability for the data center admin to fail-over mail system and 
+clients to alternate site.  
+2.10 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to retrieve quarantined messages.  
+2.11 Security, Anti-
+Virus, Filtering 
+Ability for the data center admin to add digital signatures to e-mail. 
+2.12 
+ 
+Remote Access, 
+Mobile 
+Messaging 
+Ability for the user to access e-mail archive.  
+2.13 
+ 
+Remote Access, 
+Mobile 
+Messaging 
+Ability for the user to use wireless service with GIS.  
+2.14 
+ 
+Additional E-mail 
+Services 
+Ability for the user to provide fax service integrated into e-mail. 
+2.15 
+ 
+Additional E-mail 
+Services 
+Ability for the user to integrate telephone messaging (VOIP) into e-
+mail and vice/versa.  
+2.16 
+ 
+Additional E-mail 
+Services 
+Ability for the user to provide List Server option for internal and 
+external publishing of information (report subscriptions).  
+2.17 
+ 
+Additional E-mail 
+Services 
+Ability for the agency admin to integrate directory services with 
+other complimentary external systems for a unified client 
+experience.  
+2.18 
+ 
+Additional E-mail 
+Services 
+Ability for the agency admin to provide RSS Feeds.  
+ 
+Enterprise E-mail   Version:           1.5 
+Customer (Functional) Requirements   Created on 07/ 23/2009 
+ 
+9/17/2009 AEIT 12 
+ 
+ 
+9. Functional Requirements Summary  
+ 
+The functional requirements discovery and analysis process yielded the following results: 
+ 
+• Email, Calendar, and Contacts  service category had a 97% “have and use” response  average. 
+• Archiving, Retention, Discovery  service category had a 66% “have and use” response  average and a 
+23% “would like to have” response average. 
+• Disaster Recovery  service category had a 59% “have and use” response average and a 34% “would like 
+to have” response average. 
+• Backup & Restore  service category had a 79% “have and use” response average and a 19% “would like 
+to have” response average. 
+• Security, Anti-Virus, Filtering  service category had a 67% “have and use” response  average and a 24% 
+“would like to have” response average. 
+• Remote Access, Mobile Messaging  service category had a 71% “have and use” response average and 
+an 11% “would like to have” response average. 
+• Additional E-mail service category had a 48% “have and use” response average and a 26% “would like 
+to have” response average. 
+ 
+ 
+Based on these results, the majority of requirements for each category made it into the basic requirem ents 
+recommendation. In each category except for email, calendar and contacts,  
+the survey showed that there is a potential need for extended services (varying service components, service 
+levels, and costs). This is especially likely for the archiving, disaster recovery, security, and remo te – mobile 
+messaging categories. The survey also verified that more than half of agencies polled currently have and use a 
+document collaboration and workflow application. Ho wever, in keeping within the scope of the statewide “e-mail, 
+messaging, and calendaring” system proposal, it was agreed that collaboration services (such as shared 
+documents and workflows, instant messaging, and dis cussion forums) should remain out of scope for this project. 
+Finally, the technical and financial feasibility of each functional requirement will be further evaluated by the 
+Enterprise E-mail technical and financial workgroups prior to submitting the proposed plan for statewide e-mail by 
+December 31, 2009. 

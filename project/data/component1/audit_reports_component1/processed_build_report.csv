@@ -1,0 +1,99 @@
+﻿input_file,stage,note,rows_in,rows_dropped_empty,rows_dropped_duplicates,rows_moved_to_conflicts,rows_collapsed_into_canonical,rows_missing_label_kept,rows_dropped_other,rows_out,rows_flagged_excluded_from_tasks,rows_short_text_dropped_from_tasks,rows_removed_for_text_overlap,rows_in_task_files
+PROMISE-relabeled-NICE.csv,master,second label set (flags) for PROMISE,622,0,0,0,619,0,,3,0,0,2,1
+promise.csv,master,canonical PROMISE text,625,0,2,0,0,0,,623,142,0,0,481
+nfr_labeled_parsed.csv,master,PROMISE copy (commas stripped),556,0,2,2,551,0,,1,0,0,0,1
+test_labeled_parsed.csv,master,PROMISE copy (commas stripped),70,0,0,0,70,0,,0,0,0,0,0
+software_requirements_extended_normalized.csv,master,PROMISE copy + 421 provenance-unconfirmed rows,977,0,1,2,540,0,,434,434,0,0,0
+FR_NFR_Dataset.xlsx,master,,6117,0,100,50,0,31,,5967,63,36,9,5675
+pure_subset.csv,master,,11440,4,833,19,0,0,,10584,133,1663,1,8422
+security_requirements.csv,master,,511,0,68,0,0,1,,443,0,0,0,440
+QuRE.csv,master,,2187,0,55,68,0,0,,2064,0,25,0,2039
+DS1.xlsx,master,,985,0,8,3,0,0,,974,447,5,17,505
+DS2.xlsx,master,,1092,0,0,0,0,0,,1092,165,7,0,917
+DS3.xlsx,master,,1522,0,3,0,0,1,,1519,570,11,17,702
+DS4.xlsx,master,,1153,0,29,0,0,0,,1124,432,8,0,683
+user_stories.csv,master,,1680,0,7,0,0,0,,1673,0,2,0,1671
+cornelius_conflict_free_unique.csv,master,,5988,0,0,0,0,0,,5988,5988,0,0,0
+basic.csv,master,,500,0,6,0,0,0,,494,494,0,0,0
+context.csv,master,,500,0,0,0,0,0,,500,500,0,0,0
+context_role.csv,master,,500,0,0,0,0,0,,500,500,0,0,0
+0000 - cctns.txt,srs_extraction,,171,,,,,,,126,126,,,
+0000 - gamma j.txt,srs_extraction,,760,,,,,,,271,271,,,
+0000 - inventory.txt,srs_extraction,no_shall_in_document;very_low_density(<3/1k words),440,,,,,,,10,10,,,
+1995 - gemini.txt,srs_extraction,,532,,,,,,,423,423,,,
+1998 - themas.txt,srs_extraction,,437,,,,,,,115,115,,,
+1999 - tcs.txt,srs_extraction,,1697,,,,,,,1049,1049,,,
+2000 - nasa x38.txt,srs_extraction,,918,,,,,,,492,492,,,
+2001 - beyond.txt,srs_extraction,,302,,,,,,,97,97,,,
+2001 - ctc network.txt,srs_extraction,,591,,,,,,,111,111,,,
+2001 - elsfork.txt,srs_extraction,,634,,,,,,,127,127,,,
+2001 - esa.txt,srs_extraction,,323,,,,,,,70,70,,,
+2001 - hats.txt,srs_extraction,,1001,,,,,,,506,506,,,
+2001 - libra.txt,srs_extraction,no_shall_in_document,202,,,,,,,53,53,,,
+2001 - npac.txt,srs_extraction,,2402,,,,,,,1392,1392,,,
+2001 - space fractions.txt,srs_extraction,no_shall_in_document,129,,,,,,,67,67,,,
+2001 - telescope.txt,srs_extraction,no_shall_in_document;very_low_density(<3/1k words),2711,,,,,,,53,53,,,
+2002 - evla back.txt,srs_extraction,,280,,,,,,,152,152,,,
+2002 - evla corr.txt,srs_extraction,,237,,,,,,,97,97,,,
+2002 - sce api.txt,srs_extraction,,1226,,,,,,,99,99,,,
+2003 - agentmom.txt,srs_extraction,very_short_document,140,,,,,,,44,44,,,
+2003 - pnnl.txt,srs_extraction,,2309,,,,,,,259,259,,,
+2003 - qheadache.txt,srs_extraction,,82,,,,,,,10,10,,,
+2003 - tachonet.txt,srs_extraction,,621,,,,,,,162,162,,,
+2004 - colorcast.txt,srs_extraction,no_shall_in_document,173,,,,,,,71,71,,,
+2004 - e-procurement.txt,srs_extraction,no_shall_in_document;very_low_density(<3/1k words),589,,,,,,,9,9,,,
+2004 - grid bgc.txt,srs_extraction,,654,,,,,,,263,263,,,
+2004 - ijis.txt,srs_extraction,no_shall_in_document;very_low_density(<3/1k words),237,,,,,,,8,8,,,
+2004 - jse.txt,srs_extraction,no_shall_in_document,922,,,,,,,141,141,,,
+2004 - philips.txt,srs_extraction,very_short_document,94,,,,,,,6,6,,,
+2004 - rlcs.txt,srs_extraction,,1249,,,,,,,285,285,,,
+2004 - sprat.txt,srs_extraction,,309,,,,,,,168,168,,,
+2004 - watcom gui.txt,srs_extraction,no_shall_in_document,1097,,,,,,,151,151,,,
+2004 - watcom.txt,srs_extraction,no_shall_in_document,629,,,,,,,83,83,,,
+2005 - clarus high.txt,srs_extraction,,396,,,,,,,196,196,,,
+2005 - clarus low.txt,srs_extraction,,1450,,,,,,,528,528,,,
+2005 - grid 3D.txt,srs_extraction,,118,,,,,,,17,17,,,
+2005 - microcare.txt,srs_extraction,,482,,,,,,,138,138,,,
+2005 - phin.txt,srs_extraction,no_shall_in_document,166,,,,,,,126,126,,,
+2005 - pontis.txt,srs_extraction,,716,,,,,,,336,336,,,
+2005 - triangle.txt,srs_extraction,,264,,,,,,,52,52,,,
+2005 - znix.txt,srs_extraction,,208,,,,,,,35,35,,,
+2006 - eirene sys 15.txt,srs_extraction,,1926,,,,,,,396,396,,,
+2006 - stewards.txt,srs_extraction,,615,,,,,,,165,165,,,
+2007 - central trading system.txt,srs_extraction,no_shall_in_document,167,,,,,,,40,40,,,
+2007 - e-store.txt,srs_extraction,,245,,,,,,,114,114,,,
+2007 - eirene fun 7.txt,srs_extraction,,1431,,,,,,,522,522,,,
+2007 - ertms.txt,srs_extraction,,498,,,,,,,194,194,,,
+2007 - get real 0.2.txt,srs_extraction,no_shall_in_document,129,,,,,,,16,16,,,
+2007 - mdot.txt,srs_extraction,,668,,,,,,,201,201,,,
+2007 - nde.txt,srs_extraction,,2295,,,,,,,471,471,,,
+2007 - nlm.txt,srs_extraction,,806,,,,,,,159,159,,,
+2007 - puget sound.txt,srs_extraction,no_shall_in_document,184,,,,,,,93,93,,,
+2007 - water use.txt,srs_extraction,,638,,,,,,,155,155,,,
+2008 - caiso.txt,srs_extraction,,194,,,,,,,27,27,,,
+2008 - keepass.txt,srs_extraction,no_shall_in_document,333,,,,,,,46,46,,,
+2008 - peering.txt,srs_extraction,no_shall_in_document,221,,,,,,,51,51,,,
+2008 - viper.txt,srs_extraction,,840,,,,,,,130,130,,,
+2008 - virtual ed.txt,srs_extraction,no_shall_in_document,263,,,,,,,187,187,,,
+2008 - vub.txt,srs_extraction,no_shall_in_document,450,,,,,,,98,98,,,
+2009 - email.txt,srs_extraction,,227,,,,,,,34,34,,,
+2009 - gaia.txt,srs_extraction,no_shall_in_document,226,,,,,,,39,39,,,
+2009 - inventory 2.0.txt,srs_extraction,no_shall_in_document,1244,,,,,,,251,251,,,
+2009 - library.txt,srs_extraction,,179,,,,,,,36,36,,,
+2009 - model manager.txt,srs_extraction,no_shall_in_document,219,,,,,,,73,73,,,
+2009 - peazip.txt,srs_extraction,no_shall_in_document,282,,,,,,,38,38,,,
+2009 - peppol.txt,srs_extraction,,1492,,,,,,,534,534,,,
+2009 - video search.txt,srs_extraction,no_shall_in_document,108,,,,,,,85,85,,,
+2009 - warc III.txt,srs_extraction,,60,,,,,,,84,84,,,
+2010 - blit draft.txt,srs_extraction,,113,,,,,,,64,64,,,
+2010 - fishing.txt,srs_extraction,,628,,,,,,,147,147,,,
+2010 - gparted.txt,srs_extraction,no_shall_in_document,225,,,,,,,17,17,,,
+2010 - home 1.3.txt,srs_extraction,,214,,,,,,,87,87,,,
+2010 - mashboot.txt,srs_extraction,no_shall_in_document,211,,,,,,,65,65,,,
+2010 - split merge.txt,srs_extraction,no_shall_in_document,172,,,,,,,43,43,,,
+2011 - opensg 0.1.txt,srs_extraction,very_short_document,86,,,,,,,9,9,,,
+srs__2009 - library.txt,srs_extraction,,145,,,,,,,24,24,,,
+1999 - dii.html,srs_extraction,,408,,,,,,,38,38,,,
+1999 - multi-mahjong.html,srs_extraction,no_shall_in_document,569,,,,,,,138,138,,,
+2005 - nenios.html,srs_extraction,,172,,,,,,,92,92,,,
+promise_trace_relationships.csv,dependency_pairs,text joined from trace ARFF comment lines (inferred_unverified),7659,315,,,,,15,7329,,0,0,7329

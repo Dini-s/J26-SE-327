@@ -1,0 +1,1146 @@
+﻿ 
+Software Requirements 
+Specification 
+for 
+PeaZip 
+Requirements for version 2.7.1 
+Prepared by Liles Athanasios-Alexandros 
+Software Engineering , AUTH 
+12/19/2009 
+Software Requirements Specification for PeaZip  Page ii 
+ 
+Table of Contents 
+Table of Contents.................................. ........................................................................ ii  
+1.  Introduction....................................... ....................................................................... 1 
+1.1 Purpose ........................................ ................................................... .............................1 
+1.2 Document Conventions........................... ................................................... ...................1 
+1.3 Intended Audience and Reading Suggestions...... ................................................... ......1 
+1.4 Project Scope .................................. ................................................... ..........................1 
+1.5 References ..................................... ................................................... ...........................2 
+2.  Overall Description .................................................................................................. 3 
+2.1 Product Perspective............................ ................................................... .......................3 
+2.2 Product Features ............................... ................................................... ........................4 
+2.3 User Classes and Characteristics ............... ................................................... ...............5 
+2.4 Operating Environment .......................... ................................................... ....................5 
+2.5 Design and Implementation Constraints.......... ................................................... ...........6 
+2.6 User Documentation ............................. ................................................... .....................6 
+2.7 Assumptions and Dependencies................... ................................................... .............6 
+3.  System Features ...................................................................................................... 6 
+3.1 System Feature 1............................... ................................................... ........................6 
+3.2 System Feature 2............................... ................................................... ........................8 
+3.3 System Feature 3............................... ................................................... ........................9 
+3.4 System Feature 4............................... ................................................... ......................10 
+3.5 System Feature 5............................... ................................................... ......................12 
+3.6 System Feature 6............................... ................................................... ......................12 
+3.7 System Feature 7............................... ................................................... ......................14 
+3.8 System Feature 8............................... ................................................... ......................17 
+3.9 System Feature 9............................... ................................................... ......................18 
+3.10    System Feature 10............................................................................. ........................21 
+3.11    System Feature 11............................................................................. ........................22 
+4.  External Interface Requirements.................... ...................................................... 24  
+4.1 User Interfaces ................................ ................................................... ........................24 
+4.2 Hardware Interfaces............................ ................................................... .....................29 
+4.3 Software Interfaces............................ ................................................... ......................30 
+4.4 Communications Interfaces...................... ................................................... ................30 
+5.  Other Nonfunctional Requirements ..................................................................... 30  
+5.1 Performance Requirements ....................... ................................................... ..............30 
+5.2 Safety Requirements ............................ ................................................... ...................30 
+5.3 Security Requirements.......................... ................................................... ...................30 
+5.4 Software Quality Attributes.................... ................................................... ...................31 
+6.  Appendix ................................................................................................................ 31 
+Appendix A:  Definitions, Acronyms and Abbreviations..........................................................31 
+Appendix B:  Analysis Model ........................................................................................ .........32 
+ 
+ 
+ 
+ 
+ 
+ 
+Software Requirements Specification for PeaZip  Page 1 
+ 
+ 
+1. Introduction 
+ 
+1.1 Purpose 
+The present document is a software requirements specification document for PeaZip , 
+version 2.7.1. PeaZip is a general purpose file and archive manager application for a computer 
+system, aiming to provide a cross-platform graphical interface for many Open Source archiving and 
+compression utilities, so that its user would be able to handle most of the available archiving 
+formats(indicatively: 7z,RAR,ZIP. Full list of the supported formats is provided in following 
+chapters). 
+ 
+This document follows “Software Requirements Specification” template for software 
+requirements specification documents, by Karl E. Wiegers, with a few declensions. 
+1.2 Document Conventions 
+The present document concerns software engineers that would work on further 
+development of this piece of software, as well as clients/users of PeaZip. 
+  
+This is the only document so far describing PeaZip’s software requirements. It should be 
+used by software engineers who will develop this piece of software and it should be used for 
+formalization of the software that is going to be delivered to clients/users. Every future change in 
+the requirements of this software should be made through a typical procedure of change and final 
+acceptance of this document. 
+ 
+Software engineers should ask for further explanation or clarification, if and wherever they 
+decide this is necessary and should not proceed to modifications without the approval of the final 
+client/user. 
+1.3 Intended Audience and Reading Suggestions 
+This document applies to programmers of this project, to software engineers that weal work 
+on its further development and, finally, to the end users of this application and it aims at displaying 
+the features of PeaZip version 2.7.1, as well as at providing information about the goals and the 
+proper use of the software. 
+ 
+Chapters that would interest users are: 3, 4 and 6, whereas the whole document would be 
+of interest for software engineers and programmers. 
+1.4 Project Scope 
+The piece of software to which the present document refers, is a file and archive manager 
+application for a computer system, that offers user the capability of archiving,compressing and 
+extracting (decompressing) files and archives.  
+ 
+In brief, the basic functions that PeaZip features are: 
+Software Requirements Specification for PeaZip  Page 2 
+ 
+ 
+Creating compressed archives, updating compressed archives, extracting content of compressed 
+archives, file and archive management tools(robust copy, split and join, fast or secure deletion, 
+byte to byte comparison, calculation of a wide set of checksums and hashes over selected files), 
+append timestamp to archive name(useful for archiving and backup purpose) and two factor 
+authentication(password and keyfile) for the managed archives. All pre-mentioned functions’ 
+parameters can be modified and adapted to user’s needs and preferences from a settings’ menu. 
+ 
+The initial goal of this application was creating a frontend for Pea archiving utility. However, 
+after completing PeaZip’s GUI, support to many mainstream archiving and compression formats 
+was added to PeaZip. In this way, PeaZip became an aggregate frontend GUI for a set of Open 
+Source archiving and compression utilities(full list of which is provided in following chapters). The 
+fact that this application is Open Source software, gives its users the chance to directly take part in 
+its development, as well as notice possible bugs or mistakes and make their suggestions on it. 
+ 
+This is a picture of PeaZip: 
+ 
+               
+  
+     1.  Starting window of the application(file manager interface). 
+1.5 References 
+Information about PeaZip can be found in the following Internet addresses: 
+ 
+• http://sourceforge.net/projects/peazip/  
+• http://peazip.sourceforge.net/  
+• http://peazip.sourceforge.net/peazip-help.html  
+• http://en.wikipedia.org/wiki/PeaZip  
+ 
+ 
+Software Requirements Specification for PeaZip  Page 3 
+ 
+ 
+2. Overall Description 
+2.1 Product Perspective 
+Peazip was created for file and archive management in a computer system. The initial goal 
+of the application was to function as frontend for Pea archiving utility(which was also developed by 
+PeaZip’s creator, Giorgio Tani). However, after completing the development of PeaZip UI, support 
+to more archiving and compression formats (full list of which is provided in following chapters) was 
+added to PeaZip, allowing it to function as a single, consistent frontend GUI, which exposes a list 
+of options of the underlying applications. 
+PeaZip works similarly to a large group of well-known applications, like WinRAR and 
+WinZip. PeaZip features, to a large degree, the same features with the applications of this group 
+and in addition, it supports a wide range of archiving and compression formats(superset of the 
+supported by each application of the pre-mentioned group set)as well as some file and archive 
+management tools(which are mentioned explicitly in following chapters), while at the same time it 
+offers its users the capability of executing its functions as command prompt commands(resulting 
+commands can be extracted and saved in a text file), allowing them to monitor any running activity 
+in real-time. 
+  
+An important attribute of PeaZip is its self-standingness and its independency from the kind 
+of the Operating System of the computer system on which it runs. In no case is the installation of 
+any other program required for PeaZip to work, while for cases that no system integration is 
+preferred, PeaZip Portable is available as standalone application, not needing installation and not 
+modifying the host system. 
+ 
+ 
+               
+  
+                      2. Basic application interface(file manager interface). 
+Software Requirements Specification for PeaZip  Page 4 
+ 
+ 
+                    
+  
+                     3. Settings window (Settings interface). 
+2.2 Product Features 
+PeaZip is a general purpose file and archive manager application for a computer system, 
+aiming to provide a cross-platform graphical interface for many Open Source archiving and 
+compression utilities. The most important features that are offered by those utilities, through 
+PeaZip, are the following: 
+ 
+• Creating archives in any of the supported archivin g and compression formats(full list of 
+which is provided in following chapters) 
+• Updating an already existing archive 
+• Appending timestamp with  date and time on the man aged archive name for archiving and 
+backup purpose 
+• Two factor (password and keyfile) authentication f or the managed files and archives 
+• Extracting contents of any compressed in any of th e supported archiving and compression 
+formats (full list of which is provided in following chapters) archive 
+• Secure file and archive deletion from any storing unit of the computer system on which 
+PeaZip runs 
+• Byte to byte comparison between tow files 
+• Check files in order to find duplicate files and t o check files for corruption 
+• Splitting files and merging split volumes back to original file 
+• Information list, which lists contend of selected files/archives. In info mode, it shows number 
+of files  and archives, newer and older object’s date/time of last modification, total space 
+occupation and larger and smaller object’s size 
+• View content of a file or archive represented as h exadecimal values 
+• Graphical monitoring of all executed functions 
+ 
+Software Requirements Specification for PeaZip  Page 5 
+ 
+ 
+All functions above can be modified and adapted to users’ preferences through a settings 
+menu. Moreover, any of those features can be executed as command prompt command. Finally, 
+more than one of those features can be applied to a single archive or file. 
+2.3 User Classes and Characteristics 
+This software applies to any user of any computer system. There is no limitation on who 
+would be able to or allowed to use PeaZip, as PeaZip is an application that could be used by any 
+user of a computer system who would like to manage (archiving and compression) files and 
+archives of the system. 
+ 
+PeaZip users can be divided into two main categories: to the ones that have already used 
+an archiving and compression application and to all the rest. Even though PeaZip functions are 
+relatively simple and PeaZip’s interface is pleasant and user friendly, users included in both 
+categories, should read the tutorials and help documents that have been written about the 
+particular application(and are either available in sites that are mentioned in following chapter or 
+inside the application), so as to inform themselves on the application scope and needs that it 
+covers, as well as to be able to use in full extend all, featured by the application, functions.. 
+ 
+Another distinction of PeaZip users in categories, could be made according to user’s 
+experience and knowledge on using computer systems. In this case, however, the distinction into a 
+discrete number of categories is not easy, because it is not possible to put unambiguous boarders 
+between categories according to users’ experience a nd knowledge level on using computer 
+systems, as it is a non-countable amount. Still, in general, it could be claimed that users with larger 
+experience and knowledge on using computer systems,  could use more easily some advanced 
+features offered by PeaZip, such as executing its function in command prompt. 
+2.4 Operating Environment 
+As far as operating systems are concerned PeaZip is compatible with: 
+ 
+• All 64-bit versions of Microsoft Windows 
+• All 32-bit Microsoft Windows(95/98/ ΝΤ /2000/ ΧP/Vista) 
+• All POSIX(all versions of  Linux/all versions of B SD/all UNIX-like operating systems) 
+ 
+Moreover, PeaZip is available as source code that is compatible with almost any operating system. 
+It is obvious, that PeaZip is independent from the operating system of the computer system on 
+which it runs. 
+ 
+As far as hardware is concerned, PeaZip requires an x-86 compatible CPU, due to some 
+performance critical sections written in ASM. In general, CPU and RAM requisites of PeaZip, are 
+bound to the chosen algorithm and compression level, ranging from a few KB for simpler 
+algorithms (like when storing files in tar/gz/zip formats) to above than a GB for more complex 
+algorithms and higher compression level (like LZMA, PPMd and PAQ).  Needless to say, it is the 
+choice of the compression algorithm that is the most important factor that determines the job's 
+speed, even if usually more advanced algorithms are the ones that scale better in performances in 
+multi-core environments. 
+ 
+To conclude, as far as software is concerned,  all needed software invoked by the frontend 
+is included in PeaZip packages (available under suitable licenses, as open source or royalty free) 
+so no custom package is needed to be installed to make PeaZip work (with the possible exception 
+Software Requirements Specification for PeaZip  Page 6 
+ 
+ 
+of some standard gtk/gdk related libraries needed to run PeaZip, Gwrap and Pea binaries, which 
+may be missing in some computer systems, but are well known, trustable and widely available). 
+ 
+2.5 Design and Implementation Constraints 
+Should anyone wish to work on further development of PeaZip knowledge in any of the 
+following programming languages is required: 
+ 
+• Delphi/Kylix 
+• Object Pascal 
+• Pascal 
+ 
+This software’s license is LGPL, which mean that PeaZip is 100% Open Source and 100% free 
+and it can be used be linked to any other software regardless of whether it is free software or 
+proprietary software. Everyone that does or is going to develop or use PeaZip, should agree and 
+fully accept the terms of this kind of license. 
+ 
+ Moreover, PeaZip is developed under the developmen t environment Lazarus 
+IDE( http://sourceforge.net/projects/lazarus/ ). 
+2.6 User Documentation 
+Users can find help relevant to installing and using PeaZip in the Help Document (PeaZip 
+Help – Revision: 14/10/2009) and in Mini Tutorial that are both included in the application, as well 
+as in the following Internet addresses: 
+ 
+• http://peazip.sourceforge.net/index.html  
+• http://peazip.sourceforge.net/peazip-help.html  
+2.7 Assumptions and Dependencies 
+Do not exist. 
+3. System Features 
+In this chapter, functional requirements of the application and the features it provides are 
+presented. PeaZip is a file and archive manager application for a computer system that allows 
+users to compress/decompress, authenticate and archive them. All PeaZip’s features are 
+explicated in the following units. 
+3.1 System Feature 1 
+Browsing areas and objects of the computer system. 
+ 
+3.1.1 Description and Priority 
+Software Requirements Specification for PeaZip  Page 7 
+ 
+ 
+PeaZip’s users can browse and gain access, in various ways, to every area (e.g. 
+storing units, desktop, users documents etc) of the computer system on which 
+PeaZip runs, as well as to included objects (archives and files). 
+3.1.2 Stimulus/Response Sequences 
+In the initial window of the application (which is also going to be mentioned as file 
+manager interface) there is a button writing “File” on it. By pressing this particular 
+button, opens a submenu with choices that have to do with browsing and access to 
+areas and objects of the computer systems 
+ 
+              
+  
+                    4. Browsing submenu 
+ 
+More specifically: 
+By choosing “Filesystem”, users can get access to an object from an object list of 
+objects that is organized according to a functional hierarchy.. 
+By choosing “Bookmarks”, users can get access to an object from a list of objects 
+that have been rated by them as favorites. 
+By choosing “Recent archives”, users can get access to an object from a list of 
+objects that have been recently browsed in PeaZip. 
+Finally, through “Open path” and “Open archive”, users can get direct access to a 
+path of an object or a file/archive. 
+ 
+Moreover, browsing and access to computer system’s objects is provided by 
+navigation bar of the file manager interface, with navigation buttons (back, forward, 
+up) and refresh button.  
+ 
+Software Requirements Specification for PeaZip  Page 8 
+ 
+ 
+By this feature, users are allowed to search and gain access to objects they would 
+like to manage. 
+3.1.3 Functional Requirements 
+Installation of no other application is required, for PeaZip to manage this function. 
+The only functional requirement is: 
+ 
+  REQ-1: Operating system on the computer system. 
+3.2 System Feature 2 
+Variety of ways of selection of displayed in file manager interface objects. 
+ 
+3.2.1 Description and priority 
+Users are allowed to manage the way of selection of the displayed in file manager 
+interface objects(files and archives). 
+3.2.2 Stimulus/Response Sequences 
+In the initial window of the application(file manager interface), there is a button writing  
+“Edit” on it. By pressing this particular button, opens a submenu with choices that 
+have to do with altering ways of selection of files displayed currently at file manager 
+interface. 
+ 
+           
+  
+ 5. Selection submenu. 
+Software Requirements Specification for PeaZip  Page 9 
+ 
+ 
+More specifically: 
+“Select all”, selects all objects that are currently displayed at file mager interface. 
+“Invert selection”, allows inverted selection of objects(this means that all non-
+selected before the beginning of the function objects are selected and all selected 
+before the beginning of the function objects are deselected). 
+“All objects…” set of commands, allows selection from the objects displayed on file 
+manager interface, according to: extension, attributes, size and date.. 
+Finally, “Sort by selection status”, sorts all objects on file manager interface 
+according to whether they are selected or not. 
+ 
+With this feature users are allowed to flexibly alternate the way of selection of 
+currently displayed objects on file manager interface. This feature is particularly 
+useful for object selection for mass management, especially when the number of 
+currently displayed objects on file manager interface is large (thus manual selection 
+object-by-object could lead to errors). 
+3.2.3 Functional Requirements 
+  Functional requirements of this feature are exact ly the same as the ones of System 
+Feature 1. 
+3.3 System Feature 3 
+Accessibility to main application interfaces(other than file manager interface)and modification of  
+view mode for objects in file manager interface. 
+ 
+3.3.1 Description and Priority 
+Users are allowed to instantly access other main application interfaces(specifically 
+create archive interface and extraction interface-these features are described in 
+following chapters), as well as changing view mode for  objects(archives and files) 
+displayed in file manager interface. 
+3.3.2 Stimulus/Response Sequences 
+In the initial window of the application(file manager interface), there is a button writing 
+“Browser” on it. By pressing this particular button, opens a submenu with choices 
+that have to do with transferring to main interfaces of PeaZip and selecting view 
+mode for objects (archives and files) displayed in file manager interface.  
+ 
+Software Requirements Specification for PeaZip  Page 10 
+ 
+ 
+ 
+     
+  
+       6. Transfer and view mode selection submenu. 
+ 
+More specifically: 
+“Go to archiving layout”, leads directly to create archive interface. 
+ “Go to extraction layout”, leads directly to extraction interface. 
+(Note: the previous two functions are described in detail in following chapters, 
+whereas the sequence of actions that was described is not the only way of 
+approaching those two interfaces). 
+“Toggle browse/flat view”, displays all together the objects contained in the current 
+path or in the archive. 
+Finally, “Refresh”, refresh/update of currently displayed content 
+ 
+This particular feature allows users to gain direct access to other main interfaces of 
+PeaZip than file manager interface. In addition, it offers an overview of the objects 
+that are displayed in file manager interface, which helps users to handle them better. 
+3.3.3 Functional Requirements 
+Functional requirements of this feature are exactly the same as the ones of System 
+Feature 1. 
+3.4 System Feature 4 
+Computer system management utilities. 
+  
+3.4.1 Description and Priority 
+Software Requirements Specification for PeaZip  Page 11 
+ 
+ 
+Users can use, through PeaZip, multiple computer system (both for storage units and 
+the system itself) management tools. 
+3.4.2 Stimulus/Response Sequences 
+In the initial window of the application(file manager interface), there is a button writing 
+“Tools” on it. By pressing this particular button, opens a submenu with choices that 
+have to do, among others, with gaining access to tool and utilities for computer 
+system management. 
+  
+ 
+ 
+         
+  
+           7. Computer system management tools and utilities. 
+ 
+ 
+More specifically: 
+“System tools”, collects system’s disk utilities (clean, defrag, manage, remove), 
+system management tools (control panel, computer management, task manager) 
+and displays environment variables (both for Linux and Windows) . 
+“System benchmark”  utility, rates the host system in terms of MIPS (millions of 
+integer instructions per second)and Core 2 Duo equivalent speed in MHz. 
+ 
+Through this feature, users can have quick and easy access to basic tools and 
+utilities of computer system management, through PeaZip application. In this way, 
+Software Requirements Specification for PeaZip  Page 12 
+ 
+ 
+users can fine tune every possible procedure that takes place in the computer 
+system. 
+3.4.3 Functional Requirements 
+Functional requirements of this feature are exactly the same as the ones of System 
+Feature 1. 
+3.5 System Feature 5 
+File management utilities that are not strictly archiving-related. 
+ 
+3.5.1 Description and Priority 
+Users can access a group of file management tools, that are not strictly archiving-
+related. Users can choose from a set of utilities, like: secure file deletion, byte to byte 
+comparison between two files, file checking, file split/join, file information display and 
+hexadecimal preview of the content of a file.  
+3.5.2 Stimulus/Response Sequences 
+PeaZip, offers access to a series of file management tools, from the initial window of 
+the application (file manager interface), as well as from create archive window(create 
+archive interface) and extraction window(extraction interface). 
+ 
+More specifically, functions that are features by the tools mentioned above are: 
+- Secure file deletion, intended for securely remove files and folders from disk, 
+avoiding possible data recovery. This is implemented by multiple successive passes 
+of the deletion procedure over the storage area of the selected for deletion file. 
+-Byte to byte file comparison, which spots exactly what the different bytes are and is 
+not susceptible to collisions under any circumstance, even if conditions are highly 
+improbable and very difficult or not practically possible to trigger if a proper hash 
+function is chosen.  
+- Check files, which is useful for finding duplicate files and checking files for 
+corruption when an original checksum or hash value is known.  
+-Split file and merge split volumes back to the original file. 
+-Information display for selected (by users) files. Number of files, older and newer 
+object’s date/time, total space occupation, and larger and smaller object’s sizes are 
+presented. 
+- Hexadecimal preview, which allows view of the content of a file represented as 
+hexadecimal values. 
+ 
+Through this set of features, users are allowed to handle files easier and more 
+adequately. 
+3.5.3 Functional Requirements 
+Functional requirements of this feature are exactly the same as the ones of System 
+Feature 1. 
+ 
+3.6 System Feature 6 
+Archive extraction. 
+ 
+3.6.1 Description and Priority 
+Software Requirements Specification for PeaZip  Page 13 
+ 
+ 
+Users can use PeaZip for decompressing the contents of a selected (by them) 
+compressed archive and extract them in a folder. Name and storage space of the 
+folder in the computer system, are up to users to decide. The archive, whose 
+contents are extracted, is neither destroyed, nor deleted and it is not left empty. On 
+the contrary, it retains its content and name and remains saved at the same place of 
+the computer system that was initially stored. 
+  
+For the procedure of decompression and extraction to be completed, it is necessary 
+that the selected archive is of one of the supported for extraction by PeaZip formats. 
+In case the selected archive is encrypted, user must know and insert password and 
+(if there is one) keyfile in order to have access to the archives contents (for browsing 
+or extracting them). 
+ 
+Read-only (browsing and extraction) formats supported by PeaZip: 
+7z, 7z-sfx, ARC/WRC, BZ2/TBZ2, custom, GZ/TGZ, PAQ/LPAQ, PEA, QUAD/BALZ, 
+split, TAR, UPX, ZIP, ACE, ARJ, CAB, CHM, COMPOUND(MSI, DOC, XLS, PPT), 
+CPIO, ISO, Java(JAR, EAR, WAR), Linux(DEB, PET/PUP, RPM, SLP), LHA/LZH, 
+LZMA, Mac(DMG/HFS), NSIS, Open Office files, PAK/PK3/PK4, RAR,SMZIP, U3P, 
+UDF, VHD, WIM, XAR, XPI, XZ, Z/TZ 
+3.6.2 Stimulus/Response Sequences 
+Decompression/Extraction function is set off and defined in extraction window (which 
+is also going to be referred as extraction interface). Users can get access to this 
+window in one of the following ways: 
+1) By selecting one or more archives that have suitable format for decompression 
+and extraction of their content from file manager interface and then pressing the 
+button writing “Extract” on it, from the toolbar. This is the icon of the button: 
+ 
+ 
+                                                                    
+  
+ 
+2) By pressing the button writing “Browser” on it, in file manager interface and then 
+selecting “Go to extraction layout” from the submenu that appears. 
+3) By selecting one or more archives that have suitable format for decompression 
+and extraction of their content from file manager interface, clicking the right button of 
+the mouse of the computer system(or the equivalent button of the equivalent input 
+device that the computer system may have)and then choosing “Extract” or “Extract(in 
+new folder)”. 
+4) By selecting one or more archives that have suitable format for decompression 
+and extraction of their content from some area of the computer system(outside of the 
+applications graphical environment), clicking the right button of the mouse of the 
+computer system(or the equivalent button of the equivalent input device that the 
+computer system may have)and then choosing “Extract”, “Extract here” or “Extract 
+here(in new folder)” from “Send to” menu. 
+ 
+ 
+Software Requirements Specification for PeaZip  Page 14 
+ 
+ 
+           
+  
+              8. Extraction window (Extraction Interface). 
+ 
+In Extraction window (Extraction Interface), users are given the ability of choosing the 
+storage space in the computer system in which the file that will contain the extracted 
+from the compressed archive objects will be saved, of choosing name for this file (as 
+well as defining what should happen in case of existence of a homonym file or 
+archive in the selected storage space) and of inserting password and (if needed) 
+keyfile, in case the archive is encrypted (locked).  
+ 
+This feature is one of the most important for users, because not only does it offer 
+access to the contents of a compressed, in one of the supported by PeaZip formats, 
+archive, but it allows extraction of those contents in non-compressed format too, in 
+order to be used according to users’ desires. 
+3.6.3 Functional Requirements 
+Functional requirements of this feature are exactly the same as the ones of System 
+Feature 1. 
+3.7 System Feature 7 
+Archive creation and update. 
+ 
+3.7.1 Description and Priority 
+Software Requirements Specification for PeaZip  Page 15 
+ 
+ 
+Users are allowed to compress one or more objects (files or archives) in one or more 
+compressed archive volumes (sizing less or equally to the original ones)in one of the 
+offered for compression by PeaZip formats. Furthermore, users are allowed to 
+update an archive (by adding extra objects-files or archives-to an already existing 
+archive), as well as choose objects that are to be included in an archive. 
+ 
+Name and storage space (in the computer system) for the created archives are 
+defined by users. In cases of updating (adding objects) the name of the compressed 
+file which is updated and its storage space remain the same as they were before the 
+update. The objects that are contained in the created archive are not destroyed, are 
+not deleted and are not left empty. On the contrary, they retain their content and 
+name and remain saved at the same space of the computer system where they were 
+initially stored. Furthermore, encryption (“lock”) can be used for the created archives 
+by setting password and (optionally) keyfile. Compression to read-only supported 
+formats is not possible. 
+ 
+Fully supported by PeaZip archiving and compression formats: 
+7z, 7z-sfx, ARC/WRC, BZ2/TBZ2, custom, GZ/TGZ, PAQ/LPAQ, PEA, QUAD/BALZ, 
+split, TAR, UPX, ZIP 
+3.7.2 Stimulus/Response Sequences 
+Creating and Updating archives feature is set off and defined in Create archive 
+window (which is also going to be referred as Create archive Interface). Users can 
+approach this window in one of the following ways: 
+1) By pressing the button writing “File” on it in file manager interface and then 
+selecting “Create archive” from the submenu that appears. 
+2) By pressing the button writing “Browser” on it in file manager interface and then 
+selecting “Go to archiving layout” from the submenu that appears. 
+3) By selecting one or more objects to be added to an archive from file manager 
+interface and then pressing the button writing “Add” on it from the toolbar. This is the 
+icon of the button: 
+ 
+                                                                     
+  
+ 
+4) By selecting one or more objects to be added to an archive from file manager 
+interface, clicking the right button of the mouse of the computer system (or the 
+equivalent button of the equivalent input device that the computer system may have) 
+and then selecting “Add” from the submenu. 
+5) By selecting one or more objects to be added to an archive from some area of the 
+computer system (outside of the applications graphical environment), clicking the 
+right button of the mouse of the computer system (or the equivalent button of the 
+equivalent input device that the computer system may have) and then selecting “Add 
+to separate archives” from “Send to” menu. 
+ 
+ 
+Software Requirements Specification for PeaZip  Page 16 
+ 
+ 
+             
+  
+                   9. Create archive window(Create archive Interface). 
+ 
+In Create archive window(Create archive Interface), users are given the ability to 
+select compression format (from a list of the supported by PeaZip formats for 
+archiving and compression) for the created archive, choose storage space (in the 
+computer system) where the archive is going to be saved and set archive’s name (as 
+well as define what should happen in case of existence of a homonym file or archive 
+in the selected storage space). Moreover, selected objects’ data content can be split 
+and be compressed into more than one archive volumes (size of each of them is 
+defined by user). Furthermore, timestamp can be appended to the created archive’s 
+name for archiving and backup purpose. Finally, encryption(“locking”)of created 
+archives is available, by setting password and (optionally) keyfile to them.. 
+ 
+Archive creation and update feature is a basic PeaZip feature, as it essentially allows 
+users to save storage space on their computer systems by offering high compression 
+formats, as well as including multiple objects’ content (which can be extracted in their 
+initial, non-compressed format) in one single compressed archive. This makes 
+handling and managing multiple objects as a single unit possible. Hence, the double 
+advantage that this feature offers is obvious.  
+ 
+The additional utility of spitting compressed archives in volumes that is offered to 
+users in terms of this feature, allows size adjustment of the created file, while the 
+utility of joining them, brings contended data to their initial state, so that 
+decompression and extraction is possible. In this way, users are able to flexibly 
+manage archives and adapt application’s use to their needs, since a wide range of 
+choices is offered by PeaZip. 
+3.7.3 Functional Requirements 
+Software Requirements Specification for PeaZip  Page 17 
+ 
+ 
+Functional requirements of this feature are exactly the same as the ones of System 
+Feature 1. 
+3.8 System Feature 8 
+Support of drag and drop between system and application. 
+ 
+3.8.1 Description and Priority 
+Users can drag and drop objects (files or archives) between any computer system 
+space and the application. Application’s interfaces that support drag and drop, are 
+file manager interface, create archive interface and extraction interface.  
+3.8.2 Stimulus/Response Sequences 
+PeaZip supports drag and drop for object transfer between computer system and the 
+interfaces of the application. Application’s interfaces that support this feature, are file 
+manager interface, create archive interface and extraction interface. 
+  
+Specifically: 
+• When files and folders are dragged and dropped to the file manager, they get 
+listed in the archive creation interface (as if they were selected and added 
+with “Add” button, as it was described in previous chapters), allowing fine 
+tuning of the function before confirming or canceling it. In the same way, 
+objects that are dragged and dropped to file manager interface while 
+browsing an archive, will be added to the current archive, if the archive format 
+allows modifications (e.g. adding objects to an archive format that is 
+supported for reading only will not be possible). 
+• Dragging an archived object (file or archive) from  PeaZip to the system, will 
+extract it to the location (of the computer system) where it is dropped. If 
+dragged objects are contained in a compressed archive, then they are 
+automatically decompressed before being extracted to the location where 
+they are dropped. If the dragged objects are not contained in a compressed 
+archive, they are just copied to the location where they are dropped. 
+ 
+Software Requirements Specification for PeaZip  Page 18 
+ 
+ 
+ 
+  10. Support of drag and drop (here from application to system).  
+ 
+ 
+This feature allows users to fast and directly set off basic PeaZip’s functions, making 
+PeaZip even handier. 
+3.8.3 Functional Requirements 
+Installation of no other application is required, for PeaZip to manage this function. 
+The only functional requirements are:  
+ 
+REQ-1: Operating system on the computer system, for dragging and   
+dropping objects from computer system to the application. 
+REQ-2: MS Windows (any version) operating system on the computer 
+system for dragging and dropping objects from the application to the 
+computer system. Other operating systems (with which PeaZip is 
+compatible), do not support this function of this feature. 
+3.9 System Feature 9 
+Two factor authentication (password and optionally keyfile). 
+ 
+3.9.1 Description and Priority 
+PeaZip allows users to encrypt (“lock”) archives during creation or updating, by using 
+password which is demanded by PeaZip (or other applications of the same use) and 
+should be inserted, in case some user wants to gain access to an encrypted 
+(“locked”) archive in order to manage it (e.g. browse it, update it, extract its content). 
+For higher security reasons, PeaZip offers users the ability to use keyfile for archives 
+encryption, in addition to the password. Finally, PeaZip can generate a random 
+Software Requirements Specification for PeaZip  Page 19 
+ 
+ 
+password and create a random keyfile. Obviously, apart from encryption, PeaZip 
+supports decryption (“unlock”) of encrypted files. 
+3.9.2 Stimulus/Response Sequence 
+In case a user wishes to “lock” an archive (during creation or update process) by 
+setting password and (optionally) keyfile to it, that can be achieved in one of the 
+following ways: 
+-by pressing, during the archive creation process, the icon with the lock on it and set 
+password and (optionally) keyfile, according to user’s preference.  
+-by selecting, the archive  to be updated, that needs to be “locked” from file manager 
+interface, pressing the button writing “Tools” on it and selecting “Enter 
+password/keyfile” from the submenu. Password and (optionally) keyfile may then be 
+set in the window that appears. 
+-by selecting the archive to be updated,that needs to be “locked” from file manager 
+interface and pressing the icon with the lock on it, which appears on the status-bar 
+(bottom right corner). Password and (optionally) keyfile may then be set in the 
+window that appears.  
+ 
+ 
+ 
+                                 
+    
+                                                          11. Set password and keyfile. 
+ 
+           
+ 
+ 
+ 
+ 
+Software Requirements Specification for PeaZip  Page 20 
+ 
+ 
+            
+  
+                  12. Buttons for accessing encryption feature.      
+                         
+-in cases that users wish to use password and/or keyfile that the application has 
+created, they have to select the archive they wish to “lock” from file manager 
+interface, press the button writing “Tools” on it and then select “Create keyfile” on the 
+appearing submenu. The only thing left is setting the suggested password and 
+(optionally) keyfile to the (created or updated) archive in one of the ways mentioned 
+above.  
+ 
+ 
+Software Requirements Specification for PeaZip  Page 21 
+ 
+ 
+                                
+  
+                                             13. Password and Keyfile generation utility. 
+ 
+This feature is really important for the security of the managed archives and their 
+content data. It allows users to set protection over managed archives and ensure in a 
+way, that no unauthorized user will have access to them.  
+3.9.3 Functional Requirements 
+Functional requirements of this feature are exactly the same as the ones of System 
+Feature 1. 
+ 
+3.10 System Feature 10 
+Graphic display of currently executed functions. 
+ 
+3.10.1 Description and Priority 
+PeaZip offers graphic display of the progress of any currently executed through/by it 
+function, through its graphic wrapper, named PeaLauncher. In PeaLauncher’s 
+window, information about the progress of any currently executed function as well as 
+information about its overall results (after the end of it) is displayed.  
+3.10.2 Stimulus/Response Sequences 
+PeaZip allows users to monitor at any time the progress and the status of any of its 
+functions that is being executed, as well as displaying information about the results of 
+those functions on the archive or file for which they were executed, information about 
+the contents of those archives or files and information that have to do with the 
+execution itself (like running time).  
+ 
+Software Requirements Specification for PeaZip  Page 22 
+ 
+ 
+    
+  
+        14. PeaLauncher, graphic wrapper. 
+Information about an object (file or archive) are displayed on PeaLauncher’s window, 
+in case of selection (by users) of the Test/Check feature (as described in previous 
+chapters) for this object.  
+ 
+This feature allows users to have direct and inspectional knowledge of the progress 
+of any ongoing functions of PeaZip at any time, as well as their results on computer 
+system’s objects. 
+3.10.3 Functional Requirements 
+Functional requirements of this feature are exactly the same as the ones of System 
+Feature 1. 
+ 
+3.11 System Feature 11 
+Feature Settings. 
+ 
+3.11.1 Description and Priority 
+Users are allowed to make modifications over offered by PeaZip functions, so as to 
+adapt them to their preference and cover their needs more adequately. In general, 
+available settings pertain to: application language, way of execution of the offered by 
+the application utilities, PeaLauncher, character encoding, supported archiving and 
+compression formats, file and computer system management tools and graphical 
+layout of the application. 
+Software Requirements Specification for PeaZip  Page 23 
+ 
+ 
+3.11.2 Stimulus/Response Sequences 
+In the initial window of the application (file manager interface), there is a button 
+writing “Options” on it. By pressing this particular button, appears a submenu with 
+choices that have to do with settings of parameters of PeaZip’s features, according to 
+users’ preferences.  
+ 
+Specifically: 
+“Run as different user”, closes current PeaZip instance and opens a new one under 
+alternative user profile. 
+“Localization”, quickly changes application’s language (the new selection can be 
+made from a list of supported by PeaZip languages). 
+“Settings”, lead to Settings window (Settings Interface). In Settings Interface, users 
+are able to: 
+-change application’s language, choosing from a list of supported by PeaZip 
+languages. 
+-define the path for the location of the computer system that is going to be 
+considered by PeaZip as user’s Desktop. 
+-chose the way backend command-line applications (featured by PeaZip) will run: 
+console interface, graphical interface or combination of both. 
+-set policy about PeaLauncher window’s behavior after some function’s termination. 
+-have access to options related to character encoding. 
+-have choices on recently managed archives history utility. 
+-chose a selection of users’ favorite archiving and compression formats to be offered 
+for quick selection and which format should be used as default in create archive 
+interface.  
+-configure parameters of the features of archive creation and archive content 
+extraction.  
+-choose applications for opening/previewing contents of managed by PeaZip 
+archives. 
+-configure parameters of computer system’s files and archives management tools. 
+-adapt the application’s graphical interface to their needs, modifying color, icons, 
+fonts, window opacity and size for GUI, and toolbar buttons (buttons that will be in 
+the toolbar). 
+ 
+ 
+Software Requirements Specification for PeaZip  Page 24 
+ 
+ 
+                 
+  
+                          15. Settings window (Settings Interface).  
+ 
+With this feature, users can adapt PeaZip’s features to their needs and preferences, 
+achieving a more pleasant and efficient use. 
+3.11.3 Functional Requirements 
+Functional requirements of this feature are exactly the same as the ones of System 
+Feature 1. 
+4. External Interface Requirements 
+4.1 User Interfaces 
+One of PeaZip’s advantages is its user interfaces, as they are extremely functional, easy to 
+use and can be handled even by users with very little knowledge and experience on using 
+computer systems. PeaZip’s User Interfaces include: 
+ 
+ 
+ 
+• File manager Interface: 
+ 
+ 
+Software Requirements Specification for PeaZip  Page 25 
+ 
+ 
+                   
+  
+ 
+• Create archive Interface: 
+ 
+ 
+                    
+  
+Software Requirements Specification for PeaZip  Page 26 
+ 
+ 
+• Extraction Interface: 
+ 
+                   
+  
+• Settings Interface: 
+ 
+                    
+  
+ 
+Software Requirements Specification for PeaZip  Page 27 
+ 
+ 
+• Graphic display of information and currently execu ted functions’ progress window 
+(PeaLauncher): 
+ 
+        
+  
+ 
+Moreover, it supports keyboard shortcuts. Here ensues a list of them: 
+File manager’s keyboard shortcuts 
+ 
+File/archive browser supports following keyboard shortcuts; some functions are format-specific and 
+will be ignored if not supported for the current archive type. 
+ 
+Functional keys: 
+ 
+F1 - help 
+F2 - browse desktop / Ctrl+F2 browse user’s home / Shift+F2 browse computer’s root / 
+Ctrl+Shift+F2 browse archive root, if browsing inside an archive (otherwise browse computer’s 
+root) 
+F3 - recursive search / Ctrl+F3 non recursive search (search here) 
+F4 - up one level 
+F5 - refresh 
+F6 - toggle browse/flat view 
+F7 - browse most recently visited item (Ctrl, second, Shift, third) 
+F8 - browse first item in bookmarks list (Ctrl, second, Shift, third) 
+F9 - set password/keyfile 
+F10 - menu 
+F11 - set advanced filters 
+F12 - create keyfile or random password 
+ 
+Navigation : 
+ 
+Toggle browse mode / flat view mode -  * or F6 
+Go to computer system’s or archive’s root - Ctrl+R 
+Search (in this folder and subfolders) - F3 
+Search in this folder only - Ctrl+F3 
+Software Requirements Specification for PeaZip  Page 28 
+ 
+ 
+Browse most recently visited item - F7 
+Browse first item in bookmarks list - F8 
+Open directory/archive - < or Enter or double click on the folder/archive 
+Up one level - > or Ctrl+U or click on blue arrow icon or F4 
+Go to object’s path - Ctrl+P (useful in flat view and search/filter mode) 
+Go back in history - Ctrl+B or Backspace 
+Forward in history - Ctrl+F 
+ 
+Extract : 
+ 
+Extract all content - Ctrl+A 
+Extract displayed content - Ctrl+D 
+Extract selected content - Ctrl+S 
+Extract to new folder (functions same as previous ones) - Ctrl+Alt+A/D/S 
+Extract selected - Ctrl+Enter 
+Extract selected to new folder - Shift+Enter 
+ 
+Note: "extract selected" extracts the entire selected archive(s) if browsing the file system, and 
+selected object(s) if browsing an archive. 
+ 
+Extract and open / preview (on selected objects) : 
+ 
+Extract and open with PeaZip - Ctrl+Z 
+Extract and open with default application - Ctrl+O 
+Extract and open with … - Ctrl+W 
+Preview (functions same as previous ones) - Ctrl+Alt+Z/O/W 
+Preview selected - Enter or double click 
+ 
+File Tools (when browsing the file system) : 
+Compare selected object with… - = 
+Checksum and hash of selected objects - ? 
+ 
+Modify : 
+ 
+Quick delete / Delete form archive - Del 
+Secure delete (files only) - Shift+Del 
+Refresh - F5 or icon in first column of titles’ bar 
+Cut - Ctrl+X 
+Copy - Ctrl+C 
+Paste - Ctrl+V 
+Cancel current selection and clear clipboard - Esc 
+ 
+File manager’s mouse controls: 
+ 
+Double click : preview selected object with associated application 
+Right click : activate file/archive browser’s context menu; 
+Middle button click : extract selected object(s)  
+ 
+ 
+Keyboard shortcuts for archive extraction and creation 
+Software Requirements Specification for PeaZip  Page 29 
+ 
+ 
+ 
+Operations: 
+ 
+Archive / Extract (as Ok button) - Ctrl+Alt+Enter 
+Cancel (as Cancel button) - Shift+Backspace 
+ 
+In extraction layout: 
+Toggle extract to new folder on/off - Shift+N 
+ 
+In archiving layout:  
+ 
+Change archive type to 7Z - Shift+7 
+Change archive type to BZip2 - Shift+B 
+Change archive type to GZ -  Shift+G 
+Change archive type to 7Z self extracting - Shift+S 
+Change archive type to TAR - Shift+T 
+Change archive type to ZIP - Shift+Z 
+ 
+File tools : 
+ 
+Checksum/hash selected files - ? 
+Compare selected file with… - = 
+ 
+Archive layout-related : 
+ 
+Add file(s) - Ctrl+A 
+Add folder - Ctrl+F 
+Add from search dialog (drag to archive) - (context menu only) 
+Load archive’s layout - Ctrl+L 
+Save archive’s layout - Ctrl+S 
+Open object with default application - Ctrl+O or Enter or doubleclick 
+Open object with … - Ctrl+W 
+Explore object’s path - Ctrl+E 
+Remove selected object from archive’s layout - Cancel or Ctrl+R or Ctrl+Backspace 
+Refresh - F5 or refresh icon on the left of layout’s titles row 
+ 
+Mouse controls for archive extraction and creation: 
+ 
+Double click : open selected object with associated application or browse folder 
+Right click : activate “create layout” context menu  
+4.2 Hardware Interfaces 
+For PeaZip’s installation and use, requirements are almost zero. It can run on any computer 
+system, regardless of the type of operating system used. The only thing PeaZip requires, as far as 
+hardware is concerned, is an x-86 compatible CPU, due to some performance critical sections 
+written in ASM. 
+Software Requirements Specification for PeaZip  Page 30 
+ 
+ 
+4.3 Software Interfaces 
+PeaZip is compatible with: 
+ 
+• All 64-bit versions of Microsoft Windows 
+• All 32-bit Microsoft Windows(95/98/ ΝΤ /2000/ ΧP/Vista) 
+• All POSIX(all versions of  Linux/all versions of B SD/all UNIX-like operating systems) 
+ 
+Moreover, PeaZip is available as source code that is compatible with almost any operating system. 
+It is obvious, that PeaZip is independent from the operating system of the computer system on 
+which it runs. 
+ 
+To conclude,  all needed software invoked by the frontend is included in PeaZip packages 
+(available under suitable licenses, as open source or royalty free) so no custom package is needed 
+to be installed to make PeaZip work (with the possible exception of some standard gtk/gdk related 
+libraries needed to run PeaZip, Gwrap and Pea binaries, which may be missing in some computer 
+systems, but are well known, trustable and widely available). 
+4.4 Communications Interfaces 
+PeaZip is not a web application, thus its installation and use does not require any 
+communication interfaces’ feature. However, connection to the Internet would be considered useful 
+for users, as, through it, they would be able to access on-line help and information about PeaZip. 
+5. Other Nonfunctional Requirements 
+5.1 Performance Requirements 
+Do not exist. 
+5.2 Safety Requirements 
+This application should function even in cases of wrong data insertion or wrong settings. In 
+case of error it should provide users with appropriate help messages. 
+5.3 Security Requirements 
+Extraction (this feature is described in previous chapters)of the content of encrypted(locked) 
+archives through PeaZip, shouldn’t be allowed without inserting the correct password and (if 
+existing) keyfile for authentication. Moreover, recovering the password and the keyfile that one 
+PeaZip user has inserted or set to an archive(this feature is described in previous chapters)by any 
+other user of the computer system or the application, through the application itself or in general the 
+computer system. Finally, no data remains from data that have been selected to be securely 
+deleted should be left in the storing area of the computer system after the end of the procedure of 
+secure deletion (described in previous chapter), in case of selection of this feature. 
+Software Requirements Specification for PeaZip  Page 31 
+ 
+ 
+5.4 Software Quality Attributes 
+Any user should be able to use PeaZip without any specific knowledge or experience over 
+using computer systems, by reading user manuals(help documents, requirements specification 
+document, mini tutorials) and seeing messages and warnings that the application provides with.  
+6. Appendix 
+Appendix Α: Definitions, Acronyms and Abbreviations  
+/square4 (Application)Frontend: The visible, user entry part of an application. Front-end and back-
+end are generalized terms that refer to the initial and the end stages of a process. The 
+front-end is responsible for collecting input in various forms from the user and processing it 
+to conform to a specification the back-end can use. The front-end is a kind of interface 
+between the user and the back-end. 
+/square4 GUI: Graphical User Interface 
+/square4 Tutorials: A tutorial is a method (usually documents that refer to the topic) of transferring 
+knowledge about a topic and may be used as a part of learning (this topic). 
+/square4 Developers:  Programmers/Program creators 
+/square4 POSIX: Portable Operating System Interface for UNIX. It is the name of a family of related 
+standards specified by the IEEE to define the application programming interface (API), 
+along with shell and utilities interfaces for software compatible with variants of the UNIX 
+operating system, although the standard can apply to any operating system. 
+/square4 CPU: Central Process Unit 
+/square4 ASM: Assembly Programming Language 
+/square4 Gtk/Gdk: Computer graphics libraries 
+/square4 MIPS: Millions of Instructions per Second. A unit for measuring the execution speed of a 
+computer system's CPU. 
+/square4 Root directory: In computer file systems, the root directory is the first or top-most directory 
+in a hierarchy. 
+/square4 Home directory: In computer file system, home directory is the directory including current 
+computer system’s user’s personal files and archives.  
+/square4 Checksum: A fixed-size datum computed from an arbitrary block of digital data for the 
+purpose of detecting accidental errors that may have been introduced during its 
+transmission or storage.  
+/square4 Hash: Typically, a list of hashes http://en.wikipedia.org/wiki/Hash_function  of the data 
+blocks in a file or set of files . 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Software Requirements Specification for PeaZip  Page 32 
+ 
+ 
+ 
+ 
+ 
+Appendix B: Analysis Model 
+       
+ 
+Browsing 
+Computer 
+System’s 
+Location s 
+File 
+Manager 
+Interface 
+Object  
+Selection/View 
+Mode Alternation 
+Computer 
+System 
+Management 
+Tools 
+   User  
+File 
+Management 
+Utilities 
+Extract 
+Interface 
+Create 
+Archive 
+Interface 
+Settings 
+Interface 
+Drag and Drop 
+Feature 
+Graphic display 
+of currently 
+executed 
+functions 
+Password and 
+Keyfile Use 

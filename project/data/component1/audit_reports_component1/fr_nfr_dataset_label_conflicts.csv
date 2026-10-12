@@ -1,0 +1,26 @@
+﻿normalized_requirement,labels_found,row_count
+admin shall be able to manage companies.,FR; NFR,2
+admin shall be able to manage students.,FR; NFR,2
+companies shall be able to post jobs and add job details.,FR; NFR,2
+"in-game option to halt gameplay shall be provided, allowing access to fields displayed on the title screen.",FR; NFR,2
+students shall be able to apply for jobs.,FR; NFR,2
+students shall have the ability to view the status of their job applications.,FR; NFR,2
+system shall be able to manage check book allotment requests.,FR; NFR,2
+"system shall identify areas triggering the restart of the level, whether encompassing stage boundaries or spike-like traps.",FR; NFR,2
+the be shall verify the successful receipt of incoming data from the correlator.,FR; NFR,2
+the multimahjongserver will have a graphical user interface with which the administrator of the server can get log information and change game settings.,FR; NFR,2
+"upon starting up the application, the first viewable screen shall contain buttons for play game options.",FR; NFR,2
+user shall be able to access coding problems across various difficulty levels and categories.,FR; NFR,2
+"user shall be able to change perspective and orientation through a touch scroll bar, serving as the central mechanic of the game.",FR; NFR,2
+"user shall be able to log in as a student, admin, or company.",FR; NFR,2
+"user shall be able to participate in discussions related to coding problems by commenting, asking questions, and providing answers.",FR; NFR,2
+"user shall be able to perform sudden movements upward from solid ground, as a necessary movement mechanic.",FR; NFR,2
+"user shall be able to sign up as a student, admin, or company.",FR; NFR,2
+user shall be able to submit their solutions to coding problems.,FR; NFR,2
+user shall be able to update their information.,FR; NFR,2
+user shall be able to view and edit their profile information.,FR; NFR,2
+user shall have the ability to change their password.,FR; NFR,2
+user shall receive feedback when entering an invalid zip code.,FR; NFR,2
+user shall/will be able to request check book allotment.,FR; NFR,2
+users shall be able to search for jobs.,FR; NFR,2
+users shall be able to view student applications.,FR; NFR,2

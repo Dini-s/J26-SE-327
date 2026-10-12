@@ -1,0 +1,4 @@
+﻿dataset_a,dataset_b,matching_text_pairs,same_label_pairs,different_label_pairs
+nfr_arff,nfr_labeled,560,558,2
+nfr_arff,test_labeled,70,70,0
+nfr_labeled,test_labeled,0,0,0

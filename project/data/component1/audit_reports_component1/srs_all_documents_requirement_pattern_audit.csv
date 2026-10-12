@@ -1,0 +1,77 @@
+﻿document,characters,srs_id_occurrences,unique_srs_ids,shall_occurrences,must_occurrences,requirement_heading_matches
+0000 - cctns.txt,37054,0,0,6,37,8
+0000 - gamma j.txt,52364,0,0,42,33,15
+0000 - inventory.txt,27421,0,0,0,1,5
+1995 - gemini.txt,157985,0,0,61,135,16
+1998 - themas.txt,46931,0,0,106,0,11
+1999 - tcs.txt,258802,0,0,917,37,38
+2000 - nasa x38.txt,138759,195,195,494,5,55
+2001 - beyond.txt,78634,0,0,3,16,4
+2001 - ctc network.txt,44314,0,0,91,3,109
+2001 - elsfork.txt,124181,0,0,74,24,4
+2001 - esa.txt,37353,0,0,56,0,49
+2001 - hats.txt,147745,0,0,296,10,119
+2001 - libra.txt,29429,0,0,0,3,5
+2001 - npac.txt,513655,0,0,1191,25,23
+2001 - space fractions.txt,19952,0,0,0,3,14
+2001 - telescope.txt,170198,0,0,0,7,129
+2002 - evla back.txt,42908,0,0,98,7,12
+2002 - evla corr.txt,35861,0,0,59,1,14
+2002 - sce api.txt,204443,0,0,19,44,94
+2003 - agentmom.txt,13250,0,0,25,1,4
+2003 - pnnl.txt,236116,0,0,113,15,319
+2003 - qheadache.txt,19451,0,0,1,8,5
+2003 - tachonet.txt,75228,0,0,1,67,93
+2004 - colorcast.txt,30917,0,0,0,8,31
+2004 - e-procurement.txt,48650,0,0,0,1,3
+2004 - grid bgc.txt,52144,0,0,163,14,3
+2004 - ijis.txt,31527,0,0,0,1,2
+2004 - jse.txt,55093,0,0,0,19,1
+2004 - philips.txt,6527,0,0,2,0,5
+2004 - rlcs.txt,124984,0,0,180,38,91
+2004 - sprat.txt,51000,0,0,92,5,17
+2004 - watcom gui.txt,76138,0,0,0,4,59
+2004 - watcom.txt,105160,0,0,0,3,56
+2005 - clarus high.txt,62008,0,0,143,6,21
+2005 - clarus low.txt,156537,0,0,427,5,110
+2005 - grid 3D.txt,17814,0,0,4,7,24
+2005 - microcare.txt,44346,0,0,2,0,33
+2005 - phin.txt,41636,0,0,0,45,22
+2005 - pontis.txt,132219,0,0,173,28,90
+2005 - triangle.txt,36762,0,0,5,11,30
+2005 - znix.txt,24017,0,0,5,7,28
+2006 - eirene sys 15.txt,182661,0,0,348,6,22
+2006 - stewards.txt,77393,0,0,9,9,64
+2007 - central trading system.txt,18912,0,0,0,7,1
+2007 - e-store.txt,18037,0,0,112,3,13
+2007 - eirene fun 7.txt,137429,0,0,452,8,18
+2007 - ertms.txt,60456,0,0,213,1,5
+2007 - get real 0.2.txt,21316,0,0,0,0,17
+2007 - mdot.txt,116516,0,0,155,5,67
+2007 - nde.txt,191567,0,0,432,13,15
+2007 - nlm.txt,120456,0,0,3,31,9
+2007 - puget sound.txt,28243,0,0,0,38,19
+2007 - water use.txt,103031,0,0,2,13,76
+2008 - caiso.txt,17466,0,0,11,7,0
+2008 - keepass.txt,49773,0,0,0,26,53
+2008 - peering.txt,42775,0,0,0,4,29
+2008 - viper.txt,69430,0,0,3,41,12
+2008 - virtual ed.txt,61314,0,0,0,35,22
+2008 - vub.txt,49956,0,0,0,14,13
+2009 - email.txt,29649,0,0,4,6,22
+2009 - gaia.txt,25763,0,0,0,9,34
+2009 - inventory 2.0.txt,117273,0,0,0,87,76
+2009 - library.txt,33949,0,0,13,7,6
+2009 - model manager.txt,24237,0,0,0,6,14
+2009 - peazip.txt,56543,0,0,0,1,63
+2009 - peppol.txt,392273,0,0,20,228,131
+2009 - video search.txt,20701,0,0,0,1,21
+2009 - warc III.txt,26595,0,0,32,2,18
+2010 - blit draft.txt,19989,0,0,44,13,19
+2010 - fishing.txt,105657,0,0,2,127,64
+2010 - gparted.txt,36785,0,0,0,1,32
+2010 - home 1.3.txt,28445,0,0,75,4,12
+2010 - mashboot.txt,21824,0,0,0,1,6
+2010 - split merge.txt,42440,0,0,0,7,50
+2011 - opensg 0.1.txt,8824,0,0,3,0,5
+srs__2009 - library.txt,29899,0,0,9,2,21

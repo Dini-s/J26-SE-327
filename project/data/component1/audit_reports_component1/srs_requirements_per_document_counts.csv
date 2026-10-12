@@ -1,0 +1,80 @@
+﻿source_document,source_format,words,blocks_examined,rows_extracted,rows_modal,rows_numbered_no_modal,shall_in_text,rows_per_1000_words,dropped_toc_lines,dropped_header_footer_lines,dropped_page_numbers,dropped_headings,dropped_notes_examples,dropped_deleted,dropped_no_cue,over_20k_words,review_hold,suspicious_count_flags
+0000 - cctns,txt,5662,171,126,126,0,6,22.25,0,48,0,46,0,1,48,False,,
+0000 - gamma j,txt,7053,760,271,127,144,42,38.42,54,114,45,302,0,0,208,False,,
+0000 - inventory,txt,3668,440,10,9,1,0,2.73,32,237,31,293,1,0,137,False,,no_shall_in_document;very_low_density(<3/1k words)
+1995 - gemini,txt,24211,532,423,406,17,61,17.47,0,40,5,251,0,0,156,True,,
+1998 - themas,txt,6151,437,115,115,0,106,18.7,119,382,0,314,0,0,61,False,,
+1999 - tcs,txt,37495,1697,1049,1029,20,917,27.98,216,1402,290,811,0,7,240,True,tcs_manual_review_on_hold,
+2000 - nasa x38,txt,21236,918,492,492,0,494,23.17,0,1586,0,316,4,4,250,True,,
+2001 - beyond,txt,11393,302,97,97,0,3,8.51,55,126,0,133,0,1,110,False,,
+2001 - ctc network,txt,5689,591,111,110,1,91,19.51,66,230,0,408,0,0,104,False,,
+2001 - elsfork,txt,17398,634,127,121,6,74,7.3,45,142,28,310,1,0,255,False,,
+2001 - esa,txt,4614,323,70,67,3,56,15.17,36,202,0,182,1,0,82,False,,
+2001 - hats,txt,21493,1001,506,335,171,296,23.54,95,303,127,398,2,1,323,True,,
+2001 - libra,txt,4637,202,53,53,0,0,11.43,0,59,0,99,0,0,67,False,,no_shall_in_document
+2001 - npac,txt,81329,2402,1392,1389,3,1191,17.12,0,2546,0,1152,0,7,794,True,,
+2001 - space fractions,txt,3030,129,67,63,4,0,22.11,0,24,0,85,0,0,17,False,,no_shall_in_document
+2001 - telescope,txt,22754,2711,53,50,3,0,2.33,101,1514,84,2017,3,1,654,True,,no_shall_in_document;very_low_density(<3/1k words)
+2002 - evla back,txt,5570,280,152,148,4,98,27.29,52,24,0,115,2,0,37,False,,
+2002 - evla corr,txt,4411,237,97,93,4,59,21.99,48,28,0,119,0,0,42,False,,
+2002 - sce api,txt,28987,1226,99,97,2,19,3.42,0,438,26,745,3,0,418,True,,
+2003 - agentmom,txt,1710,140,44,29,15,25,25.73,15,0,8,65,0,0,31,False,,very_short_document
+2003 - pnnl,txt,34096,2309,259,233,26,113,7.6,0,1824,9,1522,15,0,584,True,,
+2003 - qheadache,txt,2046,82,10,10,0,1,4.89,59,67,0,9,0,0,68,False,,
+2003 - tachonet,txt,10813,621,162,150,12,1,14.98,32,384,0,265,0,0,246,False,,
+2004 - colorcast,txt,3924,173,71,71,0,0,18.09,39,30,0,55,0,0,74,False,,no_shall_in_document
+2004 - e-procurement,txt,7436,589,9,9,0,0,1.21,0,309,0,182,8,0,390,False,,no_shall_in_document;very_low_density(<3/1k words)
+2004 - grid bgc,txt,6854,654,263,223,40,163,38.37,202,83,33,327,1,3,65,False,,
+2004 - ijis,txt,4614,237,8,8,0,0,1.73,0,364,0,93,0,0,138,False,,no_shall_in_document;very_low_density(<3/1k words)
+2004 - jse,txt,9039,922,141,105,36,0,15.6,0,1050,7,304,2,0,494,False,,no_shall_in_document
+2004 - philips,txt,1031,94,6,6,0,2,5.82,0,0,0,57,0,0,32,False,,very_short_document
+2004 - rlcs,txt,16343,1249,285,259,26,180,17.44,69,550,72,712,0,0,312,False,,
+2004 - sprat,txt,6760,309,168,167,1,92,24.85,19,217,28,71,3,0,86,False,,
+2004 - watcom gui,txt,9849,1097,151,150,1,0,15.33,0,188,4,736,0,0,232,False,,no_shall_in_document
+2004 - watcom,txt,12032,629,83,77,6,0,6.9,0,532,10,214,9,0,353,False,,no_shall_in_document
+2005 - clarus high,txt,9273,396,196,196,0,143,21.14,0,816,0,113,0,0,125,False,,
+2005 - clarus low,txt,21500,1450,528,517,11,427,24.56,39,981,97,627,1,0,353,True,,
+2005 - grid 3D,txt,2364,118,17,17,0,4,7.19,30,15,15,77,0,0,29,False,,
+2005 - microcare,txt,6945,482,138,138,0,2,19.87,0,76,0,153,1,0,217,False,,
+2005 - phin,txt,5818,166,126,114,12,0,21.66,23,45,0,42,0,0,13,False,,no_shall_in_document
+2005 - pontis,txt,19600,716,336,312,24,173,17.14,53,418,2,302,1,0,172,False,,
+2005 - triangle,txt,4774,264,52,49,3,5,10.89,79,42,3,124,2,0,98,False,,
+2005 - znix,txt,3662,208,35,34,1,5,9.56,2,60,0,126,1,0,54,False,,
+2006 - eirene sys 15,txt,28426,1926,396,378,18,348,13.93,0,736,23,813,6,13,717,True,,
+2006 - stewards,txt,10497,615,165,150,15,9,15.72,48,68,0,318,0,0,185,False,,
+2007 - central trading system,txt,2439,167,40,40,0,0,16.4,21,16,0,73,0,0,68,False,,no_shall_in_document
+2007 - e-store,txt,2689,245,114,114,0,112,42.39,0,11,0,112,0,0,42,False,,
+2007 - eirene fun 7,txt,21430,1431,522,519,3,452,24.36,0,185,0,371,1,12,545,True,,
+2007 - ertms,txt,8501,498,194,193,1,213,22.82,34,238,79,148,0,74,127,False,,
+2007 - get real 0.2,txt,2567,129,16,14,2,0,6.23,46,9,18,65,0,0,48,False,,no_shall_in_document
+2007 - mdot,txt,15602,668,201,200,1,155,12.88,53,773,52,200,0,0,293,False,,
+2007 - nde,txt,22090,2295,471,471,0,432,21.32,85,1068,99,1192,4,0,711,True,,
+2007 - nlm,txt,17381,806,159,159,0,3,9.15,0,762,0,231,0,0,474,False,,
+2007 - puget sound,txt,4288,184,93,93,0,0,21.69,0,79,13,96,0,0,28,False,,no_shall_in_document
+2007 - water use,txt,15068,638,155,155,0,2,10.29,73,300,39,224,0,0,304,False,,
+2008 - caiso,txt,2525,194,27,23,4,11,10.69,7,31,20,88,2,0,79,False,,
+2008 - keepass,txt,7143,333,46,43,3,0,6.44,43,175,0,157,0,4,127,False,,no_shall_in_document
+2008 - peering,txt,5617,221,51,12,39,0,9.08,26,73,0,81,0,0,91,False,,no_shall_in_document
+2008 - viper,txt,11182,840,130,130,0,3,11.63,32,3088,0,115,0,0,611,False,,
+2008 - virtual ed,txt,8895,263,187,187,0,0,21.02,0,172,0,104,0,0,76,False,,no_shall_in_document
+2008 - vub,txt,9559,450,98,97,1,0,10.25,69,60,7,149,0,0,231,False,,no_shall_in_document
+2009 - email,txt,4118,227,34,22,12,4,8.26,0,260,0,76,0,0,125,False,,
+2009 - gaia,txt,4464,226,39,37,2,0,8.74,29,127,0,105,1,0,90,False,,no_shall_in_document
+2009 - inventory 2.0,txt,17242,1244,251,211,40,0,14.56,42,240,0,731,10,3,272,False,,no_shall_in_document
+2009 - library,txt,4854,179,36,31,5,13,7.42,18,79,0,79,1,2,66,False,,
+2009 - model manager,txt,3758,219,73,47,26,0,19.43,19,18,0,64,0,0,98,False,,no_shall_in_document
+2009 - peazip,txt,7802,282,38,19,19,0,4.87,40,83,0,76,1,0,169,False,,no_shall_in_document
+2009 - peppol,txt,57006,1492,534,529,5,20,9.37,177,1147,0,365,0,0,727,True,,
+2009 - video search,txt,2912,108,85,83,2,0,29.19,29,12,3,39,0,0,15,False,,no_shall_in_document
+2009 - warc III,txt,3795,60,84,84,0,32,22.13,15,8,15,29,0,0,12,False,,
+2010 - blit draft,txt,2172,113,64,64,0,44,29.47,28,69,0,44,0,0,10,False,,
+2010 - fishing,txt,14946,628,147,147,0,2,9.84,44,973,0,181,0,0,334,False,,
+2010 - gparted,txt,4610,225,17,17,0,0,3.69,50,32,5,72,0,0,139,False,,no_shall_in_document
+2010 - home 1.3,txt,4069,214,87,83,4,75,21.38,24,14,0,74,0,0,57,False,,
+2010 - mashboot,txt,4242,211,65,63,2,0,15.32,25,0,15,95,0,1,60,False,,no_shall_in_document
+2010 - split merge,txt,5985,172,43,34,9,0,7.18,43,57,0,51,0,0,88,False,,no_shall_in_document
+2011 - opensg 0.1,txt,1256,86,9,9,0,3,7.17,0,64,0,55,0,0,26,False,,very_short_document
+srs__2009 - library,txt,3886,145,24,18,6,9,6.18,19,142,0,55,0,0,67,False,,
+1999 - dii,html,4721,408,38,38,0,20,8.05,1,0,0,186,1,0,188,False,,
+1999 - multi-mahjong,html,6267,569,138,137,1,0,22.02,7,171,0,206,4,0,239,False,,no_shall_in_document
+2005 - nenios,html,2756,172,92,91,1,50,33.38,0,145,0,75,0,0,26,False,,

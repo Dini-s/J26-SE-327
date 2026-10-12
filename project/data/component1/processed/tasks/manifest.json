@@ -1,0 +1,43 @@
+{
+  "dependency_project_split": {
+    "P1": "val",
+    "P10": "test",
+    "P2": "train",
+    "P3": "train",
+    "P4": "train",
+    "P5": "train",
+    "P6": "train",
+    "P7": "train",
+    "P8": "train",
+    "P9": "test"
+  },
+  "duplicate_candidates": "not created: no real labeled duplicate pairs exist in the sources",
+  "file_sha256": {
+    "ambiguity.csv": "120dca7610eda84eb079f5788fd318fc6d2420a2ede50d0d41be10bd893563a5",
+    "classification_fr_nfr.csv": "f5ad7eca158c06e3cb3527f29cca9ee25defdaaef58839db66b18a11bccfd450",
+    "classification_nfr_subtype.csv": "6ba3301b5a0035fddf20d79a5851ab68e800a35456657812e64c81631ba635ce",
+    "dependency_pairs.csv": "2bb372510c7b9c0149a67418413d75b61d8650fe613006c75adbd1933f00a318",
+    "dependency_spot_check.csv": "b7295061ee46d7001bf5cf178fce84a9d4d5d494ab6d0740abb473270b4b07e0",
+    "frozen_test_ids.csv": "5b2fed2ffc56025fb52776abd895d9e480e5f53a9f6401288a7ad500fada6350",
+    "generation_inputs.csv": "6977b2a9fbd2191da788aed07a0afdd8640bcf126c0e58a3204009c184e3ce41",
+    "pipeline_test_cornelius.csv": "a47348e55b73c97145f7308def68f5772e5cc158accaa32cc444e514e1095c9f"
+  },
+  "frozen_test_ids_rows": 6582,
+  "frozen_test_ids_sha256": "5b2fed2ffc56025fb52776abd895d9e480e5f53a9f6401288a7ad500fada6350",
+  "min_words": 6,
+  "promise_anchoring": {
+    "held_out_project_conflict_rows_excluded": 1,
+    "promise_rows_in_val_test_pure_B": 4,
+    "promise_rows_in_val_test_with_anchoring": 150,
+    "rows_inheriting_promise_split": 898,
+    "rows_removed_pure_B": 428,
+    "rows_removed_with_anchoring": 45
+  },
+  "seed": 327,
+  "split_method": "per-source group assignment, then train>test>val text-overlap removal",
+  "targets": {
+    "test": 0.15,
+    "train": 0.7,
+    "val": 0.15
+  }
+}
