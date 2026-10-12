@@ -3,458 +3,874 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Traceability Dashboard</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js"></script>
+<title>C4 Traceability</title>
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--text:#1c2430;--muted:#667085;--line:#e3e6eb;--accent:#2f6fed;--ok:#1a9e5c;--warn:#e8890c;--bad:#d64545;--idle:#98a2b3;--chip:#eef1f6}
-@media (prefers-color-scheme:dark){:root{--bg:#10141b;--card:#1a2029;--text:#e6e9ef;--muted:#8d97a8;--line:#2a323e;--accent:#6b9bff;--ok:#38c07a;--warn:#f0a23a;--bad:#ef6b6b;--idle:#6b7686;--chip:#232b37}}
+:root{
+  --bg:#f4f6fb; --surface:#ffffff; --surface-2:#f7f8fc; --text:#141a29; --muted:#5d6782; --faint:#8c94aa;
+  --line:#e3e7f0; --line-2:#eef1f7; --accent:#4f5bd5; --accent-2:#7c5cff; --accent-soft:#eceefe;
+  --ok:#14915f; --ok-soft:#e3f6ee; --bad:#d23f4f; --bad-soft:#fde9eb; --warn:#c77a0a; --warn-soft:#fdf3e1;
+  --info:#2f73da; --info-soft:#e6f0fd; --chip:#eef1f7; --shadow:0 1px 2px rgba(20,26,41,.05),0 4px 16px rgba(20,26,41,.06);
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; --radius:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1017; --surface:#151a24; --surface-2:#1a2030; --text:#e7eaf2; --muted:#9aa3ba; --faint:#6f7890;
+  --line:#262e40; --line-2:#1f2636; --accent:#8b93ff; --accent-2:#a78bff; --accent-soft:#232947;
+  --ok:#3ccf8e; --ok-soft:#14312a; --bad:#ff6b7a; --bad-soft:#3a1b22; --warn:#f4b445; --warn-soft:#3a2d14;
+  --info:#69a7ff; --info-soft:#17283f; --chip:#222a3b; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1017; --surface:#151a24; --surface-2:#1a2030; --text:#e7eaf2; --muted:#9aa3ba; --faint:#6f7890;
+  --line:#262e40; --line-2:#1f2636; --accent:#8b93ff; --accent-2:#a78bff; --accent-soft:#232947;
+  --ok:#3ccf8e; --ok-soft:#14312a; --bad:#ff6b7a; --bad-soft:#3a1b22; --warn:#f4b445; --warn-soft:#3a2d14;
+  --info:#69a7ff; --info-soft:#17283f; --chip:#222a3b; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 24px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:5}
-h1{font-size:18px;margin:0 14px 0 0}
-nav{display:flex;gap:4px;flex-wrap:wrap}
-nav button,.subnav button{background:none;border:0;padding:7px 14px;border-radius:7px;color:var(--muted);font:inherit;cursor:pointer}
-nav button.on,.subnav button.on{background:var(--chip);color:var(--text);font-weight:600}
-.pill{display:inline-flex;gap:6px;align-items:center;padding:3px 10px;border-radius:99px;background:var(--chip);font-size:12.5px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--idle)}
-.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}.dot.warn{background:var(--warn)}
-main{padding:20px 24px;max-width:1300px;margin:auto}
-.page,.sub{display:none;gap:16px;flex-direction:column}.page.on,.sub.on{display:flex}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.panel h2{font-size:15px;margin:0;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.body{padding:14px 16px}
-.lead{color:var(--muted);margin:0 0 10px}
-textarea,select,input,button.b{font:inherit;color:var(--text);background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:8px 11px}
-textarea{width:100%;resize:vertical}
-button.b{cursor:pointer}button.b:disabled{opacity:.45;cursor:not-allowed}
-button.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;padding:9px 18px}
-button.danger{background:var(--bad);color:#fff;border-color:var(--bad);font-weight:600}
-.row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:10px}
-.row label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}
-.msg{color:var(--muted);font-size:13px;white-space:pre-wrap;margin-top:10px}.msg.err{color:var(--bad)}
-.steps{display:flex;gap:10px;flex-wrap:wrap}
-.step{flex:1 1 200px;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--card)}
-.step .n{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--idle)}
-.step .t{font-weight:600}.step .d{color:var(--muted);font-size:13px;margin-top:2px}
-.step.done{border-color:var(--ok)}.step.done .n{color:var(--ok)}
-.step.active{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 22%,transparent)}.step.active .n{color:var(--accent)}
-.step.interrupted{border-color:var(--bad)}.step.interrupted .n{color:var(--bad)}
-.banner{padding:12px 16px;border-radius:10px;border:1px solid var(--line);font-weight:600}
-.banner.ok{border-color:var(--ok);color:var(--ok)}.banner.bad{border-color:var(--bad);color:var(--bad)}.banner.info{border-color:var(--accent);color:var(--accent)}
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
-@media(max-width:980px){.grid2{grid-template-columns:1fr}}
-.graph{height:440px}.graph.big{height:600px}
-.legend{display:flex;flex-wrap:wrap;gap:6px 12px;padding:8px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
-.legend label{display:inline-flex;gap:5px;align-items:center;cursor:pointer}
-.sw{width:18px;height:0;border-top:3px solid}
-.detail{padding:12px 16px;white-space:pre-wrap;font-size:13px;max-height:260px;overflow:auto;color:var(--muted);border-top:1px solid var(--line)}
-.detail b{color:var(--text)}
-.card{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:var(--card)}
-.card .t{display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:600}
-.card .r{color:var(--muted);font-size:13px;margin-top:4px;white-space:pre-wrap}
-.badge{font-size:11px;padding:2px 9px;border-radius:99px;color:#fff;white-space:nowrap}
-.badge.yes{background:var(--ok)}.badge.no{background:var(--idle)}.badge.err{background:var(--bad)}.badge.warn{background:var(--warn)}
-.scroll{max-height:540px;overflow:auto}
-.empty{padding:16px;color:var(--muted)}
-table{border-collapse:collapse;width:100%}td,th{padding:6px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:500;font-size:12px}
-.diff{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.diff pre{margin:0;padding:8px;border-radius:8px;background:var(--chip);font-size:12px;white-space:pre-wrap;max-height:180px;overflow:auto}
-.diff .bef{border-left:3px solid var(--ok)}.diff .aft{border-left:3px solid var(--bad)}
-details{margin-top:6px}summary{cursor:pointer;color:var(--muted);padding:8px 16px}
-.subnav{display:flex;gap:4px;flex-wrap:wrap}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
-.cardm{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.cardm .k{color:var(--muted);font-size:12px}.cardm .v{font-size:22px;font-weight:600;margin-top:2px}.cardm .s{color:var(--muted);font-size:12px;margin-top:2px}
-.bar{height:6px;border-radius:4px;background:var(--chip);margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);width:0}
-.stages{display:flex;gap:8px;flex-wrap:wrap}
-.stage{flex:1 1 150px;min-width:150px;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-.stage .t{font-weight:600;font-size:13px}.stage .d{color:var(--muted);font-size:12px;margin-top:4px}.stage .st{font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;color:var(--idle)}
-.stage.done{border-color:var(--ok)}.stage.done .st{color:var(--ok)}.stage.active{border-color:var(--accent)}.stage.active .st{color:var(--accent)}.stage.interrupted{border-color:var(--bad)}.stage.interrupted .st{color:var(--bad)}.stage.skipped{opacity:.6}
-.bars{display:flex;flex-direction:column;gap:14px}.bgroup .lab{font-size:12px;color:var(--muted);margin-bottom:3px}
-.brow{display:flex;align-items:center;gap:8px;margin:2px 0;font-size:12px}.brow .n{width:90px;color:var(--muted)}.brow .track{flex:1;background:var(--chip);border-radius:4px;height:14px;overflow:hidden}.brow .fill{height:100%;border-radius:4px}.brow .p{width:46px;text-align:right}
-code{background:var(--chip);padding:1px 5px;border-radius:4px;font-size:12px}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:14.5px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hidden{display:none!important}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1320px;margin:auto;padding:10px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:200px}
+.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 35%,transparent)}
+.brand b{display:block;font-size:15px;letter-spacing:-.01em}
+.brand small{color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line);padding:4px;border-radius:12px}
+.tab{border:0;background:none;padding:7px 14px;border-radius:9px;color:var(--muted);display:flex;align-items:center;gap:7px;font-weight:550;white-space:nowrap}
+.tab svg{width:16px;height:16px}
+.tab:hover{color:var(--text)}
+.tab.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.spacer{flex:1}
+.proj{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:4px 6px 4px 12px}
+.proj span{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.proj select{border:0;background:var(--surface);border-radius:8px;padding:6px 10px;width:250px;box-shadow:var(--shadow)}
+@media(min-width:1100px){.top-in{flex-wrap:nowrap}}
+@media(max-width:1560px){.brand small{display:none}.brand{min-width:0}.tab{padding:7px 11px}.proj select{width:220px}}
+.status{display:flex;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--faint);position:relative}
+.dot.ok{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 20%,transparent)}
+.dot.bad{background:var(--bad);box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 20%,transparent)}
+.dot.warn{background:var(--warn)}
+.status-wrap{display:flex;align-items:center;gap:10px;padding:6px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);font-size:12px;color:var(--muted)}
+.icon-btn{border:1px solid var(--line);background:var(--surface-2);border-radius:10px;width:36px;height:36px;display:grid;place-items:center}
+.icon-btn svg{width:17px;height:17px}
+
+/* ---------- activity bar ---------- */
+.activity{max-width:1320px;margin:14px auto 0;padding:0 20px}
+.act{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;box-shadow:var(--shadow);transition:border-color .2s}
+.act .ico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none}
+.act.idle .ico{background:var(--ok-soft);color:var(--ok)}
+.act.busy{border-color:color-mix(in srgb,var(--info) 45%,var(--line))}
+.act.busy .ico{background:var(--info-soft);color:var(--info)}
+.act .txt{flex:1;min-width:0}
+.act .txt b{font-weight:650}
+.act .sub{color:var(--muted);font-size:12.5px}
+.act .meter{width:220px;height:6px;border-radius:6px;background:var(--line-2);overflow:hidden;flex:none}
+.act .meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--info),var(--accent-2));border-radius:6px;transition:width .6s}
+.act.busy .meter.indet i{width:35%;animation:slide 1.4s ease-in-out infinite}
+@keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+.spin{width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:rot .8s linear infinite;display:inline-block}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+/* ---------- layout ---------- */
+main{max-width:1320px;margin:auto;padding:16px 20px 60px}
+.view{display:none;animation:fade .25s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media(max-width:1040px){.grid{grid-template-columns:1fr}}
+.stack{display:flex;flex-direction:column;gap:16px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;min-width:0}
+.card h2{font-size:17px;margin:0 0 4px;letter-spacing:-.01em}
+.card h3{font-size:14px;margin:0;letter-spacing:-.01em}
+.lead{color:var(--muted);margin:0 0 14px}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.muted{color:var(--muted)}
+.small{font-size:12.5px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:99px;background:var(--chip);color:var(--muted);font-weight:600;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.info{background:var(--info-soft);color:var(--info)}.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.accent{background:var(--accent-soft);color:var(--accent)}
+.step-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 8px}
+
+/* ---------- forms ---------- */
+textarea,input[type=text],input[type=search]{width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:11px;padding:11px 13px;outline:none;transition:border-color .15s,box-shadow .15s}
+textarea:focus,input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+textarea{resize:vertical;min-height:92px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.row .grow{flex:1}
+.btn{border:1px solid var(--line);background:var(--surface-2);border-radius:11px;padding:10px 16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:transform .05s,background .15s,opacity .15s}
+.btn:hover{background:var(--line-2)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));border-color:transparent;color:#fff;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 30%,transparent)}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.danger{color:var(--bad)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+kbd{font:11px var(--mono);padding:1px 5px;border-radius:5px;background:rgba(255,255,255,.22)}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:11px;padding:3px}
+.seg button{border:0;background:none;padding:7px 12px;border-radius:8px;color:var(--muted);font-weight:600;font-size:13px}
+.seg button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.examples{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.chip-btn{border:1px dashed var(--line);background:none;border-radius:99px;padding:4px 11px;font-size:12.5px;color:var(--muted);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip-btn:hover{border-color:var(--accent);color:var(--accent)}
+.hint{margin-top:10px;font-size:12.5px;color:var(--muted);min-height:18px}
+.hint.err{color:var(--bad)}
+
+/* ---------- result ---------- */
+.empty{border:1px dashed var(--line);border-radius:12px;padding:28px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--text);margin-bottom:4px}
+.banner{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;font-weight:600;margin:12px 0}
+.banner.ok{background:var(--ok-soft);color:var(--ok)}.banner.bad{background:var(--bad-soft);color:var(--bad)}
+.banner.info{background:var(--info-soft);color:var(--info)}.banner.warn{background:var(--warn-soft);color:var(--warn)}
+.banner .big{font-size:22px;line-height:1}
+.stepper{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 6px}
+.stp{border:1px solid var(--line);border-radius:11px;padding:9px 12px;background:var(--surface-2);position:relative;overflow:hidden}
+.stp .n{font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.05em;display:flex;align-items:center;gap:6px}
+.stp .t{font-weight:650;font-size:13.5px}
+.stp .d{font-size:12px;color:var(--muted)}
+.stp.done{border-color:color-mix(in srgb,var(--ok) 40%,var(--line))}.stp.done .n{color:var(--ok)}
+.stp.active{border-color:var(--info)}.stp.active .n{color:var(--info)}
+.stp.active::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:40%;background:var(--info);animation:slide 1.4s ease-in-out infinite}
+.quote{border-left:3px solid var(--accent);background:var(--surface-2);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0}
+.quote .id{font:600 12px var(--mono);color:var(--accent)}
+.cands{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.cand{border:1px solid var(--line);border-radius:12px;background:var(--surface);transition:border-color .2s,background .2s}
+.cand.linked{border-color:color-mix(in srgb,var(--ok) 45%,var(--line));background:color-mix(in srgb,var(--ok-soft) 45%,var(--surface))}
+.cand.waiting{border-style:dashed}
+.cand-h{display:grid;grid-template-columns:28px minmax(0,1fr) 150px auto;gap:12px;align-items:center;padding:10px 12px;width:100%;border:0;background:none;text-align:left}
+.cand .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-weight:700}
+.cand.linked .ic{background:var(--ok);color:#fff}
+.cand.notlinked .ic{background:var(--chip);color:var(--muted)}
+.cand.waiting .ic{color:var(--info)}
+.fname{font:600 13.5px var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fpath{font-size:11.5px;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meter2{height:6px;border-radius:6px;background:var(--line-2);overflow:hidden}
+.meter2 i{display:block;height:100%;border-radius:6px;background:var(--faint)}
+.cand.linked .meter2 i{background:var(--ok)}
+.cand-meta{font-size:11.5px;color:var(--muted);margin-top:3px;display:flex;justify-content:space-between}
+.why{padding:0 14px 12px 52px;color:var(--muted);font-size:13px;display:none}
+.cand.open .why{display:block}
+.caret{color:var(--faint);transition:transform .2s;font-size:12px}
+.cand.open .caret{transform:rotate(90deg)}
+
+/* ---------- history ---------- */
+.timeline{display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 230px);overflow:auto;margin:0 -6px;padding:0 6px}
+.tl{border:1px solid transparent;background:none;text-align:left;border-radius:11px;padding:9px 11px;display:flex;flex-direction:column;gap:3px;width:100%}
+.tl:hover{background:var(--surface-2)}
+.tl.sel{border-color:var(--accent);background:var(--accent-soft)}
+.tl .l1{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tl .id{font:600 13px var(--mono)}
+.tl .when{font-size:11.5px;color:var(--faint)}
+.tl .snip{font-size:12.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.new-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:6px}
+
+/* ---------- decay ---------- */
+.file-list{display:flex;flex-direction:column;gap:6px;max-height:250px;overflow:auto;margin-top:8px;padding-right:4px}
+.file{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:11px;padding:9px 12px;background:var(--surface);text-align:left;width:100%}
+.file:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.file.sel{border-color:var(--accent);background:var(--accent-soft)}
+.file .reqs{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.mut-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.mut{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:var(--surface);text-align:left;display:flex;flex-direction:column;gap:4px}
+.mut:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.mut.sel{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 3px var(--accent-soft)}
+.mut .mt{font-weight:650;display:flex;gap:8px;align-items:center}
+.mut .md{font-size:12px;color:var(--muted)}
+.rc{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:8px}
+.rc.broken{border-color:color-mix(in srgb,var(--bad) 45%,var(--line));background:color-mix(in srgb,var(--bad-soft) 40%,var(--surface))}
+.rc.holds{border-color:color-mix(in srgb,var(--ok) 40%,var(--line))}
+.rc-h{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.rc-h .pair{font:600 13.5px var(--mono)}
+.conf{display:flex;align-items:center;gap:10px;margin:10px 0 6px;font-size:12.5px;color:var(--muted)}
+.conf .track{flex:1;height:8px;border-radius:8px;background:var(--line-2);position:relative;overflow:hidden}
+.conf .before{position:absolute;inset:0 auto 0 0;background:color-mix(in srgb,var(--faint) 35%,transparent)}
+.conf .after{position:absolute;inset:0 auto 0 0;border-radius:8px;transition:width 1s ease}
+.rc.broken .conf .after{background:var(--bad)}.rc.holds .conf .after{background:var(--ok)}
+.msg{margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
+.msg-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}
+pre.code{margin:8px 0 0;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:12px/1.5 var(--mono);white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto}
+.diff{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.diff{grid-template-columns:1fr}}
+.diff .bef pre{border-left:3px solid var(--ok)}.diff .aft pre{border-left:3px solid var(--bad)}
+.link-btn{border:0;background:none;color:var(--accent);font-weight:600;padding:0;font-size:12.5px}
+
+/* ---------- graph ---------- */
+.g-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.g-tools input{max-width:280px}
+.toggle{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:5px 11px;background:var(--surface-2);user-select:none}
+.toggle input{accent-color:var(--accent)}
+.g-wrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:12px}
+@media(max-width:1040px){.g-wrap{grid-template-columns:1fr}}
+.g-canvas{position:relative;height:640px;border:1px solid var(--line);border-radius:12px;background:radial-gradient(circle at 1px 1px,var(--line) 1px,transparent 0) 0 0/22px 22px,var(--surface-2);overflow:hidden;cursor:grab;touch-action:none}
+.g-canvas:active{cursor:grabbing}
+.g-canvas svg{width:100%;height:100%;display:block}
+.g-panel{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--surface-2);max-height:620px;overflow:auto;font-size:13px}
+.g-panel h4{margin:0 0 6px;font:600 14px var(--mono);word-break:break-all}
+.g-node text{pointer-events:none}
+.g-node .g-in{font:700 13px -apple-system,sans-serif}
+.g-node .g-cap{font:600 11.5px var(--mono);paint-order:stroke;stroke:var(--surface-2);stroke-width:3px;stroke-linejoin:round}
+.g-rel{font:500 10px var(--mono);text-anchor:middle;paint-order:stroke;stroke:var(--surface-2);stroke-width:3px;pointer-events:none}
+.g-node{cursor:pointer;transition:opacity .2s}
+.g-node:hover circle{filter:brightness(1.12)}
+.g-edge{transition:opacity .2s;cursor:pointer}
+.g-edge:hover{stroke-width:4}
+.dim{opacity:.14!important}
+.dim{opacity:.12}
+.g-zoom{position:absolute;right:10px;bottom:10px;display:flex;flex-direction:column;gap:6px}
+.g-zoom button{width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:var(--surface);font-weight:700}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:18px;height:3px;border-radius:2px;display:inline-block}
+
+/* ---------- results ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+.kpi .k{font-size:12px;color:var(--muted);font-weight:600}
+.kpi .v{font-size:28px;font-weight:700;letter-spacing:-.02em;margin:2px 0}
+.kpi .tg{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.kpi .bar{height:6px;border-radius:6px;background:var(--line-2);margin-top:8px;position:relative;overflow:visible}
+.kpi .bar i{display:block;height:100%;border-radius:6px}
+.kpi .bar b{position:absolute;top:-4px;width:2px;height:14px;background:var(--text);opacity:.6}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line-2);text-align:left;vertical-align:middle}
+th{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.tbar{display:flex;align-items:center;gap:8px}
+.tbar .t{flex:1;height:7px;border-radius:7px;background:var(--line-2);min-width:60px;overflow:hidden}
+.tbar .t i{display:block;height:100%;border-radius:7px;background:var(--accent)}
+.tbar span{width:46px;text-align:right;font-variant-numeric:tabular-nums}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media(max-width:980px){.two{grid-template-columns:1fr}}
+.hl td{background:color-mix(in srgb,var(--accent-soft) 60%,transparent);font-weight:600}
+
+/* ---------- toasts ---------- */
+#toasts{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:8px;z-index:50}
+.toast{background:var(--text);color:var(--bg);padding:10px 14px;border-radius:11px;box-shadow:var(--shadow);max-width:360px;font-size:13.5px;animation:fade .2s ease}
+.toast.err{background:var(--bad);color:#fff}
+.offline{max-width:1320px;margin:14px auto 0;padding:0 20px}
+@media(max-width:700px){.top-in{padding:10px 16px}main,.activity{padding-left:16px;padding-right:16px}.act .meter{display:none}.proj select{min-width:0}}
 </style>
 </head>
 <body>
-<header>
-  <h1>Traceability dashboard</h1>
-  <nav id="nav"></nav>
-  <span style="flex:1"></span>
-  <label class="pill" title="Each project (repository) has its own graph, links and decay records">Project <select id="proj" style="padding:2px 6px;border-radius:6px"><option value="">All projects</option></select></label>
-  <span class="pill" id="p-neo"><span class="dot"></span><span>Neo4j</span></span>
-  <span class="pill" id="p-llm"><span class="dot"></span><span>AI model</span></span>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><div class="logo">C4</div><div><b>Traceability Agent</b><small>Links requirements to code and keeps them true</small></div></div>
+    <nav class="tabs" id="tabs" role="tablist">
+      <button class="tab" data-view="link" role="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Link</button>
+      <button class="tab" data-view="decay" role="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 8.5v7M8.5 6.8 15.6 11"/></svg>Code change</button>
+      <button class="tab" data-view="graph" role="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="5" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M7.3 11 16.7 6M7.3 13l9.4 5"/></svg>Graph</button>
+      <button class="tab" data-view="results" role="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Results</button>
+    </nav>
+    <div class="spacer"></div>
+    <label class="proj"><span>Project</span><select id="project" aria-label="Project"><option value="">Loading...</option></select></label>
+    <div class="status-wrap" id="status" title="">
+      <span class="dot" id="d-neo"></span><span class="dot" id="d-llm"></span><span class="dot" id="d-redis"></span>
+    </div>
+    <button class="icon-btn" id="theme" aria-label="Switch light or dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
 </header>
+
+<div class="activity"><div class="act idle" id="act" aria-live="polite">
+  <div class="ico" id="act-ico">✓</div>
+  <div class="txt"><b id="act-title">Ready</b><div class="sub" id="act-sub">Nothing is running.</div></div>
+  <div class="meter" id="act-meter"><i></i></div>
+</div></div>
+<div class="offline hidden" id="offline"><div class="banner bad">The knowledge graph (Neo4j) is not reachable. Start Neo4j Desktop; this page reconnects by itself.</div></div>
+
 <main>
-
-<!-- ============ 1. LINK A REQUIREMENT ============ -->
-<section class="page" id="page-link">
-  <div class="panel">
-    <h2>Step 1 · C4 links a new requirement to code <span class="pill">choose the project at the top</span></h2>
-    <div class="body">
-      <p class="lead">Type a requirement. The system finds the code that implements it, the AI checks each candidate, and the confirmed links are saved to the graph.</p>
-      <textarea id="n-text" rows="3" placeholder="e.g. The system shall record an error code in non-volatile memory when an unrecoverable software error occurs."></textarea>
-      <div class="row">
-        <label>Id (optional)<input id="n-id" placeholder="NEW-001" style="width:130px"></label>
-        <label>Candidates to check<select id="n-topk"><option value="3" selected>3 (about 3 min)</option><option value="5">5 (about 5 min)</option><option value="10">10 (about 10 min)</option></select></label>
-        <button class="b primary" id="n-go">Find code for this requirement</button>
+<!-- ======================= LINK ======================= -->
+<section class="view" id="view-link">
+  <div class="grid">
+    <div class="stack">
+      <div class="card">
+        <h2>Link a new requirement to code</h2>
+        <p class="lead">C4 shortlists the most similar code files, the AI checks each one, and the confirmed links are saved to the knowledge graph.</p>
+        <textarea id="req-text" placeholder="Type or paste a requirement, e.g. For login failures, the IP address of the machine and a timestamp are recorded."></textarea>
+        <div class="examples" id="examples"></div>
+        <div class="row">
+          <input type="text" id="req-id" placeholder="Id (optional)" style="width:150px" maxlength="40">
+          <div class="seg" id="topk" role="group" aria-label="Code files to check">
+            <button data-k="3" class="on">3 files · ~3 min</button><button data-k="5">5 · ~5 min</button><button data-k="10">10 · ~10 min</button>
+          </div>
+          <div class="grow"></div>
+          <button class="btn primary" id="link-go">Find the code <kbd>⌘↵</kbd></button>
+        </div>
+        <div class="hint" id="link-hint"></div>
       </div>
-      <div class="msg" id="n-msg"></div>
+      <div class="card" id="link-result"></div>
     </div>
-  </div>
-  <div id="n-progress" style="display:none;flex-direction:column;gap:16px">
-    <div class="panel"><h2>What the system is doing <span class="pill" id="n-id-pill"></span></h2><div class="body"><div class="steps" id="n-steps"></div></div></div>
-    <div class="banner" id="n-banner" style="display:none"></div>
-    <div class="grid2">
-      <div class="panel"><h2>The AI's decision for each candidate <span class="pill" id="n-count">0</span></h2><div class="body scroll" id="n-cards"><div class="empty">Waiting for the first decision...</div></div></div>
-      <div class="panel"><h2>Requirement and candidate code <span class="pill" id="n-gmeta">–</span></h2><div id="lgraph" class="graph"></div><div class="legend" id="llegend"></div></div>
-    </div>
+    <aside class="card">
+      <div class="card-h"><h3>History</h3><span class="pill" id="link-count">0</span></div>
+      <div class="timeline" id="link-history"></div>
+    </aside>
   </div>
 </section>
 
-<!-- ============ 2. GRAPH ============ -->
-<section class="page" id="page-graph">
-  <div class="panel">
-    <h2><span>The knowledge graph (USKG)</span>
-      <span class="row" style="margin:0;align-items:center">
-        <input id="u-search" placeholder="find a requirement or code id..." style="width:230px">
-        <button class="b" id="u-refresh">Refresh</button><span class="pill" id="u-meta">–</span>
-      </span>
-    </h2>
-    <div id="ugraph" class="graph big"></div>
-    <div class="legend" id="ulegend"></div>
-    <div class="detail" id="udetail">Click a requirement, a code file, a link or a DecayFlag to see the details.</div>
-  </div>
-</section>
-
-<!-- ============ 3. CODE CHANGES ============ -->
-<section class="page" id="page-changes">
-  <div class="panel">
-    <h2>Step 2 · A commit changes code: C4 detects the decay and notifies C3</h2>
-    <div class="body">
-      <p class="lead">In the real system, the repository component (C2) watches the repository and tells C4 which files a commit changed. Here you make the commit yourself. C4 then re-checks only the links that depend on those files, not the whole project.</p>
-      <div class="row">
-        <label>1. A code file that has a link<select id="d-code" style="min-width:230px;max-width:340px"></select></label>
-        <label>2. What changed?<select id="d-mut" style="min-width:260px"></select></label>
-        <button class="b primary" id="d-go">3. Commit the change</button>
-        <button class="b" id="d-undo">Undo my commits</button>
+<!-- ======================= DECAY ======================= -->
+<section class="view" id="view-decay">
+  <div class="grid">
+    <div class="stack">
+      <div class="card">
+        <h2>A commit changes code</h2>
+        <p class="lead">In the real system C2 tells C4 which files a commit changed. Here you make the commit. C4 re-checks only the links of that file; a link that no longer holds is marked decayed (kept, never deleted), gets a DecayFlag, and C3 is notified over Redis.</p>
+        <div class="step-label">1 · A code file that has a link</div>
+        <input type="search" id="file-filter" placeholder="Search files or requirements...">
+        <div class="file-list" id="file-list"></div>
+        <div class="step-label">2 · What does the commit change?</div>
+        <div class="mut-grid" id="mut-grid"></div>
+        <div class="row">
+          <button class="btn primary" id="commit-go">Commit the change</button>
+          <button class="btn" id="undo-go">Undo my changes</button>
+          <div class="grow"></div>
+          <button class="btn danger" id="reset-go" title="Delete this project's links and decay records">Reset project</button>
+        </div>
+        <div class="hint" id="commit-hint"></div>
       </div>
-      <div class="msg" id="d-msg"></div>
-      <div class="diff" id="d-diff" style="display:none"><div><b>Before</b><pre class="bef" id="d-before"></pre></div><div><b>After</b><pre class="aft" id="d-after"></pre></div></div>
+      <div class="card" id="change-result"></div>
+      <div class="card hidden" id="diff-card"></div>
     </div>
-  </div>
-  <div class="banner info" id="d-banner" style="display:none"></div>
-  <div class="panel"><h2>What the system did <span class="pill" id="ev-meta">–</span></h2><div id="events" class="scroll"><div class="empty">Nothing yet. Make a change above.</div></div>
-    <details><summary>Decayed links and DecayFlag history (details)</summary><div id="decayed" style="padding:0 16px 8px"></div><div id="flags" style="padding:0 16px 12px"></div></details>
+    <aside class="card">
+      <div class="card-h"><h3>Commits checked</h3><span class="pill" id="change-count">0</span></div>
+      <div class="timeline" id="change-history"></div>
+    </aside>
   </div>
 </section>
 
-<!-- ============ ADVANCED ============ -->
-<section class="page" id="page-advanced">
-  <div class="subnav" id="subnav"></div>
-
-  <div class="sub" id="sub-overview">
-    <div class="panel"><h2>Pipeline stages <span class="pill" id="p-redis"><span class="dot"></span><span>Redis</span></span></h2><div class="body"><div class="stages" id="stages"></div></div></div>
-    <div class="grid2">
-      <div class="panel"><h2>USKG contents</h2><div id="neo"><div class="empty">Checking...</div></div></div>
-      <div class="panel"><h2>Traceability completeness <span class="pill" id="comp-meta">–</span></h2><div id="comp" class="scroll"><div class="empty">Needs Neo4j.</div></div></div>
+<!-- ======================= GRAPH ======================= -->
+<section class="view" id="view-graph">
+  <div class="card">
+    <div class="card-h"><div><h2>Knowledge graph (USKG)</h2><div class="muted small">Drag to move, scroll to zoom, click anything for details.</div></div><span class="pill accent" id="g-stats">–</span></div>
+    <div class="g-tools">
+      <input type="search" id="g-search" placeholder="Find a requirement or file, then Enter">
+      <label class="toggle"><input type="checkbox" id="g-orphans"> Requirements without a link</label>
+      <label class="toggle"><input type="checkbox" id="g-flags" checked> Decay records</label>
+      <div class="grow" style="flex:1"></div>
+      <button class="btn" id="g-refresh">Refresh</button>
+    </div>
+    <div class="g-wrap">
+      <div class="g-canvas" id="g-canvas"><svg id="g-svg"></svg>
+        <div class="g-zoom"><button id="g-in" aria-label="Zoom in">+</button><button id="g-out" aria-label="Zoom out">−</button><button id="g-fit" aria-label="Fit">⤢</button></div>
+      </div>
+      <div class="g-panel" id="g-panel"><div class="muted">Click a requirement, a code file, a link or a decay record to see the details here.</div></div>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--accent)"></i>Requirement</span>
+      <span><i class="sw" style="background:var(--faint);width:10px;height:10px;border-radius:50%"></i>Code file</span>
+      <span><i class="sw" style="background:var(--ok)"></i>Verified link</span>
+      <span><i class="sw" style="background:var(--bad)"></i>Decayed link</span>
+      <span><i class="sw" style="background:var(--warn)"></i>Decay record</span>
     </div>
   </div>
+</section>
 
-  <div class="sub" id="sub-run">
-    <div class="panel"><h2>Run controls <span class="pill" id="r-state">checking...</span></h2><div class="body">
-      <div class="row" style="margin-top:0">
-        <label>What<select id="r-kind"><option value="link">link: find links and write them to Neo4j</option><option value="evaluate">evaluate: score against gold labels</option><option value="monitor">monitor: one decay pass</option></select></label>
-        <label id="l-dataset">Dataset<select id="r-dataset"></select></label>
-        <label id="l-limit">Requirements (blank = all)<input id="r-limit" type="number" min="1" max="500" value="5" style="width:90px"></label>
-        <label id="l-topk">Top-k<input id="r-topk" type="number" min="1" max="50" value="3" style="width:70px"></label>
-        <label id="l-retr">Retrieval<select id="r-retrieval"></select></label>
-        <label id="l-force" style="flex-direction:row;align-items:center;gap:6px"><input type="checkbox" id="r-force" style="width:auto"> re-check unchanged links</label>
-        <button class="b primary" id="r-start">Start</button><button class="b danger" id="r-stop" disabled>Stop</button><span class="pill" id="r-est"></span>
-      </div><div class="msg" id="r-msg"></div></div></div>
-    <div class="cards" id="run-cards"></div>
-    <div class="grid2">
-      <div class="panel"><h2>Latest run <span class="pill" id="rg-meta">–</span></h2><div id="rgraph" class="graph"></div><div class="legend" id="rlegend"></div><div class="detail" id="rdetail">Click a node or edge.</div></div>
-      <div class="panel"><h2>Live verdicts <span class="pill" id="feed-count">0</span></h2><div id="feed" class="scroll body"><div class="empty">Waiting for a run.</div></div></div>
-    </div>
+<!-- ======================= RESULTS ======================= -->
+<section class="view" id="view-results">
+  <div class="kpis" id="kpis"></div>
+  <div class="card"><div class="card-h"><h3>Precision, recall and F1</h3><span class="muted small">LLM verification against the baselines</span></div><div id="prf"></div></div>
+  <div class="two">
+    <div class="card"><div class="card-h"><h3>Stage 1 recall ceiling</h3><span class="muted small">share of true links that reach the AI</span></div><div id="s1"></div></div>
+    <div class="card"><div class="card-h"><h3>Decay detection by edit type</h3><span class="muted small" id="di-note"></span></div><div id="di"></div></div>
   </div>
-
-  <div class="sub" id="sub-results">
-    <div class="grid2">
-      <div class="panel"><h2>Stage-1 recall <select id="res-ds"></select></h2><div class="body"><div class="bars" id="res-bars"></div><div class="msg" id="res-note"></div></div></div>
-      <div class="panel"><h2>Precision, recall, F1</h2><div class="scroll" id="res-prf"></div></div>
-    </div>
-    <div class="grid2">
-      <div class="panel"><h2>Targets from the spec</h2><div id="res-nfr"></div></div>
-      <div class="panel"><h2>Decay-injection test</h2><div class="body" id="res-decay"></div></div>
-    </div>
-    <div class="panel"><h2>Recorded runs <span class="pill" id="runs-meta">–</span></h2><div class="scroll" id="res-runs"></div></div>
-  </div>
-
-  <div class="sub" id="sub-setup">
-    <div class="grid2">
-      <div class="panel"><h2>Load demo data into Neo4j</h2><div class="body"><p class="lead">Writes <code>Requirement</code> and <code>CodeEntity</code> nodes (marked with a <code>dataset</code> property). Local Neo4j only. Stands in for the C1 and C2 components.</p>
-        <div class="row" style="margin-top:0"><label>Dataset<select id="s-dataset"></select></label><button class="b primary" id="s-load">Load</button></div><div class="msg" id="s-msg"></div></div></div>
-      <div class="panel"><h2>Reset C4 results</h2><div class="body"><p class="lead">Deletes the <code>VERIFIED_TRACE</code> edges and <code>DecayFlag</code> nodes of the project chosen at the top (every project if “All projects” is chosen), removes requirements typed into this dashboard, and undoes code edits. Loaded datasets are kept.</p>
-        <div class="row" style="margin-top:0"><button class="b danger" id="s-reset">Reset results</button></div><div class="msg" id="s-rmsg"></div></div></div>
-    </div>
-  </div>
+  <div class="card" style="margin-top:16px"><div class="card-h"><h3>Targets from the specification</h3></div><div id="nfr"></div></div>
 </section>
 </main>
+<div id="toasts"></div>
 
 <script>
+"use strict";
+/* ------------------------------------------------------------ helpers */
 const $ = id => document.getElementById(id);
-const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const short = id => String(id).replace(/\\/g, "/").split("/").pop();
+const dirOf = id => { const p = String(id).replace(/\\/g, "/").split("/"); p.pop(); return p.join("/"); };
 const pct = x => x == null ? "–" : (x * 100).toFixed(1) + "%";
-const sec = x => x == null ? "–" : x.toFixed(1) + "s";
-const HDR = {"Content-Type":"application/json","X-Requested-With":"dashboard"};
-async function j(url){ const r = await fetch(url); if (!r.ok){ let d = {}; try { d = await r.json(); } catch(e){} throw new Error(d.detail || (url + " " + r.status)); } return r.json(); }
-async function post(url, body){ const r = await fetch(url, {method:"POST", headers:HDR, body: body ? JSON.stringify(body) : undefined}); const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.detail || r.status); return d; }
-let PROJECT = "";
-try { PROJECT = localStorage.getItem("project") || ""; } catch(e){}
-const pq = () => PROJECT ? "project=" + encodeURIComponent(PROJECT) : "";
-async function loadProjects(select){
-  try { const list = await j("/api/projects"), sel = $("proj");
-    if (select !== undefined) PROJECT = select;
-    if (PROJECT && !list.some(p => p.project === PROJECT)) PROJECT = "";
-    sel.replaceChildren(new Option("All projects", ""), ...list.map(p => new Option(`${p.project} · ${p.requirements} req · ${p.code_entities} code · ${p.links} links${p.decayed ? " · " + p.decayed + " decayed" : ""}`, p.project)));
-    sel.value = PROJECT; } catch(e){} }
-function refreshProject(){ loadGraph(); loadDecay(); loadDemoState(); pollCompleteness(); }
-$("proj").onchange = () => { PROJECT = $("proj").value; try { localStorage.setItem("project", PROJECT); } catch(e){} refreshProject(); };
-function msg(id, text, err){ const m = $(id); m.textContent = text; m.className = "msg" + (err ? " err" : ""); }
-function setPill(id, cls, text){ const p = $(id); p.firstElementChild.className = "dot " + cls; p.lastElementChild.textContent = text; }
-function table(headers, rows){ const t = document.createElement("table"); const h = t.createTHead().insertRow(); headers.forEach(x => { const c = document.createElement("th"); c.textContent = x; h.append(c); }); rows.forEach(r => { const tr = t.insertRow(); r.forEach(c => { const td = tr.insertCell(); if (c instanceof Node) td.append(c); else td.textContent = c == null ? "–" : c; }); }); return t; }
-const dark = () => matchMedia("(prefers-color-scheme: dark)").matches;
+const store = { get(k, d) { try { return localStorage.getItem(k) ?? d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+function ago(iso) { if (!iso) return ""; const s = Math.max(0, (Date.now() - new Date(iso)) / 1000); if (s < 60) return "just now"; if (s < 3600) return Math.floor(s / 60) + " min ago"; if (s < 86400) return Math.floor(s / 3600) + " h ago"; return new Date(iso).toLocaleDateString([], {month: "short", day: "numeric"}); }
+function clock(iso) { return iso ? new Date(iso).toLocaleString([], {month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"}) : ""; }
+function dur(a, b) { const s = Math.max(0, Math.round(((b ? new Date(b) : new Date()) - new Date(a)) / 1000)); return s < 60 ? s + " s" : Math.floor(s / 60) + " min " + (s % 60) + " s"; }
+async function get(path) { const r = await fetch(path); const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.detail || r.status); return d; }
+async function post(path, body) { const r = await fetch(path, {method: "POST", headers: {"Content-Type": "application/json", "X-Requested-With": "c4-web"}, body: JSON.stringify(body || {})}); const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.detail || r.status); return d; }
+function toast(msg, err) { const t = document.createElement("div"); t.className = "toast" + (err ? " err" : ""); t.textContent = msg; $("toasts").append(t); setTimeout(() => t.remove(), 4200); }
+const same = (k, v) => { const s = JSON.stringify(v); if (S.cache[k] === s) return true; S.cache[k] = s; return false; };
 
-/* ---------- graph helper ---------- */
-const CATS = {
-  verified:{label:"Link (verified)",color:"#1a9e5c",dashes:false,width:3}, decayed:{label:"Link (decayed)",color:"#d64545",dashes:false,width:3},
-  has_decay:{label:"Decay record",color:"#e8890c",dashes:[4,3],width:2}, truth:{label:"Ground-truth link (file preview)",color:"#7a5af8",dashes:false,width:2},
-  verified_correct:{label:"Verified, correct",color:"#1a9e5c",dashes:false,width:3}, verified_wrong:{label:"Verified, not in gold",color:"#e8890c",dashes:false,width:3},
-  rejected_true:{label:"Rejected but true",color:"#9b5de5",dashes:[6,4],width:2}, rejected:{label:"Checked, not linked",color:"#98a2b3",dashes:[3,5],width:1.5},
-  pending:{label:"Candidate, not checked yet",color:"#2f6fed",dashes:[6,4],width:1.5}, missed:{label:"True link not shortlisted",color:"#d64545",dashes:[2,6],width:1.5}};
-function nodeStyle(n){ const fc = dark() ? "#e6e9ef" : "#1c2430";
-  if (n.kind === "requirement") return n.orphan ? {shape:"box",color:{background:dark()?"#232b37":"#eef1f6",border:"#d64545"},borderWidth:2,shapeProperties:{borderDashes:[4,3]},font:{color:fc,size:13}} : {shape:"box",color:{background:"#2f6fed",border:"#2f6fed"},font:{color:"#fff",size:13}};
-  if (n.kind === "decayflag") return {shape:"diamond",size:14,color:{background:"#e8890c",border:"#e8890c"},font:{color:fc,size:11}};
-  return {shape:n.codeKind === "design" ? "square" : "dot",size:9,color:{background:"#8b97ab",border:"#8b97ab"},font:{color:fc,size:11}}; }
-function makeGraph(containerId, legendId, onClick, hiddenSet){
-  const nodes = new vis.DataSet(), edges = new vis.DataSet(); let net = null, lastSig = "";
-  const api = {nodes, edges,
-    render(g){ const sig = JSON.stringify([g.source, g.nodes.map(n => n.id + (n.orphan ? "o" : "")), g.edges.map(e => e.from + e.to + e.category)]); if (sig === lastSig) return false; lastSig = sig;
-      nodes.clear(); edges.clear(); nodes.add(g.nodes.map(n => ({id:n.id,label:n.label,raw:n,...nodeStyle(n)})));
-      edges.add(g.edges.map((e,i) => { const c = CATS[e.category] || CATS.rejected; return {id:i,from:e.from,to:e.to,category:e.category,color:{color:c.color,highlight:c.color},dashes:c.dashes,width:c.width,hidden:hiddenSet.has(e.category),arrows:"to",raw:e}; }));
-      const l = $(legendId); l.replaceChildren();
-      [...new Set(g.edges.map(e => e.category))].forEach(c => { const spec = CATS[c]; if (!spec) return; const lab = el("label"), cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = !hiddenSet.has(c);
-        cb.onchange = () => { cb.checked ? hiddenSet.delete(c) : hiddenSet.add(c); edges.update(edges.get().map(e => ({id:e.id, hidden: hiddenSet.has(e.category)}))); };
-        const sw = el("span","sw"); sw.style.borderColor = spec.color; if (spec.dashes) sw.style.borderTopStyle = "dashed"; lab.append(cb, sw, document.createTextNode(spec.label)); l.append(lab); });
-      if (g.nodes.length) l.append(el("span","", "blue box = requirement · dot/square = code · diamond = decay record · dashed red box = no link yet"));
-      if (!net){ net = new vis.Network($(containerId), {nodes, edges}, {physics:{solver:"forceAtlas2Based",forceAtlas2Based:{gravitationalConstant:-45,springLength:110},stabilization:{iterations:150}},interaction:{hover:true,tooltipDelay:150},edges:{smooth:false}}); net.on("click", p => onClick(p, nodes, edges)); api.net = net; }
-      return true; },
-    fit(){ if (net) { net.redraw(); net.fit({animation:false}); } },
-    focus(text){ const q = text.trim().toLowerCase(); if (!q || !net) return false; const hit = nodes.get().find(n => n.label.toLowerCase().includes(q)); if (!hit) return false; net.selectNodes([hit.id]); net.focus(hit.id,{scale:1.3,animation:true}); return hit; }};
-  return api; }
+const MUTATIONS = {
+  unrelated_replacement: {icon: "🔀", title: "Replace with unrelated text", desc: "The file now does something else entirely.", expect: "should break"},
+  negate_behavior: {icon: "↩️", title: "Reverse the meaning", desc: "'shall' becomes 'shall not'.", expect: "should break"},
+  change_numbers: {icon: "🔢", title: "Change the numbers", desc: "Limits and sizes are changed.", expect: "may break"},
+  strip_to_first_sentence: {icon: "✂️", title: "Delete almost everything", desc: "Only the first sentence is kept.", expect: "should break"},
+  cosmetic_control: {icon: "💬", title: "Harmless note", desc: "A formatting comment only.", expect: "should hold"},
+};
+const EXAMPLES = {
+  "iTrust": ["For Login Failures, the IP Address of the machine, transaction type = 1, and timestamp are recorded."],
+  "CM-1": ["The DPU-CCM shall check the length of a received DPU_CMD against an expected value from a lookup table indexed by FUNCTION code. If the received value does not match the expected, then the command will be discarded, and an error will be reported."],
+  "jbehave": ["MetaFilter is always using the PrintStreamEmbedderMonitor, even when the Embedder is using a different monitor. The Embedder should pass its own monitor to each MetaFilter it creates."],
+  "eTour": ["Use case SearchSite: The user searches for a specific site on the computer. The system looks up sites matching the search criteria entered by the user and shows the results."],
+};
 
-/* ---------- navigation ---------- */
-const TOP = [["demo","C4 demo"],["graph","Graph"],["advanced","Advanced"]];
-const PAGE_IDS = ["link","changes","graph","advanced"], SHOWN = {demo:["link","changes"], graph:["graph"], advanced:["advanced"]};
-const SUB = [["overview","Pipeline"],["run","Live run"],["results","Results"],["setup","Demo setup"]];
-let current = "demo", currentSub = "overview";
-function show(name, sub){
-  current = name; PAGE_IDS.forEach(k => $("page-" + k).classList.toggle("on", SHOWN[name].includes(k)));
-  [...$("nav").children].forEach((b,i) => b.classList.toggle("on", TOP[i][0] === name));
-  history.replaceState(null, "", "#" + name);
-  if (name === "graph") { loadGraph(); setTimeout(() => uskgG.fit(), 150); }
-  if (name === "demo") { loadDemoState(); loadDecay(); setTimeout(() => linkG.fit(), 150); }
-  if (name === "advanced") showSub(sub || currentSub);
-}
-function showSub(name){
-  currentSub = name; SUB.forEach(([k]) => $("sub-" + k).classList.toggle("on", k === name)); [...$("subnav").children].forEach((b,i) => b.classList.toggle("on", SUB[i][0] === name));
-  if (name === "results") loadResults(); if (name === "setup") loadDemoState(); if (name === "run") setTimeout(() => runG.fit(), 150);
-}
-TOP.forEach(([k,l]) => { const b = el("button","",l); b.onclick = () => show(k); $("nav").append(b); });
-SUB.forEach(([k,l]) => { const b = el("button","",l); b.onclick = () => showSub(k); $("subnav").append(b); });
+const S = {view: "link", project: "", busy: false, wasBusy: false, topk: 3, linkSel: null, changeSel: null, file: null, mutation: "unrelated_replacement",
+           openCands: new Set(), lastEdit: null, cache: {}, linkRuns: [], texts: {}, changeRuns: [], files: [], neo: true};
 
-/* ---------- 1. link a requirement ---------- */
-const linkHidden = new Set();
-const linkG = makeGraph("lgraph", "llegend", () => {}, linkHidden);
-let mine = {prev: null, id: null, reqId: null, active: false};
-async function currentRunId(){ try { return (await j("/api/run?after=0")).id; } catch(e){ return null; } }
-$("n-go").onclick = async () => {
-  const text = $("n-text").value.trim(); if (text.length < 15) return msg("n-msg","Write the requirement as a full sentence.", true);
-  $("n-go").disabled = true; msg("n-msg","Adding the requirement and starting...");
-  try { const prev = await currentRunId(); const r = await post("/api/requirements/link", {text, id:$("n-id").value.trim(), top_k:+$("n-topk").value, project:PROJECT});
-    mine = {prev, id: null, reqId: r.id, active: true}; $("n-progress").style.display = "flex"; $("n-id-pill").textContent = r.id; $("n-banner").style.display = "none";
-    $("n-cards").replaceChildren(el("div","empty","Waiting for the first decision...")); msg("n-msg", `Requirement ${r.id} added. The system is working on it (about ${r.minutes} minutes on the CPU server).`); renderSteps(null); }
-  catch(e){ msg("n-msg", e.message, true); $("n-go").disabled = false; } };
-function renderSteps(s){
-  const box = $("n-steps"); box.replaceChildren();
-  const st = !s ? "starting" : s.state, total = s && s.total != null ? s.total : "?";
-  const defs = [
-    ["Find candidate code", st === "starting" || st === "shortlisting" ? "active" : "done", st === "starting" ? "loading the model..." : st === "shortlisting" ? "comparing the text with every code file" : `${s.shortlisted} candidates shortlisted`],
-    ["AI checks each one", st === "verifying" ? "active" : st === "finished" ? "done" : st === "interrupted" ? "interrupted" : "pending", s && s.total != null ? `${s.done} of ${total} checked` : "waiting"],
-    ["Save links to the graph", st === "finished" ? "done" : st === "verifying" ? "active" : st === "interrupted" ? "interrupted" : "pending", s ? `${s.kept} link(s) saved` : "waiting"]];
-  defs.forEach(([t, state, d], i) => { const c = el("div","step " + state); c.append(el("div","n", state), el("div","t",(i+1) + ". " + t), el("div","d", d)); box.append(c); });
+/* ------------------------------------------------------------ theme + navigation */
+function applyTheme(t) { if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; }
+applyTheme(store.get("theme", ""));
+$("theme").onclick = () => { const dark = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim() === "#0d1017"; const t = dark ? "light" : "dark"; applyTheme(t); store.set("theme", t); };
+function show(view) {
+  S.view = view; store.set("view", view);
+  document.querySelectorAll(".tab").forEach(b => b.classList.toggle("on", b.dataset.view === view));
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("on", v.id === "view-" + view));
+  history.replaceState(null, "", "#" + view);
+  window.scrollTo({top: 0});
+  refreshView(true);
 }
-async function pollMine(){
-  if (!mine.active) return;
+$("tabs").addEventListener("click", e => { const b = e.target.closest(".tab"); if (b) show(b.dataset.view); });
+window.addEventListener("hashchange", () => { const v = location.hash.slice(1); if (v !== S.view && ["link", "decay", "graph", "results"].includes(v)) show(v); });
+
+/* ------------------------------------------------------------ status, projects, activity */
+async function loadHealth() {
   try {
-    const r = await j("/api/run?after=0");
-    if (!mine.id) { if (r.id && r.id !== mine.prev) mine.id = r.id; else return; }
-    if (r.id !== mine.id) return;
-    renderSteps(r.summary);
-    const cards = $("n-cards"); const items = r.feed.filter(e => e.type === "verdict" || e.type === "malformed");
-    $("n-count").textContent = items.length; if (items.length) cards.replaceChildren();
-    items.forEach(e => { const c = el("div","card"), t = el("div","t"); t.append(el("span","", e.target_id));
-      if (e.type === "malformed") t.append(el("span","badge err","unreadable reply")); else t.append(el("span","badge " + (e.kept ? "yes" : "no"), e.kept ? "LINKED" : "NOT LINKED"));
-      c.append(t); c.append(el("div","r", e.type === "malformed" ? e.error : (e.kept ? "AI confidence " + e.confidence.toFixed(2) : "AI is " + Math.round(e.confidence*100) + "% sure this is unrelated") + " · " + e.latency + "s\n" + e.reasoning)); cards.append(c); });
-    const g = await j("/api/graph?source=run"); if (linkG.render(g)) { $("n-gmeta").textContent = `${g.nodes.length} nodes`; setTimeout(() => linkG.fit(), 100); }
-    const b = $("n-banner");
-    if (r.summary.state === "finished") { mine.active = false; $("n-go").disabled = false; b.style.display = ""; b.className = "banner " + (r.summary.kept ? "ok" : "info");
-      b.replaceChildren(document.createTextNode(r.summary.kept ? `Done: ${mine.reqId} is linked to ${r.summary.kept} code file(s). ` : `Done: no candidate was confirmed for ${mine.reqId}. `));
-      const btn = el("button","b primary","See it in the graph"); btn.style.marginLeft = "10px"; btn.onclick = () => { show("graph"); setTimeout(() => { $("u-search").value = mine.reqId; focusSearch(); }, 500); }; b.append(btn); }
-    else if (r.summary.state === "interrupted") { mine.active = false; $("n-go").disabled = false; b.style.display = ""; b.className = "banner bad"; b.textContent = "The run was interrupted (the AI server may be unreachable). Try again."; }
-  } catch(e){}
+    const h = await get("/api/health");
+    S.neo = h.neo4j.connected;
+    $("d-neo").className = "dot " + (h.neo4j.connected ? "ok" : "bad");
+    $("d-llm").className = "dot " + (h.llm.reachable ? "ok" : "bad");
+    $("d-redis").className = "dot " + (h.redis.reachable ? "ok" : "warn");
+    $("status").title = `Knowledge graph (Neo4j): ${h.neo4j.connected ? "connected" : "not reachable"}\nAI model ${h.llm.model || ""}: ${h.llm.reachable ? "ready" : "not reachable"}\nMessages to C3 (Redis): ${h.redis.reachable ? "connected" : "not running"}`;
+    $("offline").classList.toggle("hidden", h.neo4j.connected);
+  } catch (e) { $("d-neo").className = "dot bad"; }
 }
-
-/* ---------- 2. graph ---------- */
-const uskgHidden = new Set();
-const uskgG = makeGraph("ugraph", "ulegend", (p, nodes, edges) => { const d = $("udetail");
-  if (p.nodes.length){ const n = nodes.get(p.nodes[0]).raw;
-    if (n.kind === "requirement") showRequirement(n.label);
-    else if (n.kind === "decayflag") d.textContent = `DECAY RECORD\nCode file: ${n.codeEntityId}\nPrevious confidence: ${n.previousConfidence}\nWhen: ${n.flaggedAt}\n\nWhy:\n${n.text}`;
-    else d.textContent = `CODE  ${n.label}${n.codeKind ? " (" + n.codeKind + ")" : ""}\n\n${n.text || "(no text)"}`; }
-  else if (p.edges.length){ const e = edges.get(p.edges[0]).raw, c = CATS[e.category];
-    d.textContent = `${c ? c.label : e.category}\n${e.from.slice(2)} → ${e.to.slice(2)}\n` + (e.confidence != null ? `Confidence: ${e.confidence}\n` : "") + (e.checked ? `Last checked: ${e.checked}\n` : "") + (e.reasoning ? `\nWhy the AI linked them:\n${e.reasoning}` : ""); } }, uskgHidden);
-async function loadGraph(){
-  try { const g = await j("/api/uskg?" + pq()); const changed = uskgG.render(g); $("u-meta").textContent = `${g.nodes.length} nodes · ${g.edges.length} links`;
-    const hint = "Click a requirement, a code file, a link or a DecayFlag to see the details.";
-    if (g.edges.length && $("udetail").textContent.startsWith("Neo4j is connected but")) $("udetail").textContent = hint;
-    if (!g.edges.length) $("udetail").textContent = "Neo4j is connected but holds no links yet. Requirements with a dashed red border have no link. Use “Link a requirement” to create some.";
-    if (changed && current === "graph") setTimeout(() => uskgG.fit(), 120);
-  } catch(e){ $("udetail").textContent = "Could not load the graph: " + e.message; }
+async function loadProjects() {
+  try {
+    const list = await get("/api/projects");
+    if (same("projects", list)) return;
+    const sel = $("project");
+    const wanted = S.project || store.get("project", "");
+    sel.innerHTML = list.length ? list.map(p => `<option value="${esc(p.project)}">${esc(p.project)} · ${p.requirements} req · ${p.code_entities} code · ${p.links} links${p.decayed ? " · " + p.decayed + " broken" : ""}</option>`).join("")
+                                : `<option value="">No project loaded</option>`;
+    S.project = list.some(p => p.project === wanted) ? wanted : (list[0] ? list[0].project : "");
+    sel.value = S.project;
+    renderExamples();
+  } catch (e) {}
 }
-async function showRequirement(id){ const d = $("udetail");
-  try { const r = await j("/api/uskg/requirement/" + encodeURIComponent(id)); d.replaceChildren();
-    d.append(el("b","","REQUIREMENT " + r.id), document.createTextNode("\n" + r.text + "\n\n"));
-    d.append(el("b","", r.score.is_orphan ? "No verified link yet" : `Completeness ${r.score.score}%  (mean confidence ${(r.score.trace_confidence ?? 0).toFixed(2)})`), document.createTextNode("\n"));
-    r.links.forEach(l => d.append(document.createTextNode(`\n• ${l.code_id}  [${l.status}]  confidence ${l.confidence != null ? l.confidence.toFixed(2) : "–"}\n   ${l.justification || ""}\n`)));
-    if (r.decay_history.length){ d.append(el("b","","\nDecay history\n")); r.decay_history.forEach(f => d.append(document.createTextNode(`• ${f.code_id}: was ${f.previous}  ${f.at}\n   ${f.reason}\n`))); }
-  } catch(e){ d.textContent = "REQUIREMENT " + id + "\n(details need a connected Neo4j: " + e.message + ")"; } }
-function focusSearch(){ const hit = uskgG.focus($("u-search").value); if (hit && hit.raw.kind === "requirement") showRequirement(hit.raw.label); }
-$("u-search").onkeydown = e => { if (e.key === "Enter") focusSearch(); };
-$("u-refresh").onclick = loadGraph;
+$("project").onchange = () => { S.project = $("project").value; store.set("project", S.project); S.linkSel = S.changeSel = S.file = null; S.lastEdit = null; S.cache = {projects: S.cache.projects}; renderExamples(); refreshView(true); };
 
-/* ---------- 3. code changes ---------- */
-const MUT_LABEL = {unrelated_replacement:"Replace it with unrelated text (should break the link)", negate_behavior:"Reverse the meaning: shall becomes shall not", change_numbers:"Change the numbers (limits, sizes)", strip_to_first_sentence:"Delete everything except the first sentence", cosmetic_control:"Harmless formatting note (should NOT break the link)"};
-let chg = {startedAt: 0, codeId: null, watching: false};
-async function loadDemoState(){
-  try { const d = await j("/api/demo?" + pq());
-    $("d-mut").replaceChildren(...d.mutations.map(m => new Option(MUT_LABEL[m] || m.replace(/_/g," "), m)));
-    $("s-dataset").replaceChildren(...d.datasets.map(x => new Option(x, x)));
-    const sel = $("d-code"), prev = sel.value; sel.replaceChildren(...d.code_entities.map(c => new Option(`${c.id}${c.modified ? " (changed)" : ""} · ${c.status}`, c.id))); if (prev) sel.value = prev;
-    $("d-go").disabled = !d.allowed || !d.code_entities.length; $("d-undo").disabled = !d.allowed; $("s-load").disabled = $("s-reset").disabled = !d.allowed;
-    if (!d.allowed) { msg("d-msg", d.reason, true); msg("s-msg", d.reason, true); }
-    else if (!d.code_entities.length) msg("d-msg","No code file has a link yet. Link a requirement first (first tab); then you can change a file it links to.");
-    else if ($("d-msg").textContent.startsWith("No code file")) msg("d-msg","");
-  } catch(e){} }
-$("d-go").onclick = async () => {
-  const codeId = $("d-code").value; if (!codeId) return; $("d-go").disabled = true;
-  try { const r = await post("/api/demo/commit", {code_id:codeId, mutation:$("d-mut").value, project:PROJECT});
-    $("d-diff").style.display = ""; $("d-before").textContent = r.before; $("d-after").textContent = r.after;
-    chg = {startedAt: Date.now() - 3000, codeId, watching: true}; msg("d-msg", "Commit made. The repository component would now tell C4 which file changed; C4 re-checks only the links that depend on it (about a minute)...");
-    const b = $("d-banner"); b.style.display = ""; b.className = "banner info"; b.textContent = "Re-checking the links...";
+async function loadActivity() {
+  let a;
+  try { a = await get("/api/activity"); } catch (e) { return; }
+  const busy = a.state !== "idle";
+  const act = $("act"), meter = $("act-meter");
+  act.className = "act " + (busy ? "busy" : "idle");
+  $("act-ico").innerHTML = busy ? '<span class="spin"></span>' : "✓";
+  meter.classList.toggle("indet", busy && !(a.kind === "link" && a.total));
+  if (!busy) { $("act-title").textContent = "Ready"; $("act-sub").textContent = "Nothing is running. You can link a requirement or make a commit."; meter.firstElementChild.style.width = "0"; }
+  else if (a.kind === "link") {
+    $("act-title").textContent = `Linking ${a.requirements.join(", ")}${a.project ? " · " + a.project : ""}`;
+    $("act-sub").textContent = a.total ? `The AI has checked ${a.done} of ${a.total} code files · ${dur(a.started)} so far · about a minute per file` : `Shortlisting code files · ${dur(a.started)}`;
+    meter.firstElementChild.style.width = a.total ? (100 * a.done / a.total) + "%" : "0";
+  } else if (a.kind === "change") {
+    $("act-title").textContent = `Re-checking the links of ${a.files.join(", ") || "the changed file"}`;
+    $("act-sub").textContent = `${a.checked} link(s) checked · ${dur(a.started)} so far`;
+  } else {
+    $("act-title").textContent = "Working...";
+    $("act-sub").textContent = a.state === "external" ? "A run started outside this page is using the AI model." : "Starting up...";
   }
-  catch(e){ msg("d-msg", e.message, true); chg.watching = false; $("d-banner").style.display = "none"; }
-  $("d-go").disabled = false; loadDemoState(); };
-$("d-undo").onclick = async () => { try { const r = await post("/api/demo/undo", {project:PROJECT}); msg("d-msg", `Undone: ${r.restored_texts} file(s) restored, ${r.flags_removed} decay record(s) removed. Links are verified again.`); $("d-diff").style.display = "none"; $("d-banner").style.display = "none"; chg.watching = false; loadDemoState(); loadDecay(); loadGraph(); } catch(e){ msg("d-msg", e.message, true); } };
-async function loadDecay(){
-  try { const d = await j("/api/decay?" + pq()); const ev = $("events"); ev.replaceChildren();
-    const items = d.events.filter(e => e.type === "decay_event" || e.type === "recheck");
-    if (!items.length) ev.append(el("div","empty","Nothing yet. Make a change above."));
-    items.slice().reverse().forEach(e => { const c = el("div","card"), t = el("div","t");
-      if (e.type === "decay_event"){ t.append(el("span","", `Message for the testing component (C3): ${e.event.requirementId} → ${e.event.codeEntityId}`), el("span","badge " + (e.delivered ? "yes" : "warn"), e.delivered ? "delivered" : "recorded (Redis not running)")); c.append(t);
-        const pre = el("div","r"); pre.textContent = JSON.stringify(e.event, null, 1); c.append(pre); }
-      else { t.append(el("span","", `Re-checked ${e.source_id} → ${e.target_id}`), el("span","badge " + (e.decayed ? "err" : "yes"), e.decayed ? "LINK BROKEN" : "link still holds")); c.append(t); c.append(el("div","r", `Confidence ${e.previous_confidence.toFixed(2)} → ${e.new_confidence.toFixed(2)}\n${e.reason}`)); }
-      ev.append(c); });
-    $("ev-meta").textContent = `${items.length} events`;
-    $("decayed").replaceChildren(d.decayed.length ? table(["Requirement","Code","Confidence","Checked"], d.decayed.map(r => [r.requirement, r.code, r.confidence != null ? r.confidence.toFixed(2) : "–", r.checked])) : el("div","empty","No decayed links."));
-    $("flags").replaceChildren(d.flags.length ? table(["Requirement","Code","Was","When","Reason"], d.flags.map(r => [r.requirement, r.code, r.previous != null ? r.previous.toFixed(2) : "–", r.at, r.reason])) : el("div","empty","No decay records."));
-    if (chg.watching){ const start = d.events.find(e => e.type === "run_start"), end = d.events.find(e => e.type === "run_end");
-      if (start && new Date(start.ts).getTime() >= chg.startedAt && end){ chg.watching = false; const re = d.events.filter(e => e.type === "recheck"), b = $("d-banner"), broken = re.filter(e => e.decayed);
-        b.style.display = ""; b.className = "banner " + (broken.length ? "bad" : "ok");
-        b.textContent = !re.length ? "Nothing was re-checked: the changed file has no link, or its text did not change." : broken.length ? `${broken.length} link(s) broken by this change. They are marked in the graph and C3 was notified.` : "The change did not break any link: the AI still considers the file related."; msg("d-msg",""); loadGraph(); } } } catch(e){} }
+  S.busy = busy;
+  document.querySelectorAll("#link-go,#commit-go,#reset-go").forEach(b => b.disabled = busy);
+  $("link-hint").textContent = busy ? "Something is running (see the bar above). Wait for it to finish." : $("link-hint").classList.contains("err") ? $("link-hint").textContent : "";
+  if (S.wasBusy && !busy) { toast("Finished."); S.cache = {}; loadProjects(); refreshView(true); if (S.view !== "graph") G.stale = true; }
+  S.wasBusy = busy;
+}
 
-/* ---------- advanced: status, pipeline, overview ---------- */
-async function pollStatus(){ try { const s = await j("/api/status");
-  setPill("p-neo", s.neo4j.connected ? "ok" : "bad", s.neo4j.connected ? "Neo4j connected" : "Neo4j offline");
-  const l = s.llm; setPill("p-llm", !l.configured ? "" : l.reachable ? "ok" : "bad", !l.configured ? "AI: default" : l.reachable ? "AI model ready" : "AI model unreachable");
-  const r = s.redis; setPill("p-redis", r.reachable ? "ok" : "warn", r.reachable ? "Redis connected" : r.installed ? "Redis offline" : "Redis not installed"); renderNeo(s.neo4j); } catch(e){} }
-function renderNeo(n){ const box = $("neo"); box.replaceChildren(); if (!n.connected){ box.append(el("div","empty","Not connected to " + n.uri + (n.error ? "\n" + n.error : ""))); return; }
-  const c = n.counts; box.append(table(["Node or edge","Count"],[["Requirement",c.requirements],["CodeEntity",c.code_entities],["VERIFIED_TRACE",c.verified_traces],["  of which decayed",c.decayed],["DecayFlag",c.decay_flags]])); }
-async function pollPipeline(){ try { const p = await j("/api/pipeline"); const box = $("stages"); box.replaceChildren();
-  p.stages.forEach((s,i) => { const d = el("div","stage " + s.state); d.append(el("div","st", s.state), el("div","t", (i+1) + ". " + s.title), el("div","d", s.detail)); box.append(d); }); } catch(e){} }
-async function pollCompleteness(){ const box = $("comp"); try { const c = await j("/api/completeness?" + pq());
-  $("comp-meta").textContent = `${c.requirements} requirements · ${c.orphans.length} without a link · mean ${c.mean_score.toFixed(1)}%`; const t = document.createElement("table");
-  c.rows.slice(0, 60).forEach(r => { const row = t.insertRow(); const a = row.insertCell(); a.textContent = r.requirement_id; const bar = row.insertCell(); bar.style.width = "45%"; const b = el("div","bar"), i = el("i"); i.style.width = r.score + "%"; i.style.background = r.is_orphan ? "var(--bad)" : "var(--ok)"; b.append(i); bar.append(b); row.insertCell().textContent = r.is_orphan ? "no link" : r.score.toFixed(1) + "%"; });
-  box.replaceChildren(t); } catch(e){ $("comp-meta").textContent = "–"; box.replaceChildren(el("div","empty","Needs a connected Neo4j with requirements loaded.")); } }
+/* ------------------------------------------------------------ LINK view */
+function renderExamples() {
+  const ex = EXAMPLES[S.project] || [];
+  $("examples").innerHTML = ex.length ? `<span class="muted small">Try:</span>` + ex.map((t, i) => `<button class="chip-btn" data-i="${i}" title="${esc(t)}">${esc(t.slice(0, 70))}${t.length > 70 ? "…" : ""}</button>`).join("") : "";
+}
+$("examples").addEventListener("click", e => { const b = e.target.closest(".chip-btn"); if (!b) return; $("req-text").value = EXAMPLES[S.project][+b.dataset.i]; $("req-text").focus(); });
+$("topk").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.topk = +b.dataset.k; [...$("topk").children].forEach(x => x.classList.toggle("on", x === b)); });
+async function submitLink() {
+  const text = $("req-text").value.trim(), hint = $("link-hint");
+  hint.classList.remove("err");
+  if (!S.project) { hint.textContent = "Choose a project first."; hint.classList.add("err"); return; }
+  if (text.length < 15) { hint.textContent = "Write the requirement as a full sentence."; hint.classList.add("err"); return; }
+  $("link-go").disabled = true;
+  try {
+    const r = await post("/api/link", {text, id: $("req-id").value.trim(), top_k: S.topk, project: S.project});
+    toast(`${r.id} added. C4 is working on it (about ${r.minutes || S.topk} min).`);
+    $("req-text").value = ""; $("req-id").value = ""; S.linkSel = "pending:" + r.id; hint.textContent = "";
+    await loadActivity(); await loadLinkRuns(true);
+  } catch (e) { hint.textContent = e.message; hint.classList.add("err"); }
+  $("link-go").disabled = S.busy;
+}
+$("link-go").onclick = submitLink;
+$("req-text").addEventListener("keydown", e => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); submitLink(); } });
 
-/* ---------- advanced: live run + runner ---------- */
-function renderCards(box, s){ box.replaceChildren(); const add = (k, v, sub, bar) => { const d = el("div","cardm"); d.append(el("div","k",k), el("div","v",v)); if (sub) d.append(el("div","s",sub)); if (bar != null){ const b = el("div","bar"), i = el("i"); i.style.width = Math.min(100, bar*100) + "%"; b.append(i); d.append(b);} box.append(d); };
-  if (s.state === "none"){ add("Run","No run yet",""); return; }
-  add("Progress", `${s.done} / ${s.total ?? "?"}`, `${s.state} · ${s.sources} requirements x top-${s.top_k}`, s.total ? s.done/s.total : 0); add("Links kept", s.kept, `${s.malformed} unreadable replies`);
-  if (s.true_links) { add("Precision (live)", pct(s.precision), `TP ${s.tp} · FP ${s.fp}`); add("Recall (so far)", pct(s.recall), `FN ${s.fn} of ${s.true_links} true links`); add("F1 (live)", pct(s.f1), s.state === "finished" ? "final" : "provisional"); add("Stage-1 recall ceiling", pct(s.shortlisted_true / s.true_links), `${s.shortlisted_true} of ${s.true_links} true links shortlisted`); } else add("Scoring", "n/a", "no gold labels for this run");
-  add("AI latency", sec(s.mean_latency), `p95 ${sec(s.p95_latency)}`); }
-const runHidden = new Set();
-const runG = makeGraph("rgraph", "rlegend", (p, nodes, edges) => { const d = $("rdetail");
-  if (p.nodes.length){ const n = nodes.get(p.nodes[0]).raw; d.textContent = `${n.kind.toUpperCase()}  ${n.label}\n\n${n.text || "(no text)"}`; }
-  else if (p.edges.length){ const e = edges.get(p.edges[0]).raw, c = CATS[e.category]; d.textContent = `${c ? c.label : e.category}\n${e.from.slice(2)} → ${e.to.slice(2)}\n` + (e.truth === true ? "In ground truth\n" : e.truth === false ? "Not in ground truth\n" : "") + (e.similarity != null ? `Stage-1 score: ${e.similarity}\n` : "") + (e.confidence != null ? `AI confidence: ${e.confidence}\n` : "") + (e.reasoning ? `\n${e.reasoning}` : ""); } }, runHidden);
-let feedAfter = 0, feedN = 0, runId = null;
-async function pollRun(){ try { const r = await j("/api/run?after=" + feedAfter);
-  if (r.id && r.id !== runId){ runId = r.id; feedAfter = 0; feedN = 0; $("feed").replaceChildren(el("div","empty","Loading run...")); return pollRun(); }
-  feedAfter = r.next; const f = $("feed"); if (feedN === 0 && r.feed.length) f.replaceChildren();
-  r.feed.forEach(e => { const c = el("div","card"), t = el("div","t"); t.append(el("span","", `${e.source_id} → ${e.target_id}`)); if (e.type === "malformed") t.append(el("span","badge err","unreadable")); else t.append(el("span","badge " + (e.kept ? "yes" : "no"), (e.kept ? "linked " : "not linked ") + e.confidence.toFixed(2))); c.append(t);
-    if (e.type === "verdict"){ const rr = el("div","r"); rr.textContent = (e.truth === true ? "in gold · " : e.truth === false ? "not in gold · " : "") + `${e.latency}s · ${e.reasoning}`; c.append(rr); } else c.append(el("div","r",e.error)); f.prepend(c); feedN++; });
-  $("feed-count").textContent = feedN; renderCards($("run-cards"), r.summary);
-  if (current === "advanced" && currentSub === "run"){ const g = await j("/api/graph?source=run"); if (runG.render(g)) { $("rg-meta").textContent = `${g.nodes.length} nodes · ${g.edges.length} edges`; setTimeout(() => runG.fit(), 100); } } } catch(e){} }
-let runnerInit = false, est = null;
-const runnerParams = () => { const k = $("r-kind").value; return k === "monitor" ? {kind:k, force:$("r-force").checked, project:PROJECT} : {kind:k, project:PROJECT, dataset:$("r-dataset").value, retrieval:$("r-retrieval").value, top_k:+$("r-topk").value, limit_sources:$("r-limit").value === "" ? null : +$("r-limit").value}; };
-function kindUi(){ const k = $("r-kind").value; $("l-dataset").style.display = k === "evaluate" ? "" : "none"; $("l-limit").style.display = $("l-topk").style.display = $("l-retr").style.display = k === "monitor" ? "none" : ""; $("l-force").style.display = k === "monitor" ? "" : "none"; refreshEstimate(); }
-async function refreshEstimate(){ try { est = await post("/api/runner/estimate", runnerParams()); $("r-est").textContent = est.calls != null ? `≈ ${est.calls} AI calls · ~${est.minutes} min` : (est.note || ""); } catch(e){ est = null; $("r-est").textContent = e.message; } }
-async function pollRunner(){ try { const s = await j("/api/runner");
-  if (!runnerInit){ runnerInit = true; $("r-dataset").replaceChildren(...s.datasets.map(d => new Option(d, d, d === "itrust", d === "itrust"))); $("r-retrieval").replaceChildren(...s.retrievals.map(d => new Option(d, d))); ["r-kind","r-dataset","r-limit","r-topk","r-retrieval","r-force"].forEach(id => $(id).oninput = kindUi); kindUi(); }
-  const busy = s.state !== "idle"; $("r-state").textContent = {idle:"idle", running:"running (started here)", external:"a run started elsewhere is active"}[s.state];
-  $("r-start").disabled = busy || !s.allowed; $("r-stop").disabled = s.state !== "running";
-  if (!s.allowed) msg("r-msg","Starting runs is disabled (DASHBOARD_ALLOW_RUN=0).", true); else if (s.state === "external") msg("r-msg",`A run started outside this dashboard is active (pid ${s.external_pids[0]}).`);
-  else if (s.state === "idle" && s.last_exit_code != null && s.last_exit_code !== 0) msg("r-msg",`Last run exited with code ${s.last_exit_code}.\n${s.log}`, true); } catch(e){ $("r-state").textContent = "API unreachable"; } }
-$("r-start").onclick = async () => { if (!est) return; const k = $("r-kind").value; const what = k === "link" ? "This writes links to Neo4j." : k === "monitor" ? "This re-verifies changed links." : "Nothing is written to Neo4j.";
-  if (!confirm(`Start a ${k} run?\n\n${est.calls != null ? est.calls + " AI calls, about " + est.minutes + " minutes.\n" : ""}${what}`)) return;
-  try { const r = await post("/api/runner/start", runnerParams()); msg("r-msg", `Started (pid ${r.pid}).`); } catch(err){ msg("r-msg", err.message, true); } pollRunner(); };
-$("r-stop").onclick = async () => { if (!confirm("Stop the running process?")) return; try { await post("/api/runner/stop"); msg("r-msg","Stop signal sent."); } catch(err){ msg("r-msg", err.message, true); } pollRunner(); };
+async function loadLinkRuns(force) {
+  if (!S.project) { $("link-result").innerHTML = `<div class="empty"><b>No project chosen</b>Pick a project at the top.</div>`; $("link-history").innerHTML = ""; return; }
+  let d; try { d = await get("/api/link-runs?project=" + encodeURIComponent(S.project)); } catch (e) { return; }
+  if (!force && same("link:" + S.project, d)) return;
+  S.linkRuns = d.runs; S.texts = d.texts;
+  if (S.linkSel && S.linkSel.startsWith("pending:")) { const id = S.linkSel.slice(8); const hit = d.runs.find(r => r.requirements.includes(id)); if (hit) S.linkSel = hit.id; }
+  if (!S.linkSel || (!S.linkSel.startsWith("pending:") && !d.runs.some(r => r.id === S.linkSel))) S.linkSel = d.runs[0] ? d.runs[0].id : null;
+  renderLinkHistory(); renderLinkResult();
+}
+function runStatus(r) {
+  if (r.state === "running") return `<span class="pill info"><span class="spin" style="width:10px;height:10px;border-width:2px"></span> checking ${r.done}/${r.total}</span>`;
+  if (r.state === "stopped") return `<span class="pill warn">stopped</span>`;
+  return r.linked ? `<span class="pill ok">${r.linked} linked</span>` : `<span class="pill">no link</span>`;
+}
+function renderLinkHistory() {
+  const runs = S.linkRuns; $("link-count").textContent = runs.length;
+  $("link-history").innerHTML = runs.length ? runs.map((r, i) => `<button class="tl ${r.id === S.linkSel ? "sel" : ""}" data-id="${esc(r.id)}">
+      <div class="l1"><span class="id">${i === 0 ? '<span class="new-dot"></span>' : ""}${esc(r.requirements.slice(0, 2).join(", "))}${r.requirements.length > 2 ? " +" + (r.requirements.length - 2) : ""}</span>${runStatus(r)}</div>
+      <div class="snip">${esc(S.texts[r.requirements[0]] || "")}</div>
+      <div class="when" title="${esc(clock(r.started))}">${esc(ago(r.started))}</div></button>`).join("")
+    : `<div class="empty small"><b>Nothing yet</b>Your linked requirements will appear here, newest first.</div>`;
+}
+$("link-history").addEventListener("click", e => { const b = e.target.closest(".tl"); if (!b) return; S.linkSel = b.dataset.id; S.openCands.clear(); renderLinkHistory(); renderLinkResult(); });
+function renderLinkResult() {
+  const box = $("link-result");
+  if (S.linkSel && S.linkSel.startsWith("pending:")) { box.innerHTML = `<div class="banner info"><span class="spin"></span> Starting: shortlisting code for ${esc(S.linkSel.slice(8))}...</div>`; return; }
+  const r = S.linkRuns.find(x => x.id === S.linkSel);
+  if (!r) { box.innerHTML = `<div class="empty"><b>No result yet</b>Type a requirement above and press <i>Find the code</i>. Or pick an example.</div>`; return; }
+  const shortlisted = r.candidates.length > 0, verifying = r.state === "running" && shortlisted, finished = r.state === "finished";
+  const step = (n, t, d, cls) => `<div class="stp ${cls}"><div class="n">${cls === "done" ? "✓" : cls === "active" ? '<span class="spin" style="width:10px;height:10px;border-width:2px"></span>' : n} Step ${n}</div><div class="t">${t}</div><div class="d">${d}</div></div>`;
+  let banner;
+  if (r.state === "running") banner = `<div class="banner info"><span class="spin"></span> The AI is checking file ${Math.min(r.done + 1, r.total)} of ${r.total} · ${dur(r.started)} so far</div>`;
+  else if (r.state === "stopped") banner = `<div class="banner warn">⏹ This run stopped early: ${r.done} of ${r.total} files were checked.</div>`;
+  else if (r.linked) banner = `<div class="banner ok"><span class="big">✓</span> Linked to ${r.linked} code file${r.linked > 1 ? "s" : ""} in ${dur(r.started, r.finished)}. Saved to the knowledge graph.</div>`;
+  else banner = `<div class="banner warn">The AI did not confirm any of the ${r.total} candidates (${dur(r.started, r.finished)}). No link was saved.</div>`;
+  const reqs = r.requirements.slice(0, 20).map(req => {
+    const cands = r.candidates.filter(c => c.requirement === req);
+    return `<div class="quote"><div class="id">${esc(req)}</div>${esc(S.texts[req] || "")}</div>
+      <div class="cands">${cands.map(c => {
+        const key = r.id + "|" + req + "|" + c.target, cls = c.decision === "linked" ? "linked" : c.decision === "waiting" ? "waiting" : "notlinked";
+        const icon = cls === "linked" ? "✓" : cls === "waiting" ? '<span class="spin"></span>' : "✕";
+        const conf = c.confidence == null ? 0 : c.confidence;
+        return `<div class="cand ${cls} ${S.openCands.has(key) ? "open" : ""}" data-key="${esc(key)}">
+          <button class="cand-h" ${c.reason ? "" : "disabled"}><span class="ic">${icon}</span>
+            <span style="min-width:0"><div class="fname">${esc(c.file)}</div><div class="fpath">${esc(dirOf(c.target) || "")}</div></span>
+            <span><div class="meter2"><i style="width:${conf * 100}%"></i></div><div class="cand-meta"><span>${c.confidence == null ? "waiting" : "confidence " + conf.toFixed(2)}</span><span>${c.seconds ? Math.round(c.seconds) + " s" : ""}</span></div></span>
+            <span>${cls === "linked" ? '<span class="pill ok">LINKED</span>' : cls === "waiting" ? '<span class="pill info">CHECKING</span>' : '<span class="pill">NOT LINKED</span>'} ${c.reason ? '<span class="caret">▶</span>' : ""}</span>
+          </button><div class="why">${esc(c.reason)}</div></div>`;
+      }).join("")}</div>`;
+  }).join("");
+  box.innerHTML = `<div class="card-h"><h3>Result · ${esc(clock(r.started))}</h3>${runStatus(r)}</div>
+    <div class="stepper">${step(1, "Shortlist code", shortlisted ? `${r.total} files most similar to the text` : "searching...", shortlisted ? "done" : "active")}
+      ${step(2, "AI checks each file", `${r.done} of ${r.total} checked`, finished || r.state === "stopped" ? "done" : verifying ? "active" : "")}
+      ${step(3, "Save the links", finished ? `${r.linked} link(s) saved` : "as soon as each is confirmed", finished ? "done" : r.linked ? "active" : "")}</div>
+    ${banner}${reqs}`;
+}
+$("link-result").addEventListener("click", e => { const c = e.target.closest(".cand"); if (!c || !e.target.closest(".cand-h") || e.target.closest(".cand-h").disabled) return; const k = c.dataset.key; S.openCands.has(k) ? S.openCands.delete(k) : S.openCands.add(k); c.classList.toggle("open"); });
 
-/* ---------- advanced: setup + results ---------- */
-$("s-load").onclick = async () => { msg("s-msg","Loading..."); try { const r = await post("/api/demo/load", {dataset:$("s-dataset").value}); msg("s-msg", r.message + " It now appears in the Project list."); await loadProjects(); pollStatus(); } catch(e){ msg("s-msg", e.message, true); } };
-$("s-reset").onclick = async () => { if (!confirm("Delete all links, decay records and requirements typed into this dashboard, and undo code edits?")) return;
-  try { const r = await post("/api/demo/reset", {project:PROJECT}); msg("s-rmsg", `Deleted ${r.deleted_links} links and ${r.deleted_flags} decay records; restored ${r.restored_texts} edited files.`); pollStatus(); loadGraph(); } catch(e){ msg("s-rmsg", e.message, true); } };
-let RES = null; const METHOD_COL = {tfidf:"#98a2b3", embeddings:"#7a5af8", hybrid:"#2f6fed"};
-function drawBars(){ const ds = $("res-ds").value, box = $("res-bars"); box.replaceChildren(); const data = RES.stage1_recall[ds];
-  Object.keys(data).sort((a,b) => a - b).forEach(k => { const g = el("div","bgroup"); g.append(el("div","lab", `top-${k} per requirement`)); ["tfidf","embeddings","hybrid"].forEach(m => { const row = el("div","brow"); row.append(el("span","n", m)); const tr = el("div","track"), f = el("div","fill"); f.style.width = (data[k][m]*100) + "%"; f.style.background = METHOD_COL[m]; tr.append(f); row.append(tr, el("span","p", (data[k][m]*100).toFixed(1) + "%")); g.append(row); }); box.append(g); });
-  const info = RES.datasets[ds]; $("res-note").textContent = `${ds}: ${info.requirements} requirements, ${info.targets} targets, ${info.true_links} true links (${info.language}). Random guessing would give precision ${(info.base_rate*100).toFixed(1)}%.` + (RES.stage1_recall_notes[ds] ? "\n" + RES.stage1_recall_notes[ds] : ""); }
-async function loadResults(){ try { RES = await j("/api/results");
-  if (!$("res-ds").children.length) { $("res-ds").replaceChildren(...Object.keys(RES.stage1_recall).map(d => new Option(d, d))); $("res-ds").onchange = drawBars; } drawBars();
-  $("res-prf").replaceChildren(table(["Dataset","Method","P","R","F1"], RES.prf.map(r => [r.dataset, r.method, r.precision.toFixed(3), r.recall.toFixed(3), r.f1.toFixed(3)])));
-  $("res-nfr").replaceChildren(table(["Target","Spec","Measured","Met"], RES.nfr.map(r => [r.name, r.target, r.measured, el("span","badge " + (r.met ? "yes" : "err"), r.met ? "met" : "not met")])));
-  const dc = $("res-decay"); dc.replaceChildren();
-  if (RES.decay_injection){ const d = RES.decay_injection; dc.append(el("div","", `Decay detection accuracy ${pct(d.decay_detection_accuracy)} · false decay rate ${pct(d.false_decay_rate)}`), table(["Edit","Injected","Detected"], Object.entries(d.per_mutation).map(([k,v]) => [k, v.injected, v.detected]))); }
-  else { dc.append(el("div","","Not measured yet (target: at least 85% of broken links flagged)."), el("div","msg","Run: python -m agents.traceability_agent.decay_injection --neo4j --sample 8")); }
-  if (RES.pending && RES.pending.length) dc.append(el("div","msg","Still pending:\n- " + RES.pending.join("\n- ")));
-  const runs = await j("/api/runs/summary"); $("runs-meta").textContent = runs.length;
-  $("res-runs").replaceChildren(runs.length ? table(["Run","Kind","State","Done","Kept","P","R","F1","Latency"], runs.map(r => [r.id.slice(0,24), r.kind + (r.prompt ? " · " + r.prompt : ""), r.state, r.kind === "monitor" ? `${r.rechecked} re-checked` : `${r.done ?? "–"}/${r.total ?? "–"}`, r.kind === "monitor" ? `${r.decayed} decayed` : r.kept, r.scored ? pct(r.precision) : "–", r.scored ? pct(r.recall) : "–", r.scored ? pct(r.f1) : "–", sec(r.mean_latency)])) : el("div","empty","No recorded runs.")); } catch(e){} }
+/* ------------------------------------------------------------ DECAY view */
+$("mut-grid").innerHTML = Object.entries(MUTATIONS).map(([k, m]) => `<button class="mut ${k === S.mutation ? "sel" : ""}" data-k="${k}">
+  <span class="mt"><span>${m.icon}</span>${esc(m.title)}</span><span class="md">${esc(m.desc)}</span>
+  <span><span class="pill ${m.expect === "should hold" ? "ok" : m.expect === "may break" ? "warn" : "bad"}">${m.expect}</span></span></button>`).join("");
+$("mut-grid").addEventListener("click", e => { const b = e.target.closest(".mut"); if (!b) return; S.mutation = b.dataset.k; document.querySelectorAll(".mut").forEach(x => x.classList.toggle("sel", x === b)); });
+async function loadFiles(force) {
+  if (!S.project) { S.files = []; renderFiles(); return; }
+  let f; try { f = await get("/api/files?project=" + encodeURIComponent(S.project)); } catch (e) { return; }
+  if (!force && same("files:" + S.project, f)) return;
+  S.files = f; if (S.file && !f.some(x => x.id === S.file)) S.file = null; if (!S.file && f[0]) S.file = f[0].id; renderFiles();
+}
+function renderFiles() {
+  const q = $("file-filter").value.trim().toLowerCase();
+  const list = S.files.filter(f => !q || f.id.toLowerCase().includes(q) || f.requirements.join(" ").toLowerCase().includes(q));
+  $("file-list").innerHTML = !S.files.length ? `<div class="empty small"><b>No linked code yet</b>Link a requirement first (Link tab); its code files appear here.</div>`
+    : list.map(f => `<button class="file ${f.id === S.file ? "sel" : ""}" data-id="${esc(f.id)}"><span style="min-width:0"><div class="fname">${esc(short(f.id))} ${f.modified ? '<span class="pill warn">edited</span>' : ""}</div><div class="fpath">${esc(dirOf(f.id))}</div></span>
+        <span class="reqs">${f.requirements.slice(0, 3).map(r => `<span class="pill accent">${esc(r)}</span>`).join("")}${f.requirements.length > 3 ? `<span class="pill">+${f.requirements.length - 3}</span>` : ""}${f.status === "decayed" ? '<span class="pill bad">decayed</span>' : ""}</span></button>`).join("") || `<div class="muted small">No file matches.</div>`;
+}
+$("file-filter").oninput = renderFiles;
+$("file-list").addEventListener("click", e => { const b = e.target.closest(".file"); if (!b) return; S.file = b.dataset.id; renderFiles(); });
+$("commit-go").onclick = async () => {
+  const hint = $("commit-hint"); hint.classList.remove("err");
+  if (!S.file) { hint.textContent = "Pick a code file first."; hint.classList.add("err"); return; }
+  $("commit-go").disabled = true;
+  try {
+    const r = await post("/api/commit", {code_id: S.file, mutation: S.mutation, project: S.project});
+    S.lastEdit = r; S.changeSel = "pending"; renderDiff();
+    toast("Commit made. C4 is re-checking the links of " + short(S.file) + ".");
+    hint.textContent = ""; await loadActivity(); await loadChangeRuns(true); loadFiles(true);
+  } catch (e) { hint.textContent = e.message; hint.classList.add("err"); }
+  $("commit-go").disabled = S.busy;
+};
+$("undo-go").onclick = async () => {
+  try { const r = await post("/api/undo", {project: S.project}); toast(`Undone: ${r.restored_texts} file(s) restored, ${r.flags_removed} decay record(s) removed.`); S.lastEdit = null; renderDiff(); S.cache = {}; loadProjects(); loadFiles(true); loadChangeRuns(true); G.stale = true; }
+  catch (e) { toast(e.message, true); }
+};
+$("reset-go").onclick = async () => {
+  if (!S.project || !confirm(`Delete all links and decay records of ${S.project}, and the requirements typed here? The loaded requirements and code stay.`)) return;
+  try { const r = await post("/api/reset", {project: S.project}); toast(`Reset: ${r.deleted_links} links and ${r.deleted_flags} decay records removed.`); S.cache = {}; loadProjects(); refreshView(true); G.stale = true; }
+  catch (e) { toast(e.message, true); }
+};
+function renderDiff() {
+  const c = $("diff-card"), e = S.lastEdit;
+  if (!e) { c.classList.add("hidden"); return; }
+  c.classList.remove("hidden");
+  c.innerHTML = `<div class="card-h"><h3>What your commit changed in ${esc(short(e.code_id))}</h3><span class="pill">${esc((MUTATIONS[e.mutation] || {}).title || e.mutation)}</span></div>
+    <div class="diff"><div class="bef"><div class="small muted">Before</div><pre class="code">${esc(e.before)}</pre></div><div class="aft"><div class="small muted">After</div><pre class="code">${esc(e.after)}</pre></div></div>`;
+}
+async function loadChangeRuns(force) {
+  if (!S.project) { $("change-result").innerHTML = `<div class="empty"><b>No project chosen</b>Pick a project at the top.</div>`; $("change-history").innerHTML = ""; return; }
+  let d; try { d = await get("/api/change-runs?project=" + encodeURIComponent(S.project)); } catch (e) { return; }
+  if (!force && same("change:" + S.project, d)) return;
+  S.changeRuns = d.runs;
+  if (S.changeSel === "pending" && d.runs[0] && S.lastEdit && d.runs[0].files.includes(short(S.lastEdit.code_id))) S.changeSel = d.runs[0].id;
+  if (S.changeSel !== "pending" && (!S.changeSel || !d.runs.some(r => r.id === S.changeSel))) S.changeSel = d.runs[0] ? d.runs[0].id : null;
+  renderChangeHistory(); renderChangeResult();
+}
+function changeStatus(r) {
+  if (r.state === "running") return `<span class="pill info"><span class="spin" style="width:10px;height:10px;border-width:2px"></span> checking</span>`;
+  if (r.state === "stopped") return `<span class="pill warn">stopped</span>`;
+  if (!r.rechecks.length) return `<span class="pill">nothing to check</span>`;
+  return r.broken ? `<span class="pill bad">${r.broken} broken</span>` : `<span class="pill ok">all hold</span>`;
+}
+function renderChangeHistory() {
+  const runs = S.changeRuns; $("change-count").textContent = runs.length;
+  $("change-history").innerHTML = runs.length ? runs.map((r, i) => `<button class="tl ${r.id === S.changeSel ? "sel" : ""}" data-id="${esc(r.id)}">
+      <div class="l1"><span class="id">${i === 0 ? '<span class="new-dot"></span>' : ""}${esc(r.files.join(", ") || "monitor pass")}</span>${changeStatus(r)}</div>
+      <div class="snip">${r.rechecks.length} link(s) re-checked${r.messages.length ? " · " + r.messages.length + " message(s) to C3" : ""}</div>
+      <div class="when" title="${esc(clock(r.started))}">${esc(ago(r.started))}</div></button>`).join("")
+    : `<div class="empty small"><b>Nothing yet</b>Commits you make appear here, newest first.</div>`;
+}
+$("change-history").addEventListener("click", e => { const b = e.target.closest(".tl"); if (!b) return; S.changeSel = b.dataset.id; renderChangeHistory(); renderChangeResult(); });
+function renderChangeResult() {
+  const box = $("change-result");
+  if (S.changeSel === "pending") { box.innerHTML = `<div class="banner info"><span class="spin"></span> Commit received. Starting the re-check...</div>`; return; }
+  const r = S.changeRuns.find(x => x.id === S.changeSel);
+  if (!r) { box.innerHTML = `<div class="empty"><b>No commit checked yet</b>Pick a file and a change above, then press <i>Commit the change</i>.</div>`; return; }
+  let banner;
+  if (r.state === "running") banner = `<div class="banner info"><span class="spin"></span> Re-checking the links of ${esc(r.files.join(", "))} · ${dur(r.started)} so far</div>`;
+  else if (r.state === "stopped") banner = `<div class="banner warn">⏹ This check stopped before the end.</div>`;
+  else if (!r.rechecks.length) banner = `<div class="banner warn">Nothing was re-checked: the file has no link, or its text did not change.</div>`;
+  else if (r.broken) banner = `<div class="banner bad"><span class="big">✕</span> ${r.broken} of ${r.rechecks.length} link(s) broken by this change. They are marked decayed and C3 was notified.</div>`;
+  else banner = `<div class="banner ok"><span class="big">✓</span> No link broken: the AI still considers the code related (${r.rechecks.length} checked).</div>`;
+  box.innerHTML = `<div class="card-h"><h3>Result · ${esc(clock(r.started))}</h3>${changeStatus(r)}</div>${banner}` + r.rechecks.map(c => {
+    const m = r.messages.find(x => x.event.requirementId === c.requirement && x.event.codeEntityId === c.target);
+    return `<div class="rc ${c.broken ? "broken" : "holds"}">
+      <div class="rc-h"><span class="pair">${esc(c.requirement)} → ${esc(c.file)}</span>${c.broken ? '<span class="pill bad">LINK BROKEN</span>' : '<span class="pill ok">LINK STILL HOLDS</span>'}</div>
+      <div class="conf"><span>${c.before.toFixed(2)}</span><div class="track"><div class="before" style="width:${c.before * 100}%"></div><div class="after" style="width:${c.after * 100}%"></div></div><span><b>${c.after.toFixed(2)}</b></span></div>
+      <div class="muted small">${esc(c.reason)}</div>
+      ${m ? `<div class="msg"><div class="msg-h">📨 <b>Message to C3</b> ${m.delivered ? '<span class="pill ok">delivered over Redis</span>' : '<span class="pill warn">recorded (Redis not running)</span>'}
+        <button class="link-btn" data-json="${esc(JSON.stringify(m.event, null, 2))}">Show</button><button class="link-btn" data-copy="${esc(JSON.stringify(m.event))}">Copy</button></div></div>` : ""}</div>`;
+  }).join("");
+}
+$("change-result").addEventListener("click", async e => {
+  const s = e.target.closest("[data-json]"), c = e.target.closest("[data-copy]");
+  if (s) { const box = s.closest(".msg"), pre = box.querySelector("pre"); if (pre) { pre.remove(); s.textContent = "Show"; } else { box.insertAdjacentHTML("beforeend", `<pre class="code">${esc(s.dataset.json)}</pre>`); s.textContent = "Hide"; } }
+  if (c) { try { await navigator.clipboard.writeText(c.dataset.copy); toast("Message copied."); } catch (err) { toast("Copy is not available here.", true); } }
+});
 
-/* ---------- start ---------- */
-const hashPage = () => { const n = location.hash.slice(1); return TOP.some(([k]) => k === n) ? n : "demo"; };
-window.addEventListener("hashchange", () => { const n = hashPage(); if (n !== current) show(n); });
-show(hashPage());
-loadProjects(); pollStatus(); pollPipeline(); pollRun(); pollRunner(); pollCompleteness(); loadDemoState();
-setInterval(() => { if (document.activeElement !== $("proj")) loadProjects(); }, 15000); setInterval(pollStatus, 5000); setInterval(pollPipeline, 3000); setInterval(pollRun, 2500); setInterval(pollRunner, 3000); setInterval(pollCompleteness, 10000); setInterval(pollMine, 2500);
-setInterval(() => { if (current === "graph") loadGraph(); if (current === "demo") loadDecay(); }, 4000);
+/* ------------------------------------------------------------ GRAPH view (layered, no library)
+   Left column: requirements. Middle: code files they link to. Right: decay records.
+   The positions are computed from the links, so the picture is the same on every reload. */
+const G = {nodes: [], edges: [], k: 1, tx: 0, ty: 0, sel: null, stale: true, data: null};
+const SVGNS = "http://www.w3.org/2000/svg";
+const COL = {req: 0, code: 430, flag: 800};
+const ROW = 74, CODE_GAP = 50;
+function loadGraphDataShape(d) { return d; }
+async function loadGraph() {
+  if (!S.project) { $("g-svg").innerHTML = ""; $("g-stats").textContent = "choose a project"; $("g-panel").innerHTML = `<div class="empty"><b>No project chosen</b>Pick a project at the top.</div>`; return; }
+  try { G.data = await get("/api/graph?project=" + encodeURIComponent(S.project)); } catch (e) { $("g-stats").textContent = e.message; return; }
+  G.stale = false; buildGraph();
+}
+function buildGraph() {
+  const d = G.data; if (!d) return;
+  const showOrph = $("g-orphans").checked, showFlags = $("g-flags").checked;
+  const linked = new Set(d.edges.filter(e => e.category === "verified" || e.category === "decayed").flatMap(e => [e.from, e.to]));
+  const nodes = d.nodes.filter(n => (n.kind !== "decayflag" || showFlags) && (!n.orphan || showOrph) && (n.kind === "decayflag" || linked.has(n.id) || (n.kind === "requirement" && showOrph)));
+  const ids = new Set(nodes.map(n => n.id));
+  const edges = d.edges.filter(e => ids.has(e.from) && ids.has(e.to));
+  const links = d.edges.filter(e => e.category === "verified" || e.category === "decayed");
+  const broken = links.filter(e => e.category === "decayed").length;
+  $("g-stats").textContent = `${links.length} link${links.length === 1 ? "" : "s"} · ${broken} broken`;
+  G.nodes = nodes.map(n => ({...n})); G.edges = edges;
+  layout(); draw(); fit();
+  if (!links.length && !showOrph) $("g-panel").innerHTML = `<div class="empty"><b>No links in this project yet</b>Link a requirement on the Link tab. Tick "Requirements without a link" to see the requirements that are still unlinked.</div>`;
+  else clearSel();
+}
+function hash32(s) { let h = 2166136261; for (const ch of String(s)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function layout() {
+  // Force-directed, like the Neo4j Browser: nodes repel, links pull, the picture settles in the middle.
+  // Start positions come from a hash of the id, so the same graph looks the same on every reload.
+  const N = G.nodes, byId = new Map(N.map(n => [n.id, n]));
+  N.forEach(n => { const a = (hash32(n.id) % 3600) / 3600 * Math.PI * 2, r = 80 + hash32(n.id + "r") % 220; n.x = Math.cos(a) * r; n.y = Math.sin(a) * r; n.vx = 0; n.vy = 0; });
+  const links = G.edges.map(e => ({a: byId.get(e.from), b: byId.get(e.to), len: e.category === "has_decay" ? 90 : 170})).filter(l => l.a && l.b);
+  for (let it = 0; it < 420; it++) {
+    const alpha = Math.max(.02, 1 - it / 420);
+    for (let i = 0; i < N.length; i++) for (let j = i + 1; j < N.length; j++) {
+      const a = N[i], b = N[j]; const dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy + .5;
+      if (d2 > 90000) continue; const f = 1900 / d2 * alpha; a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
+    }
+    for (const l of links) { const dx = l.b.x - l.a.x, dy = l.b.y - l.a.y, d = Math.hypot(dx, dy) || 1, f = (d - l.len) * .035 * alpha; l.a.vx += dx / d * f; l.a.vy += dy / d * f; l.b.vx -= dx / d * f; l.b.vy -= dy / d * f; }
+    for (const n of N) { n.vx -= n.x * .01 * alpha; n.vy -= n.y * .01 * alpha; n.x += Math.max(-25, Math.min(25, n.vx)); n.y += Math.max(-25, Math.min(25, n.vy)); n.vx *= .6; n.vy *= .6; }
+  }
+}
+const C = () => { const cs = getComputedStyle(document.documentElement); const g = v => cs.getPropertyValue(v).trim(); return {ok: g("--ok"), bad: g("--bad"), warn: g("--warn"), accent: g("--accent"), accent2: g("--accent-2"), faint: g("--faint"), surface: g("--surface"), text: g("--text"), muted: g("--muted"), line: g("--line"), blue: "#4c6ef5", blueDark: "#364fc7", green: "#2f9e68", greenDark: "#1f7a4f"}; };
+const trunc = (t, n) => { t = String(t || "").replace(/\s+/g, " ").trim(); return t.length > n ? t.slice(0, n - 1) + "…" : t; };
+function el(tag, attrs, parent) { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.append(e); return e; }
+function draw() {
+  const svg = $("g-svg"), c = C(); svg.innerHTML = "";
+  const defs = el("defs", {}, svg);
+  el("feDropShadow", {dx: 0, dy: 1, stdDeviation: 1.5, "flood-color": "#000", "flood-opacity": .25}, el("filter", {id: "shadow", x: "-40%", y: "-40%", width: "180%", height: "180%"}, defs));
+  for (const [k, col] of [["ok", c.ok], ["bad", c.bad], ["warn", c.faint]]) { const m = el("marker", {id: "arr-" + k, viewBox: "0 0 10 10", refX: 10, refY: 5, markerWidth: 6, markerHeight: 6, orient: "auto"}, defs); el("path", {d: "M0,0 L10,5 L0,10 z", fill: col}, m); }
+  const vp = el("g", {id: "g-vp"}, svg);
+  const byId = new Map(G.nodes.map(n => [n.id, n]));
+  for (const e of G.edges) {
+    const a = byId.get(e.from), b = byId.get(e.to); if (!a || !b) continue;
+    const decayed = e.category === "decayed", flag = e.category === "has_decay";
+    const col = decayed ? c.bad : flag ? c.warn : c.ok;
+    const p = el("path", {class: "g-edge " + e.category, fill: "none", stroke: col, "stroke-width": flag ? 1.3 : 1.8}, vp);
+    if (decayed || flag) p.setAttribute("stroke-dasharray", flag ? "2 4" : "6 4");
+    p.setAttribute("marker-end", `url(#arr-${decayed ? "bad" : flag ? "warn" : "ok"})`);
+    const t = el("title", {}, p); t.textContent = flag ? "HAS_DECAY" : `VERIFIED_TRACE${decayed ? " (decayed)" : ""} · ${e.from.slice(2)} → ${short(e.to.slice(2))}${e.confidence != null ? " · confidence " + (+e.confidence).toFixed(2) : ""}`;
+    p._e = e; p._a = a; p._b = b;
+    if (!flag) { const lab = el("text", {class: "g-rel", fill: decayed ? c.bad : c.ok}, vp); lab.textContent = decayed ? "VERIFIED_TRACE · decayed" : "VERIFIED_TRACE"; p._label = lab; }
+  }
+  for (const n of G.nodes) {
+    const g = el("g", {class: "g-node", "data-id": n.id}, vp); g._n = n;
+    const style = n.kind === "requirement" ? {fill: n.orphan ? c.surface : c.blue, stroke: n.orphan ? c.faint : c.blueDark, dash: n.orphan ? "3 3" : null, r: 26}
+      : n.kind === "decayflag" ? {fill: c.warn, stroke: c.warn, dash: null, r: 16}
+      : {fill: c.green, stroke: c.greenDark, dash: null, r: 22};
+    const circ = el("circle", {r: style.r, fill: style.fill, stroke: style.stroke, "stroke-width": 2, filter: "url(#shadow)"}, g);
+    if (style.dash) circ.setAttribute("stroke-dasharray", style.dash);
+    const cap = n.kind === "requirement" ? n.label : n.kind === "decayflag" ? "DecayFlag" : short(n.label);
+    const t = el("text", {class: "g-cap", "text-anchor": "middle", y: style.r + 15, fill: n.orphan ? c.muted : c.text}, g); t.textContent = trunc(cap, 22);
+    const inner = el("text", {class: "g-in", "text-anchor": "middle", y: 4, fill: "#fff"}, g); inner.textContent = n.kind === "requirement" ? "R" : n.kind === "decayflag" ? "!" : "C";
+    el("title", {}, g).textContent = n.kind === "requirement" ? `${n.label}\n${n.text || ""}` : n.kind === "decayflag" ? `DecayFlag\n${n.text || ""}` : n.label;
+    n.r = style.r;
+  }
+  place(); applyView();
+}
+function edgePath(a, b) {
+  // from the right edge of the left node to the left edge of the right node, as a smooth S-curve
+  const x1 = a.x + (a.kind === "requirement" ? (a.r || 89) : (a.r || 89)), y1 = a.y;
+  const x2 = b.x - (b.kind === "decayflag" ? 12 : (b.r || 89)) - 2, y2 = b.y;
+  const mx = (x1 + x2) / 2;
+  return `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;
+}
+function place() {
+  document.querySelectorAll("#g-vp .g-node").forEach(g => g.setAttribute("transform", `translate(${g._n.x},${g._n.y})`));
+  document.querySelectorAll("#g-vp .g-edge").forEach(p => {
+    const a = p._a, b = p._b, dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 1, ux = dx / d, uy = dy / d;
+    const ra = a.r + 2, rb = b.r + 4;
+    const x1 = a.x + ux * ra, y1 = a.y + uy * ra, x2 = b.x - ux * rb, y2 = b.y - uy * rb;
+    const bend = Math.min(30, d * .1) * (p._e.category === "has_decay" ? 0 : 1);
+    const mx = (x1 + x2) / 2 - uy * bend, my = (y1 + y2) / 2 + ux * bend;
+    p.setAttribute("d", `M${x1},${y1} Q${mx},${my} ${x2},${y2}`);
+    if (p._label) { p._label.setAttribute("x", mx); p._label.setAttribute("y", my - 4); }
+  });
+}
+function applyView() { const vp = $("g-vp"); if (vp) vp.setAttribute("transform", `translate(${G.tx},${G.ty}) scale(${G.k})`); }
+function fit() {
+  const box = $("g-canvas").getBoundingClientRect(); if (!G.nodes.length || !box.width) return;
+  const xs = G.nodes.map(n => n.x), ys = G.nodes.map(n => n.y);
+  const minX = Math.min(...xs) - 110, maxX = Math.max(...xs) + 110, minY = Math.min(...ys) - 50, maxY = Math.max(...ys) + 50;
+  G.k = Math.max(.35, Math.min(1.6, Math.min(box.width / (maxX - minX), box.height / (maxY - minY))));
+  G.tx = box.width / 2 - (minX + maxX) / 2 * G.k; G.ty = box.height / 2 - (minY + maxY) / 2 * G.k; applyView();
+}
+function zoom(f, cx, cy) { const box = $("g-canvas").getBoundingClientRect(); cx = cx ?? box.width / 2; cy = cy ?? box.height / 2; const k = Math.max(.2, Math.min(3, G.k * f)); G.tx = cx - (cx - G.tx) * k / G.k; G.ty = cy - (cy - G.ty) * k / G.k; G.k = k; applyView(); }
+$("g-in").onclick = () => zoom(1.25); $("g-out").onclick = () => zoom(.8); $("g-fit").onclick = fit;
+$("g-canvas").addEventListener("wheel", e => { e.preventDefault(); const b = $("g-canvas").getBoundingClientRect(); zoom(e.deltaY < 0 ? 1.12 : .89, e.clientX - b.left, e.clientY - b.top); }, {passive: false});
+(() => {
+  let drag = null;
+  $("g-canvas").addEventListener("pointerdown", e => {
+    if (e.target.closest(".g-zoom")) return;
+    drag = {x: e.clientX, y: e.clientY, tx: G.tx, ty: G.ty, moved: false, target: e.target};
+    $("g-canvas").setPointerCapture(e.pointerId);
+  });
+  $("g-canvas").addEventListener("pointermove", e => {
+    if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
+    if (drag.moved) { G.tx = drag.tx + dx; G.ty = drag.ty + dy; applyView(); }
+  });
+  $("g-canvas").addEventListener("pointerup", e => {
+    if (drag && !drag.moved) { const g = drag.target.closest(".g-node"), l = drag.target.closest(".g-edge"); if (g) selectNode(g._n); else if (l) selectEdge(l._e); else clearSel(); }
+    drag = null;
+  });
+  $("g-canvas").addEventListener("mouseover", e => { const g = e.target.closest(".g-node"); if (g) highlight(g._n.id); else if (!G.sel) highlight(null); });
+  $("g-canvas").addEventListener("mouseout", e => { if (e.target.closest(".g-node") && !G.sel) highlight(null); else if (G.sel && e.target.closest(".g-node")) highlight(G.sel); });
+})();
+function neighbours(id) { const s = new Set([id]); G.edges.forEach(e => { if (e.from === id) s.add(e.to); if (e.to === id) s.add(e.from); }); return s; }
+function highlight(id) {
+  const near = id ? neighbours(id) : null;
+  document.querySelectorAll("#g-vp .g-node").forEach(g => g.classList.toggle("dim", !!near && !near.has(g._n.id)));
+  document.querySelectorAll("#g-vp .g-edge").forEach(p => p.classList.toggle("dim", !!near && !(p._e.from === id || p._e.to === id)));
+}
+function clearSel() { G.sel = null; highlight(null); $("g-panel").innerHTML = `<div class="muted">Click a requirement, a code file, a link or a decay record to see the details here.</div>`; }
+function linkRow(e, other) { return `<div class="rc ${e.category === "decayed" ? "broken" : "holds"}" style="padding:8px 10px"><div class="rc-h"><span class="pair" style="font-size:12.5px">${esc(other)}</span>${e.category === "decayed" ? '<span class="pill bad">broken</span>' : '<span class="pill ok">verified</span>'}</div><div class="muted small">confidence ${e.confidence != null ? (+e.confidence).toFixed(2) : "–"}${e.reasoning ? " · " + esc(e.reasoning) : ""}</div></div>`; }
+function selectNode(n) {
+  G.sel = n.id; highlight(n.id);
+  const out = G.edges.filter(e => e.from === n.id && e.category !== "has_decay"), inc = G.edges.filter(e => e.to === n.id && e.category !== "has_decay");
+  let html;
+  if (n.kind === "requirement") html = `<span class="pill accent">Requirement</span><h4 style="margin-top:8px">${esc(n.label)}</h4><div>${esc(n.text)}</div>
+      <div class="step-label">${out.length ? out.length + " linked code file(s)" : "No link yet"}</div>${out.map(e => linkRow(e, short(e.to.slice(2)))).join("")}`;
+  else if (n.kind === "decayflag") html = `<span class="pill warn">Decay record</span><h4 style="margin-top:8px">${esc(short(n.codeEntityId || ""))}</h4><div class="muted small">Flagged ${esc(clock(n.flaggedAt))} · confidence before: ${n.previousConfidence != null ? (+n.previousConfidence).toFixed(2) : "–"}</div><div style="margin-top:8px">${esc(n.text)}</div>`;
+  else html = `<span class="pill">Code file</span><h4 style="margin-top:8px">${esc(short(n.label))}</h4><div class="fpath">${esc(dirOf(n.label))}</div>
+      <div class="step-label">Linked from ${inc.length} requirement(s)</div>${inc.map(e => linkRow(e, e.from.slice(2))).join("")}<div class="step-label">Code</div><pre class="code">${esc(n.text || "(no text)")}</pre>`;
+  $("g-panel").innerHTML = html;
+}
+function selectEdge(e) {
+  G.sel = null; highlight(null);
+  $("g-panel").innerHTML = `<span class="pill ${e.category === "decayed" ? "bad" : e.category === "has_decay" ? "warn" : "ok"}">${e.category === "has_decay" ? "Decay record" : e.category === "decayed" ? "Broken link" : "Verified link"}</span>
+    <h4 style="margin-top:8px">${esc(e.from.slice(2))} → ${esc(short(e.to.slice(2)))}</h4><div class="muted small">confidence ${e.confidence != null ? (+e.confidence).toFixed(2) : "–"}${e.checked ? " · checked " + esc(clock(e.checked)) : ""}</div>
+    <div class="step-label">Why</div><div>${esc(e.reasoning || "–")}</div>`;
+}
+$("g-search").addEventListener("keydown", e => {
+  if (e.key !== "Enter") return; const q = $("g-search").value.trim().toLowerCase(); if (!q) return;
+  const n = G.nodes.find(n => String(n.label).toLowerCase().includes(q)); if (!n) { toast("Not found in this graph."); return; }
+  const b = $("g-canvas").getBoundingClientRect(); G.k = Math.max(G.k, 1); G.tx = b.width / 2 - n.x * G.k; G.ty = b.height / 2 - n.y * G.k; applyView(); selectNode(n);
+});
+$("g-orphans").onchange = buildGraph; $("g-flags").onchange = buildGraph; $("g-refresh").onclick = loadGraph;
+
+/* ------------------------------------------------------------ RESULTS view */
+async function loadResults() {
+  let R; try { R = await get("/api/results"); } catch (e) { return; }
+  const prf = R.prf || [], full = prf.find(p => /full pipeline/i.test(p.method)) || {};
+  const s1 = (((R.stage1_recall || {}).iTrust || {})["10"] || {}).hybrid, di = R.decay_injection, lat = (R.nfr || []).find(n => /latency/i.test(n.name));
+  const kpi = (k, v, target, value, sub, good) => `<div class="kpi"><div class="k">${k}</div><div class="v" style="color:${good ? "var(--ok)" : "var(--text)"}">${v}</div>
+     <div class="tg"><span>${sub}</span><span class="pill ${good ? "ok" : "bad"}">${good ? "target met" : "below target"}</span></div>
+     ${value != null ? `<div class="bar"><i style="width:${Math.min(100, value * 100)}%;background:${good ? "var(--ok)" : "var(--accent)"}"></i><b style="left:${target * 100}%"></b></div>` : ""}</div>`;
+  $("kpis").innerHTML = [
+    kpi("Precision · full pipeline (iTrust)", pct(full.precision), .9, full.precision, "target 90%", full.precision >= .9),
+    kpi("Recall · full pipeline (iTrust)", pct(full.recall), .8, full.recall, "target 80%", full.recall >= .8),
+    kpi("Stage 1 recall at top-10 (iTrust)", pct(s1), .8, s1, "ceiling for recall", s1 >= .8),
+    di ? kpi("Decay detected", pct(di.decay_detection_accuracy), .85, di.decay_detection_accuracy, "target 85%", di.decay_detection_accuracy >= .85) : "",
+    lat ? `<div class="kpi"><div class="k">AI check latency</div><div class="v">${esc((lat.measured.match(/\d+\s*s/) || [lat.measured])[0])}</div><div class="tg"><span>target ${esc(lat.target)}</span><span class="pill ${lat.met ? "ok" : "bad"}">${lat.met ? "target met" : "below target"}</span></div></div>` : "",
+  ].join("");
+  const bar = (v, color) => `<div class="tbar"><div class="t"><i style="width:${(v || 0) * 100}%;${color ? "background:" + color : ""}"></i></div><span>${pct(v)}</span></div>`;
+  $("prf").innerHTML = `<table><tr><th>Dataset</th><th>Method</th><th style="width:22%">Precision</th><th style="width:22%">Recall</th><th style="width:16%">F1</th></tr>${prf.map(p => `<tr class="${/full pipeline/i.test(p.method) ? "hl" : ""}"><td>${esc(p.dataset)}</td><td>${esc(p.method)}</td><td>${bar(p.precision)}</td><td>${bar(p.recall, "var(--accent-2)")}</td><td>${pct(p.f1)}</td></tr>`).join("")}</table>`;
+  const rows = []; Object.entries(R.stage1_recall || {}).forEach(([ds, byK]) => Object.entries(byK).forEach(([k, v]) => rows.push(`<tr><td>${esc(ds)}</td><td>top-${esc(k)}</td><td>${bar(v.tfidf, "var(--faint)")}</td><td>${bar(v.hybrid)}</td></tr>`)));
+  $("s1").innerHTML = `<table><tr><th>Dataset</th><th>Top-k</th><th>TF-IDF</th><th>Hybrid (used)</th></tr>${rows.join("")}</table>`;
+  if (di) {
+    $("di-note").textContent = `${pct(di.decay_detection_accuracy)} detected · ${pct(di.false_decay_rate)} false alarms`;
+    $("di").innerHTML = `<table><tr><th>Edit</th><th>Injected</th><th style="width:40%">Detected</th></tr>${Object.entries(di.per_mutation).filter(([, v]) => v.injected).map(([k, v]) => `<tr><td>${esc((MUTATIONS[k] || {}).icon || "")} ${esc((MUTATIONS[k] || {}).title || k)}</td><td>${v.injected}</td><td>${bar(v.detected / v.injected, k === "cosmetic_control" ? "var(--warn)" : "var(--ok)")}</td></tr>`).join("")}</table><div class="muted small" style="margin-top:8px">For the harmless note, "detected" means a false alarm, so lower is better.</div>`;
+  } else $("di").innerHTML = `<div class="empty small">No decay-injection run saved yet.</div>`;
+  $("nfr").innerHTML = `<table><tr><th>Target</th><th>Goal</th><th>Measured</th><th></th></tr>${(R.nfr || []).map(n => `<tr><td>${esc(n.name)}</td><td>${esc(n.target)}</td><td>${esc(n.measured)}</td><td><span class="pill ${n.met ? "ok" : "bad"}">${n.met ? "met" : "not met"}</span></td></tr>`).join("")}</table>`;
+}
+
+/* ------------------------------------------------------------ refresh loop */
+let lastSlow = 0;
+function refreshView(force) {
+  if (S.view === "link") loadLinkRuns(force);
+  else if (S.view === "decay") { loadFiles(force); loadChangeRuns(force); }
+  else if (S.view === "graph") { if (force || G.stale) loadGraph(); }
+  else if (S.view === "results" && force) loadResults();
+}
+async function tick() {
+  await loadActivity();
+  const now = Date.now();
+  if (S.busy || now - lastSlow > 10000) { refreshView(false); }
+  if (now - lastSlow > 10000) { lastSlow = now; loadHealth(); loadProjects(); }
+}
+(async () => {
+  await loadHealth(); await loadProjects();
+  const start = (location.hash || "").slice(1) || store.get("view", "link");
+  show(["link", "decay", "graph", "results"].includes(start) ? start : "link");
+  renderDiff(); tick(); setInterval(tick, 2500);
+  window.addEventListener("resize", () => { if (S.view === "graph") fit(); });
+})();
 </script>
 </body>
 </html>

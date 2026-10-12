@@ -22,6 +22,10 @@ from shared.schemas.traceability import Artifact, TraceabilityLink
 logger = logging.getLogger(__name__)
 
 TARGET_TYPES = ("code", "test", "design")
+# Below this many non-blank characters (after boilerplate such as package/import lines is removed) there is
+# nothing to judge. The LLM must not be asked then: small models answer "linked" anyway and invent the evidence.
+MIN_TARGET_CHARS = 10
+EMPTY_TARGET_REASON = "The code entity no longer contains any code to check against the requirement."
 
 
 @dataclass
@@ -79,11 +83,20 @@ class DecayDetector:
         Returns:
             What happened.
         """
+        target_text = llm_text(target)
+        if len("".join(target_text.split())) < MIN_TARGET_CHARS:
+            # nothing left to check: the link cannot hold, and no LLM call is spent on it
+            verdict = {"is_linked": False, "confidence": 0.0, "reasoning": EMPTY_TARGET_REASON}
+        else:
+            try:
+                verdict = self.llm.verify_link(
+                    requirement.model_copy(update={"text": llm_text(requirement)}),
+                    target.model_copy(update={"text": target_text}),
+                )
+            except (KeyError, TypeError, ValueError) as exc:
+                logger.warning("Re-check of %s -> %s failed: %s", link.source_id, link.target_id, exc)
+                return DecayResult(link=link, rechecked=False, reason=f"malformed LLM response: {exc}")
         try:
-            verdict = self.llm.verify_link(
-                requirement.model_copy(update={"text": llm_text(requirement)}),
-                target.model_copy(update={"text": llm_text(target)}),
-            )
             confidence = float(verdict["confidence"])
             passed = bool(verdict["is_linked"]) and confidence >= self.pass_threshold
             reasoning = str(verdict["reasoning"])

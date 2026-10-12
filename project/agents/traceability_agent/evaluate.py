@@ -187,7 +187,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     runs_dir = Path(__file__).resolve().parents[2] / "data" / "runs"
     logger = RunLogger.new(runs_dir, f"{args.retrieval}-top{args.top_k}-{args.prompt}")
-    agent.run_logger = logger  # the dashboard (apps/web) reads this file live
+    agent.run_logger = logger  # the web app (apps/web) reads this file
     logger.emit(
         "run_start",
         dataset=args.artifacts.parent.name if args.artifacts else "neo4j",

@@ -1,10 +1,9 @@
 neo4j==5.28.7
 openai==2.48.0
 sentence-transformers==5.1.2
+scikit-learn==1.6.1
 pydantic==2.13.5
 pytest==8.4.2
 python-dotenv==1.2.1
 redis==7.0.1
 pyarrow==21.0.0
-fastapi==0.128.8
-uvicorn==0.39.0

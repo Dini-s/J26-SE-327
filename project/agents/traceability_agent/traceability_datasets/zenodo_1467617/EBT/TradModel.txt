@@ -1,5 +1,0 @@
-Requirements RQ id content parent_id
-TestCase TC id testcase Postconditions parent_id
-SourceCode SC FileName
-
-

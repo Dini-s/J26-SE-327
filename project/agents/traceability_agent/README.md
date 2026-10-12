@@ -84,20 +84,26 @@ python -c "from agents.traceability_agent.agent import TraceabilityAgent; print(
 python -c "from agents.traceability_agent.decay import DecayDetector; ..."   # needs uskg, llm, DecayEventPublisher()
 ```
 
-## Dashboard
+## Demo app (web)
 
 ```bash
-uvicorn apps.api.main:app --port 8000     # then open http://127.0.0.1:8000
+.venv/bin/python -m apps.api.server     # then open http://127.0.0.1:8000 (this machine only)
 ```
 
-Three screens show the feature; everything else is under **Advanced** (FastAPI backend in `apps/api`, single-page frontend in `apps/web/index.html`):
+One HTML page (`apps/web/index.html`, no build step, no external libraries) served with a small JSON API
+(`apps/api/server.py`, Python standard library only). Pick the project at the top. The bar under the header
+always shows whether something is running, with live progress; the dots show Neo4j, the AI model and Redis.
 
-| Screen | What it does |
+| Tab | What it does |
 |---|---|
-| **Link a requirement** | Type a new requirement; the system finds candidate code, the AI checks each one (live, with its reasoning), confirmed links are saved to Neo4j, then "See it in the graph" |
-| **Graph** | The live USKG: requirements, code, `VERIFIED_TRACE` links (green verified, red decayed), decay records, requirements with no link. Click anything for details, text and the AI's justification |
-| **Code changes** | Pick a linked code file, change it (stands in for C2 and GitHub), the system re-checks the dependent links; a banner says which broke, with the event sent to C3. "Undo my changes" restores everything |
-| **Advanced** | Pipeline stages, live run and run controls, measured results, demo data loading and reset |
+| **Link** | Type a new requirement; C4 shortlists code, the AI checks each candidate (click a row for its reasoning), confirmed links are saved to Neo4j. Every earlier result stays in the History list, newest first |
+| **Code change** | Pick a linked code file and a kind of change (stands in for C2 and a commit); C4 re-checks only that file's links, marks broken ones decayed with a DecayFlag and sends `trace_decayed` to C3. Shows confidence before and after, the message to C3, and the code before and after. "Undo my changes" restores everything |
+| **Graph** | The project's knowledge graph: drag, zoom, search, click a requirement, file, link or decay record for its details |
+| **Results** | Measured precision/recall/F1, stage-1 recall, decay detection and the targets from the spec |
+
+`apps/api` also holds `sources.py` (data access), `demo.py` (C1/C2 stand-ins, local Neo4j only), `runner.py`
+(background runs) and `history.py` (run history from the run logs). Load a dataset as a project with
+`python scripts/load_to_neo4j.py --artifacts data/processed/<name>/artifacts.json`.
 
 The typed requirement is created as a `Requirement` node marked `dataset = demo-new` (in the real system C1 does this).
 Demo writes only run against a local Neo4j and only touch nodes with a `dataset` property (never a teammate's data);

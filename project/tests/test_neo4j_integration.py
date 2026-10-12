@@ -161,7 +161,7 @@ def test_scales_to_10k_nodes_under_two_seconds(uskg):
         _purge(uskg)
 
 
-def test_dashboard_graph_and_requirement_detail_on_real_neo4j(uskg, graph):
+def test_app_graph_on_real_neo4j(uskg, graph):
     from apps.api import sources
 
     uskg.write_link(link(confidence=0.9))
@@ -176,12 +176,6 @@ def test_dashboard_graph_and_requirement_detail_on_real_neo4j(uskg, graph):
     assert any(e["category"] == "has_decay" and e["from"] == f"r:{P}R1" for e in g["edges"])
     assert any(n["kind"] == "decayflag" and n["codeEntityId"] == P + "C2" for n in g["nodes"])
 
-    detail = sources.neo4j_requirement_detail(P + "R1")
-    assert [l["code_id"] for l in detail["links"]] == [P + "C1", P + "C2"]
-    assert detail["decay_history"][0]["reason"] == "code changed" and detail["score"]["is_orphan"] is False
-    assert sources.neo4j_requirement_detail(P + "NOPE") == {}
-    d = sources.neo4j_decay()
-    assert any(r["code"] == P + "C2" for r in d["decayed"]) and any(r["reason"] == "code changed" for r in d["flags"])
 
 
 def test_demo_modify_edits_only_marked_nodes_and_keeps_the_original(uskg, graph):

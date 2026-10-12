@@ -75,7 +75,7 @@ def test_not_linked_verdict_decays_even_with_high_confidence():
 
 
 def test_malformed_llm_reply_changes_nothing():
-    changed = CODE.model_copy(update={"text": "changed"})
+    changed = CODE.model_copy(update={"text": "public void changed() { }"})
     store = InMemoryUSKG([REQ, changed], [link_for()])
     llm = MagicMock()
     llm.verify_link.return_value = {"nonsense": 1}
@@ -130,3 +130,41 @@ def test_in_memory_write_link_is_idempotent_and_keeps_verified_at():
     assert len(store.get_traces()) == 1
     assert store.get_traces()[0].verified_at == first
     assert store.get_traces()[0].confidence == pytest.approx(0.7)
+
+
+def test_emptied_code_decays_without_asking_the_llm():
+    """A commit that leaves only a package line must not be judged by the LLM (it invented evidence before)."""
+    from unittest.mock import MagicMock
+
+    from agents.traceability_agent.decay import EMPTY_TARGET_REASON, DecayDetector
+    from shared.schemas.traceability import Artifact, TraceabilityLink
+    from shared.uskg.memory import InMemoryUSKG
+
+    req = Artifact(id="R1", type="requirement", text="Login failures record the IP address and timestamp.")
+    code = Artifact(id="C1", type="code", text="package edu.ncsu.csc.itrust.action;")
+    link = TraceabilityLink(source_id="R1", target_id="C1", link_type="requirement_to_code", confidence=0.8,
+                            justification="j", status="verified", text_hash="old")
+    store = InMemoryUSKG([req, code], [link])
+    llm = MagicMock()
+    result = DecayDetector(store, llm).check_link(link, req, code)
+    llm.verify_link.assert_not_called()
+    assert result.decayed and result.new_confidence == 0.0 and result.reason == EMPTY_TARGET_REASON
+    assert store.traces[("R1", "C1")].status == "decayed" and len(store.decay_flags) == 1
+
+
+def test_real_code_still_goes_to_the_llm():
+    from unittest.mock import MagicMock
+
+    from agents.traceability_agent.decay import DecayDetector
+    from shared.schemas.traceability import Artifact, TraceabilityLink
+    from shared.uskg.memory import InMemoryUSKG
+
+    req = Artifact(id="R1", type="requirement", text="Login failures record the IP address.")
+    code = Artifact(id="C1", type="code", text="public void recordLoginFailure(String ip) { log(ip); save(ip, now()); }")
+    link = TraceabilityLink(source_id="R1", target_id="C1", link_type="requirement_to_code", confidence=0.8,
+                            justification="j", status="verified", text_hash="old")
+    store = InMemoryUSKG([req, code], [link])
+    llm = MagicMock()
+    llm.verify_link.return_value = {"is_linked": True, "confidence": 0.8, "reasoning": "logs the ip"}
+    DecayDetector(store, llm).check_link(link, req, code)
+    llm.verify_link.assert_called_once()

@@ -192,10 +192,3 @@ def stop() -> dict[str, Any]:
     os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
     return {"stopped": proc.pid}
 
-
-def log_tail(lines: int = 15) -> str:
-    """Last lines of the dashboard-started run's console output (for spotting startup errors)."""
-    path = _state["log"]
-    if path is None or not path.exists():
-        return ""
-    return "\n".join(path.read_text(errors="replace").splitlines()[-lines:])

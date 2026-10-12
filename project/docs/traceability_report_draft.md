@@ -52,7 +52,7 @@ flowchart LR
     M -->|Redis trace_decayed| C3[C3 Quality & Testing]
     C3 -->|RVU / Evidence| G
     G --> S[Completeness + orphans]
-    G --> D[Dashboard<br/>FastAPI + web]
+    G --> D[Demo web app<br/>HTML + JSON API]
 ```
 
 ## 4. Requirements and status

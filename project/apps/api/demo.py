@@ -3,7 +3,6 @@
 In the real system C1 writes ``Requirement`` nodes and C2 writes ``CodeEntity`` nodes and keeps
 them in sync with GitHub. For a demo (or a viva) these helpers stand in for them:
 
-* ``load``   - put a processed dataset into Neo4j as Requirement / CodeEntity nodes,
 * ``modify`` - edit a CodeEntity's text, i.e. what C2 would do when a commit changes a file,
 * ``add_requirement`` - a new requirement typed into the dashboard (what C1 would create),
 * ``reset``  - delete C4's own results (VERIFIED_TRACE, DecayFlag), the dashboard-created requirements, and undo ``modify``.
@@ -15,12 +14,10 @@ Set DASHBOARD_ALLOW_DEMO=0 to disable.
 
 import os
 import re
-import subprocess
-import sys
 from typing import Any, Optional
 from urllib.parse import urlparse
 
-from apps.api.sources import PROCESSED_DIR, PROJECT_ROOT, _neo4j_driver
+from apps.api.sources import _neo4j_driver
 
 LOCAL_HOSTS = {"localhost", "127.0.0.1", "::1"}
 
@@ -50,13 +47,6 @@ def mutation_functions() -> dict[str, Any]:
     from agents.traceability_agent.decay_injection import BREAKING_MUTATIONS, CONTROL_MUTATION
 
     return {**BREAKING_MUTATIONS, CONTROL_MUTATION[0]: CONTROL_MUTATION[1]}
-
-
-def datasets() -> list[str]:
-    """Processed datasets that can be loaded."""
-    if not PROCESSED_DIR.exists():
-        return []
-    return sorted(d.name for d in PROCESSED_DIR.iterdir() if (d / "artifacts.json").exists())
 
 
 def linked_code_entities(limit: int = 150, project: Optional[str] = None) -> list[dict[str, Any]]:
@@ -121,20 +111,6 @@ def undo_changes(project: Optional[str] = None) -> dict[str, Any]:
                SET v.status = 'verified', v.confidence = f.previousConfidence
                WITH DISTINCT f DETACH DELETE f""", project=project)
     return {"restored_texts": s1.counters.properties_set // 2 if s1.counters.properties_set else 0, "flags_removed": s2.counters.nodes_deleted}
-
-
-def load(dataset: str) -> dict[str, Any]:
-    """Load a processed dataset into Neo4j (idempotent MERGE) via scripts/load_to_neo4j.py."""
-    _require_allowed()
-    if dataset not in datasets():
-        raise DemoError(f"Unknown dataset {dataset!r}")
-    out = subprocess.run(
-        [sys.executable, "-W", "ignore", "scripts/load_to_neo4j.py", "--artifacts", str(PROCESSED_DIR / dataset / "artifacts.json")],
-        cwd=PROJECT_ROOT, capture_output=True, text=True, timeout=180,
-    )
-    if out.returncode != 0:
-        raise DemoError((out.stderr or out.stdout).strip().splitlines()[-1][:200] if (out.stderr or out.stdout).strip() else "load failed")
-    return {"dataset": dataset, "message": out.stdout.strip()}
 
 
 def modify(code_id: str, mutation: str) -> dict[str, Any]:
