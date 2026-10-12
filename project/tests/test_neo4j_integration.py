@@ -159,3 +159,94 @@ def test_scales_to_10k_nodes_under_two_seconds(uskg):
         assert all(v < 2.0 for v in timings.values()), timings
     finally:
         _purge(uskg)
+
+
+def test_dashboard_graph_and_requirement_detail_on_real_neo4j(uskg, graph):
+    from apps.api import sources
+
+    uskg.write_link(link(confidence=0.9))
+    uskg.write_link(link(target_id=P + "C2", confidence=0.8, justification="second"))
+    uskg.mark_decayed(link(target_id=P + "C2"), new_confidence=0.2, reason="code changed")
+    g = sources.neo4j_uskg_graph(max_traces=5000, max_orphans=5000)
+    ours = {n["id"]: n for n in g["nodes"] if P in n["id"] or n.get("codeEntityId", "").startswith(P)}
+    assert ours[f"r:{P}R1"]["kind"] == "requirement" and not ours[f"r:{P}R1"].get("orphan")
+    assert ours[f"r:{P}R2"].get("orphan") is True  # no link: shown as an orphan
+    cats = {(e["from"][2:], e["to"][2:]): e["category"] for e in g["edges"] if P in e["from"]}
+    assert cats[(P + "R1", P + "C1")] == "verified" and cats[(P + "R1", P + "C2")] == "decayed"
+    assert any(e["category"] == "has_decay" and e["from"] == f"r:{P}R1" for e in g["edges"])
+    assert any(n["kind"] == "decayflag" and n["codeEntityId"] == P + "C2" for n in g["nodes"])
+
+    detail = sources.neo4j_requirement_detail(P + "R1")
+    assert [l["code_id"] for l in detail["links"]] == [P + "C1", P + "C2"]
+    assert detail["decay_history"][0]["reason"] == "code changed" and detail["score"]["is_orphan"] is False
+    assert sources.neo4j_requirement_detail(P + "NOPE") == {}
+    d = sources.neo4j_decay()
+    assert any(r["code"] == P + "C2" for r in d["decayed"]) and any(r["reason"] == "code changed" for r in d["flags"])
+
+
+def test_demo_modify_edits_only_marked_nodes_and_keeps_the_original(uskg, graph):
+    from apps.api import demo
+
+    uskg._driver.execute_query("MATCH (c:CodeEntity {id: $c}) SET c.dataset = '__c4test__'", c=P + "C1")
+    result = demo.modify(P + "C1", "unrelated_replacement")
+    assert result["before"] == "TOKEN_TTL_SECONDS = 900" and result["after"] != result["before"]
+    rec, _, _ = uskg._driver.execute_query("MATCH (c:CodeEntity {id: $c}) RETURN c.text AS t, c.original_text AS o", c=P + "C1")
+    assert rec[0]["o"] == "TOKEN_TTL_SECONDS = 900" and rec[0]["t"] != rec[0]["o"]
+    with pytest.raises(demo.DemoError):  # C2 has no dataset property: not a demo node, must be refused
+        demo.modify(P + "C2", "unrelated_replacement")
+    with pytest.raises(demo.DemoError):
+        demo.modify(P + "C1", "no_such_edit")
+
+
+def test_add_requirement_creates_a_marked_node_and_auto_numbers(uskg):
+    from apps.api import demo
+
+    _purge(uskg)
+    try:
+        r = demo.add_requirement("The system shall lock an account after three failed logins.", P + "NEWREQ")
+        assert r["id"] == P + "NEWREQ"
+        rec, _, _ = uskg._driver.execute_query("MATCH (r:Requirement {id: $id}) RETURN r.text AS t, r.dataset AS d", id=r["id"])
+        assert rec[0]["d"] == demo.NEW_DATASET and rec[0]["t"].startswith("The system shall lock")
+        with pytest.raises(demo.DemoError, match="already exists"):
+            demo.add_requirement("The system shall lock an account after three failed logins.", P + "NEWREQ")
+        auto = demo.add_requirement("The system shall export a monthly report as a PDF file.")
+        assert auto["id"].startswith("NEW-")
+        uskg._driver.execute_query("MATCH (r:Requirement {id: $id}) DELETE r", id=auto["id"])  # clean the auto-numbered one
+    finally:
+        _purge(uskg)
+
+
+def test_projects_are_separate_and_a_commit_rechecks_only_its_own_links(uskg, tmp_path):
+    """Two projects in one graph: a change in project A never touches project B."""
+    from agents.traceability_agent.changes import apply_change, parse_change
+
+    _purge(uskg)
+    uskg._driver.execute_query(
+        "CREATE (:Requirement {id: $ra, text: 'Tokens expire after 15 minutes.', project: $pa}),"
+        "(:CodeEntity {id: $ca, text: 'TOKEN_TTL_SECONDS = 900', kind: 'code', project: $pa}),"
+        "(:Requirement {id: $rb, text: 'Tokens expire after 15 minutes.', repo: $pb}),"
+        "(:CodeEntity {id: $cb, text: 'TOKEN_TTL_SECONDS = 900', kind: 'code', repo: $pb})",
+        ra=P + "RA", ca=P + "CA", rb=P + "RB", cb=P + "CB", pa=P + "projA", pb=P + "projB")
+    try:
+        for r, c in ((P + "RA", P + "CA"), (P + "RB", P + "CB")):
+            art = lambda i, t, ty: Artifact(id=i, type=ty, text=t)
+            uskg.write_link(link(source_id=r, target_id=c, text_hash=content_hash(
+                art(r, "Tokens expire after 15 minutes.", "requirement"), art(c, "TOKEN_TTL_SECONDS = 900", "code"))))
+        assert {a.id for a in uskg.get_artifacts("requirement", project=P + "projA")} == {P + "RA"}
+        assert {a.id for a in uskg.get_artifacts("code", project=P + "projB")} == {P + "CB"}  # `repo` works like `project`
+        assert [t.source_id for t in uskg.get_traces(project=P + "projA")] == [P + "RA"]
+        mine = {p["project"]: p for p in uskg.list_projects() if p["project"].startswith(P)}
+        assert mine[P + "projA"]["links"] == 1 and mine[P + "projB"]["code_entities"] == 1
+
+        # the commit rewrites both files, but is reported for project A's file only
+        uskg._driver.execute_query("MATCH (c:CodeEntity) WHERE c.id IN [$a, $b] SET c.text = 'def render(): pass'",
+                                   a=P + "CA", b=P + "CB")
+        llm = MagicMock()
+        llm.verify_link.return_value = {"is_linked": False, "confidence": 0.1, "reasoning": "unrelated now"}
+        result = apply_change(parse_change({"project": P + "projA", "changed": [P + "CA", P + "CB"]}),
+                              uskg, llm, embedder=None, runs_dir=tmp_path)
+        assert (result["rechecked"], result["decayed"]) == (1, 1) and llm.verify_link.call_count == 1
+        status = {t.source_id: t.status for t in uskg.get_traces()  if t.source_id.startswith(P)}
+        assert status == {P + "RA": "decayed", P + "RB": "verified"}
+    finally:
+        _purge(uskg)

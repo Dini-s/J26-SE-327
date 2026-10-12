@@ -14,4 +14,6 @@ PASS_THRESHOLD: float = 0.5  # min LLM confidence for a link to count as verifie
 TRACE_WEIGHT: float = 0.6  # completeness score: weight of trace confidence
 EVIDENCE_WEIGHT: float = 0.4  # completeness score: weight of C3 evidence coverage
 DECAY_CHANNEL: str = "trace_decayed"  # Redis Pub/Sub channel for decay alerts
+# Channel C2 is expected to publish repository changes on. ASSUMED name and message shape: confirm with C2.
+CHANGE_CHANNEL: str = "code_changed"
 MAX_VERIFY_SECONDS: float = 5.0  # NFR: one LLM verification should finish within this

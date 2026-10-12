@@ -31,6 +31,37 @@ class VerificationResult(BaseModel):
     reasoning: str
 
 
+# "evidence" replies: coverage is a category (small models give a meaningless 0.8 for every float), mapped to a score.
+COVERAGE_CONFIDENCE = {"full": 0.9, "partial": 0.6, "none": 0.1}
+
+
+def _squash(text: str) -> str:
+    return "".join(text.split()).lower()
+
+
+def parse_evidence_reply(data: dict[str, Any], target_text: str) -> dict[str, Any]:
+    """Turn an evidence-style reply into the standard verdict, checking the quote against the code.
+
+    A link is only accepted if the model quotes a snippet that really occurs in the target; a made-up or
+    missing quote downgrades the verdict to "none". Pieces of a quote joined by ``...`` are checked separately.
+
+    Raises:
+        LLMResponseError: If ``coverage`` is not full / partial / none.
+    """
+    coverage = str(data.get("coverage", "")).strip().lower()
+    if coverage not in COVERAGE_CONFIDENCE:
+        raise LLMResponseError(f"coverage must be full, partial or none, got {data.get('coverage')!r}")
+    quote = str(data.get("evidence") or "").strip()
+    pieces = [p for p in (quote.split("...") if quote else []) if len(_squash(p)) >= 8]
+    grounded = bool(pieces) and all(_squash(p) in _squash(target_text) for p in pieces)
+    reasoning = str(data.get("reasoning") or "").strip()
+    if coverage != "none" and not grounded:
+        coverage, reasoning = "none", f"Rejected: the quoted evidence is missing or not in the code. {reasoning}"
+    elif grounded and coverage != "none":
+        reasoning = f'{reasoning} Evidence: "{quote}"'
+    return {"is_linked": coverage != "none", "confidence": COVERAGE_CONFIDENCE[coverage], "reasoning": reasoning}
+
+
 class LLMClient:
     """OpenAI chat wrapper that returns structured (JSON) verdicts, never free text."""
 
@@ -46,6 +77,7 @@ class LLMClient:
         base_url: Optional[str] = None,
         api_key: Optional[str] = None,
         timeout: Optional[float] = None,
+        response_mode: str = "score",
     ) -> None:
         """Create the client.
 
@@ -65,6 +97,8 @@ class LLMClient:
                 (``http://host:11434/v1``). Defaults to ``LLM_BASE_URL``; unset means OpenAI.
             api_key: Defaults to ``LLM_API_KEY``, then ``OPENAI_API_KEY``. Self-hosted
                 servers that don't check keys get a placeholder.
+            response_mode: ``score`` (reply has is_linked / confidence / reasoning) or ``evidence`` (reply has a
+                quoted snippet and a full / partial / none coverage; see ``parse_evidence_reply``).
             timeout: Per-request timeout in seconds (default ``LLM_TIMEOUT`` or 120). Raise it for a
                 shared CPU server where requests queue behind each other.
         """
@@ -75,6 +109,9 @@ class LLMClient:
         self.base_url = base_url or os.getenv("LLM_BASE_URL") or None
         self.api_key = api_key or os.getenv("LLM_API_KEY") or os.getenv("OPENAI_API_KEY") or None
         self.timeout: float = timeout or float(os.getenv("LLM_TIMEOUT") or 120.0)
+        if response_mode not in ("score", "evidence"):
+            raise ValueError(f"Unknown response_mode: {response_mode!r}")
+        self.response_mode = response_mode
         self.system_prompt = system_prompt
         self.user_prompt_template = user_prompt_template
         self.temperature = temperature
@@ -120,13 +157,14 @@ class LLMClient:
         Raises:
             LLMResponseError: If the reply is empty, not JSON, or fails validation.
         """
+        target_text = self._clip(target.text)
         user_prompt = self.user_prompt_template.format(
             source_type=source.type,
             source_id=source.id,
             source_text=self._clip(source.text),
             target_type=target.type,
             target_id=target.id,
-            target_text=self._clip(target.text),
+            target_text=target_text,
         )
         response = self.client.chat.completions.create(
             model=self.model,
@@ -141,6 +179,9 @@ class LLMClient:
         if not content:
             raise LLMResponseError("Empty response from model.")
         try:
-            return VerificationResult(**json.loads(content)).model_dump()
+            data = json.loads(content)
+            if self.response_mode == "evidence":
+                return VerificationResult(**parse_evidence_reply(data, target_text)).model_dump()
+            return VerificationResult(**data).model_dump()
         except (json.JSONDecodeError, ValidationError, TypeError) as exc:
             raise LLMResponseError(f"Malformed model response: {content!r}") from exc

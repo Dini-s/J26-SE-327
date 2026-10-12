@@ -17,7 +17,7 @@ load_dotenv(Path(__file__).resolve().parents[2] / ".env")
 
 import os  # noqa: E402
 
-from apps.api import runner, sources  # noqa: E402
+from apps.api import demo, runner, sources  # noqa: E402
 
 app = FastAPI(title="Traceability dashboard")
 
@@ -53,7 +53,8 @@ def status() -> dict[str, Any]:
     return {
         "neo4j": sources.neo4j_status(),
         "llm": sources.llm_status(),
-        "run": {"id": run_dir.name if run_dir else None, **sources.summarize_run(events, truth)},
+        "redis": sources.redis_status(),
+        "run": {"id": run_dir.name if run_dir else None, **_summary(events, truth)},
     }
 
 
@@ -66,11 +67,11 @@ def run(after: int = 0) -> dict[str, Any]:
     start = next((e for e in events if e["type"] == "run_start"), None)
     dataset = sources.load_dataset(start["dataset"]) if start else {"truth": set(), "artifacts": {}}
     feed = [
-        {**e, "truth": (e["source_id"], e["target_id"]) in dataset["truth"]}
+        {**e, "truth": ((e["source_id"], e["target_id"]) in dataset["truth"]) if dataset["truth"] else None}
         for e in events[after:]
         if e["type"] in ("verdict", "malformed")
     ]
-    return {"id": run_dir.name, "summary": sources.summarize_run(events, dataset["truth"]),
+    return {"id": run_dir.name, "summary": _summary(events, dataset["truth"]),
             "feed": feed, "next": len(events)}
 
 
@@ -90,11 +91,11 @@ def graph(source: str = "run") -> dict[str, Any]:
 
 
 @app.get("/api/completeness")
-def completeness() -> dict[str, Any]:
+def completeness(project: Optional[str] = None) -> dict[str, Any]:
     """Traceability completeness and orphan requirements (needs Neo4j)."""
     if not sources.neo4j_status()["connected"]:
         raise HTTPException(503, "Neo4j is not connected")
-    return sources.neo4j_completeness()
+    return sources.neo4j_completeness(project=project or None)
 
 
 @app.get("/api/runs")
@@ -103,6 +104,188 @@ def runs() -> list[str]:
     if not sources.RUNS_DIR.exists():
         return []
     return sorted(d.name for d in sources.RUNS_DIR.iterdir() if (d / "events.jsonl").exists())
+
+
+def _idle() -> bool:
+    """No pipeline process is running, so a run without a run_end event was interrupted."""
+    return runner.status()["state"] == "idle"
+
+
+def _summary(events: list[dict[str, Any]], truth: Any) -> dict[str, Any]:
+    summary = sources.summarize_run(events, truth)
+    if summary["state"] not in ("finished", "none") and _idle():
+        summary["state"] = "interrupted"
+    return summary
+
+
+def _events(kind: str) -> list[dict[str, Any]]:
+    run_dir = sources.latest_run_dir(kind=kind)
+    return sources.read_events(run_dir) if run_dir else []
+
+
+@app.get("/api/pipeline")
+def pipeline() -> dict[str, Any]:
+    """The pipeline stages, each with a state and a one-line detail, from the latest run and monitor pass."""
+    return {"stages": sources.pipeline_stages(_events("pipeline"), _events("monitor"), sources.neo4j_status(), interrupted=_idle())}
+
+
+@app.get("/api/projects")
+def projects() -> list[dict[str, Any]]:
+    """Projects (repositories) in the USKG with their node and link counts."""
+    if not sources.neo4j_status()["connected"]:
+        return []
+    return sources.neo4j_projects()
+
+
+@app.get("/api/uskg")
+def uskg(source: str = "neo4j", dataset: str = "cm1", project: Optional[str] = None) -> dict[str, Any]:
+    """The USKG graph: ``neo4j`` (live) or ``files`` (offline preview from a processed dataset)."""
+    if source == "files":
+        return sources.file_graph(dataset)
+    if not sources.neo4j_status()["connected"]:
+        raise HTTPException(503, "Neo4j is not connected")
+    return {**sources.neo4j_uskg_graph(project=project or None), "counts": sources.neo4j_status().get("counts", {})}
+
+
+@app.get("/api/uskg/requirement/{requirement_id}")
+def uskg_requirement(requirement_id: str) -> dict[str, Any]:
+    """One requirement with its linked code, justifications, completeness score and decay history."""
+    if not sources.neo4j_status()["connected"]:
+        raise HTTPException(503, "Neo4j is not connected")
+    detail = sources.neo4j_requirement_detail(requirement_id)
+    if not detail:
+        raise HTTPException(404, "Unknown requirement")
+    return detail
+
+
+@app.get("/api/decay")
+def decay(project: Optional[str] = None) -> dict[str, Any]:
+    """Decayed links, DecayFlag history, and the event stream of the latest decay-monitor pass."""
+    events = _events("monitor")
+    out: dict[str, Any] = {
+        "neo4j": sources.neo4j_status()["connected"],
+        "events": [e for e in events if e["type"] in ("recheck", "decay_event", "run_start", "run_end")][-80:],
+        "decayed": [], "flags": [],
+    }
+    if out["neo4j"]:
+        out.update(sources.neo4j_decay(project=project or None))
+    return out
+
+
+@app.get("/api/results")
+def results() -> dict[str, Any]:
+    """Measured evaluation results (static file) plus a decay-injection report if one was saved."""
+    return sources.load_results()
+
+
+@app.get("/api/runs/summary")
+def runs_summary() -> list[dict[str, Any]]:
+    """One summary row per recorded run (pipeline runs with metrics, monitor passes with counts)."""
+    return sources.runs_summary(idle=_idle())
+
+
+def _demo_guard() -> None:
+    state = demo.allowed()
+    if not state["allowed"]:
+        raise HTTPException(403, state["reason"])
+
+
+@app.get("/api/demo")
+def demo_state(project: Optional[str] = None) -> dict[str, Any]:
+    """Whether demo controls are available, loadable datasets, edit types and linked code entities."""
+    state = demo.allowed()
+    out: dict[str, Any] = {**state, "datasets": demo.datasets(), "mutations": list(demo.mutation_functions()), "code_entities": []}
+    if state["allowed"] and sources.neo4j_status()["connected"]:
+        out["code_entities"] = demo.linked_code_entities(project=project or None)
+    return out
+
+
+@app.post("/api/demo/load", dependencies=[Depends(require_local_action)])
+def demo_load(params: dict[str, Any] = Body(...)) -> dict[str, Any]:
+    """Load a processed dataset into Neo4j as demo Requirement / CodeEntity nodes."""
+    _demo_guard()
+    try:
+        result = demo.load(str(params.get("dataset", "")))
+    except demo.DemoError as exc:
+        raise HTTPException(400, str(exc))
+    sources._neo_cache.update(at=0.0, value=None)
+    return result
+
+
+@app.post("/api/demo/modify", dependencies=[Depends(require_local_action)])
+def demo_modify(params: dict[str, Any] = Body(...)) -> dict[str, Any]:
+    """Edit a demo code entity's text, as C2 would after a commit (original kept for reset)."""
+    _demo_guard()
+    try:
+        return demo.modify(str(params.get("code_id", "")), str(params.get("mutation", "")))
+    except demo.DemoError as exc:
+        raise HTTPException(400, str(exc))
+
+
+@app.post("/api/requirements/link", dependencies=[Depends(require_local_action)])
+def link_new_requirement(params: dict[str, Any] = Body(...)) -> dict[str, Any]:
+    """Add a new requirement (stands in for C1) and start linking just that requirement to code."""
+    _demo_guard()
+    if not sources.neo4j_status()["connected"]:
+        raise HTTPException(503, "Neo4j is not connected")
+    if runner.status()["state"] != "idle":
+        raise HTTPException(409, "A run is already in progress; wait for it to finish.")
+    try:
+        top_k = int(params.get("top_k", 3))
+        project = str(params.get("project") or "") or None
+        added = demo.add_requirement(str(params.get("text", "")), str(params.get("id", "")), project)
+    except (TypeError, ValueError) as exc:
+        raise HTTPException(400, str(exc))
+    sources._neo_cache.update(at=0.0, value=None)
+    try:
+        started = runner.start({"kind": "link", "requirement_ids": [added["id"]], "top_k": top_k, "retrieval": "hybrid", "project": project})
+    except runner.RunnerError as exc:
+        raise HTTPException(409 if "already" in str(exc) else 400, str(exc))
+    return {**added, **started}
+
+
+@app.post("/api/demo/commit", dependencies=[Depends(require_local_action)])
+def demo_commit(params: dict[str, Any] = Body(...)) -> dict[str, Any]:
+    """Stand in for C2: edit a code file as a commit would, then tell C4 which file changed.
+
+    C4 re-checks only the links that depend on that file (the ``changed`` command).
+    """
+    _demo_guard()
+    if runner.status()["state"] != "idle":
+        raise HTTPException(409, "A run is already in progress; wait for it to finish.")
+    project = str(params.get("project") or "") or None
+    code_id = str(params.get("code_id", ""))
+    try:
+        edit = demo.modify(code_id, str(params.get("mutation", "")))
+        started = runner.start({"kind": "changed", "project": project, "code_changed": [code_id]})
+    except demo.DemoError as exc:
+        raise HTTPException(400, str(exc))
+    except runner.RunnerError as exc:
+        raise HTTPException(409 if "already" in str(exc) else 400, str(exc))
+    sources._neo_cache.update(at=0.0, value=None)
+    return {**edit, **started}
+
+
+@app.post("/api/demo/undo", dependencies=[Depends(require_local_action)])
+def demo_undo(params: dict[str, Any] = Body(default={})) -> dict[str, Any]:
+    """Undo demo code edits and un-decay the links that decayed because of them."""
+    _demo_guard()
+    try:
+        return demo.undo_changes(str(params.get("project") or "") or None)
+    except demo.DemoError as exc:
+        raise HTTPException(400, str(exc))
+
+
+@app.post("/api/demo/reset", dependencies=[Depends(require_local_action)])
+def demo_reset(params: dict[str, Any] = Body(default={})) -> dict[str, Any]:
+    """Delete C4's results (VERIFIED_TRACE, DecayFlag) and undo demo code edits (one project, or all)."""
+    _demo_guard()
+    try:
+        result = demo.reset(str(params.get("project") or "") or None)
+    except demo.DemoError as exc:
+        raise HTTPException(400, str(exc))
+    sources._neo_cache.update(at=0.0, value=None)
+    return result
 
 
 @app.get("/api/runner")

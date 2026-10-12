@@ -26,13 +26,25 @@ class InMemoryUSKG:
         }
         self.decay_flags: list[dict] = []
 
-    def get_artifacts(self, artifact_type: str) -> list[Artifact]:
-        """Artifacts of one type."""
-        return [a for a in self.artifacts.values() if a.type == artifact_type]
+    @staticmethod
+    def _project_of(artifact: Artifact) -> Optional[str]:
+        meta = artifact.metadata
+        return meta.get("project") or meta.get("repo") or meta.get("dataset")
 
-    def get_traces(self, status: Optional[str] = None) -> list[TraceabilityLink]:
-        """Stored links, optionally filtered by status."""
-        return [t for t in self.traces.values() if status is None or t.status == status]
+    def get_artifacts(self, artifact_type: str, project: Optional[str] = None) -> list[Artifact]:
+        """Artifacts of one type, optionally only those of one project."""
+        return [
+            a for a in self.artifacts.values()
+            if a.type == artifact_type and (project is None or self._project_of(a) == project)
+        ]
+
+    def get_traces(self, status: Optional[str] = None, project: Optional[str] = None) -> list[TraceabilityLink]:
+        """Stored links, optionally filtered by status and by the project of the requirement."""
+        return [
+            t for t in self.traces.values()
+            if (status is None or t.status == status)
+            and (project is None or (t.source_id in self.artifacts and self._project_of(self.artifacts[t.source_id]) == project))
+        ]
 
     def write_link(self, link: TraceabilityLink) -> bool:
         """Upsert a link keyed by (source, target); preserves the original verified_at."""

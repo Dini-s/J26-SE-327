@@ -37,7 +37,7 @@ def test_get_code_entities_filters_by_kind():
     client, tx = make_client(rows=[{"id": "D1", "type": "design", "text": "d", "props": {}}])
     (a,) = client.get_artifacts("design")
     assert ":CodeEntity" in tx.run.call_args[0][0]
-    assert tx.run.call_args[1] == {"type": "design"} and a.type == "design"
+    assert tx.run.call_args[1] == {"type": "design", "project": None} and a.type == "design"
 
 
 def test_rows_without_id_or_text_are_handled():
@@ -76,5 +76,15 @@ def test_get_traces_maps_properties():
         "props": {"confidence": 0.8, "justification": "j", "status": "decayed", "textHash": "h", "linkType": "requirement_to_code"},
     }])
     (link,) = client.get_traces(status="decayed")
-    assert tx.run.call_args[1] == {"status": "decayed"}
+    assert tx.run.call_args[1] == {"status": "decayed", "project": None}
     assert (link.status, link.confidence, link.text_hash) == ("decayed", 0.8, "h")
+
+
+def test_project_filter_is_passed_to_the_queries():
+    client, tx = make_client(rows=[])
+    client.get_artifacts("requirement", project="itrust")
+    assert tx.run.call_args[1] == {"project": "itrust"}
+    client.get_traces(project="itrust")
+    assert tx.run.call_args[1] == {"status": None, "project": "itrust"}
+    client.list_projects()
+    assert "MATCH (n)" in tx.run.call_args[0][0] and "CREATE" not in tx.run.call_args[0][0]

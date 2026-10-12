@@ -97,9 +97,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--limit-sources", type=int, help="only use the first N requirements (cheaper LLM runs); gold is filtered to match")
     parser.add_argument("--embedding-model", help="sentence-transformers model name (default: EMBEDDING_MODEL_NAME)")
     parser.add_argument("--chunk-size", type=int, default=CHUNK_WORDS, help="words per chunk; 0 = whole text (default: config.CHUNK_WORDS)")
-    parser.add_argument("--prompt", choices=["expert", "generic"], default="expert", help="LLM prompt: the traceability-expert persona or a plain generic one (ablation)")
+    parser.add_argument("--prompt", choices=["expert", "generic", "evidence"], default="expert", help="LLM prompt: the traceability-expert persona, a plain generic one (ablation), or evidence-first (quote + coverage)")
     parser.add_argument("--raw-text", action="store_true", help="skip code cleaning (imports/identifier splitting) to compare")
     parser.add_argument("--retrieval", choices=["embeddings", "tfidf", "hybrid"], default="hybrid", help="stage-1 method for --method full")
+    parser.add_argument("--ks", default="10,20,50", help="top-k values for --ceiling, comma separated")
     parser.add_argument("--ceiling", action="store_true", help="print stage-1 recall ceiling (threshold 0) for several top-k, then exit")
     parser.add_argument("--sweep", action="store_true", help="tfidf/embeddings: print metrics across thresholds")
     args = parser.parse_args(argv)
@@ -142,7 +143,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         recall = lambda c: len({(x.source.id, x.target.id) for x in c} & true) / len(true)
         print(f"Stage-1 recall ceiling (no LLM; raw_text={args.raw_text}) over {len(true)} true links")
         print(f"{'top_k':>6} {'tfidf':>8} {'embeddings':>11} {'hybrid':>8} {'candidates':>11}")
-        for k in (10, 20, 50):
+        for k in [int(x) for x in args.ks.split(",")]:
             print(
                 f"{k:>6} {recall(baselines.tfidf_candidates(sources, targets, k, 0.0, text_fn, chunk)):>8.3f} "
                 f"{recall(baselines.embedding_candidates(sources, targets, embedder, k, -1.0, text_fn, chunk)):>11.3f} "
@@ -162,17 +163,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     from agents.traceability_agent.agent import TraceabilityAgent
     from shared.embeddings.embedder import Embedder
 
-    from agents.traceability_agent import prompts
-    from shared.llm.client import LLMClient
+    from agents.traceability_agent.cli import _build_llm
 
-    system, template = (
-        (prompts.SYSTEM_PROMPT, prompts.USER_PROMPT_TEMPLATE)
-        if args.prompt == "expert"
-        else (prompts.GENERIC_SYSTEM_PROMPT, prompts.GENERIC_USER_PROMPT_TEMPLATE)
-    )
     agent = TraceabilityAgent(
         uskg=store, embedder=Embedder(args.embedding_model), retrieval=args.retrieval, top_k=args.top_k,
-        chunk_size=chunk, llm=LLMClient(system_prompt=system, user_prompt_template=template),
+        chunk_size=chunk, llm=_build_llm(args.prompt),
     )
     th = args.threshold  # None = agent default (no cutoff, rank by top-k)
     if args.method == "hybrid":

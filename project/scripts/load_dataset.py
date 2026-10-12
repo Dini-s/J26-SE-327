@@ -3,6 +3,8 @@
 Usage (from the project root):
     python scripts/load_dataset.py --dataset itrust   # requirement -> code (primary)
     python scripts/load_dataset.py --dataset cm1      # requirement -> design
+    python scripts/load_dataset.py --dataset etour    # use case -> Java (FTLR repo)
+    python scripts/load_dataset.py --dataset libest   # requirement -> C (FTLR repo)
 
 Raw files are only read, never modified. Outputs go to ``data/processed/<dataset>/``:
     artifacts.json  list of Artifact (shared.schemas.traceability)
@@ -123,9 +125,57 @@ def load_itrust(raw: Path) -> tuple[list[Artifact], set[tuple[str, str]]]:
     return list(seen.values()), pairs
 
 
+FTLR_DIR = "finegrained-traceability/datasets"
+
+
+def load_ftlr(raw: Path, name: str, links_file: str, code_language: str) -> tuple[list[Artifact], set[tuple[str, str]]]:
+    """Read a dataset from the FTLR repo (tobhey/finegrained-traceability).
+
+    Layout: ``<name>/req/*.txt`` requirements, ``<name>/code/*`` code files, and a links
+    file with lines ``REQ.txt: Target1 Target2 ...`` (whitespace-separated targets).
+    Artifact ids are the file names, so the links file matches them exactly.
+    """
+    base = raw / FTLR_DIR / name
+    seen: dict[str, Artifact] = {}
+    for path in sorted((base / "req").iterdir()):
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        seen[path.name] = Artifact(id=path.name, type="requirement", text=normalise_prose(text),
+                                   metadata={"dataset": name, "layer": "requirement"})
+    for path in sorted((base / "code").iterdir()):
+        text = path.read_text(encoding="utf-8-sig", errors="replace")
+        seen[path.name] = Artifact(id=path.name, type="code", text=normalise_code(text),
+                                   metadata={"dataset": name, "layer": "code", "language": code_language})
+    pairs: set[tuple[str, str]] = set()
+    missing = 0
+    for line in (base / links_file).read_text(encoding="utf-8-sig").splitlines():
+        if ":" not in line:
+            continue
+        req, targets = line.split(":", 1)
+        for target in targets.split():
+            if req.strip() in seen and target in seen:
+                pairs.add((req.strip(), target))
+            else:
+                missing += 1
+    if missing:
+        print(f"warning: {missing} link endpoints not found among the artifacts and were dropped")
+    return list(seen.values()), pairs
+
+
+def load_etour(raw: Path) -> tuple[list[Artifact], set[tuple[str, str]]]:
+    """eTour: use cases -> Java classes (English version of the answer matrix)."""
+    return load_ftlr(raw, "eTour", "etour_solution_links_english.txt", "java")
+
+
+def load_libest(raw: Path) -> tuple[list[Artifact], set[tuple[str, str]]]:
+    """LibEST: requirements (RFC text) -> C source and header files."""
+    return load_ftlr(raw, "LibEST", "req_to_code_ground.txt", "c")
+
+
 DATASETS: dict[str, Callable[[Path], tuple[list[Artifact], set[tuple[str, str]]]]] = {
     "cm1": load_cm1,
     "itrust": load_itrust,
+    "etour": load_etour,
+    "libest": load_libest,
 }
 
 

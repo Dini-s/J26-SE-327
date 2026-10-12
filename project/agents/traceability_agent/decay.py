@@ -14,6 +14,7 @@ from typing import Any, Optional
 from agents.traceability_agent.config import PASS_THRESHOLD
 from agents.traceability_agent.events import DecayEventPublisher
 from agents.traceability_agent.preprocess import llm_text
+from agents.traceability_agent.run_log import RunLogger
 from agents.traceability_agent.utils import content_hash
 from shared.llm.client import LLMClient
 from shared.schemas.traceability import Artifact, TraceabilityLink
@@ -44,6 +45,7 @@ class DecayDetector:
         llm: LLMClient,
         publisher: Optional[DecayEventPublisher] = None,
         pass_threshold: float = PASS_THRESHOLD,
+        run_logger: Optional[RunLogger] = None,
     ) -> None:
         """Wire up dependencies.
 
@@ -52,11 +54,13 @@ class DecayDetector:
             llm: Verifier used for re-checking.
             publisher: Where to announce decays; ``None`` disables notifications.
             pass_threshold: Confidence below which a link counts as decayed.
+            run_logger: If given, every re-check and decay event is appended for the dashboard.
         """
         self.uskg = uskg
         self.llm = llm
         self.publisher = publisher
         self.pass_threshold = pass_threshold
+        self.run_logger = run_logger
 
     def check_link(
         self, link: TraceabilityLink, requirement: Artifact, target: Artifact
@@ -98,6 +102,7 @@ class DecayDetector:
                     }
                 )
             )
+            self._log_recheck(link, confidence, decayed=False, published=False, reason=reasoning)
             return DecayResult(link=link, rechecked=True, new_confidence=confidence, reason=reasoning)
 
         self.uskg.mark_decayed(link, new_confidence=confidence, reason=reasoning)
@@ -108,6 +113,16 @@ class DecayDetector:
                 published = True
             except Exception:  # keep the decay flag even if Redis is down; surface it in the log
                 logger.exception("Failed to publish decay event for %s", link.source_id)
+        if self.run_logger:
+            # logged whether or not Redis delivered it, with a flag, so the dashboard can show the event
+            from agents.traceability_agent.events import DecayEventPublisher
+
+            self.run_logger.emit(
+                "decay_event",
+                delivered=published,
+                event=DecayEventPublisher.build_event(link.source_id, link.target_id, link.confidence, confidence),
+            )
+        self._log_recheck(link, confidence, decayed=True, published=published, reason=reasoning)
         return DecayResult(
             link=link,
             rechecked=True,
@@ -117,19 +132,40 @@ class DecayDetector:
             published=published,
         )
 
-    def run(self, force: bool = False) -> list[DecayResult]:
-        """Poll all verified links and re-check those whose content changed.
+    def _log_recheck(self, link: TraceabilityLink, new_confidence: float, decayed: bool, published: bool, reason: str) -> None:
+        if self.run_logger:
+            self.run_logger.emit(
+                "recheck",
+                source_id=link.source_id,
+                target_id=link.target_id,
+                previous_confidence=link.confidence,
+                new_confidence=new_confidence,
+                decayed=decayed,
+                published=published,
+                reason=reason,
+            )
+
+    def run(
+        self, force: bool = False, project: Optional[str] = None, only_targets: Optional[set[str]] = None
+    ) -> list[DecayResult]:
+        """Poll verified links and re-check those whose content changed.
 
         Args:
             force: Re-check every verified link, even if its text hash is unchanged.
+            project: Only links of this project / repository.
+            only_targets: Only links to these code entity ids (what a commit touched); links to
+                other files are not even looked at, so a commit costs LLM calls only where needed.
 
         Returns:
             One result per link that was re-checked.
         """
-        requirements = {a.id: a for a in self.uskg.get_artifacts("requirement")}
-        targets = {a.id: a for t in TARGET_TYPES for a in self.uskg.get_artifacts(t)}
+        scope = {"project": project} if project else {}
+        requirements = {a.id: a for a in self.uskg.get_artifacts("requirement", **scope)}
+        targets = {a.id: a for t in TARGET_TYPES for a in self.uskg.get_artifacts(t, **scope)}
         results: list[DecayResult] = []
-        for link in self.uskg.get_traces(status="verified"):
+        for link in self.uskg.get_traces(status="verified", **scope):
+            if only_targets is not None and link.target_id not in only_targets:
+                continue
             requirement, target = requirements.get(link.source_id), targets.get(link.target_id)
             if requirement is None or target is None:
                 logger.warning("Skipping %s -> %s: artifact missing", link.source_id, link.target_id)

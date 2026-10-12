@@ -17,7 +17,11 @@ from typing import Any, Optional
 from apps.api.sources import PROCESSED_DIR, PROJECT_ROOT, RUNS_DIR, load_dataset
 
 SECONDS_PER_CALL = 52  # measured mean on the CPU-only Ollama server; an estimate for the UI only
+import re
+
+ID_PATTERN = re.compile(r"[A-Za-z0-9._-]{1,60}")
 RETRIEVALS = ("hybrid", "embeddings", "tfidf")
+KINDS = ("evaluate", "link", "monitor", "changed")
 LOGS_DIR = RUNS_DIR / "_logs"
 _state: dict[str, Any] = {"proc": None, "params": None, "started": None, "log": None}
 
@@ -38,15 +42,37 @@ def list_datasets() -> list[str]:
 def validate(params: dict[str, Any]) -> dict[str, Any]:
     """Check and normalise run parameters.
 
+    ``kind`` is ``evaluate`` (score against a gold file, nothing written), ``link`` (find links in
+    Neo4j and write VERIFIED_TRACE edges) or ``monitor`` (one decay pass).
+
     Raises:
-        RunnerError: On an unknown dataset/retrieval or out-of-range numbers.
+        RunnerError: On an unknown kind/dataset/retrieval or out-of-range numbers.
     """
-    dataset = str(params.get("dataset", "itrust"))
-    if dataset not in list_datasets():
-        raise RunnerError(f"Unknown dataset {dataset!r}")
+    kind = str(params.get("kind", "evaluate"))
+    if kind not in KINDS:
+        raise RunnerError(f"kind must be one of {KINDS}")
+    project = params.get("project") or None
+    if project is not None and not (isinstance(project, str) and ID_PATTERN.fullmatch(project)):
+        raise RunnerError("project must be a simple name (letters, digits, . _ -)")
+    if kind == "monitor":
+        out: dict[str, Any] = {"kind": "monitor", "force": bool(params.get("force", False))}
+        return {**out, "project": project} if project else out
+    if kind == "changed":  # what C2 would report after a commit: validated by the same rules as a real message
+        from agents.traceability_agent.changes import ChangeError, parse_change
+
+        try:
+            change = parse_change({"project": project, "changed": params.get("code_changed"), "added": params.get("code_added"),
+                                   "requirementsAdded": params.get("requirements_added")})
+        except ChangeError as exc:
+            raise RunnerError(str(exc)) from exc
+        return {"kind": "changed", "project": project, "code_changed": list(change.changed), "code_added": list(change.added),
+                "requirements_added": list(change.requirements_added), "top_k": 3}
     retrieval = str(params.get("retrieval", "hybrid"))
     if retrieval not in RETRIEVALS:
         raise RunnerError(f"retrieval must be one of {RETRIEVALS}")
+    dataset = str(params.get("dataset", "itrust"))
+    if kind == "evaluate" and dataset not in list_datasets():
+        raise RunnerError(f"Unknown dataset {dataset!r}")
     try:
         top_k = int(params.get("top_k", 5))
         limit = params.get("limit_sources", 10)
@@ -57,23 +83,52 @@ def validate(params: dict[str, Any]) -> dict[str, Any]:
         raise RunnerError("top_k must be between 1 and 50")
     if limit is not None and not 1 <= limit <= 500:
         raise RunnerError("limit_sources must be between 1 and 500")
-    return {"dataset": dataset, "retrieval": retrieval, "top_k": top_k, "limit_sources": limit}
+    ids = params.get("requirement_ids") or []
+    if kind == "link" and ids:
+        if not isinstance(ids, list) or len(ids) > 20 or not all(isinstance(i, str) and ID_PATTERN.fullmatch(i) for i in ids):
+            raise RunnerError("requirement_ids must be a list of at most 20 simple ids (letters, digits, . _ -)")
+    else:
+        ids = []
+    out = {"kind": kind, "dataset": dataset, "retrieval": retrieval, "top_k": top_k, "limit_sources": limit, "requirement_ids": ids}
+    return {**out, "project": project} if project and kind == "link" else out
 
 
 def estimate(params: dict[str, Any]) -> dict[str, Any]:
     """Expected LLM calls and duration (calls = requirements x top_k)."""
-    artifacts = load_dataset(params["dataset"])["artifacts"]
-    n_req = sum(1 for a in artifacts.values() if a["type"] == "requirement")
-    n = min(params["limit_sources"] or n_req, n_req)
+    if params["kind"] in ("monitor", "changed"):
+        return {"requirements": None, "calls": None, "minutes": None, "note": "one call per link that depends on a changed file"}
+    if params["kind"] == "link":
+        n = len(params["requirement_ids"]) or params["limit_sources"]
+        if n is None:
+            return {"requirements": None, "calls": None, "minutes": None, "note": "all requirements in Neo4j; set a limit for an estimate"}
+    else:
+        artifacts = load_dataset(params["dataset"])["artifacts"]
+        n_req = sum(1 for a in artifacts.values() if a["type"] == "requirement")
+        n = min(params["limit_sources"] or n_req, n_req)
     calls = n * params["top_k"]
     return {"requirements": n, "calls": calls, "minutes": round(calls * SECONDS_PER_CALL / 60)}
 
 
 def build_command(params: dict[str, Any]) -> list[str]:
-    """Argument list for the evaluate script."""
+    """Argument list for the process that implements this kind of run."""
+    base_cmd = [sys.executable, "-W", "ignore", "-u", "-m"]
+    project = ["--project", params["project"]] if params.get("project") else []
+    if params["kind"] == "monitor":
+        return base_cmd + ["agents.traceability_agent", "monitor", "--once"] + (["--force"] if params["force"] else []) + project
+    if params["kind"] == "changed":
+        cmd = base_cmd + ["agents.traceability_agent", "changed", "--top-k", str(params["top_k"])] + project
+        for flag, key in (("--code-changed", "code_changed"), ("--code-added", "code_added"), ("--requirement-added", "requirements_added")):
+            for value in params[key]:
+                cmd += [flag, value]
+        return cmd
+    if params["kind"] == "link":
+        cmd = base_cmd + ["agents.traceability_agent", "link", "--top-k", str(params["top_k"]), "--retrieval", params["retrieval"]] + project
+        for rid in params["requirement_ids"]:
+            cmd += ["--requirement", rid]
+        return cmd + (["--limit-sources", str(params["limit_sources"])] if params["limit_sources"] and not params["requirement_ids"] else [])
     base = PROCESSED_DIR / params["dataset"]
-    cmd = [
-        sys.executable, "-W", "ignore", "-u", "-m", "agents.traceability_agent.evaluate",
+    cmd = base_cmd + [
+        "agents.traceability_agent.evaluate",
         "--gold", str(base / "gold.json"), "--artifacts", str(base / "artifacts.json"),
         "--method", "full", "--retrieval", params["retrieval"], "--top-k", str(params["top_k"]),
     ]
@@ -84,7 +139,7 @@ def build_command(params: dict[str, Any]) -> list[str]:
 
 def _external_pids() -> list[int]:
     """PIDs of evaluate runs not started by this dashboard (e.g. from a terminal)."""
-    out = subprocess.run(["pgrep", "-f", "agents.traceability_agent.evaluate"], capture_output=True, text=True)
+    out = subprocess.run(["pgrep", "-f", "--", r"-m agents\.traceability_agent"], capture_output=True, text=True)
     own = _state["proc"].pid if _state["proc"] is not None and _state["proc"].poll() is None else None
     return [int(p) for p in out.stdout.split() if int(p) != own and int(p) != os.getpid()]
 

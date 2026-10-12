@@ -16,6 +16,7 @@ Write ownership: the only write statements in this module create/update
 ever matched, never created, modified or deleted.
 """
 
+import logging
 import os
 import re
 from datetime import datetime
@@ -26,10 +27,17 @@ from neo4j import Driver, GraphDatabase
 
 from shared.schemas.traceability import Artifact, TraceabilityLink
 
+# The read queries try several property names for an entity's text (text, source, code, ...), because
+# C1/C2's exact names are not confirmed. Neo4j warns about every name that does not exist yet; silence that.
+logging.getLogger("neo4j.notifications").setLevel(logging.ERROR)
+
 _CORE_PROPERTIES = {"id", "type", "text"}
 
+# A "project" is one repository / dataset. It is read from whichever property the producing component sets
+# (project, repo, or the demo loader's dataset), so one graph can hold many projects without a schema change.
 _REQUIREMENTS_QUERY = """
 MATCH (n:Requirement)
+WHERE $project IS NULL OR coalesce(n.project, n.repo, n.dataset) = $project
 RETURN n.id AS id, 'requirement' AS type,
        coalesce(n.text, n.description, n.title, '') AS text, properties(n) AS props
 """
@@ -37,13 +45,27 @@ RETURN n.id AS id, 'requirement' AS type,
 _CODE_ENTITIES_QUERY = """
 MATCH (n:CodeEntity)
 WHERE coalesce(n.kind, 'code') = $type
+  AND ($project IS NULL OR coalesce(n.project, n.repo, n.dataset) = $project)
 RETURN n.id AS id, coalesce(n.kind, 'code') AS type,
        coalesce(n.text, n.source, n.code, n.signature, '') AS text, properties(n) AS props
 """
 
+_PROJECTS_QUERY = """
+MATCH (n) WHERE (n:Requirement OR n:CodeEntity) AND coalesce(n.project, n.repo, n.dataset) IS NOT NULL
+WITH coalesce(n.project, n.repo, n.dataset) AS project,
+     sum(CASE WHEN n:Requirement THEN 1 ELSE 0 END) AS requirements,
+     sum(CASE WHEN n:CodeEntity THEN 1 ELSE 0 END) AS code_entities
+OPTIONAL MATCH (r:Requirement)-[v:VERIFIED_TRACE]->()
+WHERE coalesce(r.project, r.repo, r.dataset) = project
+RETURN project, requirements, code_entities, count(v) AS links,
+       sum(CASE WHEN v.status = 'decayed' THEN 1 ELSE 0 END) AS decayed
+ORDER BY project
+"""
+
 _GET_TRACES_QUERY = """
 MATCH (r:Requirement)-[v:VERIFIED_TRACE]->(c:CodeEntity)
-WHERE $status IS NULL OR v.status = $status
+WHERE ($status IS NULL OR v.status = $status)
+  AND ($project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project)
 RETURN r.id AS source_id, c.id AS target_id, properties(v) AS props
 """
 
@@ -188,20 +210,25 @@ class USKGClient:
             self._driver.execute_query(statement)
         return list(SCHEMA_STATEMENTS)
 
-    def get_artifacts(self, artifact_type: str) -> list[Artifact]:
+    def list_projects(self) -> list[dict[str, Any]]:
+        """Projects (repositories) in the graph with their node and link counts (read-only)."""
+        return self._read(_PROJECTS_QUERY)
+
+    def get_artifacts(self, artifact_type: str, project: Optional[str] = None) -> list[Artifact]:
         """Fetch all artifacts of one type (read-only).
 
         Args:
             artifact_type: ``requirement`` reads ``Requirement`` nodes; any other
                 type reads ``CodeEntity`` nodes whose ``kind`` matches.
+            project: Only artifacts of this project / repository; ``None`` reads all.
 
         Returns:
             The matching artifacts; extra node properties land in ``metadata``.
         """
         if artifact_type == "requirement":
-            rows = self._read(_REQUIREMENTS_QUERY)
+            rows = self._read(_REQUIREMENTS_QUERY, project=project)
         else:
-            rows = self._read(_CODE_ENTITIES_QUERY, type=artifact_type)
+            rows = self._read(_CODE_ENTITIES_QUERY, type=artifact_type, project=project)
         return [
             Artifact(
                 id=str(row["id"]),
@@ -213,17 +240,18 @@ class USKGClient:
             if row["id"] is not None
         ]
 
-    def get_traces(self, status: Optional[str] = None) -> list[TraceabilityLink]:
+    def get_traces(self, status: Optional[str] = None, project: Optional[str] = None) -> list[TraceabilityLink]:
         """Fetch existing ``VERIFIED_TRACE`` edges.
 
         Args:
             status: Only return edges with this status (``verified``/``decayed``).
+            project: Only edges whose requirement belongs to this project; ``None`` reads all.
 
         Returns:
             The edges as links.
         """
         links = []
-        for row in self._read(_GET_TRACES_QUERY, status=status):
+        for row in self._read(_GET_TRACES_QUERY, status=status, project=project):
             p = row["props"]
             links.append(
                 TraceabilityLink(

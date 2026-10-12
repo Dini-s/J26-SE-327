@@ -17,10 +17,10 @@ edges -> monitor decay (`DecayFlag` + Redis event) -> completeness score and orp
 | Decay | Hash-based change detection, re-verify, mark decayed without deleting, `DecayFlag`, Redis publisher |
 | Completeness | Score 0-100, orphan list, `score` command and dashboard panel |
 | Command line | `python -m agents.traceability_agent setup / link / monitor / score`, plus `evaluate` and `decay_injection` |
-| Dashboard | FastAPI + web page: live run feed, precision/recall, trace graph, Neo4j status, run start/stop, completeness |
+| Dashboard | FastAPI + web app, 6 pages: pipeline stages, live USKG graph from Neo4j (requirements, code entities, `VERIFIED_TRACE`, `DecayFlag`), live run and verdicts, decay simulation and event stream, results, demo setup |
 | Self-hosted LLM | OpenAI-compatible client config; Ollama on a CPU server behind an nginx API-key proxy |
-| Datasets | iTrust (requirement to code, primary) and CM-1 converted to our schema, with full gold labels |
-| Tests | 92 tests: 85 pass, 7 real-Neo4j integration tests skip while Neo4j is down |
+| Datasets | iTrust, eTour, LibEST (requirement to code) and CM-1 (to design) converted to our schema with full gold labels; SEOSS 33 and Defects4J examined for decay data |
+| Tests | 104 tests, all passing, including real-Neo4j integration tests (graph, decay, demo guard, 10,000-node scale) |
 | Docs | Agent README, report draft (`docs/traceability_report_draft.md`) |
 
 ## 2. Completion

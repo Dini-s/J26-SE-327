@@ -61,3 +61,26 @@ TARGET ({target_type}) id={target_id}:
 
 Return the JSON object only.
 """
+
+
+# Evidence-first variant: the model must name what the requirement needs, quote the code that does it, and only
+# then rate coverage. The quote is checked against the code (shared/llm/client.py), so a link without real
+# evidence is rejected; the category replaces the float "confidence", which small models fill with one number.
+EVIDENCE_SYSTEM_PROMPT: str = """\
+You are a software traceability expert. You decide whether a TARGET artifact (code, test or design) \
+implements, realises or verifies what a SOURCE requirement asks for.
+
+Work in this order and fill the JSON fields in this order:
+1. "requirement_needs": the specific thing the requirement asks the system to have or do, in one sentence.
+2. "evidence": ONE exact snippet copied from the TARGET (at most 200 characters, no changes) that implements it. \
+Use "" if no snippet in the TARGET does.
+3. "coverage": "full" if the snippet clearly implements what the requirement asks; "partial" if it implements part \
+of it; "none" if the code is only on the same topic, mentions the same words, or you cannot quote anything.
+4. "reasoning": one or two sentences linking the snippet to the requirement.
+
+Judge only the code you are shown. Do not accept a link because both mention the same class or word. \
+A requirement that names a class, constructor or method is satisfied by the TARGET that defines it.
+
+Respond ONLY with a JSON object of exactly this form:
+{"requirement_needs": "...", "evidence": "...", "coverage": "full" or "partial" or "none", "reasoning": "..."}
+"""

@@ -23,6 +23,19 @@ assumption (see that file's docstring), as is `CodeEntity.kind`. A relationship
 cannot be the endpoint of another relationship in Neo4j, so `HAS_DECAY` hangs off
 the requirement and the flag records `codeEntityId`.
 
+## Projects and commits
+
+One graph can hold many projects (repositories). A project is read from a node's `project`,
+`repo` or (demo loader) `dataset` property, so no schema change is needed; `link`, `monitor`,
+`score` and the dashboard take `--project` / the project selector.
+
+C2 (not C4) watches the repository. C4's side of the hook is `changed` / `listen`
+(`agents/traceability_agent/changes.py`): given the files a commit changed or added and any new
+requirements, it re-checks only the links to those files (unchanged text costs no LLM call),
+and looks for links only where something is new. The Redis channel `code_changed` and the message
+`{"project", "changed": [...], "added": [...], "requirementsAdded": [...]}` are **assumptions to confirm
+with C2**. The dashboard's "Code changes" page stands in for C2 by editing a file and calling the same code.
+
 ## Pipeline
 
 1. **Load** – requirements and code entities from the USKG.
@@ -52,6 +65,8 @@ python -m agents.traceability_agent setup                 # create Neo4j indexes
 python -m agents.traceability_agent link --top-k 5        # find + verify links, write VERIFIED_TRACE (--dry-run to skip writing)
 python -m agents.traceability_agent monitor --once        # decay pass; without --once it polls every --interval seconds
 python -m agents.traceability_agent score                 # completeness per requirement + orphans
+python -m agents.traceability_agent changed --project P --code-changed ID   # one commit: re-check only the links of that file
+python -m agents.traceability_agent listen                # wait for C2's change messages on Redis and handle each one
 bash scripts/final_evaluation.sh                          # persona ablation, CM-1 write run, decay-injection (hours on a CPU LLM server)
 ```
 
@@ -70,7 +85,20 @@ python -c "from agents.traceability_agent.decay import DecayDetector; ..."   # n
 uvicorn apps.api.main:app --port 8000     # then open http://127.0.0.1:8000
 ```
 
-Live progress, precision/recall, per-pair LLM verdicts, the trace graph and Neo4j status. It reads the event log that `evaluate.py --method full` (or any agent with `run_logger`) writes to `data/runs/<run>/events.jsonl`, and queries Neo4j when `NEO4J_*` in `.env` are valid. FastAPI backend in `apps/api`, single-page frontend in `apps/web/index.html`.
+Three screens show the feature; everything else is under **Advanced** (FastAPI backend in `apps/api`, single-page frontend in `apps/web/index.html`):
+
+| Screen | What it does |
+|---|---|
+| **Link a requirement** | Type a new requirement; the system finds candidate code, the AI checks each one (live, with its reasoning), confirmed links are saved to Neo4j, then "See it in the graph" |
+| **Graph** | The live USKG: requirements, code, `VERIFIED_TRACE` links (green verified, red decayed), decay records, requirements with no link. Click anything for details, text and the AI's justification |
+| **Code changes** | Pick a linked code file, change it (stands in for C2 and GitHub), the system re-checks the dependent links; a banner says which broke, with the event sent to C3. "Undo my changes" restores everything |
+| **Advanced** | Pipeline stages, live run and run controls, measured results, demo data loading and reset |
+
+The typed requirement is created as a `Requirement` node marked `dataset = demo-new` (in the real system C1 does this).
+Demo writes only run against a local Neo4j and only touch nodes with a `dataset` property (never a teammate's data);
+`DASHBOARD_ALLOW_DEMO=0` disables them and `DASHBOARD_ALLOW_RUN=0` disables starting runs. Runs write
+`data/runs/<run>/events.jsonl`, which the screens read live; measured results are in `data/results/summary.json`.
+A single new requirement takes about 3 minutes on a CPU-only LLM server (about 50 s per candidate).
 
 ## Self-hosted LLM
 

@@ -38,6 +38,20 @@ class DecayEventPublisher:
             self._client = redis.Redis.from_url(self._url)
         return self._client
 
+    @staticmethod
+    def build_event(
+        requirement_id: str, code_entity_id: str, previous_confidence: float, new_confidence: float
+    ) -> dict[str, Any]:
+        """The ``trace_decayed`` event as specified for C3 (also logged when Redis is unavailable)."""
+        return {
+            "event": "trace_decayed",
+            "requirementId": requirement_id,
+            "codeEntityId": code_entity_id,
+            "previousConfidence": previous_confidence,
+            "newConfidence": new_confidence,
+            "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        }
+
     def publish(
         self,
         requirement_id: str,
@@ -56,13 +70,6 @@ class DecayEventPublisher:
         Returns:
             The event that was published.
         """
-        event = {
-            "event": "trace_decayed",
-            "requirementId": requirement_id,
-            "codeEntityId": code_entity_id,
-            "previousConfidence": previous_confidence,
-            "newConfidence": new_confidence,
-            "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        }
+        event = self.build_event(requirement_id, code_entity_id, previous_confidence, new_confidence)
         self.client.publish(self.channel, json.dumps(event))
         return event

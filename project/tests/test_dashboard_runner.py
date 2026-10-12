@@ -10,7 +10,7 @@ from apps.api import runner
 
 def test_validate_applies_defaults_and_bounds():
     p = runner.validate({"dataset": "itrust"})
-    assert p == {"dataset": "itrust", "retrieval": "hybrid", "top_k": 5, "limit_sources": 10}
+    assert p == {"kind": "evaluate", "dataset": "itrust", "retrieval": "hybrid", "top_k": 5, "limit_sources": 10, "requirement_ids": []}
     assert runner.validate({"dataset": "itrust", "limit_sources": ""})["limit_sources"] is None
 
 
@@ -64,3 +64,40 @@ def test_external_run_blocks_start_and_cannot_be_stopped(monkeypatch):
         runner.start({"dataset": "itrust"}, command=[sys.executable, "-c", "pass"])
     with pytest.raises(runner.RunnerError):
         runner.stop()
+
+
+def test_link_and_monitor_kinds_build_cli_commands():
+    link = runner.build_command(runner.validate({"kind": "link", "top_k": 3, "limit_sources": 4}))
+    assert link[-6:-2] == ["link", "--top-k", "3", "--retrieval"] or ("link" in link and "--limit-sources" in link)
+    assert link[link.index("--limit-sources") + 1] == "4"
+    mon = runner.build_command(runner.validate({"kind": "monitor", "force": True}))
+    assert "monitor" in mon and "--once" in mon and "--force" in mon
+    assert "--force" not in runner.build_command(runner.validate({"kind": "monitor"}))
+    assert runner.estimate(runner.validate({"kind": "link", "top_k": 3, "limit_sources": 4}))["calls"] == 12
+    assert runner.estimate(runner.validate({"kind": "monitor"}))["calls"] is None
+    with pytest.raises(runner.RunnerError):
+        runner.validate({"kind": "rm -rf"})
+
+
+def test_external_detection_finds_a_real_cli_process():
+    """Regression: pgrep treated the '-m ...' pattern as one of its own options and found nothing."""
+    import subprocess
+
+    proc = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(20)", "-m", "agents.traceability_agent", "link"])
+    try:
+        time.sleep(0.5)
+        assert proc.pid in runner._external_pids()
+    finally:
+        proc.kill()
+        proc.wait()
+
+
+def test_link_a_specific_requirement_builds_the_right_command_and_rejects_bad_ids():
+    p = runner.validate({"kind": "link", "requirement_ids": ["NEW-001", "REQ_2.a"], "top_k": 3})
+    cmd = runner.build_command(p)
+    assert [cmd[i + 1] for i, c in enumerate(cmd) if c == "--requirement"] == ["NEW-001", "REQ_2.a"]
+    assert "--limit-sources" not in cmd
+    assert runner.estimate(p)["calls"] == 6
+    for bad in (["a b"], ["x;rm -rf"], ["../x"], [""], "NEW-001", ["a"] * 21):
+        with pytest.raises(runner.RunnerError):
+            runner.validate({"kind": "link", "requirement_ids": bad})

@@ -72,6 +72,18 @@ flowchart LR
 ## 5. Evaluation
 
 ### 5.1 Datasets
+Four requirement-to-code or requirement-to-design benchmarks were converted to one schema (`scripts/load_dataset.py`),
+each with the full requirement x target cross product labelled (true links from the dataset, every other pair false),
+so false positives can be counted. eTour (58 use cases, 116 Java classes, 308 links, 4.6% of pairs true) and LibEST
+(52 requirements, 14 C files, 204 links, 28% of pairs true) come from the FTLR repository (tobhey/finegrained-traceability,
+GPL-3.0; original sources TEFSE 2011 for eTour and Moran et al. for LibEST). LibEST has only 14 targets and a very high base
+rate, so it is a weak discriminator. SEOSS 33 (Jira issues, commits and issue-commit links for 33 Apache projects, one SQLite
+file each; inspected on jbehave: 1,243 issues, 652 linked to 1,527 commits, 24,256 file changes, 294 linked Java files
+modified again later) and Defects4J (854 real bugs with buggy and fixed commits and patches) were examined as sources of
+real code changes for decay testing; their links come from commit messages, are incomplete and noisy, and they contain no
+file contents, so they were used for illustration, not for accuracy. 20-MAD was reviewed and not used (developer
+activity data, no requirement-code links).
+
 iTrust (CoEST): 131 use cases, 392 code files (227 Java + 165 JSP; one duplicate id dropped),
 399 expert-labelled links among 51,352 pairs; 20 use cases have no link. CM-1 (NASA, MIT licence):
 22 high-level requirements, 53 design elements, 45 links among 1,166 pairs. Defects4J / Apache
@@ -89,6 +101,21 @@ A code-aware embedding model (st-codesearch-distilroberta-base, 128-token limit)
 at top-10 unchunked and 32.8% chunked, no better than MiniLM (33.3% chunked); fusing it added nothing,
 so it was not adopted. Chunk size (60 words) and the fusion method were chosen on the same labels,
 so these figures are slightly optimistic. The 80% recall target is **not met** on iTrust.
+
+### 5.2b Other datasets (stage 1 only, no LLM; top-10 for eTour, top-5 for LibEST)
+
+| Dataset | Method | Precision | Recall | F1 |
+|---|---|---|---|---|
+| eTour | TF-IDF | 0.248 | 0.468 | 0.324 |
+| eTour | Embeddings | 0.271 | 0.510 | 0.354 |
+| eTour | **Hybrid** | **0.283** | **0.532** | **0.369** |
+| LibEST | TF-IDF | 0.454 | 0.578 | 0.509 |
+| LibEST | **Embeddings** | **0.481** | **0.613** | **0.539** |
+| LibEST | Hybrid | 0.462 | 0.588 | 0.517 |
+
+The ordering hybrid > embeddings > TF-IDF seen on iTrust repeats on eTour. On LibEST the three are within noise (52
+requirements), and with a 28% base rate the precision is only about 1.6x random guessing. eTour stage-1 recall rises to
+69% at top-20 and 91% at top-50.
 
 ### 5.3 Full pipeline vs baselines (iTrust, first 10 requirements, top-5, 35 true links)
 

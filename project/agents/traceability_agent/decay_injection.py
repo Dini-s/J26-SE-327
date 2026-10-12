@@ -12,6 +12,7 @@ Usage (from the project root; needs OPENAI_API_KEY):
 
 import argparse
 import json
+from datetime import datetime, timezone
 import re
 import sys
 from pathlib import Path
@@ -144,10 +145,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     llm = LLMClient(system_prompt=SYSTEM_PROMPT, user_prompt_template=USER_PROMPT_TEMPLATE)
     report = run_injection(links, artifacts, llm)
+    report.update(sample_links=len(links), source="neo4j" if args.neo4j else str(args.links), model=getattr(llm, "model", None),
+                  finished=datetime.now(timezone.utc).isoformat(timespec="seconds"))
+    out = Path(__file__).resolve().parents[2] / "data" / "results" / f"decay_injection_{datetime.now():%Y%m%d-%H%M%S}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=1), encoding="utf-8")
     for name, s in report["per_mutation"].items():
         print(f"{name:26s} detected {s['detected']}/{s['injected']}")
     print(f"Decay detection accuracy: {report['decay_detection_accuracy']:.3f}")
     print(f"False decay rate (control): {report['false_decay_rate']:.3f}")
+    print(f"report saved: {out}")
     return 0
 
 

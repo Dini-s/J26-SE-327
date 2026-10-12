@@ -68,6 +68,7 @@ class TraceabilityAgent:
         similarity_threshold: Optional[float] = SIMILARITY_THRESHOLD,
         chunk_size: Optional[int] = CHUNK_WORDS,
         run_logger: Optional[RunLogger] = None,
+        project: Optional[str] = None,
     ) -> None:
         """Wire up dependencies (injectable so tests can pass mocks).
 
@@ -82,6 +83,7 @@ class TraceabilityAgent:
             top_k: Candidates shortlisted per requirement.
             similarity_threshold: Minimum score to shortlist; ``None`` ranks by ``top_k`` only.
             run_logger: If given, shortlist and verdict events are appended to it for the dashboard.
+            project: Only read and link artifacts of this project / repository (``None`` = whole graph).
             chunk_size: Score each target as its best chunk of this many words, so long files
                 aren't judged on their first few lines only; ``None`` embeds whole texts.
         """
@@ -92,6 +94,7 @@ class TraceabilityAgent:
         self.similarity_threshold = similarity_threshold
         self.chunk_size = chunk_size
         self.run_logger = run_logger
+        self.project = project
         self.uskg = uskg if uskg is not None else USKGClient()
         self.embedder = embedder if embedder is not None else Embedder()
         self.llm = (
@@ -108,8 +111,9 @@ class TraceabilityAgent:
         Returns:
             ``(source_artifacts, target_artifacts)``.
         """
-        sources = [a for t in self.SOURCE_TYPES for a in self.uskg.get_artifacts(t)]
-        targets = [a for t in self.TARGET_TYPES for a in self.uskg.get_artifacts(t)]
+        scope = {"project": self.project} if self.project else {}
+        sources = [a for t in self.SOURCE_TYPES for a in self.uskg.get_artifacts(t, **scope)]
+        targets = [a for t in self.TARGET_TYPES for a in self.uskg.get_artifacts(t, **scope)]
         return sources, targets
 
     def find_candidates(
