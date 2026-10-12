@@ -1,0 +1,27 @@
+﻿normalized_requirement,promise_label,nice_IsFunctional,expected_from_promise_label
+the data displayed in both the nodes within the graph and the rows in the table are msel summary data,functional,0,1
+the table side of the display shall be split into 2 regions: sequential and temporal.,functional,0,1
+a class shall be either a non-clinical class or a clinical class.,functional,0,1
+a program of study shall consist of a program name and listing of required classes (both clinical and non-clinical) that must be completed.,functional,0,1
+the disputes system must be accessible by both internal and external users.,functional,0,1
+the disputes system must prevent users from accessing any dispute cases that do not belong to their cardholder base.,functional,0,1
+the disputes system will facilitate direct data entry of a dispute case via a user interface that supports real time responses to the users.,functional,0,1
+the disputes system must provide different levels of access with regard to disputes case initiation and follow-up actions.,functional,0,1
+the disputes system shall provide view access capability for authorized users of the application.,functional,0,1
+the search radius shall be between 1 and 30 miles,functional,0,1
+the ratings shall include categories for attempted use of recycled parts and actual use of recycled parts,functional,0,1
+the product shall have an intuitive user interface.,functional,0,1
+pme subsystem shall allow keeping submenus within menus and products within submenus in a managed and persisted order.,functional,0,1
+the rms system shall have windows xp look and feel and use gui futures making its use intuitive.,functional,0,1
+only registered customers can purchase streaming movies.,functional,0,1
+the owner shall have free access to all of the streaming movies.,functional,0,1
+the system shall protect private information in accordance with the organization's information policy.',non-functional,1,0
+the disputes system shall generate a user report that details any new users that have been added and any changes to an existing user's access level. the report will be reviewed for auditing purposes.',non-functional,1,0
+all additions of new users and modifications to user's access shall be recorded on the user report.',non-functional,1,0
+"system shall let customers register on the website as a ""pay as you go"" user in under 5 minutes.'",non-functional,1,0
+"system shall let customers register on the website as a ""unlimited movie subscriber"" user in under 10 minutes.'",non-functional,1,0
+the product shall retain the customer's buying preferences and information.',non-functional,1,0
+the product shall ensure that only supervisors can advertise empty time slots.the product must ensure that supervisors are allowed to access advertise empty time slots.',non-functional,1,0
+the product shall ensure that only supervisors can enter a caller's schedule.the product must ensure that supervisors are allowed to access advertise empty time slots.',non-functional,1,0
+the product shall ensure that only supervisors can view schedule of all callers.the product must ensure that supervisors are allowed to access advertise empty time slots.',non-functional,1,0
+the interface must summarize the data in a fashion that's appealing to ccr management. every report type must have at least one high level summary shown in the results dashboard/interface',non-functional,1,0

@@ -1,0 +1,77 @@
+﻿Requirement Text,Type,row_count
+The system shall be scalable to accommodate a growing user base and data volume.,NFR,5
+A new user will make less than 3 mistakes in 5 minutes after 5 minutes of use.,NFR,3
+"The connection between the Web API and the programs will use HTTPS, for security.",NFR,3
+Any element of the system will take no longer than 10-seconds to restart.,NFR,3
+The system shall be user-friendly and easy to navigate.,NFR,3
+The system shall be able to display a menu at all times to facilitate manual order taking should the need arise.,NFR,3
+Admin must not dismiss an engaged menu unless the customer requests it.,NFR,2
+A system administrator shall have unrestricted access to all aspects of the system.,NFR,2
+A display shall provide a Delivery Boy with all Delivery boy system functionality.,FR,2
+A surface app page shall provide a customer with all customer system functionality.,FR,2
+A app shall be capable of interfacing with a register to facilitate the accurate processing of a payment.,FR,2
+A MySQL database will be used to store all information required to answer questions.,FR,2
+"If a question is not understood by our API, the system will send a text containing an example question after the text with the API response.",FR,2
+Delivery boy shall be able to toggle Online/Offline/Break option.,FR,2
+Delivery boy shall be able to start the shift.,FR,2
+After installing the Application from iTunes or the App store the user will be asked to login.,FR,2
+Performance shall be influenced by the hardware components of the client/customer.,NFR,2
+"If the validation fails, system shall prompt ""Wrong email or password"".",FR,2
+"If there is a network issue, the chat window will display an error message.",FR,2
+"If the validation succeeds, user shall be redirected to the user-home page.",FR,2
+System shall check the information and apply the changes to the user's account.,FR,2
+System shall check vehicle availability for booking.,FR,2
+System shall destroy the browser session upon logout.,FR,2
+"System shall display a message ""Logged Out"" upon successful logout.",FR,2
+System shall display all data for pending passport approvals.,FR,2
+System shall authenticate users based on username and password.,FR,2
+System shall automatically log out customers after a period of inactivity.,NFR,2
+Newsletters shall be sent to clients' email addresses.,FR,2
+System shall ensure that responses to view information appear on the screen within 5 seconds.,NFR,2
+System shall generate comprehensive and easily understandable reports for acceptance test results.,NFR,2
+System shall provide efficient storage and retrieval mechanisms for large files and datasets.,NFR,2
+System shall maintain uninterrupted connections.,NFR,2
+System shall provide robust search functionality for retrieving experimental protocols and files.,NFR,2
+System shall respond in less than 2 seconds.,NFR,2
+System shall secure in-app purchases via encryption and use a reliable payment gateway.,NFR,2
+System shall provide intuitive and user-friendly interfaces for creating log book page templates.,NFR,2
+System shall store all databases on redundant computers with automatic switchover for reliability.,NFR,2
+System shall update user stats in real time after every achievement or completed action for an enhanced gaming experience.,NFR,2
+System shall validate the provided details.,FR,2
+System shall validate the information provided by the user using JavaScript on the client side.,FR,2
+"Texts sent to that number will be sent to the API, then the system will reply to the user with the answer as another text message.",FR,2
+System shall enforce access controls and permissions for sharing and managing data.,NFR,2
+System shall ensure data integrity and reliability during file uploads and attachments.,NFR,2
+System shall be able to function with a minimum of 512MB RAM.,NFR,2
+The administrator shall have the ability to remove a user from the system.,NFR,2
+The GUI will have a textbox that will accept inputs from a keyboard.,FR,2
+The GUI will have a chat window displaying questions sent to the system and responses from the API.,FR,2
+The database will be updated periodically and the API will be unavailable during the update.,FR,2
+The system may be adaptable to different languages and currencies.,NFR,2
+The system shall allow the user to change the password.,FR,2
+The overall accuracy of the Web API’s response will be measured using a developer-made testing set.,NFR,2
+"The hardware part of the system shall be able to perform indefinitely without complete loss of service, except in the event of total failure of primary and backup power. ",NFR,2
+The system shall allow the user to view pending meetings.,FR,2
+The system shall be able to acquire shipping charges in less than 2 seconds.,NFR,2
+The system shall be able to display content in the user's preferred language upon selection.,FR,2
+The system shall be able to handle 1000 customers logged in concurrently at the same time.,NFR,2
+The system shall be able to personalize generic responses by inserting specific data.,FR,2
+The system shall be capable of restoring itself to its previous state in the event of failure (e.g. a system crash or power loss).,NFR,2
+The system shall allow the user to view past attended meetings.,FR,2
+"The server shall be capable of supporting an arbitrary number of active orders, that is, no orders shall be lost under any circumstances.",NFR,2
+The system shall be highly available with minimal downtime.,NFR,2
+The system shall be highly available and accessible to users most of the time with minimal downtime.,NFR,2
+The system shall be scalable to accommodate a growing user base.,NFR,2
+The system shall be secure and protect user data.,NFR,2
+The system shall display all items planned for estimation in the current session.,FR,2
+The system shall encrypt all customer data in database.,NFR,2
+The system shall have a user-friendly interface for various user roles.,NFR,2
+The system shall respond to user actions promptly and efficiently.,NFR,2
+The system shall utilise periodic 120-second keep-alive messages between mobile and the server to monitor app operational status.,NFR,2
+The system will be designed in such a way that the algorithms for the four main units will be able to be easily swapped out.,NFR,2
+User shall be able to log out by clicking on the logout button.,FR,2
+User shall be able to view the full text regarding a topic by clicking on it.,FR,2
+User shall receive a message for any successful or unsuccessful action performed.,NFR,2
+User shall receive a message when network coverage is low.,NFR,2
+User shall/will be able to interact with the system using a standard keyboard and mouse.,NFR,2
+"User shall/will be able to interact with the system using standard input/output devices including keyboard, monitor, printer, and scanner.",NFR,2

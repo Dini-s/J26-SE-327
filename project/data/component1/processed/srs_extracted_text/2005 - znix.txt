@@ -1,0 +1,497 @@
+﻿Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+ 
+Project ZNIX 
+Software Requirements Specification 
+ 
+Version 1.0 
+ 
+ 
+Confidential ©Sameera Perera, 2005 Page 1 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+Revision History 
+Date Version Description Author 
+2005/02/10 1.0 Initial Draft. Sameera Perera 
+ 
+Confidential ©Sameera Perera, 2005 Page 2 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+Table of Contents 
+1. Introduction 5  
+1.1 Purpose 5 
+1.2 Scope 5 
+1.3 Definitions, Acronyms and Abbreviations 5 
+1.3.1 ZNIX 5  
+1.3.2 ZNIX Framework 5 
+1.3.3 Client Process 6 
+1.3.4 ZNIX Proxy Mechanism 6 
+1.3.5 Entity 6  
+1.3.6 Associate 6  
+1.4 References 7  
+1.5 Overview 8  
+2. Overall Description 9 
+2.1 Project Perspective 9 
+2.1.1 Benefits over alternatives 10 
+2.2 Product Functions 11 
+2.3 User Characteristics 11 
+2.4 Constraints 11  
+2.5 Assumptions and Dependencies 11 
+3. Specific Requirements 13 
+3.1 Functionality 13  
+3.1.1 Centralized store for user information 13 
+3.1.2 Hierarchical view of the information 15 
+3.1.3 Archiving of information 15 
+3.1.4 The public API 15 
+3.2 Usability 16  
+3.2.1 Typical training time required 16 
+3.3 Reliability 16  
+Confidential ©Sameera Perera, 2005 Page 3 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+3.3.1 Mean Time between Failure (MTBF) 16 
+3.4 Performance 16  
+3.4.1 Capacity 16  
+3.4.2 Resource Utilization 16 
+3.5 Supportability 1 7 
+3.5.1 Coding Conventions 17 
+3.5.2 Compliance to Opens Source Standard Practices 17 
+3.6 Security 17  
+3.7 Design Constraints 17 
+3.8 Online User Documentation and Help System Requirements 17 
+3.9 Purchased Components 18 
+3.10 Interfaces 18  
+3.10.1 User Interfaces 18 
+3.10.2 Hardware Interfaces 18 
+3.10.3 Software Interfaces 18 
+3.10.4 Communications Interfaces 19 
+3.11 Licensing Requirements 19 
+3.12 Legal, Copyright and Other Notices 19 
+3.13 Applicable Standards 19 
+4. Supporting Information 20 
+ 
+Index of Tables and Figures 
+Figure 1.3.6-A ........................................................................................................... 9 
+Table 3.10.3-A......................................................................................................... 18 
+ 
+Confidential ©Sameera Perera, 2005 Page 4 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+Software Requirements Specification  
+1. Introduction 
+This section introduces the System Requirements Specification (SRS) for Project 
+ZNIX to its readers. 
+1.1 Purpose 
+The purpose of this software requirements specification (SRS) is to establish the 
+major requirements of the Project ZNIX research and development effort. 
+Project ZNIX is an attempt to refine  tradition al information  management  
+systems t o provide  an obje ct-based, a pplication-independent retrieval and  
+manipulation framework. 
+1.2 Scope 
+The SRS applies to the higher level design of the ZNIX Framework. 
+1.3 Definitions, Acronyms and Abbreviations 
+This section provides the definitions of all terms, acro nyms, and abbreviations 
+required to p roperly interpret the SRS. Note that capi talization styles are used 
+throughout the document to distinguish ZNIX-specific terms. 
+1.3.1 ZNIX 
+ZNIX is not an acro nym. The term was decid ed upon to suggest the asp irant 
+notion that a fully ZNIX integrated operating system could be the last (thus the 
+letter “Z”) major evolution for POSIX system. 
+1.3.2 ZNIX Framework 
+The ZNIX Framework is a collection of system services (daemons) that: 
+• Facilitate user interactions with information and, 
+• Expose lower level functionality through a public API 
+Confidential ©Sameera Perera, 2005 Page 5 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+Often, the terms P roject ZNIX and the ZNIX Framework and Framework Shell 
+would be used interchangeably at this stage. 
+1.3.3 Client Process 
+A client process i s a softwa re applica tion that interacts with the ZNIX 
+Framework by either  utilizing the publi c API  or by directly accessing the 
+information presented by the Framework. Note that all client a pplication need 
+not be “Z NIX-aware” (i.e. knows that the information i t accesses are managed 
+by the Fra mework). As l ong as  its oper ation involves an intervention by the 
+Framework at some point, an application may be considered a ZNIX Client. 
+1.3.4 ZNIX Proxy Mechanism 
+The Proxy Mechanism is the c ollection of Framework components that enabl e 
+“ZNIX-unaware” applications to utilize the Framework capabilities. 
+1.3.5 Entity 
+An Entity is the basic block that buil ds up Z NIX’s inform ation hierar chy. 
+Entities are first class citizens of the ZNI X Framew ork; which  simply m eans 
+that the Identity of an Entity is unique and non-dependant on any other Entity.  
+1.3.6 Associate 
+An Associate is similar to  an Entity, d iffering in the fact that its Identity is 
+dependant o n at least o ne Ent ity. T he Framework’s interest in an Ass ociate 
+depends solely on its relationsh ip(s) to first class citizens. As su ch, when the 
+last related Entity breaks the relationship to an Associated (i.e. loses interest in 
+it), it will be removed from the ZNI X data 1 store a s it no longer has any  
+significance in the context. 
+                                          
+1 Note the use of the word “data” when it has been stated that the word “information” is preferred in this context. The thinking behind 
+this is that, what the framework manages is raw data; it will associate a meaning to this data effectively transforming them into 
+information. 
+Confidential ©Sameera Perera, 2005 Page 6 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+1.4 References 
+• [Zachary, 1994]: Inspired by “Information at your finger tips”- Bill Gates, the 
+vision behind Microsoft’s (abandoned) project Cairo. Quoted from Zachary, 
+G. Pascal 1994. Show-Stopper! The B reakneck R ace to Create Windows NT 
+and the Next Generation at Microsoft. Little, Brown and Company (UK). (Note: 
+Longhorn, the upc oming s uccessor to Windows  XP is said to be  a 
+continuation of Project Cairo). 
+• WWW01: Project Haystack website. http://haystack.lcs.mit.edu/ 
+• WWW02: ZDNet Software Review website.  
+http://reviews-zdnet.com.com/4514-3513_16-21008729.html?tag=subnav 
+• WWW03: Open Source Initiative Website. 
+http://opensource.org/licenses/lgpl-license.php  
+• WWW04: Open Source Initiative Website. 
+http://opensource.org/licenses/gpl-license.php 
+• WWW05: MSDN Website 
+http://msdn.microsoft.com/winlogo/ 
+• WWW06: Websites for Unicode Standards 
+www.unicode.org 
+ftp.informatik.uni-erlangen.de/pub/doc/ISO/charsets/ISO-10646-UTF-
+8.html 
+ftp.informatik.uni-erlangen.de/pub/doc/ISO/charsets/ISO-10646-UTF-
+16.html 
+• Special Notes  
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", 
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in 
+this document are to be interpreted as described in RFC 2119. 
+Confidential ©Sameera Perera, 2005 Page 7 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+The words “He” or “he”, whenever not referring to a nominal individual, MAY 
+be read as “he or she” throughout this documentation. 
+1.5 Overview 
+This specification is organized into the following sections: 
+• Introduction, which introduces the specification for Project ZNIX to its readers. 
+• Overall Description, which provides a brief, high level description of Project ZNIX 
+including its definition, benefits over alternatives, capabilities etc. 
+• Specific Requirements, which describes the software requirements to a level of 
+detail sufficient to facilitate design and testing processes. 
+Confidential ©Sameera Perera, 2005 Page 8 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+2. Overall Description 
+Project ZNIX envisions a w orld which leaves behind a one that users  manage 
+information by mastering software applic ations [Zac hary, 1994]. Emphasi s in 
+this approach is on information2 and its semantics. It seeks to make meaningful 
+information accessible to users in ways they themselves declare to be logical. 
+2.1 Project Perspective 
+Project ZNIX SHOULD disting uish itsel f form other  information manag ement 
+systems by its superior integration with the operating system. The Framework, 
+in its oper ation, SHOULD rese mble the schematic diagram displayed in Fig ure 
+1.3.6-A. 
+ 
+Figure 1.3.6-A 
+                                          
+2 In ZNIX terminology the word “Information” is always preferred over the word “data”, as the former implies that there is an 
+associated “meaning”. 
+ 
+Confidential ©Sameera Perera, 2005 Page 9 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+2.1.1 Benefits over alternatives 
+2.1.1.1 Project Haystack 
+“Haystack is a tool  design ed to let ev ery indivi dual m anage all of their 
+information in the way that makes the most sense to them” [WWW01]. 
+Sharing the idea of a centralized store for all type s of informat ion with Z NIX, 
+Project Ha ystack pr ovides a  tool (an  e xtendable browser) f or acc essing the  
+managed information. This tool is however, a standal one application with little 
+support fo r 3 rd par ty appli cations. Alt hough, it  does provide means for 
+developers build additional, unless the project is ado pted as a glob al standard 
+there woul d be little incentive f or the development of (es pecially comme rcial) 
+extensions. 
+ZNIX includes both an API  and a pr oxy mechanis m. T he A PI would e nable 
+developers to build applications that utilize the full potential of the Framework. 
+The proxy mechani sm would enable many established 3rd party applications to 
+interact with the Framework. 
+Requirements to run Haystack on an Intel PC include 512  megabytes of RAM 
+(with 768 megabytes strongly being r ecommended). ZNIX Framework S HOULD 
+run comfortably on systems with only 256 megabytes of RAM.  
+2.1.1.2 Windows Longhorn 
+Project ZNI X was largely inspi red by  an  ancestor  of Microsoft’s Win dows 
+Longhorn. However, since at the time of th is specification, features inherent in  
+this operating system  have n ot been fina lized, little cons cious effort will be  
+taken to incorporate them into ZNIX.  
+It has b een reported that “b y the time Longhorn ships, according to Micr osoft 
+chairman Bill Gates, PCs will have 4GHz to 6GHz processors, more than 2GB of 
+memory, at least a t erabyte of storage, a nd gra phics ac celerators three t imes 
+more powerful than those offered by ATI and NVIDIA today” [WWW02]. ZNIX on 
+the other hand is designed from the ground up to r un on system with far less  
+resources. 
+Confidential ©Sameera Perera, 2005 Page 10 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+2.2 Product Functions 
+• Provide a centralized archive for user’s information.  
+• Provide hi erarchical model  for man aging the archived i nformation. 
+Hierarchies maybe inheritance based, as sociation base d or ba sed on an y 
+other type of relationship conceived by the user. 
+• Allow the  u ser to  a dd, re move, mo dify o r b ack up  (to  re movable s torage 
+devices) arbitrary pieces of information without disrupting the hierarchy. 
+• Assist the user in building up his information hie rarchy by automatin g 
+such tasks as data capturing and categorizing. 
+• Provide a simple API for developing ZNIX-aware client applications. 
+2.3 User Characteristics 
+The browser GUI SHOULD be designed such that even casual users could easily 
+manipulate their info rmation wit h little o r no training. It is exp ected that t he 
+bulk of the ZNI X user-base would be home users, managerial staff, ex ecutives, 
+and researchers who are likely to possess only basic IT skills.  
+2.4 Constraints 
+The system design MUST be subjected to the following constraints: 
+• Hardware: Intel Pentium III or compatible 1-GHz PC with 256 megabytes of 
+RAM 
+2.5 Assumptions and Dependencies 
+The system design MAY a ssume that al l interfaces  de signed for the 3 rd par ty 
+software li sted in Table 3.9.3-A will be compati ble with their subsequent 
+releases. Thus, for i nstance, w hen the s ystem is  foun d t o be c ompatible t o 
+Windows 2000 Pr ofessional Service Pack 4, it MAY be  assumed to be Wind ows 
+2000 Professional Compliant, regardless whether other service releases would 
+break the system. 
+Confidential ©Sameera Perera, 2005 Page 11 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+The applications listed in this table are assumed to be safe from vulnerabilities. 
+The security offered by these products will form the basis of the security of the 
+Framework. 
+It is assumed that s upporting the softw are listed woul d be sufficient to serve 
+the intended user-base, c onsidering th eir p opularity on  Mi crosoft Wind ows 
+based systems. 
+ 
+Confidential ©Sameera Perera, 2005 Page 12 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+3. Specific Requirements  
+3.1 Functionality 
+This section describes the functional requirements of the system. 
+3.1.1 Centralized store for user information 
+The Fr amework MUS T be ca pable of  capturing information form the software 
+tools s pecified in Table 3.9.3-A. T he dat a capt ured SHOULD be st ored in a  
+centralized data  stor e. The Fra mework MAY de cide whether the information 
+should be stored as Entities or Associates.  
+The data capturing and archiving mechanisms MAY resemble the following. 
+3.1.1.1 Type of Information: Personnel 
+Mechanism: 
+i. The Address Book is used to create Entities un der the category “People” 
+(Category names are user definable. However, a certai n set of categories 
+like People, Email etc. MAY need to always be present). 
+ii. User SHOULD be a ble to modify, add, delete or group these En tities by 
+navigating to a virtual folder (e.g. /People/). 
+3.1.1.2 Type of Information: Email (Outbound) 
+Mechanism: 
+i. The email is intercepted before it is dispatched to the SMTP server.  
+ii. An Associate is created to contain the message body. 
+iii. The recipient name(s) are used to create (if required) Entities under the 
+“People” category. The Associate is then linked to each Entity. 
+3.1.1.3 Type of Information: Email (Inbound) 
+Mechanism: 
+Confidential ©Sameera Perera, 2005 Page 13 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+i. The email is fetched from the POP3 server. 
+ii. An Associate is created to contain the message body. 
+iii. The sender’s nam e is use d to cre ate Entities, under the category 
+“People”. The Associate is then linked to this Entity. 
+3.1.1.4 Type of Information: WWW Documents 
+Mechanism: 
+i. User SHOULD be a ble to s pecify when he is to start a research project; i.e. 
+when the web sites he visits subsequently are to be permanently stored. 
+ii. The project name s pecified by the use r spawns  a new Entity in the  
+Framework. 
+iii. An associate is created as an archive and is linked to this Entity. 
+3.1.1.5 Type of Information: Textual Documents 
+Mechanism 
+i. The user after editing a document in a word-processor invokes a special 
+GUI supplied by the Framework. 
+ii. The GUI allows him to draw arrows to and from (a symbol representing) 
+the cu rrent d ocument to  any Entity creati ng relatio nships between the 
+document and the relevant Entities. 
+iii. The user may optionally specify a descriptive name for the document. 
+iv. The document is automatically sav ed to disk in a manner that reflects 
+the relationships it has to other Entities. T he user  may in the future  
+fetch this document by fo llowing the relat ionship paths that he had  
+created.  
+The GUI described in section 3.1.1.5 MAY also be made available when dealing 
+with other types of information as well. 
+Confidential ©Sameera Perera, 2005 Page 14 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+3.1.2 Hierarchical view of the information 
+The user MUST be able to view the information in  the c entral store  in  a 
+hierarchical manner that makes sense to him. Section 3.1.1 describes how this 
+hierarchy is built up. The Fr amework SHOULD i nclude a browser that is 
+capable of dis playing this hiera rchy in a  UI similar to that of the Window s 
+Explorer. The browser MAY OPTIONALLY be integrated directly in to Win dows 
+Explorer, rather than being a standalone application. 
+This browser MAY integrate the GUI described in section 3.1.1.5 as well. 
+3.1.3 Archiving of information 
+Often, the user ma y want to archive portions of the information-store to 
+removable storage m edia (the te rm st orage medi a c overs only CD-ROMs and 
+USB Pen Drives at this point).  Howe ver, this SHOULD not mean that suc h 
+portions would be “forgotten” by the Framework. 
+Therefore, som e residue MUS T be left on  the d ata store to  ind icate that  a 
+portion of data has been archived. For example, assume all information relating 
+to a “Person” Entity named J ohn is ar chived to a CD-ROM. When the user 
+subsequently looks for John, the Fram ework SHOULD NOT declare that such  
+an Entity was no t found. Rather, it SHOULD info rm the user that the Entity 
+has been archived (and OPTIONALLY, if he wishes to proc eed, to remount the 
+relevant storage device). 
+3.1.4 The public API 
+The Framework API should expose at least the following functionality to client 
+processes. 
+• Create, delete and modify Entities and Entity groups 
+• Create, delete and modify relationships between Entities 
+• List and a ccess Entities with a n API  similar to that  of a  stan dard file  
+system API. 
+• Execute queries for the retrieval of Entities using different criteria. 
+Confidential ©Sameera Perera, 2005 Page 15 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+The API that expose s Entity listings MA Y be designed to be similar to the 
+System.IO APIs of the .NET Platform which provide directory and file listings. 
+3.2 Usability  
+3.2.1 Typical training time required 
+GUIs associated with the Framework SHOULD be designed such that an user 
+with basic  under standing of  t he Window s 20 00/XP operating syst ems w ould 
+instinctively be able t o interact with them. Therefore, most GUI s MAY nee d to 
+closely mimic popular Windows applications. 
+3.3 Reliability  
+This s ubsection s pecifies the  following  requirem ents ass ociated wit h the  
+reliability of the system. 
+3.3.1 Mean Time between Failure (MTBF) 
+The mean time between failures (MTBF) SHALL exceed 3 months. 
+3.4 Performance 
+3.4.1 Capacity 
+At this stage o f the development, the Framework MAY only  operate in  single 
+user mode, with no networking capabilities. 
+3.4.2 Resource Utilization 
+The Framework Shell SHOULD NOT utilize more than 40 megabytes of RAM. 
+Confidential ©Sameera Perera, 2005 Page 16 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+3.5 Supportability 
+3.5.1 Coding Conventions 
+Any c oding conv entions to be us ed during implementation MUS T be 
+documented before the beginning o f the phase, and strictly adhered t o during 
+the phase. 
+3.5.2 Compliance to Opens Source Standard Practices 
+Project ZNIX SHOULD be avail able to its potential users in source an d binary 
+from, and free of charge. The project MAY be hosted on a popular Open Source 
+distribution website such that the Open  Source community is aware of (an d 
+contribute to) its existence. 
+The website for distributing the project SHALL include provisions for the users 
+to make comments on the product as well as to compile a wish-list of features. 
+3.6 Security 
+The Framework MUST guard against malicious scripts on remote websites from 
+accessing its information. 
+The Framework MUST guard against unintended corruption of information by 
+the user himself. 
+3.7 Design Constraints 
+No design constraint has been imposed at this stage. 
+3.8 Online User Documentation and Help System Requirements 
+The online help system should be compiled utilizing as much of non-tech nical 
+terms as possible. Care SHOULD be taken not t o produce an exhaustive user 
+documentation as t hat woul d defeat the main purpos e of the system  as  
+expressed in the introduction to section 2. 
+A comprehensive Developer’s Guide MAY be compiled to facilitate 3 rd pa rty 
+ZNIX-aware applications. 
+Confidential ©Sameera Perera, 2005 Page 17 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+3.9 Purchased Components 
+N/A 
+3.10 Interfaces 
+3.10.1 User Interfaces 
+A GUI capable of browsing the information managed by the Framework, similar 
+to that o f the Windows Exp lorer SHOU LD be av ailable to the user. The GUI  
+MUST als o be capable of all owing the us er to s pecify relationships  betwee n 
+disparate Entities as he see fit. 
+3.10.2 Hardware Interfaces 
+The system does not require special hardware interfacing. 
+3.10.3 Software Interfaces 
+Provisions SHOULD be made so that at least the following 3rd party applications 
+can take advantage of the Framework for the specified types of information.  
+Product Name Source Version Type of Information 
+Outlook Express Microsoft Corporation 6.0 Email 
+Outlook 2003 Microsoft Corporation 11.5 Email 
+Address Book Microsoft Corporation 6.0 Personnel Information 
+Internet Explorer Microsoft Corporation 6.0 WWW Documents 
+Opera Opera Software ASA 7.5 WWW Documents 
+Firefox Mozilla Corporation 1.0 WWW Documents 
+Word 2003 Microsoft Corporation 11.5 Textual Documents 
+Table 3.10.3-A  
+ 
+Targeted operating systems are Windows 2000 Professional and Windows XP. 
+Confidential ©Sameera Perera, 2005 Page 18 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+3.10.4 Communications Interfaces 
+At this stage of  devel opment Proj ect ZNIX requires no c ommunication 
+interfaces. 
+3.11 Licensing Requirements 
+ZNIX Fr amework will  be licens ed un der G NU Libr ary Gener al P ublic Licen se 
+(LGPL) [WWW03]. 
+The browser and an y ot her t ool r eleased alongsi de the Framework will  be 
+licensed under GNU Public License (GPL) [WWW04]. 
+3.12 Legal, Copyright and Other Notices 
+• All pr oprietary tr ademarks, pr oduct na mes an d/or logos used on t his 
+document are trademarks of their respective owners. 
+3.13 Applicable Standards 
+All components ass ociated with  Project ZNIX should conf orm to the following 
+standards: 
+• Windows 2000 Logo Requirements [WWW05] 
+The syst em SHALL conform t o ISO 10 646 (Unico de UTF- 8) a nd O PTIONALLY 
+ISO 10646-1 (Unicode UTF-16) standards for character set encoding. [WWW06] 
+Additionally, design of the system MAY yield a new set of standards that ZNIX-
+aware client processes MAY need to conform to. 
+Confidential ©Sameera Perera, 2005 Page 19 
+ 
+Project ZNIX   Version:           1.0 
+Software Requirements Specification Document ID: ZNIX-SRS 1.0   Date:  April 30, 2005 
+ 
+4. Supporting Information 
+None specified. 
+ 
+Confidential ©Sameera Perera, 2005 Page 20 
+ 

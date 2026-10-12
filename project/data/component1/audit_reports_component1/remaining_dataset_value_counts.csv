@@ -1,0 +1,411 @@
+﻿file,column,value,count
+FR_NFR_Dataset.xlsx,Type,FR,3964
+FR_NFR_Dataset.xlsx,Type,NFR,2122
+FR_NFR_Dataset.xlsx,Type,nan,31
+PROMISE-relabeled-NICE.csv,ProjectID,8,92
+PROMISE-relabeled-NICE.csv,ProjectID,3,79
+PROMISE-relabeled-NICE.csv,ProjectID,6,74
+PROMISE-relabeled-NICE.csv,ProjectID,5,73
+PROMISE-relabeled-NICE.csv,ProjectID,4,55
+PROMISE-relabeled-NICE.csv,ProjectID,10,52
+PROMISE-relabeled-NICE.csv,ProjectID,2,40
+PROMISE-relabeled-NICE.csv,ProjectID,1,28
+PROMISE-relabeled-NICE.csv,ProjectID,9,24
+PROMISE-relabeled-NICE.csv,ProjectID,7,23
+PROMISE-relabeled-NICE.csv,ProjectID,12,22
+PROMISE-relabeled-NICE.csv,ProjectID,13,19
+PROMISE-relabeled-NICE.csv,ProjectID,14,16
+PROMISE-relabeled-NICE.csv,ProjectID,11,13
+PROMISE-relabeled-NICE.csv,ProjectID,15,12
+PROMISE-relabeled-NICE.csv,IsFunctional,0,314
+PROMISE-relabeled-NICE.csv,IsFunctional,1,308
+PROMISE-relabeled-NICE.csv,IsQuality,1,381
+PROMISE-relabeled-NICE.csv,IsQuality,0,241
+PROMISE-relabeled-NICE.csv,Availability (A),0,584
+PROMISE-relabeled-NICE.csv,Availability (A),1,38
+PROMISE-relabeled-NICE.csv,Fault Tolerance (FT),0,606
+PROMISE-relabeled-NICE.csv,Fault Tolerance (FT),1,16
+PROMISE-relabeled-NICE.csv,Legal (L),0,591
+PROMISE-relabeled-NICE.csv,Legal (L),1,31
+PROMISE-relabeled-NICE.csv,Look & Feel (LF),0,553
+PROMISE-relabeled-NICE.csv,Look & Feel (LF),1,69
+PROMISE-relabeled-NICE.csv,Maintainability (MN),0,588
+PROMISE-relabeled-NICE.csv,Maintainability (MN),1,34
+PROMISE-relabeled-NICE.csv,Operability (O),0,564
+PROMISE-relabeled-NICE.csv,Operability (O),1,58
+PROMISE-relabeled-NICE.csv,Performance (PE),0,559
+PROMISE-relabeled-NICE.csv,Performance (PE),1,63
+PROMISE-relabeled-NICE.csv,Portability (PO),0,600
+PROMISE-relabeled-NICE.csv,Portability (PO),1,22
+PROMISE-relabeled-NICE.csv,Scalability (SC),0,593
+PROMISE-relabeled-NICE.csv,Scalability (SC),1,29
+PROMISE-relabeled-NICE.csv,Security (SE),0,547
+PROMISE-relabeled-NICE.csv,Security (SE),1,75
+PROMISE-relabeled-NICE.csv,Usability (US),0,537
+PROMISE-relabeled-NICE.csv,Usability (US),1,85
+QuRE.csv,defect,ok,1536
+QuRE.csv,defect,defect,651
+QuRE.csv,weak_word,detail,246
+QuRE.csv,weak_word,close,245
+QuRE.csv,weak_word,short,209
+QuRE.csv,weak_word,special,205
+QuRE.csv,weak_word,several,166
+QuRE.csv,weak_word,long,148
+QuRE.csv,weak_word,appropriate,132
+QuRE.csv,weak_word,small,91
+QuRE.csv,weak_word,certain,85
+QuRE.csv,weak_word,soon,75
+QuRE.csv,weak_word,fast,67
+QuRE.csv,weak_word,near,67
+QuRE.csv,weak_word,large,62
+QuRE.csv,weak_word,common,60
+QuRE.csv,weak_word,early,58
+QuRE.csv,weak_word,particular,56
+QuRE.csv,weak_word,similar,56
+QuRE.csv,weak_word,bad,35
+QuRE.csv,weak_word,various,34
+QuRE.csv,weak_word,adequate,33
+QuRE.csv,weak_word,much,32
+QuRE.csv,weak_word,few,13
+QuRE.csv,weak_word,comparable,12
+software_requirements_extended.csv,Type,FR,312
+software_requirements_extended.csv,Type,F,209
+software_requirements_extended.csv,Type,NFR,110
+software_requirements_extended.csv,Type,US,63
+software_requirements_extended.csv,Type,O,58
+software_requirements_extended.csv,Type,SE,56
+software_requirements_extended.csv,Type,PE,54
+software_requirements_extended.csv,Type,LF,34
+software_requirements_extended.csv,Type,A,21
+software_requirements_extended.csv,Type,SC,21
+software_requirements_extended.csv,Type,MN,17
+software_requirements_extended.csv,Type,L,10
+software_requirements_extended.csv,Type,FT,10
+software_requirements_extended.csv,Type,PO,2
+security_requirements.csv,contains_sec,nonsec,323
+security_requirements.csv,contains_sec,sec,187
+security_requirements.csv,contains_sec,xyz,1
+user_stories.csv,source_file,g19-alfred,138
+user_stories.csv,source_file,g27-culrepo,115
+user_stories.csv,source_file,g18-neurohub,102
+user_stories.csv,source_file,g25-duraspace,100
+user_stories.csv,source_file,g26-racdam,100
+user_stories.csv,source_file,g02-federalspending,98
+user_stories.csv,source_file,g10-scrumalliance,97
+user_stories.csv,source_file,g22-rdadmp,83
+user_stories.csv,source_file,g11-nsf,73
+user_stories.csv,source_file,g21-badcamp,69
+user_stories.csv,source_file,g16-mis,68
+user_stories.csv,source_file,g14-datahub,67
+user_stories.csv,source_file,g08-frictionless,66
+user_stories.csv,source_file,g17-cask,64
+user_stories.csv,source_file,g28-zooniverse,60
+user_stories.csv,source_file,g03-loudoun,58
+user_stories.csv,source_file,g23-archivesspace,57
+user_stories.csv,source_file,g12-camperplus,55
+user_stories.csv,source_file,g13-planningpoker,53
+user_stories.csv,source_file,g24-unibath,53
+user_stories.csv,source_file,g05-openspending,53
+user_stories.csv,source_file,g04-recycling,51
+brown.csv,label,learned,7734
+brown.csv,label,belles_lettres,7209
+brown.csv,label,lore,4881
+brown.csv,label,adventure,4637
+brown.csv,label,news,4623
+brown.csv,label,romance,4431
+brown.csv,label,fiction,4249
+brown.csv,label,hobbies,4193
+brown.csv,label,mystery,3886
+brown.csv,label,government,3032
+brown.csv,label,editorial,2997
+brown.csv,label,reviews,1751
+brown.csv,label,religion,1716
+brown.csv,label,humor,1053
+brown.csv,label,science_fiction,948
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanyID,C3,2756
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanyID,C1,2341
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanyID,C4,1983
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanyID,C2,1892
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanyID,C5,1567
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanyID,C7,1127
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanyID,C6,834
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanyID,C8,347
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P3,2070
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P1,2068
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P2,2068
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P4,1955
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P5,1749
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P6,1143
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P7,883
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P8,603
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ProjectID,P9,308
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,Domain,Finance,3908
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,Domain,E-commerce,3883
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,Domain,Healthcare,2726
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,Domain,Telecommunications,1983
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,Domain,Manufacturing,347
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanySize,Large,7080
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanySize,Medium,4933
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompanySize,Small,834
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AgileExperience,9,2756
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AgileExperience,7,2341
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AgileExperience,6,1983
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AgileExperience,4,1892
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AgileExperience,5,1567
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AgileExperience,8,1127
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AgileExperience,3,834
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AgileExperience,2,347
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,7,2486
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,6,2459
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,8,2028
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,5,1915
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,9,1314
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,4,1117
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,3,697
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,10,562
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,11,217
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,12,43
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,13,7
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,14,1
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TeamSize,15,1
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,HasAmbiguity,False,8520
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,HasAmbiguity,True,4327
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,0,8520
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,1,3144
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,2,971
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,3,198
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AmbiguityCount,4,14
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,SemanticAmbiguity,False,10016
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,SemanticAmbiguity,True,2831
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ScopeAmbiguity,False,11546
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ScopeAmbiguity,True,1301
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ActorAmbiguity,False,11982
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,ActorAmbiguity,True,865
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AcceptanceAmbiguity,False,12449
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,AcceptanceAmbiguity,True,398
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DependencyAmbiguity,False,12655
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DependencyAmbiguity,True,192
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,PriorityAmbiguity,False,12737
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,PriorityAmbiguity,True,110
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TechnicalAmbiguity,False,12808
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,TechnicalAmbiguity,True,39
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,0,4989
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,1,4447
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,2,2212
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,3,832
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,4,279
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,5,63
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,6,18
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,7,6
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DefectCount,8,1
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,4,2336
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,5,2124
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,3,1922
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,6,1715
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,7,1250
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,2,1215
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,8,856
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,1,771
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,9,415
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,10,176
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,11,42
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,12,17
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,13,7
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,DevelopmentTime,15,1
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,StoryPoints,1,2185
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,StoryPoints,2,2172
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,StoryPoints,5,2140
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,StoryPoints,13,2129
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,StoryPoints,8,2123
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,StoryPoints,3,2098
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.1,904
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.0,863
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.8,827
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.9,827
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.3,812
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.2,811
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,5.0,799
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.4,723
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.7,671
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.5,663
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.6,661
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.7,589
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.6,561
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.5,552
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.8,499
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.4,468
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,4.9,391
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.3,373
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.2,296
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.1,197
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,3.0,127
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,2.9,83
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,2.8,66
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,2.7,40
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,2.6,23
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,2.5,9
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,2.3,5
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,2.4,3
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,2.2,3
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CustomerSatisfaction,1.9,1
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompletionStatus,Done,8515
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompletionStatus,Cancelled,2187
+Cornelius_2025_user_story_ambiguity_dataset.xlsx,CompletionStatus,In Progress,2145
+Cornelius_research_subsets.xlsx,CompanyID,C3,1532
+Cornelius_research_subsets.xlsx,CompanyID,C1,1298
+Cornelius_research_subsets.xlsx,CompanyID,C5,746
+Cornelius_research_subsets.xlsx,CompanyID,C4,721
+Cornelius_research_subsets.xlsx,CompanyID,C7,607
+Cornelius_research_subsets.xlsx,CompanyID,C2,410
+Cornelius_research_subsets.xlsx,CompanyID,C6,227
+Cornelius_research_subsets.xlsx,CompanyID,C8,112
+Cornelius_research_subsets.xlsx,ProjectID,P2,860
+Cornelius_research_subsets.xlsx,ProjectID,P3,855
+Cornelius_research_subsets.xlsx,ProjectID,P1,853
+Cornelius_research_subsets.xlsx,ProjectID,P4,831
+Cornelius_research_subsets.xlsx,ProjectID,P5,741
+Cornelius_research_subsets.xlsx,ProjectID,P6,569
+Cornelius_research_subsets.xlsx,ProjectID,P7,447
+Cornelius_research_subsets.xlsx,ProjectID,P8,325
+Cornelius_research_subsets.xlsx,ProjectID,P9,172
+Cornelius_research_subsets.xlsx,Domain,E-commerce,2139
+Cornelius_research_subsets.xlsx,Domain,Finance,2044
+Cornelius_research_subsets.xlsx,Domain,Telecommunications,721
+Cornelius_research_subsets.xlsx,Domain,Healthcare,637
+Cornelius_research_subsets.xlsx,Domain,Manufacturing,112
+Cornelius_research_subsets.xlsx,CompanySize,Large,3551
+Cornelius_research_subsets.xlsx,CompanySize,Medium,1875
+Cornelius_research_subsets.xlsx,CompanySize,Small,227
+Cornelius_research_subsets.xlsx,AgileExperience,9,1532
+Cornelius_research_subsets.xlsx,AgileExperience,7,1298
+Cornelius_research_subsets.xlsx,AgileExperience,5,746
+Cornelius_research_subsets.xlsx,AgileExperience,6,721
+Cornelius_research_subsets.xlsx,AgileExperience,8,607
+Cornelius_research_subsets.xlsx,AgileExperience,4,410
+Cornelius_research_subsets.xlsx,AgileExperience,3,227
+Cornelius_research_subsets.xlsx,AgileExperience,2,112
+Cornelius_research_subsets.xlsx,TeamSize,7,1153
+Cornelius_research_subsets.xlsx,TeamSize,6,1109
+Cornelius_research_subsets.xlsx,TeamSize,8,956
+Cornelius_research_subsets.xlsx,TeamSize,5,795
+Cornelius_research_subsets.xlsx,TeamSize,9,601
+Cornelius_research_subsets.xlsx,TeamSize,4,404
+Cornelius_research_subsets.xlsx,TeamSize,10,259
+Cornelius_research_subsets.xlsx,TeamSize,3,257
+Cornelius_research_subsets.xlsx,TeamSize,11,98
+Cornelius_research_subsets.xlsx,TeamSize,12,18
+Cornelius_research_subsets.xlsx,TeamSize,13,3
+Cornelius_research_subsets.xlsx,DefectCount,0,2651
+Cornelius_research_subsets.xlsx,DefectCount,1,1985
+Cornelius_research_subsets.xlsx,DefectCount,2,772
+Cornelius_research_subsets.xlsx,DefectCount,3,201
+Cornelius_research_subsets.xlsx,DefectCount,4,38
+Cornelius_research_subsets.xlsx,DefectCount,5,4
+Cornelius_research_subsets.xlsx,DefectCount,7,2
+Cornelius_research_subsets.xlsx,DevelopmentTime,4,1298
+Cornelius_research_subsets.xlsx,DevelopmentTime,3,1204
+Cornelius_research_subsets.xlsx,DevelopmentTime,5,1045
+Cornelius_research_subsets.xlsx,DevelopmentTime,2,756
+Cornelius_research_subsets.xlsx,DevelopmentTime,6,568
+Cornelius_research_subsets.xlsx,DevelopmentTime,1,498
+Cornelius_research_subsets.xlsx,DevelopmentTime,7,207
+Cornelius_research_subsets.xlsx,DevelopmentTime,8,63
+Cornelius_research_subsets.xlsx,DevelopmentTime,9,13
+Cornelius_research_subsets.xlsx,DevelopmentTime,10,1
+Cornelius_research_subsets.xlsx,StoryPoints,8,980
+Cornelius_research_subsets.xlsx,StoryPoints,5,957
+Cornelius_research_subsets.xlsx,StoryPoints,1,948
+Cornelius_research_subsets.xlsx,StoryPoints,13,931
+Cornelius_research_subsets.xlsx,StoryPoints,3,928
+Cornelius_research_subsets.xlsx,StoryPoints,2,909
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,5.0,537
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.1,469
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.3,458
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.2,438
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.4,435
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.0,413
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.5,406
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.9,381
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.7,371
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.6,355
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.8,310
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.8,286
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,4.9,240
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.7,212
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.6,155
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.5,88
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.4,46
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.3,34
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.2,12
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,3.1,4
+Cornelius_research_subsets.xlsx,CustomerSatisfaction,2.8,3
+Cornelius_user_story_data_dictionary.xlsx,Column Name,StoryID,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,CompanyID,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,ProjectID,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,StoryText,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,WordCount,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,CreationDate,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,Domain,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,CompanySize,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,AgileExperience,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,TeamSize,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,HasAmbiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,AmbiguityCount,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,SemanticAmbiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,ScopeAmbiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,ActorAmbiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,AcceptanceAmbiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,DependencyAmbiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,PriorityAmbiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,TechnicalAmbiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,DefectCount,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,DevelopmentTime,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,StoryPoints,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,CustomerSatisfaction,1
+Cornelius_user_story_data_dictionary.xlsx,Column Name,CompletionStatus,1
+Cornelius_user_story_data_dictionary.xlsx,Data Type,Number,8
+Cornelius_user_story_data_dictionary.xlsx,Data Type,Boolean,8
+Cornelius_user_story_data_dictionary.xlsx,Data Type,Text,7
+Cornelius_user_story_data_dictionary.xlsx,Data Type,Date,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Unique identifier for each user story,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Company identifier (C1-C8),1
+Cornelius_user_story_data_dictionary.xlsx,Description,Project identifier within company,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Full text of the user story,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Number of words in the story,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Date when story was created,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Business domain of the company,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Size of the company (Small/Medium/Large),1
+Cornelius_user_story_data_dictionary.xlsx,Description,Years of agile experience,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Number of team members,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Whether story contains any ambiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Total number of ambiguity types present,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Presence of semantic ambiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Presence of scope ambiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Presence of actor ambiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Presence of acceptance criteria ambiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Presence of dependency ambiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Presence of priority ambiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Presence of technical ambiguity,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Number of defects found in implementation,1
+Cornelius_user_story_data_dictionary.xlsx,Description,Days required to complete the story,1
+Cornelius_user_story_data_dictionary.xlsx,Description,"Story complexity estimate (1,2,3,5,8,13)",1
+Cornelius_user_story_data_dictionary.xlsx,Description,Customer satisfaction score (1-5),1
+Cornelius_user_story_data_dictionary.xlsx,Description,Current status of the story,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,FALSE,6
+Cornelius_user_story_data_dictionary.xlsx,Example Values,TRUE,2
+Cornelius_user_story_data_dictionary.xlsx,Example Values,US-C1-001,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,C1,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,P1,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,"As a customer, I want to...",1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,47,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,2023-01-15,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,Finance,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,Large,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,7,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,8,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,2,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,1,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,5,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,3,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,4.2,1
+Cornelius_user_story_data_dictionary.xlsx,Example Values,Done,1

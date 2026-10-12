@@ -1,0 +1,275 @@
+﻿
+
+
+
+
+
+OpenSG EIM System Requirements Specification
+
+Version: v0.1
+Release Date: March 7, 2011 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Acknowledgements
+The following individuals and their companies are members of the UCAiug OpenSG and have contributed and/or provided support to the work of the OpenSG EIM System Requirements Specification:
+Frank Wilhoit from AEP
+Melissa Stephenson from Boeing 
+Mark Ortiz from Consumers Energy
+Joseph Thomas – DTE Energy
+Anuja Nakkana – Florida Power and Light
+Andre Cassulo – Florida Power and Light
+Donny Helm – ONCOR
+Larry Kohrmann from ONCOR
+Jim Horstman from Southern California Edison
+Rich Stephenson from Southern California Edison
+Greg Robinson from Xtensible Solutions
+James Meyer from Xtensible Solutions
+Joe Zhou from Xtensible Solutions
+
+
+The OpenSG Task Force wishes to thank all of the above-mentioned individuals and their companies for their support of this important endeavor, as it sets a key foundation for interoperable Smart Grid of the future. 
+Document History
+Revision History
+Date of this revision: January 25, 2011
+
+Revision Number
+Revision Date
+Revision
+By
+Summary of Changes
+Changes marked
+
+0.1
+January252011
+James Meyer
+SRS initial draft created.
+N
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Open Issues Log
+Last updated: January 25, 2011
+
+Issue Number
+Issue Date
+Provided
+By
+Summary of the Issue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Contents
+1.	Introduction	5
+1.1	Purpose	5
+1.2	Scope	5
+1.3	Acronyms and Abbreviations	5
+1.4	External Considerations and References	5
+1.5	Document Overview	5
+2.	Problem Statement	8
+3.	Architecture Overview	9
+3.1	EIM Framework	9
+3.2	EIM Reference Architecture	9
+3.3	EIM Architecture Guiding Principles	9
+4.	EIM Systems Architecture	10
+4.1	EIM Business Architecture View	10
+4.1.1	EIM Use Cases	10
+4.1.2	EIM Requirements	10
+4.2	EIM Application Architecture View	10
+4.3	EIM Data Architecture View	11
+4.4	EIM Technical Architecture View	12
+5.	EIM Competency Center	13
+List of Figures
+Figure 1.  The Open Group Architecture Framework (TOGAF) showing the architecture development cycle.	6
+
+Introduction
+
+Purpose
+
+Scope
+
+
+
+Acronyms and Abbreviations
+This subsection provides a list of all acronyms and abbreviations required to properly interpret the Enterprise Information Management System Requirements Specification. 
+
+EIM
+Enterprise Information Management
+
+SRS
+System Requirements Specification
+
+External Considerations and References
+The work of EIM SRS is dependent upon the best practices available from the following entities and standards organizations: 
+
+The Open Group, TOGAF 9.0
+
+
+Document Overview
+TOGAF 9.0 defines four architecture domains that are commonly accepted as subsets of overall enterprise architecture, all of which TOGAF is designed to support, see Figure 1:
+Architecture Vision defines overall architecture guiding principles, goals and objectives and desired traits. 
+The Business Architecture defines the business strategy, governance, organization, and key business processes.
+The Data Architecture describes the structure of an organization's logical and physical data assets and data management resources.  This is part of the Information Systems Architecture.
+The Application Architecture provides a blueprint for the individual application systems to be deployed, their interactions, and their relationships to the core business processes of the organization. This is part of the Information Systems Architecture.
+The Technology Architecture describes the logical software and hardware capabilities that are required to support the deployment of business, data, and application services. This includes IT infrastructure, middleware, networks, communications, processing, standards, etc.
+
+Figure 1.  The Open Group Architecture Framework (TOGAF) showing the architecture development cycle.
+
+As such, the document will be structured as follows: 
+
+Section 2 describes the problem statement and what issues can be resolved through the use of an EIM strategy.
+
+
+Section 3 describes the overall Architecture Vision for the system, including Guiding Principles, Framework, and the EIM Reference Model, all relevant to providing a consistent framework within which the four architecture components can be developed. 
+
+Section 4 provides the details of the four architecture components: 
+Business Architecture:  This will refer to work products produced by the Use Case and Service Definition Teams of EIM, which includes the list of use cases and integration requirements and business services at the functional level.  
+Application Architecture: This provides the technical level requirements relative to how applications are modeled as logical components, and what services each logical components may provide or consume. This should be an instantiation of the business services identified within the Business Architecture. 
+Data Architecture:  This provides the technical level requirements relative to how the EIM data should be modeled and represented consistently across all integration services to ensure semantic interoperability. 
+Technology Architecture: This provides the technical level requirements relative to how services will interact with each other to support end-to-end EIM business processes. 
+
+Section 5 contains the considerations for an EIM Competency Center which includes topics such as governance and knowledge distribution.
+Problem Statement
+What are the challenges that organizations are seeking to address through the deployment of an EIM strategy?
+Architecture Overview 
+EIM Framework
+
+EIM Reference Architecture
+
+EIM Architecture Guiding Principles
+
+Role of Information Security in EIM
+Information security plays a central role in the enterprise information management framework.  As such the Task Force has made a conscious decision not to create a separate section addressing information security.  Instead, security will be addressed and its impact will be identified in each of the subsequent sections of this document.  In this manner, the System Requirements Specification shall address securing the data artifacts and the processes supporting the creation, retrieval, updating, and deletion of information objects.
+
+EIM Systems Architecture 
+EIM Business Architecture View
+EIM Use Cases
+
+
+EIM Requirements
+Ability to share model with external entities
+Common model sharing requirements
+Business to business model sharing requirements
+Consumer (B2C) model sharing requirements
+Information management requirements
+Common data management requirements
+Smart Grid data management requirements
+Non-Smart Grid data management requirements
+Joint Smart Grid and Non-Smart Grid data requirements
+Architectural requirements
+Smart Grid architectural requirements
+Application architectural requirements
+Business unit architectural requirements
+Project architectural requirements
+
+EIM Application Architecture View
+Logical breakdown of EIM capabilities such as data validation.
+NOTE: Resolve EIM support for process-oriented information perspectives
+NOTE: Include self healing and self discovery capabilities
+NOTE: Define patterns of using new technologies to create interfaces with older systems
+
+
+EIM Data Architecture View
+Subject area models, enterprise semantic model, incorporating standards, data architecture approach, data classification, etc.
+Persistent data store architectural requirements
+Persistent data store requirements with collocated smart grid and non-smart grid data
+Use of localized data stores
+Use of centralized data stores
+Standard model incorporation into enterprise information management
+Incorporating IEC Common Information Model (CIM) into the EIM
+Using EIM to enable IEC Common Information Model-based messaging
+Using EIM to enable IEC Common Information Model-based persistent data store creation
+Using IEC Common Information Model to create a semantic model supporting NIST
+Enterprise information management lifecycle management
+The information model shall define common definitions of data concepts
+The information model shall allow aliases of data concepts
+How to initiate and maintain enterprise semantic management
+Use a reference architecture to create an enterprise information architecture
+Model how semantic modeling supports information modeling
+Define patterns of introducing business units to smart grid semantic modeling
+
+
+
+EIM Technical Architecture View
+Infrastructure components such as the metadata repository, etc.
+Analytics
+
+
+
+EIM Competency Center
+Governance, resources, knowledge distribution, etc.
+Introducing smart grid EIM lessons to the rest of the organization
+Introducing data movement patterns 
+Introducing data movement tools and methodologies
+Introducing new patterns of logical data models
+Enhancing the organization’s ability to create, maintain, and reuse logical data models
+

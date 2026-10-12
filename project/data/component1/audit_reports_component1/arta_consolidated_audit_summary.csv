@@ -1,0 +1,11 @@
+﻿AuditArea,ReportFile,ReportRows,Finding,Interpretation
+File structure,arta_file_structure_comparison.csv,6,6 files; 1 distinct row-count values; 0 missing cells; 18 duplicate rows across files,Structural audit only; duplicate rows are not automatically errors
+Annotation conflicts,arta_excel_label_conflicts.csv,7,7 report rows,Inspect report details before drawing conclusions
+Duplicate metric audit,arta_002_duplicate_metric_audit.csv,9,9 duplicate groups; 5 groups with metric conflicts,Metric conflicts require provenance or methodology review
+Standardized label conflicts,arta_standardized_label_conflicts.csv,592,592 conflict records across 8 annotation categories,Differences across sources; not confirmed label errors
+Standardized duplicate records,arta_standardized_duplicate_records.csv,1516,1516 report rows,Inspect report details before drawing conclusions
+Duplicate requirements,arta_duplicate_requirements.csv,1554,1554 report rows,Inspect report details before drawing conclusions
+Duplicate summary,arta_duplicate_summary.csv,765,765 report rows,Inspect report details before drawing conclusions
+Annotation distribution,arta_annotation_distribution_audit.csv,30,30 report rows,Inspect report details before drawing conclusions
+Label value audit,arta_label_value_audit.csv,1299,1299 report rows,Inspect report details before drawing conclusions
+Annotation conflict examples,arta_annotation_conflict_examples.csv,3046,3046 comparison rows across 2 comparison-file values,Examples of annotation differences
