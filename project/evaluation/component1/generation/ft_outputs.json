@@ -1,0 +1,502 @@
+[
+ {
+  "id": "FR_NFR:0151e51967",
+  "requirement_text": "The system shall be scalable and accommodate police stations of all sizes with varying caseloads.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"What size range of police stations and caseloads must be supported?\", \"What scaling targets apply?\"], \"rationale\": \"\\\"Scalable\\\" and \\\"all sizes\\\" are not measurable.\"}"
+ },
+ {
+  "id": "FR_NFR:077f207314",
+  "requirement_text": "System’s back-end servers shall not display a customer’s password and shall only be accessible to authenticated administrators.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a security officer, I want back-end servers not to show customers' passwords and to be accessible only to authenticated administrators, so that passwords are protected.\", \"technical_task\": \"Prevent customer passwords from being displayed on back-end servers and limit access to authenticated administrators.\", \"acceptance_criteria\": [\"Given a customer's password in the back-end, when a server displays data, then the password is not displayed.\", \"Given an authenticated administrator, when the administrator accesses the back-end, then access is granted, and otherwise it is denied.\"], \"rationale\": \"Role assumed: security officer.\"}"
+ },
+ {
+  "id": "FR_NFR:07df569ae6",
+  "requirement_text": "Agency user shall have a landing page to navigate to either FABS or DABS pages for easy access to different functionalities.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an agency user, I want a landing page that leads to FABS or DABS pages, so that I can reach the functionalities I need.\", \"technical_task\": \"Provide an agency landing page with links to the FABS and DABS pages.\", \"acceptance_criteria\": [\"Given the agency landing page, when the user selects FABS, then the FABS pages are reached.\", \"Given the agency landing page, when the user selects DABS, then the DABS pages are reached.\"], \"rationale\": \"Role stated: agency user.\"}"
+ },
+ {
+  "id": "FR_NFR:0909c618e1",
+  "requirement_text": "User shall be able to reset all options and user variables to defaults.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want to reset all options and user variables to their defaults, so that I can start over.\", \"technical_task\": \"Add a reset function that sets all options and user variables to their default values.\", \"acceptance_criteria\": [\"Given a user has changed options and user variables, when the user resets them, then they are set to their defaults.\", \"Given the reset has completed, when the user views the options and variables, then no custom values remain.\"], \"rationale\": \"Role assumed: user.\"}"
+ },
+ {
+  "id": "FR_NFR:0a81506fd2",
+  "requirement_text": "System shall update the software if the version expires.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want the software updated when its version expires, so that it stays supported.\", \"technical_task\": \"Update the software when the version expires.\", \"acceptance_criteria\": [\"Given a version that expires, when the expiration is reached, then the software is updated.\", \"Given a version that has not expired, when the user uses the software, then no update is forced.\"], \"rationale\": \"Role assumed: user. The update behaviour is not specified further.\"}"
+ },
+ {
+  "id": "FR_NFR:0fa7685f13",
+  "requirement_text": "System shall generate reports on attendance data based on specified criteria.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a manager, I want reports on attendance data based on specified criteria, so that I can review attendance.\", \"technical_task\": \"Generate attendance reports using criteria specified by the user.\", \"acceptance_criteria\": [\"Given specified criteria, when the user requests a report, then the report is generated from attendance data that matches the criteria.\", \"Given criteria that match no data, when the user requests a report, then the report shows that no data was found.\"], \"rationale\": \"Role assumed: manager. The criteria are not listed.\"}"
+ },
+ {
+  "id": "FR_NFR:13f7aaae15",
+  "requirement_text": "System shall be able to ensure a large number of concurrent users and transactions during peak times.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"How many concurrent users and transactions count as a \\\"large number\\\" during peak times?\", \"What response time or capacity is required?\"], \"rationale\": \"\\\"A large number\\\" is not quantified.\"}"
+ },
+ {
+  "id": "FR_NFR:153e4dfed1",
+  "requirement_text": "System shall check the information and process the request, providing regular updates on those interests.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an investor, I want the system to check the information and process my request with regular updates on my interests, so that I know what is happening.\", \"technical_task\": \"Check the information, process the request and provide regular updates on the interests.\", \"acceptance_criteria\": [\"Given a request is submitted, when the system processes it, then the information is checked first.\", \"Given the request is being processed, when updates are due, then regular updates on the interests are provided.\"], \"rationale\": \"Role assumed: investor. \\\"Regular\\\" is not quantified.\"}"
+ },
+ {
+  "id": "FR_NFR:1fb9604011",
+  "requirement_text": "The system shall display and allow the manager to print the profit statistics in the requested format.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a manager, I want to display and print profit statistics in a chosen format, so that I can use them in reports.\", \"technical_task\": \"Display profit statistics and offer printing in a selected format.\", \"acceptance_criteria\": [\"Given profit statistics, when the manager requests a format, then they are displayed in that format.\", \"Given displayed profit statistics, when the manager chooses print, then they are printed in the requested format.\"], \"rationale\": \"Role stated: manager.\"}"
+ },
+ {
+  "id": "FR_NFR:2205bdd13d",
+  "requirement_text": "System shall allow users to add custom properties to repository records.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an archivist, I want to add custom properties to repository records, so that I can store my own information.\", \"technical_task\": \"Allow users to add custom properties to repository records.\", \"acceptance_criteria\": [\"Given a repository record, when the user adds a custom property, then it is saved with the record.\", \"Given a custom property, when the record is viewed, then the property is shown.\"], \"rationale\": \"Role assumed: archivist.\"}"
+ },
+ {
+  "id": "FR_NFR:29763ad8ab",
+  "requirement_text": "The System must employ a single set of user interface rules, or a small number of sets to provide a familiar and common look and feel for the application.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want a single set of user interface rules, so that the application looks and feels familiar.\", \"technical_task\": \"Apply a single set of user interface rules, or a small number of sets, to all screens.\", \"acceptance_criteria\": [\"Given any screen, when it is reviewed, then it follows the user interface rules.\", \"Given the application, when its screens are compared, then they share a common look and feel.\"], \"rationale\": \"Role assumed: user. \\\"Small number\\\" is not quantified.\"}"
+ },
+ {
+  "id": "FR_NFR:3ac2cdffae",
+  "requirement_text": "User shall be able to ensure compliance with established standards.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"Which standards apply?\", \"How is compliance checked?\"], \"rationale\": \"\\\"Established standards\\\" are not named.\"}"
+ },
+ {
+  "id": "FR_NFR:3bc5a3b24a",
+  "requirement_text": "The system shall include backup and disaster recovery mechanisms to safeguard against data loss.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an administrator, I want backup and disaster recovery mechanisms, so that data is not lost.\", \"technical_task\": \"Include backup and disaster recovery mechanisms.\", \"acceptance_criteria\": [\"Given data in the system, when a backup is run, then the data is backed up.\", \"Given a disaster, when the system is recovered, then data is restored.\"], \"rationale\": \"Role assumed: administrator.\"}"
+ },
+ {
+  "id": "FR_NFR:3c35a00903",
+  "requirement_text": "The user shall be able to log out after booking tickets.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want to log out after booking tickets, so that my session ends.\", \"technical_task\": \"Offer a log-out option after ticket booking.\", \"acceptance_criteria\": [\"Given a user who has booked tickets, when the user logs out, then the session ends.\", \"Given a user who has booked tickets, when the user stays logged in, then the tickets are still available.\"], \"rationale\": \"Role assumed: user.\"}"
+ },
+ {
+  "id": "FR_NFR:40262a8890",
+  "requirement_text": "The system shall allow camp administrators to upload consent forms for easy access.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a camp administrator, I want to upload consent forms, so that they are easily accessible.\", \"technical_task\": \"Provide a way for camp administrators to upload consent forms.\", \"acceptance_criteria\": [\"Given a camp administrator, when the administrator uploads a consent form, then the form is saved.\", \"Given an uploaded consent form, when a user opens the form library, then the form is accessible.\"], \"rationale\": \"Role stated: camp administrator.\"}"
+ },
+ {
+  "id": "FR_NFR:41e9f80ede",
+  "requirement_text": "The system shall integrate with analysis tools like Elasticsearch, SPSS, EPrints, Mongo, and DAT.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a researcher, I want the system to integrate with analysis tools such as Elasticsearch, SPSS, EPrints, Mongo and DAT, so that I can use my data with them.\", \"technical_task\": \"Integrate the system with analysis tools including Elasticsearch, SPSS, EPrints, Mongo and DAT.\", \"acceptance_criteria\": [\"Given an analysis tool such as Elasticsearch, when data is exported, then the system integrates with it.\", \"Given the listed tools, when data is exported, then the system integrates with each of them.\"], \"rationale\": \"Role assumed: researcher. \\\"Like\\\" means the list may not be exhaustive.\"}"
+ },
+ {
+  "id": "FR_NFR:4545c922df",
+  "requirement_text": "User shall be able to enter their consumer number to verify and abandon the subsidy.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a consumer, I want to enter my consumer number to verify and abandon the subsidy, so that I can stop receiving it.\", \"technical_task\": \"Provide a field for the consumer number that verifies it and abandons the subsidy.\", \"acceptance_criteria\": [\"Given a valid consumer number, when the user enters it, then the subsidy is verified and abandoned.\", \"Given an invalid consumer number, when the user enters it, then the subsidy is not abandoned.\"], \"rationale\": \"Role assumed: consumer.\"}"
+ },
+ {
+  "id": "FR_NFR:4cf499f9f1",
+  "requirement_text": "The system shall allow repository managers to define access controls for collections.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a repository manager, I want to define access controls for collections, so that collections are only accessible to the right people.\", \"technical_task\": \"Allow repository managers to set access controls on collections.\", \"acceptance_criteria\": [\"Given a collection, when the repository manager defines access controls for it, then the controls are saved.\", \"Given a user who does not have the defined access, when the user tries to open the collection, then access is denied.\"], \"rationale\": \"Role stated: repository manager.\"}"
+ },
+ {
+  "id": "FR_NFR:50177102f5",
+  "requirement_text": "The TCS shall provide the capability to display waypoint data in alphanumeric format.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a pilot, I want waypoint data shown in alphanumeric form, so that I can read it.\", \"technical_task\": \"Display waypoint data in alphanumeric format.\", \"acceptance_criteria\": [\"Given waypoint data, when it is displayed, then it is shown in alphanumeric format.\", \"Given a displayed waypoint, when it is viewed, then its data can be read as text.\"], \"rationale\": \"Role assumed: pilot.\"}"
+ },
+ {
+  "id": "FR_NFR:5731b3b4b6",
+  "requirement_text": "The software shall allow users to adjust the size and angle of brushes on the touch-screen.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an artist, I want to adjust the size and angle of brushes on the touch screen, so that I can paint freely.\", \"technical_task\": \"Provide touch-screen controls for brush size and brush angle.\", \"acceptance_criteria\": [\"Given a brush tool, when the user changes the size on the touch screen, then the brush size is applied.\", \"Given a brush tool, when the user changes the angle on the touch screen, then the brush angle is applied.\"], \"rationale\": \"Role assumed: artist.\"}"
+ },
+ {
+  "id": "FR_NFR:5cd80b4ecb",
+  "requirement_text": "The system must be connected to the network for optimal performance and support simultaneous access by multiple users with fast response times.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"What network connection speed is required?\", \"How many simultaneous users and what response time are meant by \\\"optimal performance\\\" and \\\"fast response times\\\"?\"], \"rationale\": \"\\\"Optimal performance\\\", \\\"fast\\\" and \\\"multiple users\\\" are not quantified.\"}"
+ },
+ {
+  "id": "FR_NFR:6167a122f9",
+  "requirement_text": "Upon initialization, the THEMAS system shall be able to automatically turn off all heating and cooling units.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a building manager, I want the THEMAS system to switch off all heating and cooling units automatically at initialization, so that they are not left on needlessly.\", \"technical_task\": \"On initialization, send a command that turns off every heating and cooling unit.\", \"acceptance_criteria\": [\"Given the THEMAS system is initialized, when it starts, then all heating units are turned off.\", \"Given the THEMAS system is initialized, when it starts, then all cooling units are turned off.\"], \"rationale\": \"Role assumed: building manager.\"}"
+ },
+ {
+  "id": "FR_NFR:66c93aef2d",
+  "requirement_text": "The system shall authenticate users using their account credentials.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want to be authenticated with my account credentials, so that only I can access my account.\", \"technical_task\": \"Authenticate users using their account credentials.\", \"acceptance_criteria\": [\"Given valid account credentials, when the user signs in, then the user is authenticated.\", \"Given invalid account credentials, when the user signs in, then authentication fails.\"], \"rationale\": \"Role assumed: user.\"}"
+ },
+ {
+  "id": "FR_NFR:78f742e077",
+  "requirement_text": "System shall send resolved feedback messages to users via email or SMS.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want resolved feedback messages by email or SMS, so that I know the issue is closed.\", \"technical_task\": \"Send resolved feedback messages to users by email or SMS.\", \"acceptance_criteria\": [\"Given a feedback message resolved, when it is resolved, then it is sent to the user by email or SMS.\", \"Given a user who prefers SMS, when a feedback message is resolved, then it is sent as an SMS.\"], \"rationale\": \"Role assumed: user. The preference is an assumption.\"}"
+ },
+ {
+  "id": "FR_NFR:7e7f2aa401",
+  "requirement_text": "User shall be able to complete matchmaking in less than 3 minutes.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want matchmaking to finish in less than 3 minutes, so that I can start playing quickly.\", \"technical_task\": \"Complete matchmaking in under 3 minutes.\", \"acceptance_criteria\": [\"Given a player, when matchmaking runs, then it completes in less than 3 minutes.\", \"Given a match that takes 3 minutes or longer, when it is measured, then the requirement is not met.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "FR_NFR:879d373f99",
+  "requirement_text": "System shall provide functionalities to generate comprehensive reports on stock availability, orders, and deliveries.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a manager, I want comprehensive reports on stock availability, orders and deliveries, so that I can follow stock.\", \"technical_task\": \"Generate reports on stock availability, orders and deliveries.\", \"acceptance_criteria\": [\"Given stock data, when the user requests a stock availability report, then it is generated.\", \"Given order and delivery data, when the user requests an orders and deliveries report, then it is generated.\"], \"rationale\": \"Role assumed: manager. \\\"Comprehensive\\\" is not defined.\"}"
+ },
+ {
+  "id": "FR_NFR:8873f839d5",
+  "requirement_text": "The system shall provide an interface for verification department employees to send status reports to finance and legal contract departments.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a verification department employee, I want to send status reports to finance and legal contract departments, so that they stay informed.\", \"technical_task\": \"Provide a status report interface for verification department employees that sends reports to finance and legal contract departments.\", \"acceptance_criteria\": [\"Given a verification department employee, when they prepare a status report, then the report can be sent to finance and legal contract departments.\", \"Given a sent status report, when it arrives, then the receiving departments can read it.\"], \"rationale\": \"Role stated: verification department employee.\"}"
+ },
+ {
+  "id": "FR_NFR:916804e2be",
+  "requirement_text": "System shall maintain and display elective subject choices made by students for different semesters.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a student, I want my elective subject choices kept and shown for each semester, so that I can see my choices.\", \"technical_task\": \"Store and display elective subject choices per semester.\", \"acceptance_criteria\": [\"Given a student's choices, when a semester is saved, then the choices are stored.\", \"Given stored choices, when the student opens a semester, then the elective subject choices are displayed.\"], \"rationale\": \"Role assumed: student.\"}"
+ },
+ {
+  "id": "FR_NFR:92b3288809",
+  "requirement_text": "Users shall be able to book a movie through the service.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a moviegoer, I want to book a movie through the service, so that I can watch it.\", \"technical_task\": \"Add movie booking to the service.\", \"acceptance_criteria\": [\"Given a movie available for booking, when the user books it, then the booking is saved.\", \"Given a booked movie, when the user views their bookings, then it is listed.\"], \"rationale\": \"Role assumed: moviegoer.\"}"
+ },
+ {
+  "id": "FR_NFR:94deae69e9",
+  "requirement_text": "User inputs their UPI ID into the designated fields.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a customer, I want to enter my UPI ID in the designated fields, so that I can use it for payment.\", \"technical_task\": \"Provide designated fields where the user enters their UPI ID.\", \"acceptance_criteria\": [\"Given the UPI ID fields, when the user enters a UPI ID in a designated field, then the input is accepted.\", \"Given a field that is not designated for the UPI ID, when the user enters the UPI ID there, then the input is not accepted in the UPI ID field.\"], \"rationale\": \"Role assumed: customer. The second criterion is an interpretation of \\\"designated fields\\\".\"}"
+ },
+ {
+  "id": "FR_NFR:9e9a70b530",
+  "requirement_text": "User shall be able to archive emails to hide them from the inbox.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an email user, I want to archive emails to hide them from the inbox, so that I can keep them out of sight.\", \"technical_task\": \"Provide an archive action that moves an email out of the inbox.\", \"acceptance_criteria\": [\"Given an email in the inbox, when the user archives it, then it is no longer shown in the inbox.\", \"Given an archived email, when the user opens the inbox, then the email is not listed.\"], \"rationale\": \"Role assumed: email user.\"}"
+ },
+ {
+  "id": "FR_NFR:a0c2c60a70",
+  "requirement_text": "Each user shall have a set of system access properties that defines the user's privileges within the system.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a security administrator, I want each user to have a set of system access properties that define the user's privileges, so that privileges are controlled.\", \"technical_task\": \"Assign a set of system access properties, defining the user's privileges, to every user.\", \"acceptance_criteria\": [\"Given a user, when the user is created, then a set of system access properties is assigned.\", \"Given a user's system access properties, when the user signs in, then the privileges they define are applied.\"], \"rationale\": \"Role assumed: security administrator.\"}"
+ },
+ {
+  "id": "FR_NFR:a9a617e510",
+  "requirement_text": "The system shall provide an avenue for parents to submit feedback and concerns.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a parent, I want to submit feedback and concerns, so that the school can hear from me.\", \"technical_task\": \"Provide a feedback form for parents to submit feedback and concerns.\", \"acceptance_criteria\": [\"Given a parent, when the parent submits feedback, then it is received.\", \"Given a parent, when the parent submits a concern, then it is received.\"], \"rationale\": \"Role stated: parent.\"}"
+ },
+ {
+  "id": "FR_NFR:aa9b719cba",
+  "requirement_text": "User shall be able to perform the transaction.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"Which transaction is meant?\", \"What must the system do when the user performs it?\"], \"rationale\": \"The sentence names no transaction and states no behaviour.\"}"
+ },
+ {
+  "id": "FR_NFR:b2fe7917b2",
+  "requirement_text": "System shall provide a shopping bag feature during online purchase.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a shopper, I want a shopping bag feature during online purchase, so that I can collect items before paying.\", \"technical_task\": \"Provide a shopping bag function in the online purchase flow.\", \"acceptance_criteria\": [\"Given items in the online purchase, when the shopper adds them to the bag, then they appear in the shopping bag.\", \"Given items in the shopping bag, when the shopper proceeds to pay, then the items are used for the purchase.\"], \"rationale\": \"Role assumed: shopper.\"}"
+ },
+ {
+  "id": "FR_NFR:b8d03962f1",
+  "requirement_text": "User shall be able to handle different negative responses from the central system.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want to handle different negative responses from the central system, so that I know why an operation failed.\", \"technical_task\": \"Return and handle the different negative responses the central system sends.\", \"acceptance_criteria\": [\"Given the central system sends a negative response, when it is received, then the user is shown the reason.\", \"Given several negative responses, when they are received, then each is handled differently.\"], \"rationale\": \"Role assumed: user. The responses are not listed.\"}"
+ },
+ {
+  "id": "FR_NFR:bb2601143f",
+  "requirement_text": "Moderators shall be able to remove groups.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a moderator, I want to remove groups, so that I can keep the community tidy.\", \"technical_task\": \"Allow moderators to delete groups.\", \"acceptance_criteria\": [\"Given a group, when a moderator removes it, then the group is no longer listed.\", \"Given a user who is not a moderator, when the user tries to remove a group, then it is not removed.\"], \"rationale\": \"Role stated: moderator.\"}"
+ },
+ {
+  "id": "FR_NFR:c02c0b4383",
+  "requirement_text": "The CO will not have access to the data containing the faces of any tiles in the wall or any concealed tiles in any other players' hands.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want the CO to have no access to the face data of tiles in other players' hands, so that nobody can cheat.\", \"technical_task\": \"Prevent the CO from accessing the face data of any tiles in the wall or of any concealed tiles in other players' hands.\", \"acceptance_criteria\": [\"Given a tile in the wall, when the CO tries to access its face data, then access is denied.\", \"Given a concealed tile in another player's hand, when the CO tries to access its face data, then access is denied.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "FR_NFR:c207053da5",
+  "requirement_text": "The system shall provide limited but necessary operations for workers.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"Which operations are \\\"limited but necessary\\\" for workers?\", \"What does \\\"limited\\\" mean in measurable terms?\"], \"rationale\": \"\\\"Limited but necessary\\\" is not defined.\"}"
+ },
+ {
+  "id": "FR_NFR:c319e55fc0",
+  "requirement_text": "User shall use MySQL subject to the terms of the GNU General Public License (GPL), with options for commercial licenses for additional features, support, and legal assurances.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a database administrator, I want to use MySQL under the GPL with options for commercial licenses, so that I can choose the license that suits my needs.\", \"technical_task\": \"Ship MySQL with the GNU General Public License (GPL) and offer commercial licenses for additional features, support and legal assurances.\", \"acceptance_criteria\": [\"Given the MySQL database, when it is installed, then it is available under the terms of the GNU General Public License (GPL).\", \"Given a commercial license, when it is purchased, then it provides additional features, support and legal assurances.\"], \"rationale\": \"Role assumed: database administrator. The commercial license terms are not described.\"}"
+ },
+ {
+  "id": "FR_NFR:c3a980dd22",
+  "requirement_text": "User shall be able to transact securely with confidential customer information.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a customer, I want to transact securely with my confidential information, so that it is protected.\", \"technical_task\": \"Protect confidential customer information during transactions with secure processing.\", \"acceptance_criteria\": [\"Given confidential customer information, when a transaction is made, then it is processed securely.\", \"Given a connection that is not secure, when a transaction is attempted, then it is not allowed.\"], \"rationale\": \"Role assumed: customer. The security mechanism is not specified.\"}"
+ },
+ {
+  "id": "FR_NFR:d1a929c923",
+  "requirement_text": "System use shall not pose any harm to human users.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"What harm to human users is unacceptable?\"], \"rationale\": \"'Any harm' is not defined.\"}"
+ },
+ {
+  "id": "FR_NFR:dc951b34ec",
+  "requirement_text": "The user research plan shall test the user research plan.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"What does testing the user research plan involve?\", \"Is this a requirement or a statement about the plan itself?\"], \"rationale\": \"The sentence says the plan \\\"shall test the user research plan\\\" without any testable behaviour.\"}"
+ },
+ {
+  "id": "FR_NFR:df218129f7",
+  "requirement_text": "User shall be able to deposit and maintain datasets through a simple web interface, facilitating ease of use.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a researcher, I want to deposit and maintain datasets through a simple web interface, so that I can use it easily.\", \"technical_task\": \"Provide a web interface for depositing and maintaining datasets.\", \"acceptance_criteria\": [\"Given the web interface, when the user deposits a dataset, then it is saved.\", \"Given a deposited dataset, when the user changes it, then the changes are stored.\"], \"rationale\": \"Role assumed: researcher. \\\"Simple\\\" is not measured.\"}"
+ },
+ {
+  "id": "FR_NFR:e17f1c6e48",
+  "requirement_text": "User shall experience page loading times of less than 1 second with an 8Mbits internet connection speed.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want pages to load in less than 1 second over an 8Mbits connection, so that waiting is short.\", \"technical_task\": \"Keep page loading times under 1 second on an 8Mbits internet connection.\", \"acceptance_criteria\": [\"Given an 8Mbits internet connection, when a page loads, then the load time is less than 1 second.\", \"Given a load time of 1 second or more, when it is measured, then the requirement is not met.\"], \"rationale\": \"Role assumed: user.\"}"
+ },
+ {
+  "id": "FR_NFR:e1bfce4069",
+  "requirement_text": "The system shall document who can enter data by defining user roles and permissions.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an administrator, I want to define user roles and permissions, so that I control who can enter data.\", \"technical_task\": \"Define user roles and permissions that determine who can enter data.\", \"acceptance_criteria\": [\"Given a user with a role that allows data entry, when the user enters data, then the data is saved.\", \"Given a user with a role that does not allow data entry, when the user tries to enter data, then the action is refused.\"], \"rationale\": \"Role assumed: administrator.\"}"
+ },
+ {
+  "id": "FR_NFR:e778af3bb3",
+  "requirement_text": "System shall employ on-demand asynchronous loading for faster page execution.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want pages to load asynchronously on demand, so that the page executes faster.\", \"technical_task\": \"Load page content asynchronously on demand instead of all at once.\", \"acceptance_criteria\": [\"Given a page with content, when the user opens it, then the content loads asynchronously.\", \"Given a page with loaded content, when the user views the page, then the page executes without waiting for the content.\"], \"rationale\": \"Role assumed: user. \\\"Faster\\\" is not measured.\"}"
+ },
+ {
+  "id": "FR_NFR:e7d4735594",
+  "requirement_text": "Systems shall display password fields such that characters entered by the user are not visible.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want password fields to hide my characters, so that others cannot read my password.\", \"technical_task\": \"Display password fields with hidden entry.\", \"acceptance_criteria\": [\"Given a password field, when the user enters a character, then it is not visible.\", \"Given a password field, when the user looks at it, then no characters are shown.\"], \"rationale\": \"Visibility.\"}"
+ },
+ {
+  "id": "FR_NFR:e7f86be259",
+  "requirement_text": "Delivery boy shall be able to toggle Online/Offline/Break option.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a delivery boy, I want to toggle Online, Offline and Break, so that my status is current.\", \"technical_task\": \"Provide a toggle for Online, Offline and Break.\", \"acceptance_criteria\": [\"Given the delivery boy, when the boy toggles Online, then the status is Online.\", \"Given the delivery boy, when the boy toggles Offline or Break, then the status is Offline or Break.\"], \"rationale\": \"Three states.\"}"
+ },
+ {
+  "id": "FR_NFR:e889c9ac67",
+  "requirement_text": "System shall be able to provide general recommendations based on recent trends.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want general recommendations based on recent trends, so that I see things that are popular.\", \"technical_task\": \"Show recommendations derived from recent trends.\", \"acceptance_criteria\": [\"Given recent activity, when the user opens the recommendations, then recommendations based on it are shown.\", \"Given no recent activity, when the user opens the recommendations, then recommendations are still shown.\"], \"rationale\": \"Role assumed: user. What counts as a trend is not defined.\"}"
+ },
+ {
+  "id": "FR_NFR:ea9229d3e2",
+  "requirement_text": "The system shall secure itself by limiting access to authorized users and requiring password protection.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a security officer, I want the system to limit access to authorized users and require password protection, so that only the right people can use it.\", \"technical_task\": \"Limit access to authorized users and require a password for access.\", \"acceptance_criteria\": [\"Given an authorized user with a password, when the user accesses the system, then access is granted.\", \"Given a user who is not authorized or who gives a wrong password, when the user tries to access the system, then access is denied.\"], \"rationale\": \"Role assumed: security officer.\"}"
+ },
+ {
+  "id": "FR_NFR:f093208ffc",
+  "requirement_text": "The TCS shall provide the capability to modify the maximum number of threats displayed, when de-clutter is selected.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want to modify the maximum number of threats shown when de-clutter is selected, so that the display is not overcrowded.\", \"technical_task\": \"Provide a setting that lets the maximum number of threats displayed be changed while de-clutter is selected.\", \"acceptance_criteria\": [\"Given de-clutter is selected, when the user changes the maximum number of threats, then the number of threats displayed is limited by the new value.\", \"Given the maximum number of threats has been changed, when de-clutter is selected again, then the new value is applied.\"], \"rationale\": \"Role assumed: user.\"}"
+ },
+ {
+  "id": "FR_NFR:f4b1578fff",
+  "requirement_text": "The system shall perform automatic plankton species pre-classification in Plankton Portal images.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a plankton researcher, I want automatic pre-classification of plankton species in Plankton Portal images, so that I can start from a narrowed list.\", \"technical_task\": \"Add automatic plankton species pre-classification to Plankton Portal images.\", \"acceptance_criteria\": [\"Given a Plankton Portal image, when it is processed, then it receives an automatic pre-classification of plankton species.\", \"Given a pre-classified image, when it is shown, then it reflects the automatic classification.\"], \"rationale\": \"Role assumed: plankton researcher.\"}"
+ },
+ {
+  "id": "FR_NFR:f982a213ad",
+  "requirement_text": "User shall delete a blog by clicking a button, with validation ensuring data integrity.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a blogger, I want to delete a blog by clicking a button, with validation that protects the data, so that I don't accidentally lose it.\", \"technical_task\": \"Add a delete button for blogs that validates before the deletion.\", \"acceptance_criteria\": [\"Given a blog, when the user clicks the delete button, then the blog is deleted.\", \"Given a blog with unsaved changes, when the user clicks the delete button, then the deletion is not allowed.\"], \"rationale\": \"Role assumed: blogger. The validation rules are an interpretation of \\\"data integrity\\\".\"}"
+ },
+ {
+  "id": "FR_NFR:feb8622f4b",
+  "requirement_text": "User shall be able to select the online booking option for LPG cylinder.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a customer, I want to select the online booking option for an LPG cylinder, so that I can book one online.\", \"technical_task\": \"Offer an online booking option for LPG cylinders.\", \"acceptance_criteria\": [\"Given the LPG services, when the user selects the online booking option, then a booking form for an LPG cylinder is shown.\", \"Given the booking form, when the user submits the booking, then the booking is recorded.\"], \"rationale\": \"Role assumed: customer.\"}"
+ },
+ {
+  "id": "PROMISE:0145e5ba81",
+  "requirement_text": "User access should be limited to the permissions granted to their role(s). Each level in the PCG hierarchy will be assigned a role and users will be assigned to these roles. Access to functionality within RFS system is dependent on the privileges/permission assigned to the role..'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a security officer, I want user access limited to the permissions of their role or roles, so that each user only sees what their role allows.\", \"technical_task\": \"Assign roles to each level of the PCG hierarchy and to users, and limit access to the privileges and permissions of the assigned role.\", \"acceptance_criteria\": [\"Given a user assigned to a role, when the user opens a function available only to that role, then access is granted.\", \"Given a user assigned to a role with no permission for a function, when the user tries to use it, then access is denied.\"], \"rationale\": \"Role assumed: security officer. The PCG hierarchy is not described.\"}"
+ },
+ {
+  "id": "PROMISE:0eeb503af9",
+  "requirement_text": "The Commissioner will be the only authorized user per league to adjust league settings.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a commissioner, I want to be the only authorized user per league to adjust league settings, so that leagues are run consistently.\", \"technical_task\": \"Restrict league setting adjustment to the Commissioner in each league.\", \"acceptance_criteria\": [\"Given a league, when the Commissioner adjusts league settings, then the change is saved.\", \"Given a league, when any other user tries to adjust league settings, then the change is refused.\"], \"rationale\": \"Role stated: commissioner.\"}"
+ },
+ {
+  "id": "PROMISE:13a8feb886",
+  "requirement_text": "The leads washing functionality shall receive a period list of available reps from the enterprise system.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a lead washer, I want the leads washing functionality to receive a period list of available reps from the enterprise system, so that I can assign to available reps.\", \"technical_task\": \"Send a period list of available reps from the enterprise system to the leads washing functionality.\", \"acceptance_criteria\": [\"Given a period list of available reps in the enterprise system, when the leads washing functionality starts, then it receives the list.\", \"Given the list, when the functionality shows reps, then only the available reps are shown.\"], \"rationale\": \"Role assumed: lead washer. The period is taken from the requirement.\"}"
+ },
+ {
+  "id": "PROMISE:27d37b794c",
+  "requirement_text": "When a ship is sunk  the product shall simulate the sound of a sinking ship.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want the product to simulate the sound of a sinking ship when a ship sinks, so that I feel the action.\", \"technical_task\": \"Play a sinking ship sound effect when a ship is sunk.\", \"acceptance_criteria\": [\"Given a ship is sunk, when the event occurs, then the sound of a sinking ship is simulated.\", \"Given a ship that is not sunk, when the game is played, then the sinking sound is not played.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "PROMISE:3063f63fe2",
+  "requirement_text": "For each shot, the product shall mark the shot as a hit or miss on the offensive grid of the offensive player.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want each shot marked as a hit or miss on the offensive grid of the offensive player, so that I can see the result.\", \"technical_task\": \"Mark each shot as a hit or miss on the offensive grid of the offensive player.\", \"acceptance_criteria\": [\"Given a shot, when it is recorded, then it is marked as a hit or miss on the offensive grid of the offensive player.\", \"Given the grid, when a player views it, then the marks show which shots were hits and which were misses.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "PROMISE:5947a8a1e4",
+  "requirement_text": "Defect reports will be available to technical units on a 24x7 basis.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a technical unit, I want defect reports available 24 by 7, so that I can report defects at any time.\", \"technical_task\": \"Make defect reports available to technical units around the clock every day.\", \"acceptance_criteria\": [\"Given a technical unit, when it requests a defect report at any time of day, then the report is available.\", \"Given a defect report, when a technical unit opens it, then it is available on a 24x7 basis.\"], \"rationale\": \"Role assumed: technical unit.\"}"
+ },
+ {
+  "id": "PROMISE:5f39ce1f85",
+  "requirement_text": "The product shall maintain the status of each player for a turn, either offensive or defensive.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want the status of each player kept for a turn, as offensive or defensive, so that turns are tracked.\", \"technical_task\": \"Store the status of each player for a turn, either offensive or defensive.\", \"acceptance_criteria\": [\"Given a player on a turn, when the turn is played, then the player's status is stored as offensive or defensive.\", \"Given a stored player status, when the next turn starts, then the status is kept for the new turn.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "PROMISE:72fd7483af",
+  "requirement_text": "For each turn, the product shall identify one player as offensive status and one player as defensive status.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want each turn to have one player as offensive and one as defensive, so that the turn is clear.\", \"technical_task\": \"Assign offensive and defensive status to two players for every turn.\", \"acceptance_criteria\": [\"Given a turn, when it starts, then one player is identified as offensive and one as defensive.\", \"Given a turn, when it is played, then the status of the two players does not change.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "PROMISE:7b2dab4482",
+  "requirement_text": "The leads washing functionality will have an interface in which lead data parameters can be maintained.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a technician, I want an interface to maintain lead data parameters, so that lead washing settings are kept in one place.\", \"technical_task\": \"Build a maintenance interface for the lead washing functionality where lead data parameters can be kept.\", \"acceptance_criteria\": [\"Given the lead washing interface, when the technician opens it, then lead data parameters can be maintained.\", \"Given a changed parameter, when the technician saves it, then the new value is stored.\"], \"rationale\": \"Role assumed: technician.\"}"
+ },
+ {
+  "id": "PROMISE:7efd472053",
+  "requirement_text": "The leads washing functionality will validate all leads received by the web service for valid data",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a data steward, I want leads washing to validate all leads received by the web service, so that bad data is caught.\", \"technical_task\": \"Validate every lead received by the web service against valid data rules in the leads washing step.\", \"acceptance_criteria\": [\"Given a lead received by the web service, when it is processed, then it is validated for valid data.\", \"Given a lead with invalid data, when it is validated, then it fails validation.\"], \"rationale\": \"Role assumed: data steward.\"}"
+ },
+ {
+  "id": "PROMISE:820b59f43f",
+  "requirement_text": "Each page shall contain a navigation menu which shows the index into which the current page is contained.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a visitor, I want a navigation menu on each page that shows where the current page fits in the index, so that I can see my position.\", \"technical_task\": \"Add a navigation menu to every page that shows the index in which the current page is contained.\", \"acceptance_criteria\": [\"Given any page, when it is displayed, then it contains a navigation menu.\", \"Given the navigation menu, when the visitor views it, then it shows the index in which the current page is contained.\"], \"rationale\": \"Role assumed: visitor.\"}"
+ },
+ {
+  "id": "PROMISE:859ec0232c",
+  "requirement_text": "The product shall be available 24 hours per day  seven days per week.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a customer, I want the product available 24 hours per day on seven days a week, so that I can use it whenever I need.\", \"technical_task\": \"Keep the product available for 24 hours each day and seven days a week.\", \"acceptance_criteria\": [\"Given any hour of the day, when a customer uses the product, then it is available.\", \"Given any of the seven days of the week, when a customer uses the product, then it is available.\"], \"rationale\": \"Role assumed: customer.\"}"
+ },
+ {
+  "id": "PROMISE:91347dfa7f",
+  "requirement_text": "For each shot, the product shall examine the defensive grid of the defensive player to determine whether the shot was a hit or miss.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a coach, I want the product to examine the defensive grid of the defensive player for each shot to decide whether it was a hit or miss, so that results are judged consistently.\", \"technical_task\": \"For every shot, inspect the defensive grid of the defensive player to classify the shot as a hit or a miss.\", \"acceptance_criteria\": [\"Given a shot, when the product evaluates it, then the defensive grid of the defensive player is examined.\", \"Given the result of the examination, when the shot is displayed, then it is shown as a hit or as a miss.\"], \"rationale\": \"Role assumed: coach.\"}"
+ },
+ {
+  "id": "PROMISE:9f58634f72",
+  "requirement_text": "The process must fit within the processing time conditions set forth by the Auto Rep Assignment process in which a lead is assigned within 3 minutes of the total life cycle.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a process owner, I want the process to fit within the 3-minute time from lead assignment to the total life cycle, so that leads are assigned promptly.\", \"technical_task\": \"Keep the process within the 3-minute window after a lead is assigned by the Auto Rep Assignment process.\", \"acceptance_criteria\": [\"Given a lead is assigned, when the process runs, then it finishes within 3 minutes of the assignment.\", \"Given a process that takes longer than 3 minutes after assignment, when it is measured, then the requirement is not met.\"], \"rationale\": \"Role assumed: process owner. The total life cycle time is not given.\"}"
+ },
+ {
+  "id": "PROMISE:a0439a7ffa",
+  "requirement_text": "The leads washing functionality will insert all leads captured by the web service.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a technician, I want the leads washing functionality to insert all leads captured by the web service, so that no lead is missing.\", \"technical_task\": \"Have the leads washing functionality insert every lead captured by the web service.\", \"acceptance_criteria\": [\"Given leads captured by the web service, when the leads washing functionality runs, then all of them are inserted.\", \"Given a captured lead, when the leads washing functionality runs, then the lead is inserted.\"], \"rationale\": \"Role assumed: technician.\"}"
+ },
+ {
+  "id": "PROMISE:a27afd0acb",
+  "requirement_text": "Prior to submitting the lead to the enterprise system the leads washing functionality will assign the lead to an admissions rep.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an admissions rep, I want leads washing to assign a lead to me before it is submitted to the enterprise system, so that I own it.\", \"technical_task\": \"Assign the lead to an admissions rep using leads washing before submission to the enterprise system.\", \"acceptance_criteria\": [\"Given a lead in leads washing, when it is processed, then it is assigned to an admissions rep.\", \"Given a lead assigned to a rep, when the rep is viewed, then the lead is shown as the rep's lead.\"], \"rationale\": \"Role assumed: admissions rep.\"}"
+ },
+ {
+  "id": "PROMISE:a9298fb91d",
+  "requirement_text": "The response time shall be fast enough to maintain the flow of the game.  The response time shall be no more than 2 seconds for 95\\% of responses and no more than 4\\% for the remaining responses.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want the response time to be fast enough to keep the game flowing, so that I am not kept waiting.\", \"technical_task\": \"Meet response time targets of 2 seconds for 95% of responses and 4 seconds for the remaining responses.\", \"acceptance_criteria\": [\"Given a measured set of responses, when response times are evaluated, then 95% are no more than 2 seconds.\", \"Given the remaining responses, when response times are evaluated, then none are more than 4 seconds.\"], \"rationale\": \"Role assumed: player. The 95% and 4% figures come from the requirement.\"}"
+ },
+ {
+  "id": "PROMISE:af234454e1",
+  "requirement_text": "Each page shall contain a similar format with action items in one location and navigation buttons in a different location.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a user, I want each page to have action items in one place and navigation buttons in another, so that pages look similar.\", \"technical_task\": \"Use a consistent layout on every page with action items in one location and navigation buttons in another.\", \"acceptance_criteria\": [\"Given any page, when it is displayed, then action items appear in one location.\", \"Given any page, when it is displayed, then navigation buttons appear in a different location.\"], \"rationale\": \"Role assumed: user. The locations are not specified.\"}"
+ },
+ {
+  "id": "PROMISE:bcd75cc331",
+  "requirement_text": "Washing parameters will be updated during scheduled maintenance hours.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a technician, I want washing parameters updated during scheduled maintenance hours, so that the washer runs with current settings.\", \"technical_task\": \"Update washing parameters during scheduled maintenance hours.\", \"acceptance_criteria\": [\"Given scheduled maintenance hours, when they are running, then washing parameters are updated.\", \"Given a time outside scheduled maintenance hours, when the washer runs, then the parameters are not updated.\"], \"rationale\": \"Role assumed: technician.\"}"
+ },
+ {
+  "id": "PROMISE:bd41a5294a",
+  "requirement_text": "A new user shall be able to navigate through the league and team pages within 30 seconds of reaching the start-up page.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a new user, I want to navigate to the league and team pages within 30 seconds of reaching the start-up page, so that I can find the information I need quickly.\", \"technical_task\": \"Make the league and team pages reachable from the start-up page in 30 seconds or less.\", \"acceptance_criteria\": [\"Given a new user on the start-up page, when the user navigates to the league page, then it is reached within 30 seconds.\", \"Given a new user on the start-up page, when the user navigates to a team page, then it is reached within 30 seconds.\"], \"rationale\": \"Role stated: new user.\"}"
+ },
+ {
+  "id": "PROMISE:becf9857d6",
+  "requirement_text": "Each team owner will need to use a username and password in order to be authenticated to reach the team owner's page'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a team owner, I want to use a username and password to be authenticated and reach my team owner page, so that only I can own the team.\", \"technical_task\": \"Require a username and password for authentication before a team owner can open the team owner's page.\", \"acceptance_criteria\": [\"Given a team owner with a valid username and password, when the owner logs in, then the team owner's page is opened.\", \"Given a team owner with invalid credentials, when the owner tries to open the page, then authentication fails.\"], \"rationale\": \"Role stated: team owner.\"}"
+ },
+ {
+  "id": "PROMISE:cea46d04e1",
+  "requirement_text": "When a shot is marked as a miss  the product shall simulate the sound of a shot missing its target.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want a missing shot to be accompanied by the sound of a shot missing its target, so that I know the shot missed.\", \"technical_task\": \"Play a miss sound when a shot is marked as a miss.\", \"acceptance_criteria\": [\"Given a shot that is marked as a miss, when the mark is applied, then the sound of a shot missing its target is simulated.\", \"Given a shot that is not a miss, when it is fired, then the miss sound is not played.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "PROMISE:d3fdd1871f",
+  "requirement_text": "Changes to revenue and expense formulae must be applied to the RFS system  every year  prior to the budgeting process start. Revenue and expense formulae will be updated within one week of their receipt  after which 2 weeks will be allotted to testing of the budget calculations  to be conducted jointly by the project development team and PCG Finance.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a finance manager, I want changes to revenue and expense formulae applied to the RFS system before the budgeting process starts, so that budget calculations are correct.\", \"technical_task\": \"Apply revenue and expense formula changes to the RFS system every year before the budgeting process starts, with testing done jointly by the project development team and PCG Finance.\", \"acceptance_criteria\": [\"Given formula changes are received, when they are processed, then they are applied within one week.\", \"Given applied formula changes, when the budgeting process is about to start, then 2 weeks are allowed for testing of the budget calculations.\"], \"rationale\": \"Two-week testing window.\"}"
+ },
+ {
+  "id": "PROMISE:d59efa1024",
+  "requirement_text": "The leads washing functionality will compile both contact and academic scoring information for a total score.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a program administrator, I want the leads washing functionality to compile contact and academic scoring information into a total score, so that leads receive a combined score.\", \"technical_task\": \"Combine contact and academic scoring information in the leads washing functionality to produce a total score.\", \"acceptance_criteria\": [\"Given contact and academic scoring information for a lead, when the leads washing functionality runs, then a total score is produced.\", \"Given the total score, when it is displayed, then it reflects both contact and academic scoring information.\"], \"rationale\": \"Role assumed: program administrator.\"}"
+ },
+ {
+  "id": "PROMISE:dcb6577d1c",
+  "requirement_text": "The product shall continue to assign turns until the game is ended.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want turns assigned until the game ends, so that the game keeps running.\", \"technical_task\": \"Continue assigning turns until the game is ended.\", \"acceptance_criteria\": [\"Given a game in progress, when a turn is reached, then the next player is assigned the turn.\", \"Given the game is ended, when the next turn would come, then no turn is assigned.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "PROMISE:ddbc4360e7",
+  "requirement_text": "When the hit results in sinking a ship, the product shall indicate the type of ship sunk on the defensive grid of the defensive player.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a defensive player, I want the type of ship sunk shown on my defensive grid, so that I know what was sunk.\", \"technical_task\": \"Show the type of ship sunk on the defensive grid of the defensive player when a hit sinks a ship.\", \"acceptance_criteria\": [\"Given a hit that sinks a ship, when the result is shown, then the type of ship sunk is indicated on the defensive grid.\", \"Given the defensive grid, when a ship of a different type is sunk, then the indication shows the type of that ship.\"], \"rationale\": \"Role assumed: defensive player.\"}"
+ },
+ {
+  "id": "PROMISE:dfac157e35",
+  "requirement_text": "The leads washing functionality will use the parameters supplied by corporate and schools to score part of the lead.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a corporate user, I want the leads washing function to score part of the lead using the parameters supplied by corporate and schools, so that leads are rated consistently.\", \"technical_task\": \"Use the parameters supplied by corporate and schools in the leads washing functionality to score part of the lead.\", \"acceptance_criteria\": [\"Given parameters supplied by corporate and schools, when the leads washing function runs, then part of the lead score is calculated from them.\", \"Given the leads washing function, when it scores a lead, then the score reflects the corporate and school parameters.\"], \"rationale\": \"Role assumed: corporate user. Which parameters are used is not listed.\"}"
+ },
+ {
+  "id": "PROMISE:e4cdb6617f",
+  "requirement_text": "The product shall end a game when a hit by the offensive player results in sinking the last of the defensive player’s ships, which had not been previously marked as sunk.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a player, I want a game to end when the last of my ships is sunk, so that the winner is known.\", \"technical_task\": \"End the game when a hit by the offensive player sinks the last ship that was not already marked as sunk.\", \"acceptance_criteria\": [\"Given the last ship that was not sunk before has been hit, when the hit is recorded, then the game ends.\", \"Given a ship that was already marked as sunk, when it is hit, then the game does not end.\"], \"rationale\": \"Role assumed: player.\"}"
+ },
+ {
+  "id": "PROMISE:e94d523491",
+  "requirement_text": "Total lead cycle time must be completed in 5 minutes for 90\\% of lead volume between the business hours of 8AM CST to 8PM CST; then 3 minutes for 99\\% of lead volume during off business hours.'",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a dealership, I want total lead cycle time completed in 5 minutes for 90% of the lead volume between 8AM and 8PM CST, and in 3 minutes for 99% of the lead volume during off business hours, so that leads are handled quickly.\", \"technical_task\": \"Meet a 5-minute total lead cycle time for 90% of the lead volume between 8AM and 8PM CST, and a 3-minute cycle time for 99% of the lead volume during off business hours.\", \"acceptance_criteria\": [\"Given business hours of 8AM to 8PM CST, when lead volume is measured, then 90% of it is completed within 5 minutes.\", \"Given off business hours, when lead volume is measured, then 99% of it is completed within 3 minutes.\"], \"rationale\": \"Role assumed: dealership.\"}"
+ },
+ {
+  "id": "PROMISE:fcc67784ae",
+  "requirement_text": "When the hit results in sinking a ship, the product shall mark the ship as sunk on the offensive grid of the offensive player.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an offensive player, I want a ship marked as sunk on my grid when my hit sinks it, so that I know which ships are left.\", \"technical_task\": \"Mark a ship as sunk on the offensive grid of the offensive player when the hit results in sinking it.\", \"acceptance_criteria\": [\"Given a hit that sinks a ship, when the result is processed, then the ship is marked as sunk on the offensive grid of the offensive player.\", \"Given a ship that has not been sunk, when the grid is displayed, then it is not marked as sunk.\"], \"rationale\": \"Role assumed: offensive player.\"}"
+ },
+ {
+  "id": "PURE:384064cbd9",
+  "requirement_text": "(7) A description of the process in place to ensure that no amounts higher than 100 percent of FFP will be claimed by the State for reimbursement of expenditures for State payments to Medicaid eligible providers for the certified EHR technology incentive payment program and a methodology for verifying such information.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"What process and verification methodology must the State have for FFP claims?\", \"Is this a requirement on the system or a process description?\"], \"rationale\": \"The sentence describes a process and a methodology and states no system behaviour.\"}"
+ },
+ {
+  "id": "PURE:3ff9362bf0",
+  "requirement_text": "The first screen gives some general instructions and ensures file and directory permissions are set up correctly.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"Which first screen is meant?\", \"What are the correct file and directory permissions?\"], \"rationale\": \"The sentence describes a screen without naming the system or the permissions.\"}"
+ },
+ {
+  "id": "PURE:5e87a65b1e",
+  "requirement_text": "• Put equipment on a UPS to prevent data loss and downtime in a power outage  spike  or sag.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a facility manager, I want equipment on a UPS, so that a power outage, spike or sag does not cause data loss or downtime.\", \"technical_task\": \"Connect equipment to a UPS to protect it from power outages, spikes and sags.\", \"acceptance_criteria\": [\"Given equipment, when it is installed, then it is on a UPS.\", \"Given a power outage, spike or sag, when it occurs, then the equipment on the UPS keeps running.\"], \"rationale\": \"Role assumed: facility manager.\"}"
+ },
+ {
+  "id": "PURE:650a49f407",
+  "requirement_text": "• After installation or upgrade consider removing(or ensuring no access to) to the following scripts  which are not needed for general OpenEMR use:",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"Which scripts are not needed for general OpenEMR use?\", \"What must happen after installation or upgrade?\"], \"rationale\": \"The sentence lists a consideration and no behaviour, and the scripts are not named.\"}"
+ },
+ {
+  "id": "PURE:6752dfb268",
+  "requirement_text": "• Consider a firewall that only allows port 443 (https) traffic to the server.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"Is this a requirement or a consideration for the firewall?\", \"What must the system do when only port 443 traffic is allowed?\"], \"rationale\": \"The sentence is a comment about a firewall configuration and states no behaviour to implement.\"}"
+ },
+ {
+  "id": "PURE:917eb0cbd5",
+  "requirement_text": "On this page is displayed recommendations and warnings regarding directories Apache should NOT allow the outside world to see  as these directories contain Protected Health Information.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a security officer, I want recommendations and warnings about directories Apache should not expose, so that Protected Health Information is protected.\", \"technical_task\": \"Display recommendations and warnings on the page about directories Apache should not allow the outside world to see, since they contain Protected Health Information.\", \"acceptance_criteria\": [\"Given the page, when it is displayed, then recommendations about directories Apache should not expose are shown.\", \"Given the page, when it is displayed, then warnings regarding directories with Protected Health Information are shown.\"], \"rationale\": \"Role assumed: security officer.\"}"
+ },
+ {
+  "id": "PURE:930ab7d852",
+  "requirement_text": "Physical security protects the providers  the patients  clinic assets  and the physical manifestation of the business  financial  and health information.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"Is this a requirement or a description of the scope of physical security?\", \"What must the system or controls do to protect these assets?\"], \"rationale\": \"The sentence describes what physical security protects and states no testable behaviour.\"}"
+ },
+ {
+  "id": "PURE:d26cf4a2d0",
+  "requirement_text": "If it does  Click the 'Continue' button.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"What must the system do when the user clicks Continue?\", \"What condition precedes the click?\"], \"rationale\": \"The sentence is a fragment that refers to a click of a Continue button without saying what the system must do.\"}"
+ },
+ {
+  "id": "PURE:d666417783",
+  "requirement_text": "(8) A description of the process in place to ensure that no amounts higher than 90 percent of FFP will be claimed by the State for administrative expenses in administering the certified EHR technology incentive payment program and a methodology for verifying such information.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"What process and verification methodology are required for the 90 percent limit?\", \"Is this a requirement for the system or a program description?\"], \"rationale\": \"The sentence describes a process and a methodology that are not given and states no system behaviour.\"}"
+ },
+ {
+  "id": "PURE:dad8856169",
+  "requirement_text": "The Healthcare Information and Management Systems Society (HIMSS) provides a Risk Assessment Toolkit for conducting a risk assessment and developing a compliant security plan.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"Is the Risk Assessment Toolkit a requirement or a reference to an external resource?\", \"What must the security plan contain?\"], \"rationale\": \"The sentence describes an external toolkit and states no requirement.\"}"
+ },
+ {
+  "id": "PURE:dd93cbc199",
+  "requirement_text": "• Enforce password expiration  which can be set in Administration->Globals->Security.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As an administrator, I want to enforce password expiration, set in Administration > Globals > Security, so that passwords are changed.\", \"technical_task\": \"Enforce password expiration with a setting in Administration > Globals > Security.\", \"acceptance_criteria\": [\"Given the password expiration setting in Administration > Globals > Security, when it is changed, then the new value applies.\", \"Given a password that has expired, when the user logs in, then the user must change it.\"], \"rationale\": \"Role assumed: administrator.\"}"
+ },
+ {
+  "id": "PURE:f4a666e65c",
+  "requirement_text": "• The third party portal could also set up a ssh tunnel method  so the local OpenEMR instance is not open to the web (and possibly not even require an IP address).",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a security officer, I want the third party portal to set up a ssh tunnel, so the local OpenEMR instance is not open to the web and may need no IP address.\", \"technical_task\": \"Support setting up a ssh tunnel in the third party portal so the local OpenEMR instance is not reachable from the web.\", \"acceptance_criteria\": [\"Given the third party portal, when it sets up a ssh tunnel, then the local OpenEMR instance is not open to the web.\", \"Given the ssh tunnel, when it is set up, then the local OpenEMR instance may not require an IP address.\"], \"rationale\": \"Role assumed: security officer. \\\"Could\\\" makes this optional for the third party portal.\"}"
+ },
+ {
+  "id": "PURE:f51ae7a8be",
+  "requirement_text": "• Only allowing the IP address of the third party portal to access the SOAP APIs (for patient access)",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a security officer, I want only the IP address of the third party portal to access the SOAP APIs for patient access, so that access is limited.\", \"technical_task\": \"Allow only the IP address of the third party portal to access the SOAP APIs for patient access.\", \"acceptance_criteria\": [\"Given the IP address of the third party portal, when it accesses the SOAP APIs for patient access, then access is granted.\", \"Given any other IP address, when it accesses the SOAP APIs for patient access, then access is denied.\"], \"rationale\": \"Role assumed: security officer.\"}"
+ },
+ {
+  "id": "PURE:f782aafd34",
+  "requirement_text": "• Ensure the root password is set to something.",
+  "output": "{\"status\": \"needs_clarification\", \"clarification_questions\": [\"What must the root password be set to?\", \"When is the password set?\"], \"rationale\": \"The password value is missing and the setting time is not specified.\"}"
+ },
+ {
+  "id": "PURE:f8ab357c9b",
+  "requirement_text": "The equipment storing PHI and BI should be subject to: Physical access restrictions: Place the server in a protected  locked area and limit access.",
+  "output": "{\"status\": \"ok\", \"user_story\": \"As a security officer, I want the equipment that stores PHI and BI to be in a protected, locked area with limited access, so that it is not tampered with.\", \"technical_task\": \"Place the server storing PHI and BI in a protected locked area and limit who may access it.\", \"acceptance_criteria\": [\"Given the server that stores PHI and BI, when it is installed, then it is placed in a protected locked area.\", \"Given the protected area, when a person without permission tries to access the server, then access is limited.\"], \"rationale\": \"Role assumed: security officer. The second criterion follows from \\\"limit access\\\".\"}"
+ }
+]

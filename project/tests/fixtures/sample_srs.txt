@@ -1,0 +1,5 @@
+3. Functional requirements
+
+3.1 The system shall lock a user account after five failed login attempts.
+3.2 The system shall lock the user account after five failed login attempts.
+3.3 The system shall be easy to use and respond quickly where appropriate.

@@ -1,7 +1,7 @@
 """Text features for the Component 1 baselines: TF-IDF and cached sentence embeddings.
 
 Nothing here reads data files. Embeddings come from the CPU-only `all-MiniLM-L6-v2` model and are cached per text in
-`models/component1/embedding_cache/` (git-ignored) so repeated runs are fast and byte-identical.
+`models/component1/part_a_active/embedding_cache/` (git-ignored) so repeated runs are fast and byte-identical.
 """
 import hashlib
 import re
@@ -15,7 +15,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 SEED = 327
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-CACHE_DIR = PROJECT_ROOT / "models" / "component1" / "embedding_cache"
+CACHE_DIR = PROJECT_ROOT / "models" / "component1" / "part_a_active" / "embedding_cache"
 CACHE_FILE = CACHE_DIR / "all-MiniLM-L6-v2.joblib"
 
 _MODEL = None

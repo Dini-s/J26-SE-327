@@ -3,7 +3,7 @@
 Two requirements are linked when their cosine similarity is at least `threshold`; DBSCAN (cosine distance, eps = 1 - threshold,
 min_samples = 2) turns the links into groups, so a group can chain A~B~C even if A and C are a little below the threshold.
 The threshold is not hard-coded: `evaluation/duplicates_eval.py` chooses it on a seeded development subset (train split only) and
-writes `models/component1/duplicates_config.json`, which the agent loads. No LLM calls.
+writes `models/component1/part_a_active/duplicates_config.json`, which the agent loads. No LLM calls.
 """
 import json
 import re
@@ -14,7 +14,7 @@ from sklearn.cluster import DBSCAN
 
 from .features import embed
 
-CONFIG_PATH = Path(__file__).resolve().parents[2] / "models" / "component1" / "duplicates_config.json"
+CONFIG_PATH = Path(__file__).resolve().parents[2] / "models" / "component1" / "part_a_active" / "duplicates_config.json"
 
 
 def exact_key(text):

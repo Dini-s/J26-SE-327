@@ -227,6 +227,48 @@ Frozen test ids: `5b2fed2ffc56025fb52776abd895d9e480e5f53a9f6401288a7ad500fada63
 They are reserved for the final base-vs-fine-tuned comparison and must not be used for prompt tuning, training, seeds or anything else. By label and source: FR/FR_NFR=35, FR/PROMISE=15, NFR/FR_NFR=20, NFR/PROMISE=15, NFR/PURE=15.
 Neither file is in `manifest.json` (the test ids are already covered by `frozen_test_ids.csv`); a test checks that no seed text occurs in any val or test row.
 
+## SFT pairs for the requirement-to-story generator (Component 1)
+
+**Purpose.** Supervised fine-tuning data for a model that reads one software requirement and answers with one JSON object: a user story, a technical task,
+2-6 Given/When/Then acceptance criteria and a rationale (`status: ok`), or clarification questions when the text is vague, not a requirement or a placeholder
+(`status: needs_clarification`). Files are in `processed/llm_sft/`.
+
+**Provenance.** Every input is a public requirement from the **train** split of this repository's sources (seed files `synthetic_seed_inputs.csv`, `_batch2.csv`
+and `_batch3.csv` in `processed/tasks/`; batch 3 has its extraction artifacts cleaned and the untouched text in `_batch3_raw.csv`). No frozen-test id, no
+`generation_eval_ids.csv` id and no `generation_eval_inputs.csv` text is used; batch-3 seeds also have MiniLM cosine < 0.85 to every test/eval text (largest value 0.849) and
+<= 0.90 to every other seed (`synthetic_seed_inputs_batch3_report.md`). A test (`tests/test_sft_dataset.py`) checks the final files for leakage.
+
+**Synthetic outputs.** All outputs are synthetic and were written by Claude Code (Claude Sonnet 5.5, hand-written; generator tag `claude-sonnet-5.5 (hand-written)`): the first
+550 pairs earlier (`synthetic_pairs_all_550.jsonl`), the other 2300 in batches of 50 (`synthetic_batches/`). The Llama model that will be fine-tuned wrote none of them.
+
+**Validation** (`experiments/component1/validate_sft_pairs.py`, rules in its docstring): exact schema and keys; story matches `^As an? .+, I want .+, so that .+\.$`; 2-6 criteria that each match
+`^Given .+, when .+, then .+`; every number in an output must occur in the requirement; story/task must not be a copy of the requirement; no two outputs of the same status with MiniLM cosine > 0.95;
+`needs_clarification` rows have null story/task and no criteria. Passing rows get `review_status="auto_validated"`; failing rows go to `rejects.jsonl` with the reasons and were regenerated once
+(`synthetic_batches/retry_001.jsonl`). First attempt: 18 of 2300 rows rejected (0.8%; near_duplicate_output=8, copied_technical_task=7, copied_story=2, numbers_not_in_requirement=1);
+all 18 passed on the retry, so no seed remains rejected.
+
+**Counts.** 2850 pairs after de-duplication by requirement text: ok=2392, needs_clarification=458 (16.1%). Train 2566 / val 284
+(`sft_train.jsonl`, `sft_val.jsonl`; stratified 90/10 by (source, status), seed 327; chat format with the same system prompt as the older `sft_train_550.jsonl` / `sft_val_550.jsonl`, which are kept).
+
+| source | pairs | ok | needs_clarification |
+|---|---|---|---|
+| FR_NFR | 1606 | 1376 | 230 |
+| PURE | 395 | 343 | 52 |
+| PROMISE | 279 | 242 | 37 |
+| DS4 | 257 | 252 | 5 |
+| QuRE | 252 | 136 | 116 |
+| DS2 | 30 | 17 | 13 |
+| security_requirements | 22 | 20 | 2 |
+| DS3 | 6 | 4 | 2 |
+| DS1 | 3 | 2 | 1 |
+
+**Review status.** auto_validated=2300, reviewed=51, spot_checked=197, unreviewed=302. The 550 originals keep their earlier flags (`reviewed` and `spot_checked` are human checks, `unreviewed` has none); the 2300 new pairs are
+checked by the rules above only, with no human review yet. `qa_sample_100.jsonl` is a random sample (seed 327) of 100 new pairs prepared for a human spot check; it has not been reviewed yet.
+
+**Known limitations.** One generator, so one writing style (the same sentence templates recur, e.g. the role guess in the rationale); English only; roles are guesses and are marked as such in the
+rationale; the rules cannot tell whether a story is faithful to a requirement, only that it is well formed and adds no numbers; source mix follows the train-split availability (PROMISE is under-represented in the new pairs because few clean train rows were left); requirement texts keep
+the corruption of the originals where it could not be repaired.
+
 ## SRS extraction
 
 13361 candidate rows from 79 documents (76 text + 3 HTML). Rules: drop TOC lines, repeated headers/footers, page numbers, headings,

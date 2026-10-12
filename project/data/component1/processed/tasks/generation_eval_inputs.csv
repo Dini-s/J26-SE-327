@@ -1,0 +1,101 @@
+﻿id,source,requirement_text
+FR_NFR:0151e51967,FR_NFR,The system shall be scalable and accommodate police stations of all sizes with varying caseloads.
+FR_NFR:077f207314,FR_NFR,System’s back-end servers shall not display a customer’s password and shall only be accessible to authenticated administrators.
+FR_NFR:07df569ae6,FR_NFR,Agency user shall have a landing page to navigate to either FABS or DABS pages for easy access to different functionalities.
+FR_NFR:0909c618e1,FR_NFR,User shall be able to reset all options and user variables to defaults.
+FR_NFR:0a81506fd2,FR_NFR,System shall update the software if the version expires.
+FR_NFR:0fa7685f13,FR_NFR,System shall generate reports on attendance data based on specified criteria.
+FR_NFR:13f7aaae15,FR_NFR,System shall be able to ensure a large number of concurrent users and transactions during peak times.
+FR_NFR:153e4dfed1,FR_NFR,"System shall check the information and process the request, providing regular updates on those interests."
+FR_NFR:1fb9604011,FR_NFR,The system shall display and allow the manager to print the profit statistics in the requested format.
+FR_NFR:2205bdd13d,FR_NFR,System shall allow users to add custom properties to repository records.
+FR_NFR:29763ad8ab,FR_NFR,"The System must employ a single set of user interface rules, or a small number of sets to provide a familiar and common look and feel for the application."
+FR_NFR:3ac2cdffae,FR_NFR,User shall be able to ensure compliance with established standards.
+FR_NFR:3bc5a3b24a,FR_NFR,The system shall include backup and disaster recovery mechanisms to safeguard against data loss.
+FR_NFR:3c35a00903,FR_NFR,The user shall be able to log out after booking tickets.
+FR_NFR:40262a8890,FR_NFR,The system shall allow camp administrators to upload consent forms for easy access.
+FR_NFR:41e9f80ede,FR_NFR,"The system shall integrate with analysis tools like Elasticsearch, SPSS, EPrints, Mongo, and DAT."
+FR_NFR:4545c922df,FR_NFR,User shall be able to enter their consumer number to verify and abandon the subsidy.
+FR_NFR:4cf499f9f1,FR_NFR,The system shall allow repository managers to define access controls for collections.
+FR_NFR:50177102f5,FR_NFR,The TCS shall provide the capability to display waypoint data in alphanumeric format.
+FR_NFR:5731b3b4b6,FR_NFR,The software shall allow users to adjust the size and angle of brushes on the touch-screen.
+FR_NFR:5cd80b4ecb,FR_NFR,The system must be connected to the network for optimal performance and support simultaneous access by multiple users with fast response times.
+FR_NFR:6167a122f9,FR_NFR,"Upon initialization, the THEMAS system shall be able to automatically turn off all heating and cooling units."
+FR_NFR:66c93aef2d,FR_NFR,The system shall authenticate users using their account credentials.
+FR_NFR:78f742e077,FR_NFR,System shall send resolved feedback messages to users via email or SMS.
+FR_NFR:7e7f2aa401,FR_NFR,User shall be able to complete matchmaking in less than 3 minutes.
+FR_NFR:879d373f99,FR_NFR,"System shall provide functionalities to generate comprehensive reports on stock availability, orders, and deliveries."
+FR_NFR:8873f839d5,FR_NFR,The system shall provide an interface for verification department employees to send status reports to finance and legal contract departments.
+FR_NFR:916804e2be,FR_NFR,System shall maintain and display elective subject choices made by students for different semesters.
+FR_NFR:92b3288809,FR_NFR,Users shall be able to book a movie through the service.
+FR_NFR:94deae69e9,FR_NFR,User inputs their UPI ID into the designated fields.
+FR_NFR:9e9a70b530,FR_NFR,User shall be able to archive emails to hide them from the inbox.
+FR_NFR:a0c2c60a70,FR_NFR,Each user shall have a set of system access properties that defines the user's privileges within the system.
+FR_NFR:a9a617e510,FR_NFR,The system shall provide an avenue for parents to submit feedback and concerns.
+FR_NFR:aa9b719cba,FR_NFR,User shall be able to perform the transaction.
+FR_NFR:b2fe7917b2,FR_NFR,System shall provide a shopping bag feature during online purchase.
+FR_NFR:b8d03962f1,FR_NFR,User shall be able to handle different negative responses from the central system.
+FR_NFR:bb2601143f,FR_NFR,Moderators shall be able to remove groups.
+FR_NFR:c02c0b4383,FR_NFR,The CO will not have access to the data containing the faces of any tiles in the wall or any concealed tiles in any other players' hands.
+FR_NFR:c207053da5,FR_NFR,The system shall provide limited but necessary operations for workers.
+FR_NFR:c319e55fc0,FR_NFR,"User shall use MySQL subject to the terms of the GNU General Public License (GPL), with options for commercial licenses for additional features, support, and legal assurances."
+FR_NFR:c3a980dd22,FR_NFR,User shall be able to transact securely with confidential customer information.
+FR_NFR:d1a929c923,FR_NFR,System use shall not pose any harm to human users.
+FR_NFR:dc951b34ec,FR_NFR,The user research plan shall test the user research plan.
+FR_NFR:df218129f7,FR_NFR,"User shall be able to deposit and maintain datasets through a simple web interface, facilitating ease of use."
+FR_NFR:e17f1c6e48,FR_NFR,User shall experience page loading times of less than 1 second with an 8Mbits internet connection speed.
+FR_NFR:e1bfce4069,FR_NFR,The system shall document who can enter data by defining user roles and permissions.
+FR_NFR:e778af3bb3,FR_NFR,System shall employ on-demand asynchronous loading for faster page execution.
+FR_NFR:e7d4735594,FR_NFR,Systems shall display password fields such that characters entered by the user are not visible.
+FR_NFR:e7f86be259,FR_NFR,Delivery boy shall be able to toggle Online/Offline/Break option.
+FR_NFR:e889c9ac67,FR_NFR,System shall be able to provide general recommendations based on recent trends.
+FR_NFR:ea9229d3e2,FR_NFR,The system shall secure itself by limiting access to authorized users and requiring password protection.
+FR_NFR:f093208ffc,FR_NFR,"The TCS shall provide the capability to modify the maximum number of threats displayed, when de-clutter is selected."
+FR_NFR:f4b1578fff,FR_NFR,The system shall perform automatic plankton species pre-classification in Plankton Portal images.
+FR_NFR:f982a213ad,FR_NFR,"User shall delete a blog by clicking a button, with validation ensuring data integrity."
+FR_NFR:feb8622f4b,FR_NFR,User shall be able to select the online booking option for LPG cylinder.
+PROMISE:0145e5ba81,PROMISE,User access should be limited to the permissions granted to their role(s). Each level in the PCG hierarchy will be assigned a role and users will be assigned to these roles. Access to functionality within RFS system is dependent on the privileges/permission assigned to the role..'
+PROMISE:0eeb503af9,PROMISE,The Commissioner will be the only authorized user per league to adjust league settings.'
+PROMISE:13a8feb886,PROMISE,The leads washing functionality shall receive a period list of available reps from the enterprise system.
+PROMISE:27d37b794c,PROMISE,When a ship is sunk  the product shall simulate the sound of a sinking ship.'
+PROMISE:3063f63fe2,PROMISE,"For each shot, the product shall mark the shot as a hit or miss on the offensive grid of the offensive player."
+PROMISE:5947a8a1e4,PROMISE,Defect reports will be available to technical units on a 24x7 basis.'
+PROMISE:5f39ce1f85,PROMISE,"The product shall maintain the status of each player for a turn, either offensive or defensive."
+PROMISE:72fd7483af,PROMISE,"For each turn, the product shall identify one player as offensive status and one player as defensive status."
+PROMISE:7b2dab4482,PROMISE,The leads washing functionality will have an interface in which lead data parameters can be maintained.
+PROMISE:7efd472053,PROMISE,The leads washing functionality will validate all leads received by the web service for valid data
+PROMISE:820b59f43f,PROMISE,Each page shall contain a navigation menu which shows the index into which the current page is contained.'
+PROMISE:859ec0232c,PROMISE,The product shall be available 24 hours per day  seven days per week.'
+PROMISE:91347dfa7f,PROMISE,"For each shot, the product shall examine the defensive grid of the defensive player to determine whether the shot was a hit or miss."
+PROMISE:9f58634f72,PROMISE,The process must fit within the processing time conditions set forth by the Auto Rep Assignment process in which a lead is assigned within 3 minutes of the total life cycle.'
+PROMISE:a0439a7ffa,PROMISE,The leads washing functionality will insert all leads captured by the web service.
+PROMISE:a27afd0acb,PROMISE,Prior to submitting the lead to the enterprise system the leads washing functionality will assign the lead to an admissions rep.
+PROMISE:a9298fb91d,PROMISE,The response time shall be fast enough to maintain the flow of the game.  The response time shall be no more than 2 seconds for 95\% of responses and no more than 4\% for the remaining responses.'
+PROMISE:af234454e1,PROMISE,Each page shall contain a similar format with action items in one location and navigation buttons in a different location.'
+PROMISE:bcd75cc331,PROMISE,Washing parameters will be updated during scheduled maintenance hours.'
+PROMISE:bd41a5294a,PROMISE,A new user shall be able to navigate through the league and team pages within 30 seconds of reaching the start-up page.'
+PROMISE:becf9857d6,PROMISE,Each team owner will need to use a username and password in order to be authenticated to reach the team owner's page'
+PROMISE:cea46d04e1,PROMISE,When a shot is marked as a miss  the product shall simulate the sound of a shot missing its target.'
+PROMISE:d3fdd1871f,PROMISE,Changes to revenue and expense formulae must be applied to the RFS system  every year  prior to the budgeting process start. Revenue and expense formulae will be updated within one week of their receipt  after which 2 weeks will be allotted to testing of the budget calculations  to be conducted jointly by the project development team and PCG Finance.'
+PROMISE:d59efa1024,PROMISE,The leads washing functionality will compile both contact and academic scoring information for a total score.
+PROMISE:dcb6577d1c,PROMISE,The product shall continue to assign turns until the game is ended.
+PROMISE:ddbc4360e7,PROMISE,"When the hit results in sinking a ship, the product shall indicate the type of ship sunk on the defensive grid of the defensive player."
+PROMISE:dfac157e35,PROMISE,The leads washing functionality will use the parameters supplied by corporate and schools to score part of the lead.
+PROMISE:e4cdb6617f,PROMISE,"The product shall end a game when a hit by the offensive player results in sinking the last of the defensive player’s ships, which had not been previously marked as sunk."
+PROMISE:e94d523491,PROMISE,Total lead cycle time must be completed in 5 minutes for 90\% of lead volume between the business hours of 8AM CST to 8PM CST; then 3 minutes for 99\% of lead volume during off business hours.'
+PROMISE:fcc67784ae,PROMISE,"When the hit results in sinking a ship, the product shall mark the ship as sunk on the offensive grid of the offensive player."
+PURE:384064cbd9,PURE,(7) A description of the process in place to ensure that no amounts higher than 100 percent of FFP will be claimed by the State for reimbursement of expenditures for State payments to Medicaid eligible providers for the certified EHR technology incentive payment program and a methodology for verifying such information.
+PURE:3ff9362bf0,PURE,The first screen gives some general instructions and ensures file and directory permissions are set up correctly.
+PURE:5e87a65b1e,PURE,• Put equipment on a UPS to prevent data loss and downtime in a power outage  spike  or sag.
+PURE:650a49f407,PURE,• After installation or upgrade consider removing(or ensuring no access to) to the following scripts  which are not needed for general OpenEMR use:
+PURE:6752dfb268,PURE,• Consider a firewall that only allows port 443 (https) traffic to the server.
+PURE:917eb0cbd5,PURE,On this page is displayed recommendations and warnings regarding directories Apache should NOT allow the outside world to see  as these directories contain Protected Health Information.
+PURE:930ab7d852,PURE,Physical security protects the providers  the patients  clinic assets  and the physical manifestation of the business  financial  and health information.
+PURE:d26cf4a2d0,PURE,If it does  Click the 'Continue' button.
+PURE:d666417783,PURE,(8) A description of the process in place to ensure that no amounts higher than 90 percent of FFP will be claimed by the State for administrative expenses in administering the certified EHR technology incentive payment program and a methodology for verifying such information.
+PURE:dad8856169,PURE,The Healthcare Information and Management Systems Society (HIMSS) provides a Risk Assessment Toolkit for conducting a risk assessment and developing a compliant security plan.
+PURE:dd93cbc199,PURE,• Enforce password expiration  which can be set in Administration->Globals->Security.
+PURE:f4a666e65c,PURE,• The third party portal could also set up a ssh tunnel method  so the local OpenEMR instance is not open to the web (and possibly not even require an IP address).
+PURE:f51ae7a8be,PURE,• Only allowing the IP address of the third party portal to access the SOAP APIs (for patient access)
+PURE:f782aafd34,PURE,• Ensure the root password is set to something.
+PURE:f8ab357c9b,PURE,The equipment storing PHI and BI should be subject to: Physical access restrictions: Place the server in a protected  locked area and limit access.

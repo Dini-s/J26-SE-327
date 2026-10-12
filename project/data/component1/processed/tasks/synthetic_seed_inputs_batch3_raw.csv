@@ -1,0 +1,472 @@
+﻿id,requirement_text_raw
+DS1:411557c159,"When the radio is first powered on, the language that appears on the display shall be 
+the default one set by the national railway. (M) 
+Select mobile radio network."
+DS3:0119eb2777,"4.3.2 The categories of requirements defined for each type of mobile equipment are as follows: (I) climatic conditions (temperature, humidity, solar radiation, altitude, etc); physical conditions (flammability, contamination, physical protection, etc); mechanical conditions (shock and vibration); electrical conditions (power supply variation, battery life, overloading, etc); EMC (both emissions and immunity)."
+DS3:02a2199f58,10.5.1 Authorised networks shall be listed (or automatically selected if automatic selection has been enabled) in the following order: (M) home EIRENE network; foreign EIRENE networks; public networks.
+DS3:5d0fc00805,9.2.4.2 Every maintenance team number shall be based on an association of: (M) service area identifier; type of maintenance team (speciality code); maintenance team identifier.
+DS3:84354a4b7f,9.1.2 This section addresses the following: (I) numbering plan requirements; standardised telephone numbers; group numbers; calls from external networks to the EIRENE network.
+DS3:b469495474,15.1.1 The operational requirement for direct mode is to: (I) provide short range fall-back communications between train drivers and trackside personnel in the event of failure of mobile telephony services normally available; provide short range communications for railway personnel operating in remote areas where no mobile telephony facilities are available.
+DS4:01ea5b4aa8,"The procedures used to build the executable FTSS software using a cross-compiler and linker, down-load the image to the target processors, and burn the load image into the Radstone PowerPC flash RAM shall (3.3.7.1) be documented in the release notes that accompany Engineering Releases of the FTSS software and in the Software Users Manual."
+DS4:01eeddce84,"FTSS shall [SRS290], in ICP and FCP IBIT failure cases that allow processing to continue, after saving the results of IBIT for reporting to the application, in the first minor frame after Startup or recovery, consider the FCR to be failed, and start performing recovery actions for the FCR."
+DS4:0561ef2b35,"While synchronization is being attempted, the FCP virtual group shall [SRS123] maintain synchronous operations."
+DS4:0578342fbf,Backplane connector form factors shall (3.2.3.1.2.5) be in accordance with the VME64 with extensions (5 row P1 and P2) draft standard.
+DS4:0745146a6c,The Mission Elapsed Time shall [SRS165] be initialized to zero at the first 50 Hz frame.
+DS4:07fe538bd8,"2.     The FTSS API shall [SRS217] specify a memory map that provides the boundaries for congruent aligned memory, congruent initialized memory, and non-congruent memory."
+DS4:08bfc61d3b,"If the 5th ICP fails, the FTSS SW shall (3.3.2.25) ignore the error and allow the NE to continue the synch process and become part of the voting group, if possible."
+DS4:0909d1e7d7,"Whenever a power-on reset occurs, System Initialization shall [SRS194] perform the following functions."
+DS4:0c529bd0a3,The MET shall (3.3.10.9) be congruent across all FCP members.
+DS4:0e7597091b,FTSS shall (3.3.5.37) provide an API call which allows the application to take an FCR out of the permanently failed state and place it back in the initial recovery state.
+DS4:0ed6147fac,Power de-coupling mechanisms shall (3.2.3.1.2.4) be designed into the NE.
+DS4:0f804381e5,"The flight NE shall (3.2.3.1.3.4.1) be designed to be capable of complying with all the performance requirements specified herein after being subjected to a total of six impact shocks, consisting of six shocks (one in each opposite direction) along each of three orthogonal axes."
+DS4:10278fdf5f,The NE shall (3.2.2.3.1) be configured to automatically enter ISYNC microcode following power on.
+DS4:1040f56b96,"System Initialization shall [SRS199], when all other activities are completed, start the 50 Hz timer and enable the timer interrupt.  This will allow the interrupt handler to initiate normal activities."
+DS4:1051c493fc,"Connector P1 shall (3.2.3.1.2.7) have Row z pins 1 through 32 connected to ground, row d pins 1 and 32 connected to +5 VDC, row d pins 2 through 31 connected to ground with the exception of pins 3 through 8, pins 12, 14, 16, 18, 20, 22, 24, 26, 28, and 30 which will not be connected."
+DS4:12815227b3,The scheduler shall [SRS020] complete the change from one vehicle mode to the next within 1.02 seconds. There is up to a full major frame from notification of an impending mode change to acting on it in minor frame 0 of the next major frame plus the time it takes during the next minor frame 0 to switch tasking.
+DS4:13edb62b00,"The NE syndromes shall (3.2.2.6.3) include indications of vote errors, fault-tolerant clock synchronization errors, and fiber-optic link errors, as detailed below."
+DS4:150871e487,Load modules of the four FCPs shall (3.3.11.1) be identical.
+DS4:15c2e24949,FTSS shall [SRS227] route messages to the proper virtual group(s) and socket.
+DS4:16f53afa44,"Any makefiles or other automated scripts that support the build, down-load, and flash programming processes shall (3.3.7.2) be delivered with the software to NASA."
+DS4:17bae4ae1b,Each flight NE shall (3.2.3.1.2.12) be conduction-cooled.
+DS4:180feafc99,The FDIR shall (3.3.5.17) place all fault and recovery information in shared memory for inclusion in the frames that will be telemetred and recorded by the CTC.
+DS4:183ca0c109,"The SEP shall (3.3.10.14) have a resolution of 20 msec. for 50 Hz tasks, 100 msec for 10 Hz tasks, and 1 second for 1 Hz tasks."
+DS4:1911db6bb0,The NE shall (3.2.3.2.2) support at least two physical processors per FCR.
+DS4:1a0fbd2ed5,"FTSS shall [SRS230] only allow a single task residing on each specified virtual group to ""open"" the respective end of the pipe."
+DS4:1b4a0d54d7,FTSS shall [SRS200] initialize congruent initialized memory locations from non-volatile memory.
+DS4:1deb7f5411,The MET shall (3.3.10.5) be initialized to zero at the first 50 Hz frame.
+DS4:1ed8ad9086,Reintegration of an FCP shall (3.3.5.21) be completed in at most 1.5 minutes.
+DS4:1f85f25974,"FDIR shall (3.3.5.2) receive this information and, after two consecutive missed “heartbeats,” conclude that the ICP is failed."
+DS4:21cd5dfc12,"In all error cases, Support Services shall [SRS222] attempt to choose an error-free FCC-MPCC path, switching back and forth between channels if necessary."
+DS4:21d75a9476,"However, the FTSS SW shall (3.3.2.42) notify the application software if the 5th ICP’s heartbeat ceases to exist."
+DS4:240f0c4339,It shall (3.2.2.4.2) stay in TNR mode indefinitely until a successful TNR exchange is observed.
+DS4:24b68f79f5,"The NE shall (3.2.2.3.2) start transmitting a sync message using class 2 exchanges once 3 fault tolerant clocks have synchronized, thus enabling inter-NE data exchanges."
+DS4:2717a90bb7,Access to the transmit queues shall (3.3.6.8) be controlled within the communication service primitives .
+DS4:27d156ec11,The SEP shall (3.3.10.13) measure real-time from this event with an accuracy of at most 50 Parts Per Million (PPM).
+DS4:295a1fc688,A transmit packet queue and a receive packet queue shall (3.3.6.7) be maintained for each task or Communication ID (CID).
+DS4:29737808c8,"If the time-out expires before the other members have room in their input buffers, any member without room in their input buffer shall (3.2.2.6.16) be ignored, the packet exchanged, and an IBNF time-out recorded."
+DS4:2c3573a07c,"Communication services shall [SRS067] provide a ""pipe"" communication mechanism allowing immediate message passing through the network and allowing a 50hz FCP transfer task to poll until it can read an immediate message from the ICP."
+DS4:2d7e87a030,"The operational NEs shall (3.2.2.4.3) enter a ""working group"" TNR routine when the FCPs request to send a TNR packet."
+DS4:2e5a0aeda7,"System Initialization shall [SRS215] call an application initialization function to allow the application to (at least) create tasks, create communication sockets, initialize the vehicle mode, and initialize memory alignment allowance."
+DS4:2edecd3d8b,A time-out period shall (3.2.2.3.3) be started when 3 NEs have joined in.
+DS4:2ee24f93b6,The FTSS software shall (3.4.2.10) use no more than 5.2 milliseconds of FCP processing time to move the telemetry data to the MPCC/CTC board and complete communication and error handling for the MPCC/CTC board.
+DS4:2f8bc00d5e,"The FTPP system shall (3.1.17) be two fault tolerant for any two non-simultaneous hardware faults through out all phases of the X-38 mission (i.e., from power on to power off, without degradation)."
+DS4:2fd6ff4f07,The global synchronous timer shall (3.2.2.4.9) be realigned by exchanging and voting the timer value.  The timer value will stop incrementing until the realignment of the timer is complete.
+DS4:30685cc14b,The error type and its context data shall (3.3.12.4) be made available to the application via an API call.
+DS4:32e64ff7a1,Redundancy Management shall [SRS110] reintegrate a failed FCP processor with the FCP virtual group when alignment is permitted and when the processor failure is not permanent.
+DS4:3322b8615d,The utility timer shall [SRS247] have an accuracy equal to or better than 50 PPM.
+DS4:334c32c528,The FCP shall [SRS189] wait up to 2.5 seconds (from the sending of the FCP Ready Sync) for the ICP Ready signal.  Note that FTSS will not fail the FCR if this signal is not received within this time.  FTSS will wait until the normal ICP presence test fails.
+DS4:365b5c7e28,It shall (3.3.4.6) be possible to reassign a task to a different rate group as a function of the mission mode.
+DS4:36d304b44f,Memory scrubbing shall (3.3.8.5) be executed without interfering with normal execution of applications tasks.
+DS4:38e1b83aa4,"2.     Redundancy Management shall [SRS236], if alignment is permitted, serially incorporate two new channels if they are powered on simultaneously."
+DS4:3b7441ebcf,The FCP watchdog timer shall (3.3.5.38) remain active during memory re-alignment.
+DS4:436621ae15,"The presence, or absence of, an NEFU ICP shall (3.3.14.1) not impact the FTSS software (i.e., the FTSS ICP load will not be different)."
+DS4:43fb157e22,The maximum time-out value shall (3.2.2.3.7) be 327.68 microseconds (256 counts of the least significant bit of the fault tolerant clock which is 1.28 microseconds).
+DS4:442581baa3,The NE shall (3.2.3.2.5) support class 1 and class 2 bandwidth of at least 1 Mbyte/sec.
+DS4:44c5a43cdd,The timestamps shall (3.2.2.7.9) be frozen during TNR until the realignment is complete.
+DS4:451165d66b,"The scheduler shall [SRS027] give tasks priority values according to their rate - the higher the rate, the higher the priority."
+DS4:451d1e9f76,"If the configuration needs to be changed due to a fault, as specified above, Redundancy Management shall [SRS128] issue a configuration update to mask out the failed network element."
+DS4:46e91e73c7,Each syndrome shall (3.2.2.6.4) represent an occurrence of the indicated error at some time between delivery of the previous packet and delivery of the current packet.
+DS4:476f4a6440,The FTSS shall [SRS262] configure each FCP to continue processing if any of the Power-up or Initial BIT tests fail.
+DS4:4919ba7d91,Memory shall (3.3.9.1) be categorized into congruent (identical data) and non-congruent (data that is not identical) memory.
+DS4:49bfcfead8,Support Services shall [SRS242] continue to close and reopen a faulty MPCC device until status shows that the device has recovered.
+DS4:4a3bfae3d8,"If IBIT fails, the FTSS SW shall (3.3.2.41) handle the failure as stated in the preceding IBIT requirements and in requirement 3.3.5.29’s table, FTPP Failure Response/Recovery Mechanisms."
+DS4:4b71551b4d,The scheduler shall [SRS025] keep a minor frame count from 0 to 49.
+DS4:4cbd34dac7,"Time Services shall [SRS246] provide a utility timer to the application.  Note that this timer is not voted, and must be assigned to a variable defined using non-congruent memory."
+DS4:4d53e7a82e,"Additionally, FDIR shall (3.3.5.25) reinitialize and integrate the NE."
+DS4:4f6d2e9675,The NE shall (3.2.3.1.3.1.2) operate with a worst case card edge thermal interface temperature of +65 °C for greater than 10 hours.
+DS4:509e216ed3,"Redundancy Management shall [SRS201] be able to accommodate power up of all 5 channels and maintain all 5 NEs active, assuming no failures."
+DS4:5164663c05,"Control flow of the four FCPs shall (3.3.11.2) be similar, if not identical."
+DS4:5187c5814a,The FTSS shall [SRS289] configure each ICP to continue processing if any of the Power-up or Initial BIT tests fail.
+DS4:518e5465a7,Process scheduling shall (3.3.4.4) only be performed at certain controlled locations (synchronization points).
+DS4:522c479709,Each flight NE shall (3.2.3.1.2.11) dissipate no more than 35 Watts.
+DS4:54a40dc5b7,"The FTPP spare hardware shall (3.1.28) include one (1) radiation hardened FTPP set (5 NEs) and three (3) individual NEs including all optical connects, cables, and required accessories which are flight certified to meet the requirements specified herein for the X-38 space flight vehicles."
+DS4:5557a1d9d1,RAM scrub shall [SRS043] actively trigger the EDAC function by cyclically reading (and writing back if an error is found) all used RAM.
+DS4:56f575856d,"Upon CPU reset caused by power on, watchdog timer or by other means, Start Up shall (3.3.2.1) execute the initial BIT (IBIT)."
+DS4:589069aa5c,"Communication services shall [SRS048] provide ""immediate"" message passing services in the form of ""pipes"". ""Pipes"" provide fast data throughput between virtual groups or within a virtual group when minimal data latency is necessary."
+DS4:58af6e8859,The application software shall [SRS285] have the capability to reset a permanently failed channel to its initial recovery state.
+DS4:596b4c8fbd,"All FCP processing channels (up to 4) shall (3.1.23) be incorporated into the FCP virtual group as they become available, provided that recovery and memory alignment is allowed by the application software."
+DS4:59a48eaa0e,"1.     Synchronous message passing sockets shall [SRS055] queue outgoing messages until they are transmitted at frame boundaries. The ""create"" and ""open"" API calls for synchronous sockets allow the application to specify the maximum message size and how many incoming messages the socket may buffer."
+DS4:5c780fdbfb,The telemetry capability shall [SRS149] transfer the telemetry block from the FCP to the FCC-MPCC connected to the CTC.
+DS4:5ea3486b44,"Only when memory alignment is permitted, Redundancy Management shall [SRS124] initiate periodic re-synchronization attempts on the FCP virtual group at a 1 second rate."
+DS4:5ed9a419e6,All radiation test results shall (3.2.3.1.3.3.7) be characterized and documented.
+DS4:5f31f46f64,"The FTSS shall [SRS287] configure each ICP to perform IBIT Minimum Processing Environment (MPE) Tests, Power-up Tests, and Initial BIT on each ICP, as shown inTable 3.2-3."
+DS4:60206d9ce6,This decision shall (3.4.2.7) be made based on the health and status of all the physical links from the FCP to the CTC.
+DS4:615d282ff9,Communication services shall [SRS051] detect message passing between application tasks living on the same virtual group and bypass the usage of the network element.
+DS4:64405429bb,Time Management shall (3.3.10.12) initialize SEP to zero within one minor cycle of the time when the vehicle/mission manager software has notified the FTSS software that the X-38 vehicle is released from the Space Shuttle Remote Manipulator System.
+DS4:644287a13c,"The FTSS software and the VxWorks operating system, together shall [SRS193] utilize no more than 3 megabytes of ROM."
+DS4:65ed202ba8,The prototype NE shall (3.2.3.1.1.1) reside on a single commercial grade 6U VME board.
+DS4:6693f90152,"The CBIT, at a minimum, shall (3.3.5.6) include a ""presence test"" to ascertain that all FCP processors are synchronized and are at the same relative point in time in the current minor frame."
+DS4:66a2e746c1,A subset of FTSS shall (3.3.11.7) reside on the ICP.
+DS4:6745d14c15,"For reserved exceptions, the FTPP system shall (3.3.12.6) “handle” the exception by making the error and its context data available to the application and then returning from the exception handler."
+DS4:69f6f13167,Synchronous communication shall (3.3.6.1) be in the form of messages enqueued for transmission at the start of the next rate group frame and dequeued for reading by the recipient task within the next rate group frame after it is received.
+DS4:6c585f2675,The Separation Elapsed Time shall [SRS219] have a drift rate of at worst 50 PPM.
+DS4:6d3f61ca32,"Upon completion of logging a Power-up test or Initial BIT test failure, the FTSS system shall (3.3.2.44) consider the ICP failed and attempt recovery actions as stated in requirement 3.3.5.29."
+DS4:6d679d0a45,"Redundancy Management shall [SRS281], during memory alignment, configure the NE to mask out the processor being re-synchronized."
+DS4:6e6ac04786,"Communication services shall [SRS069] provide the capability to create ""pipe""s which ""broadcast"" their messages to all virtual groups."
+DS4:6fc6cf8f7d,The scheduler shall [SRS191] issue the 50 Hz interrupt to all the ICPs with a skew no greater than 330 microseconds.
+DS4:6fd36b5ff3,"1.     The FTSS API shall [SRS046] define a methodology for segregating and managing congruent aligned, congruent initialized, and non-congruent memory such that congruent aligned memory is aligned and congruent initialized memory is initialized during channel recovery.  Non-congruent memory is not modified during realignment."
+DS4:70976dde1e,The scheduler shall [SRS019] provide an API call for an FCP application task to alert the scheduler of a vehicle mode change.
+DS4:725c8d9f56,Communication services shall [SRS052] route messages to the proper virtual group(s) and socket.
+DS4:72ad96e228,The storage temperature range shall (3.2.3.1.1.4) be from - 30º to + 60º C.
+DS4:75c32423d2,"Communication services shall [SRS050] restrict the use of ""immediate"" message passing services between virtual groups (from FCP to ICP) to tasks running in the highest rate group on the FCP. This restriction does NOT apply to the ICPs since they are running as simplex VGs."
+DS4:7805112984,"Once every medium frame, the FTSS software shall (3.4.2.3) accept a pointer from the telemetry program to the buffer space containing the telemetry data."
+DS4:784bd6a462,The CT shall (3.2.2.2.2) also contain time-outs and vote masks.
+DS4:79ebb5433f,The FTSS shall [SRS288] configure each ICP to halt processing if any of the MPE tests fail.
+DS4:7a0695c55a,"The Scheduler in the FTPP shall (3.3.4.16) keep all redundant copies of a process, which are executing in different computers, in synchronization."
+DS4:7a69881446,Support Services shall [SRS257] use no more than 5.2 milliseconds of FCP processing time to move the telemetry data to the FCC-MPCC board and complete communication and error handling for the FCC-MPCC board.
+DS4:7b56d202f4,"The Scheduler shall (3.3.4.12) detect 50 Hz, 10 Hz, and 1 Hz frame overruns at the next frame following the end of their respective rate boundaries."
+DS4:7bae86d829,Asymmetric I/O calls shall (3.3.11.3) not be allowed to induce a large enough skew to force the FCPs to desynchronize.
+DS4:7bf84a71cc,The FCP shall [SRS296] configure ICP simplex virtual groups for each channel in the FCP virtual group.
+DS4:7c47591d01,Message passing communications primitives shall (3.3.6.9) be provided for task-to-task communication as well as for broadcast to all processors.
+DS4:7cbaa7f920,FTSS shall [SRS303] provide an API call to allow the ICP application to determine on which channel it resides.
+DS4:7d2bac6fac,"If a failure in an FCR other than the NEFU is diagnosed when the FCP is configured as a degraded triplex, no action shall [SRS254] be taken.  Note that a failed FCR could be diagnosed using any method, including (but not limited to) Continuous BIT, ICP presence test, or NE syndrome analysis."
+DS4:7e8988798d,"1. Redundancy Management shall [SRS104] implement the following strategies to reconfigure hardware resources:
+a) degrade the FCP virtual group,
+b) re-integrate an FCP processor into the FCP virtual group,
+c) re-integrate a Network Element, or
+d) mask a Network Element."
+DS4:7f142ea860,The FTPP system shall (3.1.18) be capable of powering up and operating with any combination of 3 of the 5 FCR's active.
+DS4:7fe30a30db,"The FTSS software shall [SRS237] configure the FCP to act as the Radstone IBIT master, with the exception that the ICP on the NEFU is the master."
+DS4:822774cb61,"The ISYNC procedure shall (3.2.2.3.4) terminate when all 5 NEs are synchronized, four NEs are synchronized (when only four NEs are powered), or after the time-out period."
+DS4:8240ccf7cc,"RAM scrub shall [SRS044] report detected errors to the application, congruently on all channels, via an API service for inclusion in the telemetry stream."
+DS4:82a40c3bf4,The inter-NE communications shall (3.2.3.1.2.9) be through fiber.
+DS4:8660753a17,"The scheduler shall [SRS035] provide rate groups that execute at 50 Hz, 10 Hz and 1 Hz., with a drift rate no greater than 50 microseconds per second, and with a jitter no greater than 330 microseconds."
+DS4:888e5a1746,Communication services shall [SRS235] detect a babbling NE or ICP within 20 milliseconds of the receipt of the first erroneous packet.
+DS4:889a63eb27,"The CBIT shall (3.3.5.5) be executed at a 50 Hz rate, after all 50 Hz flight critical operations are complete."
+DS4:892d457aad,"FTSS services shall (3.3.15) provide an API call which provides the capability to close and delete all communication mechanisms delete all rate groups, and suspend and delete all tasks."
+DS4:89453873fa,"To clear the failure, FDIR shall (3.3.5.15) request the Vehicle/Mission Manager to cycle power to that FCR."
+DS4:895b49bed6,It shall (3.3.2.17) support normal synchronization following power on or reset.
+DS4:89a686e98a,"From the time that the NE failure has been identified, and the NE is recoverable, to the time the NE is recovered shall (3.1.11) be no more than 1.5 minutes."
+DS4:89b6c37efc,"The FTSS software shall (3.4.2.2) provide to the telemetry program the FTPP telemetry data which consists of the following elements:  a. FCP status, b. NE status, c. # Transient Errors, d. Transient recovery attempts, e. Frame overruns, f. ICP status."
+DS4:8b1aee9202,"Provided the failed NE is in a recoverable state, recovery of a failed NE shall (3.2.2.4.11) take no longer than 500 microseconds.  This recovery requirement includes the time from which the FTSS software initiates the recovery to the time the recovery is complete."
+DS4:8c5654edff,"Redundancy Management shall [SRS204] issue a voted reset to the failed channel, if alignment is permitted. (Note that NEFU recovery does not depend on whether alignment is permitted.)"
+DS4:955d5e4812,Each interrupt shall (3.4.1.2.7) be preceded by the FCP writing the information listed in 3.4.1.1.1-6 to a shared memory block over the VME backplane bus to its counterpart ICP.
+DS4:9972731b09,The FTSS software shall (3.3.4.18) take at most 1 msec of a 50 Hz minor frame.
+DS4:999ee68fec,The operating temperature range for the prototype NEs shall (3.2.3.1.1.3) be from 0 to 32.2º C at the inlet to the cooling fans.
+DS4:9cebaa92a5,Draper shall (3.5.5) not violate the 100 microseconds requirement.
+DS4:9f3071939d,Continuous BIT shall [SRS096] diagnose the faulty FCR within 1 second after detecting a failure.
+DS4:a11060f5d3,Redundancy Management shall [SRS125] perform memory alignment on a major frame boundary upon successful synchronization of all members of the FCP virtual group.
+DS4:a23d7a1a2a,The SEP shall (3.3.10.16) be congruent across all FCP members.
+DS4:a2999b9aef,"The FTSS shall [SRS295] notify the application on the ICP, via an API call, 2 minor frames prior to an alignment."
+DS4:a44b2edf46,The flight NE shall (3.2.3.1.3.6.1) be designed to be capable of complying with all the performance requirements specified herein while non-operating in an atmosphere of 8 to 18 Psia.
+DS4:a6979a6e87,Start Up shall (3.3.2.13) make their state congruent.
+DS4:a83aeed363,The Mission Elapsed Time shall [SRS218] have a drift rate of at worst 50 PPM.
+DS4:a90def8139,"The FTPP system shall (3.1.19) be able to accommodate power up of all 5 channels and maintain all 5 NEs active, assuming no failures."
+DS4:a972876251,"There shall (3.2.2.5.1) be built-in support on the NE for voted resets, including a special packet type for executing the primitive."
+DS4:aa2de59678,Communications services shall (3.3.6.13) provide a version of Immediate Message Services between rate groups within the FCP that bypasses the NE and that can be used to control and monitor inter-rate group communications.
+DS4:aaa33f54bf,"The storage (i.e., non-operating) temperature range for the flight NE shall (3.2.3.1.3.1.3) be from -30 °C to 60 °C."
+DS4:aacaa3525a,The FTSS software shall (3.4.2.5) receive telemetry commands from both CTCs via the MPCC/CTC once every medium frame.
+DS4:b03d3773d0,It shall (3.2.2.2.3) be possible to modify the CT whenever any of this information is changed by using a CT update primitive in a synchronous and atomic manner.
+DS4:b3bbfd6ed1,The scheduler shall [SRS198] execute all the tasks in each of the rate groups that have been installed in the current mode.
+DS4:b413e0324a,The prototype NEs shall (3.2.3.1.1.5) use convection cooling.
+DS4:b682ab5a96,The FTSS software shall [SRS002] provide the identical services in all vehicle modes.
+DS4:b70f4c7b6d,FTSS shall (3.3.5.36) wait for the ICP to signal that it has completed initialization before suspending the application for memory re-alignment.
+DS4:b8223b0860,Communication services shall [SRS053] deliver messages in the same order at each member of a virtual group.
+DS4:b8fcf0ec1d,The scheduler shall [SRS181] set the 50 Hz interval timer to a count down value so as to cause the next minor frame interrupt at 20 msec from the previous interrupt congruently in all operational FCPs.
+DS4:b96746878b,"The Scheduler shall (3.3.4.1) support three rate groups: 50 Hz (minor frame), 10 Hz (medium frame), and 1 Hz (major frame)."
+DS4:bc5924c4b1,The re-align function shall (3.3.8.13) be allowed only when permitted by the Vehicle/Mission Manager.
+DS4:bf0fcf88ae,"The scheduler shall [SRS042] provide a method for a task to be scheduled as a 50 Hz ""helper"" task for source congruency input exchanges and voted output exchanges that starts in a particular minor frame but runs only during every 5th or 50th minor frame, effectively running at a lower, sub-rate, 10 Hz or 1 Hz, respectively."
+DS4:bf8798fb0d,"The failed channel, provided it is recoverable, shall (3.1.15) be recovered in less than 1.5 minutes."
+DS4:c11c9f4ba9,An application programming interface shall (3.3.13.3) be documented in a FTSS API document.
+DS4:c2ab07013c,Start Up shall (3.3.2.18) be able to synchronize all operational FCPs in the presence of this skew in the power on sequence.
+DS4:c39f2e6f9f,"The flight NE  shall (3.2.3.1.3.2)  be designed and constructed so that no part of any component shifts in setting, position, or adjustment."
+DS4:c65698ad24,FTSS shall [SRS304] provide status data to the application about each FCC-MPCC RS-422 link to the CTC used for command data.
+DS4:c689e53c6f,"The counter shall (3.2.2.7.8) increase monotonically after that, except during TNR."
+DS4:c6ba33f612,Communication services shall [SRS054] perform synchronous message passing at rate group frame boundaries. This ensures that all redundant instantiations of a given rate group task have consistent messages throughout the rate group frame.
+DS4:c7c1e5454c,"The Separation Elapsed Time shall [SRS161] be initialized to zero at startup, and start counting up in the next frame after being notified via an API call that the X-38 vehicle has been released from the Space Shuttle Remote Manipulator System."
+DS4:c7cdd440dd,"Each NE and flight cable assembly shall (3.2.4.2) be identified by a part or type number and a unique serial number, consistent with the configuration management system and the specification for the contract."
+DS4:c938b93a93,The FTSS software and the VxWorks operating system shall [SRS258] utilize no more than 9 Megabytes of DRAM code and data space.
+DS4:cc1dfebd52,This system shall (3.1.4) provide real time redundancy and fault tolerance among the four FCCs and the NEFU.
+DS4:cdf67d10cc,Support Services shall [SRS299] switch to the redundant MPCC device to continue telemetry and/or remote commanding operations.  Note that there are only two CTCs.  CTC1 is connected to FCC1 and FCC3.  CTC2 is connected to FCC2 and FCC4.
+DS4:ce6c68946e,"For software exceptions, the FTPP system shall (3.3.12.2) then transfer control to a user specified exception handling routine, if one is provided."
+DS4:cfcf2d0fa0,"The scope of FDIR shall (3.3.5.1) be limited to the hardware on the four FCP boards, the four MPCC/CTC boards, the five ICPs, and the five NEs."
+DS4:d0ab96a954,"The FTPP system shall (3.3.2.35) configure the Radstone ICP/PMC1553 card to halt processing if any of the MPE tests, mentioned in Table 3.3.2.3, ICP/PMC1553 IBIT Table, fail."
+DS4:d15d01d1fb,Time Management shall (3.3.10.23) provide a utility timer.
+DS4:d375bef91c,"Communication services shall [SRS049] provide the capability to ""broadcast"" messages to all virtual groups."
+DS4:d4a25008f9,The timestamps shall (3.2.2.7.3) also be congruent across all active processors in the case of a broadcast.
+DS4:d4d0e37f60,The Configuration Table shall (3.2.2.4.7) be exchanged and voted into the newly recovered NE.
+DS4:d577efc9c8,The CBIT shall (3.3.5.10) be executed without interfering with the normal execution of the application tasks.
+DS4:d7694f4f20,The FDIR shall (3.3.5.4) execute CBIT during all operational phases.
+DS4:d9235e73ce,"The scheduler shall [SRS028] detect 50 Hz, 10 Hz and 1 Hz rate group over-runs."
+DS4:dc05863bf2,The NE shall (3.2.2.2.1) keep track of the grouping of physical processors into virtual groups. This mapping is contained in the Configuration Table (CT).
+DS4:dc56ac4658,The scheduler shall [SRS029] report rate group over-runs to the application via an API service for incorporation in the telemetry data stream.
+DS4:dc6b63757f,The NE shall (3.2.3.2.3) support at least 6 virtual groups.
+DS4:dd18cf5f69,FTSS shall (3.3.11.8) provide an API call which allows the application to specify which MPCC channels in a C&T FCR should be used for telemetry and/or command reception.
+DS4:dd60e59925,Memory alignment shall [SRS203] take no more than 1 second per Megabyte of data to be realigned.
+DS4:defbdde960,Connector P1 pins 1 and 32 of row d shall (3.2.3.1.2.8) be connected to +5V.
+DS4:e0606ec7c3,The FDIR shall (3.3.5.13) be able to discriminate between permanent and non-permanent faults.
+DS4:e1607064aa,The timestamp shall (3.2.2.7.4) be a 32-bit quantity that indicates relative time within the FCC.
+DS4:e2203091cf,Flight hardware shall (3.2.3.1.2.13) be fabricated using radiation-hardened and/or radiation tolerant components.
+DS4:e300c7a175,The FTPP system shall not (3.1.5) solely exceed these timing requirement budgets.
+DS4:e361d31460,The SEP shall (3.3.10.15) be able to increment to at least 1 day without rolling over.
+DS4:e383ef0695,"For a transient NE failure, FDIR shall (3.3.5.24) mask the failed NE."
+DS4:e58308db02,"Memory alignment shall [SRS294] reset the watchdog timer such that, in the absence of a fault, the timer never expires and resets the processor."
+DS4:e598a745c1,"In all FCP IBIT cases, provided the hardware state permits, the FTSS shall (3.3.2.29) log the error and report it in the X-38 telemetry stream."
+DS4:e6cc21bf8d,"For each mission mode, the congruent and non-congruent memory boundaries shall (3.3.8.1) be known and fixed."
+DS4:e704b7b773,"7.For the NEFU, if errors are identified after the processor has been masked out, and if at least 4 NEs are still active, the NE shall [SRS283] be removed from the configuration and recovery will be attempted.  Note that the NEFU recovery does not depend on whether alignment is permitted."
+DS4:e79648554f,"Intentional powering down of an FCP, ICP, or NE shall (3.3.5.32) not be classified as a fault."
+DS4:e79bc87371,Tasks within a rate group shall (3.3.4.7) be executed in the order in which the mission manager registers the tasks.
+DS4:e8d19cce42,"Redundancy Management shall [SRS129] initiate transient NE recovery to restore Byzantine-resilient communications, if alignment is permitted. (Note that NEFU recovery does not depend on whether alignment is permitted.)"
+DS4:ea1fb902b6,The FTSS shall [SRS231] provide an API call to retrieve the current minor frame number sent from the FCP over the VME interface.  Note that the NEFU ICP will not have this information since it does not have an FCP processor.
+DS4:ea35a7335c,Support Services shall [SRS286] provide an API call which allows the application to specify which MPCC channels in a C&T FCR should be used for telemetry and/or command reception.
+DS4:ecd2c3eeb3,The scoreboard syndromes shall (3.2.2.6.5) be located in the third longword of the input information block buffer cell.
+DS4:ecebb58dbd,The scheduler shall [SRS039] rely on the order used in adding tasks to a rate group to determine the task priorities.
+DS4:edd7c7b5e7,The MET shall (3.3.10.6) measure real-time from this event with an accuracy of at most 50 Parts Per Million (PPM).
+DS4:edf04b4fe7,The interrupts across all channels shall (3.4.1.2.6) have a skew no greater than 330 microseconds.
+DS4:ee3372d60a,It shall (3.2.3.1.2.2) be able to be installed in an Air Transportable Rack (ATR) Chassis with .8 pitch spacing card slots.
+DS4:ef5079e228,"If the SEP API call is made prior to actual separation, the call shall (3.3.10.27) return zero (0)."
+DS4:f0031ea48f,It shall (3.3.8.16) not be necessary to scrub that area used to store telemetry data.
+DS4:f02f4571b5,The FTPP shall (3.1.12) be capable of restoring a corrected faulty computer into the flight critical computer set.
+DS4:f21461722e,System Initialization shall [SRS014] initiate the watchdog timer.
+DS4:f2c3b5e9f5,The timestamps shall (3.2.2.7.2) be congruent across all members of the destination FCP.
+DS4:f3223976ad,"For the first permanent FCP failure, FDIR  shall (3.3.5.30) degrade the redundancy level of the FCP from 4 to 3."
+DS4:f3b8205be0,"FTSS shall [SRS226] provide ""immediate"" message passing services in the form of ""pipes"". ""Pipes"" provide fast data throughput between virtual groups or within a virtual group when minimal data latency is necessary."
+DS4:f404901c57,"After successfully completing IBIT, the software shall (3.3.2.3) continue with the initialization of VxWorks and FTSS software."
+DS4:f455390ae1,"Redundancy Management shall [SRS211], if power cycle requests fail to result in a recovered channel, request the application to power down the channel and declare the channel to be permanently failed.  Note that the same result will occur if the application software ignores or fails to respond to power cycle requests."
+DS4:f766cbcf8f,"Redundancy Management shall [SRS208], within 60 milliseconds after 1.5 minutes has elapsed since the voted reset was sent to the failed channel, if the voted reset fails to recover the failed channel and alignment is still allowed, request from the application a power cycle of the channel. (Note that NEFU recovery does not depend on whether alignment is permitted.)"
+DS4:f79ae0707e,The utility timer shall [SRS248] shall be set to zero prior to the first application task running in the first minor frame of each major frame.
+DS4:f8a6d3f4a4,"On each FCP, the FTPP system shall (3.3.2.26) configure the Radstone firmware to perform the IBIT tests shown in Table 3.3.2.1, FCP IBIT Table."
+DS4:f97f683249,Fault Tolerant System Services (FTSS) software shall (3.3.1.1) use VxWorks Version 5.4 as the Operating System.
+DS4:f9fa879377,FDIR shall (3.3.5.3) report the total FCC status to the Vehicle/Mission Manager when requested to do so by the Vehicle/Mission Manager.
+DS4:fa9e7fe070,"After initial synchronization, the FCPs shall [SRS168] remain synchronized until a hardware fault occurs.  For example, asymmetric I/O calls will not be allowed to induce a large enough skew to force the FCPs to desynchronize."
+DS4:fbad855bd0,"The presence, or absence of, an NEFU ICP shall (3.2.5.2) not impact the NE firmware (i.e., the NE firmware will not be different)."
+DS4:fc1eb909fe,The contractor shall (3.1.3) develop a preliminary design for the FTPP Architecture.
+DS4:fc9ad84d19,Broadcast primitives shall (3.3.6.10) not be available on ICPs.
+DS4:ff1ffc78a9,The data mentioned in requirement 3.4.2.2 and any other Draper-provided telemetry data shall (3.4.2.9) fit within Draper’s allocated telemetry budget of 5000 bits/sec.
+DS4:ff9ef2caef,The re-align function shall (3.3.8.12) write the voted value from the good channels into the target channel.
+DS4:ffae5c0480,"When the IBIT is complete, the FTSS in the channels that are part of the fault masking group shall [SRS239] report the results of IBIT for all Radstone boards to the application software for telemetry."
+DS4:ffd2b44d2b,"When the task restart begins, the FTSS shall (3.3.4.15) provide a mechanism to signal the task to execute its startup recovery actions, including updating the I-Load data and pre-stored last good data state."
+FR_NFR:29cec2c389,A customer shall be able to add a wildcard special dietary requirement to an  order in the case that their requirement is not represented by the system.
+FR_NFR:3a65d6e819,A customer shall not be able to dismiss their engaged menu while there is a  non-empty pending order associated with the engaged menu.
+FR_NFR:3b64752b89,"The TCS shall be capable of storing a minimum of 500 mission plans under unique names to allow for later
+retrieval."
+FR_NFR:50d1b83861,A waiter shall be able to deactivate a surface computer and consequently close  its associated account through a tablet.
+FR_NFR:522e5d4ab9,"When in billing mode, a surface computer shall display a representation of tip  denominations that may be dragged into a payment."
+FR_NFR:5878ed3b5b,A server shall host the RMOS and provide system data processing and storage  capability.
+FR_NFR:6dd280ebee,"The THEMAS system shall use the information contained in the initialization data file to determine which heating and cooling
+units are part of the THEMAS system."
+FR_NFR:83015b8985,A customer shall be able to add a special dietary requirement to an order by  dragging the requirement from the engaged menu onto the order.
+FR_NFR:925fdd974d,A surface computer must not dismiss an engaged menu unless the customer  requests it.
+FR_NFR:9b3a281d42,A customer shall be able to drag a tip denomination out of a bankcard payment  or a cash payment.
+FR_NFR:9c863babca,"Interfacing with the courts during the prosecution of cases is an integral part of the
+responsibilities of police personnel."
+FR_NFR:a088b329b4,"The APAF system shall process the engineering and ancillary information necessary for calibration and science validation
+into IDFS data sets."
+FR_NFR:aa6a70efd1,A surface computer shall provide a customer with all customer system  functionality.
+PROMISE:02f2942cdb,If a user account is revoked  it can only be re-instantiated by the System Administrator.'
+PROMISE:0494eafdfa,The product shall be able to be installed in any operating environment within 2 days.'
+PROMISE:05208782b0,The product must be able to interface with any HTML browser.  The product shall transmit data between the user and the product without problems. The product shall display HTML properly in 80\% of all HTML browsers tested (minimum is to test 8 browsers).'
+PROMISE:07ff0799e4,Only administrators can activate a pre-paid card.'
+PROMISE:11fbbdfbe2,Only registered realtors shall be able to access the system.'
+PROMISE:134d9d59fb,The search for recycled parts shall take no longer than 15 seconds.  The search results shall be returned in under 15 seconds.'
+PROMISE:1417f440c6,The Disputes application must maintain a detailed history of every action that a user takes on a dispute case.  This ensures a complete audit trail if questions arise later on with regard to a particular dispute case.'
+PROMISE:143d50847f,Only users with Update access must be able to initiate dispute requests.'
+PROMISE:18c9bb4940,The product shall have the ability to receive automatic software updates as new threats emerge.  100\% of customers will be able to receive automatic software updates transmitted to the installed product.'
+PROMISE:18cdb6bc8c,A database management system such as Oracle  DB2  MySql or HSQL will need to be integrated with the product.'
+PROMISE:1994129115,The Disputes application shall comply with the corporate standards for user interface creation for internally and externally used applications.'
+PROMISE:26fed285e8,The website should cater to all tribes in Nigeria.'
+PROMISE:2a940660c8,The Disputes application shall ensure that only users with the appropriate access level are allowed to initiate dispute requests.'
+PROMISE:2b1b17c7de,The website shall be attractive to all audiences.  The website shall appear to be fun and the colors should be bright and vibrant.'
+PROMISE:2ce3b6aabe,Dr Susan Poslusny and Dr Julie Donalek are the only people who shall have access to students' personal information.'
+PROMISE:2de283f653,Only authorized users shall have access to the portion of the system that interfaces with CampusConnect.'
+PROMISE:2ee0279273,The website shall continue to operate if the payment gateway goes down.'
+PROMISE:35df688e08,The website shall not be offensive to religious or ethnic groups.'
+PROMISE:3bbda6b49c,The product shall achieve a 98\% uptime. The product shall not fail more than 2\% of the available online time.'
+PROMISE:3db5f13e06,The product shall retain the customer's buying preferences and information.'
+PROMISE:3ffe9b037f,The website shall be available for use 24 hours per day  365 days per year.'
+PROMISE:4261262ebe,The verbiage used within the system shall be consistent with Standard English and the terminology of the national Nursing Community.'
+PROMISE:42ff465f1e,Movies shall be encoded and streamed via Windows Media Player 9.0.'
+PROMISE:44dd1c86f2,The Disputes application shall ensure that only authorized users are allowed to logon to the application.'
+PROMISE:44e40315c4,The website shall be capable of supporting 100 000 customers.'
+PROMISE:46ba994737,Only managers are able to perform search queries for reservations by user.  100\% of all search queries for reservations by user shall be from logons of only management logons.'
+PROMISE:4d377a87f7,Izogn Administrator must be able to add new products to the website within 2 minutes.'
+PROMISE:50f4f3db9d,The Disputes application shall manipulate and view business data. Users will not have direct access to data files or databases.'
+PROMISE:564108255b,All of the users shall be able to use the system after one day of training.'
+PROMISE:603d30870c,The product shall synchronize contacts and appointments in an acceptable time.'
+PROMISE:657cc34cbb,The product should be able to be used by 90\% of novice users on the Internet.'
+PROMISE:695a27fe33,The product shall make the users want to use it. 80\% of the users surveyed report they are regularly using the product after the first 2 weeks post-launch.'
+PROMISE:7f9d2d236d,Fit Criterion: Dr Susan Poslusny and Karen Sysol are the only people who shall have access to the final class section scheduling for the system that interfaces with CampusConnect.'
+PROMISE:7fd795efa6,The system shall cater to 10 simultaneous users from 9am to 5pm.'
+PROMISE:84d4dfdf32,The product shall allow the user to select a chosen language from one of the target market countries.'
+PROMISE:87c6fdb83f,The user shall easily locate instructions while using the product.  User help can be found within 90\% of the system.'
+PROMISE:89753b3f76,The product shall generate a CMA report in an acceptable time.'
+PROMISE:8d5e7db324,The streaming server will support 50 simultaneous streaming connections.'
+PROMISE:8d7ad91d98,Aside from server failure  the software product shall achieve 99.99\% up time.'
+PROMISE:92912f02be,The website shall prevent its data from being corrupted when incorrect data is entered in.'
+PROMISE:9368a39bb3,The product shall use symbols and words that are naturally understandable by the realtor community.'
+PROMISE:983e72222c,The product shall be capable of handling up to 1 000 concurrent requests.  This number will increase to 2 000 by Release 2.  The concurrency capacity must be able to handle peak scheduling times such as early morning and late afternoon hours.'
+PROMISE:99f86b8974,The product shall be used in office environments.'
+PROMISE:9ba7a683ac,The language of the product shall accommodate all of the target market countries. 90\% of survey respondents from each target market country will find that the language of the product is acceptable.'
+PROMISE:9bc2b0de7e,The system shall achieve 95\% up time.'
+PROMISE:a36920ae99,100\% of saved user preferences shall be restored when system comes back online.'
+PROMISE:a4b81e7370,The system shall protect private information in accordance with the organization's information policy.'
+PROMISE:aca07b1a0a,The system shall have basic data integrity checking to reduce the possibility of incorrect or invalid data being introduced.'
+PROMISE:ae10b1aaf6,The product shall be able to process 10 000 transactions per hour within two years of its launch.  This number will increase to 20 000 by Release 2.'
+PROMISE:aeb28d954f,For estimators  the product shall be able to be operated in a repair facility during dirty and noisy conditions.'
+PROMISE:af4e10c516,Website must be fully operational with MSN TV2.'
+PROMISE:b409934350,The System shall meet all applicable accounting standards.  The final version of the System must successfully pass independent audit performed by a certified auditor.'
+PROMISE:b4f0857aec,The product shall be easy to use. 90\% of users will be able to successfully reserve a conference room within 5 minutes of product use.'
+PROMISE:b6738a94b4,The system shall be expected to manage the nursing program curriculum and class/clinical scheduling for a minimum of 5 years.'
+PROMISE:b69783b3cb,100\% of merchant services representatives shall be able to successfully perform a follow up action on a dispute case on the first encounter after completing the training course.'
+PROMISE:b76ac91ca9,All credit card information will be secured on the server  and only accessible by authorized Izogn administrators.  Information will be encrypted in the database.'
+PROMISE:bc80916384,The product shall allow for customization of start page and views preferences.'
+PROMISE:c20db50321,The product shall comply with insurance regulations regarding claims processing.'
+PROMISE:c8f0a7236d,System shall let the administrator add/remove categories on the website in under 5 minutes.'
+PROMISE:ccc6492e98,The Disputes application shall interface with the Cardmember Posting and Billing System.  This will allow the Disputes application to request adjustments to cardmember and merchant‘s accounts. All adjustment requests must be sent to the Cardmember Posting and Billing System.'
+PROMISE:d00d2cda40,The product shall be able to handle 10 000 concurrent users within 2 years of the initial launch.'
+PROMISE:d0bc223482,The product will require collaboration with a database management system (DBMS).  The DBMS may be located on the same machine as the product or on a separate machine residing on the same computer network.'
+PROMISE:d255a260b7,Recreation of Inventory Quantity Adjustment for the period of previous 30 days shall take no more than 30min.'
+PROMISE:d7c680730e,Only adjusters can request recycled parts audit reports. No users without an adjuster role shall request recycled parts audits.'
+PROMISE:d92d718cdb,The product shall prevent its data from incorrect data being introduced.'
+PROMISE:d9c1754f18,The website should use Flash to provide animation on the home page.'
+PROMISE:dc314913bf,The product will be available for licensing as a one-server  two-five servers  or five-or-more servers license.'
+PROMISE:dd87cb2aed,The streaming server will have anti-virus software to prevent infection of malicious viruses.'
+PROMISE:dedae27442,The product shall be easy to use by Adjusters and Collision Estimators.  95\% of Adjusters and Collision Estimators shall find the product easy to use.'
+PROMISE:df6f6c00f5,The recycled parts audit report shall be returned to the user within 10 seconds.  The audit report shall be returned within 10 seconds.'
+PROMISE:e0c79a82fd,The system shall be intuitive to the Program Administrators/Nursing Staff Members.'
+PROMISE:e1b3871320,The system shall be intuitive and self explanatory.'
+PROMISE:e59b21fd96,The system shall be built such that it is as secure as possible from malicious interference.'
+PROMISE:ee505ed811,Any interface between a user and the automated system shall have a maximum response time of 5 seconds  unless noted by an exception below.'
+PROMISE:efc2cece02,The website should have an African feel  but should not alienate non-Africans.  The website should use animation on pages which are describing the services  to grab the users attention and encourage them to sign up.'
+PROMISE:f10e486d9c,The response time of general student management tasks shall take no longer than 5 seconds and the response time of schedule generation shall take no longer than 30 seconds.'
+PROMISE:f165784d55,The product shall interface with the ChoiceParts system once per day at approximately 1:00 AM.'
+PROMISE:f17f058b0f,The product shall give users feedback when necessary. 80\% of the users surveyed report that the product accurately confirms their actions.'
+PROMISE:f708c8d793,While streaming a movie  buffering should only occur if there is latency in the user's connection.'
+PROMISE:fb0285dc72,The website shall continue to operate if the streaming server goes down.'
+PURE:001d3e1290,Clicking 'Submit' produces a report for each encounter in the date range  and shows patient demographics and insurance information  as well as the billing codes and amounts.
+PURE:0277b3b4ee,The LHCP views a list of requests he or she has made for reports  with the status and pertinent information about the requests.
+PURE:04fdd0ae9d,The status of a laboratory procedure has been updated (UC26  S3).
+PURE:055cdea380,The Appointments Report ('Reports > Visits > Appointments') gives you a list of appointments for a given provider  or for all providers  in a specified date range.
+PURE:0786e7d409,And HCP chooses to add  or edit  patient specific instructions.
+PURE:0c346afc8d,Enter the appropriate parameters  such as the date of service  and click 'Search' to bring up a list of all invoices (claims) matching the requested parameters.
+PURE:0d544b2b0f,The HCP can edit the patient according to data format 6.4  with all initial values (except patient MID) defaulting to null possibly and possibly 0 as appropriate.
+PURE:0f12af66a7,The patient chooses a specific referral from the list to view complete details about the referral: sending HCP name and specialty  receiving HCP name and specialty  time generated  priority  office visit date  and notes.
+PURE:12b622dbfe,OpenEMR's calendar system includes a status indicator  allowing doctors and staff to see at a glance what is going on with all appointments and the corresponding encounters for the day.
+PURE:13a2e011ca,The patient selects the type of appointment from a pull-down menu of the existing appointment types  enter the appointment date and start time (only a date or time equal or after the current date or time is allowed).
+PURE:13c2906862,In the calendar  the date entry with a prescription date (i.e.  the date of the office visit the medication was prescribed on) shall display a label for the medications prescribed (i.e.  NDC  see Data Format 6.6) in the prescription.
+PURE:143e3a06d7,The system shall enable the administrator to (1) add a new entry for an appointment type  including its type name with up to 30 alpha characters and duration in the unit of minutes   and (2) modify the duration in an existing entry .
+PURE:16f4ec1a7e,Returning to the Billing Report and clicking 'Update List'  you can see that the status of the billable encounter has been updated.
+PURE:1c12a80d6c,Login failures  valid authentication  and log outs are also logged .
+PURE:1e2e8485bd,"The input data  a timestamp  and the fact that the status was reported by ""case manager"" and their MID are saved."
+PURE:21b9f5daba,On the patient homepage  the Patient views a notification center.
+PURE:22254479bb,The solution should support the pharmacist verification of all  medications prior to their being dispensed.
+PURE:2243022bec,The  Clinical Decision Support capability should conform to function IN.1.7 (Secure Data Routing)  to ensure that the exchange occurs only among authorized senders and receivers.
+PURE:247b145bec,If answer to security question is correct  allow user to change their password.
+PURE:24c4a35c99,Patient: When an American infant is born or a foreigner requests medical care  each is assigned a medical identification number and password.
+PURE:25ca1d70a8,If the requested appointment time does not conflict with any existing appointment for the LHCP  the request is saved.
+PURE:2664de30a3,"The patient chooses ""My Expired Prescription Reports"" and is presented with a list of the patient's expired prescriptions   sorted by start date (the later date is ranked earlier closer to the top)."
+PURE:2b6483f770,The EHR System will need to be able to track the changes as well as accommodate moving visit information (e.g.  an account) from one medical record to another with associated audit trails.
+PURE:2f8ec0b1b5,A user (a patient  patient representative  or LHCP) views the number of unread messages from his or her message inbox.
+PURE:30c4333b16,If an assistant is used to enter data that will subsequently be signed by a provider  retain the date or time or use stamp of the data entry person as well as the provider.
+PURE:31003d2241,The system shall have the ability to record or capture information about each authorized possibly and possibly unauthorized access attempt such as: User ID  workstation  date  time  transaction (menu  screen  file  object)  and attempted type of access (read  modify  etc.).
+PURE:31e727dca4,After a message is sent  the LHCP is directed to to his or her message outbox.
+PURE:3a2c6604a3,"The solution should allow an authorized user to flag a medication as ""Do not substitute""  e.g. substitution never allowed for  the no sugar or no alcohol mouthwash."
+PURE:4136e63f0c,The date  time  patient identification  and user identification must be recorded when electronic health information is created  modified  accessed  or deleted; and an indication of which action(s) occurred and by whom must also be recorded.
+PURE:41a1d591e5,Click on a person's name to edit their contact information  or click 'Add New' to enter a new contact into your address book.
+PURE:423a02b18e,"A row for showing the message subject (now preceded by ""RE:"")  the name of the recipient  and the timestamp is then visible in the patient or representative's message outbox."
+PURE:461cbaa25c,In the Add New Person dialog box  select a type  and enter their name and address.
+PURE:47ead24925,If the patient has never stored a security question or answer  the user is asked for the random password assigned on creation of the account.
+PURE:4ab7cf65f7,This policy stipulates that no cell (e.g. admittances  discharges  patients  services) 10 or less may be displayed.
+PURE:4bc0058a44,The solution should appropriately label information in storage  in process  and in transmission.
+PURE:4c0a1c27ca,The user is presented with two windows  the Calendar  and below that  the Messages page.
+PURE:4d6ee319a5,In the list of in transit lab procedures   the Lab Technician can update the status to received when the sample has been received in his or her lab.
+PURE:4ff598ff69,The notification center also displays a list of the patient and patient representee upcoming appointments   the information of his or her designated HCP   and the number of unread messages from his or her message inbox   number of new referrals (UC33)  and number of unviewed completed lab procedures (UC26).
+PURE:5976be5d7a,An administrator chooses to maintain the standards list for immunizations   diagnoses   allowable drugs   or allowable physical services .
+PURE:599b724bd8,System provides an audit trail and viewable history of all transactions including but not limited to  user’s login ID  date  and time stamp.
+PURE:5cee3cdf2e,The solution should provide the ability to create views that prohibit patients from accessing certain information according to organizational policy  scope of practice  and jurisdictional law.
+PURE:5f3f7b59f0,The standard Save File dialog should appear next  allowing you to save the generated batch file to your computer.
+PURE:6480c6bf7a,A UAP  or patient representative  can input the blood pressure  glucose levels  height  weight  or pedometer readings for a patient.
+PURE:64f8535d02,Clicking 'OK' will mark this item as cleared  indicating that billing has been completed for this encounter.
+PURE:6605182503,An HCP is able to create a patient  or disable a selected patient .
+PURE:6c7a144ecb,All input parameters are validated (including form fields  query strings  cookies  and HTTP headers).
+PURE:6cd8152dde,"When access to a chart is restricted  the system shall provide a means for appropriately authorized users to ""break the glass"" for emergency situations."
+PURE:6d85aa7cb9,After a message in the message inbox is read (i.e.  displayed in a new page)  the row for the message in the message inbox is not bolded anymore.
+PURE:6dc18efd5e,"The page also includes links to the patient's medical history  documents  etc. at the top of the screen  as well as a list of ""issues"" associated with that patient  and any appointments they may have scheduled in a column along the righthand side."
+PURE:74893099df,Similar to an administrator  a software tester is added by directly entering the software tester into the database by an administrator that has access to the database.
+PURE:767d98a955,A detailed history of the actions taken on the case  including the date and the user that performed the action must be maintained for auditing purposes.
+PURE:76ea414d95,Database keys  connections  passwords  or other secrets are not stored in plain text.
+PURE:7731e7d48c,The solution should support remote monitoring and administration via Netscape Secure Sockets Layer (SSL)  IETF Secure Shell (SSH)  IETF IP Security (IPSEC) or similar secure method.
+PURE:787eeda042,A patient or personal health representative  views his or her iTrust homepage.
+PURE:78d2d041d7,The administrator will maintain  a listing of allowable immunizations that an HCP can use.
+PURE:7900935346,Sensitive data and secrets are not incorporated in  code.
+PURE:7ba9b0af92,The LHCP chooses to view a report of all patients of a single or either gender  in a specified age range   with none  one  or more diagnoses.
+PURE:7f2b230cf6,Data collection devices (e.g. – handheld devices  etc.) synchronize with the System securely using authentication  authorization and encryption mechanisms.
+PURE:7fd2a203be,A patient or personal health representative can answer any of the following questions relative to a previous (in UC9  S1) office visit according to Data Format 6.13.
+PURE:8181f204d8,Measures are in place to prevent the upload of unauthorized files (e.g.  executable files).
+PURE:841295917b,Database will mark the account as inactive  and user will not be able to log into the website.
+PURE:86dcc9da70,The HCP selects a different Lab Technician from the list of available Lab Technicians (displayed with Lab Technician specialty and the number of pending lab procedures in his or her priority queue  grouped by priority).
+PURE:89ee60f110,Included is a search feature  where you can search for and select from the thousands of billing codes in the database.
+PURE:8ae5d90699,The solution should provide the ability to view change history for a particular record or data set in accordance with users’ scope of practice  organizational policy  or jurisdictional law.
+PURE:8b10ec32cb,The solution should enforce solution and data access rules for all EMR resources (at component  application  or user level  either local or remote).
+PURE:8e4b74f8f2,The patient selects the relevant physical services he is interested in  and is then presented with the top five hospitals with that experience.
+PURE:90d7f92a6c,The final product is a site where health care workers can access important patient information  the non-emergency access can be controlled  and all access would be tracked.
+PURE:9484f6d51d,An HCP chooses Office Visit Reminders and then to identify chronic patients who need an office visit   older patients who need a flu shot   or any patient who is overdue for an immunization .
+PURE:948d492056,A sending HCP cancels a previously sent patient referral by visiting the office visit page  viewing the details of a previously sent patient referral   and choosing cancel.
+PURE:96e1fe291d,The patient or representative chooses one of these DLHCP and types the subject (up to 100 characters) and text of a message (up to 1000 characters)  and clicks the send button.
+PURE:9c7b91e750,Then  this person's electronic records are accessible via the iTrust Medical Records system.
+PURE:a2f7560963,In each row  the descriptive name is a link to the URL containing patient specific instructions.
+PURE:a52d6a22c1,Each row in the list includes their blood pressure and glucose levels  recording timestamp  and whom reported the data (patient  UAP name  personal representative name).
+PURE:a552e1c54f,The solution should provide the ability to attribute record and display the identity of all users contributing to or finalizing a document or note  including the date and time of entry (see appropriate criteria in IN.2.2 (Auditable Records)).
+PURE:a6022189b2,This allows you to easily spot many types of errors  such as appointments with missing encounters  encounters with missing appointments  missing charges  and authorizations or justifications that are required but not done.
+PURE:a79a812b54,The solution should provide audit capabilities indicating the time stamp for an object or data modification in accordance with users' scope or practice  organizational policy  or jurisdictional law.
+PURE:a7a3d508f7,Data queries from the Presentation or the Business Logic layers shall be validated for appropriate use of query language  and validated for appropriate quantity and quality of data input.
+PURE:a802db49ef,If the desired insurance company is not yet entered  you can also add it here by completing all the fields and clicking 'Save as New'.
+PURE:a850fbcc72,Encrypt and decrypt electronic health information in accordance with the standard specified in § 170.210(a)(1)  unless the Secretary determines that the use of such algorithm would pose a significant security risk for Certified EHR Technology.
+PURE:ab0919ee10,"A patient can click ""View Full Calendar"" link to view his or her appointments in the current month together with his or her office visit dates  prescription dates  and lab procedure dates in the current month displayed on a calendar for the current month ."
+PURE:acf8005b24,The User agrees that  absent express written authorization from the appropriate System Manager or the person  designated in section 20 of this Agreement to do so  the User shall not attempt to link records included in the  file(s) specified in section 5 to any other individually identifiable source of information.
+PURE:ad5a3548fa,An LHCP views a list of his or her upcoming appointments for the current date (sorted by time  soonest upcoming first)  with each appointment displayed in the format 'HH:MM AM or PM - AppointmentType'.
+PURE:af46bd9ee8,The HCP can indicate the patient has passed away  providing an appropriate diagnosis code.
+PURE:b00cc8f709,Patients can also be billed  and their payments recorded.
+PURE:b09f4f4bd8,This brings you to the patient's Summary page  as well as the Past Encounters & Documents page which lists any previous encounters or files that were uploaded for that patient.
+PURE:b282a82751,The  Clinical Decision Support capability should conform to function IN.1.8 (Information Attestation)  to show authorship and responsibility for the data.
+PURE:b5c91a5063,The LHCP can view of the comprehensive patient report for the specified group  including the information below.
+PURE:b78768e1b6,If the solution provides the ability for direct entry by the patient  then the solution should explicitly label the data as patient entered.
+PURE:b7b634fbae,When satisfied with your selections  click 'Generate Report'.
+PURE:b97a9f3895,The system upon detection of inactivity of an interactive session shall prevent further viewing and access to the system by that session by terminating the session  or by initiating a session lock that remains in effect until the user reestablishes access using appropriate identification and authentication procedures.
+PURE:b9a93f6191,He or she can report the height  weight  possibly and possibly pedometer reading  for the patient.
+PURE:b9e038303a,Once payment has been billed and received from secondary insurance  it can be entered in the same way.
+PURE:bb8e09e653,The event is logged (UC 5  S8) and the HCP is returned in the specific office visit record to verify his or her changes.
+PURE:bba4656b64,When answer to the security question is typed in  the answer should not appear on the screen (similar to how a password normally appears) and the answer should be confirmed (by the patient or personal health representative) before it is saved.
+PURE:bbcf468635,Generic accounts not linked to a specific person  such as service accounts  must not be used in accessing PHI or PI  or in making changes to IT systems which protect that data  unless there are logs in place that identify the actual individual who accessed the data or made the system change.
+PURE:bcb016bb4f,The solution should provide the capability to document or record that identity-proofing was completed and the method used to verify (i.e.  check photo id  prior relationship  or verification of information an individual knows or can produce) consistent with the recommendations of the Confidentiality or Privacy or Security Workgroup of the American Health Information Community.
+PURE:bde1b38691,The solution should comply with the Privacy Rule that protects all individually identifiable health information held or transmitted by a covered entity or its business associate  in any form or media  whether electronic  paper  or oral.
+PURE:bfb074f7c4,A user (a patient) chooses to display his or her appointments in the current month together with his or her office visit dates  prescription dates  and lab procedure dates of the current month on a calendar for the current month.
+PURE:c0fbaf1577,The solution should be able to support time synchronization using NTP or SNTP  and use this synchronized time in all security records of time.
+PURE:c1c3786b34,"You can see that the claim has been ""Marked as cleared."""
+PURE:c568a0cbdc,A patient either chooses to input his or her physiologic measurements (blood pressure possibly and possibly glucose levels)   or to input his or her weight  height  possibly and possibly pedometer readings .
+PURE:c8cbb2b302,Actions and statuses recorded in accordance with paragraph (d)(2)(i) of this section must not be capable of being changed  overwritten  or deleted by the EHR technology.
+PURE:cd0522a2b9,When you are finished  click 'Save'.
+PURE:cdfb8a7884,The system shall be configurable to prevent corruption or loss of data already accepted into the system in the event of a system failure (e.g. integrating with a UPS  etc.).
+PURE:cf48ef133e,When the chosen patient satisfies the preconditions of the chosen chronic disease   the LHCP is provided with a warning message if that patient exhibits three or more risk factors.
+PURE:d1a4ddfbff,The system shall include documentation available to the customer that provides guidelines for configuration and use of the security controls necessary to support secure and reliable operation of the system  including but not limited to: creation  modification  and deactivation of user accounts  management of roles  reset of passwords  configuration of password constraints  and audit logs.
+PURE:d3c5e05e8a,"For example  selecting ""Detailed"" from the 'Established Patient' drop-down adds the associated CPT code to the list."
+PURE:d5d470db55,If a primary provider has been entered for that patient  they will be selected automatically.
+PURE:d6525ffe89,Record disclosures made for treatment  payment  and health care operations.
+PURE:d69ab64e80,The solution should  enforce referential integrity.
+PURE:d82e14a267,A hashing algorithm with a security strength equal to or greater than SHA-1 (Secure Hash Algorithm (SHA-1) as specified by the NIST in FIPS PUB 180-3 (October  2008)) should be used to verify that electronic health information has not been altered.
+PURE:d9159428dd,The solution should provide reports for records of information solution activity  such as audit logs  access reports  and security incident tracking reports.
+PURE:dec28f69b6,The solution should support a user-friendly output version of the audit log for transmission  printing  or export  which shows all details of events.
+PURE:df01496f1c,The parameters logged includes user or system account ID  date or time stamp  event source  IP address  error or event code and type.
+PURE:e17655c9c5,An HCP chooses to document  or edit  an office visit.
+PURE:eae10e7cce,If the system includes hardware  the system shall include documentation that covers the expected physical environment necessary for proper secure and reliable operation of the system including: electrical  HVAC  sterilization  and work area.
+PURE:f00cf3a274,The system shall provide summarized and detailed reports on user access  usage logs  etc.
+PURE:f0ad7f660e,"The patient chooses 'My Diagnoses"" and is presented with a listing of all their own diagnoses  sorted by diagnosis date (more recent first)."
+PURE:f12d6933cf,A patient may have at most one height data point  one weight data point  and one pedometer data point in any one day  reported by him or herself  a UAP  or a personal representative .
+PURE:f329b46aeb,Upon successful authentication  the user will be directed to a personalized home page based on their role.
+PURE:f4cb9fafeb,MIDs should be considered private  sensitive information.
+PURE:fa5d67db25,The Proposer shall monitor the computing systems (24 by 7) and communications circuits to report and alert on compromised system health  security  availability and capacity.
+PURE:fe6271c2d1,To add one of these clearinghouses  click on 'X12 Partners' and then click the 'Add New Partner' button.
+QuRE:0033ee8e89,"For details about additional logging requirements, the document ""Remote Vehicle Data Access"" [RD4117] shall be mandatory."
+QuRE:19c406a262,Details of non-functional requirements of the display modules see document [RD4383].
+QuRE:2ddaf17e56,For details about operation modes see Specification Wireless Subsystem BR342 [RD2459].
+QuRE:45b454be15,For further details see Specification Wireless Subsystem WSub-795 [RD2459].
+QuRE:4915fe0228,"4. Position limits (voltage value position feedback unit): if the plausibility check of the positions limits is longer out of the range of the specifications than the fault tolerance time, the control behaviour must be given (threshold, error message, temporal resolution, temporal correcting errors )."
+QuRE:6c94fc58bb,3. Store contact details of a received SMS or e-mail to the address book application.
+QuRE:a1b797578c,"For details see ""Feature List Telematic5STAR1 HU Entry Tuner"" [RD3593]."
+QuRE:b91e1dc3b4,For details see the applicable LIN definition file (LDF) [RD3137].
+QuRE:b987145d48,"Please refer to the ""Telematic5.5 - Diagnostic Specification SV and SPV Display"" [RD4528] for details."
+QuRE:d080163035,"For details about video processing and transmission see ""System Specification Telematic5STAR1 HU Entry Video Processing and Transmission"" [RD3649]."
+QuRE:e06c255c9b,For Details about the support of GSM / GPRS radio technology the document `` Remote Vehicle Data Access '' [RD4117] shall be mandatory.
+QuRE:e5a5695922,"For details of digital video interfaces see ""System Specification Telematic5STAR1 HU High LVDS Physical Layer"" [RD3615]."
+QuRE:ea533ecb13,"For details of the audio management in the telematics system and the component, see the specification `` System Specification BR342 HU High Audio Handling '' [RD2381]."
+QuRE:ee05f0ae0a,"For further details see ""System Specification Telematic5STAR1 HU Entry Wireless Subsystem"" [RD3651]."

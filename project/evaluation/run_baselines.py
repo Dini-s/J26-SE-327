@@ -5,6 +5,7 @@
 Two phases per task. `develop_*` loads train/val rows only (through `data_access.load_task`, which refuses the test split), tunes on val,
 runs grouped cross-validation and leave-one-project-out. `final_*` is the only code that loads the frozen test rows, and only after
 `data_access` has verified frozen_test_ids.csv / the task file against manifest.json. No LLM calls, no synthetic data, seed 327.
+Models are saved to models/component1/part_a_experiments/<fr_nfr|security_and_subtype|ambiguity>/ (override with --models-dir).
 """
 import argparse
 import hashlib
@@ -24,7 +25,10 @@ from evaluation import metrics as M
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUT = PROJECT_ROOT / "evaluation" / "component1" / "results"
-DEFAULT_MODELS = PROJECT_ROOT / "models" / "component1"
+# Models are saved under part_a_experiments/<group>/. The four models the agent loads live in models/component1/part_a_active/; copy them
+# there by hand after a run (the agent never reads part_a_experiments/).
+DEFAULT_MODELS = PROJECT_ROOT / "models" / "component1" / "part_a_experiments"
+MODEL_GROUPS = (("fr_nfr_", "fr_nfr"), ("nfr_subtype_", "security_and_subtype"), ("ambiguity_", "ambiguity"))
 SUBTYPES = ["A", "FT", "L", "LF", "MN", "O", "PE", "PO", "SC", "SE", "US"]
 FILES = {"fr_nfr": "classification_fr_nfr", "nfr_subtype": "classification_nfr_subtype", "ambiguity": "ambiguity"}
 METRIC_COLS = ["task", "subtask", "evaluation", "slice", "model", "metric", "cls", "value", "ci_low", "ci_high", "n_rows"]
@@ -117,9 +121,18 @@ class Results:
         (out_dir / f"{self.task}_notes.txt").write_text("\n".join(self.notes) + "\n", encoding="utf-8")
 
 
+def model_group(name):
+    """Subfolder of the models directory for a model file name (fr_nfr, security_and_subtype or ambiguity)."""
+    for prefix, group in MODEL_GROUPS:
+        if name.startswith(prefix):
+            return group
+    raise ValueError(f"no model group for {name!r}")
+
+
 def save_model(models_dir, name, payload):
-    models_dir.mkdir(parents=True, exist_ok=True)
-    joblib.dump(payload, models_dir / f"{name}.joblib")
+    target = models_dir / model_group(name)
+    target.mkdir(parents=True, exist_ok=True)
+    joblib.dump(payload, target / f"{name}.joblib")
 
 
 # ---------------------------------------------------------------------------------------------------------------------------

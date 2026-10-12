@@ -553,6 +553,64 @@ def md_table(df):
         "| " + " | ".join(str(v) for v in row) + " |" for row in df.itertuples(index=False))
 
 
+def sft_section():
+    """Data-card section for the Component 1 SFT pairs (processed/llm_sft). Empty when the pairs have not been built."""
+    sft = PROCESSED / "llm_sft"
+    if not (sft / "synthetic_pairs_all.jsonl").exists():
+        return ""
+
+    def load(path):
+        return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+    pairs, train, val = load(sft / "synthetic_pairs_all.jsonl"), load(sft / "sft_train.jsonl"), load(sft / "sft_val.jsonl")
+    rejects = load(sft / "rejects.jsonl")
+    first_rows = sum(len(load(f)) for f in sorted((sft / "synthetic_batches").glob("batch_*.jsonl")))
+    rej1 = [r for r in rejects if r["attempt"] == 1]
+    reasons = Counter(re.sub(r"\(.*\)", "", x) for r in rej1 for x in r["reasons"])
+    new_ids = {r["id"] for r in pairs if r["review_status"] == "auto_validated"}
+    by_source = defaultdict(Counter)
+    for r in pairs:
+        by_source[r["source"]][r["status"]] += 1
+    src_lines = "\n".join(f"| {k} | {v['ok'] + v['needs_clarification']} | {v['ok']} | {v['needs_clarification']} |" for k, v in sorted(by_source.items(), key=lambda kv: -sum(kv[1].values())))
+    n_nc = sum(r["status"] == "needs_clarification" for r in pairs)
+    review = Counter(r["review_status"] for r in pairs)
+    return f"""## SFT pairs for the requirement-to-story generator (Component 1)
+
+**Purpose.** Supervised fine-tuning data for a model that reads one software requirement and answers with one JSON object: a user story, a technical task,
+2-6 Given/When/Then acceptance criteria and a rationale (`status: ok`), or clarification questions when the text is vague, not a requirement or a placeholder
+(`status: needs_clarification`). Files are in `processed/llm_sft/`.
+
+**Provenance.** Every input is a public requirement from the **train** split of this repository's sources (seed files `synthetic_seed_inputs.csv`, `_batch2.csv`
+and `_batch3.csv` in `processed/tasks/`; batch 3 has its extraction artifacts cleaned and the untouched text in `_batch3_raw.csv`). No frozen-test id, no
+`generation_eval_ids.csv` id and no `generation_eval_inputs.csv` text is used; batch-3 seeds also have MiniLM cosine < 0.85 to every test/eval text (largest value 0.849) and
+<= 0.90 to every other seed (`synthetic_seed_inputs_batch3_report.md`). A test (`tests/test_sft_dataset.py`) checks the final files for leakage.
+
+**Synthetic outputs.** All outputs are synthetic and were written by Claude Code (Claude Sonnet 5.5, hand-written; generator tag `claude-sonnet-5.5 (hand-written)`): the first
+{len(pairs) - len(new_ids)} pairs earlier (`synthetic_pairs_all_550.jsonl`), the other {len(new_ids)} in batches of 50 (`synthetic_batches/`). The Llama model that will be fine-tuned wrote none of them.
+
+**Validation** (`experiments/component1/validate_sft_pairs.py`, rules in its docstring): exact schema and keys; story matches `^As an? .+, I want .+, so that .+\\.$`; 2-6 criteria that each match
+`^Given .+, when .+, then .+`; every number in an output must occur in the requirement; story/task must not be a copy of the requirement; no two outputs of the same status with MiniLM cosine > 0.95;
+`needs_clarification` rows have null story/task and no criteria. Passing rows get `review_status="auto_validated"`; failing rows go to `rejects.jsonl` with the reasons and were regenerated once
+(`synthetic_batches/retry_001.jsonl`). First attempt: {len(rej1)} of {first_rows} rows rejected ({len(rej1) / max(first_rows, 1):.1%}; {', '.join(f'{k}={v}' for k, v in reasons.most_common())});
+all {len(rej1)} passed on the retry, so no seed remains rejected.
+
+**Counts.** {len(pairs)} pairs after de-duplication by requirement text: ok={len(pairs) - n_nc}, needs_clarification={n_nc} ({n_nc / len(pairs):.1%}). Train {len(train)} / val {len(val)}
+(`sft_train.jsonl`, `sft_val.jsonl`; stratified 90/10 by (source, status), seed {SEED}; chat format with the same system prompt as the older `sft_train_550.jsonl` / `sft_val_550.jsonl`, which are kept).
+
+| source | pairs | ok | needs_clarification |
+|---|---|---|---|
+{src_lines}
+
+**Review status.** {', '.join(f'{k}={v}' for k, v in sorted(review.items()))}. The {len(pairs) - len(new_ids)} originals keep their earlier flags (`reviewed` and `spot_checked` are human checks, `unreviewed` has none); the {len(new_ids)} new pairs are
+checked by the rules above only, with no human review yet. `qa_sample_100.jsonl` is a random sample (seed {SEED}) of 100 new pairs prepared for a human spot check; it has not been reviewed yet.
+
+**Known limitations.** One generator, so one writing style (the same sentence templates recur, e.g. the role guess in the rationale); English only; roles are guesses and are marked as such in the
+rationale; the rules cannot tell whether a story is faithful to a requirement, only that it is well formed and adds no numbers; source mix follows the train-split availability (PROMISE is under-represented in the new pairs because few clean train rows were left); requirement texts keep
+the corruption of the originals where it could not be repaired.
+
+"""
+
+
 def data_card(master, conflicts, rep, tasks, frozen, manifest, pool, short, dep_stats, proj_split, counts, anchoring, arta_all, spot, seed_df, eval_df, eval_counts):
     master_rep = rep[rep.stage == "master"][["input_file", "rows_in", "rows_dropped_empty", "rows_dropped_duplicates", "rows_moved_to_conflicts",
                                              "rows_collapsed_into_canonical", "rows_out"]]
@@ -668,7 +726,7 @@ Frozen test ids: `{manifest['frozen_test_ids_sha256']}` (SHA-256 of `frozen_test
 They are reserved for the final base-vs-fine-tuned comparison and must not be used for prompt tuning, training, seeds or anything else. By label and source: {', '.join(f'{r.requirement_type}/{r.source_dataset}={r.rows}' for r in eval_counts.itertuples())}.
 Neither file is in `manifest.json` (the test ids are already covered by `frozen_test_ids.csv`); a test checks that no seed text occurs in any val or test row.
 
-## SRS extraction
+{sft_section()}## SRS extraction
 
 {len(srs)} candidate rows from {len(counts)} documents (76 text + 3 HTML). Rules: drop TOC lines, repeated headers/footers, page numbers, headings,
 notes/examples and deleted entries; keep sentences with shall/must/should/will/is required to, and numbered/ID-tagged clauses (with or without a modal), so documents

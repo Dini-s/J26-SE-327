@@ -200,7 +200,7 @@ class TestSeededEvaluation:
         assert 'requirement_texts("train")' in src and 'requirement_texts("val")' in src
 
     def test_config_threshold_matches_a_sweep_value(self):
-        cfg = ROOT / "models" / "component1" / "duplicates_config.json"
+        cfg = ROOT / "models" / "component1" / "part_a_active" / "duplicates_config.json"
         if not cfg.exists():
             pytest.skip("config not created yet")
         sweep = pd.read_csv(ROOT / "evaluation/component1/results/duplicates_eval/threshold_sweep_dev.csv")

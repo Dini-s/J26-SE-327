@@ -1,0 +1,401 @@
+﻿id,source,requirement_text,requirement_type
+DS2:09f383aee3,DS2,The trigger values shall reside in an initialization file. This procedure shall read the initialization file and establish the trigger value from the data in that file.,
+DS2:150cf85b84,DS2,"The Simple Finish Window is closed. The statistic window is displayed, see chapter 3.2.3.4.",
+DS2:8bcc41ca61,DS2,Menu disappears. Requirements of the action determines the continuation.,
+DS2:8ce0ff392e,DS2,The system shall display an error message if the new user is found in the [system name] system.,
+DS2:a5442e0c51,DS2,A user with admin privileges shall be able to Add/Create a new user and associate the user with specified role(s) in the system.,
+DS3:9a18444c59,DS3,"5.2.2.39 Upon activation of this function, the Cab radio shall provide the driver with a list of generic staff, eg: (M) chief conductor; conductor 1; conductor 2; catering staff 1.",
+DS4:08193f71b7,DS4,The flight NE shall (3.2.3.1.3.2.1.3) be non operating during the application of this vibration in all axes.,
+DS4:0dc923b973,DS4,Redundancy Management shall [SRS302] provide an API call to allow the application to specify whether recovery and alignment of failed FCRs is permitted.  Note that recovery of the NEFU is always considered to be permitted.,
+DS4:1392ec9622,DS4,"The presence test shall (3.3.5.7) also ascertain that all processors are executing the same 50 Hz, 10 Hz, and 1 Hz frames.",
+DS4:159a937431,DS4,The FTSS software shall (3.4.2.6) congruently decide which FCP channel should be the source of CTC data.,
+DS4:21f5266712,DS4,"FTSS shall [SRS253] be compiled, linked and downloaded using Tornado 2 for the NT environment prior to delivery, for all engineering and formal releases.",
+DS4:268945b227,DS4,"Redundancy Management shall [SRS099] provide an API call to enable the application to retrieve the health status of the processors, network elements, network element links, MPCCs, and ICP controlled interfaces.",
+DS4:291c84e721,DS4,The scheduler shall [SRS024] execute as the highest priority FTSS or application task in the system.,
+DS4:2eb29e237e,DS4,The utility timer shall (3.3.10.25) have a resolution of 60.6 nanoseconds.,
+DS4:2fd4ca4ba0,DS4,"The Memory Management software shall (3.3.8.2) periodically ""scrub"" volatile and read/write memory in the FCP.",
+DS4:331778cf9b,DS4,"For software exceptions occurring within the FTSS, the FTSS shall [SRS277] make the error type and its context data available to the application, then restart the offending task at its beginning.",
+DS4:4defb790e9,DS4,The NE syndromes shall (3.2.2.6.2) be located in the second longword of the input information block buffer cell.,
+DS4:5916751e0d,DS4,"When a majority, but not a unanimity, of FCP members are observed with room in their input buffers, a time-out shall (3.2.2.6.15) be initiated.",
+DS4:596fd15a43,DS4,"For hardware exceptions, the FTPP system shall (3.3.12.5) “handle” the exception by making the error and its context data available to the application and then returning from the exception handler.",
+DS4:5aa2104584,DS4,"The FTSS FDIR shall (3.3.5.28) exchange the status information of detected faults in the FCP, ICP, NE, and MPCC/CTC hardware with the NASA provided software.",
+DS4:6e65762777,DS4,The prototype NE shall (3.2.3.1.1.6) be fabricated using commercial grade components.,
+DS4:6faaf91c13,DS4,"The FCP state shall (3.3.2.14) include all volatile memory, read/write memory, registers, timers, and counters, except that part of the memory exclusively set aside for channel-unique information.",
+DS4:730bd2dca0,DS4,Test points shall (3.2.3.1.2.10) be made available at the P2 connector for examining the operational status of the NE.,
+DS4:793a7e00a5,DS4,Redundancy Management shall [SRS100] provide an API call to enable the application to request that the FTSS RM software initiate a voted reset of a channel.,
+DS4:8584ac2543,DS4,"The Mission Manager Template shall (3.3.3.1) provide a mechanism for (but not limited to) creating and controlling task execution, creating message queues and other interprocessor communication mechanisms, and provide on/off capability for processor resynchronization.",
+DS4:8fab2ce9be,DS4,"They shall (3.2.2.6.6) include indications of scoreboard vote errors, Output Buffer Not Empty (OBNE) time-outs, and Input Buffer Not Full (IBNF) time-outs, as follows.",
+DS4:972cc5d620,DS4,The MET shall (3.3.10.8) be able to increment to at least 30 days without rolling over.,
+DS4:9fe125296f,DS4,Each FTPP shall  (3.1.1) consist of five (5) NEs (one for each FCC and one for the NEFU) and FTSS software.,
+DS4:abdc00f4f3,DS4,"Upon occurrence of an exception, the FTPP system shall (3.3.12.1) log the error and include all context data relevant to the exception e.g. the contents of the Machine State Register (MSR) and the machine status Save/Restore Registers (SRR0 & SRR1).",
+DS4:c5a7d5a8b4,DS4,The timestamp counter shall (3.2.2.7.7) be initialized to zero during ISYNC.,
+DS4:cd135fbaec,DS4,The NE shall (3.2.2.6.1) place error syndromes in the input information block whenever a packet is successfully delivered to the FCP.,
+DS4:dc1f3a8eff,DS4,"The FTPP system shall (3.3.2.28) configure the Radstone processor to continue processing if any of the Power-up tests or Initial BIT tests mentioned in Table 3.3.2.1, FCP IBIT Table, fail.",
+DS4:e0bd63b167,DS4,The NE shall (3.2.2.8.1) implement in microcode support commands to aid in debugging new NEs and for performing stand-alone diagnostics and self-tests.,
+FR_NFR:003cdeafb8,FR_NFR,The user shall be able to either Save or Discard their changes for a New/Edit Term.,FR
+FR_NFR:00f56df326,FR_NFR,System shall not function without an internet connection.,FR
+FR_NFR:01565ca8e8,FR_NFR,System shall display detailed information of seller's details to the customer and vice versa.,FR
+FR_NFR:058cf1abd4,FR_NFR,The system shall function in specific legacy browsers (Developer).,NFR
+FR_NFR:06f7ef9c23,FR_NFR,"System shall allow creation, modification, and deletion of student records, including enrollment number, name, and year of enrollment.",FR
+FR_NFR:085a1e79ba,FR_NFR,System shall be able to develop the front end using Java and utilize MySQL for the back end.,NFR
+FR_NFR:095604ce1c,FR_NFR,User shall be able to confirm username and password changes through email notification.,FR
+FR_NFR:09d9617d03,FR_NFR,System shall be designed for mobile portability with minimal storage requirements and efficient performance.,NFR
+FR_NFR:0d8073db2b,FR_NFR,A Data Consuming User shall be able to see descriptions for visualizations.,FR
+FR_NFR:0f9b4c9a15,FR_NFR,"The system shall generate analytics and reports for healthcare providers, including patient demographics, appointment statistics, and EHR insights.",FR
+FR_NFR:13ddce0041,FR_NFR,User shall be able to like or dislike videos using buttons.,FR
+FR_NFR:15ce34b0f4,FR_NFR,System shall display Dates and Extents consistently in both read and edit views for Accessions and Resources.,NFR
+FR_NFR:1698e7916b,FR_NFR,System shall ensure accessibility to session information for user exploration.,NFR
+FR_NFR:174927c4a2,FR_NFR,System shall be able to check if the transaction amount adheres to predefined limits and fail the transaction if the amount exceeds the limit.,FR
+FR_NFR:18223f7582,FR_NFR,"Website should be multi-platform, capable of running on different operating systems.",NFR
+FR_NFR:187873d055,FR_NFR,System shall enable users to update existing blogs by validating input data and updating the database accordingly.,FR
+FR_NFR:18abdda478,FR_NFR,"Alternatively, the user can push the ""Ctrl+X"" key combination or right-click the mouse and select the ""Cut Item"" button from the context menu.",FR
+FR_NFR:1a59629647,FR_NFR,The application shall perform smoothly with minimal lag or crashes during regular usage.,NFR
+FR_NFR:1c5c68fd8a,FR_NFR,"System shall provide robust search functionality for locating resource, accession, and digital object records within repositories.",NFR
+FR_NFR:1cc01bc705,FR_NFR,User shall be able to like a certain topic.,FR
+FR_NFR:1d4e98a854,FR_NFR,The system shall highlight the currently playing notes during playback.,FR
+FR_NFR:1da11ec64b,FR_NFR,System shall ensure data integrity and reliability during file uploads and attachments.,NFR
+FR_NFR:1f06898588,FR_NFR,A user shall be able to select the login option (email/password or Google account).,FR
+FR_NFR:20d15acd9c,FR_NFR,System shall facilitate bulk updates of enum values with efficient backend changes.,NFR
+FR_NFR:218fe5c245,FR_NFR,System shall rebuild all cached data during every startup for availability.,NFR
+FR_NFR:21ddfcdf1e,FR_NFR,User shall be able to create an account by providing personal details.,FR
+FR_NFR:24e0c12232,FR_NFR,Software Coding Practices software system and application code shall be well documented and written in a generally familiar language or languages.,NFR
+FR_NFR:24e8289e94,FR_NFR,System shall support network connections via Ethernet port and serial port jack.,NFR
+FR_NFR:26f6568f00,FR_NFR,"The system shall allow site editors to add, edit, and set publishing dates for articles.",FR
+FR_NFR:27c310e4c0,FR_NFR,Delivery boy shall be able to acknowledge for request within 3 sec of time.,FR
+FR_NFR:28da33677f,FR_NFR,"Users shall view a list of their stocks, including current price, change percentage, and total value.",FR
+FR_NFR:2a3539c644,FR_NFR,"The system shall allow adding, editing, and deleting medicine information (name, composition, dosage, etc.).",FR
+FR_NFR:2b7902c3ba,FR_NFR,The system shall communicate through web browser enabling and use HTTP protocol for data transfer.,NFR
+FR_NFR:2eb8e541d7,FR_NFR,The configuration window shall have a button labeled Recall that will permit the user to recall a disk file of previously saved parameters from which to populate the configuration window.,FR
+FR_NFR:3039accbbb,FR_NFR,The game shall be closed upon user interaction with the exit icon or the phone's back buttons.,FR
+FR_NFR:307f68c47d,FR_NFR,User shall specify bank details for issuing cheques obtained from selling stocks.,FR
+FR_NFR:30804abab7,FR_NFR,User shall provide feedback to the 24X7 customer care service center regarding their experience with the site and services.,FR
+FR_NFR:31747f02ea,FR_NFR,A user researcher shall identify interview participants.,FR
+FR_NFR:320b19216e,FR_NFR,User shall have the ability to mark emails as important or star them for future reference.,FR
+FR_NFR:3677c55855,FR_NFR,The system shall provide a form for certificates.,FR
+FR_NFR:38a1449498,FR_NFR,Patients and healthcare providers shall be able to communicate securely through the portal.,FR
+FR_NFR:38f37bb4e1,FR_NFR,"The tool shall monitor the unit under diagnosis, either in real time or batch mode, for an indefinite period of time or until input data are no longer available, and log diagnostic results as they are determined.",FR
+FR_NFR:3cc632d3f5,FR_NFR,System shall enforce security protocols to safeguard data and operations.,NFR
+FR_NFR:3ed464e337,FR_NFR,System shall retain a cash card if entered more than three times with incorrect passwords and prompt the user to contact the bank.,FR
+FR_NFR:3f00fa6bd4,FR_NFR,"Administrator shall be able to print reports (annually, weekly, daily).",FR
+FR_NFR:40923d78b9,FR_NFR,System shall be able to grant access to the user's dashboard upon successful authentication.,FR
+FR_NFR:40cc67690e,FR_NFR,User shall share their progress within the app and have the ability to copy custom workout sessions.,FR
+FR_NFR:47a6c82e21,FR_NFR,"If any required field in the registration form is not properly filled, the system shall display a warning message.",FR
+FR_NFR:4ab4d689ab,FR_NFR,System shall be able to maintain data security.,NFR
+FR_NFR:4b25cd5f20,FR_NFR,System shall generate reports on sensitive data classifications for access by designated personnel.,FR
+FR_NFR:51dd65e4a0,FR_NFR,Adobe Illustrator shall function with a minimum of 8 GB of RAM.,FR
+FR_NFR:531e2ec981,FR_NFR,The system shall allow applicants to request inspections.,FR
+FR_NFR:53a99859c9,FR_NFR,User shall be able to log in as a restaurant owner upon successful authentication.,FR
+FR_NFR:548f02db81,FR_NFR,The application shall be available to all users without any charges.,NFR
+FR_NFR:5bdcd6e36f,FR_NFR,Automated testing procedures shall be implemented to detect and mitigate software bugs and errors before deployment.,NFR
+FR_NFR:5bedf8b123,FR_NFR,Agency user shall know the submission periods' start and end dates for timely data submission.,NFR
+FR_NFR:5c586e20ba,FR_NFR,System shall ensure that all requirements outlined for the Online Matrimonial Portal are correctly implemented and operational.,NFR
+FR_NFR:5ce99ab18b,FR_NFR,The system should be responsive and handle edits and playback smoothly.,NFR
+FR_NFR:5da9283c32,FR_NFR,System shall be able to update the user's location if they are found to be within the 1-mile radius.,FR
+FR_NFR:60e53572e5,FR_NFR,System shall display a registration window containing text fields for customer information and a register button for deposit submission.,NFR
+FR_NFR:62bcd3afcd,FR_NFR,System shall provide a local authentication mechanism for user login.,FR
+FR_NFR:665b8d609c,FR_NFR,"User shall enter a password, and the ATM shall verify the password and bank code with the bank's computer.",FR
+FR_NFR:66f4b66c1f,FR_NFR,"Crafty kids corner shall ensure secure user authentication and data protection, especially for any personal information collected from users or their guardians.",NFR
+FR_NFR:6774983438,FR_NFR,An API User shall be able to normalize measures by GDP.,FR
+FR_NFR:6c806d93ef,FR_NFR,The system shall allow archivists to automatically create access copies and technical metadata for files.,FR
+FR_NFR:70443c77f4,FR_NFR,The system shall allow staff members to manage approved proffers to ensure compliance.,FR
+FR_NFR:70c65c637e,FR_NFR,The system shall anonymize and aggregate route information to enable safe sharing without compromising user privacy.,NFR
+FR_NFR:711643dab5,FR_NFR,The system shall also be accessible on mini browsers for mobile devices.,NFR
+FR_NFR:73670adf8b,FR_NFR,"The TCS shall compute the estimated position of the AV during Loss of Link (LOL) based upon the last known AV position and anticipated flight path based on current flight mode (e.g. flight route plan mode, emergency flight route plan mode, maintain current heading mode).",FR
+FR_NFR:73d302168c,FR_NFR,System shall support sponsorship opportunities matching sponsor brands.,NFR
+FR_NFR:745aae6d90,FR_NFR,The system shall be able to generate reports.,FR
+FR_NFR:78b61b2b81,FR_NFR,The system shall display the admin home page when an admin logs in.,FR
+FR_NFR:7a0f429c24,FR_NFR,Patients shall be able to view and request prescription refills through the portal.,FR
+FR_NFR:7a50d41bfb,FR_NFR,The CO will have access to the number of tiles in the wall or in a player's hand.,FR
+FR_NFR:7ae21d7f97,FR_NFR,"System shall provide a search facility for administrators to search for books based on title, subject, author, or publisher.",FR
+FR_NFR:7b101bd601,FR_NFR,The application should be designed for easy porting between iOS and Android platforms.,NFR
+FR_NFR:7c08a6dae1,FR_NFR,"User shall/will be able to register themselves by filling out a patient profile, generating a unique ID.",NFR
+FR_NFR:7cc7f4d433,FR_NFR,Customers can revise and update orders if incorrect.,FR
+FR_NFR:7fa7c7da2d,FR_NFR,"User shall search for potential employees by entering interests and preferences such as salary, location, job category, and profession.",FR
+FR_NFR:838a4eb943,FR_NFR,"The application's code structure should be designed for easy extension, facilitating the addition of new features.",NFR
+FR_NFR:8623ca9e74,FR_NFR,The system shall allow the initiator to view the information of any meetings which they initiated.,FR
+FR_NFR:874b901171,FR_NFR,"User shall be able to create and participate in group chats, with options for various forms of communication and information exchange.",FR
+FR_NFR:87bf93b6b9,FR_NFR,The user shall be able to mention the building name for the class.,FR
+FR_NFR:8a608413f3,FR_NFR,User shall be able to search for recent transactions using the transaction number.,FR
+FR_NFR:8ef71a2db4,FR_NFR,The system shall automatically reset the countdown timer after a round completion.,FR
+FR_NFR:902e145341,FR_NFR,System shall save user feedback into the database and display a confirmation message.,FR
+FR_NFR:91cced1834,FR_NFR,The moderator shall be able to open a closed session.,FR
+FR_NFR:9341b4ced2,FR_NFR,A Moderator shall be able to limit the maximum number of nodes that can be created in a session.,FR
+FR_NFR:951c9daa4a,FR_NFR,User shall receive a message to call the team if they enter a wrong serial key three times in a row.,FR
+FR_NFR:9556e72b70,FR_NFR,JavaScript code includes error handling functionality to ensure a smooth user experience.,FR
+FR_NFR:98f63fad9a,FR_NFR,The system shall provide a merchant for transactions.,FR
+FR_NFR:99dedbc167,FR_NFR,"The system shall allow associating names, subjects, and rights information with components.",FR
+FR_NFR:9f2bc70f67,FR_NFR,"The system shall recover gracefully from crashes or errors, minimizing data corruption.",NFR
+FR_NFR:a3a3e6abef,FR_NFR,The user shall be able to submit their school start time.,FR
+FR_NFR:a7e9c88d77,FR_NFR,"System shall display all necessary data, including full name, email, mobile, etc.",FR
+FR_NFR:aa8accaaca,FR_NFR,The system may optionally provide real-time train location information if available.,FR
+FR_NFR:aba30c6feb,FR_NFR,System shall adhere to data preservation standards to ensure long-term accessibility and usability.,NFR
+FR_NFR:abe1f0c963,FR_NFR,"Dispute panel shall be able to reassign order in the case, if delivery boy dint acknowledge the request.",FR
+FR_NFR:add429c239,FR_NFR,System shall provide pop-up messages prompting profile updates for children.,FR
+FR_NFR:b052c88a9e,FR_NFR,The system shall allow publishers to publish data packages in the user interface.,FR
+FR_NFR:b5d6495114,FR_NFR,"In case of hardware failure or database corruption, the system shall display a replacement page and retrieve backups from the server.",NFR
+FR_NFR:b69078d6db,FR_NFR,The website shall provide information about marks scored by candidates in exams.,FR
+FR_NFR:b6f9b2031a,FR_NFR,User shall have access to a customer-friendly system.,NFR
+FR_NFR:b87ac7aa4b,FR_NFR,The system shall confirm the successful creation of a new pin visible to all users.,FR
+FR_NFR:bba536570f,FR_NFR,User shall expect efficient re-initialization in case of failure.,NFR
+FR_NFR:bc107c80dc,FR_NFR,The Exit menu allows the user to confirm whether they want to continue using the application or exit.,FR
+FR_NFR:bcf7335161,FR_NFR,The system shall be able to personalize generic responses by inserting specific data.,FR
+FR_NFR:bd77b3b5d6,FR_NFR,System shall prompt customers with clear error messages.,NFR
+FR_NFR:bd7951dc0a,FR_NFR,The system shall experience no more than <x> unplanned outages in a rolling three-month period.,NFR
+FR_NFR:bdf93778f6,FR_NFR,Users shall be able to send messages to a team of people.,FR
+FR_NFR:bfbc329f28,FR_NFR,"Only the administrator shall have the authority to make changes to the database, including addition, updating, and deletion of data.",NFR
+FR_NFR:c3eb73125c,FR_NFR,User shall be able to input and store personal details of students.,FR
+FR_NFR:c5dab52e8d,FR_NFR,Customers shall choose their favorite restaurant or the restaurant they wish to order from.,FR
+FR_NFR:c85a3dad92,FR_NFR,The system shall allow administrators and authorized inventory group members to view and approve pending requests at their level.,FR
+FR_NFR:c95b590013,FR_NFR,"User shall have an admin view to show all trainee information, filterable by training session, for easy management.",FR
+FR_NFR:c9cdab866b,FR_NFR,The system shall allow creating and managing patient profiles with medical history and allergies.,FR
+FR_NFR:ca3e50b652,FR_NFR,Restaurant shall be able to CRUD items from its menu.,FR
+FR_NFR:ca8f5da11c,FR_NFR,"System shall be able to print reports annually, weekly, and daily based on selected time frames.",FR
+FR_NFR:cdee8500e2,FR_NFR,System shall be able to ensure that common operations on an equivalent document are completed within 0.2 seconds.,NFR
+FR_NFR:cf98c46436,FR_NFR,The user shall be able to add the Time and Duration of their Class.,FR
+FR_NFR:cfe7406e0b,FR_NFR,Account balance transfer time must not exceed 3 seconds under normal workload and 4 seconds under peak workload.,NFR
+FR_NFR:d0dc5c6188,FR_NFR,"System interfaces must allow customization, including menu contents, screen layout, function keys, colors, and fonts.",NFR
+FR_NFR:d1f2c576c0,FR_NFR,Curators shall move items between collections.,FR
+FR_NFR:d35cca3b80,FR_NFR,An API User shall be able to use data to retrieve data from multiple datasets.,FR
+FR_NFR:d886cafc11,FR_NFR,The user shall be able to search for a product by product ID/SKU or by keyword after selecting the search icon.,FR
+FR_NFR:d8ae697761,FR_NFR,System shall display the number of people who have given up LPG subsidy.,NFR
+FR_NFR:d9ca056a5e,FR_NFR,System shall provide a user-friendly web interface for depositors to submit and manage datasets without requiring additional software installation.,FR
+FR_NFR:dcb4cf6c1a,FR_NFR,"User shall be able to input shipment details including packaging type, dimensions, weight, and number of pieces for admin to check the export feasibility and provide necessary feedback.",FR
+FR_NFR:dd570b03b4,FR_NFR,System shall be able to allow users to zoom in and out of the map view.,FR
+FR_NFR:dd983ba67f,FR_NFR,User shall be able to manage transactions in MySQL to ensure data integrity.,FR
+FR_NFR:dfab6b917a,FR_NFR,WhatsApp shall distinguish between Wi-Fi and mobile data networks for media download operations.,FR
+FR_NFR:e1695f37de,FR_NFR,"User shall benefit from regular vulnerability assessments, security audits, and penetration testing to identify and remediate security vulnerabilities in the app's codebase and infrastructure.",NFR
+FR_NFR:e1ba03adb2,FR_NFR,Restaurant shall be able to receive notifications once an order is delivered.,FR
+FR_NFR:e38b339f57,FR_NFR,The application shall be able to automatically download the class schedule of authenticated users.,FR
+FR_NFR:e3dd38fd3c,FR_NFR,Only maintainers shall be granted access to internal servers for maintenance purposes.,NFR
+FR_NFR:e63a251432,FR_NFR,"User shall be able to cut items by selecting them and clicking the ""Cut"" button.",FR
+FR_NFR:e69297f02e,FR_NFR,"Quarterly, patient profiles without consultation requests for the last 3 years and consultation requests more than 3 years old shall be archived to improve performance.",FR
+FR_NFR:e7b8b8a3b3,FR_NFR,"User shall be able to update their user profile, to connect with other Drupalists at BADCamp.",FR
+FR_NFR:eb492b966f,FR_NFR,"The system shall have a user-friendly interface with clear menus, buttons, and icons.",NFR
+FR_NFR:eb512f7119,FR_NFR,Users can view full property details.,FR
+FR_NFR:ebfcc9dfeb,FR_NFR,Users shall be able to edit assignments in their list of assignments.,FR
+FR_NFR:eca0460376,FR_NFR,Admin shall be able to add new routes or edit existing bus journey routes.,FR
+FR_NFR:ecaeb73aa9,FR_NFR,User shall be able to access their bank account through Freecharge.,FR
+FR_NFR:edbc1e0c61,FR_NFR,"Automated backup procedures shall be implemented to create regular backups of critical data and configurations, reducing the risk of data loss in case of hardware failures or disasters.",NFR
+FR_NFR:ef624d2acd,FR_NFR,The displayed number of total ideas shall be updated frequently.,FR
+FR_NFR:f22e8fcb6e,FR_NFR,"User shall be able to edit their listed items by adding/removing pictures, changing price, and modifying details.",FR
+FR_NFR:f2eb9cb1a9,FR_NFR,The software output shall be viewable in a web browser.,NFR
+FR_NFR:f48fe4ccd6,FR_NFR,The user shall be able to do payment with secured bank payment mode which is given by user for login.,NFR
+FR_NFR:f754dd4802,FR_NFR,System shall display search options to the user.,FR
+FR_NFR:f7f35e3f06,FR_NFR,A surface app page shall provide a customer with all customer system functionality.,FR
+FR_NFR:f8fa45cd25,FR_NFR,Adobe Illustrator shall require a 64-bit version of the operating system.,FR
+FR_NFR:f9a637bbae,FR_NFR,System shall implement a CAPTCHA module to prevent spam robots.,NFR
+FR_NFR:fa40a6aa0d,FR_NFR,"Job listings shall be customizable to include company info, job type, category, requirements, wages, benefits, and an apply button.",FR
+FR_NFR:fb43064a09,FR_NFR,"For appointment requests, an entry shall be created in the patient appointment file if the appointment is for the next day.",FR
+FR_NFR:fb8f62b83a,FR_NFR,There shall be a UNIX-based APAF system production computer with an archival system.,NFR
+FR_NFR:fbafa4d125,FR_NFR,Users shall add specific stocks to their portfolio.,FR
+FR_NFR:fc6b570084,FR_NFR,The Khan Academy platform shall provide students with immediate feedback on their performance.,FR
+FR_NFR:fd246ab9cc,FR_NFR,The system shall authenticate users at the beginning each session.,FR
+FR_NFR:fdb29ba48f,FR_NFR,"The system shall be designed for high availability and accessible via a web browser, with the only access interruptions occurring during scheduled server downtime.",NFR
+FR_NFR:fe8167ce97,FR_NFR,Science analysis software developed by SwRI to analyze IDFS-formatted data shall be made available to the ASPERA-3 Co-Is.,FR
+PROMISE:0067ecdbc8,PROMISE,The website shall make its user aware of its information practices before collection data from them via a Privacy Policy  accessible on all pages of the website.',NFR
+PROMISE:056aa3eef1,PROMISE,"The system shall be able to display a printable summary for individual nursing students, which will include (but not be limited to) student name, student ID, admission date, classes, credits, GPA, and the cohort that the student is enrolled in.",FR
+PROMISE:0619b66d00,PROMISE,We must be able to interface with the following browsers: IE 5.X  6.0  Netscape 6.x  7.x  8.x and Firefox 1.0.',NFR
+PROMISE:091c45735c,PROMISE,The audit report shall include the total number of recycled parts used in the estimate.,FR
+PROMISE:0abae1be8e,PROMISE,The preferred repair facility shall be returned to the user.,FR
+PROMISE:0aef698cf5,PROMISE,The system shall be easy to use by the Program Administrators/Nursing Staff Members.',NFR
+PROMISE:0c36031805,PROMISE,The product must be able to interface with various email servers. The product shall be able to send email.',NFR
+PROMISE:0d1241e07f,PROMISE,The product shall be translated into foreign languages other than the target market countries' languages in future releases.  For each emerging target market  it shall take no more than 5 days to configure the product for that market's language.',NFR
+PROMISE:1971c83617,PROMISE,The System shall not require additional third party licenses resulting in royalty fees.',NFR
+PROMISE:1b22e98627,PROMISE,The system shall be capable of processing 100\% of nursing students and their classes for the next 10 years.',NFR
+PROMISE:1dbf85d191,PROMISE,The system shall interface with the student master server.',NFR
+PROMISE:22485efeb6,PROMISE,All customer information will be stored on a secure database  accessible only to authorized personnel.',NFR
+PROMISE:228f105df8,PROMISE,The product is expected to run on Windows CE and Palm operating systems.',NFR
+PROMISE:2561fd61e4,PROMISE,The product must be highly configurable for use with various database management systems for the end users.  80\% of end users are able to integrate new database management systems with the product without changing the product's software code.',NFR
+PROMISE:2a021cd722,PROMISE,Movies shall be encoded for 56k and 256k streams.',NFR
+PROMISE:2c14812ef4,PROMISE,The system shall be able to display a report of needed classes for a given quarter for all cohorts of all programs for Program Administrators/Nursing Staff Members’ planning purposes.,FR
+PROMISE:2eb9665c31,PROMISE,The Disputes application shall interface with the Cardmember Information Database.  The Cardmember Information Database provides detailed information with regard to a cardmember.  All cardmember detail information must be obtained from the Cardmember Information Database.',NFR
+PROMISE:2f1f3d5452,PROMISE,"System shall automatically update the main page of the website every Friday, and show the 4 latest movies that have been added to the website.",FR
+PROMISE:31594a5589,PROMISE,The product shall be able to display calendar dates and times according to the user's locale.  90\% of survey respondents from each target market country will find that the date and time formatting of the product is correct.',NFR
+PROMISE:346606909d,PROMISE,System shall let administrator de-activate a customer account in under 1 minute. Customer will no longer be able to access the website.',NFR
+PROMISE:3705fd4e50,PROMISE,The product and/or dependent databases/filesystems shall remain operational as a result of the input of malicious data.  The product and/or dependent databases/filesystems shall not crash 100\% of the time that malicious data is input into the product.',NFR
+PROMISE:3b87c1252d,PROMISE,"All registered customer information shall be stored and maintained in the database, even after the customer cancels their account.",FR
+PROMISE:3dc0ed11b8,PROMISE,The system shall reveal private information only in compliance with the organization's information policy.',NFR
+PROMISE:3ed7080b58,PROMISE,When streaming a movie  the buffering time should take no longer than 10 seconds (plus any latency on the user's connection.)',NFR
+PROMISE:4031e31c17,PROMISE,The system shall be used by realtors with no training.',NFR
+PROMISE:4205f66a42,PROMISE,"Each time a conference room is reserved, the conference room schedule shall be updated to reflect the time and date of the reservation.",FR
+PROMISE:4442ddc862,PROMISE,"Program Administrators/Nursing Staff Members shall have the ability to modify information relating to a Clinical Site, including the clinical site name, site contact person, contact information, and address.",FR
+PROMISE:4445ad83ab,PROMISE,The product shall record different meeting types.,FR
+PROMISE:4ae2a00756,PROMISE,"The system will notify affected parties when changes occur affecting clinicals, including but not limited to clinical section capacity changes, and clinical section cancellations.",FR
+PROMISE:4cb5ea8134,PROMISE,The system will display a blank set of ratings if there are not ratings yet defined.,FR
+PROMISE:4fde53a29d,PROMISE,The Disputes System shall prevent the creation of duplicate dispute requests 100% of the time.,FR
+PROMISE:50901a8880,PROMISE,The product will update existing room equipment.,FR
+PROMISE:5298161b92,PROMISE,The system shall operate within the Windows XP Professional operating system.',NFR
+PROMISE:5370a829c9,PROMISE,The customer shall be able to easily integrate new building maps with the product throughout the product's lifecycle.  Integration of new maps with the product shall be possible with little to no support from product support staff.',NFR
+PROMISE:5640c8ad71,PROMISE,The average number of recycled parts records per day shall be 50 000.',NFR
+PROMISE:57873167c8,PROMISE,The Disputes applications shall interface with the Merchant Information Database.  The Merchant Information Database provides detailed information with regard to the merchant. All merchant detail information shall be obtained from the Merchant Information Database.',NFR
+PROMISE:58520a19a9,PROMISE,The product shall be able to be installed in the specified environment within 1 working day.',NFR
+PROMISE:5a7d5ffc87,PROMISE,Classes for a given cohort shall not conflict with regards to the time and day that they are offered.,FR
+PROMISE:5b3f9a6820,PROMISE,The product shall allow for intuitive searching of available conference rooms.',NFR
+PROMISE:5fa0017547,PROMISE,The product will display an available status for unreserved conference rooms.,FR
+PROMISE:5fe9c6fb4a,PROMISE,The product shall have a conservative and professional appearance.',NFR
+PROMISE:60f2d59409,PROMISE,The system shall use the organization's standard virus protection software to help monitor threats to itself.',NFR
+PROMISE:610169a2a3,PROMISE,Only adjusters with a supervisor role can update preferred repair facility ratings. Users without the supervisor role cannot access the repair facility ratings.',NFR
+PROMISE:61554c6c6c,PROMISE,The system shall return a list of repair facilities within the radius if the preferred repair facility cannot be determined.,FR
+PROMISE:6329f08162,PROMISE,The system shall prevent malicious attacks including denial of service.',NFR
+PROMISE:634dbcb62e,PROMISE,Program Administrators/Nursing Staff Members shall be able to create a new Program of Study.,FR
+PROMISE:6580c409d9,PROMISE,The Disputes application shall support 350 concurrent users without any degradation of performance in the application.',NFR
+PROMISE:65d5f8e5d7,PROMISE,The system will use the stored e-mail addresses as a primary means of communicating information to affected parties.,FR
+PROMISE:670f92e9fa,PROMISE,The website design should be modern  clean  and concise.',NFR
+PROMISE:6926a7abcf,PROMISE,System shall let administrator add/remove movies on the website in under 5 minutes.  Entered movie information will be stored in the database and will now be available on the website.',NFR
+PROMISE:6aed5f34f0,PROMISE,The System shall utilize currently owned computer equipment.',NFR
+PROMISE:713d51d818,PROMISE,PME Subsystem shall allow building product menus based on the list of products kept in the accounting system.,FR
+PROMISE:729d0420e2,PROMISE,The product shall be easy for customers with novice skills on the  Internet to purchase and watch streaming movies.  Customers should be able to purchase and watch a pre-determined movie in under 3 minutes.',NFR
+PROMISE:73637af504,PROMISE,The product shall record meeting entries.,FR
+PROMISE:7692dac507,PROMISE,"The system shall be able to display a printable summary for individual clinical sites, which will include information on labs being held at that site for the given quarter (Clinical site, general information on labs held at that location, dates and times of all labs held there).",FR
+PROMISE:7a13d926d8,PROMISE,The product shall be able to send meeting notifications via different kinds of end-user specified methods.,FR
+PROMISE:7f9e400dad,PROMISE,The product shall increase productivity of Collision Estimators. 80\% of the Collision Estimators shall agree their productivity has increase within 1 month of using the product.',NFR
+PROMISE:803cca2800,PROMISE,The website shall achieve 99.5\% up time.',NFR
+PROMISE:80417c9609,PROMISE,The website should appeal to all Africans  not only Nigerians.',NFR
+PROMISE:806a7a0316,PROMISE,The product shall be able to delete room equipment.,FR
+PROMISE:8100ac9e37,PROMISE,"The system shall contain contact information (e-mail and phone number) for all people relevant to the system, including (but not limited to) staff members, students, lecture instructors, clinical lab instructors, and clinical site administrators.",FR
+PROMISE:8547f68365,PROMISE,The system shall able to operate within a business office environment typical of the Nursing Department at DePaul University.',NFR
+PROMISE:85f93cd5eb,PROMISE,The product shall be capable of handling the existing 1000 users. This number is expected to grow 5 times within the next year.',NFR
+PROMISE:8757c5895d,PROMISE,The System shall allow on demand generation of all Inventory Quantity Adjustment documents since certain point of time.,FR
+PROMISE:8a97219e4c,PROMISE,Any disputes cases that have been closed for over 6 months must be purged from the online disputes database.,FR
+PROMISE:8c49122738,PROMISE,The server will support a maximum of 1 000 simultaneous users.',NFR
+PROMISE:8c8435166d,PROMISE,The product must comply with Sarbanes-Oxley.',NFR
+PROMISE:8dca49c8ca,PROMISE,The product shall record updated meeting agendas.,FR
+PROMISE:8f4502cc89,PROMISE,The product must be designed using Design Patterns and coding best practices.  90\% of maintenance software developers are able to integrate new functionality into the product with 2 working days.',NFR
+PROMISE:8fab823f28,PROMISE,The product shall be installed by an untrained realtor   without recourse to separately-printed instructions.',NFR
+PROMISE:902e8823a8,PROMISE,Product formula ingredients shall allow defining substitutionary ingredients.,FR
+PROMISE:94b947a223,PROMISE,"The system will notify affected parties when changes occur affecting specific students, including but not limited to changing a student’s status from full time to part time and moving a student to a different clinical section.",FR
+PROMISE:95d6297973,PROMISE,The system shall generate an audit report based on the available recycled parts and the collision estimate.,FR
+PROMISE:984bc26910,PROMISE,The system shall retain the available recycled parts and suppliers returned from the search.,FR
+PROMISE:989f83ffbe,PROMISE,The system shall be available for use between the hours of 8am and 6pm.',NFR
+PROMISE:9923644eb6,PROMISE,The product shall be easy for a realtor to learn.',NFR
+PROMISE:9abac116af,PROMISE,Product formula substitutionary ingredients shall be entered automatically by the PFE subsystem.,FR
+PROMISE:9bbbb16ebb,PROMISE,The product must make use of web/application server technology.  Open source examples include Apache web server  Tomcat  and the JBoss application server.',NFR
+PROMISE:9d8d1cd554,PROMISE,Users shall feel satisfied using the product.  85\% of all users will be satisfied with the product.',NFR
+PROMISE:9f3e1ad70f,PROMISE,"The system shall be able to display a printable summary for individual clinical labs, which will include (but not be limited to) class name, class number, lab section, listing of students enrolled, instructor, day(s), time, and location.",FR
+PROMISE:a01c451dba,PROMISE,The product shall update existing conference rooms.,FR
+PROMISE:a2f965b72f,PROMISE,The maximum wait time for a user navigating from one screen to another within the Disputes application shall be no more than 5 seconds.',NFR
+PROMISE:a40ab515d9,PROMISE,All screens created as part of the Disputes application must comply with corporate standards for interface creation.',NFR
+PROMISE:a5b525d665,PROMISE,"The system will notify affected parties when changes occur affecting classes, including but not limited to class cancellations, class section detail changes, and changes to class offerings for a given quarter.",FR
+PROMISE:a5d91f4906,PROMISE,Program Administrators/Nursing Staff Members shall be able to cancel a clinical lab section only if there are no students registered for that clinical lab section.,FR
+PROMISE:a866bf52ff,PROMISE,"The Disputes System shall accurately provide a list of possible reason codes for a given transaction. The list of possible reason codes must be derived based on the type of transaction and the industry that the merchant belongs to, according to the business rules defined for the Disputes System.",FR
+PROMISE:a932a20073,PROMISE,Only authorized users shall have access to clinical site information.',NFR
+PROMISE:aabffbb02d,PROMISE,The product shall have a customizable Look and Feel.,FR
+PROMISE:ac0ef32707,PROMISE,"A non-clinical class shall specify the course name, lecture room requirements, and instructor needs.",FR
+PROMISE:acf2ace895,PROMISE,"Program Administrators/Nursing Staff Members shall have the ability to modify information relating to a Clinical Lab Section, including the clinical site name, the department/section for the lab, the class, instructor, day and time of lab, and contact information.",FR
+PROMISE:ad756bd909,PROMISE,A cohort shall be associated to one Program of Study offered by the department.,FR
+PROMISE:afd6650b40,PROMISE,Every registered user will have access to the product's support site via the Internet.  70\% of registered users shall find a solution to their problem within 5 minutes of using the support site.',NFR
+PROMISE:ba071b7213,PROMISE,The system will provide a 24 hour 800 toll free number for support to its customers.',NFR
+PROMISE:baba55f214,PROMISE,The audit report shall include the number of available recycled parts from the original search results.,FR
+PROMISE:bd49b04bdb,PROMISE,Velkat staff will be available for phone support between 7am-7pm  M-F to provide technical support to the Izogn administrators.',NFR
+PROMISE:beb99e7160,PROMISE,The website shall protect itself from intentional abuse  and notify the administrator at all occurrences.',NFR
+PROMISE:bfb1ef5624,PROMISE,"Pre-paid cards shall be distributed via email, or via a printed paper card.",FR
+PROMISE:c18f1dc0ab,PROMISE,The number of mistakes noted by the students shall be decreased by 50\% in the first year.',NFR
+PROMISE:c1bb4a9ff3,PROMISE,The product shall be available for distribution via the Internet as a binary or ZIP file.',NFR
+PROMISE:c425c4fc42,PROMISE,"The system will notify affected parties when changes occur affecting cohorts, including but not limited to changes to the sequence for a cohort’s program of study and changes to a given week’s schedule (lab cancelled this week due to instructor illness).",FR
+PROMISE:c7e8abc62a,PROMISE,"When purchasing a streaming movie via pre-paid card or credit card, the processing time should have a maximum response time of 15 seconds.'",NFR
+PROMISE:cbf494b791,PROMISE,The product shall operate in offline mode whenever internet connection is unavailable.',NFR
+PROMISE:cc2215f16c,PROMISE,The system shall use symbols and words that are naturally understandable by the user community.',NFR
+PROMISE:cc5ca14975,PROMISE,IzognMovies shall meet the licensing requirements set forth by the appropriate organizations in order to stream African movies.',NFR
+PROMISE:cd4f5b1653,PROMISE,The look and feel of the system shall conform to the user interface standards of the smart device.',NFR
+PROMISE:cdcfe28f80,PROMISE,The product shall record the transportation status of equipment reserved.,FR
+PROMISE:ce2ce176f2,PROMISE,The product must work with most database management systems (DBMS) on the market  whether the DBMS is colocated with the product on the same machine or is located on a different machine on the computer network.',NFR
+PROMISE:cebd707399,PROMISE,The product shall be supported using the corporate support center.',NFR
+PROMISE:d17072c87e,PROMISE,The product shall send a meeting confirmation to the meeting organizer.,FR
+PROMISE:d607a49e76,PROMISE,A customer can only stream a movie if they purchased it  and are within the 2 day viewing period.',NFR
+PROMISE:d89d5a6638,PROMISE,The product shall display a map of the company building showing conference room locations.,FR
+PROMISE:d90dd9ab20,PROMISE,"The Disputes System must provide a confirmation to the user upon the creation of a chargeback request. The confirmation must contain the following information; the dispute case number, the type of chargeback requested (pending or immediate), and the date that the merchant response is due.",FR
+PROMISE:da973beb29,PROMISE,Only authorized personnel can access customer records in the database.',NFR
+PROMISE:dc42b00d01,PROMISE,The product will record meeting acknowledgements.,FR
+PROMISE:dcf9956f52,PROMISE,The Disputes application must conform to the legal requirements as specified by the Merchant Operating Regulations.',NFR
+PROMISE:df455edeb7,PROMISE,The product shall display conference rooms according to search parameters.,FR
+PROMISE:e0782f0978,PROMISE,The CMA report shall be returned no later 60 seconds after the user has entered the CMA report criteria.',NFR
+PROMISE:e0ffbfd133,PROMISE,Every user of the system shall be authenticated and authorized.',NFR
+PROMISE:e1cd9cbbcf,PROMISE,The product shall notify building personnel of equipment transport requests.,FR
+PROMISE:e8ad7f2003,PROMISE,Out of 1000 accesses to the system  the system is available 999 times.',NFR
+PROMISE:ea33e0df81,PROMISE,All credit card information will be encrypted in the database.',NFR
+PROMISE:eccfc6e616,PROMISE,The System shall granularly control access rights to all major subsystems.  It should be possible to assign access rights to all subsystems independently.',NFR
+PROMISE:ed25cbbc88,PROMISE,The system shall allow a Program Administrator/Nursing Staff Member to move a student from one clinical lab section to another clinical lab section corresponding to the same clinical class.,FR
+PROMISE:eef4d14f5c,PROMISE,"The system will notify affected parties for routine communication purposes, including but not limited to informing students of upcoming offered classes (timeline) and what their schedule will be/shall be.",FR
+PROMISE:f0a89d94c4,PROMISE,A Program of Study shall consist of a program name and listing of required classes (both clinical and non-clinical) that must be completed.,FR
+PROMISE:f22966a308,PROMISE,The product is expected to integrate with multiple database management systems.  The product will operate with Oracle  SQL Server  DB2  MySQL  HSQL  and MS Access.',NFR
+PROMISE:f486da113f,PROMISE,The System shall maintain consistent security.  Any changes in user passwords and/or permissions should take affect in all parts of the System.',NFR
+PROMISE:f58805e1ad,PROMISE,The product shall interface with the Choice Parts System.  This provides the feed of recycled parts data.',NFR
+PROMISE:f5a638411b,PROMISE,"Program Administrators/Nursing Staff Members shall have the ability to modify information relating to cohorts, including cohort identifier, program of study, preferred sequence of classes and quarters that a cohort will be taking specific classes.",FR
+PROMISE:f6c3c9d416,PROMISE,The product shall ensure that only company employees or external users with company-approved user IDs may have product access.  100\% of all logons shall be by either company employees or external users with company-approved user IDs.',NFR
+PROMISE:f6d2a1fc24,PROMISE,The product shall ensure that the database's data corresponds to the data entered by the user.  Each conference room reservation in the system will contain the same information as was entered by the user.',NFR
+PROMISE:f9d87255a4,PROMISE,The streaming server will support a maximum of 700 movies; new servers can be added to support more movies.',NFR
+PROMISE:f9f3d0535b,PROMISE,"A clinical lab section shall include the clinical site name, the class, instructor, day and time of the lab.",FR
+PROMISE:fb0ca5d17c,PROMISE,The Disputes System must prevent external users from requesting original receipts. Requests for original receipts are restricted to internal users.,FR
+PROMISE:fc58d45d4a,PROMISE,"The Disputes System shall record the name of the user and the date for any activity that creates or modifies the disputes case in the system. A detailed history of the actions taken on the case, including the date and the user that performed the action must be maintained for auditing purposes.",FR
+PROMISE:fc6024ae38,PROMISE,A Program Administrator/Nursing Staff Member shall be able to add a new nursing student to the system.,FR
+PROMISE:fd3195597c,PROMISE,The product shall be available for distribution as a packaged CD.',NFR
+PROMISE:fd65f26423,PROMISE,The same hardware supporting the current website will be used to support the new system.',NFR
+PROMISE:ff6b78b950,PROMISE,The product shall be able to store new room equipment.,FR
+PROMISE:ff93d73669,PROMISE,The product shall have a consistent color scheme and fonts.',NFR
+PURE:07c028af73,PURE,The solution should time stamp initial entry  modification  or exchange of data  and identify the actor or principal taking the action as required by users' scope of practice  organizational policy  or jurisdictional law.,NFR
+PURE:086dee8702,PURE,A user (a patient or personal health representative) views basic information about his or her designated LHCPs  including the name  phone number  and contact email information .,NFR
+PURE:148c1f7d23,PURE,The information solution that provides name or address resolution service provides additional data origin and integrity artifacts along with the authoritative data it returns in response to resolution queries.,NFR
+PURE:17d69d4982,PURE,System provides an automatic timeout if the session is idle for a pre-specified and configurable duration.,NFR
+PURE:19d48458af,PURE,The solution should assign responsibility to supervise and review the activities of users with respect to the enforcement and usage of information solution access controls.,NFR
+PURE:1ed89540f5,PURE,The system shall provide expiration dates for passwords.,NFR
+PURE:1f1f50f68a,PURE,The solution should conform to Auditable Records to audit all changes to workflow control rules.,NFR
+PURE:2375896bcb,PURE,Key management procedure to secure and manage the encryption keys is defined.,NFR
+PURE:24c084a01d,PURE,After a message is sent  the patient or personal representative is directed to his or her message outbox.,NFR
+PURE:270fec0e29,PURE,The system shall have the capability to analyze  correct and resend messages that have been rejected.,NFR
+PURE:2a13d23e35,PURE,Encounters for new patients will not have any Issues or Diagnoses associated with them at this time  so click 'Save' to continue with the encounter.,NFR
+PURE:2bf7fcf614,PURE,The system has the ability to select or allow privileges based on position (e.g.  Resident  Attending  Dept Head  etc.).,NFR
+PURE:2c3f07b12b,PURE,The system shall automatically notify users and force them to change passwords on a pre-defined frequency.,NFR
+PURE:310f2b1324,PURE,(2) Verify in accordance with the standard specified in § 170.210(c) upon receipt of electronically exchanged health information that such information has not been altered.,NFR
+PURE:326e15f58a,PURE,A patient may view his or her own lab procedure results .,NFR
+PURE:3459a8b943,PURE,The user can choose to examine recent trends in diagnoses.,NFR
+PURE:48954fb1ac,PURE,The system shall provide only limited feedback information to the user during the authentication.,NFR
+PURE:60d9fa7779,PURE,A fake email is sent to the LHCP who prescribed the medication indicating the patient name and MID  drug  and symptoms.,NFR
+PURE:624f3e3a16,PURE,The solution de-identification capability should include: Electronic mail addresses.,NFR
+PURE:69a75b64a7,PURE,Reports are available for significant and critical changes and sent for review by a responsible person.,NFR
+PURE:7b29249f8b,PURE,The product shall ensure that only company employees or external users with company-approved user IDs may have product access.,NFR
+PURE:849ca87dff,PURE,The solution should include an incident response plan.,NFR
+PURE:8676c0faab,PURE,The user selects a message from the list to read by clicking the 'Read' link beside the row for the message  and then the message subject  the name of the sender  the name of the the recipient  timestamp  and the message text shall be displayed in a new page.,NFR
+PURE:94ed95a15e,PURE,He or she can report the blood pressure (systolic and diastolic)  possibly and possibly glucose levels  for the patient.,NFR
+PURE:95043b0376,PURE,A Lab Technician can record the results of a lab procedure .,NFR
+PURE:96cee70552,PURE,The Secretary adopts the standard to protect electronic health information created  maintained  and exchanged: Verification that electronic health information has not been altered in transit.,NFR
+PURE:9ee9847715,PURE,Once the date range is selected  the LHCP can see the patient name; patient phone number; personal representative (name and phone number)  if applicable; and the blood pressure  glucose levels  height  weight  and pedometer readings as well as whom reported the data (patient  UAP name  personal representative name) for that date range.,NFR
+PURE:aad72873f3,PURE,The LHCP is notified if a new or edited appointment time conflicts with another existing appointment .,NFR
+PURE:b4d6057a55,PURE,Strong authentication is defined as additional mandatory authentication over and beyond the password  for each account which has direct access to PI or PHI  or which has administrative privileges.,NFR
+PURE:b7e9aa4313,PURE,The system shall support logging to a common audit engine using the schema and transports specified in the Audit Log specification of IHE Audit Trails and Node Authentication (ATNA) Profile.,NFR
+PURE:b912adaab3,PURE,"A bolded row for showing the message subject (now preceded by ""RE:"")  the name of the sender  and timestamp is then visible in the LHCP's message inbox.",NFR
+PURE:bc4b48b26f,PURE,System does not use parent paths when data within the System is being accessed.,NFR
+PURE:c3d6e522a8,PURE,System code does not rely on internal system generated error handling.,NFR
+PURE:c7bda4e6de,PURE,The solution should prohibit or prevent download of EPHI onto remote solutions or devices without an operational justification.,NFR
+PURE:ce4017a21e,PURE,The administrator shall be allowed to assign a LT to a single hospital  and the administrator can choose among only the hospitals provided in the hospital list pull down menu.,NFR
+PURE:d19559dfab,PURE,Enter the payment amount next to the remaining balance  and check 'Needs secondary billing'.,NFR
+PURE:e1397c3cdc,PURE,If a patient has several Outpatient visits and is admitted as an Inpatient  care teams must be able to access the patient’s clinical history.,NFR
+PURE:e1b723ab95,PURE,The solution should conform to function IN.2.2 (Auditable Records) for the purpose of recording all authorization actions.,NFR
+PURE:e3c670966e,PURE,It is used to set (and view) the relationships between issues and encounters.,NFR
+PURE:f3c43d7258,PURE,Once payments from the insurance companies have been received and entered  you can use OpenEMR's EOB page to generate invoices for billing patients the remaining amounts.,NFR
+QuRE:1fed404cce,QuRE,"This signal state signalizes the nearest comoving, stopped or a priori stationary object (Dist_X) on the ego lane of the system vehicle which is outside of the respective range limit.",
+QuRE:2f5f4952bc,QuRE,The left and middle edge point shall be equal if only one side of the object is observable or a sensor object side is smaller than the required accuracy in x- and y-direction.,
+QuRE:31247b2a9c,QuRE,The Defect Manager shall be familiar with the details of the documented defects in the contractors defect management system.,
+QuRE:38a57b9d89,QuRE,Volume differences between different sources shall be minimized (similar to ``Dolby Volume'').,
+QuRE:429a8cdb65,QuRE,Refer to current diagnostic data file (e.g. cdd) for details.,
+QuRE:48baf42deb,QuRE,Execution of the oil test and details have to be discussed with the client.,
+QuRE:51b4526020,QuRE,"For details about required Bluetooth interface see also chapter ""Bluetooth"".",
+QuRE:601c586dd5,QuRE,"6. For reasons of protection against physical contact and protection of the electrical terminal, an appropriate cover (e.g. in the form of a cap) must be provided over the alternating current connections.",
+QuRE:670fe12474,QuRE,These were the descriptions of the common properties of DTCs and PDTCs.,
+QuRE:7596400d97,QuRE,"The supplier must deliver 6 samples + 1 temperature sample of each sub-state except the A-sample as soon as possible to the component responsible, all other prototype parts after qualification and official release through the component responsible.",
+QuRE:799d7cbc76,QuRE,All environmental requirements which are specific for Chinese market and worse than the clients own requirements shall also be fulfilled.,
+QuRE:8089badb09,QuRE,The disk slot is to be closed by suitable means in order to prevent the penetration of dirt and the escape of stray light (e.g. through non-woven lips).,
+QuRE:a9b539034c,QuRE,"Operating time, total clearing time (441-18-22) and prearcing time (441-18-21), for the worst case including temperature influences and production tolerances in the temperature range between - 40°C and + 85°C shall be specified.",
+QuRE:b5a095c41f,QuRE,The supplier is able to reduce the element number to a number that is appropriate for numerical simulations.,
+QuRE:b61943e262,QuRE,Details are described within the ParkMan ECU specification document.,
+QuRE:bed44d37f2,QuRE,When certain conditions are fulfilled the IODM can be reset via diagnostics.,
+QuRE:d65f7cc93e,QuRE,Details of this function shall be coordinated with OEM HV-safety.,
+QuRE:ea45c31310,QuRE,In case of short circuit against GND at the output the current must not exceed 50 milliampere.,
+QuRE:f08748f8ea,QuRE,Finally the operation / buildability of the whole component (worst case boundary sample) has to be verified.,
+QuRE:f6d6117077,QuRE,If not specified in more detail all SOC-values are refering to the physical borders of the battery system.,
+QuRE:fb5960c99f,QuRE,"For details about switching off terminal 30g and other specific implementation regulations please refer to ""System Specification Telematic5STAR1 HU Voltage and Temperature"" [RD3650].",
+QuRE:ffdb1dd7a8,QuRE,As this requirement is very important an appropriate draft for solving the problem has to be handed out together with the quote.,
+security_requirements:8e070d02e0,security_requirements,The CND shall support protocols to access Self Configuration application (as defined in clause 4.1).,
+security_requirements:90b429b459,security_requirements,"Standard NGN authentication, routing and connectivity should be used to establish remote access connectivity.",
+security_requirements:9c002bcfe9,security_requirements,A suitably authorized CPN user (e.g. the system administrator) shall be able to install and activate NGN managed services without the intervention of the subscribing CPN user.,
+security_requirements:b7fa6a3fc9,security_requirements,"The Card Issuer is responsible for Cryptographically authorizing load, install, and extradition to be performed by Application Providers.",
+security_requirements:fb21217b9b,security_requirements,The MANAGE CHANNEL commands are only processed by the OPEN and are not dispatched to an Application.,
