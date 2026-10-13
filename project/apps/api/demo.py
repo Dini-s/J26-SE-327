@@ -8,7 +8,7 @@ them in sync with GitHub. For a demo (or a viva) these helpers stand in for them
 * ``reset``  - delete C4's own results (VERIFIED_TRACE, DecayFlag), the dashboard-created requirements, and undo ``modify``.
 
 Safety: only enabled for a local Neo4j (localhost / 127.0.0.1) and only touches nodes that carry a
-``dataset`` property (set by scripts/load_to_neo4j.py), never anything a teammate created.
+``dataset`` property (set by scripts/load_to_neo4j.ipynb), never anything a teammate created.
 Set DASHBOARD_ALLOW_DEMO=0 to disable.
 """
 

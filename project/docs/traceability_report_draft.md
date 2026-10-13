@@ -72,7 +72,7 @@ flowchart LR
 ## 5. Evaluation
 
 ### 5.1 Datasets
-Four requirement-to-code or requirement-to-design benchmarks were converted to one schema (`scripts/load_dataset.py`),
+Four requirement-to-code or requirement-to-design benchmarks were converted to one schema (`scripts/load_dataset.ipynb`),
 each with the full requirement x target cross product labelled (true links from the dataset, every other pair false),
 so false positives can be counted. eTour (58 use cases, 116 Java classes, 308 links, 4.6% of pairs true) and LibEST
 (52 requirements, 14 C files, 204 links, 28% of pairs true) come from the FTLR repository (tobhey/finegrained-traceability,

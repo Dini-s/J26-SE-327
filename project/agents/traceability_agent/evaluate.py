@@ -10,7 +10,7 @@ Usage (from the project root):
     python -m agents.traceability_agent.evaluate --gold ... --artifacts ... --method full
 
 ``--gold`` is a JSON list of ``[source_id, target_id, is_true_link]`` triples
-(see scripts/load_dataset.py), or fill in ``GOLD_STANDARD`` below.
+(see scripts/load_dataset.ipynb), or fill in ``GOLD_STANDARD`` below.
 """
 
 import argparse

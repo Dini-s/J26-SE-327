@@ -24,11 +24,12 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env          # then fill in NEO4J_PASSWORD, LLM_BASE_URL, LLM_MODEL, LLM_API_KEY
-python scripts/download_model.py   # saves the embedding model to models/ (needs internet once)
 python -m agents.traceability_agent setup   # creates the Neo4j indexes
 ```
 
 `.env` holds your secrets. Keep it private; it is git-ignored.
+
+Then save the embedding model once (needs internet): open `scripts/download_model.ipynb` in VS Code, choose the Python kernel of `.venv`, and run all cells. It saves the model to `models/` (git-ignored), and the project then runs offline.
 
 ## 3. Run
 
@@ -76,13 +77,26 @@ Notes:
 
 ## 5. Load a dataset
 
-The graph starts empty. A dataset becomes a **project** when loaded:
+The graph starts empty. A dataset becomes a **project** when it is loaded into Neo4j. This is done in a notebook:
 
-```bash
-python scripts/load_to_neo4j.py --artifacts data/processed/itrust/artifacts.json
-```
+1. Open `scripts/load_to_neo4j.ipynb` in VS Code and choose the Python kernel of `.venv`.
+2. In the **Settings** cell set `DATASET` to `itrust`, `etour`, `cm1` or `libest`.
+3. Run the cells top to bottom. The settings cell prints which database it will write to; check that it is your local Neo4j (`127.0.0.1`).
 
-Other ready datasets: `etour`, `cm1`, `libest` (change the folder name). Running it again is safe.
+Running it again is safe. Only run it against your own local Neo4j, never the team's shared graph.
+
+### Notebooks
+
+These steps are notebooks, not scripts. Each notebook explains its own steps in the cells above the code.
+
+| Notebook | What it does | When |
+|---|---|---|
+| `scripts/download_model.ipynb` | Saves the embedding model into `models/` so the project works offline | Once, during setup |
+| `scripts/load_dataset.ipynb` | Turns a raw dataset into `data/processed/` (artifacts, traces, gold labels) | Only when the processed files must be rebuilt from the raw downloads |
+| `scripts/load_to_neo4j.ipynb` | Loads a processed dataset into Neo4j as a project | After setup, and for each dataset you want in the graph |
+| `scripts/replay_repo.ipynb` | Replays a real repository's commits (the jbehave demo) | Optional demo |
+
+To use one: open it in VS Code, choose the Python kernel of `.venv`, and run the cells top to bottom. `ipykernel` comes with `requirements.txt`, so nothing extra is needed.
 
 ## 6. Use the web app
 

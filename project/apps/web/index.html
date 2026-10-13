@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Traceability · Component 4</title>
+<title>C4 Traceability · Workspace</title>
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script>
   tailwind.config = {
@@ -45,13 +45,167 @@
     .spin { @apply inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-r-transparent; }
   }
   .g-node, .g-edge { transition: opacity .15s; cursor: pointer; }
-  .g-node:hover circle { stroke-width: 3; }
+  .g-node { cursor: grab; outline: none; }
+  .g-node:hover circle, .g-node:focus circle { stroke-width: 4; }
+  .g-node.selected circle { stroke: #8de4e8; stroke-width: 5; }
+  .g-node:active { cursor: grabbing; }
+  #g-canvas { background: #191b1d; }
+  #g-panel { background: #212426; color: #e2e8f0; overflow-wrap: anywhere; }
+  #g-panel .text-slate-500, #g-panel .text-slate-700 { color: #aeb8c4; }
+  #g-panel pre { background: #191b1d; color: #e2e8f0; }
+  #g-panel .border-slate-100 { border-color: #373c41; }
+  .graph-shell { border-color: #373c41; background: #212426; color: #e2e8f0; }
+  .graph-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 14px 18px; border-bottom: 1px solid #373c41; }
+  .graph-toolbar label { color: #b8c1cc; font-size: 12px; }
+  .graph-toolbar .field { width: 240px; background: #191b1d; border-color: #46505a; color: #e2e8f0; }
+  .graph-toolbar .btn, .graph-controls button { background: #292e33; color: #8de4e8; border-color: #46505a; }
+  .graph-controls { display: flex; align-items: center; gap: 4px; position: absolute; right: 16px; bottom: 16px; padding: 6px; border: 1px solid #46505a; border-radius: 8px; background: #212426; }
+  .graph-controls button { padding: 6px 10px; border-radius: 4px; }
+  .graph-controls button:hover { background: #3a424a; }
+  #g-empty { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; color: #aeb8c4; pointer-events: none; }
+  #g-empty[hidden] { display: none; }
+  .graph-shell > div:last-child { border-color:var(--line); color:var(--muted); }
+  .graph-shell:fullscreen { padding: 20px; }
+  .graph-shell:fullscreen #g-canvas { height: calc(100vh - 160px); }
+
   .g-cap { font: 500 11px ui-monospace, Menlo, monospace; paint-order: stroke; stroke: var(--canvas); stroke-width: 3px; stroke-linejoin: round; }
   .g-rel { font: 500 9.5px ui-monospace, Menlo, monospace; text-anchor: middle; paint-order: stroke; stroke: var(--canvas); stroke-width: 3px; pointer-events: none; }
   .g-node text, .g-rel { pointer-events: none; }
-  .dim { opacity: .15 !important; }
+  .dim { opacity: .4 !important; }
   .g-canvas-bg { background-color: #f8fafc; background-image: radial-gradient(#cbd5e1 .6px, transparent .6px); background-size: 18px 18px; }
   .dark .g-canvas-bg { background-color: #0b1220; background-image: radial-gradient(#1e293b .6px, transparent .6px); }
+</style>
+
+<style>
+:root { color-scheme:light; --app-bg:#fff; --surface:#fff; --surface-soft:#f6f6f7; --sidebar:#f8f8f9; --ink:#242529; --muted:#72737d; --line:#e6e6e9; --accent:#6259d4; --accent-soft:#f0effb; }
+.dark { color-scheme:dark; --app-bg:#18191c; --surface:#1e1f23; --surface-soft:#25262b; --sidebar:#141518; --ink:#e8e8ed; --muted:#9697a3; --line:#303137; --accent:#aaa3ff; --accent-soft:#2a2840; }
+body { background:var(--app-bg)!important; color:var(--ink)!important; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:13px; }
+body>div:first-of-type>aside { width:224px; padding:0 10px; background:var(--sidebar)!important; border-right:1px solid var(--line)!important; color:var(--ink); }
+body>div:first-of-type>aside>div, #nav { border-color:var(--line)!important; }
+.brand-lockup { display:flex; align-items:center; gap:10px; }
+.brand-mark { display:grid; place-items:center; width:26px; height:26px; border-radius:6px; background:var(--ink); color:var(--surface); }
+.brand-mark svg { width:17px; height:17px; }
+.brand-name { font-size:14px; font-weight:650; letter-spacing:-.3px; }
+.brand-caption { color:var(--muted); font-size:10px; margin-top:2px; }
+body>div:first-of-type>aside .label { color:var(--muted)!important; }
+body>div:first-of-type>aside .field { background:var(--surface)!important; border-color:var(--line)!important; color:var(--ink)!important; }
+#project-meta { color:var(--muted); font-size:10px; line-height:1.7; }
+body>div:first-of-type>aside li>span:first-child { color:var(--muted); font-size:11px; }
+body>div:first-of-type>aside .pill { max-width:95px; overflow:hidden; text-overflow:ellipsis; font-size:10px; }
+#nav { padding:14px 4px; border-top:0!important; }
+.nav-link { justify-content:flex-start; gap:10px; padding:9px 10px; margin-bottom:3px; border-radius:5px; color:var(--muted)!important; font-size:12px; }
+.nav-link svg { width:16px; height:16px; flex-shrink:0; opacity:.8; }
+.nav-link:hover { background:var(--surface-soft)!important; color:var(--ink)!important; }
+.nav-link.on { background:var(--accent-soft)!important; color:var(--accent)!important; font-weight:550; }
+#nav kbd { margin-left:auto; font-family:inherit; font-size:10px; opacity:.5; }
+.services-block { margin-top:auto; padding:18px 12px; border-top:1px solid var(--line); }
+.services-block ul { margin-top:10px; }
+#theme { width:100%; justify-content:flex-start; color:var(--muted)!important; background:transparent!important; border:0!important; padding:8px 0; }
+.workspace-bar { height:48px; padding:0 28px; display:flex; align-items:center; justify-content:space-between; gap:12px; border-bottom:1px solid var(--line); background:var(--app-bg); }
+.workspace-breadcrumb { font-size:11px; color:var(--muted); display:flex; align-items:center; gap:10px; }
+.workspace-breadcrumb strong { color:var(--ink); font-weight:500; }
+.workspace-status { display:flex; align-items:center; gap:7px; color:var(--muted); font-size:10px; }
+.workspace-status i { width:5px; height:5px; border-radius:50%; background:#a1a1aa; }
+.workspace-status.connected i { background:#4ca780; }
+main { max-width:1360px!important; padding:24px 28px 40px!important; }
+.summary-grid { display:flex; flex-wrap:wrap; column-gap:28px; row-gap:10px; padding-bottom:18px; margin-bottom:28px; border-bottom:1px solid var(--line); }
+.summary-stat { display:flex; align-items:baseline; gap:7px; }
+.summary-stat>div { display:flex; flex-direction:row-reverse; align-items:baseline; gap:8px; }
+.summary-stat strong { font-size:12px; font-weight:600; font-variant-numeric:tabular-nums; }
+.summary-stat span { font-size:11px; color:var(--muted); }
+.summary-stat:last-child strong { color:#c47b56; }
+.view>div:first-child { margin-bottom:22px; }
+.view h1 { font-size:22px; font-weight:600; letter-spacing:-.6px; line-height:1.35; }
+.view>div:first-child p { font-size:12px; line-height:1.7; color:var(--muted)!important; max-width:660px; margin-top:7px; }
+.card { background:var(--surface)!important; border:1px solid var(--line)!important; border-radius:7px; box-shadow:none; }
+.card.p-4 { padding:20px; }
+.card-h { padding:13px 16px; border-color:var(--line)!important; }
+.card-h>span:first-child { font-size:12px; font-weight:550; }
+.field { padding:8px 10px; color:var(--ink)!important; background:var(--surface)!important; border:1px solid var(--line)!important; border-radius:5px; font-size:12px; }
+.field:focus { border-color:var(--accent)!important; box-shadow:0 0 0 2px var(--accent-soft)!important; }
+.field::placeholder { color:var(--muted); opacity:.65; }
+textarea.field { min-height:180px; resize:vertical; padding:13px; line-height:1.8; font-size:13px; }
+.label { color:var(--muted)!important; font-size:11px; font-weight:500; text-transform:none!important; letter-spacing:0!important; }
+.btn { padding:7px 11px; border-radius:5px; background:var(--surface)!important; color:var(--ink)!important; border:1px solid var(--line)!important; font-size:11px; font-weight:500; box-shadow:none; }
+.btn:hover:not(:disabled) { background:var(--surface-soft)!important; }
+.btn-primary { background:#655acb!important; border-color:#655acb!important; color:white!important; }
+.btn-primary:hover:not(:disabled) { background:#574cb7!important; }
+.btn-danger { color:#cc6973!important; }
+button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.pill { font-size:10px; font-weight:500; border-radius:4px; padding:2px 5px; }
+.pill-brand { background:var(--accent-soft)!important; color:var(--accent)!important; }
+.hist { padding:11px 10px; border-radius:4px; margin-bottom:2px; }
+.hist:hover { background:var(--surface-soft)!important; }
+.hist.on { border-color:var(--line)!important; background:var(--surface-soft)!important; }
+.tbl { font-size:12px; }
+.tbl th { background:var(--surface-soft); font-size:10px; padding:10px 13px; font-weight:500; text-transform:none; letter-spacing:0; }
+.tbl td { padding:12px 13px; border-color:var(--line)!important; font-size:11px; }
+.tbl tbody tr:hover { background:var(--surface-soft); }
+.notice { font-size:12px; line-height:1.65; border-radius:5px; padding:12px 14px; }
+#examples { padding-top:12px; border-top:1px solid var(--line); }
+#examples button { font-size:11px; padding:4px 8px; border-radius:4px; border-style:solid; }
+#file-list { border-radius:5px; border-color:var(--line); }
+#mut-grid button { border-radius:5px; padding:12px; }
+#mut-grid button[aria-pressed="true"] { border-color:var(--accent)!important; background:var(--accent-soft)!important; box-shadow:none; }
+#kpis { gap:0; border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+#kpis>div { border:0!important; border-radius:0; padding:18px 20px; border-right:1px solid var(--line)!important; }
+#kpis>div:last-child { border-right:0!important; }
+#kpis .text-2xl { font-size:27px; font-weight:550; letter-spacing:-.6px; margin-top:10px; }
+.editor-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.card.p-4>.mt-3>div>.label { display:block; }
+#view-decay #file-filter { max-width:45%; }
+.editor-heading strong { font-size:12px; font-weight:550; }
+.editor-heading span { font-size:10px; color:var(--muted); }
+.empty-result { padding:24px 16px; color:var(--muted); text-align:left; font-size:12px; border-top:1px solid var(--line); }
+.empty-result strong { display:block; font-size:12px; color:var(--ink); font-weight:500; margin-bottom:5px; }
+.empty-result svg { display:none; }
+#link-result>.card:has(.empty-result),#change-result>.card:has(.empty-result) { border:0!important; background:transparent!important; padding:0; }
+#view-link>div.grid,#view-decay>div.grid { gap:24px; }
+#view-link aside,#view-decay aside { border:0!important; background:transparent!important; border-left:1px solid var(--line)!important; border-radius:0; }
+#view-link aside .card-h,#view-decay aside .card-h { border-bottom:0!important; padding-top:0; }
+#link-history>p,#change-history>p { text-align:left; font-size:11px; }
+.graph-shell { background:#212426!important; border-color:#373c41!important; border-radius:6px; }
+.graph-toolbar .field { background:#191b1d!important; border-color:#46505a!important; color:#e2e8f0!important; }
+.graph-toolbar .btn { background:#292e33!important; color:#8de4e8!important; border-color:#46505a!important; }
+.graph-shell #g-panel { border-color:#373c41!important; }
+.graph-controls { border-radius:5px; background:var(--surface); border-color:var(--line); }
+body.graph-active .summary-grid { display:none; }
+body.graph-active main { max-width:none!important; padding:20px 24px!important; }
+body.graph-active .view>div:first-child { margin-bottom:18px; }
+.g-workspace { display:grid; grid-template-columns:minmax(0,1fr); }
+#g-panel { display:none; }
+.inspector-open .g-workspace { grid-template-columns:minmax(0,1fr) 290px; }
+.inspector-open #g-panel { display:block; }
+body #g-canvas { height:clamp(480px,calc(100vh - 265px),1000px); background:var(--app-bg)!important; background-image:none!important; }
+body .graph-shell { color:var(--ink)!important; background:var(--surface)!important; border-color:var(--line)!important; }
+body .graph-toolbar { border-color:var(--line); gap:12px; padding:12px 16px; }
+body .graph-toolbar>span { color:var(--ink)!important; font-size:12px; }
+body .graph-toolbar label { color:var(--muted)!important; }
+body .graph-toolbar .field { color:var(--ink)!important; background:var(--surface)!important; border-color:var(--line)!important; }
+body .graph-toolbar .btn,body .graph-controls button { color:var(--ink)!important; background:var(--surface-soft)!important; border-color:var(--line)!important; font-size:11px; }
+body .graph-controls { background:var(--surface)!important; border-color:var(--line)!important; }
+body .graph-views { display:flex; gap:3px; }
+body .graph-views .btn[aria-pressed="true"] { background:var(--accent-soft)!important; color:var(--accent)!important; border-color:var(--accent)!important; }
+body .graph-controls #g-page { color:var(--muted); }
+body [hidden] { display:none!important; }
+body .graph-controls #g-zoom { color:var(--muted); }
+body .graph-shell #g-panel { max-height:calc(100vh - 265px); color:var(--ink); background:var(--surface)!important; border-color:var(--line)!important; font-size:12px; }
+body #g-panel .text-slate-500,body #g-panel .text-slate-700 { color:var(--muted)!important; }
+body #g-panel pre { color:var(--ink); background:var(--surface-soft); }
+body .g-node.selected circle { stroke:var(--accent); stroke-width:3; }
+body .g-cap { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-weight:500; stroke-width:4px; }
+body .g-rel { font-family:ui-monospace,monospace; stroke-width:4px; }
+body .graph-shell>div:last-child { border-color:var(--line); color:var(--muted); font-size:11px; }
+@media(max-width:767px) { .inspector-open .g-workspace { grid-template-columns:minmax(0,1fr); } body .graph-shell #g-panel { max-height:300px; } body.graph-active main { padding:16px!important; } body .graph-toolbar .field { flex:1; min-width:120px; width:160px; } }
+body>div:first-of-type>div { width:0; }
+#project-m { min-width:0; flex:1; width:0; }
+#view-m { width:110px; min-width:0; }
+#examples button { max-width:100%; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mobile-theme { padding:5px 8px; color:var(--muted); flex-shrink:0; }
+@media (min-width:1024px) { #view-link>div.grid,#view-decay>div.grid { grid-template-columns:minmax(0,1fr) 265px; } }
+@media (max-width:1023px) { #view-link aside,#view-decay aside { border-left:0!important; border-top:1px solid var(--line)!important; padding-top:18px; } }
+@media (max-width:767px) { main { padding:20px 16px!important; } .workspace-bar { padding:0 16px; height:42px; } .workspace-status span { display:none; } .summary-grid { column-gap:18px; margin-bottom:22px; } .view h1 { font-size:21px; } .card.p-4 { padding:16px; } #kpis>div { border-bottom:1px solid var(--line)!important; } }
+@media (prefers-reduced-motion:reduce) { *,*:before,*:after { animation:none!important; transition:none!important; } }
 </style>
 </head>
 <body class="h-full bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
@@ -61,8 +215,7 @@
   <!-- ============ sidebar ============ -->
   <aside class="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-slate-200 bg-white md:flex dark:border-slate-800 dark:bg-slate-900">
     <div class="border-b border-slate-200 px-4 py-4 dark:border-slate-800">
-      <div class="text-sm font-semibold">Traceability</div>
-      <div class="text-xs text-slate-500 dark:text-slate-400">Component 4 · requirements ↔ code</div>
+      <div class="brand-lockup"><div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><path d="m10 8-3 7m7-7 3 7M8 18h8"/></svg></div><div><div class="brand-name">Traceability</div><div class="brand-caption">Component 4</div></div></div>
     </div>
 
     <div class="space-y-4 px-4 py-4">
@@ -72,37 +225,40 @@
         <div class="mt-1.5 text-xs text-slate-500 dark:text-slate-400" id="project-meta"></div>
       </div>
 
-      <div>
+
+    </div>
+
+    <nav aria-label="Workspace navigation" class="space-y-1 border-t border-slate-200 px-3 py-3 dark:border-slate-800" id="nav">
+      <button class="nav-link" data-view="link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-2 2"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l2-2"/></svg><span>Link requirements</span><kbd title="Alt+1">1</kbd></button>
+      <button class="nav-link" data-view="decay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="3"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 8v8m3-3h3a6 6 0 0 0 6-4"/></svg><span>Code changes</span><kbd title="Alt+2">2</kbd></button>
+      <button class="nav-link" data-view="graph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><path d="m10 8-3 7m7-7 3 7M8 18h8"/></svg><span>Knowledge graph</span><kbd title="Alt+3">3</kbd></button>
+      <button class="nav-link" data-view="results"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16M7 16V9m5 7V4m5 12v-5"/></svg><span>Results</span><kbd title="Alt+4">4</kbd></button>
+    </nav>
+
+    <div class="services-block">      <div>
         <div class="label mb-1.5">Services</div>
         <ul class="space-y-1.5 text-sm">
           <li class="flex items-center justify-between"><span class="text-slate-600 dark:text-slate-300">Knowledge graph</span><span id="s-neo" class="pill">…</span></li>
           <li class="flex items-center justify-between"><span class="text-slate-600 dark:text-slate-300">AI model</span><span id="s-llm" class="pill">…</span></li>
           <li class="flex items-center justify-between"><span class="text-slate-600 dark:text-slate-300">Messages to C3</span><span id="s-redis" class="pill">…</span></li>
         </ul>
-      </div>
-    </div>
-
-    <nav class="space-y-1 border-t border-slate-200 px-3 py-3 dark:border-slate-800" id="nav">
-      <button class="nav-link" data-view="link">Link requirements</button>
-      <button class="nav-link" data-view="decay">Code changes</button>
-      <button class="nav-link" data-view="graph">Knowledge graph</button>
-      <button class="nav-link" data-view="results">Results</button>
-    </nav>
-
-    <div class="mt-auto border-t border-slate-200 px-4 py-3 dark:border-slate-800">
-      <button id="theme" class="btn w-full">Dark / light</button>
+      </div></div>
+    <div class="border-t border-slate-200 px-4 py-3 dark:border-slate-800">
+      <button id="theme" class="btn w-full">◐ &nbsp; Appearance</button>
     </div>
   </aside>
 
   <!-- ============ main ============ -->
   <div class="min-w-0 flex-1">
     <header class="sticky top-0 z-20 flex items-center gap-3 border-b border-slate-200 bg-white px-4 py-3 md:hidden dark:border-slate-800 dark:bg-slate-900">
-      <select id="project-m" class="field py-1.5"><option value="">Loading…</option></select>
-      <select id="view-m" class="field w-auto py-1.5">
+      <button id="theme-m" class="mobile-theme" aria-label="Switch appearance">◐</button>
+      <select aria-label="Project" id="project-m" class="field py-1.5"><option value="">Loading…</option></select>
+      <select aria-label="Workspace view" id="view-m" class="field w-auto py-1.5">
         <option value="link">Link</option><option value="decay">Code changes</option><option value="graph">Graph</option><option value="results">Results</option>
       </select>
     </header>
 
+    <div class="workspace-bar"><div class="workspace-breadcrumb">Workspace <span>/</span> <strong id="workspace-section">Link requirements</strong></div><div class="workspace-status" id="workspace-status"><i></i><span id="workspace-status-text">Connecting to graph</span></div></div>
     <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6">
 
       <div id="activity" class="mb-5 hidden">
@@ -118,17 +274,18 @@
 
       <div id="offline" class="mb-5 hidden notice-bad">The knowledge graph (Neo4j) is not reachable. Start Neo4j Desktop; this page reconnects by itself.</div>
 
+<div class="summary-grid" aria-label="Project overview"><div class="summary-stat"><div><strong id="overview-requirements">–</strong><span>Requirements</span></div></div><div class="summary-stat"><div><strong id="overview-code">–</strong><span>Code files</span></div></div><div class="summary-stat"><div><strong id="overview-links">–</strong><span>Trace links</span></div></div><div class="summary-stat"><div><strong id="overview-broken">–</strong><span>Decayed traces</span></div></div></div>
       <!-- ======================= LINK ======================= -->
       <section id="view-link" class="view hidden fade">
         <div class="mb-5">
           <h1 class="text-xl font-semibold tracking-tight">Link requirements to code</h1>
-          <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Write a requirement. C4 finds the most similar code files, the AI checks each one, and the confirmed links are saved to the graph.</p>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Find code that implements a requirement, then review the verified trace links.</p>
         </div>
 
         <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div class="min-w-0 space-y-5">
             <div class="card p-4">
-              <label class="label" for="req-text">Requirement</label>
+              <div class="editor-heading"><strong>New requirement</strong><span>Saved to the selected project</span></div><label class="label" for="req-text">Requirement text</label>
               <textarea id="req-text" rows="3" class="field mt-1.5" placeholder="For login failures, the IP address of the machine and a timestamp are recorded."></textarea>
               <div class="mt-3 flex flex-wrap items-end gap-3">
                 <div>
@@ -146,7 +303,7 @@
                 </div>
                 <div class="ml-auto flex items-center gap-3">
                   <span class="hidden text-xs text-slate-400 sm:inline">⌘ Enter</span>
-                  <button id="link-go" class="btn-primary">Find the code</button>
+                  <button id="link-go" class="btn-primary">Find trace links</button>
                 </div>
               </div>
               <div id="link-hint" class="mt-2 min-h-[1.25rem] text-sm text-slate-500"></div>
@@ -157,7 +314,7 @@
           </div>
 
           <aside class="card self-start">
-            <div class="card-h"><span class="text-sm font-medium">History</span><span class="pill" id="link-count">0</span></div>
+            <div class="card-h"><span class="text-sm font-medium">Run history</span><span class="pill" id="link-count">0</span></div>
             <div class="max-h-[70vh] space-y-1 overflow-auto p-2" id="link-history"></div>
           </aside>
         </div>
@@ -167,14 +324,14 @@
       <section id="view-decay" class="view hidden fade">
         <div class="mb-5">
           <h1 class="text-xl font-semibold tracking-tight">Code changes</h1>
-          <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">A commit changes a file. C4 re-checks only the links of that file. A link that no longer holds is marked broken, kept in the graph, and C3 is notified.</p>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Recheck trace links after a code change and inspect any broken connections.</p>
         </div>
 
         <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
           <div class="min-w-0 space-y-5">
             <div class="card p-4">
               <div class="flex items-center justify-between gap-3">
-                <span class="label">1 · Code file with a link</span>
+                <span class="label">1 · Select a linked code file</span>
                 <input id="file-filter" type="search" placeholder="Filter" class="field w-48 py-1">
               </div>
               <div class="mt-2 max-h-56 divide-y divide-slate-100 overflow-auto rounded-md border border-slate-200 dark:divide-slate-800 dark:border-slate-700" id="file-list"></div>
@@ -206,33 +363,39 @@
         <div class="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h1 class="text-xl font-semibold tracking-tight">Knowledge graph</h1>
-            <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Drag to move, scroll to zoom, click a node for its details.</p>
+            <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">All requirements and trace links in one graph. Drag nodes to arrange, scroll to zoom, and select a node to inspect its connections.</p>
           </div>
           <span class="pill pill-brand" id="g-stats">–</span>
         </div>
 
-        <div class="card overflow-hidden">
-          <div class="flex flex-wrap items-center gap-3 border-b border-slate-200 px-4 py-3 dark:border-slate-800">
-            <input id="g-search" type="search" placeholder="Find a node, then Enter" class="field w-60 py-1.5">
-            <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300"><input id="g-orphans" type="checkbox" class="rounded border-slate-300"> Requirements without a link</label>
+        <div class="card overflow-hidden graph-shell" id="g-shell">
+          <div class="graph-toolbar">
+            <span style="color:#8de4e8;font-weight:600">Graph</span>
+            <input id="g-search" type="search" placeholder="Search graph… Enter to focus" class="field w-60 py-1.5">
             <label class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300"><input id="g-flags" type="checkbox" checked class="rounded border-slate-300"> Decay records</label>
-            <button id="g-refresh" class="btn ml-auto">Refresh</button>
+            <button id="g-inspect" class="btn ml-auto" aria-expanded="false">Inspector</button><button id="g-refresh" class="btn">Refresh</button>
           </div>
-          <div class="grid lg:grid-cols-[minmax(0,1fr)_300px]">
+          <div class="g-workspace">
             <div class="g-canvas-bg relative h-[620px] cursor-grab overflow-hidden touch-none" id="g-canvas">
               <svg id="g-svg" class="block h-full w-full"></svg>
-              <div class="absolute bottom-3 right-3 flex flex-col overflow-hidden rounded-md border border-slate-300 bg-white text-slate-600 shadow-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200">
-                <button id="g-in" class="px-2.5 py-1 hover:bg-slate-50 dark:hover:bg-slate-700" aria-label="Zoom in">+</button>
-                <button id="g-out" class="border-t border-slate-200 px-2.5 py-1 hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-700" aria-label="Zoom out">−</button>
-                <button id="g-fit" class="border-t border-slate-200 px-2.5 py-1 text-xs hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-700">Fit</button>
+              <div id="g-empty" hidden><strong>No nodes to display</strong><p>Include unlinked requirements or create a trace link.</p></div>
+              <div class="absolute left-4 top-4 text-xs" style="color:#8c99a7;pointer-events:none"><span id="g-context">Drag nodes to arrange · drag background to pan</span></div>
+              <div class="graph-controls">
+
+                <span id="g-zoom" class="px-2 text-xs" aria-live="polite">100%</span>
+                <button id="g-in" aria-label="Zoom in">+</button>
+                <button id="g-out" aria-label="Zoom out">−</button>
+                <button id="g-fit">Fit</button>
+                <button id="g-layout">Arrange</button>
+                <button id="g-full" aria-label="Toggle fullscreen">⛶</button>
               </div>
             </div>
             <div class="max-h-[620px] overflow-auto border-t border-slate-200 p-4 text-sm lg:border-l lg:border-t-0 dark:border-slate-800" id="g-panel"></div>
           </div>
           <div class="flex flex-wrap gap-x-5 gap-y-2 border-t border-slate-200 px-4 py-3 text-xs text-slate-600 dark:border-slate-800 dark:text-slate-400">
-            <span class="flex items-center gap-2"><i class="inline-block h-3 w-3 rounded-full bg-[#4c6ef5]"></i>Requirement</span>
-            <span class="flex items-center gap-2"><i class="inline-block h-3 w-3 rounded-full bg-[#2f9e68]"></i>Code file</span>
-            <span class="flex items-center gap-2"><i class="inline-block h-0.5 w-6 bg-emerald-600"></i>Verified link</span>
+            <span class="flex items-center gap-2"><i class="inline-block h-3 w-3 rounded-full bg-[#c4bd54]"></i>Linked requirement</span><span class="flex items-center gap-2"><i class="inline-block h-3 w-3 rounded-full border border-dashed border-slate-400"></i>Unlinked requirement</span>
+            <span class="flex items-center gap-2"><i class="inline-block h-3 w-3 rounded-full bg-[#b3ce9b]"></i>Code file</span>
+            <span class="flex items-center gap-2"><i class="inline-block h-0.5 w-6 bg-[#aab6c2]"></i>Verified link</span>
             <span class="flex items-center gap-2"><i class="inline-block h-0.5 w-6 border-t-2 border-dashed border-red-600"></i>Broken link</span>
             <span class="flex items-center gap-2"><i class="inline-block h-3 w-3 rotate-45 bg-amber-500"></i>Decay record</span>
           </div>
@@ -243,7 +406,7 @@
       <section id="view-results" class="view hidden fade">
         <div class="mb-5">
           <h1 class="text-xl font-semibold tracking-tight">Measured results</h1>
-          <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Numbers measured in this repository. Targets that are not met are shown as not met.</p>
+          <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Pipeline accuracy, retrieval coverage, and decay detection from recorded evaluations.</p>
         </div>
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4" id="kpis"></div>
         <div class="mt-6 grid gap-6 xl:grid-cols-2">
@@ -296,13 +459,16 @@ const S = {view: "link", project: "", busy: false, wasBusy: false, topk: 3, link
            openCands: new Set(), lastEdit: null, cache: {}, linkRuns: [], texts: {}, changeRuns: [], files: []};
 
 /* ------------------------------------------------------------ theme + navigation */
-function setDark(on) { document.documentElement.classList.toggle("dark", on); }
-setDark(store.get("theme", "light") === "dark");
+function setDark(on) { document.documentElement.classList.toggle("dark", on); $("theme").textContent = on ? "☀  Light appearance" : "◐  Dark appearance"; $("theme-m").textContent = on ? "☀" : "◐"; }
+setDark(store.get("theme", "dark") === "dark");
 $("theme").onclick = () => { const on = !document.documentElement.classList.contains("dark"); setDark(on); store.set("theme", on ? "dark" : "light"); if (S.view === "graph") buildGraph(); };
+$("theme-m").onclick = () => $("theme").click();
 const VIEWS = ["link", "decay", "graph", "results"];
 function show(view) {
   S.view = view; store.set("view", view);
-  document.querySelectorAll(".nav-link").forEach(b => b.classList.toggle("on", b.dataset.view === view));
+  document.body.classList.toggle("graph-active", view === "graph");
+  $("workspace-section").textContent = {link:"Link requirements",decay:"Code changes",graph:"Knowledge graph",results:"Results"}[view];
+  document.querySelectorAll(".nav-link").forEach(b => { b.classList.toggle("on", b.dataset.view === view); if (b.dataset.view === view) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
   $("view-m").value = view;
   VIEWS.forEach(v => $("view-" + v).classList.toggle("hidden", v !== view));
   history.replaceState(null, "", "#" + view);
@@ -310,6 +476,7 @@ function show(view) {
 }
 $("nav").addEventListener("click", e => { const b = e.target.closest(".nav-link"); if (b) show(b.dataset.view); });
 $("view-m").onchange = e => show(e.target.value);
+window.addEventListener("keydown", e => { if (e.altKey && !e.ctrlKey && !e.metaKey && /^[1-4]$/.test(e.key) && !e.target.closest("input,textarea,select,[contenteditable]")) { e.preventDefault(); show(VIEWS[Number(e.key)-1]); } });
 window.addEventListener("hashchange", () => { const v = location.hash.slice(1); if (v !== S.view && VIEWS.includes(v)) show(v); });
 
 /* ------------------------------------------------------------ status, projects, activity */
@@ -318,16 +485,19 @@ async function loadHealth() {
   try {
     const h = await get("/api/health");
     S.neo = h.neo4j.connected;
+    $("workspace-status").classList.toggle("connected", S.neo);
+    $("workspace-status-text").textContent = S.neo ? "Knowledge graph connected" : "Knowledge graph offline";
     svc($("s-neo"), h.neo4j.connected, "connected", "offline");
     svc($("s-llm"), h.llm.reachable, h.llm.model || "ready", "unreachable");
     svc($("s-redis"), h.redis.reachable, "connected", "not running", true);
     $("offline").classList.toggle("hidden", h.neo4j.connected);
-  } catch (e) { svc($("s-neo"), false, "", "offline"); }
+  } catch (e) { svc($("s-neo"), false, "", "offline"); $("workspace-status").classList.remove("connected"); $("workspace-status-text").textContent = "Connection unavailable"; }
 }
 async function loadProjects() {
   try {
     const list = await get("/api/projects");
-    if (same("projects", list)) return;
+    const unchanged = same("projects", list);
+    if (unchanged && S.project === S.overviewProject) return;
     const wanted = S.project || store.get("project", "");
     const opts = list.length ? list.map(p => `<option value="${esc(p.project)}">${esc(p.project)}</option>`).join("") : `<option value="">No project loaded</option>`;
     $("project").innerHTML = opts; $("project-m").innerHTML = opts;
@@ -335,6 +505,8 @@ async function loadProjects() {
     $("project").value = S.project; $("project-m").value = S.project;
     const cur = list.find(p => p.project === S.project);
     $("project-meta").textContent = cur ? `${cur.requirements} requirements · ${cur.code_entities} code files · ${cur.links} links${cur.decayed ? " · " + cur.decayed + " broken" : ""}` : "";
+    S.overviewProject = S.project;
+    for (const [id, key] of [["requirements","requirements"],["code","code_entities"],["links","links"],["broken","decayed"]]) $("overview-" + id).textContent = cur ? (cur[key] || 0).toLocaleString() : "–";
     renderExamples();
   } catch (e) {}
 }
@@ -422,7 +594,7 @@ function renderLinkResult() {
   const box = $("link-result");
   if (S.linkSel && S.linkSel.startsWith("pending:")) { box.innerHTML = `<div class="notice-info flex items-center gap-2"><span class="spin"></span> Starting. Shortlisting code for ${esc(S.linkSel.slice(8))}…</div>`; return; }
   const r = S.linkRuns.find(x => x.id === S.linkSel);
-  if (!r) { box.innerHTML = `<div class="card p-8 text-center text-sm text-slate-500">No result yet. Write a requirement above, or pick an example.</div>`; return; }
+  if (!r) { box.innerHTML = `<div class="card p-8 text-center text-sm text-slate-500"><div class="empty-result"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/><path d="m10 8-3 7m7-7 3 7M8 18h8"/></svg><strong>No run selected</strong><span>Submit a requirement to review candidate files and verification results.</span></div></div>`; return; }
   const finished = r.state === "finished";
   let banner;
   if (r.state === "running") banner = `<div class="notice-info">The AI is checking file ${Math.min(r.done + 1, r.total)} of ${r.total}. ${dur(r.started)} so far.</div>`;
@@ -463,7 +635,7 @@ $("link-result").addEventListener("click", e => { const row = e.target.closest("
 $("mut-grid").innerHTML = Object.entries(MUTATIONS).map(([k, m]) => `<button class="mut rounded-md border border-slate-200 p-3 text-left hover:border-slate-400 dark:border-slate-700 dark:hover:border-slate-500" data-k="${k}">
   <div class="flex items-center justify-between gap-2"><span class="text-sm font-medium">${esc(m.title)}</span>${pill(m.tone, esc(m.expect))}</div>
   <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">${esc(m.desc)}</div></button>`).join("");
-function markMut() { document.querySelectorAll(".mut").forEach(x => { const on = x.dataset.k === S.mutation; x.classList.toggle("border-brand-600", on); x.classList.toggle("ring-2", on); x.classList.toggle("ring-brand-500/20", on); }); }
+function markMut() { document.querySelectorAll(".mut").forEach(x => { const on = x.dataset.k === S.mutation; x.classList.toggle("border-brand-600", on); x.classList.toggle("ring-2", on); x.classList.toggle("ring-brand-500/20", on); x.setAttribute("aria-pressed", String(on)); }); }
 $("mut-grid").addEventListener("click", e => { const b = e.target.closest(".mut"); if (!b) return; S.mutation = b.dataset.k; markMut(); });
 markMut();
 async function loadFiles(force) {
@@ -539,7 +711,7 @@ function renderChangeResult() {
   const box = $("change-result");
   if (S.changeSel === "pending") { box.innerHTML = `<div class="notice-info flex items-center gap-2"><span class="spin"></span> Commit received. Starting the re-check…</div>`; return; }
   const r = S.changeRuns.find(x => x.id === S.changeSel);
-  if (!r) { box.innerHTML = `<div class="card p-8 text-center text-sm text-slate-500">No commit checked yet. Pick a file and a change, then commit.</div>`; return; }
+  if (!r) { box.innerHTML = `<div class="card p-8 text-center text-sm text-slate-500"><div class="empty-result"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><strong>No change checked</strong><span>Select a file and a change to inspect the affected trace links.</span></div></div>`; return; }
   let banner;
   if (r.state === "running") banner = `<div class="notice-info">Re-checking the links of ${esc(r.files.join(", "))}. ${dur(r.started)} so far.</div>`;
   else if (r.state === "stopped") banner = `<div class="notice-warn">This check stopped before the end.</div>`;
@@ -575,38 +747,63 @@ async function loadGraph() {
   try { G.data = await get("/api/graph?project=" + encodeURIComponent(S.project)); } catch (e) { $("g-stats").textContent = e.message; return; }
   G.stale = false; buildGraph();
 }
-function buildGraph() {
-  const d = G.data; if (!d) return;
-  const showOrph = $("g-orphans").checked, showFlags = $("g-flags").checked;
-  const linked = new Set(d.edges.filter(e => e.category === "verified" || e.category === "decayed").flatMap(e => [e.from, e.to]));
-  const nodes = d.nodes.filter(n => (n.kind !== "decayflag" || showFlags) && (!n.orphan || showOrph) && (n.kind === "decayflag" || linked.has(n.id) || (n.kind === "requirement" && showOrph)));
-  const ids = new Set(nodes.map(n => n.id));
-  const edges = d.edges.filter(e => ids.has(e.from) && ids.has(e.to));
-  const links = d.edges.filter(e => e.category === "verified" || e.category === "decayed");
-  const broken = links.filter(e => e.category === "decayed").length;
-  $("g-stats").textContent = `${links.length} link${links.length === 1 ? "" : "s"} · ${broken} broken`;
-  G.nodes = nodes.map(n => ({...n})); G.edges = edges;
-  layout(); draw(); fit();
-  if (!links.length && !showOrph) $("g-panel").innerHTML = `<p class="text-slate-500">No links in this project yet. Link a requirement first. Tick “Requirements without a link” to see unlinked ones.</p>`;
-  else clearSel();
+function graphGroups(nodes, edges) {
+  const byId=new Map(nodes.map(n=>[n.id,n])), adjacent=new Map(nodes.map(n=>[n.id,[]]));
+  for (const e of edges) { if(byId.has(e.from)&&byId.has(e.to)) { adjacent.get(e.from).push(e.to);adjacent.get(e.to).push(e.from); } }
+  const seen=new Set(),groups=[];
+  for(const n of nodes) { if(seen.has(n.id))continue;const queue=[n];seen.add(n.id);for(let i=0;i<queue.length;i++)for(const id of adjacent.get(queue[i].id))if(!seen.has(id)){seen.add(id);queue.push(byId.get(id));}groups.push(queue); }
+  return groups.sort((a,b)=>b.length-a.length || String(a[0].id).localeCompare(String(b[0].id)));
 }
+function buildGraph() {
+  const d=G.data;if(!d)return;
+  const links=d.edges.filter(e=>e.category==="verified"||e.category==="decayed");
+  const linked=new Set(links.flatMap(e=>[e.from,e.to]));
+  G.nodes=d.nodes.filter(n=>n.kind!=="decayflag"||$("g-flags").checked).map(n=>({...n,orphan:n.kind==="requirement"&&!linked.has(n.id)}));
+  const ids=new Set(G.nodes.map(n=>n.id));G.edges=d.edges.filter(e=>ids.has(e.from)&&ids.has(e.to));
+  const unlinked=G.nodes.filter(n=>n.orphan).length;
+  $("g-stats").textContent=`${links.length} links · ${links.filter(e=>e.category==="decayed").length} broken`;
+  $("g-context").textContent=`${G.nodes.length} nodes · ${unlinked} unlinked requirements · all nodes on this canvas`;
+  layout();draw();fit();$("g-empty").hidden=!!G.nodes.length;
+  $("g-empty").innerHTML="<strong>No nodes yet</strong><p>Choose a project with requirements to explore its graph.</p>";clearSel();
+}
+
 function layout() {
-  const N = G.nodes, byId = new Map(N.map(n => [n.id, n]));
-  N.forEach(n => { const a = (hash32(n.id) % 3600) / 3600 * Math.PI * 2, r = 80 + hash32(n.id + "r") % 220; n.x = Math.cos(a) * r; n.y = Math.sin(a) * r; n.vx = 0; n.vy = 0; });
-  const links = G.edges.map(e => ({a: byId.get(e.from), b: byId.get(e.to), len: e.category === "has_decay" ? 90 : 170})).filter(l => l.a && l.b);
-  for (let it = 0; it < 420; it++) {
-    const alpha = Math.max(.02, 1 - it / 420);
-    for (let i = 0; i < N.length; i++) for (let j = i + 1; j < N.length; j++) {
-      const a = N[i], b = N[j]; const dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy + .5;
-      if (d2 > 90000) continue; const f = 1900 / d2 * alpha; a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
+  // Lay out each connected component separately, then pack them into the viewport.
+  const byId = new Map(G.nodes.map(n => [n.id, n]));
+  const adjacent = new Map(G.nodes.map(n => [n.id, []]));
+  for (const e of G.edges) { adjacent.get(e.from)?.push(e.to); adjacent.get(e.to)?.push(e.from); }
+  const visited = new Set(), components = [];
+  for (const first of G.nodes) {
+    if (visited.has(first.id)) continue;
+    const queue = [first], group = []; visited.add(first.id);
+    for (let i = 0; i < queue.length; i++) { const n = queue[i]; group.push(n); for (const id of adjacent.get(n.id)) if (!visited.has(id)) { visited.add(id); queue.push(byId.get(id)); } }
+    const ids = new Set(group.map(n => n.id));
+    const links = G.edges.filter(e => ids.has(e.from) && ids.has(e.to)).map(e => ({a:byId.get(e.from), b:byId.get(e.to)}));
+    group.forEach((n,i) => { const angle = i / group.length * Math.PI * 2; n.x = Math.cos(angle) * 100; n.y = Math.sin(angle) * 100; n.vx = n.vy = 0; });
+    for (let iteration = 0; iteration < 180; iteration++) {
+      const alpha = 1 - iteration / 200;
+      for (let i = 0; i < group.length; i++) for (let j = i+1; j < group.length; j++) {
+        const a=group[i], b=group[j], dx=a.x-b.x, dy=a.y-b.y, dist=Math.hypot(dx,dy)||1;
+        const force=Math.min(12,3200/(dist*dist))*alpha;
+        a.vx+=dx/dist*force; a.vy+=dy/dist*force; b.vx-=dx/dist*force; b.vy-=dy/dist*force;
+      }
+      for (const {a,b} of links) { const dx=b.x-a.x,dy=b.y-a.y,dist=Math.hypot(dx,dy)||1,force=(dist-170)*.045*alpha; a.vx+=dx/dist*force; a.vy+=dy/dist*force; b.vx-=dx/dist*force; b.vy-=dy/dist*force; }
+      for (const n of group) { n.x+=Math.max(-12,Math.min(12,n.vx));n.y+=Math.max(-12,Math.min(12,n.vy));n.vx*=.5;n.vy*=.5; }
     }
-    for (const l of links) { const dx = l.b.x - l.a.x, dy = l.b.y - l.a.y, d = Math.hypot(dx, dy) || 1, f = (d - l.len) * .035 * alpha; l.a.vx += dx / d * f; l.a.vy += dy / d * f; l.b.vx -= dx / d * f; l.b.vy -= dy / d * f; }
-    for (const n of N) { n.vx -= n.x * .01 * alpha; n.vy -= n.y * .01 * alpha; n.x += Math.max(-25, Math.min(25, n.vx)); n.y += Math.max(-25, Math.min(25, n.vy)); n.vx *= .6; n.vy *= .6; }
+    const minX=Math.min(...group.map(n=>n.x)), minY=Math.min(...group.map(n=>n.y));
+    const width=Math.max(120,Math.max(...group.map(n=>n.x))-minX+(group.length===1?120:160)),height=Math.max(110,Math.max(...group.map(n=>n.y))-minY+(group.length===1?110:150));
+    components.push({group,minX,minY,width,height});
   }
+  components.sort((a,b)=>b.height-a.height);
+  const canvas=$("g-canvas").getBoundingClientRect(), aspect=(canvas.width||1000)/(canvas.height||650);
+  const area=components.reduce((sum,c)=>sum+c.width*c.height,0);
+  const rowWidth=Math.max(...components.map(c=>c.width),Math.sqrt(area*aspect)*1.15);
+  let x=0,y=0,rowHeight=0;
+  for (const c of components) { if (x && x+c.width>rowWidth) { x=0;y+=rowHeight+15;rowHeight=0; } for (const n of c.group) { n.x=n.x-c.minX+x+80;n.y=n.y-c.minY+y+65; } x+=c.width+15;rowHeight=Math.max(rowHeight,c.height); }
 }
 const PALETTE = () => document.documentElement.classList.contains("dark")
-  ? {ok: "#34d399", bad: "#f87171", warn: "#fbbf24", faint: "#64748b", blue: "#6282f0", blueDark: "#3b5bdb", green: "#3fae7c", greenDark: "#2b8a5f", surface: "#0f172a", text: "#e2e8f0", muted: "#94a3b8", canvas: "#0b1220"}
-  : {ok: "#059669", bad: "#dc2626", warn: "#d97706", faint: "#94a3b8", blue: "#4c6ef5", blueDark: "#364fc7", green: "#2f9e68", greenDark: "#1f7a4f", surface: "#ffffff", text: "#0f172a", muted: "#64748b", canvas: "#f8fafc"};
+  ? {ok:"#89949f",bad:"#f08187",warn:"#d7ad60",faint:"#69727f",blue:"#c9bd69",blueDark:"#ded391",green:"#a8c49a",greenDark:"#c0d5b5",surface:"#25262b",text:"#e8e8ed",muted:"#b1b3bd",canvas:"#18191c"}
+  : {ok:"#8b939e",bad:"#c95665",warn:"#d8a456",faint:"#9ca3af",blue:"#e0d58d",blueDark:"#baad61",green:"#b9d2a9",greenDark:"#8faa7f",surface:"#f6f6f7",text:"#31323a",muted:"#646671",canvas:"#ffffff"};
 function draw() {
   const svg = $("g-svg"), c = PALETTE(); svg.innerHTML = "";
   svg.style.setProperty("--canvas", c.canvas);
@@ -619,7 +816,7 @@ function draw() {
     const a = byId.get(e.from), b = byId.get(e.to); if (!a || !b) continue;
     const decayed = e.category === "decayed", flag = e.category === "has_decay";
     const col = decayed ? c.bad : flag ? c.warn : c.ok;
-    const p = el("path", {class: "g-edge", fill: "none", stroke: col, "stroke-width": flag ? 1.2 : 1.6}, vp);
+    const p = el("path", {class: "g-edge", fill: "none", stroke: col, "stroke-width": flag ? 1 : 1.5, "vector-effect": "non-scaling-stroke"}, vp);
     if (decayed || flag) p.setAttribute("stroke-dasharray", flag ? "2 4" : "6 4");
     p.setAttribute("marker-end", `url(#arr-${decayed ? "bad" : flag ? "warn" : "ok"})`);
     const t = el("title", {}, p); t.textContent = flag ? "HAS_DECAY" : `VERIFIED_TRACE${decayed ? " (decayed)" : ""} · ${e.from.slice(2)} → ${short(e.to.slice(2))}${e.confidence != null ? " · confidence " + (+e.confidence).toFixed(2) : ""}`;
@@ -627,15 +824,17 @@ function draw() {
     if (!flag) { const lab = el("text", {class: "g-rel", fill: decayed ? c.bad : c.muted}, vp); lab.textContent = decayed ? "VERIFIED_TRACE · decayed" : "VERIFIED_TRACE"; p._label = lab; }
   }
   for (const n of G.nodes) {
-    const g = el("g", {class: "g-node", "data-id": n.id}, vp); g._n = n;
-    const style = n.kind === "requirement" ? {fill: n.orphan ? c.surface : c.blue, stroke: n.orphan ? c.faint : c.blueDark, dash: n.orphan ? "3 3" : null, r: 24}
-      : n.kind === "decayflag" ? {fill: c.warn, stroke: c.warn, dash: null, r: 14}
-      : {fill: c.green, stroke: c.greenDark, dash: null, r: 20};
-    const circ = el("circle", {r: style.r, fill: style.fill, stroke: style.stroke, "stroke-width": 1.5, filter: "url(#shadow)"}, g);
+    const g = el("g", {class: "g-node", "data-id": n.id, tabindex: 0, role: "button", "aria-label": n.label || n.kind}, vp); g._n = n;
+    const style = n.kind === "requirement" ? {fill: n.orphan ? c.surface : c.blue, stroke: n.orphan ? c.faint : c.blueDark, dash: n.orphan ? "3 3" : null, r: 40}
+      : n.kind === "decayflag" ? {fill: c.warn, stroke: c.warn, dash: null, r: 25}
+      : {fill: c.green, stroke: c.greenDark, dash: null, r: 38};
+    const circ = el("circle", {r: style.r, fill: style.fill, stroke: style.stroke, "stroke-width": 1, "vector-effect": "non-scaling-stroke"}, g);
     if (style.dash) circ.setAttribute("stroke-dasharray", style.dash);
     const cap = n.kind === "requirement" ? n.label : n.kind === "decayflag" ? "DecayFlag" : short(n.label);
-    const t = el("text", {class: "g-cap", "text-anchor": "middle", y: style.r + 14, fill: n.orphan ? c.muted : c.text}, g); t.textContent = trunc(cap, 22);
-    const inner = el("text", {"text-anchor": "middle", y: 4, fill: "#ffffff", style: "font: 600 12px ui-sans-serif, system-ui; pointer-events:none"}, g); inner.textContent = n.kind === "requirement" ? "R" : n.kind === "decayflag" ? "!" : "C";
+    const t = el("text", {class: "g-cap", "text-anchor": "middle", y: style.r + 14, fill: n.orphan ? c.muted : c.text}, g); t.textContent = n.kind === "requirement" ? "" : trunc(cap, 24);
+    const inner = el("text", {"text-anchor": "middle", y: 4, fill: n.orphan ? c.text : "#20251c", style: "font: 600 12px ui-sans-serif, system-ui; pointer-events:none"}, g); inner.textContent = n.kind === "decayflag" ? "!" : n.kind === "requirement" ? trunc(cap, 10) : "CODE";
+    inner.classList.add("g-inner");
+    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectNode(n); } });
     el("title", {}, g).textContent = n.kind === "requirement" ? `${n.label}\n${n.text || ""}` : n.kind === "decayflag" ? `DecayFlag\n${n.text || ""}` : n.label;
     n.r = style.r;
   }
@@ -653,38 +852,54 @@ function place() {
     if (p._label) { p._label.setAttribute("x", mx); p._label.setAttribute("y", my - 4); }
   });
 }
-function applyView() { const vp = $("g-vp"); if (vp) vp.setAttribute("transform", `translate(${G.tx},${G.ty}) scale(${G.k})`); }
+function applyView() {
+  $("g-zoom").textContent=Math.round(G.k*100)+"%";
+  const vp=$("g-vp"); if (!vp) return;
+  vp.setAttribute("transform",`translate(${G.tx},${G.ty}) scale(${G.k})`);
+  document.querySelectorAll("#g-vp .g-node").forEach(g=>{
+    const n=g._n, radius=n.kind==="decayflag"?25:38;
+    n.r=radius;g.querySelector("circle").setAttribute("r",radius);
+    const cap=g.querySelector(".g-cap");cap.style.fontSize=12/Math.max(.6,G.k)+"px";cap.textContent=n.kind==="requirement"?"":trunc(n.kind==="decayflag"?"DecayFlag":short(n.label),G.k<.6?16:24);cap.setAttribute("y",radius+18/G.k);
+    const inner=g.querySelector(".g-inner");inner.style.fontSize=(n.kind==="requirement"?11:10)/Math.max(.6,G.k)+"px";inner.setAttribute("y",3.5/G.k);
+  });
+  document.querySelectorAll("#g-vp .g-rel").forEach(t=>{ t.style.fontSize=10/Math.max(.6,G.k)+"px";t.style.display=G.sel&&G.k>=.7?"":"none"; });
+  place();
+}
 function fit() {
   const box = $("g-canvas").getBoundingClientRect(); if (!G.nodes.length || !box.width) return;
   const xs = G.nodes.map(n => n.x), ys = G.nodes.map(n => n.y);
-  const minX = Math.min(...xs) - 110, maxX = Math.max(...xs) + 110, minY = Math.min(...ys) - 50, maxY = Math.max(...ys) + 50;
-  G.k = Math.max(.35, Math.min(1.6, Math.min(box.width / (maxX - minX), box.height / (maxY - minY))));
+  const minX = Math.min(...xs) - 110, maxX = Math.max(...xs) + 110, minY = Math.min(...ys) - 85, maxY = Math.max(...ys) + 110;
+  G.k = Math.max(.2, Math.min(1, Math.min((box.width - 48) / (maxX - minX), (box.height - 80) / (maxY - minY))));
   G.tx = box.width / 2 - (minX + maxX) / 2 * G.k; G.ty = box.height / 2 - (minY + maxY) / 2 * G.k; applyView();
 }
-function zoom(f, cx, cy) { const box = $("g-canvas").getBoundingClientRect(); cx = cx ?? box.width / 2; cy = cy ?? box.height / 2; const k = Math.max(.2, Math.min(3, G.k * f)); G.tx = cx - (cx - G.tx) * k / G.k; G.ty = cy - (cy - G.ty) * k / G.k; G.k = k; applyView(); }
+function zoom(f, cx, cy) { const box = $("g-canvas").getBoundingClientRect(); cx = cx ?? box.width / 2; cy = cy ?? box.height / 2; const k = Math.max(.3, Math.min(2.5, G.k * f)); G.tx = cx - (cx - G.tx) * k / G.k; G.ty = cy - (cy - G.ty) * k / G.k; G.k = k; applyView(); }
 $("g-in").onclick = () => zoom(1.25); $("g-out").onclick = () => zoom(.8); $("g-fit").onclick = fit;
-$("g-canvas").addEventListener("wheel", e => { e.preventDefault(); const b = $("g-canvas").getBoundingClientRect(); zoom(e.deltaY < 0 ? 1.12 : .89, e.clientX - b.left, e.clientY - b.top); }, {passive: false});
+$("g-canvas").addEventListener("wheel", e => { e.preventDefault(); const b = $("g-canvas").getBoundingClientRect(); zoom(Math.exp(-Math.max(-100,Math.min(100,e.deltaY))*.002), e.clientX - b.left, e.clientY - b.top); }, {passive: false});
 (() => {
   let drag = null;
-  $("g-canvas").addEventListener("pointerdown", e => { if (e.target.closest("button")) return; drag = {x: e.clientX, y: e.clientY, tx: G.tx, ty: G.ty, moved: false, target: e.target}; $("g-canvas").setPointerCapture(e.pointerId); });
-  $("g-canvas").addEventListener("pointermove", e => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true; if (drag.moved) { G.tx = drag.tx + dx; G.ty = drag.ty + dy; applyView(); } });
+  $("g-canvas").addEventListener("pointerdown", e => { if (e.button !== 0 || e.target.closest("button")) return; const node = e.target.closest(".g-node")?._n; drag = {x: e.clientX, y: e.clientY, tx: G.tx, ty: G.ty, node, nx: node?.x, ny: node?.y, moved: false, target: e.target}; $("g-canvas").setPointerCapture(e.pointerId); $("g-canvas").style.cursor = "grabbing"; });
+  $("g-canvas").addEventListener("pointermove", e => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true; if (drag.moved) { if (drag.node) { drag.node.x = drag.nx + dx / G.k; drag.node.y = drag.ny + dy / G.k; place(); } else { G.tx = drag.tx + dx; G.ty = drag.ty + dy; applyView(); } } });
   $("g-canvas").addEventListener("pointerup", () => {
     if (drag && !drag.moved) { const g = drag.target.closest(".g-node"), l = drag.target.closest(".g-edge"); if (g) selectNode(g._n); else if (l) selectEdge(l._e); else clearSel(); }
-    drag = null;
+    if (drag?.moved && drag.node) selectNode(drag.node);
+    drag = null; $("g-canvas").style.cursor = "";
   });
+  $("g-canvas").addEventListener("pointercancel", () => { drag = null; $("g-canvas").style.cursor = ""; });
+  $("g-canvas").addEventListener("lostpointercapture", () => { drag = null; $("g-canvas").style.cursor = ""; });
   $("g-canvas").addEventListener("mouseover", e => { const g = e.target.closest(".g-node"); if (g) highlight(g._n.id); else if (!G.sel) highlight(null); });
   $("g-canvas").addEventListener("mouseout", e => { if (e.target.closest(".g-node")) highlight(G.sel); });
 })();
 function neighbours(id) { const s = new Set([id]); G.edges.forEach(e => { if (e.from === id) s.add(e.to); if (e.to === id) s.add(e.from); }); return s; }
 function highlight(id) {
   const near = id ? neighbours(id) : null;
+  document.querySelectorAll("#g-vp .g-node").forEach(g => g.classList.toggle("selected", g._n.id === G.sel));
   document.querySelectorAll("#g-vp .g-node").forEach(g => g.classList.toggle("dim", !!near && !near.has(g._n.id)));
-  document.querySelectorAll("#g-vp .g-edge").forEach(p => p.classList.toggle("dim", !!near && !(p._e.from === id || p._e.to === id)));
+  document.querySelectorAll("#g-vp .g-edge").forEach(p => { const dim = !!near && !(p._e.from === id || p._e.to === id); p.classList.toggle("dim", dim); if (p._label) p._label.classList.toggle("dim", dim); });
 }
-function clearSel() { G.sel = null; highlight(null); $("g-panel").innerHTML = `<p class="text-slate-500">Select a node or a link to see its details.</p>`; }
+function clearSel() { G.sel = null; highlight(null); applyView(); $("g-panel").innerHTML = `<h3 class="font-semibold">Inspector</h3><p class="mt-4 text-slate-500">Select a node to inspect its properties and connections.</p><p class="mt-4 text-xs text-slate-500">Move nodes individually to organize the graph. Scroll to zoom, or use Fit to see every node.</p>`; }
 function linkRow(e, other) { return `<div class="border-t border-slate-100 py-2 dark:border-slate-800"><div class="flex items-center justify-between gap-2"><span class="font-mono text-[13px]">${esc(other)}</span>${e.category === "decayed" ? pill("bad", "broken") : pill("ok", "verified")}</div><div class="mt-0.5 text-xs text-slate-500">confidence ${e.confidence != null ? (+e.confidence).toFixed(2) : "–"}${e.reasoning ? " · " + esc(e.reasoning) : ""}</div></div>`; }
 function selectNode(n) {
-  G.sel = n.id; highlight(n.id);
+  G.sel = n.id; setInspector(true); highlight(n.id); applyView();
   const out = G.edges.filter(e => e.from === n.id && e.category !== "has_decay"), inc = G.edges.filter(e => e.to === n.id && e.category !== "has_decay");
   let html;
   if (n.kind === "requirement") html = `${pill("brand", "Requirement")}<h3 class="mt-2 font-mono text-sm font-semibold">${esc(n.label)}</h3><p class="mt-1 text-slate-700 dark:text-slate-300">${esc(n.text)}</p>
@@ -692,10 +907,10 @@ function selectNode(n) {
   else if (n.kind === "decayflag") html = `${pill("warn", "Decay record")}<h3 class="mt-2 font-mono text-sm font-semibold">${esc(short(n.codeEntityId || ""))}</h3><p class="mt-1 text-xs text-slate-500">Flagged ${esc(clock(n.flaggedAt))} · confidence before ${n.previousConfidence != null ? (+n.previousConfidence).toFixed(2) : "–"}</p><p class="mt-2 text-slate-700 dark:text-slate-300">${esc(n.text)}</p>`;
   else html = `${pill("", "Code file")}<h3 class="mt-2 font-mono text-sm font-semibold">${esc(short(n.label))}</h3><p class="text-xs text-slate-500">${esc(dirOf(n.label))}</p>
       <div class="label mt-4">Linked from ${inc.length} requirement(s)</div>${inc.map(e => linkRow(e, e.from.slice(2))).join("")}<div class="label mt-4">Code</div><pre class="mt-1 max-h-60 overflow-auto whitespace-pre-wrap break-words rounded bg-slate-50 p-2 font-mono text-xs dark:bg-slate-800">${esc(n.text || "(no text)")}</pre>`;
-  $("g-panel").innerHTML = html;
+  $("g-panel").innerHTML = `<h3 class="mb-4 font-semibold">Node details</h3>` + html;
 }
 function selectEdge(e) {
-  G.sel = null; highlight(null);
+  G.sel = null; setInspector(true); highlight(null); applyView();
   $("g-panel").innerHTML = `${e.category === "has_decay" ? pill("warn", "Decay record") : e.category === "decayed" ? pill("bad", "Broken link") : pill("ok", "Verified link")}
     <h3 class="mt-2 font-mono text-sm font-semibold">${esc(e.from.slice(2))} → ${esc(short(e.to.slice(2)))}</h3>
     <p class="mt-1 text-xs text-slate-500">confidence ${e.confidence != null ? (+e.confidence).toFixed(2) : "–"}${e.checked ? " · checked " + esc(clock(e.checked)) : ""}</p>
@@ -703,10 +918,17 @@ function selectEdge(e) {
 }
 $("g-search").addEventListener("keydown", e => {
   if (e.key !== "Enter") return; const q = $("g-search").value.trim().toLowerCase(); if (!q) return;
-  const n = G.nodes.find(n => String(n.label).toLowerCase().includes(q)); if (!n) { toast("Not found in this graph."); return; }
-  const b = $("g-canvas").getBoundingClientRect(); G.k = Math.max(G.k, 1); G.tx = b.width / 2 - n.x * G.k; G.ty = b.height / 2 - n.y * G.k; applyView(); selectNode(n);
+  const n = (G.data?.nodes || G.nodes).find(n => String(n.label).toLowerCase().includes(q)); if (!n) { toast("Not found in this graph."); return; }
+  selectNode(n);requestAnimationFrame(()=>{ const b=$("g-canvas").getBoundingClientRect();G.k=1;G.tx=b.width/2-n.x;G.ty=b.height/2-n.y;applyView(); });
 });
-$("g-orphans").onchange = buildGraph; $("g-flags").onchange = buildGraph; $("g-refresh").onclick = loadGraph;
+function setInspector(open) { $("g-shell").classList.toggle("inspector-open",open); $("g-inspect").setAttribute("aria-expanded",String(open)); }
+$("g-inspect").onclick = () => setInspector(!$("g-shell").classList.contains("inspector-open"));
+$("g-layout").onclick = () => { layout(); place(); fit(); };
+$("g-full").onclick = async () => { try { if (document.fullscreenElement) await document.exitFullscreen(); else await $("g-shell").requestFullscreen(); } catch { toast("Fullscreen is unavailable in this browser."); } };
+let graphSize=null;
+new ResizeObserver(entries=>{const {width,height}=entries[0].contentRect;if(!width||!height)return;if(graphSize&&S.view==="graph"&&G.nodes.length){G.tx+=(width-graphSize.width)/2;G.ty+=(height-graphSize.height)/2;applyView();}graphSize={width,height};}).observe($("g-canvas"));
+$("g-search").addEventListener("input", () => { const q = $("g-search").value.trim().toLowerCase(); if (!q) { highlight(G.sel); return; } const ids = new Set(G.nodes.filter(n => String(n.label).toLowerCase().includes(q)).map(n => n.id)); document.querySelectorAll("#g-vp .g-node").forEach(g => g.classList.toggle("dim", !ids.has(g._n.id))); document.querySelectorAll("#g-vp .g-edge").forEach(p => p.classList.toggle("dim", !ids.has(p._e.from) && !ids.has(p._e.to))); });
+$("g-flags").onchange = buildGraph; $("g-refresh").onclick = loadGraph;
 
 /* ------------------------------------------------------------ RESULTS view */
 const pct2 = pct;
