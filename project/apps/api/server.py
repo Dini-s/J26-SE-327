@@ -100,9 +100,18 @@ def get_activity(_: dict) -> dict:
         out.update(kind="link", project=link["project"], requirements=link["requirements"][:5],
                    done=link["done"], total=link["total"], started=link["started"])
     elif change:
-        out.update(kind="change", project=change["project"], files=change["files"],
+        out.update(kind="change", trigger=change["trigger"], project=change["project"], files=change["files"],
                    checked=len(change["rechecks"]), started=change["started"])
     return out
+
+
+def get_unlinked(q: dict) -> dict:
+    """How many requirements of the project have no trace link yet (what "Create trace links" would work on)."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+    return sources.neo4j_unlinked(project)
 
 
 def _texts(ids: list[str]) -> dict[str, str]:
@@ -135,7 +144,8 @@ def get_files(q: dict) -> list:
 def get_graph(q: dict) -> dict:
     _need_neo4j()
     project = _project(q.get("project"))
-    return _cached(f"graph:{project}", 3, lambda: sources.neo4j_uskg_graph(max_traces=300, max_orphans=60, project=project))
+    mode = q.get("mode") if q.get("mode") in sources.GRAPH_MODES else "links"
+    return _cached(f"graph:{project}:{mode}", 3, lambda: sources.neo4j_uskg_graph(max_traces=300, max_orphans=60, project=project, mode=mode))
 
 
 def get_results(_: dict) -> dict:
@@ -158,6 +168,49 @@ def post_link(body: dict) -> dict:
         raise ApiError(400, str(exc)) from exc
     _forget()
     return {**added, "minutes": started.get("minutes")}
+
+
+def post_link_existing(body: dict) -> dict:
+    """Create trace links for the requirements already in the graph (written by C1) that have none yet."""
+    project = _project(body.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+    _need_idle()
+    info = sources.neo4j_unlinked(project)
+    if not info["requirements"]:
+        raise ApiError(400, "This project has no requirements yet.")
+    if not info["codeFiles"]:
+        raise ApiError(400, "This project has no code files yet.")
+    if not info["unlinked"]:
+        raise ApiError(400, "Every requirement of this project already has a trace link.")
+    try:
+        top_k = int(body.get("top_k", 3))
+        started = runner.start({"kind": "link", "project": project, "top_k": top_k, "retrieval": "hybrid",
+                                "limit_sources": 0, "only_unlinked": True})
+    except (runner.RunnerError, ValueError, TypeError) as exc:
+        raise ApiError(400, str(exc)) from exc
+    _forget()
+    calls = info["unlinked"] * top_k
+    return {"requirements": info["unlinked"], "calls": calls, "minutes": round(calls * runner.SECONDS_PER_CALL / 60), "pid": started["pid"]}
+
+
+def post_scan(body: dict) -> dict:
+    """Drift detection: re-check the project's trace links whose requirement or code text has changed."""
+    project = _project(body.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+    _need_idle()
+    info = sources.neo4j_unlinked(project)
+    if not info["links"]:
+        raise ApiError(400, "This project has no trace links to scan yet. Create trace links first.")
+    try:
+        runner.start({"kind": "monitor", "project": project, "force": bool(body.get("force"))})
+    except runner.RunnerError as exc:
+        raise ApiError(400, str(exc)) from exc
+    _forget()
+    return {"links": info["links"]}
 
 
 def post_commit(body: dict) -> dict:
@@ -201,10 +254,10 @@ def post_reset(body: dict) -> dict:
 GET_ROUTES: dict[str, Callable[[dict], Any]] = {
     "/api/health": get_health, "/api/projects": get_projects, "/api/activity": get_activity,
     "/api/link-runs": get_link_runs, "/api/change-runs": get_change_runs, "/api/files": get_files,
-    "/api/graph": get_graph, "/api/results": get_results,
+    "/api/graph": get_graph, "/api/unlinked": get_unlinked, "/api/results": get_results,
 }
 POST_ROUTES: dict[str, Callable[[dict], Any]] = {
-    "/api/link": post_link, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset,
+    "/api/link": post_link, "/api/link-existing": post_link_existing, "/api/scan": post_scan, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset,
 }
 
 

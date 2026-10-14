@@ -90,6 +90,8 @@ def validate(params: dict[str, Any]) -> dict[str, Any]:
     else:
         ids = []
     out = {"kind": kind, "dataset": dataset, "retrieval": retrieval, "top_k": top_k, "limit_sources": limit, "requirement_ids": ids}
+    if kind == "link" and params.get("only_unlinked") and not ids:
+        out["only_unlinked"] = True
     return {**out, "project": project} if project and kind == "link" else out
 
 
@@ -125,6 +127,8 @@ def build_command(params: dict[str, Any]) -> list[str]:
         cmd = base_cmd + ["agents.traceability_agent", "link", "--top-k", str(params["top_k"]), "--retrieval", params["retrieval"]] + project
         for rid in params["requirement_ids"]:
             cmd += ["--requirement", rid]
+        if params.get("only_unlinked"):
+            cmd += ["--only-unlinked"]
         return cmd + (["--limit-sources", str(params["limit_sources"])] if params["limit_sources"] and not params["requirement_ids"] else [])
     base = PROCESSED_DIR / params["dataset"]
     cmd = base_cmd + [

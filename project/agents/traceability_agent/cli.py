@@ -66,6 +66,12 @@ def cmd_link(args: argparse.Namespace) -> int:
             if not sources:
                 print(f"None of the requirements {sorted(wanted)} exist in the graph.", file=sys.stderr)
                 return 1
+        elif args.only_unlinked:  # requirements that no verified link points from yet (the ones C1 wrote and nobody linked)
+            linked = {t.source_id for t in uskg.get_traces(project=args.project)}
+            sources = [a for a in sources if a.id not in linked]
+            if not sources:
+                print("Every requirement already has a trace link.")
+                return 0
         elif args.limit_sources:
             sources = sources[: args.limit_sources]
         logger.emit("run_start", dataset="neo4j", method="link", retrieval=args.retrieval, prompt=args.prompt,
@@ -207,6 +213,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p = sub.add_parser("link", help="find + verify links and write them")
     p.add_argument("--top-k", type=int, default=TOP_K)
     p.add_argument("--limit-sources", type=int)
+    p.add_argument("--only-unlinked", action="store_true", help="only requirements that have no trace link yet")
     p.add_argument("--requirement", action="append", help="link only this requirement id (repeatable)")
     p.add_argument("--project", help="only this project / repository")
     p.add_argument("--retrieval", choices=["hybrid", "embeddings", "tfidf"], default="hybrid")

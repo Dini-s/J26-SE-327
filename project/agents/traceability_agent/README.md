@@ -85,6 +85,19 @@ The graph starts empty. A dataset becomes a **project** when it is loaded into N
 
 Running it again is safe. Only run it against your own local Neo4j, never the team's shared graph.
 
+### Spring PetClinic (code structure like C2, requirements like C1)
+
+A ready-made demo project that follows the graph structures C2 and C1 proposed. Only against your own local Neo4j.
+
+```bash
+git clone https://github.com/spring-projects/spring-petclinic data/seed/spring-petclinic   # once, about 14 MB
+python -m apps.seed.petclinic --dry-run     # analyze and print a summary, writes nothing
+python -m apps.seed.petclinic               # write project "spring-petclinic" to Neo4j (safe to repeat)
+python -m apps.seed.petclinic --reset       # remove what the seed wrote, then write again
+```
+
+It writes `Repository` → `Package` → `CodeFile` (each code file also carries the label `CodeEntity`, which C4 reads) with package metrics (fan-in/out, coupling, instability), file metrics (lines, complexity, maintainability), `DEPENDS_ON` edges and git-history evolution features; and 26 synthetic requirements in C1's shape (`Requirement` with `Document`, `UserStory`, `AcceptanceCriterion`, `TechnicalTask`, `AnalysisFinding`, `Risk`, `SIMILAR_TO`). Three requirements describe features PetClinic does not have, so orphan detection has something to find. C2's machine-learning outputs (embeddings, risk model, SHAP evidence) are not invented. The code is only read, never run. `--reset` also removes links C4 wrote for those seeded nodes.
+
 ### Notebooks
 
 These steps are notebooks, not scripts. Each notebook explains its own steps in the cells above the code.
@@ -95,6 +108,8 @@ These steps are notebooks, not scripts. Each notebook explains its own steps in 
 | `scripts/load_dataset.ipynb` | Turns a raw dataset into `data/processed/` (artifacts, traces, gold labels) | Only when the processed files must be rebuilt from the raw downloads |
 | `scripts/load_to_neo4j.ipynb` | Loads a processed dataset into Neo4j as a project | After setup, and for each dataset you want in the graph |
 | `scripts/replay_repo.ipynb` | Replays a real repository's commits (the jbehave demo) | Optional demo |
+
+(The PetClinic seed above is a Python module, `apps/seed/petclinic.py`, not a notebook.)
 
 To use one: open it in VS Code, choose the Python kernel of `.venv`, and run the cells top to bottom. `ipykernel` comes with `requirements.txt`, so nothing extra is needed.
 

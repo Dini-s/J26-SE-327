@@ -111,16 +111,98 @@ def neo4j_projects() -> list[dict[str, Any]]:
     return [dict(r) for r in records]
 
 
+def neo4j_unlinked(project: Optional[str]) -> dict[str, Any]:
+    """Requirements of a project that no VERIFIED_TRACE starts from yet, plus how many requirements / code files it has."""
+    with _neo4j_driver() as driver:
+        rows, _, _ = driver.execute_query(
+            """MATCH (r:Requirement) WHERE coalesce(r.project, r.repo, r.dataset) = $project
+               RETURN r.id AS id, EXISTS { (r)-[:VERIFIED_TRACE]->() } AS linked ORDER BY r.id""", project=project)
+        code, _, _ = driver.execute_query(
+            """MATCH (c:CodeEntity) WHERE coalesce(c.kind,'code') = 'code' AND coalesce(c.project, c.repo, c.dataset) = $project
+               RETURN count(c) AS n""", project=project)
+        links, _, _ = driver.execute_query(
+            """MATCH (r:Requirement)-[v:VERIFIED_TRACE]->() WHERE coalesce(r.project, r.repo, r.dataset) = $project
+               RETURN count(v) AS n""", project=project)
+    unlinked = [r["id"] for r in rows if not r["linked"]]
+    return {"requirements": len(rows), "unlinked": len(unlinked), "ids": unlinked[:200], "codeFiles": code[0]["n"], "links": links[0]["n"]}
+
+
 # ---------------------------------------------------------------- USKG graph (Neo4j)
 def _trim(text: Any, n: int = 1200) -> str:
     return (text or "")[:n]
 
 
-def neo4j_uskg_graph(max_traces: int = 400, max_orphans: int = 40, project: Optional[str] = None) -> dict[str, Any]:
-    """The USKG as the dashboard shows it: requirements, code entities, VERIFIED_TRACE edges
-    (verified or decayed), DecayFlag nodes with HAS_DECAY edges, plus some orphan requirements."""
+GRAPH_MODES = ("links", "code", "requirements", "all")
+# kind shown in the dashboard for each label a component may write (first match wins); everything is read-only here
+_KIND_BY_LABEL = [("Repository", "repository"), ("Package", "package"), ("CodeFile", "code"), ("CodeEntity", "code"),
+                  ("EvolutionFeature", "evolution"), ("Finding", "finding"), ("Document", "document"), ("UserStory", "story"),
+                  ("AcceptanceCriterion", "criterion"), ("TechnicalTask", "task"), ("AnalysisFinding", "analysis"),
+                  ("Risk", "risk"), ("Requirement", "requirement")]
+_CODE_LABELS = ["Repository", "Package", "CodeEntity", "EvolutionFeature", "Finding"]
+_REQ_LABELS = ["Requirement", "Document", "UserStory", "AcceptanceCriterion", "TechnicalTask", "AnalysisFinding", "Risk"]
+_STRUCTURE_RELS = "CONTAINS|DEPENDS_ON|HAS_EVOLUTION|INVOLVES_PACKAGE|FROM_DOCUMENT|HAS_STORY|HAS_CRITERION|HAS_TASK|HAS_FINDING|HAS_RISK|SIMILAR_TO"
+
+
+def _prop_view(props: dict[str, Any]) -> dict[str, Any]:
+    """Short, JSON-safe copy of node properties for the inspector (long text is left to the dedicated text field)."""
+    out: dict[str, Any] = {}
+    for key, value in props.items():
+        if key in ("id", "text", "source", "dataset", "repo", "project"):
+            continue
+        if isinstance(value, (list, tuple)):
+            value = ", ".join(str(v) for v in value)
+        out[key] = value if isinstance(value, (int, float, bool)) or value is None else str(value)[:300]
+    return out
+
+
+def _structure(driver: Any, project: Optional[str], labels: list[str], nodes: dict[str, dict], edges: list[dict]) -> None:
+    """Add the nodes C1 / C2 wrote for a project (repository, packages, files, requirement details ...) and their relationships."""
+    records, _, _ = driver.execute_query(
+        """MATCH (n) WHERE any(l IN labels(n) WHERE l IN $labels)
+             AND ($project IS NULL OR coalesce(n.project, n.repo, n.dataset) = $project)
+           RETURN n.id AS id, labels(n) AS labels, properties(n) AS props LIMIT 1500""", labels=labels, project=project)
+    key: dict[str, str] = {}
+    for r in records:
+        kind = next((k for l, k in _KIND_BY_LABEL if l in r["labels"]), None)
+        if kind is None or r["id"] is None:
+            continue
+        gid = f"{'r' if kind == 'requirement' else 'c' if kind == 'code' else 's'}:{r['id']}"
+        key[r["id"]] = gid
+        props = r["props"]
+        label = (r["id"] if kind in ("code", "requirement") else props.get("name") or props.get("cycle_id") or props.get("text") or r["id"])
+        if kind == "package":
+            label = str(label).rsplit(".", 1)[-1] if not str(label).startswith("templates") else str(label)
+        node = nodes.setdefault(gid, {"id": gid, "label": str(label), "kind": kind, "text": _trim(props.get("text"))})
+        node["props"] = _prop_view(props)
+        if kind == "code":
+            node["codeKind"] = props.get("kind", "code")
+        if kind == "requirement" and "orphan" in node:
+            node.pop("orphan")
+    if not key:
+        return
+    rels, _, _ = driver.execute_query(
+        f"""MATCH (a)-[r:{_STRUCTURE_RELS}]->(b) WHERE a.id IN $ids AND b.id IN $ids
+            RETURN a.id AS a, type(r) AS rel, b.id AS b, properties(r) AS props""", ids=list(key))
+    for r in rels:
+        edges.append({"from": key[r["a"]], "to": key[r["b"]], "category": "rel", "rel": r["rel"],
+                      "confidence": (r["props"] or {}).get("similarity")})
+
+
+def neo4j_uskg_graph(max_traces: int = 400, max_orphans: int = 40, project: Optional[str] = None, mode: str = "links") -> dict[str, Any]:
+    """The USKG as the dashboard shows it.
+
+    ``links`` (default): requirements, linked code entities, VERIFIED_TRACE edges (verified or decayed), DecayFlag nodes
+    with HAS_DECAY edges, plus some orphan requirements. ``code``: the structure C2 wrote (repository, packages, files,
+    dependencies, evolution, findings). ``requirements``: the requirements with the C1 details around them. ``all``: everything.
+    """
     nodes: dict[str, dict] = {}
     edges: list[dict] = []
+    if mode not in GRAPH_MODES:
+        mode = "links"
+    if mode in ("code", "requirements"):
+        with _neo4j_driver() as driver:
+            _structure(driver, project, _CODE_LABELS if mode == "code" else _REQ_LABELS, nodes, edges)
+        return {"source": "neo4j", "mode": mode, "nodes": list(nodes.values()), "edges": edges}
 
     def req(rid: str, text: Any = "", **extra: Any) -> str:
         nid = f"r:{rid}"
@@ -161,7 +243,10 @@ def neo4j_uskg_graph(max_traces: int = 400, max_orphans: int = 40, project: Opti
         edges.append({"from": rn, "to": dn, "category": "has_decay", "confidence": f["prev"], "reasoning": f["reason"], "checked": f["at"]})
     for o in orphans:
         req(o["rid"], o["rtext"], orphan=True)
-    return {"source": "neo4j", "nodes": list(nodes.values()), "edges": edges}
+    if mode == "all":
+        with _neo4j_driver() as driver:
+            _structure(driver, project, _CODE_LABELS + _REQ_LABELS, nodes, edges)
+    return {"source": "neo4j", "mode": mode, "nodes": list(nodes.values()), "edges": edges}
 
 
 # ---------------------------------------------------------------- pipeline stages and run summaries

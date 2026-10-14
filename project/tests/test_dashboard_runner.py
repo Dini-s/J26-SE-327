@@ -101,3 +101,14 @@ def test_link_a_specific_requirement_builds_the_right_command_and_rejects_bad_id
     for bad in (["a b"], ["x;rm -rf"], ["../x"], [""], "NEW-001", ["a"] * 21):
         with pytest.raises(runner.RunnerError):
             runner.validate({"kind": "link", "requirement_ids": bad})
+
+
+def test_only_unlinked_links_all_requirements_without_a_link():
+    p = runner.validate({"kind": "link", "project": "spring-petclinic", "top_k": 3, "limit_sources": 0, "only_unlinked": True})
+    cmd = runner.build_command(p)
+    assert "--only-unlinked" in cmd and "--requirement" not in cmd and "--limit-sources" not in cmd
+    assert cmd[cmd.index("--project") + 1] == "spring-petclinic"
+    # a named requirement list wins: the flag is dropped
+    named = runner.validate({"kind": "link", "requirement_ids": ["NEW-1"], "only_unlinked": True})
+    assert "only_unlinked" not in named
+    assert "--only-unlinked" not in runner.build_command(runner.validate({"kind": "link"}))

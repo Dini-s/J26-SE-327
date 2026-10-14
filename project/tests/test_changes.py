@@ -70,3 +70,38 @@ def test_new_requirement_is_linked_but_existing_links_are_not_redone(tmp_path):
                           runs_dir=tmp_path, top_k=2, retrieval="tfidf")
     assert {c[0] for c in llm.calls} == {"R3"} and result["linked"] == len(llm.calls) == 2
     assert all(t[0] != "R3" or t[1] in ("C1", "C2") for t in store.traces)  # never links into project p2
+
+
+def test_link_only_unlinked_skips_requirements_that_already_have_a_link(monkeypatch, tmp_path, capsys):
+    """`link --only-unlinked` searches only the requirements that no VERIFIED_TRACE starts from."""
+    from types import SimpleNamespace
+
+    from agents.traceability_agent import agent as agent_mod, cli
+    from shared.embeddings import embedder as embedder_mod
+    from shared.uskg import client as client_mod
+
+    seen = {}
+
+    class FakeUSKG:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def get_traces(self, status=None, project=None): return [SimpleNamespace(source_id="R1", target_id="C1")]
+        def write_link(self, link): pass
+
+    class FakeAgent:
+        def __init__(self, **kw): pass
+        def load_artifacts(self): return [SimpleNamespace(id=i) for i in ("R1", "R2", "R3")], [SimpleNamespace(id="C1")]
+        def find_candidates(self, sources, targets): seen["sources"] = [s.id for s in sources]; return []
+        def verify_candidates(self, candidates, on_link=None): return []
+
+    monkeypatch.setattr(client_mod, "USKGClient", FakeUSKG)
+    monkeypatch.setattr(agent_mod, "TraceabilityAgent", FakeAgent)
+    monkeypatch.setattr(embedder_mod, "Embedder", lambda *a, **k: object())
+    monkeypatch.setattr(cli, "_build_llm", lambda prompt: object())
+    monkeypatch.setattr(cli, "RUNS_DIR", tmp_path)
+    assert cli.main(["link", "--project", "p", "--only-unlinked"]) == 0
+    assert seen["sources"] == ["R2", "R3"]
+    monkeypatch.setattr(FakeUSKG, "get_traces", lambda self, status=None, project=None: [SimpleNamespace(source_id=i, target_id="C1") for i in ("R1", "R2", "R3")])
+    seen.clear()
+    assert cli.main(["link", "--project", "p", "--only-unlinked"]) == 0
+    assert "sources" not in seen and "already has a trace link" in capsys.readouterr().out
