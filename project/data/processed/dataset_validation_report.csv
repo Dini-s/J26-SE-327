@@ -1,12 +1,12 @@
 repository,status,details
-R01_spring_petclinic,OK,5 packages matched; 4 unique dependency edges
-R02_common_lang,OK,18 packages matched; 51 unique dependency edges
-R03_jabref,OK,357 packages matched; 3670 unique dependency edges
-R04_argouml,OK,97 packages matched; 693 unique dependency edges
-R05_lucene,OK,316 packages matched; 1866 unique dependency edges
-R06_hadoop,WARNING,55 architecture packages missing from structural CSV. Their structural values were left blank. Examples: org.apache.hadoop.applications.mawo.server.common; org.apache.hadoop.applications.mawo.server.worker; org.apache.hadoop.yarn.appcatalog.model
-R07_junit,OK,82 packages matched; 377 unique dependency edges
-R08_apache_maven,WARNING,3 architecture packages missing from structural CSV. Their structural values were left blank. Examples: org.apache.maven.testing.di; org.apache.maven.testing.plugin; org.apache.maven.testing.plugin.stubs
-R09_kafca,OK,275 packages matched; 2415 unique dependency edges
-R10_teammates,OK,34 packages matched; 168 unique dependency edges
-R11_key_cloak,OK,762 packages matched; 6104 unique dependency edges
+R01_spring_petclinic,OK,Packages: 5; unique dependency edges: 4; evolution source: R01_spring_petclinic_package_evolution_all_history.csv; evolution matches: 5; evolution missing: 0; structural-only packages retained: 0; architecture-only packages: 0. 
+R02_common_lang,OK,Packages: 18; unique dependency edges: 51; evolution source: R02_common_lang_package_evolution_fast.csv; evolution matches: 18; evolution missing: 0; structural-only packages retained: 0; architecture-only packages: 0. 1 ambiguous evolution rows excluded.
+R03_jabref,WARNING,Packages: 357; unique dependency edges: 3670; evolution source: R03_jabref_package_evolution_fast.csv; evolution matches: 356; evolution missing: 1; structural-only packages retained: 0; architecture-only packages: 0. 1 packages lack exact evolution records; 356 matched. 2 ambiguous evolution rows excluded.
+R04_argouml,OK,Packages: 97; unique dependency edges: 693; evolution source: R04_argouml_package_evolution_historical_test.csv; evolution matches: 97; evolution missing: 0; structural-only packages retained: 0; architecture-only packages: 0. 
+R05_lucene,WARNING,Packages: 316; unique dependency edges: 1866; evolution source: R05_lucene_package_evolution_diagnostic.csv; evolution matches: 315; evolution missing: 1; structural-only packages retained: 0; architecture-only packages: 0. 1 packages lack exact evolution records; 315 matched.
+R06_hadoop,WARNING,Packages: 679; unique dependency edges: 7577; evolution source: R06_hadoop_package_evolution_diagnostic.csv; evolution matches: 678; evolution missing: 1; structural-only packages retained: 0; architecture-only packages: 0. 1 packages lack exact evolution records; 678 matched.
+R07_junit,WARNING,Packages: 82; unique dependency edges: 377; evolution source: R07_junit_package_evolution_fast.csv; evolution matches: 81; evolution missing: 1; structural-only packages retained: 0; architecture-only packages: 0. 1 packages lack exact evolution records; 81 matched. 2 ambiguous evolution rows excluded.
+R08_apache_maven,WARNING,Packages: 213; unique dependency edges: 981; evolution source: R08_apache_maven_package_evolution_historical_test.csv; evolution matches: 212; evolution missing: 1; structural-only packages retained: 0; architecture-only packages: 0. 1 packages lack exact evolution records; 212 matched.
+R09_kafca,WARNING,Packages: 275; unique dependency edges: 2415; evolution source: R09_kafca_package_evolution_diagnostic.csv; evolution matches: 274; evolution missing: 1; structural-only packages retained: 0; architecture-only packages: 0. 1 packages lack exact evolution records; 274 matched.
+R10_teammates,OK,Packages: 34; unique dependency edges: 168; evolution source: R10_teammates_package_evolution_fast.csv; evolution matches: 34; evolution missing: 0; structural-only packages retained: 0; architecture-only packages: 0. 1 ambiguous evolution rows excluded.
+R11_key_cloak,WARNING,Packages: 638; unique dependency edges: 6104; evolution source: R11_key_cloak_package_evolution_fast.csv; evolution matches: 637; evolution missing: 1; structural-only packages retained: 0; architecture-only packages: 0. 1 packages lack exact evolution records; 637 matched. 2 ambiguous evolution rows excluded.
