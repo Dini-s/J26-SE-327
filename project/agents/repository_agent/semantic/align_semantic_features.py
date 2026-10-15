@@ -133,6 +133,23 @@ def main():
     missing_vectors = int((hrim_check["_merge"] == "left_only").sum())
     extra_vectors = int((semantic_check["_merge"] == "left_only").sum())
 
+    # Print the exact package keys that do not match.
+    missing_hrim_packages = hrim_check.loc[
+        hrim_check["_merge"] == "left_only",
+        ["repository", "package_path"],
+    ]
+
+    extra_semantic_packages = semantic_check.loc[
+        semantic_check["_merge"] == "left_only",
+        ["repository", "package_path"],
+    ]
+
+    print("\nHRIM packages missing semantic vectors:")
+    print(missing_hrim_packages.to_string(index=False))
+
+    print("\nSemantic packages missing HRIM records:")
+    print(extra_semantic_packages.to_string(index=False))
+
     # Preserve every HRIM package, even if a semantic vector is missing.
     aligned = hrim_repo.merge(
         semantic_features,
