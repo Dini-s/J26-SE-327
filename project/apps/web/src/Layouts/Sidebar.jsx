@@ -5,10 +5,10 @@ import {
   Database,
 } from "lucide-react";
 
-
 import SidebarItem from "./SidebarItem";
 import SidebarSection from "./SidebarSection";
 import { navigation } from "../data/navigation";
+import ASPIRE_logo from "../assets/ASPIRE_logo.png"
 
 const Sidebar = ({
   collapsed,
@@ -50,14 +50,10 @@ const Sidebar = ({
             flex h-10 w-10
             shrink-0
             items-center justify-center
-            rounded-xl
-            border border-blue-400/30
-            bg-blue-500/10
+            
           "
         >
-          <span className="text-xl">
-            ◈
-          </span>
+          <img src={ASPIRE_logo} className="w-8 h-8"/>
         </div>
 
         {/* Brand */}
