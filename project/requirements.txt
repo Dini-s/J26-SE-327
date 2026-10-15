@@ -1,0 +1,12 @@
+
+pandas
+numpy
+scikit-learn
+openpyxl
+liac-arff
+pytest
+joblib==1.6.0
+sentence-transformers==6.1.0
+pypdf==6.20.0
+python-docx==1.2.0
+striprtf==0.0.33

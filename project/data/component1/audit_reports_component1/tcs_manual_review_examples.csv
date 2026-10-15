@@ -1,0 +1,5 @@
+﻿requirement_id,candidate_parent_id,review_category,source_observation,validation_status
+SSS026,SSS024,PARENT_REQUIREMENT_FRAGMENT,Software download item within TCS initialization steps,MANUAL_REVIEW_REQUIRED
+SSS084,SSS082,LIST_ITEM,Fuel calculations listed under flight planning tools,MANUAL_REVIEW_REQUIRED
+SSS097,SSS535,PARENT_REQUIREMENT_LIST_ITEM,Map icon display item under parent icon-display statement,MANUAL_REVIEW_REQUIRED
+SSS030,,DELETED_REQUIREMENT,Source context explicitly contains DELETED,DELETED_STATUS_TO_CONFIRM

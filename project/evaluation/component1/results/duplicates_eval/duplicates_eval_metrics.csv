@@ -1,0 +1,26 @@
+﻿set,negatives,metric,value,ci_low,ci_high,n_pairs
+eval(val),all_negatives,precision,0.716,0.6824,0.7529,1500
+eval(val),all_negatives,recall,0.938,0.9149,0.9572,1500
+eval(val),all_negatives,f1,0.8121,0.784,0.8369,1500
+eval(val),easy_negatives_only,precision,1.0,1.0,1.0,1000
+eval(val),easy_negatives_only,recall,0.938,0.9158,0.9586,1000
+eval(val),easy_negatives_only,f1,0.968,0.9561,0.9789,1000
+eval(val),hard_negatives_only,precision,0.716,0.6825,0.7511,1000
+eval(val),hard_negatives_only,recall,0.938,0.9158,0.9586,1000
+eval(val),hard_negatives_only,f1,0.8121,0.7867,0.8374,1000
+dev(train),all_negatives,precision,0.7823,0.7581,0.805,3000
+dev(train),all_negatives,recall,0.938,0.923,0.9524,3000
+dev(train),all_negatives,f1,0.8531,0.8371,0.8685,3000
+eval(val),recall_by_edit:case_punctuation,recall,0.9719,,,178
+eval(val),recall_by_edit:clause_reorder,recall,0.8667,,,15
+eval(val),recall_by_edit:drop_modifier,recall,0.9787,,,47
+eval(val),recall_by_edit:modal_swap,recall,0.8571,,,84
+eval(val),recall_by_edit:trailing_clause,recall,0.9375,,,176
+eval(val),false_positive_rate:easy_negative,flag_rate,0.0,,,500
+eval(val),false_positive_rate:hard_negative,flag_rate,0.372,,,500
+eval(val) DBSCAN groups,all_negatives,precision,0.716,0.6824,0.7529,1500
+eval(val) DBSCAN groups,all_negatives,recall,0.938,0.9149,0.9572,1500
+eval(val) DBSCAN groups,all_negatives,f1,0.8121,0.784,0.8369,1500
+eval(val) DBSCAN groups,easy_negatives_only,precision,1.0,1.0,1.0,1000
+eval(val) DBSCAN groups,easy_negatives_only,recall,0.938,0.9158,0.9586,1000
+eval(val) DBSCAN groups,easy_negatives_only,f1,0.968,0.9561,0.9789,1000

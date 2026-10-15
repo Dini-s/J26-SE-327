@@ -1,0 +1,8 @@
+[security_binary] best model by validation macro-F1: rules (0.7236)
+[security_binary] trained on all three label sources pooled; reported per source and pooled. PURE dominates the pooled number; PURE validation is a single document (HIPAA) and PURE test has only 32 security positives, so read the CIs.
+[promise_subtype_multilabel] best model by validation micro-F1: rules (0.5714); 224 train / 63 val rows with a non-empty subtype label (rows with an empty subtype are excluded, not treated as all-zero)
+[promise_subtype_multilabel] grouped CV uses the 287 rows with a real project group; 0 ungrouped rows are left out of CV (too few for a separate stratified slice).
+[security_binary] 89 of 1285 test rows misclassified by rules; 30 sampled in errors file
+[promise_subtype_multilabel] WARNING: test has only 43 rows; per-class test support = {'A': 9, 'FT': 2, 'L': 3, 'LF': 12, 'MN': 7, 'O': 7, 'PE': 9, 'PO': 0, 'SC': 1, 'SE': 5, 'US': 5}. Classes with support < 5 are unreliable; treat the cross-validation rows as the main evidence.
+[promise_subtype_multilabel] 30 of 43 test rows have at least one wrong label under rules
+[reliability] too sparse to evaluate: no metric reported (positives in train/val: {'train': 34, 'val': 0}; test count not examined).

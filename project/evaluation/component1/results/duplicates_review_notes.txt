@@ -1,0 +1,1 @@
+13361 SRS rows; 15445 pairs at cosine >= 0.80, of which 1476 are exact-text matches (excluded); 13969 pairs remain; band 0.80-0.90 holds 11879.

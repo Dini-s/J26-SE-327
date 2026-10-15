@@ -1,0 +1,14 @@
+﻿check,result,status,notes
+Total data rows,1000,PASS,1000 records excluding header
+Unique words,1000,PASS,All word entries are unique
+Missing words,0,PASS,No missing word values
+Duplicate words,0,PASS,No duplicated word values
+Subjective Language labelled T,102,RECORDED,898 blank
+"Ambiguous Adv, Adj labelled T",38,RECORDED,962 blank
+Loopholes labelled T,0,REVIEW,All 1000 entries are blank
+"Open-ended, Non-verifiable terms labelled T",23,RECORDED,977 blank
+Polysemy labelled T,54,RECORDED,946 blank
+Irrelevant labelled T,27,RECORDED,973 blank
+Similarity missing,0,PASS,All 1000 values present
+Similarity meaning and threshold,Unknown,REVIEW,Needs source documentation
+Blank category meaning,Unknown,REVIEW,Do not assume blank means False

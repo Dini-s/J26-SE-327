@@ -6,3 +6,7 @@ node_modules/
 .ipynb_checkpoints/
 .DS_Store
 data/raw/
+
+# Component 1 baseline models and embedding cache (large, regenerable)
+models/component1/*.joblib
+models/component1/embedding_cache/
