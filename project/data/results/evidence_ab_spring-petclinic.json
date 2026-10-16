@@ -1,0 +1,414 @@
+{
+ "project": "spring-petclinic",
+ "labels": "spring-petclinic_claude",
+ "summary": {
+  "links_judged": 36,
+  "standard_precision": 0.583,
+  "evidence_kept": 17,
+  "evidence_precision": 0.824,
+  "correct_links_kept": "14/21",
+  "wrong_links_rejected": "12/15"
+ },
+ "rows": [
+  {
+   "requirement": "PC-REQ-016",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 317.4,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "This method returns the view name 'welcome' when the root URL is accessed, which corresponds to the welcome page being shown as the home page. Evidence: \"return \"welcome\";\""
+  },
+  {
+   "requirement": "PC-REQ-016",
+   "code": "spring-petclinic:src/main/resources/templates/welcome.html",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 13.6,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "This HTML template defines the welcome page as the home page of the application, replacing the layout with the welcome page content. Evidence: \"<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'home')}\">\""
+  },
+  {
+   "requirement": "PC-REQ-015",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 32.0,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "There is no snippet in the code that provides a list of veterinarians as a machine-readable resource."
+  },
+  {
+   "requirement": "PC-REQ-001",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "std_confidence": 0.9,
+   "label": "wrong",
+   "seconds": 42.6,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "The processCreationForm method allows a clinic employee to add a new pet owner by entering first name, last name, address, city and telephone number, as it calls the owner's addPet method with a valid Pet object. Evidence: \"public String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result, RedirectAttributes redirectAttributes) { ... owner.addPet(pet); ... }\""
+  },
+  {
+   "requirement": "PC-REQ-002",
+   "code": "spring-petclinic:src/main/resources/templates/owners/findOwners.html",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 23.7,
+   "ev_linked": true,
+   "ev_confidence": 0.6,
+   "ev_reason": "The code provides a text input field for the last name, allowing for partial matches. However, it does not explicitly state what happens when the search field is empty. Evidence: \"<input class=\"form-control\" th:field=\"*{lastName}\" size=\"30\" maxlength=\"80\" />\""
+  },
+  {
+   "requirement": "PC-REQ-006",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 38.8,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The code provided does not display an owner's details, contact information, the owner's pets, or each pet's visit history. It appears to handle CRUD operations for owners and pets, but does not display the required information."
+  },
+  {
+   "requirement": "PC-REQ-006",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 36.3,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The code provided does not display an owner's details, contact information, the owner's pets, or each pet's visit history. It appears to be focused on creating and updating pet information."
+  },
+  {
+   "requirement": "PC-REQ-011",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 34.4,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "This condition checks if the pet's birth date is after the current date, preventing future dates from being accepted. Evidence: \"if (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate))\""
+  },
+  {
+   "requirement": "PC-REQ-008",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 32.9,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The code does not implement adding a new pet to an owner, it seems to be focused on managing visits for existing pets."
+  },
+  {
+   "requirement": "PC-REQ-013",
+   "code": "spring-petclinic:src/main/resources/templates/owners/ownerDetails.html",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 43.8,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "Rejected: the quoted evidence is missing or not in the code. This snippet lists a pet's previous visits with date and description in the owner's details page, satisfying the requirement."
+  },
+  {
+   "requirement": "PC-REQ-010",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 38.3,
+   "ev_linked": true,
+   "ev_confidence": 0.6,
+   "ev_reason": "This code snippet checks if a pet name already exists for the same owner, but it does not check for the birth date and type. Evidence: \"if (StringUtils.hasText(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null) {\""
+  },
+  {
+   "requirement": "PC-REQ-023",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 36.8,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "This method sets the disallowed fields to 'id' and any field that starts with 'id', preventing mass-assignment attacks. Evidence: \"dataBinder.setDisallowedFields(\"id\", \"*.id\");\""
+  },
+  {
+   "requirement": "PC-REQ-009",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+   "std_confidence": 0.8,
+   "label": "unsure",
+   "seconds": 37.5,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The Owner class does not provide any methods for editing a pet's name, birth date, or type. It only provides methods for retrieving pets by name or id."
+  },
+  {
+   "requirement": "PC-REQ-019",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 46.3,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "Rejected: the quoted evidence is missing or not in the code. The @Pattern annotation with regexp = \"\\d{10}\" ensures that the telephone number is exactly ten digits long, and the message = \"{telephone.invalid}\" attribute provides a message to be shown when the telephone number is invalid."
+  },
+  {
+   "requirement": "PC-REQ-023",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 37.2,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "This line of code ensures that the identifier fields of owners, pets, and visits are never bound from a submitted form, thus protecting against mass-assignment attacks. Evidence: \"dataBinder.setDisallowedFields(\"id\", \"*.id\");\""
+  },
+  {
+   "requirement": "PC-REQ-012",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 37.5,
+   "ev_linked": true,
+   "ev_confidence": 0.6,
+   "ev_reason": "This method allows an employee to schedule a visit for a pet by entering a date, but it does not allow entering a description. The description is not a required field in this method. Evidence: \"public String processNewVisitForm(@ModelAttribute Owner owner, @PathVariable int petId, @Valid Visit visit, BindingResult result, RedirectAttributes redirectAttributes) {\""
+  },
+  {
+   "requirement": "PC-REQ-004",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 37.5,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "The findOwner method is called when exactly one owner matches a search, and it returns the owner's details directly. Evidence: \"return owner;\""
+  },
+  {
+   "requirement": "PC-REQ-007",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 37.0,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "This line of code updates an existing owner's information by calling the save method on the OwnerRepository. Evidence: \"this.owners.save(owner);\""
+  },
+  {
+   "requirement": "PC-REQ-022",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicRuntimeHints.java",
+   "std_confidence": 0.9,
+   "label": "unsure",
+   "seconds": 21.5,
+   "ev_linked": true,
+   "ev_confidence": 0.6,
+   "ev_reason": "This code snippet registers a pattern for an in-memory database, but does not explicitly support MySQL and PostgreSQL through configuration. However, it does mention 'db/*' which could be interpreted as supporting other databases, including MySQL and PostgreSQL, through configuration. Evidence: \"hints.resources().registerPattern(\"db/*\");\""
+  },
+  {
+   "requirement": "PC-REQ-011",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 19.1,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The code does not check if the birth date is in the future, it only checks if the birth date is null."
+  },
+  {
+   "requirement": "PC-REQ-021",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 33.1,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "There is no snippet in the code that implements caching of the list of veterinarians."
+  },
+  {
+   "requirement": "PC-REQ-016",
+   "code": "spring-petclinic:src/main/resources/templates/fragments/layout.html",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 47.2,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "This snippet shows the welcome page as the home page of the application, as it replaces the 'menuItem' fragment with the link to the home page. Evidence: \"<li th:replace=\"~{::menuItem ('/','home','home page','home',#{home})}\">\""
+  },
+  {
+   "requirement": "PC-REQ-020",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 37.7,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The code defines the Owner class, but does not show any validation or restriction on accepting an owner without a first name, last name, address, and city."
+  },
+  {
+   "requirement": "PC-REQ-008",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+   "std_confidence": 0.8,
+   "label": "unsure",
+   "seconds": 37.2,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "The addPet method allows an employee to add a new pet to an owner by entering the pet's details, which matches the requirement. Evidence: \"public void addPet(Pet pet) { ... }\""
+  },
+  {
+   "requirement": "PC-REQ-022",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 30.1,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "There is no snippet in the code that implements the requirement of starting with an in-memory database by default and supporting MySQL and PostgreSQL through configuration."
+  },
+  {
+   "requirement": "PC-REQ-014",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 25.3,
+   "ev_linked": true,
+   "ev_confidence": 0.6,
+   "ev_reason": "This line of code adds the list of veterinarians to the model, but it does not include their specialties. The specialties are not mentioned in the code snippet. Evidence: \"model.addAttribute(\"listVets\", listVets);\""
+  },
+  {
+   "requirement": "PC-REQ-021",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 16.0,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "The code creates a cache named 'vets' which stores the list of veterinarians, thus preventing repeated database reads. Evidence: \"createCache(\"vets\", cacheConfiguration());\""
+  },
+  {
+   "requirement": "PC-REQ-008",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 37.5,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "The code snippet shows the method `addPet` being called on the `owner` object, which adds a new pet to the owner's collection of pets. This matches the requirement of adding a new pet to an owner. Evidence: \"owner.addPet(pet);\""
+  },
+  {
+   "requirement": "PC-REQ-003",
+   "code": "spring-petclinic:src/main/resources/templates/owners/findOwners.html",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 20.1,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The provided HTML template does not contain any code that implements a paginated list of owners. It only contains a form for searching owners and a link to add a new owner."
+  },
+  {
+   "requirement": "PC-REQ-023",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 37.4,
+   "ev_linked": true,
+   "ev_confidence": 0.9,
+   "ev_reason": "This line of code prevents mass-assignment attacks by disallowing the binding of identifier fields of owners, pets, and visits from a submitted form. Evidence: \"dataBinder.setDisallowedFields(\"id\", \"*.id\");\""
+  },
+  {
+   "requirement": "PC-REQ-006",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 29.4,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The code snippet does not directly implement the requirement, but it does handle visit-related functionality for a specific owner and pet. However, it does not display the owner's contact information or the pet's visit history."
+  },
+  {
+   "requirement": "PC-REQ-003",
+   "code": "spring-petclinic:src/main/resources/templates/vets/vetList.html",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 31.5,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The requirement asks for a paginated list of owners, but the provided code snippet is for a list of veterinarians, not owners."
+  },
+  {
+   "requirement": "PC-REQ-003",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 33.6,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "There is no code snippet that shows a paginated list of owners matching a search. The code is related to owner management, but it does not implement the requirement of showing owners in a paginated list."
+  },
+  {
+   "requirement": "PC-REQ-001",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 39.9,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The code defines the Owner class, which represents a pet owner, but it does not provide a method to add a new pet owner. The addPet method is used to add a new pet to an existing owner, but it does not handle the creation of a new owner."
+  },
+  {
+   "requirement": "PC-REQ-006",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 36.3,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "The Owner class contains fields for contact information (address, city, telephone) and a list of pets, but there is no indication of how to display visit history for each pet."
+  },
+  {
+   "requirement": "PC-REQ-026",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 29.5,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "There is no authentication mechanism in place for employees to access owner data."
+  },
+  {
+   "requirement": "PC-REQ-009",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java",
+   "std_confidence": 0.8,
+   "label": "unsure",
+   "seconds": 19.7,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "This code snippet is related to the requirement but does not directly implement it. It appears to be a validator for Pet forms, but it does not provide any functionality for editing a pet's name, birth date, or type."
+  },
+  {
+   "requirement": "PC-REQ-015",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java",
+   "std_confidence": 0.8,
+   "label": "correct",
+   "seconds": 15.7,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "Rejected: the quoted evidence is missing or not in the code. The @XmlRootElement annotation indicates that the Vets class can be serialized to XML, satisfying the requirement for a machine-readable resource."
+  },
+  {
+   "requirement": "PC-REQ-018",
+   "code": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java",
+   "std_confidence": 0.9,
+   "label": "correct",
+   "seconds": 23.0,
+   "ev_linked": true,
+   "ev_confidence": 0.6,
+   "ev_reason": "This code sets the default locale to English, but does not explicitly support German and Spanish. However, it does allow language changes via the URL parameter, which can be used to switch to other languages. Evidence: \"resolver.setDefaultLocale(Locale.ENGLISH);\""
+  },
+  {
+   "requirement": "PC-REQ-006",
+   "code": "spring-petclinic:src/main/resources/templates/owners/ownersList.html",
+   "std_confidence": 0.8,
+   "label": "wrong",
+   "seconds": 37.8,
+   "ev_linked": false,
+   "ev_confidence": 0.1,
+   "ev_reason": "Rejected: the quoted evidence is missing or not in the code. This snippet displays the owner's pets, but does not show the owner's contact information or each pet's visit history."
+  }
+ ]
+}

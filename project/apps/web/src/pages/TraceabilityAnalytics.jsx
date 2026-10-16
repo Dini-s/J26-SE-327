@@ -13,11 +13,11 @@ function Insights({ a }) {
       <section className="grid grid-cols-2 gap-5 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] lg:grid-cols-4">
         <Metric label="Requirement coverage" value={`${Math.round(a.coverage * 100)}%`} icon={Percent} tone="indigo" />
         <Metric label="Mean confidence" value={a.meanConfidence.toFixed(2)} icon={Gauge} tone="green" />
-        <Metric label="Verified links" value={a.verifiedLinks} icon={Activity} tone="indigo" />
+        <Metric label="Trusted links (≥0.85)" value={`${a.trustedLinks} / ${a.verifiedLinks}`} icon={Activity} tone="indigo" />
         <Metric label="Decay events" value={a.decayEvents} icon={FileWarning} tone={a.decayEvents ? "red" : "slate"} />
       </section>
 
-      <div className="grid gap-5 xl:grid-cols-3">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xl:grid-cols-3">
         <Card title="Link confidence" description="How sure the AI was about each verified link.">
           <BarChart items={a.confidenceHistogram} tone="indigo" />
         </Card>
@@ -29,7 +29,31 @@ function Insights({ a }) {
         </Card>
       </div>
 
-      <div className="grid gap-5 xl:grid-cols-3">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xl:grid-cols-2">
+        <Card title="Requirements at risk" description="Ranked by how likely their traceability is wrong or about to break." flush>
+          {a.riskRequirements.length === 0 ? (
+            <div className="px-5 pb-5"><EmptyState title="Nothing at risk">Every requirement has a strong, verified link.</EmptyState></div>
+          ) : (
+            <ul className="divide-y divide-slate-100">
+              {a.riskRequirements.slice(0, 7).map((r) => (
+                <li key={r.requirement} className="flex items-start gap-3 px-5 py-2.5 text-[13px]">
+                  <Chip tone={r.level === "high" ? "red" : "amber"} dot className="mt-0.5">{r.level}</Chip>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-slate-900">{r.requirement}</p>
+                    <p className="truncate text-[12px] text-slate-500">{r.text}</p>
+                  </div>
+                  <p className="max-w-[210px] text-right text-[12px] leading-snug text-slate-600">{r.reasons.join(", ")}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card>
+        <Card title="Completeness over time" description="Mean score of all requirements after each day. Rebuilt from link timestamps, so it shows the shape, not exact past scores.">
+          <Timeline points={a.completenessTrend} valueKey="score" showDecay={false} max={100} />
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xl:grid-cols-3">
         <Card title="Change hotspots" description="Files the most requirements depend on. Changing them has the widest impact." flush>
           <RankList rows={a.hotspots} value={(r) => `${r.requirements} req`} />
         </Card>
@@ -92,7 +116,7 @@ function Impact({ links }) {
   const seconds = affected.length * SEC_PER_CHECK;
 
   return (
-    <div className="grid gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
       <Card title="Pick something" description="See what depends on it." flush>
         <div className="space-y-3 px-5 pb-3">
           <Segmented value={mode} onChange={(m) => { setMode(m); setPicked(null); }} items={[{ id: "code", label: "A code file" }, { id: "req", label: "A requirement" }]} />

@@ -164,3 +164,7 @@ python -m agents.traceability_agent report --project spring-petclinic --out data
 ```
 
 Writes `trace_matrix.csv` (requirement x code; `x0.30` = decayed link), `trace_links.csv` and `trace_report.json` (orphans = never linked, broken = every link decayed, weak = best link under 0.7, plus the decayed-link list). The dashboard's Overview page has the same three downloads.
+
+## Which prompt is used
+
+`link` uses `--prompt evidence` by default: the model must quote code that satisfies the requirement and the quote is checked, which gave 82% precision against 58% for `--prompt expert` on 36 hand-checked PetClinic links, at the cost of missing about a third of the correct links (see `docs/c4_reranker_and_stage1_analysis.md`, section 5.y). Re-checking existing links (`monitor`, `changed`) keeps the more lenient expert prompt so older links do not decay by accident.

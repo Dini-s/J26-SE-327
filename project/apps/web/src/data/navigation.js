@@ -174,6 +174,12 @@ export const navigation = [
       },
 
       {
+        label: "Evaluate links",
+        path: "/traceability/labeling",
+        icon: ShieldAlert,
+      },
+
+      {
         label: "Traceability Graph",
         path: "/traceability/graph",
         icon: Network,

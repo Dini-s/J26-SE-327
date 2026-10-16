@@ -1,0 +1,32 @@
+{
+ "sample": 40,
+ "labelled": 40,
+ "correct": 21,
+ "wrong": 15,
+ "unsure": 4,
+ "precision": 0.583,
+ "ci95": [
+  0.422,
+  0.729
+ ],
+ "byConfidence": [
+  {
+   "label": "< 0.7",
+   "correct": 0,
+   "wrong": 0,
+   "precision": null
+  },
+  {
+   "label": "0.7 - 0.85",
+   "correct": 11,
+   "wrong": 14,
+   "precision": 0.44
+  },
+  {
+   "label": ">= 0.85",
+   "correct": 10,
+   "wrong": 1,
+   "precision": 0.909
+  }
+ ]
+}

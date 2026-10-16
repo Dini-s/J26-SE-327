@@ -170,6 +170,53 @@ def get_analytics(q: dict) -> dict:
     return _cached(f"analytics:{project}", 3, lambda: analytics.build(sources.neo4j_links(project)))
 
 
+def get_labeling(q: dict) -> dict:
+    """A fixed random sample of the project's verified links, the saved hand labels, and the precision they give."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+    from apps.api import labeling
+
+    try:
+        n = min(200, max(5, int(q.get("n", 40))))
+    except ValueError:
+        n = 40
+    sample = labeling.sample_links(sources.neo4j_links(project)["links"], n)
+    labels = labeling.load_labels(project)
+    items = [
+        {**{k: l[k] for k in ("requirement", "requirementText", "code", "confidence", "reason")}, "label": labels.get(f"{l['requirement']}||{l['code']}", {}).get("label")}
+        for l in sample
+    ]
+    return {"project": project, "items": items, "stats": labeling.stats(sample, labels)}
+
+
+def get_code_text(q: dict) -> dict:
+    """The stored text of a code entity."""
+    code = str(q.get("code", ""))
+    if not code or len(code) > 500:
+        raise ApiError(400, "code is required.")
+    _need_neo4j()
+    return {"code": code, "text": sources.neo4j_code_text(code)}
+
+
+def post_label(body: dict) -> dict:
+    """Save one hand label (correct / wrong / unsure, or null to clear it)."""
+    project = _project(body.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    requirement, code, label = str(body.get("requirement", "")), str(body.get("code", "")), body.get("label")
+    if not requirement or not code or len(requirement) > 200 or len(code) > 500:
+        raise ApiError(400, "requirement and code are required.")
+    from apps.api import labeling
+
+    try:
+        labeling.set_label(project, requirement, code, label)
+    except ValueError as exc:
+        raise ApiError(400, str(exc)) from exc
+    return {"ok": True}
+
+
 def get_completeness(q: dict) -> dict:
     """Traceability completeness per requirement (0-100) and orphan requirements; no C3 evidence figure is available yet."""
     project = _project(q.get("project"))
@@ -340,10 +387,10 @@ GET_ROUTES: dict[str, Callable[[dict], Any]] = {
     "/api/health": get_health, "/api/projects": get_projects, "/api/activity": get_activity,
     "/api/link-runs": get_link_runs, "/api/change-runs": get_change_runs, "/api/files": get_files,
     "/api/graph": get_graph, "/api/unlinked": get_unlinked, "/api/results": get_results,
-    "/api/links": get_links, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics,
+    "/api/links": get_links, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics, "/api/labeling": get_labeling, "/api/code-text": get_code_text,
 }
 POST_ROUTES: dict[str, Callable[[dict], Any]] = {
-    "/api/link": post_link, "/api/link-existing": post_link_existing, "/api/scan": post_scan, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset,
+    "/api/link": post_link, "/api/link-existing": post_link_existing, "/api/scan": post_scan, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset, "/api/label": post_label,
 }
 
 

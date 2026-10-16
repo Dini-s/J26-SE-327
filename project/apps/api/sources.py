@@ -8,6 +8,7 @@ Processed datasets (``data/processed/<name>/``) supply artifact text and ground 
 
 import json
 import os
+import re
 import time
 import urllib.request
 from functools import lru_cache
@@ -161,6 +162,23 @@ def neo4j_links(project: str, max_links: int = 2000) -> dict[str, Any]:
         "decayFlags": [{**dict(r), "reason": cut(r["reason"], 700)} for r in flags],
         "orphans": [{**dict(r), "requirementText": cut(r["requirementText"], 400)} for r in orphans],
     }
+
+
+def strip_license(text: str) -> str:
+    """Drop a leading /* ... */ block when it is a copyright / licence header (useless for judging a link)."""
+    stripped = text.lstrip()
+    if stripped.startswith("/*"):
+        end = stripped.find("*/")
+        if end != -1 and re.search(r"copyright|license", stripped[:end], re.IGNORECASE):
+            return stripped[end + 2 :].lstrip()
+    return text
+
+
+def neo4j_code_text(code_id: str, limit: int = 6000) -> str:
+    """The stored text of one code entity (read-only), for the labelling page."""
+    with _neo4j_driver() as driver:
+        rows, _, _ = driver.execute_query("MATCH (c:CodeEntity {id: $id}) RETURN coalesce(c.text, '') AS text LIMIT 1", id=code_id)
+    return strip_license(rows[0]["text"] if rows else "")[:limit]
 
 
 # ---------------------------------------------------------------- USKG graph (Neo4j)

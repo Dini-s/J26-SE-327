@@ -43,3 +43,22 @@ def test_timeline_accumulates_created_links_per_day():
 def test_empty_project():
     a = analytics.build({"project": "p", "requirements": 0, "links": [], "decayFlags": []})
     assert a["coverage"] == 0.0 and a["timeline"] == []
+
+
+def test_risk_ranking_orders_by_points_and_explains_why():
+    payload = {**PAYLOAD, "orphans": [{"requirement": "R9", "requirementText": "x"}]}
+    rows = analytics.build(payload)["riskRequirements"]
+    assert [r["requirement"] for r in rows] == ["R2", "R3", "R9"]  # R1 (0.9, two files) is not at risk
+    r2 = rows[0]
+    assert r2["points"] == 3 and "depends on a single file" in r2["reasons"] and "best confidence only 0.40" in r2["reasons"]
+    assert rows[1]["reasons"] == ["every link is broken"] and rows[2]["reasons"] == ["never linked to any code"]
+
+
+def test_completeness_trend_rises_then_drops_when_a_link_decays():
+    trend = analytics.build(PAYLOAD)["completenessTrend"]
+    assert [(t["day"], t["score"]) for t in trend] == [("2026-10-14", 23.0), ("2026-10-15", 29.0), ("2026-10-16", 23.0)]
+
+
+def test_trusted_links_are_those_at_or_above_the_threshold():
+    a = analytics.build(PAYLOAD)
+    assert a["trustedThreshold"] == 0.85 and a["trustedLinks"] == 1  # only R1->A.java (0.9)

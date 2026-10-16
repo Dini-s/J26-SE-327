@@ -14,6 +14,7 @@ import TraceabilityGraph from "../pages/TraceabilityGraph";
 import TraceabilityLink from "../pages/TraceabilityLink";
 import TraceabilityChanges from "../pages/TraceabilityChanges";
 import TraceabilityAnalytics from "../pages/TraceabilityAnalytics";
+import TraceabilityLabeling from "../pages/TraceabilityLabeling";
 import KnowledgeGraph from "../pages/KnowledgeGraph";
 
 const AppRoutes = () => {
@@ -27,6 +28,7 @@ const AppRoutes = () => {
           <Route path="traceability/graph" element={<TraceabilityGraph />} />
           <Route path="traceability/link" element={<TraceabilityLink />} />
           <Route path="traceability/analytics" element={<TraceabilityAnalytics />} />
+          <Route path="traceability/labeling" element={<TraceabilityLabeling />} />
           <Route path="traceability/changes" element={<TraceabilityChanges />} />
           <Route path="knowledge-graph" element={<KnowledgeGraph />} />
 

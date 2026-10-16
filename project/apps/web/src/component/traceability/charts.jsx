@@ -18,13 +18,13 @@ export function BarChart({ items, tone = "indigo", height = 150 }) {
 }
 
 /** Cumulative links as an area, decay events as red markers. points: [{day, total, created, decayed}] */
-export function Timeline({ points }) {
+export function Timeline({ points, valueKey = "total", showDecay = true, max: fixedMax }) {
   if (points.length === 0) return <p className="py-10 text-center text-[13px] text-slate-400">No dated links yet.</p>;
   const W = 640, H = 170, P = { l: 36, r: 12, t: 12, b: 26 };
-  const max = Math.max(1, ...points.map((p) => p.total));
+  const max = fixedMax ?? Math.max(1, ...points.map((p) => p[valueKey]));
   const x = (i) => P.l + (points.length === 1 ? (W - P.l - P.r) / 2 : (i / (points.length - 1)) * (W - P.l - P.r));
   const y = (v) => P.t + (1 - v / max) * (H - P.t - P.b);
-  const line = points.map((p, i) => `${i ? "L" : "M"} ${x(i)} ${y(p.total)}`).join(" ");
+  const line = points.map((p, i) => `${i ? "L" : "M"} ${x(i)} ${y(p[valueKey])}`).join(" ");
   const area = `${line} L ${x(points.length - 1)} ${H - P.b} L ${x(0)} ${H - P.b} Z`;
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label="Links over time">
@@ -38,11 +38,11 @@ export function Timeline({ points }) {
       <path d={line} fill="none" stroke="#6366f1" strokeWidth="2.5" strokeLinejoin="round" />
       {points.map((p, i) => (
         <g key={p.day}>
-          <circle cx={x(i)} cy={y(p.total)} r="3.5" fill="#6366f1" />
-          {p.decayed > 0 && (
+          <circle cx={x(i)} cy={y(p[valueKey])} r="3.5" fill="#6366f1" />
+          {showDecay && p.decayed > 0 && (
             <g>
-              <circle cx={x(i)} cy={y(p.total) - 14} r="8" fill="#ef4444" />
-              <text x={x(i)} y={y(p.total) - 10} textAnchor="middle" fontSize="10" fontWeight="700" fill="#fff">{p.decayed}</text>
+              <circle cx={x(i)} cy={y(p[valueKey]) - 14} r="8" fill="#ef4444" />
+              <text x={x(i)} y={y(p[valueKey]) - 10} textAnchor="middle" fontSize="10" fontWeight="700" fill="#fff">{p.decayed}</text>
             </g>
           )}
           <text x={x(i)} y={H - 8} textAnchor="middle" fontSize="11" fill="#64748b">{p.day.slice(5)}</text>

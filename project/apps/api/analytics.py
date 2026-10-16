@@ -6,6 +6,7 @@ Pure functions over the payload of ``sources.neo4j_links`` so they can be tested
 from collections import Counter, defaultdict
 from typing import Any
 
+TRUSTED_THRESHOLD = 0.85  # hand-labelling showed ~91% of links at or above this are correct, ~44% in 0.7-0.85
 BUCKETS = [(0.0, 0.5, "< 0.5"), (0.5, 0.7, "0.5 - 0.7"), (0.7, 0.85, "0.7 - 0.85"), (0.85, 1.01, ">= 0.85")]
 
 
@@ -15,6 +16,82 @@ def _day(value: Any) -> str:
 
 def _name(path: str) -> str:
     return str(path).split("/")[-1].split(":")[-1]
+
+
+def _risk(payload: dict[str, Any], links: list[dict[str, Any]], top: int) -> list[dict[str, Any]]:
+    """Requirements ranked by how likely their traceability is wrong or about to be.
+
+    Points: never linked 3; only broken links 3; has a broken link 2; one single link 1;
+    best verified confidence < 0.7 gives 2, < 0.85 gives 1.
+    """
+    by_req: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    text: dict[str, str] = {}
+    for l in links:
+        by_req[l["requirement"]].append(l)
+        text[l["requirement"]] = l.get("requirementText", "")
+    for o in payload.get("orphans", []):
+        by_req.setdefault(o["requirement"], [])
+        text[o["requirement"]] = o.get("requirementText", "")
+
+    rows = []
+    for rid, ls in by_req.items():
+        ok = [l for l in ls if l.get("status") != "decayed"]
+        broken = len(ls) - len(ok)
+        reasons, points = [], 0
+        if not ls:
+            reasons.append("never linked to any code")
+            points += 3
+        elif not ok:
+            reasons.append("every link is broken")
+            points += 3
+        else:
+            if broken:
+                reasons.append(f"{broken} broken link{'s' if broken > 1 else ''}")
+                points += 2
+            if len(ok) == 1:
+                reasons.append("depends on a single file")
+                points += 1
+            best = max(l.get("confidence") or 0 for l in ok)
+            if best < 0.7:
+                reasons.append(f"best confidence only {best:.2f}")
+                points += 2
+            elif best < 0.85:
+                reasons.append(f"best confidence {best:.2f}")
+                points += 1
+        if points:
+            rows.append({"requirement": rid, "text": (text.get(rid) or "")[:200], "points": points, "reasons": reasons, "level": "high" if points >= 3 else "medium"})
+    rows.sort(key=lambda r: (-r["points"], r["requirement"]))
+    return rows[:top]
+
+
+def _completeness_trend(links: list[dict[str, Any]], flags: list[dict[str, Any]], total_req: int, days: list[str]) -> list[dict[str, Any]]:
+    """Approximate completeness (mean over all requirements of the mean confidence of valid links) after each day.
+
+    Rebuilt from link ``verifiedAt`` and DecayFlag ``flaggedAt`` using today's confidences, so it shows the
+    shape of the history, not exact past scores (flags removed by an undo are not in the data).
+    """
+    if not total_req:
+        return []
+    flagged: dict[tuple[str, str], str] = {}
+    for f in flags:
+        key = (f["requirement"], f["code"])
+        d = _day(f.get("flaggedAt"))
+        if d and (key not in flagged or d < flagged[key]):
+            flagged[key] = d
+    out = []
+    for d in days:
+        by_req: dict[str, list[float]] = defaultdict(list)
+        for l in links:
+            v = _day(l.get("verifiedAt"))
+            if not v or v > d:
+                continue
+            f = flagged.get((l["requirement"], l["code"]))
+            if f and f <= d:
+                continue
+            by_req[l["requirement"]].append(l.get("confidence") or 0)
+        score = sum(sum(c) / len(c) for c in by_req.values()) / total_req * 100
+        out.append({"day": d, "score": round(score, 1)})
+    return out
 
 
 def build(payload: dict[str, Any], top: int = 10) -> dict[str, Any]:
@@ -74,6 +151,8 @@ def build(payload: dict[str, Any], top: int = 10) -> dict[str, Any]:
         "verifiedLinks": len(verified),
         "decayedLinks": len(links) - len(verified),
         "decayEvents": len(flags),
+        "trustedThreshold": TRUSTED_THRESHOLD,
+        "trustedLinks": sum(1 for c in confs if c >= TRUSTED_THRESHOLD),
         "meanConfidence": round(sum(confs) / len(confs), 3) if confs else 0.0,
         "confidenceHistogram": confidence,
         "linksPerRequirement": links_per_req,
@@ -81,4 +160,6 @@ def build(payload: dict[str, Any], top: int = 10) -> dict[str, Any]:
         "unstableFiles": unstable,
         "weakestLinks": weakest,
         "timeline": timeline,
+        "completenessTrend": _completeness_trend(links, flags, total_req, days),
+        "riskRequirements": _risk(payload, links, top),
     }

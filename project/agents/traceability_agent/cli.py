@@ -244,7 +244,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p.add_argument("--requirement", action="append", help="link only this requirement id (repeatable)")
     p.add_argument("--project", help="only this project / repository")
     p.add_argument("--retrieval", choices=["hybrid", "embeddings", "tfidf"], default="hybrid")
-    p.add_argument("--prompt", choices=["expert", "generic", "evidence"], default="expert")
+    p.add_argument("--prompt", choices=["expert", "generic", "evidence"], default="evidence",
+                   help="evidence (default): the model must quote code that satisfies the requirement; expert: persona prompt, more lenient; generic: ablation")
     p.add_argument("--dry-run", action="store_true", help="verify but do not write")
     p.add_argument("--reranker", help="optional cross-encoder (model folder or Hugging Face name, e.g. cross-encoder/ms-marco-MiniLM-L-6-v2) that re-orders the stage-1 pool before the LLM")
     p.add_argument("--rerank-pool", type=int, default=20, help="candidates per requirement handed to the reranker (it keeps --top-k of them)")
