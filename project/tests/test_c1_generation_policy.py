@@ -5,6 +5,7 @@ Backends are scripted (no model server). The priority-class tests need no models
 import json
 import sqlite3
 import threading
+import time
 from pathlib import Path
 
 import pytest
@@ -280,22 +281,27 @@ def test_eta_is_hidden_until_three_real_latencies_exist(make_client):
     assert drafts(c)["queued"] == 3 and ETA_MIN_SAMPLES == 3
     db = c.app.state.db
 
-    def add(*seconds):
-        for s in seconds:
-            db.run("INSERT INTO gen_latency (backend, model, seconds, created_at) VALUES (?,?,?,?)", (m.backend_name, m.model_name, s, now()))
+    base = time.time()
+
+    def add(finished, seconds, target="device", model=None):
+        db.run("INSERT INTO gen_latency (backend, model, seconds, created_at, target, finished) VALUES (?,?,?,?,?,?)",
+               (m.backend_name, model or m.model_name, seconds, now(), target, finished))
 
     d = drafts(c)
     assert d["eta_seconds"] is None and d["latency_samples"] == 0
-    add(10, 20)
+    add(base + 10, 10)
+    add(base + 20, 10)
     d = drafts(c)
     assert d["eta_seconds"] is None and d["latency_samples"] == 2  # two samples are not enough
-    add(30)
+    add(base + 30, 10)
     d = drafts(c)
-    assert d["latency_samples"] == 3 and d["eta_seconds"] == 60  # mean 20 s x 3 waiting
-    db.run("INSERT INTO gen_latency (backend, model, seconds, created_at) VALUES ('other', 'other', 999, ?)", (now(),))  # another model is ignored
-    add(*[40] * 10)  # only the last 10 count
+    assert d["latency_samples"] == 3 and d["eta_seconds"] == 30  # 3 items in 30 s of wall clock = 0.1 per second, 3 waiting
+    add(base + 99, 1, target="cloud")  # another target is ignored
+    add(base + 99, 1, model="other")  # another model is ignored
+    for i in range(10):  # only the last 10 count: 10 items between base+100 and base+150
+        add(base + 105 + 5 * i, 5)
     d = drafts(c)
-    assert d["latency_samples"] == 10 and d["eta_seconds"] == 120
+    assert d["latency_samples"] == 10 and d["eta_seconds"] == 15  # 10 items in 50 s = 0.2 per second, 3 waiting
 
 
 @api

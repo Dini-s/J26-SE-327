@@ -230,7 +230,7 @@ describe('DraftCard states', () => {
   })
 
   it.each([
-    ['ollama', 'c1-req', 'Written by model c1-req (ollama)'],
+    ['ollama', 'c1-req', 'Written by c1-req on device'],
     ['replay', 'replay', 'Stored output of an earlier model run (replay)'],
     ['mock', 'mock', 'not written by a language model'],
   ])('done: says where the draft came from (%s)', (backend, model, text) => {

@@ -30,7 +30,7 @@ test('live stack: upload, run analysis, a real model draft appears', async ({ pa
     }
     expect(found).toBe(true)
   }).toPass({ timeout: 10 * 60_000, intervals: [5_000] })
-  await expect(prov).toContainText('Written by model c1-req (ollama)')
+  await expect(prov).toContainText('Written by c1-req on device')
 
   mkdirSync(SHOTS, { recursive: true })
   await page.screenshot({ path: resolve(SHOTS, 'live_draft.png'), fullPage: true })

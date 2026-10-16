@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS jobs (
 MIGRATIONS = (
     ("generation", "priority", "INTEGER NOT NULL DEFAULT 1"),
     ("jobs", "policy", "TEXT NOT NULL DEFAULT 'smart'"),
+    ("gen_latency", "target", "TEXT NOT NULL DEFAULT 'device'"),
+    ("gen_latency", "finished", "REAL"),
 )
 
 
@@ -48,6 +50,7 @@ class Database:
     def __init__(self, path):
         self.path = str(path)
         with self.connect() as con:
+            con.execute("PRAGMA journal_mode=WAL")  # the worker pool and the request threads write at the same time: readers never block the writer
             con.executescript(SCHEMA)
             for table, column, ddl in MIGRATIONS:
                 if column not in [r["name"] for r in con.execute(f"PRAGMA table_info({table})").fetchall()]:
@@ -55,7 +58,7 @@ class Database:
 
     @contextmanager
     def connect(self):
-        con = sqlite3.connect(self.path, timeout=30)
+        con = sqlite3.connect(self.path, timeout=30)  # waits up to 30 s for a lock held by another thread
         con.row_factory = sqlite3.Row
         try:
             yield con

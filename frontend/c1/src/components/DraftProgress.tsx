@@ -19,13 +19,15 @@ interface Props {
   busy: boolean
   /** The analysis itself is running: nothing can be queued yet. */
   analysing: boolean
+  /** "On device" or "Cloud (host)": where the drafts are being written. */
+  target?: string
 }
 
 /**
  * Real progress of the draft queue: the counts come from the API, the time left from the mean of the last 10 real reply times (hidden until 3
  * exist). Shown while drafts wait or run, or while some requirements have no draft yet.
  */
-export function DraftProgress({ drafts: d, onPause, onResume, onGenerateAll, busy, analysing }: Props) {
+export function DraftProgress({ drafts: d, onPause, onResume, onGenerateAll, busy, analysing, target }: Props) {
   if (!d || d.total === 0 || (d.not_generated === 0 && d.in_progress === 0 && !d.paused)) return null
   const resolved = d.generated + d.needs_clarification + d.manual_review + d.failed
   const pct = Math.round((resolved / d.total) * 100)
@@ -66,7 +68,9 @@ export function DraftProgress({ drafts: d, onPause, onResume, onGenerateAll, bus
         <div className="h-full rounded-full bg-brand-600 transition-all" style={{ width: `${pct}%` }} />
       </div>
       <p className="mt-1.5 text-[11.5px] text-ink-muted" data-testid="draft-eta">
-        {d.paused
+        {d.paused && d.paused_reason === 'cloud_unreachable'
+          ? `Paused: cloud unreachable. ${d.in_progress} waiting. Nothing new starts until you choose Retry or Switch to device.`
+          : d.paused
           ? `Paused: ${d.in_progress} waiting. The draft being written finishes, then nothing new starts until you press Resume.`
           : working
             ? d.eta_seconds !== null
@@ -74,6 +78,11 @@ export function DraftProgress({ drafts: d, onPause, onResume, onGenerateAll, bus
               : `Estimating time left: needs 3 finished drafts (${d.latency_samples} so far)`
             : 'Nothing is being written. Open a requirement and press Generate draft, or use Generate all remaining.'}
       </p>
+      {target && (
+        <p className="mt-0.5 text-[11.5px] text-ink-muted" data-testid="draft-target">
+          Processing: {target}
+        </p>
+      )}
     </section>
   )
 }

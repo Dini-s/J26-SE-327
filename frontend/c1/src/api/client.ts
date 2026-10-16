@@ -1,6 +1,6 @@
 import { API_BASE } from '../config'
 import type {
-  ApiErrorBody, DecisionIn, DecisionOut, GenerateAllOut, GenerateOut, Health, Job, ListFilters, PausedOut, Policy, Project, RequirementDetail, RequirementList, Source, Summary, UploadResult,
+  ApiErrorBody, DecisionIn, DecisionOut, Engine, EngineTarget, EngineTestResult, EngineUpdate, GenerateAllOut, GenerateOut, Health, Job, ListFilters, PausedOut, Policy, Project, RequirementDetail, RequirementList, Source, Summary, UploadResult,
 } from './types'
 
 /** Error with the code and message from the API error shape {error: {code, message}}. status 0 = the API could not be reached. */
@@ -53,6 +53,9 @@ export function listParams(f: ListFilters, limit: number, offset: number): strin
 
 export const api = {
   health: () => request<Health>('/api/health'),
+  engine: () => request<Engine>('/api/engine'),
+  updateEngine: (body: EngineUpdate) => request<Engine>('/api/engine', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
+  testEngine: (target: EngineTarget) => request<EngineTestResult>('/api/engine/test', postJson({ target })),
   projects: () => request<Project[]>('/api/projects'),
   sources: (pid: number) => request<Source[]>(`/api/projects/${pid}/sources`),
   upload: (pid: number, files: File[]) => {

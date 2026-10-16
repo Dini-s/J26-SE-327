@@ -3,10 +3,11 @@ import { WifiOff } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ApiClientError } from './api/client'
 import {
-  isJobFinished, useAnalyze, useClearSources, useDeleteSource, useGenerateRemaining, useHealth, useJob, usePauseGeneration, useProjects, useRequirementList, useSources, useSummary, useUpload,
+  isJobFinished, useAnalyze, useClearSources, useDeleteSource, useEngine, useGenerateRemaining, useHealth, useJob, usePauseGeneration, useProjects, useRequirementList, useSources, useSummary, useUpdateEngine, useUpload,
 } from './api/hooks'
 import type { FindingType, ListFilters, Policy } from './api/types'
 import { DetailPanel } from './components/DetailPanel'
+import { CloudUnreachableBanner, EngineSwitch } from './components/EngineSwitch'
 import { FindingsPanel } from './components/FindingsPanel'
 import { Header } from './components/Header'
 import { Sidebar } from './components/Sidebar'
@@ -15,6 +16,7 @@ import { StatCards } from './components/StatCards'
 import { AnalyzeError, AnalyzingNotice, Banners, PipelineStrip, SourcesCard, TitleBlock, jobBadge } from './components/TopSection'
 import { ALLOWED_EXTENSIONS, API_BASE, MAX_UPLOAD_BYTES } from './config'
 import { useToasts } from './context/Toasts'
+import { targetLabel } from './lib/engine'
 
 const isNetwork = (e: unknown) => e instanceof ApiClientError && e.status === 0
 
@@ -47,6 +49,11 @@ export default function App() {
   const finished = isJobFinished(job.data)
   const summary = useSummary(pid)
   const drafts = summary.data?.task_drafts
+  const engine = useEngine()
+  const updateEngine = useUpdateEngine()
+  const cloudPaused = !!drafts?.paused && drafts.paused_reason === 'cloud_unreachable'
+  const activeTarget = engine.data?.target ?? health.data?.generation_target
+  const activeLabel = activeTarget ? targetLabel(activeTarget, engine.data?.cloud.host) : undefined
   // drafts are being written: the saved queue (also after a reload) or the job just started; a paused queue is not "running"
   const generating = !drafts?.paused && ((drafts?.in_progress ?? 0) > 0 || (!!job.data && job.data.generation.queued > 0))
   const [policy, setPolicy] = useState<Policy>(loadPolicy)
@@ -127,6 +134,14 @@ export default function App() {
 
   const onPause = (pause: boolean) =>
     pauseGeneration.mutate(pause, { onError: (e) => toasts.push(`Could not ${pause ? 'pause' : 'resume'} the drafts: ${e.message}`, 'error') })
+  const onSwitchToDevice = () =>
+    updateEngine.mutate(
+      { target: 'device' },
+      {
+        onSuccess: () => toasts.push('Switched to this device. The remaining drafts are written here.', 'success'),
+        onError: (e) => toasts.push(`Could not switch to the device: ${e.message}`, 'error'),
+      },
+    )
   const onGenerateAll = () =>
     generateRemaining.mutate(undefined, {
       onSuccess: (r) => toasts.push(r.queued > 0 ? `${r.queued} drafts queued.` : 'Every requirement already has a draft or is queued.', 'success'),
@@ -152,7 +167,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen">
       <div className="sticky top-0 h-screen shrink-0">
-        <Sidebar project={project} health={health.data} healthError={isNetwork(health.error) || health.isError} />
+        <Sidebar project={project} health={health.data} healthError={isNetwork(health.error) || health.isError} engine={engine.data} />
       </div>
       <main className="min-w-0 flex-1" aria-label="Requirement intelligence">
         <Header health={health.data} unreachable={unreachable || health.isError} projectId={pid} canExport={(summary.data?.requirements ?? 0) > 0} />
@@ -169,9 +184,10 @@ export default function App() {
           </div>
         )}
 
-        <TitleBlock onFiles={onFiles} onRun={onRun} canRun={sourceList.length > 0 && !running} running={analyze.isPending} policy={policy} onPolicy={onPolicy} />
+        <TitleBlock onFiles={onFiles} onRun={onRun} canRun={sourceList.length > 0 && !running} running={analyze.isPending} policy={policy} onPolicy={onPolicy} engine={<EngineSwitch engine={engine.data} cloudPaused={cloudPaused} />} />
         {analyze.isPending && <AnalyzingNotice />}
         {analyze.isError && !analyze.isPending && <AnalyzeError message={analyze.error.message} onRetry={onRun} />}
+        {cloudPaused && <CloudUnreachableBanner host={engine.data?.cloud.host ?? null} busy={pauseGeneration.isPending || updateEngine.isPending} onRetry={() => onPause(false)} onSwitch={onSwitchToDevice} />}
         <SourcesCard
           sources={sourceList}
           loading={sources.isLoading}
@@ -191,6 +207,7 @@ export default function App() {
           onGenerateAll={onGenerateAll}
           busy={pauseGeneration.isPending || generateRemaining.isPending}
           analysing={analyze.isPending}
+          target={activeLabel}
         />
 
         <div className="card mx-6 mb-10 mt-5 grid overflow-hidden xl:mx-9 xl:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]" data-testid="workspace">

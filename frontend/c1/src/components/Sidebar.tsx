@@ -1,5 +1,6 @@
 import { Code2, FileSearch, GitBranch, Layers, Network, PenLine, type LucideIcon } from 'lucide-react'
-import type { Health, Project } from '../api/types'
+import type { Engine, Health, Project } from '../api/types'
+import { targetLabel } from '../lib/engine'
 import { CURRENT_USER } from '../config'
 
 interface Module {
@@ -38,7 +39,8 @@ function Row({ label, value, good }: { label: string; value: string; good?: bool
   )
 }
 
-export function Sidebar({ project, health, healthError }: { project?: Project; health?: Health; healthError: boolean }) {
+export function Sidebar({ project, health, healthError, engine }: { project?: Project; health?: Health; healthError: boolean; engine?: Engine }) {
+  const target = engine?.target ?? health?.generation_target
   return (
     <aside className="flex h-screen w-[72px] shrink-0 flex-col justify-between overflow-y-auto bg-nav-bg px-3 py-5 text-nav-text lg:w-[280px] lg:px-5" aria-label="Framework navigation">
       <div>
@@ -108,8 +110,14 @@ export function Sidebar({ project, health, healthError }: { project?: Project; h
           ) : (
             <div className="flex flex-col gap-1.5">
               <Row label="Part A models" value={health.part_a_loaded ? 'Loaded' : 'Not loaded'} good={health.part_a_loaded} />
+              <Row label="Processing" value={target ? targetLabel(target, engine?.cloud.host) : 'Unknown'} />
               <Row label="Generation" value={`${health.generation_backend} · ${health.model || 'no model'}`} />
               <Row label="Reachable" value={health.generation_reachable ? 'Yes' : 'No'} good={health.generation_reachable} />
+              {target === 'cloud' && (
+                <p className="mt-1 text-[11px] leading-snug text-nav-muted" data-testid="cloud-notice">
+                  Requirement text is sent to a remote server.
+                </p>
+              )}
             </div>
           )}
         </section>

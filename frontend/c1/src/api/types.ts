@@ -12,7 +12,11 @@ export interface Health {
   generation_backend: string
   generation_reachable: boolean
   model: string
+  /** Where drafts are written now. */
+  generation_target: EngineTarget
 }
+
+export type EngineTarget = 'device' | 'cloud'
 
 export interface Project {
   id: number
@@ -90,6 +94,8 @@ export interface TaskDrafts {
   queued: number
   running: number
   paused: boolean
+  /** 'cloud_unreachable' when the queue paused itself after 3 failed cloud requests; otherwise null. */
+  paused_reason: string | null
   eta_seconds: number | null
   latency_samples: number
 }
@@ -174,6 +180,10 @@ export interface Generation {
   generated_from: string
   backend: string
   model: string
+  /** Where the stored reply was written: 'device' or 'cloud'. */
+  generated_on: string
+  /** Host name of the cloud server (never the address); null for the device. */
+  endpoint_host: string | null
 }
 
 export interface DecisionRecord {
@@ -234,6 +244,50 @@ export interface PausedOut {
 export interface GenerateOut {
   uid: string
   generation_state: GenerationState
+}
+
+export interface DeviceEngine {
+  backend: string
+  model: string
+  reachable: boolean
+  concurrency: number
+}
+
+export interface CloudEngine {
+  configured: boolean
+  host: string | null
+  model: string
+  concurrency: number
+  consent: boolean
+  consent_at: string | null
+  /** Result of the last connection test of the CURRENT settings; null = not tested. */
+  reachable: boolean | null
+  last_tested_at: string | null
+}
+
+/** GET /api/engine. The address is never returned (host only) and the key is write-only. */
+export interface Engine {
+  target: EngineTarget
+  cloud_available: boolean
+  cloud_disabled_reason: string | null
+  device: DeviceEngine
+  cloud: CloudEngine
+}
+
+/** PUT /api/engine: only the fields that change. `cloud_api_key` '' removes the key. */
+export interface EngineUpdate {
+  target?: EngineTarget
+  cloud_url?: string
+  cloud_api_key?: string
+  cloud_model?: string
+  cloud_concurrency?: number
+  cloud_consent?: boolean
+}
+
+export interface EngineTestResult {
+  ok: boolean
+  detail: string
+  latency_ms: number | null
 }
 
 export interface ApiErrorBody {

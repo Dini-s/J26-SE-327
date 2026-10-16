@@ -10,8 +10,9 @@ export const ENGINE_UNAVAILABLE = 'AI engine unavailable'
 function provenance(g: Generation): string {
   if (g.backend === 'mock') return 'Test text from the mock backend, not written by a language model.'
   if (g.backend === 'replay') return 'Stored output of an earlier model run (replay), not generated just now.'
-  const by = g.model ? `model ${g.model}` : 'the model'
-  return `Written by ${by}${g.backend ? ` (${g.backend})` : ''}`
+  const by = g.model || 'the model'
+  const place = g.generated_on === 'cloud' ? ` on cloud${g.endpoint_host ? ` (${g.endpoint_host})` : ''}` : g.generated_on === 'device' ? ' on device' : ''
+  return `Written by ${by}${place}`
 }
 
 function Block({ title, children }: { title: string; children: ReactNode }) {

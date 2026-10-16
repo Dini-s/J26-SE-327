@@ -1,6 +1,12 @@
-import type { Generation, Health, Job, Project, RequirementDetail, RequirementRow, Source, Summary } from '../api/types'
+import type { Engine, Generation, Health, Job, Project, RequirementDetail, RequirementRow, Source, Summary } from '../api/types'
 
-export const health: Health = { status: 'ok', part_a_loaded: true, generation_backend: 'replay', generation_reachable: true, model: 'replay' }
+export const health: Health = { status: 'ok', part_a_loaded: true, generation_backend: 'replay', generation_reachable: true, model: 'replay', generation_target: 'device' }
+/** GET /api/engine on a fresh install: the device is ready, the cloud is not set up. */
+export const engine: Engine = {
+  target: 'device', cloud_available: true, cloud_disabled_reason: null,
+  device: { backend: 'ollama', model: 'c1-req', reachable: true, concurrency: 1 },
+  cloud: { configured: false, host: null, model: 'c1-req', concurrency: 4, consent: false, consent_at: null, reachable: null, last_tested_at: null },
+}
 export const project: Project = { id: 1, name: 'Core Banking Platform', created_at: '2026-10-13T06:00:00+00:00', sources: 1, requirements: 42 }
 export const source: Source = { id: 1, filename: 'CoreBanking_SRS_v2.pdf', ext: '.pdf', size_bytes: 1000, pages: 12, warnings: [], created_at: '2026-10-13T06:00:00+00:00' }
 
@@ -12,7 +18,7 @@ export const summary: Summary = {
   duplicate_groups: 2,
   security: 5,
   risk_counts: { HIGH: 3, MEDIUM: 8, LOW: 10, NONE: 21 },
-  task_drafts: { generated: 29, total: 42, needs_clarification: 0, manual_review: 0, failed: 0, not_generated: 0, in_progress: 0, queued: 0, running: 0, paused: false, eta_seconds: null, latency_samples: 0 },
+  task_drafts: { generated: 29, total: 42, needs_clarification: 0, manual_review: 0, failed: 0, not_generated: 0, in_progress: 0, queued: 0, running: 0, paused: false, eta_seconds: null, latency_samples: 0, paused_reason: null },
   open_findings: 13,
   decided: 0,
 }
@@ -37,7 +43,7 @@ export const generationDone: Generation = {
   technical_task: 'Send a notification when a suspicious login is detected.',
   acceptance_criteria: ['Given a suspicious login, when it is detected, then the user is notified.', 'Given a normal login, when it occurs, then no alert is sent.'],
   rationale: 'Role assumed: customer.', clarification_questions: [], attempts: 1, manual_review: false, raw_output: '', updated_at: '2026-10-13T06:01:00+00:00',
-  numbers_not_in_source: [], generated_from: 'original', backend: 'replay', model: 'replay',
+  numbers_not_in_source: [], generated_from: 'original', backend: 'replay', model: 'replay', generated_on: 'device', endpoint_host: null,
 }
 
 export const detail: RequirementDetail = {

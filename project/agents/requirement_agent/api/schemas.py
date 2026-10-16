@@ -19,6 +19,7 @@ class Health(BaseModel):
     generation_backend: str
     generation_reachable: bool
     model: str
+    generation_target: str = "device"  # where drafts are generated now: device | cloud (see /api/engine)
 
 
 class ProjectCreate(BaseModel):
@@ -90,6 +91,7 @@ class TaskDrafts(BaseModel):
     queued: int = 0
     running: int = 0
     paused: bool = False  # the queue takes no new item (the one in flight finishes)
+    paused_reason: Optional[str] = None  # "cloud_unreachable" when the queue paused itself after 3 cloud connection failures in a row
     eta_seconds: Optional[int] = None  # mean of the last 10 real latencies x remaining; null until 3 samples exist
     latency_samples: int = 0
 
@@ -168,6 +170,8 @@ class GenerationOut(BaseModel):
     numbers_not_in_source: List[str] = []  # numbers in the reply that the requirement text does not contain (strict check, a hint to verify)
     backend: str = ""  # which backend wrote the stored reply: ollama | replay | mock ("" = nothing generated)
     model: str = ""
+    generated_on: str = ""  # "device" | "cloud": where the reply was made (a cached reply keeps the place it was made)
+    endpoint_host: Optional[str] = None  # host name of the cloud server, never the full address; null for the device
 
 
 class RequirementDetail(BaseModel):
@@ -190,6 +194,52 @@ class RequirementDetail(BaseModel):
     generation: GenerationOut
     decision: Optional[Dict[str, Any]] = None
     decision_history: List[Dict[str, Any]]
+
+
+class EngineUpdate(BaseModel):
+    """Partial update: only the fields that are sent change. `cloud_api_key` is write-only ("" removes it)."""
+    target: Optional[Literal["device", "cloud"]] = None
+    cloud_url: Optional[str] = Field(default=None, max_length=2000)
+    cloud_api_key: Optional[str] = Field(default=None, max_length=1000)
+    cloud_model: Optional[str] = Field(default=None, max_length=200)
+    cloud_concurrency: Optional[int] = Field(default=None, ge=1, le=8)
+    cloud_consent: Optional[bool] = None
+
+
+class EngineTestIn(BaseModel):
+    target: Literal["device", "cloud"]
+
+
+class EngineTestOut(BaseModel):
+    ok: bool
+    detail: str  # never contains the address or the key
+    latency_ms: Optional[int] = None
+
+
+class DeviceEngine(BaseModel):
+    backend: str
+    model: str
+    reachable: bool
+    concurrency: int
+
+
+class CloudEngine(BaseModel):
+    configured: bool
+    host: Optional[str] = None  # host name only
+    model: str
+    concurrency: int
+    consent: bool
+    consent_at: Optional[str] = None
+    reachable: Optional[bool] = None  # result of the last connection test of the CURRENT settings; null = not tested
+    last_tested_at: Optional[str] = None
+
+
+class EngineOut(BaseModel):
+    target: Literal["device", "cloud"]
+    cloud_available: bool
+    cloud_disabled_reason: Optional[str] = None
+    device: DeviceEngine
+    cloud: CloudEngine
 
 
 class GenerateAllOut(BaseModel):

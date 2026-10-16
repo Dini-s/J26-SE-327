@@ -28,6 +28,7 @@ export function mockApi(handler?: Handler) {
       if (custom) return custom
       const p = call.url.pathname
       if (p === '/api/health') return json(fx.health)
+      if (p === '/api/engine' && call.method === 'GET') return json(fx.engine)
       if (p === '/api/projects') return json([fx.project])
       if (p === '/api/projects/1/sources') return json([fx.source])
       if (p === '/api/projects/1/summary') return json(fx.summary)

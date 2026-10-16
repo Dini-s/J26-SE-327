@@ -38,7 +38,8 @@ def source_out(s):
 def generation_block(g, text=None):
     base = {"state": "not_requested", "message": "", "status": None, "user_story": "", "technical_task": "", "acceptance_criteria": [], "rationale": "",
             "clarification_questions": [], "attempts": 0, "manual_review": False, "raw_output": "", "updated_at": None,
-            "backend": "", "model": "", "numbers_not_in_source": [], "generated_from": ""}
+            "backend": "", "model": "", "numbers_not_in_source": [], "generated_from": "",
+            "generated_on": "", "endpoint_host": None}
     if not g:
         return base
     res = loads(g["result"], None) or {}
@@ -47,7 +48,8 @@ def generation_block(g, text=None):
         base.update(status=res.get("status"), user_story=res.get("user_story", ""), technical_task=res.get("technical_task", ""),
                     acceptance_criteria=res.get("acceptance_criteria", []), rationale=res.get("rationale", ""),
                     clarification_questions=res.get("clarification_questions", []), raw_output=res.get("raw_output", ""),
-                    backend=res.get("backend", ""), model=res.get("model", ""), generated_from=res.get("generated_from", "original"))
+                    backend=res.get("backend", ""), model=res.get("model", ""), generated_from=res.get("generated_from", "original"),
+                    generated_on=res.get("generated_on", "device"), endpoint_host=res.get("endpoint_host"))
         if text is not None and g["state"] in ("done", "needs_clarification"):
             base["numbers_not_in_source"] = gen.numbers_not_in_source(res.get("source_text") or text, res)  # the text the model really saw
     return base
@@ -72,6 +74,7 @@ def _task_drafts(rows, manager):
     return {"generated": c.get("done", 0), "total": len(rows), "needs_clarification": c.get("needs_clarification", 0),
             "manual_review": c.get("manual_review", 0), "failed": c.get("failed", 0), "not_generated": c.get("not_requested", 0),
             "in_progress": queued + running, "queued": queued, "running": running, "paused": bool(manager and manager.paused),
+            "paused_reason": manager.paused_reason if manager else None,
             "eta_seconds": eta, "latency_samples": samples}
 
 

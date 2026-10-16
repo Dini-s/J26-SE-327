@@ -108,7 +108,7 @@ def make_pdf(pages):
 # ------------------------------------------------------------------------------------------------------------------ health, projects
 def test_health_and_default_project(client):
     h = client.get("/api/health").json()
-    assert h == {"status": "ok", "part_a_loaded": True, "generation_backend": "mock", "generation_reachable": True, "model": "mock"}
+    assert h == {"status": "ok", "part_a_loaded": True, "generation_backend": "mock", "generation_reachable": True, "model": "mock", "generation_target": "device"}
     projects = client.get("/api/projects").json()
     assert [p["name"] for p in projects] == ["Core Banking Platform"] and projects[0]["id"] == 1
     p = client.post("/api/projects", json={"name": "  Second project "}).json()

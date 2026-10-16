@@ -1,5 +1,5 @@
 import { AlertTriangle, ArrowRight, Check, CheckCircle2, CloudUpload, Code2, FileSearch, FileText, Network, RefreshCw, Sparkles, X, XCircle } from 'lucide-react'
-import { useEffect, useRef, useState, type DragEvent } from 'react'
+import { useEffect, useRef, useState, type DragEvent, type ReactNode } from 'react'
 import type { Job, Policy, Source, Stage } from '../api/types'
 import { ALLOWED_EXTENSIONS } from '../config'
 import { Spinner } from './ui'
@@ -24,10 +24,12 @@ interface TitleProps {
   running: boolean
   policy: Policy
   onPolicy: (p: Policy) => void
+  /** The processing-target switch, shown next to Run analysis. */
+  engine?: ReactNode
 }
 
 /** Title, description and the actions (upload, draft policy, run). */
-export function TitleBlock({ onFiles, onRun, canRun, running, policy, onPolicy }: TitleProps) {
+export function TitleBlock({ onFiles, onRun, canRun, running, policy, onPolicy, engine }: TitleProps) {
   const input = useRef<HTMLInputElement>(null)
   return (
     <section id="top" className="px-6 pt-8 xl:px-9">
@@ -67,6 +69,7 @@ export function TitleBlock({ onFiles, onRun, canRun, running, policy, onPolicy }
             {running ? 'Analysing…' : 'Run analysis'}
           </button>
         </div>
+        {engine}
         <label className="flex items-center gap-2 text-[12px] text-ink-muted">
           Task drafts
           <select

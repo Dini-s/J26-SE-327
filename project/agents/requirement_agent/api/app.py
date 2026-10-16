@@ -6,6 +6,7 @@ Storage: SQLite file and uploads under outputs/c1_workspace/ (C1_WORKSPACE overr
 (default replay). Contract: docs/c1_api_contract.md.
 """
 import logging
+import time
 import uuid
 from contextlib import asynccontextmanager
 from typing import Optional
@@ -19,6 +20,8 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from ..generation import BackendError
 from . import analysis, cleanup, ingest, priority, schemas, service, settings
 from .db import Database, dumps, now
+from . import engine as engine_mod
+from .engine import EngineStore
 from .errors import ApiError
 from .gen_worker import GenerationManager, make_backend
 
@@ -48,7 +51,8 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         model = model_name or name
     if model_name:
         model = model_name
-    manager = GenerationManager(db, backend, name, model, init_error)
+    engine = EngineStore(db, name, model, backend)
+    manager = GenerationManager(db, backend, name, model, init_error, engine)
     manager.resume_pending()  # queued/running drafts of the last run go back in the queue (the queue itself is only in memory)
     manager.start()
 
@@ -58,7 +62,7 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         manager.stop()
 
     app = FastAPI(title="Component 1 - Requirement Intelligence API", version="1.0.0", lifespan=lifespan)
-    app.state.db, app.state.manager, app.state.workspace = db, manager, ws
+    app.state.db, app.state.manager, app.state.workspace, app.state.engine = db, manager, ws, engine
     app.add_middleware(CORSMiddleware, allow_origins=settings.CORS_ORIGINS, allow_methods=["*"], allow_headers=["*"])
 
     # ------------------------------------------------------------------------------------------------ errors
@@ -103,7 +107,35 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
     def health():
         loaded = analysis.part_a_loaded(models_dir)
         return {"status": "ok" if loaded else "degraded", "part_a_loaded": loaded, "generation_backend": name,
-                "generation_reachable": manager.reachable(), "model": model}
+                "generation_reachable": manager.reachable(), "model": manager.active_model(), "generation_target": engine.target()}
+
+    @app.get("/api/engine", response_model=schemas.EngineOut)
+    def get_engine():
+        return engine.public(manager.device_reachable())
+
+    @app.put("/api/engine", response_model=schemas.EngineOut)
+    def put_engine(body: schemas.EngineUpdate):
+        before = engine.target()
+        engine.update(body.model_dump(exclude_unset=True))
+        if engine.target() != before:
+            manager.on_target_changed()
+        return engine.public(manager.device_reachable())
+
+    @app.post("/api/engine/test", response_model=schemas.EngineTestOut)
+    def test_engine(body: schemas.EngineTestIn):
+        if body.target == engine_mod.DEVICE:
+            started = time.monotonic()
+            ok = manager.device_reachable()
+            detail = (f"Connected; model '{model}' is served." if name == "ollama" else f"The {name} backend is ready.") if ok else \
+                (f"The local model server does not answer or does not serve '{model}'." if name == "ollama" else f"The {name} backend is not ready.")
+            return {"ok": ok, "detail": detail, "latency_ms": int(round((time.monotonic() - started) * 1000))}
+        if engine.disabled_reason:
+            raise ApiError(409, "cloud_disabled", engine.disabled_reason)
+        if not engine.cloud_url():
+            raise ApiError(409, "cloud_not_configured", "Set the cloud address first.")
+        result = engine_mod.probe(engine.cloud_url(), engine.cloud_key(), engine.cloud_model())
+        engine.record_test(result)
+        return result
 
     @app.get("/api/projects", response_model=list[schemas.ProjectOut])
     def list_projects():

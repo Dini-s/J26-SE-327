@@ -2,10 +2,11 @@ import { keepPreviousData, useInfiniteQuery, useMutation, useQuery, useQueryClie
 import { DRAFT_POLL_MS, HEALTH_POLL_MS, JOB_POLL_MS, PAGE_SIZE, limits } from '../config'
 import { isGenerating } from '../lib/format'
 import { ApiClientError, api } from './client'
-import type { DecisionIn, DecisionOut, GenerateOut, Job, ListFilters, Policy, RequirementDetail, RequirementList } from './types'
+import type { DecisionIn, DecisionOut, Engine, EngineTarget, EngineTestResult, EngineUpdate, GenerateOut, Job, ListFilters, Policy, RequirementDetail, RequirementList } from './types'
 
 export const keys = {
   health: ['health'] as const,
+  engine: ['engine'] as const,
   projects: ['projects'] as const,
   sources: (pid: number) => ['sources', pid] as const,
   summary: (pid: number) => ['summary', pid] as const,
@@ -16,6 +17,33 @@ export const keys = {
 }
 
 export const useHealth = () => useQuery({ queryKey: keys.health, queryFn: api.health, refetchInterval: HEALTH_POLL_MS, retry: false })
+
+export const useEngine = () => useQuery({ queryKey: keys.engine, queryFn: api.engine, refetchInterval: HEALTH_POLL_MS, retry: false })
+
+/** Change the processing target or the cloud settings (partial update). The answer is the new engine state; health, drafts and ETA follow it. */
+export function useUpdateEngine() {
+  const qc = useQueryClient()
+  return useMutation<Engine, Error, EngineUpdate>({
+    mutationFn: (body) => api.updateEngine(body),
+    onSuccess: (engine) => {
+      qc.setQueryData(keys.engine, engine)
+      void qc.invalidateQueries({ queryKey: keys.health })
+      void qc.invalidateQueries({ queryKey: ['summary'] })
+    },
+  })
+}
+
+/** Test the connection (the saved settings, not the form). A failed test is a normal answer with ok = false. */
+export function useTestEngine() {
+  const qc = useQueryClient()
+  return useMutation<EngineTestResult, Error, EngineTarget>({
+    mutationFn: (target) => api.testEngine(target),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: keys.engine })
+      void qc.invalidateQueries({ queryKey: keys.health })
+    },
+  })
+}
 
 export const useProjects = () => useQuery({ queryKey: keys.projects, queryFn: api.projects, retry: false })
 

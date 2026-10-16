@@ -27,7 +27,11 @@ INVALID = "invalid"
 
 
 class BackendError(Exception):
-    """A backend could not produce a reply (not an invalid reply). Never retried."""
+    """A backend could not produce a reply (not an invalid reply). Never retried.
+
+    `status` is the HTTP status when the server answered with one; `detail` is a short reason without any URL ("timeout", "connection error", "HTTP 503")."""
+    status = None
+    detail = ""
 
 
 class ReplayMiss(BackendError):
@@ -87,11 +91,16 @@ class ReplayBackend(Backend):
 
 
 class OllamaBackend(Backend):
-    """POST {LLM_BASE_URL}/chat/completions with the system and user messages. The HTTP client is imported on first use."""
+    """POST {LLM_BASE_URL}/chat/completions with the system and user messages. The HTTP client is imported on first use.
 
-    def __init__(self, settings=None):
+    `opener` (an urllib OpenerDirector) replaces urlopen, for example one that refuses redirects to another host. With `redact=True` the error messages
+    never contain the URL (used for a remote server whose address is a setting the user typed)."""
+
+    def __init__(self, settings=None, opener=None, redact=False):
         self.settings = settings or config.llm_settings()
         self._seen = {}
+        self._opener = opener
+        self._redact = redact
 
     def generate(self, system, user):
         import urllib.error
@@ -109,15 +118,30 @@ class OllamaBackend(Backend):
             headers["Authorization"] = f"Bearer {s['api_key']}"
         url = s["base_url"] + "/chat/completions"
         request = urllib.request.Request(url, data=json.dumps(body).encode("utf-8"), headers=headers, method="POST")
+        opened = self._opener.open if self._opener is not None else urllib.request.urlopen
         try:
-            with urllib.request.urlopen(request, timeout=s["timeout"]) as response:
+            with opened(request, timeout=s["timeout"]) as response:
                 payload = json.loads(response.read().decode("utf-8"))
         except (urllib.error.URLError, OSError, json.JSONDecodeError) as exc:
-            raise BackendError(f"could not get a reply from {url}: {exc}") from exc
+            status = exc.code if isinstance(exc, urllib.error.HTTPError) else None
+            reason = exc.reason if isinstance(exc, urllib.error.URLError) and not isinstance(exc, urllib.error.HTTPError) else exc
+            if status is not None:
+                detail = f"HTTP {status}"
+            elif isinstance(reason, TimeoutError):
+                detail = "timeout"
+            elif isinstance(exc, json.JSONDecodeError):
+                detail = "invalid reply"
+            else:
+                detail = "connection error"
+            err = BackendError(f"could not get a reply ({detail})" if self._redact else f"could not get a reply from {url}: {exc}")
+            err.status, err.detail = status, detail
+            raise err from None if self._redact else exc
         try:
             return payload["choices"][0]["message"]["content"]
         except (KeyError, IndexError, TypeError) as exc:
-            raise BackendError(f"unexpected reply format from {url}") from exc
+            err = BackendError("unexpected reply format" if self._redact else f"unexpected reply format from {url}")
+            err.detail = "invalid reply"
+            raise err from exc
 
 
 @dataclass

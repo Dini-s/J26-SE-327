@@ -23,6 +23,98 @@
         }
       }
     },
+    "/api/engine": {
+      "get": {
+        "summary": "Get Engine",
+        "operationId": "get_engine_api_engine_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngineOut"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Put Engine",
+        "operationId": "put_engine_api_engine_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EngineUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngineOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/engine/test": {
+      "post": {
+        "summary": "Test Engine",
+        "operationId": "test_engine_api_engine_test_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EngineTestIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngineTestOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/projects": {
       "get": {
         "summary": "List Projects",
@@ -866,6 +958,78 @@
         ],
         "title": "Body_upload_sources_api_projects__pid__sources_post"
       },
+      "CloudEngine": {
+        "properties": {
+          "configured": {
+            "type": "boolean",
+            "title": "Configured"
+          },
+          "host": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Host"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "concurrency": {
+            "type": "integer",
+            "title": "Concurrency"
+          },
+          "consent": {
+            "type": "boolean",
+            "title": "Consent"
+          },
+          "consent_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consent At"
+          },
+          "reachable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reachable"
+          },
+          "last_tested_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Tested At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "configured",
+          "model",
+          "concurrency",
+          "consent"
+        ],
+        "title": "CloudEngine"
+      },
       "DecisionIn": {
         "properties": {
           "decision": {
@@ -961,6 +1125,203 @@
           "history"
         ],
         "title": "DecisionOut"
+      },
+      "DeviceEngine": {
+        "properties": {
+          "backend": {
+            "type": "string",
+            "title": "Backend"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "reachable": {
+            "type": "boolean",
+            "title": "Reachable"
+          },
+          "concurrency": {
+            "type": "integer",
+            "title": "Concurrency"
+          }
+        },
+        "type": "object",
+        "required": [
+          "backend",
+          "model",
+          "reachable",
+          "concurrency"
+        ],
+        "title": "DeviceEngine"
+      },
+      "EngineOut": {
+        "properties": {
+          "target": {
+            "type": "string",
+            "enum": [
+              "device",
+              "cloud"
+            ],
+            "title": "Target"
+          },
+          "cloud_available": {
+            "type": "boolean",
+            "title": "Cloud Available"
+          },
+          "cloud_disabled_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cloud Disabled Reason"
+          },
+          "device": {
+            "$ref": "#/components/schemas/DeviceEngine"
+          },
+          "cloud": {
+            "$ref": "#/components/schemas/CloudEngine"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target",
+          "cloud_available",
+          "device",
+          "cloud"
+        ],
+        "title": "EngineOut"
+      },
+      "EngineTestIn": {
+        "properties": {
+          "target": {
+            "type": "string",
+            "enum": [
+              "device",
+              "cloud"
+            ],
+            "title": "Target"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target"
+        ],
+        "title": "EngineTestIn"
+      },
+      "EngineTestOut": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latency Ms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok",
+          "detail"
+        ],
+        "title": "EngineTestOut"
+      },
+      "EngineUpdate": {
+        "properties": {
+          "target": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "device",
+                  "cloud"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target"
+          },
+          "cloud_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cloud Url"
+          },
+          "cloud_api_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cloud Api Key"
+          },
+          "cloud_model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cloud Model"
+          },
+          "cloud_concurrency": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 8.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cloud Concurrency"
+          },
+          "cloud_consent": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cloud Consent"
+          }
+        },
+        "type": "object",
+        "title": "EngineUpdate",
+        "description": "Partial update: only the fields that are sent change. `cloud_api_key` is write-only (\"\" removes it)."
       },
       "ErrorDetail": {
         "properties": {
@@ -1176,6 +1537,22 @@
             "type": "string",
             "title": "Model",
             "default": ""
+          },
+          "generated_on": {
+            "type": "string",
+            "title": "Generated On",
+            "default": ""
+          },
+          "endpoint_host": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Endpoint Host"
           }
         },
         "type": "object",
@@ -1227,6 +1604,11 @@
           "model": {
             "type": "string",
             "title": "Model"
+          },
+          "generation_target": {
+            "type": "string",
+            "title": "Generation Target",
+            "default": "device"
           }
         },
         "type": "object",
@@ -1793,6 +2175,17 @@
             "type": "boolean",
             "title": "Paused",
             "default": false
+          },
+          "paused_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paused Reason"
           },
           "eta_seconds": {
             "anyOf": [

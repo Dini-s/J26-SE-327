@@ -38,11 +38,32 @@ Writing a draft takes about 15 to 30 seconds per requirement on a laptop GPU, so
 
 **P1** = Part A ambiguity `defect`, security flag, a rule-based vague term, or NFR. **P2** = other requirements that are not duplicate secondaries. **P3** = secondary members of a duplicate group. (The classes decide order and what "smart" queues; they are not a quality judgement.) A reply that is already cached is shown at once and never runs again.
 
-The panel under the summary cards shows the real queue: "Drafts X of N done, Y not generated, Z needs clarification, W failed". The time left is the mean of the last 10 real reply times times the drafts waiting, and it is hidden until 3 replies have finished. **Pause** stops taking new drafts (the one being written finishes), **Resume** continues, **Generate all remaining** queues every requirement without a draft. The queue and the pause flag are saved by the API, so a restart picks up where it stopped. The "Task drafts" card counts generated, needs clarification, not generated yet and failed separately; on the Ambiguities card "+N asked by AI" reads "(N so far, drafts pending)" while drafts are still missing.
+The panel under the summary cards shows the real queue: "Drafts X of N done, Y not generated, Z needs clarification, W failed". The time left comes from the API (drafts waiting divided by the measured wall-clock throughput of the last 10 finished drafts on the active target, restarted when the target changes) and is hidden until 3 drafts have finished. **Pause** stops taking new drafts (the one being written finishes), **Resume** continues, **Generate all remaining** queues every requirement without a draft. The queue and the pause flag are saved by the API, so a restart picks up where it stopped. The "Task drafts" card counts generated, needs clarification, not generated yet and failed separately; on the Ambiguities card "+N asked by AI" reads "(N so far, drafts pending)" while drafts are still missing.
 
 **Clarification flow.** If the model needs clarification, open "Edit manually", write the clearer text and save: the original text and the history stay. Then press **Regenerate** on the task draft: it is written from your clarified text and labelled "Generated from your clarified text". An edit must really change the text; to keep the text as it is, accept it (the panel offers this) instead. Accepting a requirement the AI asked about shows a one-line "Accept anyway?" question that never blocks.
 
 **Speed.** The model is read from Ollama once and kept for 5 minutes by default. See `project\models\component1\part_b\README.md` for the measured effect of `num_gpu`/`num_ctx` and for `setx OLLAMA_KEEP_ALIVE 1h` (and optionally `setx OLLAMA_FLASH_ATTENTION 1`, then quit and restart Ollama). These variables belong to the Ollama server, not to the API script. Tuned settings can change the wording slightly, so run the local evaluation with the settings used for the demo.
+
+## Processing target: On device or Cloud
+
+Next to **Run analysis**, *Process:* chooses where drafts are written, without restarting the API (`GET/PUT /api/engine`, see "Processing target" in `docs/c1_api_contract.md`):
+
+| Control | Meaning |
+|---|---|
+| **On device** | the API's own Ollama model, one draft at a time (default) |
+| **Cloud** | a remote OpenAI-compatible server (for example the Colab notebook in `notebooks/`), several drafts in parallel. It stays disabled and reads **Set up cloud...** until the address is saved, consent is given and **Test connection** succeeded |
+| gear icon | opens the cloud settings: Cloud URL (https), API key (optional, write-only: after saving it only says "saved" and is never shown again), model name (default `c1-req`), parallel requests 1 to 8 (default 4), the consent box "Requirement text will be sent to this server", **Test connection** and **Save** |
+| status dot | **Ready**, **Not set up** or **Unreachable** for the active target, with its model |
+
+**Test connection** saves the form first and then tests the saved settings. While Cloud is the active target the address, key and model are locked (switch to On device to change them); the number of parallel requests can still be changed.
+
+The sidebar "Engine status" card always names the target ("On device" or "Cloud (hostname)"); in cloud mode it adds "Requirement text is sent to a remote server." A draft says where it was written: "Written by c1-req on cloud (hostname)" or "on device". The browser only ever knows the host name, never the address.
+
+**If the cloud stops answering**, the API pauses the drafts after 3 failed requests and the page shows a **Cloud unreachable** banner with two buttons: **Retry** (resume on the cloud) and **Switch to device**. Nothing is switched automatically. The panel under the summary cards then reads "Paused: cloud unreachable" and names the target.
+
+The API's 409 answers are shown as plain sentences: `cloud_disabled` (this server mode does not allow cloud), `cloud_not_configured` (enter the URL first), `cloud_consent_required` (tick the consent box), `cloud_not_tested` (run Test connection first), `engine_in_use` (switch to On device before changing the address, key or model).
+
+Colab and rented-GPU steps, safety notes and a 5-step honest speed measurement are in `notebooks/README.md`. Keep `LLM_TIMEOUT` at 600: the first request through a tunnel can be slow while the model loads.
 
 ## Scripts
 | Command | What it does |
