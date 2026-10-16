@@ -10,3 +10,12 @@ data/raw/
 # Component 1 baseline models and embedding cache (large, regenerable)
 models/component1/**/*.joblib
 models/component1/**/embedding_cache/
+
+# Component 1 API workspace (SQLite database, uploads, embedding cache)
+outputs/c1_workspace/
+outputs/c1_live_check/
+models/component1/part_b/Modelfile.local
+
+models/component1/part_b/*.gguf
+models/**/*.safetensors
+models/**/*.bin

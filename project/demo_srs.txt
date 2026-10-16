@@ -1,0 +1,2 @@
+3.1 The system shall export monthly attendance reports to PDF within 5 seconds.
+3.2 The system should quickly notify users about suspicious logins.

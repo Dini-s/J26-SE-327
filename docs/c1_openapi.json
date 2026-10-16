@@ -1,0 +1,1887 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Component 1 - Requirement Intelligence API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects": {
+      "get": {
+        "summary": "List Projects",
+        "operationId": "list_projects_api_projects_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectOut"
+                  },
+                  "type": "array",
+                  "title": "Response List Projects Api Projects Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Project",
+        "operationId": "create_project_api_projects_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/sources": {
+      "post": {
+        "summary": "Upload Sources",
+        "operationId": "upload_sources_api_projects__pid__sources_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_sources_api_projects__pid__sources_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Content Too Large"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Sources",
+        "operationId": "list_sources_api_projects__pid__sources_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceOut"
+                  },
+                  "title": "Response List Sources Api Projects  Pid  Sources Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Clear Sources",
+        "operationId": "clear_sources_api_projects__pid__sources_delete",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/sources/{source_id}": {
+      "delete": {
+        "summary": "Delete Source",
+        "operationId": "delete_source_api_projects__pid__sources__source_id__delete",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/analyze": {
+      "post": {
+        "summary": "Analyze",
+        "operationId": "analyze_api_projects__pid__analyze_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "policy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "smart | all | manual: which drafts are queued automatically",
+              "default": "smart",
+              "title": "Policy"
+            },
+            "description": "smart | all | manual: which drafts are queued automatically"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/jobs/{job_id}": {
+      "get": {
+        "summary": "Get Job",
+        "operationId": "get_job_api_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/summary": {
+      "get": {
+        "summary": "Project Summary",
+        "operationId": "project_summary_api_projects__pid__summary_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Summary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/requirements": {
+      "get": {
+        "summary": "Project Requirements",
+        "operationId": "project_requirements_api_projects__pid__requirements_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "risk",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Risk"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "all",
+              "title": "Type"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequirementList"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/requirements/{rid}": {
+      "get": {
+        "summary": "Requirement Detail",
+        "operationId": "requirement_detail_api_requirements__rid__get",
+        "parameters": [
+          {
+            "name": "rid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Rid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequirementDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/requirements/{rid}/generate": {
+      "post": {
+        "summary": "Regenerate",
+        "operationId": "regenerate_api_requirements__rid__generate_post",
+        "parameters": [
+          {
+            "name": "rid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Rid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/generate": {
+      "post": {
+        "summary": "Generate Remaining",
+        "operationId": "generate_remaining_api_projects__pid__generate_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateAllOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/generation/pause": {
+      "post": {
+        "summary": "Pause Generation",
+        "operationId": "pause_generation_api_projects__pid__generation_pause_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PausedOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/generation/resume": {
+      "post": {
+        "summary": "Resume Generation",
+        "operationId": "resume_generation_api_projects__pid__generation_resume_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PausedOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/requirements/{rid}/decision": {
+      "post": {
+        "summary": "Decide",
+        "operationId": "decide_api_requirements__rid__decision_post",
+        "parameters": [
+          {
+            "name": "rid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Rid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/export": {
+      "get": {
+        "summary": "Export",
+        "operationId": "export_api_projects__pid__export_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "json",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AmbiguitySummary": {
+        "properties": {
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "high_risk": {
+            "type": "integer",
+            "title": "High Risk"
+          },
+          "asked_by_ai": {
+            "type": "integer",
+            "title": "Asked By Ai",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "count",
+          "high_risk"
+        ],
+        "title": "AmbiguitySummary"
+      },
+      "Body_upload_sources_api_projects__pid__sources_post": {
+        "properties": {
+          "files": {
+            "items": {
+              "type": "string",
+              "contentMediaType": "application/octet-stream"
+            },
+            "type": "array",
+            "title": "Files"
+          }
+        },
+        "type": "object",
+        "required": [
+          "files"
+        ],
+        "title": "Body_upload_sources_api_projects__pid__sources_post"
+      },
+      "DecisionIn": {
+        "properties": {
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "edited",
+              "rejected"
+            ],
+            "title": "Decision"
+          },
+          "edited_text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 5000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Edited Text"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "decision"
+        ],
+        "title": "DecisionIn"
+      },
+      "DecisionOut": {
+        "properties": {
+          "uid": {
+            "type": "string",
+            "title": "Uid"
+          },
+          "decision": {
+            "type": "string",
+            "title": "Decision"
+          },
+          "edited_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Edited Text"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "history": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "History"
+          }
+        },
+        "type": "object",
+        "required": [
+          "uid",
+          "decision",
+          "updated_at",
+          "history"
+        ],
+        "title": "DecisionOut"
+      },
+      "ErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorDetail"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse"
+      },
+      "Flags": {
+        "properties": {
+          "ambiguity": {
+            "type": "boolean",
+            "title": "Ambiguity"
+          },
+          "conflict": {
+            "type": "boolean",
+            "title": "Conflict"
+          },
+          "duplicate": {
+            "type": "boolean",
+            "title": "Duplicate"
+          },
+          "security": {
+            "type": "boolean",
+            "title": "Security"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ambiguity",
+          "conflict",
+          "duplicate",
+          "security"
+        ],
+        "title": "Flags"
+      },
+      "GenerateAllOut": {
+        "properties": {
+          "queued": {
+            "type": "integer",
+            "title": "Queued"
+          }
+        },
+        "type": "object",
+        "required": [
+          "queued"
+        ],
+        "title": "GenerateAllOut"
+      },
+      "GenerateOut": {
+        "properties": {
+          "uid": {
+            "type": "string",
+            "title": "Uid"
+          },
+          "generation_state": {
+            "type": "string",
+            "title": "Generation State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "uid",
+          "generation_state"
+        ],
+        "title": "GenerateOut"
+      },
+      "GenerationCounts": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "done": {
+            "type": "integer",
+            "title": "Done"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          },
+          "queued": {
+            "type": "integer",
+            "title": "Queued"
+          },
+          "running": {
+            "type": "integer",
+            "title": "Running"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "done",
+          "failed",
+          "queued",
+          "running"
+        ],
+        "title": "GenerationCounts"
+      },
+      "GenerationOut": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "user_story": {
+            "type": "string",
+            "title": "User Story"
+          },
+          "technical_task": {
+            "type": "string",
+            "title": "Technical Task"
+          },
+          "acceptance_criteria": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Acceptance Criteria"
+          },
+          "rationale": {
+            "type": "string",
+            "title": "Rationale"
+          },
+          "clarification_questions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Clarification Questions"
+          },
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts"
+          },
+          "manual_review": {
+            "type": "boolean",
+            "title": "Manual Review"
+          },
+          "raw_output": {
+            "type": "string",
+            "title": "Raw Output"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "generated_from": {
+            "type": "string",
+            "title": "Generated From",
+            "default": ""
+          },
+          "numbers_not_in_source": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Numbers Not In Source",
+            "default": []
+          },
+          "backend": {
+            "type": "string",
+            "title": "Backend",
+            "default": ""
+          },
+          "model": {
+            "type": "string",
+            "title": "Model",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "message",
+          "user_story",
+          "technical_task",
+          "acceptance_criteria",
+          "rationale",
+          "clarification_questions",
+          "attempts",
+          "manual_review",
+          "raw_output"
+        ],
+        "title": "GenerationOut"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "part_a_loaded": {
+            "type": "boolean",
+            "title": "Part A Loaded"
+          },
+          "generation_backend": {
+            "type": "string",
+            "title": "Generation Backend"
+          },
+          "generation_reachable": {
+            "type": "boolean",
+            "title": "Generation Reachable"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "part_a_loaded",
+          "generation_backend",
+          "generation_reachable",
+          "model"
+        ],
+        "title": "Health"
+      },
+      "Job": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "title": "Job Id"
+          },
+          "project_id": {
+            "type": "integer",
+            "title": "Project Id"
+          },
+          "stage": {
+            "type": "string",
+            "enum": [
+              "collect",
+              "identify",
+              "analyse",
+              "improve",
+              "share"
+            ],
+            "title": "Stage"
+          },
+          "part_a_done": {
+            "type": "boolean",
+            "title": "Part A Done"
+          },
+          "generation": {
+            "$ref": "#/components/schemas/GenerationCounts"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements",
+            "default": 0
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "policy": {
+            "type": "string",
+            "title": "Policy",
+            "default": "smart"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "project_id",
+          "stage",
+          "part_a_done",
+          "generation"
+        ],
+        "title": "Job"
+      },
+      "PausedOut": {
+        "properties": {
+          "paused": {
+            "type": "boolean",
+            "title": "Paused"
+          }
+        },
+        "type": "object",
+        "required": [
+          "paused"
+        ],
+        "title": "PausedOut"
+      },
+      "ProjectCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ProjectCreate"
+      },
+      "ProjectOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "sources": {
+            "type": "integer",
+            "title": "Sources"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "created_at",
+          "sources",
+          "requirements"
+        ],
+        "title": "ProjectOut"
+      },
+      "RejectedFile": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filename",
+          "code",
+          "message"
+        ],
+        "title": "RejectedFile"
+      },
+      "RequirementDetail": {
+        "properties": {
+          "uid": {
+            "type": "string",
+            "title": "Uid"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "integer",
+            "title": "Project Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "original_text": {
+            "type": "string",
+            "title": "Original Text"
+          },
+          "source": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Source"
+          },
+          "classification": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Classification"
+          },
+          "ambiguity": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ambiguity"
+          },
+          "security": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Security"
+          },
+          "duplicates": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Duplicates"
+          },
+          "duplicate_group": {
+            "type": "string",
+            "title": "Duplicate Group"
+          },
+          "conflicts": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Conflicts"
+          },
+          "risk": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Risk"
+          },
+          "findings": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Findings"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "vague_terms": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Vague Terms"
+          },
+          "generation": {
+            "$ref": "#/components/schemas/GenerationOut"
+          },
+          "decision": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision"
+          },
+          "decision_history": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Decision History"
+          }
+        },
+        "type": "object",
+        "required": [
+          "uid",
+          "id",
+          "project_id",
+          "text",
+          "original_text",
+          "source",
+          "classification",
+          "ambiguity",
+          "security",
+          "duplicates",
+          "duplicate_group",
+          "conflicts",
+          "risk",
+          "findings",
+          "explanation",
+          "vague_terms",
+          "generation",
+          "decision_history"
+        ],
+        "title": "RequirementDetail"
+      },
+      "RequirementList": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RequirementRow"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "limit",
+          "offset",
+          "items"
+        ],
+        "title": "RequirementList"
+      },
+      "RequirementRow": {
+        "properties": {
+          "uid": {
+            "type": "string",
+            "title": "Uid"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "source_file": {
+            "type": "string",
+            "title": "Source File"
+          },
+          "page": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page"
+          },
+          "paragraph": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paragraph"
+          },
+          "fr_nfr": {
+            "type": "string",
+            "title": "Fr Nfr"
+          },
+          "risk_level": {
+            "type": "string",
+            "title": "Risk Level"
+          },
+          "risk_score": {
+            "type": "integer",
+            "title": "Risk Score"
+          },
+          "flags": {
+            "$ref": "#/components/schemas/Flags"
+          },
+          "generation_state": {
+            "type": "string",
+            "title": "Generation State"
+          },
+          "decision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision"
+          }
+        },
+        "type": "object",
+        "required": [
+          "uid",
+          "id",
+          "text",
+          "source_file",
+          "fr_nfr",
+          "risk_level",
+          "risk_score",
+          "flags",
+          "generation_state"
+        ],
+        "title": "RequirementRow"
+      },
+      "SourceOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "ext": {
+            "type": "string",
+            "title": "Ext"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "title": "Size Bytes"
+          },
+          "pages": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pages"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings",
+            "default": []
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "filename",
+          "ext",
+          "size_bytes",
+          "created_at"
+        ],
+        "title": "SourceOut"
+      },
+      "Summary": {
+        "properties": {
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "ambiguities": {
+            "$ref": "#/components/schemas/AmbiguitySummary"
+          },
+          "conflicts": {
+            "type": "integer",
+            "title": "Conflicts"
+          },
+          "duplicates": {
+            "type": "integer",
+            "title": "Duplicates"
+          },
+          "duplicate_groups": {
+            "type": "integer",
+            "title": "Duplicate Groups"
+          },
+          "security": {
+            "type": "integer",
+            "title": "Security"
+          },
+          "risk_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Risk Counts"
+          },
+          "task_drafts": {
+            "$ref": "#/components/schemas/TaskDrafts"
+          },
+          "open_findings": {
+            "type": "integer",
+            "title": "Open Findings"
+          },
+          "decided": {
+            "type": "integer",
+            "title": "Decided"
+          }
+        },
+        "type": "object",
+        "required": [
+          "requirements",
+          "ambiguities",
+          "conflicts",
+          "duplicates",
+          "duplicate_groups",
+          "security",
+          "risk_counts",
+          "task_drafts",
+          "open_findings",
+          "decided"
+        ],
+        "title": "Summary"
+      },
+      "TaskDrafts": {
+        "properties": {
+          "generated": {
+            "type": "integer",
+            "title": "Generated"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "needs_clarification": {
+            "type": "integer",
+            "title": "Needs Clarification",
+            "default": 0
+          },
+          "manual_review": {
+            "type": "integer",
+            "title": "Manual Review",
+            "default": 0
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed",
+            "default": 0
+          },
+          "not_generated": {
+            "type": "integer",
+            "title": "Not Generated",
+            "default": 0
+          },
+          "in_progress": {
+            "type": "integer",
+            "title": "In Progress",
+            "default": 0
+          },
+          "queued": {
+            "type": "integer",
+            "title": "Queued",
+            "default": 0
+          },
+          "running": {
+            "type": "integer",
+            "title": "Running",
+            "default": 0
+          },
+          "paused": {
+            "type": "boolean",
+            "title": "Paused",
+            "default": false
+          },
+          "eta_seconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eta Seconds"
+          },
+          "latency_samples": {
+            "type": "integer",
+            "title": "Latency Samples",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "generated",
+          "total"
+        ],
+        "title": "TaskDrafts"
+      },
+      "UploadResult": {
+        "properties": {
+          "accepted": {
+            "items": {
+              "$ref": "#/components/schemas/SourceOut"
+            },
+            "type": "array",
+            "title": "Accepted"
+          },
+          "rejected": {
+            "items": {
+              "$ref": "#/components/schemas/RejectedFile"
+            },
+            "type": "array",
+            "title": "Rejected"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accepted",
+          "rejected"
+        ],
+        "title": "UploadResult"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

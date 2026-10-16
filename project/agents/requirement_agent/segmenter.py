@@ -117,7 +117,7 @@ def candidate_type(text):
     return "unknown", ""
 
 
-def extract_document(name, text, fmt):
+def extract_document(name, text, fmt, line_map=None):
     blocks, stats = prepare_blocks(text)
     rows, dropped = [], Counter(stats)
     for line_start, block in blocks:
@@ -162,12 +162,16 @@ def extract_document(name, text, fmt):
                          "source_marker": marker_text, "original_text": original, "cleaned_text": cleaned,
                          "word_count": len(cleaned.split()), "candidate_type": ctype, "type_rule": trule,
                          "extraction_rule": rule, "length_flag": ("long_over_120_words" if len(cleaned.split()) > 120 else "")})
+            if line_map is not None:
+                # optional source reference (used by the API): line_map[line_number] = (page or None, paragraph); rows are unchanged without it
+                rows[-1]["page"], rows[-1]["paragraph"] = line_map.get(line_start, (None, None))
     return rows, dropped, len(blocks)
 
 
-def segment_document(name, text, fmt):
-    """Rows (dicts) for one document, each with `position` and `srs_record_id`. Also returns the dropped-line counter and block count."""
-    rows, dropped, n_blocks = extract_document(name, text, fmt)
+def segment_document(name, text, fmt, line_map=None):
+    """Rows (dicts) for one document, each with `position` and `srs_record_id`. Also returns the dropped-line counter and block count.
+    With `line_map` ({line_number: (page, paragraph)}) every row also carries `page` and `paragraph`; without it the rows are exactly as before."""
+    rows, dropped, n_blocks = extract_document(name, text, fmt, line_map)
     for position, r in enumerate(rows, start=1):
         r["position"] = position
         r["srs_record_id"] = f"SRS:{re.sub(r'[^A-Za-z0-9]+', '_', name).strip('_')}:{position:04d}"

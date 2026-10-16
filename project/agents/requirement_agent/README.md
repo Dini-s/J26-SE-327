@@ -65,3 +65,16 @@ Without `--generate` the output is exactly the Part A output. With it, these col
 (filled only when the reply needs manual review). The prompt is the training prompt (`prompts.py`). An invalid reply is retried up to 2 more times; after 3 failures the row is
 marked for manual review. `replay` returns stored outputs and stops with a message if a requirement text is not in the file; `ollama` calls an OpenAI-compatible endpoint set by
 `LLM_BASE_URL` (default `http://localhost:11434/v1`), `LLM_MODEL` and `LLM_API_KEY` (see `config.py`). Code: `generation.py`, `schemas.py`; tests: `tests/test_generation.py`.
+
+## API for the web UI
+
+A FastAPI backend wraps Part A and Part B for the UI. Install the packages (`pip install -r requirements.txt`), then from `project/`:
+
+    uvicorn agents.requirement_agent.api.app:app --port 8000
+
+It binds to 127.0.0.1:8000 and allows the UI origins `http://localhost:5173` and `http://127.0.0.1:5173`. Interactive docs are at `/docs`.
+Projects, uploads (`.txt .md .pdf .docx`, 20 MB each), results and decisions are stored in `outputs/c1_workspace/` (SQLite `c1.db` and `uploads/`, git-ignored).
+Generation backend: `C1_GENERATION_BACKEND=replay|ollama|mock` (default `replay`, which reads `evaluation/component1/generation/ft_outputs.json`; a requirement whose text is
+not in that file shows `failed: not in replay file`). For Ollama set `LLM_BASE_URL`, `LLM_MODEL`, `LLM_API_KEY`. Full contract: `docs/c1_api_contract.md`; schema:
+`docs/c1_openapi.json` (regenerate with `python -m agents.requirement_agent.api.export_openapi`). Tests: `tests/test_c1_api.py`, `tests/test_c1_risk_conflicts.py`.
+The API keeps its own embedding cache in the workspace (set `C1_USE_MODEL_CACHE=1` to use the one under `models/component1/part_a_active/` instead).

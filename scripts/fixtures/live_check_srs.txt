@@ -1,0 +1,16 @@
+Online Banking - Sample Requirements
+
+1. Functional requirements
+
+1.1 The system shall allow a registered customer to transfer money between their own accounts.
+1.2 The system shall send an email receipt to the customer within 60 seconds after a transfer is completed.
+
+2. Non-functional requirements
+
+2.1 The system shall respond to 95% of balance enquiries within 2 seconds under a load of 500 concurrent users.
+2.2 The system should process payments quickly.
+2.3 The user interface shall be user-friendly.
+
+3. Security
+
+3.1 The system shall lock a customer account after 5 consecutive failed login attempts.

@@ -172,6 +172,28 @@ def generate_structured(backend, requirement_text, max_attempts=MAX_ATTEMPTS):
     return result
 
 
+NUMBER = re.compile(r"\d+(?:[.,]\d+)*")
+
+
+def numbers_in(text):
+    """Every number written in a text ("1,000" -> "1000"). Same rule as experiments/component1/validate_sft_pairs.py (a test keeps them equal)."""
+    return {n.rstrip(".,").replace(",", "") for n in NUMBER.findall(str(text))}
+
+
+def output_strings(result):
+    """The text fields of a reply that must not introduce facts: rationale, story, task, criteria and questions."""
+    g = result.get if isinstance(result, dict) else (lambda k, d=None: getattr(result, k, d))
+    out = [g("rationale") or "", g("user_story") or "", g("technical_task") or ""]
+    out += list(g("acceptance_criteria") or []) + list(g("clarification_questions") or [])
+    return [s for s in out if isinstance(s, str)]
+
+
+def numbers_not_in_source(source_text, result):
+    """Sorted numbers that appear in the reply (dict or GenerationResult) but not in the requirement text. Strict: no arithmetic is allowed for."""
+    allowed = numbers_in(source_text)
+    return sorted({n for s in output_strings(result) for n in numbers_in(s)} - allowed)
+
+
 def make_backend(name, replay_file=None):
     if name == "replay":
         if not replay_file:

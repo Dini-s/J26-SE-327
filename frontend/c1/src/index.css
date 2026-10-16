@@ -1,0 +1,63 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+  body {
+    @apply bg-page font-sans text-[14px] text-ink-body antialiased;
+    overflow-x: hidden;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-brand-600;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-card border border-line bg-white shadow-card;
+  }
+  .label-caps {
+    @apply text-[10.5px] font-semibold uppercase tracking-label text-ink-muted;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-ctl px-4 py-2.5 text-[14px] font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700;
+  }
+  .btn-secondary {
+    @apply btn border border-line bg-[#f1f2f8] text-ink hover:bg-[#e8eaf4];
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, #eceef6 0%, #f6f7fb 50%, #eceef6 100%);
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  animation: shimmer 1.2s infinite linear;
+  @apply rounded-md bg-[#eceef6];
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .animate-spin {
+    animation: none;
+  }
+}
