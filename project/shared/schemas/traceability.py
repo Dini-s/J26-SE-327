@@ -75,7 +75,9 @@ class CompletenessResult(BaseModel):
     Attributes:
         requirement_id: The requirement scored.
         score: 0-100, how trustworthy its traceability currently is.
-        is_orphan: True if it has no verified trace link at all.
+        is_orphan: True if it has no verified trace link (it scores 0).
+        is_broken: True if it is an orphan only because every link it had has decayed (a changed
+            requirement or file), as opposed to never having been linked.
         trace_confidence: Mean confidence of its verified links (None if orphan).
         evidence_coverage: C3 evidence coverage in ``[0, 1]`` (None if unavailable).
     """
@@ -83,5 +85,6 @@ class CompletenessResult(BaseModel):
     requirement_id: str
     score: float = Field(ge=0.0, le=100.0)
     is_orphan: bool
+    is_broken: bool = False
     trace_confidence: Optional[float] = None
     evidence_coverage: Optional[float] = None

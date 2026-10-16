@@ -207,7 +207,7 @@ def build_pairs(retrieval: str = "hybrid", hard: int = 6, random_neg: int = 3, t
 
 
 def bundle(out: Path) -> Path:
-    """Zip what the Colab notebook needs (train.py, evaluate.py and the pair files) into ``out``."""
+    """Zip what the Colab notebooks need (train.py, evaluate.py, learning_curve.py and the pair files) into ``out``."""
     import zipfile
 
     here = Path(__file__).resolve().parent
@@ -218,6 +218,7 @@ def bundle(out: Path) -> Path:
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         z.write(here / "train.py", "train.py")
         z.write(here / "evaluate.py", "evaluate.py")
+        z.write(here / "learning_curve.py", "learning_curve.py")
         for p in needed:
             z.write(p, f"data/reranker/{p.name}")
     return out
@@ -227,7 +228,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("prepare", help="build processed datasets for SMOS, eANCI and EBT")
-    b = sub.add_parser("bundle", help="zip train.py, evaluate.py and the pair files for the Colab notebook")
+    b = sub.add_parser("bundle", help="zip train.py, evaluate.py, learning_curve.py and the pair files for the Colab notebooks")
     b.add_argument("--out", type=Path, default=ROOT / "data" / "reranker_colab.zip")
     p = sub.add_parser("pairs", help="write train / valid / test pair files")
     p.add_argument("--retrieval", choices=["hybrid", "tfidf"], default="hybrid", help="stage-1 method used for hard negatives and test candidates")

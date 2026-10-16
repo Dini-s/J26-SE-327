@@ -58,7 +58,7 @@ class InMemoryUSKG:
         )
         return True
 
-    def mark_decayed(self, link: TraceabilityLink, new_confidence: float, reason: str) -> bool:
+    def mark_decayed(self, link: TraceabilityLink, new_confidence: float, reason: str, text_hash: Optional[str] = None) -> bool:
         """Mark a stored link decayed and record a flag (the link is kept)."""
         key = (link.source_id, link.target_id)
         current = self.traces.get(key)
@@ -76,6 +76,7 @@ class InMemoryUSKG:
             update={
                 "status": "decayed",
                 "confidence": new_confidence,
+                "text_hash": text_hash or current.text_hash,
                 "last_checked_at": datetime.now(timezone.utc),
             }
         )

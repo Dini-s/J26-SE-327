@@ -45,3 +45,11 @@ def test_evidence_is_clamped_and_other_requirements_unaffected():
     )
     assert a.evidence_coverage == 1.0 and a.score == pytest.approx(100.0)
     assert b.evidence_coverage is None and b.score == pytest.approx(50.0)
+
+
+def test_only_decayed_links_means_broken_not_never_linked():
+    reqs = [Artifact(id="R1", type="requirement", text="x"), Artifact(id="R2", type="requirement", text="y")]
+    traces = [TraceabilityLink(source_id="R1", target_id="C1", link_type="requirement_to_code", confidence=0.2, status="decayed", justification="stale")]
+    r1, r2 = completeness_scores(reqs, traces)
+    assert r1.is_orphan and r1.is_broken and r1.score == 0
+    assert r2.is_orphan and not r2.is_broken

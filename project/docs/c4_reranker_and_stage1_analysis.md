@@ -330,6 +330,23 @@ Decay injection (9 known-good links, model `llama3.1-8k`):
 
 Decay detection accuracy 0.696 (target >= 0.85), false-decay rate on the control 0.111. The sample is 9 links, so these rates are very uncertain.
 
+### 5.x Learning curve: does more training data help?
+
+Same model trained on 1, 2, 3, 4 projects (order A: iTrust, eTour, SMOS, eANCI; order B, MiniLM only: eANCI, SMOS, eTour), always tested on the same unseen LibEST, CM-1, EBT. One seed, so the numbers are noisy. Raw data: `data/results/learning_curve_minilm.json`, `learning_curve_codebert.json`.
+
+| Projects | MiniLM MRR alone (A / B) | MiniLM fused hits@5 gain (A / B) | CodeBERT MRR alone | CodeBERT fused hits@5 gain |
+|---|---|---|---|---|
+| 1 | 0.525 / 0.509 | +0.070 / +0.088 | 0.398 | +0.155 |
+| 2 | 0.551 / 0.540 | +0.131 / +0.130 | 0.422 | +0.086 |
+| 3 | 0.554 / 0.572 | +0.113 / +0.183 | 0.353 | +0.053 |
+| 4 | 0.587 | +0.157 | 0.351 | +0.115 |
+
+Reading:
+* **MiniLM:** the model alone improves a little with more projects (MRR 0.51-0.53 to 0.59, same direction in both orders). The fused gain also tends upward, but the 95% intervals overlap almost completely (for example +0.070 [-0.017, 0.157] versus +0.157 [0.070, 0.252]), and an untrained MiniLM already gives +0.115. So a fourth project is about +0.04 over untrained, which is inside the noise. Not proven.
+* **CodeBERT:** flat or falling (MRR 0.40 to 0.35) and far below MiniLM (0.35 versus 0.59). The fused gain jumps around with no trend and is negative on CM-1 in every run. Four times more data did not help it. Order B was not run for CodeBERT.
+* **Decision:** the evidence does not justify collecting much more data for CodeBERT. For MiniLM, extra data might add a few points, but it is not shown. Keep stage 1 + (optional) MiniLM fusion; the bigger lever remains stage-1 recall.
+* Limits: 4 points, one seed; data size and diversity grow together; the tiny validation sets make "valid AUC" unreliable.
+
 ## 6. Limits of every result above
 
 * **Fusion weights were chosen after seeing the test results** (w = 0.5 and 1.0 both reported, same direction).
@@ -384,6 +401,17 @@ Changed: `agent.py` (optional `reranker`, `rerank_pool`), `cli.py` (`--reranker`
 3. Replace or complement the 8B LLM verifier (for example a code LLM that fits the 8 GB server, or a larger model on a GPU) and measure precision and latency.
 4. Decay-risk prediction and a larger decay-injection test (more than 9 links) for the main novelty of the component.
 5. Update the methodology document: it still lists CodeBERT/GraphCodeBERT and ChromaDB, which are not used.
+
+## 9a. Proposal versus what was built (say this in the viva)
+
+| Proposal said | What C4 actually does | Why |
+|---|---|---|
+| CodeBERT embeddings | all-MiniLM-L6-v2 + TF-IDF, fused by z-score | Fine-tuned CodeBERT did not generalise (CM-1 MRR 0.21 versus 0.88 for stage 1) and more data did not help it (learning curve, section 5.x). Code-specific embedding models (code-search, UniXcoder) did not beat MiniLM. |
+| ChromaDB vector store | in-memory matrices per run | The corpora are small (hundreds of files); a vector database adds nothing here. |
+| Fine-tuned model as the verifier | Llama 3.1 8B prompted yes/no with a reason | Honest limits: precision 37.5% on iTrust (target 90%), 52 s per call on a CPU-only server. |
+| Decay detection | text-hash change, then LLM re-check; decayed edges kept with a DecayFlag; a decayed link is watched and becomes verified again when its text changes and the check passes | Decay detection 69.6% on 9 injected links (small sample). |
+
+The weakest point is stage-1 recall (iTrust top-10 about 42%): the LLM cannot recover a link the shortlist missed.
 
 ## 10. Glossary
 

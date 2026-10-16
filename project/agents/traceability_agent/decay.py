@@ -118,7 +118,9 @@ class DecayDetector:
             self._log_recheck(link, confidence, decayed=False, published=False, reason=reasoning)
             return DecayResult(link=link, rechecked=True, new_confidence=confidence, reason=reasoning)
 
-        self.uskg.mark_decayed(link, new_confidence=confidence, reason=reasoning)
+        self.uskg.mark_decayed(
+            link, new_confidence=confidence, reason=reasoning, text_hash=content_hash(requirement, target)
+        )
         published = False
         if self.publisher is not None:
             try:
@@ -161,7 +163,7 @@ class DecayDetector:
     def run(
         self, force: bool = False, project: Optional[str] = None, only_targets: Optional[set[str]] = None
     ) -> list[DecayResult]:
-        """Poll verified links and re-check those whose content changed.
+        """Poll verified and decayed links and re-check those whose content changed.
 
         Args:
             force: Re-check every verified link, even if its text hash is unchanged.
@@ -176,7 +178,9 @@ class DecayDetector:
         requirements = {a.id: a for a in self.uskg.get_artifacts("requirement", **scope)}
         targets = {a.id: a for t in TARGET_TYPES for a in self.uskg.get_artifacts(t, **scope)}
         results: list[DecayResult] = []
-        for link in self.uskg.get_traces(status="verified", **scope):
+        # decayed links are watched too: when their text changes again (a fix, a revert) they are re-checked
+        # and, if they hold, become verified again. Their stored hash is that of the text last checked.
+        for link in self.uskg.get_traces(**scope):
             if only_targets is not None and link.target_id not in only_targets:
                 continue
             requirement, target = requirements.get(link.source_id), targets.get(link.target_id)

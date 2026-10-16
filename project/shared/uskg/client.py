@@ -86,7 +86,8 @@ RETURN count(v) AS written
 _MARK_DECAYED_QUERY = """
 MATCH (r:Requirement {id: $source_id})-[v:VERIFIED_TRACE]->(c:CodeEntity {id: $target_id})
 WITH r, v, v.confidence AS previous
-SET v.status = 'decayed', v.confidence = $new_confidence, v.lastCheckedAt = datetime()
+SET v.status = 'decayed', v.confidence = $new_confidence, v.lastCheckedAt = datetime(),
+    v.textHash = coalesce($text_hash, v.textHash)
 CREATE (r)-[:HAS_DECAY]->(d:DecayFlag {
     codeEntityId: $target_id, flaggedAt: datetime(),
     previousConfidence: previous, reason: $reason})
@@ -289,13 +290,15 @@ class USKGClient:
             > 0
         )
 
-    def mark_decayed(self, link: TraceabilityLink, new_confidence: float, reason: str) -> bool:
+    def mark_decayed(self, link: TraceabilityLink, new_confidence: float, reason: str, text_hash: Optional[str] = None) -> bool:
         """Mark an edge decayed and attach a ``DecayFlag``, without deleting the edge.
 
         Args:
             link: The link that decayed (identifies the edge).
             new_confidence: Confidence from the failed re-verification.
             reason: Why it decayed (the verifier's justification).
+            text_hash: Hash of the text that was just checked; stored so the monitor re-checks a decayed
+                link only when its text changes again (e.g. after a revert), not on every pass.
 
         Returns:
             True if the edge existed and was flagged.
@@ -308,6 +311,7 @@ class USKGClient:
                 target_id=link.target_id,
                 new_confidence=new_confidence,
                 reason=reason,
+                text_hash=text_hash,
             )
             > 0
         )

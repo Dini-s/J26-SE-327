@@ -1,4 +1,6 @@
-"""Local web server for the C4 demo: serves apps/web/index.html and a small JSON API.
+"""Local web server for the C4 demo: serves the legacy single-page demo (apps/web_legacy/index.html) and the JSON API.
+
+The new React dashboard (apps/web, Vite) does not need this page: in development its dev server proxies /api to this server.
 
 Standard library only (no web framework). Run from the project root:
 
@@ -26,7 +28,7 @@ load_dotenv(PROJECT_ROOT / ".env")
 
 from apps.api import demo, history, runner, sources  # noqa: E402
 
-WEB_DIR = PROJECT_ROOT / "apps" / "web"
+WEB_DIR = PROJECT_ROOT / "apps" / "web_legacy"   # the old demo page; the React app lives in apps/web
 HOST = "127.0.0.1"
 MAX_BODY = 20_000
 _cache: dict[str, tuple[float, Any]] = {}
@@ -148,6 +150,60 @@ def get_graph(q: dict) -> dict:
     return _cached(f"graph:{project}:{mode}", 3, lambda: sources.neo4j_uskg_graph(max_traces=300, max_orphans=60, project=project, mode=mode))
 
 
+def get_links(q: dict) -> dict:
+    """All trace links of the project, with reasons, decay flags and orphan requirements (for the React dashboard)."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+    return _cached(f"links:{project}", 3, lambda: sources.neo4j_links(project))
+
+
+def get_analytics(q: dict) -> dict:
+    """Distributions, change hotspots, weakest links and a timeline for the project's trace links."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+    from apps.api import analytics
+
+    return _cached(f"analytics:{project}", 3, lambda: analytics.build(sources.neo4j_links(project)))
+
+
+def get_completeness(q: dict) -> dict:
+    """Traceability completeness per requirement (0-100) and orphan requirements; no C3 evidence figure is available yet."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+
+    def compute() -> dict:
+        from agents.traceability_agent.completeness import completeness_scores
+        from shared.uskg.client import USKGClient
+
+        with USKGClient() as uskg:
+            reqs = uskg.get_artifacts("requirement", project=project)
+            results = completeness_scores(reqs, uskg.get_traces(project=project))
+        rows = [r.model_dump() for r in sorted(results, key=lambda r: r.score)]
+        mean = sum(r["score"] for r in rows) / len(rows) if rows else 0.0
+        return {"project": project, "mean": round(mean, 1), "orphans": sum(1 for r in rows if r["is_orphan"] and not r["is_broken"]), "broken": sum(1 for r in rows if r["is_broken"]), "requirements": rows}
+
+    return _cached(f"completeness:{project}", 3, compute)
+
+
+def get_analysis(_: dict) -> dict:
+    """Stored analysis results of the reranker / stage-1 experiments (data/results/*.json), if present."""
+    results = PROJECT_ROOT / "data" / "results"
+
+    def read(name: str) -> Any:
+        path = results / name
+        return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+
+    expansion = read("query_expansion_itrust.json")
+    return {"reranker": read("reranker.json"), "stage1Embeddings": read("stage1_embeddings.json"),
+            "queryExpansion": {"model": expansion.get("model"), "requirements": len(expansion.get("answers", {}))} if expansion else None}
+
+
 def get_results(_: dict) -> dict:
     return sources.load_results()
 
@@ -251,10 +307,40 @@ def post_reset(body: dict) -> dict:
     return result
 
 
+class Download:
+    """A file the browser should save instead of a JSON answer."""
+
+    def __init__(self, body: str, content_type: str, filename: str) -> None:
+        self.body, self.content_type, self.filename = body.encode("utf-8"), content_type, filename
+
+
+def get_export(q: dict) -> Download:
+    """CSV / JSON exports of the traceability state: ``kind`` = matrix | links | report."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    kind = q.get("kind", "matrix")
+    if kind not in ("matrix", "links", "report"):
+        raise ApiError(400, "kind must be matrix, links or report.")
+    _need_neo4j()
+    from agents.traceability_agent import report as rep
+    from shared.uskg.client import USKGClient
+
+    with USKGClient() as uskg:
+        reqs = uskg.get_artifacts("requirement", project=project)
+        traces = uskg.get_traces(project=project)
+    safe = "".join(ch if ch.isalnum() or ch in "-_" else "_" for ch in project)
+    if kind == "report":
+        return Download(json.dumps(rep.report(reqs, traces), indent=1), "application/json; charset=utf-8", f"{safe}_trace_report.json")
+    body = rep.matrix_csv(reqs, traces) if kind == "matrix" else rep.links_csv(reqs, traces)
+    return Download(body, "text/csv; charset=utf-8", f"{safe}_trace_{kind}.csv")
+
+
 GET_ROUTES: dict[str, Callable[[dict], Any]] = {
     "/api/health": get_health, "/api/projects": get_projects, "/api/activity": get_activity,
     "/api/link-runs": get_link_runs, "/api/change-runs": get_change_runs, "/api/files": get_files,
     "/api/graph": get_graph, "/api/unlinked": get_unlinked, "/api/results": get_results,
+    "/api/links": get_links, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics,
 }
 POST_ROUTES: dict[str, Callable[[dict], Any]] = {
     "/api/link": post_link, "/api/link-existing": post_link_existing, "/api/scan": post_scan, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset,
@@ -281,7 +367,18 @@ class Handler(BaseHTTPRequestHandler):
 
     def _run(self, fn: Callable[[dict], Any], arg: dict) -> None:
         try:
-            self._json(200, fn(arg))
+            result = fn(arg)
+            if isinstance(result, Download):
+                self.send_response(200)
+                self.send_header("Content-Type", result.content_type)
+                self.send_header("Content-Length", str(len(result.body)))
+                self.send_header("Content-Disposition", f'attachment; filename="{result.filename}"')
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("X-Content-Type-Options", "nosniff")
+                self.end_headers()
+                self.wfile.write(result.body)
+                return
+            self._json(200, result)
         except ApiError as exc:
             self._json(exc.status, {"detail": str(exc)})
         except Exception as exc:  # never crash the server; tell the page what went wrong
@@ -289,7 +386,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         url = urlparse(self.path)
-        if url.path in ("/", "/index.html"):
+        if url.path in ("/", "/index.html", "/legacy"):
             self._send(200, (WEB_DIR / "index.html").read_bytes(), "text/html; charset=utf-8")
         elif url.path in GET_ROUTES:
             self._run(GET_ROUTES[url.path], {k: v[0] for k, v in parse_qs(url.query).items()})

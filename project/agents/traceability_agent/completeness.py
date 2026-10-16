@@ -14,7 +14,8 @@ def completeness_scores(
     """Score how trustworthy each requirement's traceability currently is.
 
     * A requirement with no ``verified`` link is an orphan and scores 0
-      (decayed links do not count as valid traces).
+      (decayed links do not count as valid traces). If it has decayed links, it is
+      also flagged ``is_broken`` so a link that went stale is not mistaken for one never made.
     * Otherwise: ``100 * (TRACE_WEIGHT * mean verified-link confidence +
       EVIDENCE_WEIGHT * evidence coverage)``. If no C3 evidence figure is
       available for the requirement, the score is ``100 * mean confidence`` so
@@ -34,7 +35,8 @@ def completeness_scores(
     for req in requirements:
         valid = [t for t in traces if t.source_id == req.id and t.status == "verified"]
         if not valid:
-            results.append(CompletenessResult(requirement_id=req.id, score=0.0, is_orphan=True))
+            broken = any(t.source_id == req.id and t.status == "decayed" for t in traces)
+            results.append(CompletenessResult(requirement_id=req.id, score=0.0, is_orphan=True, is_broken=broken))
             continue
         trace_conf = sum(t.confidence for t in valid) / len(valid)
         evidence = evidence_coverage.get(req.id)

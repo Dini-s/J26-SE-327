@@ -127,6 +127,42 @@ def neo4j_unlinked(project: Optional[str]) -> dict[str, Any]:
     return {"requirements": len(rows), "unlinked": len(unlinked), "ids": unlinked[:200], "codeFiles": code[0]["n"], "links": links[0]["n"]}
 
 
+# ---------------------------------------------------------------- trace links of one project (for the React dashboard)
+def neo4j_links(project: str, max_links: int = 2000) -> dict[str, Any]:
+    """Every VERIFIED_TRACE of a project with its reason, the DecayFlags and the requirements that have no link (read-only)."""
+    where = "coalesce(r.project, r.repo, r.dataset) = $project"
+    with _neo4j_driver() as driver:
+        links, _, _ = driver.execute_query(
+            f"""MATCH (r:Requirement)-[v:VERIFIED_TRACE]->(c:CodeEntity) WHERE {where}
+                RETURN r.id AS requirement, coalesce(r.text, '') AS requirementText, c.id AS code, coalesce(c.kind, 'code') AS codeKind,
+                       coalesce(v.status, 'verified') AS status, v.confidence AS confidence, coalesce(v.justification, '') AS reason,
+                       toString(v.verifiedAt) AS verifiedAt, toString(v.lastCheckedAt) AS lastCheckedAt
+                ORDER BY r.id, v.confidence DESC LIMIT $n""", project=project, n=max_links)
+        flags, _, _ = driver.execute_query(
+            f"""MATCH (r:Requirement)-[:HAS_DECAY]->(d:DecayFlag) WHERE {where}
+                RETURN r.id AS requirement, d.codeEntityId AS code, d.previousConfidence AS previousConfidence,
+                       coalesce(d.reason, '') AS reason, toString(d.flaggedAt) AS flaggedAt ORDER BY d.flaggedAt DESC LIMIT 500""", project=project)
+        orphans, _, _ = driver.execute_query(
+            f"""MATCH (r:Requirement) WHERE NOT (r)-[:VERIFIED_TRACE]->() AND {where}
+                RETURN r.id AS requirement, coalesce(r.text, '') AS requirementText ORDER BY r.id""", project=project)
+        counts, _, _ = driver.execute_query(
+            """MATCH (r:Requirement) WHERE coalesce(r.project, r.repo, r.dataset) = $project WITH count(r) AS requirements
+               OPTIONAL MATCH (c:CodeEntity) WHERE coalesce(c.project, c.repo, c.dataset) = $project
+               RETURN requirements, count(c) AS codeEntities""", project=project)
+
+    def cut(text: Any, n: int) -> str:
+        return (text or "")[:n]
+
+    return {
+        "project": project,
+        "requirements": counts[0]["requirements"] if counts else 0,
+        "codeEntities": counts[0]["codeEntities"] if counts else 0,
+        "links": [{**dict(r), "requirementText": cut(r["requirementText"], 400), "reason": cut(r["reason"], 700)} for r in links],
+        "decayFlags": [{**dict(r), "reason": cut(r["reason"], 700)} for r in flags],
+        "orphans": [{**dict(r), "requirementText": cut(r["requirementText"], 400)} for r in orphans],
+    }
+
+
 # ---------------------------------------------------------------- USKG graph (Neo4j)
 def _trim(text: Any, n: int = 1200) -> str:
     return (text or "")[:n]

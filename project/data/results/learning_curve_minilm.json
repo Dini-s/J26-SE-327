@@ -1,0 +1,246 @@
+{
+ "base": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+ "w": 0.5,
+ "runs": {
+  "A1": {
+   "run": "A1",
+   "datasets": [
+    "iTrust"
+   ],
+   "n_projects": 1,
+   "best_valid_auc": 0.8104731525784157,
+   "mrr_alone": 0.525,
+   "fused_hits5": [
+    0.07,
+    -0.017,
+    0.157
+   ],
+   "fused_mrr": [
+    0.016,
+    -0.016,
+    0.049
+   ],
+   "per_dataset": {
+    "CM-1": {
+     "mrr_alone": 0.701,
+     "hits5_fused_minus_stage1": 0.181
+    },
+    "EBT": {
+     "mrr_alone": 0.352,
+     "hits5_fused_minus_stage1": 0.17
+    },
+    "LibEST": {
+     "mrr_alone": 0.587,
+     "hits5_fused_minus_stage1": -0.057
+    }
+   }
+  },
+  "A2": {
+   "run": "A2",
+   "datasets": [
+    "iTrust",
+    "eTour"
+   ],
+   "n_projects": 2,
+   "best_valid_auc": 0.7790032679738561,
+   "mrr_alone": 0.551,
+   "fused_hits5": [
+    0.131,
+    0.043,
+    0.209
+   ],
+   "fused_mrr": [
+    0.027,
+    -0.004,
+    0.059
+   ],
+   "per_dataset": {
+    "CM-1": {
+     "mrr_alone": 0.66,
+     "hits5_fused_minus_stage1": 0.182
+    },
+    "EBT": {
+     "mrr_alone": 0.424,
+     "hits5_fused_minus_stage1": 0.218
+    },
+    "LibEST": {
+     "mrr_alone": 0.604,
+     "hits5_fused_minus_stage1": 0.04
+    }
+   }
+  },
+  "A3": {
+   "run": "A3",
+   "datasets": [
+    "iTrust",
+    "eTour",
+    "SMOS"
+   ],
+   "n_projects": 3,
+   "best_valid_auc": 0.8304254667891031,
+   "mrr_alone": 0.554,
+   "fused_hits5": [
+    0.113,
+    0.035,
+    0.191
+   ],
+   "fused_mrr": [
+    0.028,
+    0.002,
+    0.059
+   ],
+   "per_dataset": {
+    "CM-1": {
+     "mrr_alone": 0.66,
+     "hits5_fused_minus_stage1": 0.181
+    },
+    "EBT": {
+     "mrr_alone": 0.402,
+     "hits5_fused_minus_stage1": 0.194
+    },
+    "LibEST": {
+     "mrr_alone": 0.629,
+     "hits5_fused_minus_stage1": 0.021
+    }
+   }
+  },
+  "4_all": {
+   "run": "4_all",
+   "datasets": [
+    "iTrust",
+    "eTour",
+    "SMOS",
+    "eANCI"
+   ],
+   "n_projects": 4,
+   "best_valid_auc": 0.823298969072165,
+   "mrr_alone": 0.587,
+   "fused_hits5": [
+    0.157,
+    0.07,
+    0.252
+   ],
+   "fused_mrr": [
+    0.026,
+    -0.004,
+    0.058
+   ],
+   "per_dataset": {
+    "CM-1": {
+     "mrr_alone": 0.68,
+     "hits5_fused_minus_stage1": 0.136
+    },
+    "EBT": {
+     "mrr_alone": 0.428,
+     "hits5_fused_minus_stage1": 0.097
+    },
+    "LibEST": {
+     "mrr_alone": 0.673,
+     "hits5_fused_minus_stage1": 0.21
+    }
+   }
+  },
+  "B1": {
+   "run": "B1",
+   "datasets": [
+    "eANCI"
+   ],
+   "n_projects": 1,
+   "best_valid_auc": 0.8991060025542784,
+   "mrr_alone": 0.509,
+   "fused_hits5": [
+    0.088,
+    0.017,
+    0.157
+   ],
+   "fused_mrr": [
+    0.016,
+    -0.023,
+    0.056
+   ],
+   "per_dataset": {
+    "CM-1": {
+     "mrr_alone": 0.683,
+     "hits5_fused_minus_stage1": 0.136
+    },
+    "EBT": {
+     "mrr_alone": 0.404,
+     "hits5_fused_minus_stage1": 0.145
+    },
+    "LibEST": {
+     "mrr_alone": 0.519,
+     "hits5_fused_minus_stage1": 0.019
+    }
+   }
+  },
+  "B2": {
+   "run": "B2",
+   "datasets": [
+    "eANCI",
+    "SMOS"
+   ],
+   "n_projects": 2,
+   "best_valid_auc": 0.8504801097393689,
+   "mrr_alone": 0.54,
+   "fused_hits5": [
+    0.13,
+    0.043,
+    0.217
+   ],
+   "fused_mrr": [
+    0.011,
+    -0.021,
+    0.045
+   ],
+   "per_dataset": {
+    "CM-1": {
+     "mrr_alone": 0.657,
+     "hits5_fused_minus_stage1": 0.181
+    },
+    "EBT": {
+     "mrr_alone": 0.392,
+     "hits5_fused_minus_stage1": 0.145
+    },
+    "LibEST": {
+     "mrr_alone": 0.606,
+     "hits5_fused_minus_stage1": 0.097
+    }
+   }
+  },
+  "B3": {
+   "run": "B3",
+   "datasets": [
+    "eANCI",
+    "SMOS",
+    "eTour"
+   ],
+   "n_projects": 3,
+   "best_valid_auc": 0.808964183964184,
+   "mrr_alone": 0.572,
+   "fused_hits5": [
+    0.183,
+    0.087,
+    0.287
+   ],
+   "fused_mrr": [
+    0.021,
+    -0.015,
+    0.06
+   ],
+   "per_dataset": {
+    "CM-1": {
+     "mrr_alone": 0.662,
+     "hits5_fused_minus_stage1": 0.181
+    },
+    "EBT": {
+     "mrr_alone": 0.407,
+     "hits5_fused_minus_stage1": 0.121
+    },
+    "LibEST": {
+     "mrr_alone": 0.665,
+     "hits5_fused_minus_stage1": 0.231
+    }
+   }
+  }
+ }
+}

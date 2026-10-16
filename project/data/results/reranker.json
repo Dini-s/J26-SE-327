@@ -51,5 +51,24 @@
    "requirements are synthetic and were written from the code",
    "one project, one run, no significance test"
   ]
+ },
+ "query_expansion": {
+  "setup": "Llama 3.1 8B asked once per requirement for likely class/method/file names; the words were appended to the requirement before stage-1 retrieval. 20 iTrust requirements with at least one true link (68 true links).",
+  "stage1_recall_hybrid": {
+   "top5": {
+    "plain": 0.338,
+    "expanded": 0.338
+   },
+   "top10": {
+    "plain": 0.441,
+    "expanded": 0.441
+   },
+   "top20": {
+    "plain": 0.544,
+    "expanded": 0.529
+   }
+  },
+  "conclusion": "no gain; the LLM guesses names that are not in the code",
+  "mean_seconds_per_llm_answer": 29
  }
 }

@@ -46,7 +46,7 @@ def encode(tokenizer: Any, rows: list[dict[str, Any]], max_length: int) -> dict[
     """Tokenise (query, doc) pairs; the query is cut to QUERY_MAX_TOKENS first, then the doc fills the rest."""
     queries = []
     for r in rows:
-        ids = tokenizer(r["query"], add_special_tokens=False, truncation=True, max_length=QUERY_MAX_TOKENS)["input_ids"]
+        ids = tokenizer(r["query"], add_special_tokens=False, truncation=True, max_length=min(QUERY_MAX_TOKENS, max_length // 3))["input_ids"]
         queries.append(tokenizer.decode(ids))
     return tokenizer(queries, [r["doc"] for r in rows], truncation="only_second", max_length=max_length, padding=True, return_tensors="pt")
 
@@ -77,6 +77,12 @@ def train(args: argparse.Namespace) -> None:
     random.seed(args.seed), np.random.seed(args.seed), torch.manual_seed(args.seed)
     data = Path(args.data)
     train_rows, valid_rows = read_jsonl(data / "train.jsonl"), read_jsonl(data / "valid.jsonl")
+    wanted = getattr(args, "train_datasets", None)
+    if wanted:  # learning-curve runs: train (and validate) on these projects only
+        names = {n.strip() for n in (wanted.split(",") if isinstance(wanted, str) else wanted)}
+        train_rows = [r for r in train_rows if r["dataset"] in names]
+        valid_rows = [r for r in valid_rows if r["dataset"] in names]
+        print(f"training only on {sorted(names)}: {len(train_rows)} train pairs, {len(valid_rows)} valid pairs")
     device = pick_device()
     print(f"device={device}  base={args.base}  train={len(train_rows)} valid={len(valid_rows)}  positives={sum(r['label'] for r in train_rows)}")
     tokenizer = AutoTokenizer.from_pretrained(args.base)
@@ -88,7 +94,7 @@ def train(args: argparse.Namespace) -> None:
     loss_fn = torch.nn.BCEWithLogitsLoss()
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    best, step, history = -1.0, 0, []
+    best, step, history, saved = -1.0, 0, [], False
     for epoch in range(1, args.epochs + 1):
         model.train()
         random.shuffle(train_rows)
@@ -109,8 +115,9 @@ def train(args: argparse.Namespace) -> None:
         auc = float(roc_auc_score([r["label"] for r in valid_rows], scores)) if len({r["label"] for r in valid_rows}) > 1 else float("nan")
         history.append({"epoch": epoch, "train_loss": round(running / max(1, min(steps_per_epoch, step)), 4), "valid_auc": round(auc, 4), "seconds": round(time.time() - started)})
         print(history[-1])
-        if auc > best:
-            best = auc
+        if auc != auc or auc > best or not saved:       # a validation set with one class gives nan: then simply keep the latest epoch
+            best = auc if auc == auc else best
+            saved = True
             model.save_pretrained(out)
             tokenizer.save_pretrained(out)
         if args.max_steps and step >= args.max_steps:
@@ -147,6 +154,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     t.add_argument("--lr", type=float, default=2e-5)
     t.add_argument("--max-length", type=int, default=512)
     t.add_argument("--max-steps", type=int, default=0, help="stop after this many steps (smoke test)")
+    t.add_argument("--train-datasets", help="comma separated dataset names to train on, e.g. iTrust,SMOS (default: all four)")
     t.add_argument("--seed", type=int, default=13)
     t.set_defaults(func=train)
     p = sub.add_parser("predict")

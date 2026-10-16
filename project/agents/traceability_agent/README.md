@@ -156,3 +156,11 @@ From `project/`, with `.venv` active:
 | "AI model unreachable" | The LLM server is off, or `LLM_BASE_URL` in `.env` is wrong |
 | "Messages to C3 (Redis)" is orange | `redis-server` is not running. Links still work; only the message to C3 is recorded |
 | "Something is already running" | Wait for the bar under the header to finish |
+
+## Exports (matrix and reports)
+
+```bash
+python -m agents.traceability_agent report --project spring-petclinic --out data/results/trace_report
+```
+
+Writes `trace_matrix.csv` (requirement x code; `x0.30` = decayed link), `trace_links.csv` and `trace_report.json` (orphans = never linked, broken = every link decayed, weak = best link under 0.7, plus the decayed-link list). The dashboard's Overview page has the same three downloads.

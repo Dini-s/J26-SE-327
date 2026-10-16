@@ -5,6 +5,7 @@ Commands:
     link     find and verify trace links, writing VERIFIED_TRACE edges (use --dry-run to skip)
     monitor  re-verify changed links and flag decayed ones (loops; --once to run a single pass)
     score    traceability completeness per requirement, plus orphan requirements
+    report   write the traceability matrix, link list and orphan / broken-link report to a folder
     changed  react to one commit: re-check links of changed files, link new files / requirements
     listen   wait for change messages from C2 on Redis and handle each one
 
@@ -203,10 +204,30 @@ def cmd_score(args: argparse.Namespace) -> int:
         print(json.dumps([r.model_dump() for r in results], indent=1))
         return 0
     for r in sorted(results, key=lambda r: r.score):
-        print(f"{r.requirement_id:24} {r.score:6.1f}%  {'ORPHAN' if r.is_orphan else ''}")
-    orphans = [r for r in results if r.is_orphan]
-    print(f"\n{len(results)} requirements, {len(orphans)} orphan(s), mean score "
+        print(f"{r.requirement_id:24} {r.score:6.1f}%  {'BROKEN' if r.is_broken else 'ORPHAN' if r.is_orphan else ''}")
+    orphans = [r for r in results if r.is_orphan and not r.is_broken]
+    broken = [r for r in results if r.is_broken]
+    print(f"\n{len(results)} requirements, {len(orphans)} orphan(s), {len(broken)} broken, mean score "
           f"{sum(r.score for r in results) / len(results):.1f}%" if results else "no requirements found")
+    return 0
+
+
+def cmd_report(args: argparse.Namespace) -> int:
+    """Write the matrix, link list and orphan / broken-link report to a folder."""
+    from agents.traceability_agent import report as rep
+    from shared.uskg.client import USKGClient
+
+    with USKGClient() as uskg:
+        scope = {"project": args.project} if args.project else {}
+        reqs, traces = uskg.get_artifacts("requirement", **scope), uskg.get_traces(**scope)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "trace_matrix.csv").write_text(rep.matrix_csv(reqs, traces), encoding="utf-8")
+    (out / "trace_links.csv").write_text(rep.links_csv(reqs, traces), encoding="utf-8")
+    summary = rep.report(reqs, traces)
+    (out / "trace_report.json").write_text(json.dumps(summary, indent=1), encoding="utf-8")
+    print(f"{summary['requirements']} requirements: {len(summary['orphans'])} orphan, {len(summary['broken'])} broken, "
+          f"{len(summary['weak'])} weak, {len(summary['decayed_links'])} decayed link(s). Files written to {out}/")
     return 0
 
 
@@ -252,6 +273,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p.add_argument("--no-redis", action="store_true", help="do not publish decay events")
     p.add_argument("--once", action="store_true", help="handle one message, then exit")
     p.set_defaults(func=cmd_listen)
+
+    p = sub.add_parser("report", help="export matrix CSV, link list CSV and orphan/broken report JSON")
+    p.add_argument("--project", help="only this project / repository")
+    p.add_argument("--out", default="data/results/trace_report", help="output folder")
+    p.set_defaults(func=cmd_report)
 
     p = sub.add_parser("score", help="completeness score + orphans")
     p.add_argument("--evidence", help="JSON {requirement_id: coverage 0..1} from C3")

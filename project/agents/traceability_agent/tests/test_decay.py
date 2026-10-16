@@ -101,11 +101,25 @@ def test_missing_artifact_is_skipped():
     llm.verify_link.assert_not_called()
 
 
-def test_already_decayed_links_are_not_rechecked():
+def test_decayed_link_is_not_rechecked_until_its_text_changes_again():
     changed = CODE.model_copy(update={"text": "changed"})
-    store = InMemoryUSKG([REQ, changed], [link_for(status="decayed")])
+    store = InMemoryUSKG([REQ, changed], [link_for()])
+    detector = DecayDetector(store, llm_returning(0.1, is_linked=False))
+    assert len(detector.run()) == 1  # decays; the hash of the changed text is stored
     llm = llm_returning(0.9)
-    assert DecayDetector(store, llm).run() == []
+    assert DecayDetector(store, llm).run() == []  # same text: no new LLM call
+    llm.verify_link.assert_not_called()
+
+
+def test_decayed_link_recovers_when_the_code_is_fixed():
+    broken = CODE.model_copy(update={"text": "changed"})
+    store = InMemoryUSKG([REQ, broken], [link_for()])
+    DecayDetector(store, llm_returning(0.1, is_linked=False)).run()
+    assert store.get_traces()[0].status == "decayed"
+    store.artifacts[CODE.id] = CODE  # the change is reverted
+    results = DecayDetector(store, llm_returning(0.9)).run()
+    assert len(results) == 1 and not results[0].decayed
+    assert store.get_traces()[0].status == "verified"
 
 
 def test_publisher_emits_spec_event_json():

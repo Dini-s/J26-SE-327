@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "c4-api",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/habbglobal/Desktop/J26-SE-327/project && exec /Users/habbglobal/Desktop/J26-SE-327/project/.venv/bin/python -m apps.api.server"
+      ],
+      "port": 8000
+    },
+    {
+      "name": "aspire-web",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/habbglobal/Desktop/J26-SE-327/project/apps/web && C4_API=http://127.0.0.1:8001 exec npm run dev -- --host 127.0.0.1 --port 5173 --strictPort"
+      ],
+      "port": 5173
+    }
+  ]
+}
