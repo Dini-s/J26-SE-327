@@ -462,13 +462,13 @@ describe('Progress panel', () => {
 
   it('shows the backend ETA unchanged, with the target', () => {
     panel(drafts({ eta_seconds: 125, latency_samples: 10 }), `Cloud (${HOST})`)
-    expect(screen.getByTestId('draft-eta')).toHaveTextContent('about 3 min left (from the last 10 real replies)')
+    expect(screen.getByTestId('draft-eta')).toHaveTextContent('About 3 min left')
     expect(screen.getByTestId('draft-target')).toHaveTextContent(`Cloud (${HOST})`)
   })
 
-  it('hides the ETA until the backend has 3 samples (the page invents nothing)', () => {
+  it('says it is calculating until something real is known (the page invents nothing)', () => {
     panel(drafts({ eta_seconds: null, latency_samples: 1 }), 'On device')
-    expect(screen.getByTestId('draft-eta')).toHaveTextContent('Estimating time left: needs 3 finished drafts (1 so far)')
+    expect(screen.getByTestId('draft-eta')).toHaveTextContent('Calculating time left…')
   })
 
   it('shows no target line when the target is not known yet', () => {

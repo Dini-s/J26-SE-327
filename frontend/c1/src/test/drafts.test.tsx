@@ -38,19 +38,18 @@ describe('DraftProgress', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('hides the time left until 3 real latencies exist, then shows it', () => {
+  it('says "Calculating time left…" until something is known, then shows the API estimate', () => {
     const { rerender } = show(drafts({ in_progress: 4, queued: 4, eta_seconds: null, latency_samples: 2 }))
-    expect(screen.getByTestId('draft-eta')).toHaveTextContent('Estimating time left: needs 3 finished drafts (2 so far)')
-    expect(screen.getByTestId('draft-eta')).not.toHaveTextContent('left (from')
+    expect(screen.getByTestId('draft-eta')).toHaveTextContent('Calculating time left…')
     rerender(<DraftProgress drafts={drafts({ in_progress: 4, queued: 4, eta_seconds: 600, latency_samples: 5 })} onPause={noop} onResume={noop} onGenerateAll={noop} busy={false} analysing={false} />)
-    expect(screen.getByTestId('draft-eta')).toHaveTextContent('about 10 min left (from the last 5 real replies)')
+    expect(screen.getByTestId('draft-eta')).toHaveTextContent('About 10 min left')
   })
 
-  it('formats the time left', () => {
-    expect(formatEta(20)).toBe('20 s')
-    expect(formatEta(61)).toBe('about 2 min')
-    expect(formatEta(3600)).toBe('about 1 h 0 min')
-    expect(formatEta(5400)).toBe('about 1 h 30 min')
+  it('formats the time left in whole minutes', () => {
+    expect(formatEta(20)).toBe('Under 1 min left')
+    expect(formatEta(61)).toBe('About 2 min left')
+    expect(formatEta(3600)).toBe('About 1 h 0 min left')
+    expect(formatEta(5400)).toBe('About 1 h 30 min left')
   })
 
   it('offers Pause while drafts run, Resume while paused, and Generate all remaining while some are missing', async () => {
