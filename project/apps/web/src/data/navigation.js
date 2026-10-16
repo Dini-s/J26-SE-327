@@ -28,9 +28,8 @@ export const navigation = [
     label: "INTELLIGENCE COMPONENTS",
   },
 
-  // =========================================================
+
   // COMPONENT 1
-  // =========================================================
   {
     type: "item",
     label: "Requirement Intelligence",
@@ -40,9 +39,9 @@ export const navigation = [
     icon: FileText,
   },
 
-  // =========================================================
+
   // COMPONENT 2
-  // =========================================================
+
   {
     type: "item",
     label: "Repository Intelligence",
@@ -104,10 +103,10 @@ export const navigation = [
     ],
   },
 
-  // =========================================================
+
   // COMPONENT 3
   // QUALITY & TESTING INTELLIGENCE
-  // =========================================================
+
   {
     type: "item",
     label: "Quality & Testing Intelligence",
@@ -139,9 +138,8 @@ export const navigation = [
     ],
   },
 
-  // =========================================================
+
   // COMPONENT 4
-  // =========================================================
   {
     type: "item",
     label: "Traceability Intelligence",
@@ -151,9 +149,9 @@ export const navigation = [
     icon: GitBranch,
   },
 
-  // =========================================================
+
   // SHARED LAYER
-  // =========================================================
+
   {
     type: "section",
     label: "SHARED LAYER",
@@ -198,9 +196,6 @@ export const navigation = [
     icon: Activity,
   },
 
-  // =========================================================
-  // SYSTEM
-  // =========================================================
   {
     type: "section",
     label: "SYSTEM",
