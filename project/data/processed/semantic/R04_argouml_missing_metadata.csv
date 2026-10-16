@@ -1,0 +1,13 @@
+﻿embedding_index,repository_id,file_path,token_count,chunk_count,model_name
+0,R04_argouml,modules/dev/src/org/argouml/dev/CallerListNodeBuilder.java,949,2,microsoft/graphcodebert-base
+1,R04_argouml,modules/dev/src/org/argouml/dev/DevActionFactory.java,1021,2,microsoft/graphcodebert-base
+2,R04_argouml,modules/dev/src/org/argouml/dev/DeveloperModule.java,2754,6,microsoft/graphcodebert-base
+3,R04_argouml,modules/dev/src/org/argouml/dev/EventPumpInspectorPanel.java,1962,4,microsoft/graphcodebert-base
+4,R04_argouml,modules/dev/src/org/argouml/dev/figinspector/FigInspectorPanel.java,3560,7,microsoft/graphcodebert-base
+5,R04_argouml,modules/dev/src/org/argouml/dev/figinspector/FigTree.java,1020,2,microsoft/graphcodebert-base
+6,R04_argouml,modules/dev/src/org/argouml/dev/MessageNodeBuilder.java,1187,3,microsoft/graphcodebert-base
+7,R04_argouml,modules/dev/src/org/argouml/dev/ModeInspectorPanel.java,1440,3,microsoft/graphcodebert-base
+8,R04_argouml,modules/dev/src/org/argouml/dev/TargetManagerPanel.java,1978,4,microsoft/graphcodebert-base
+9,R04_argouml,modules/dev/src/org/argouml/dev/UndoLogPanel.java,1243,3,microsoft/graphcodebert-base
+10,R04_argouml,modules/dev/src/org/argouml/dev/UndoManagerWrapper.java,1290,3,microsoft/graphcodebert-base
+11,R04_argouml,modules/jscheme/src/org/argouml/tools/ui/ActionExecSilk.java,3175,7,microsoft/graphcodebert-base
