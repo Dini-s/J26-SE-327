@@ -50,12 +50,20 @@ def find_java_files(repository_path: Path, production_only: bool = False):
             )
 
             is_legacy_production = (
-                len(lower_parts) >= 4
-                and lower_parts[0] == "src"
-                and lower_parts[1] not in {"main", "test", "tests"}
-                and "src" in lower_parts[2:-1]
-                and "test" not in lower_parts
-                and "tests" not in lower_parts
+                (
+                    len(lower_parts) >= 5
+                    and lower_parts[0] == "src"
+                    and lower_parts[1] not in {"main", "test", "tests"}
+                    and lower_parts[2] == "src"
+                )
+                or (
+                    len(lower_parts) >= 5
+                    and lower_parts[0] == "modules"
+                    and lower_parts[2] == "src"
+                )
+            ) and not any(
+                part in {"test", "tests", "target", "build", "generated"}
+                for part in lower_parts[:-1]
             )
 
             if not (is_standard_production or is_legacy_production):
