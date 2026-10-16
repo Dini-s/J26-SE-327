@@ -7,21 +7,30 @@ import pandas as pd
 
 
 def package_from_file_path(file_path: str) -> str:
-    """Derive a Java package name from its source-file path."""
-    path = Path(file_path.replace("\\", "/"))
-    parent_parts = path.parent.parts
+    """Derive a Java package from standard and legacy source paths."""
+    normalized = file_path.replace("\\", "/")
+    parts = normalized.split("/")
 
-    # src/main/java/org/example/package_name/Class.java
-    try:
-        java_index = parent_parts.index("java")
-    except ValueError:
-        return ""
+    # Standard Maven/Gradle: src/main/java/org/example/Class.java
+    for i in range(len(parts) - 2):
+        if parts[i : i + 3] == ["src", "main", "java"]:
+            package_parts = parts[i + 3 : -1]
+            return ".".join(package_parts) if package_parts else "(default package)"
 
-    package_parts = parent_parts[java_index + 1 :]
-    if not package_parts:
-        return "(default package)"
+    # Legacy module: src/argouml-app/src/org/example/Class.java
+    # Legacy module: modules/dev/src/org/example/Class.java
+    for i in range(len(parts) - 1):
+        if parts[i] == "src" and i >= 2:
+            # modules/dev/src/... or src/module/src/...
+            if parts[0] == "modules" and i == 2:
+                package_parts = parts[i + 1 : -1]
+                return ".".join(package_parts) if package_parts else "(default package)"
 
-    return ".".join(package_parts)
+            if parts[0] == "src" and i == 2:
+                package_parts = parts[i + 1 : -1]
+                return ".".join(package_parts) if package_parts else "(default package)"
+
+    return ""
 
 
 def main():
@@ -68,25 +77,40 @@ def main():
             f"Expected a 2D matrix with 768 dimensions; got {embeddings.shape}."
         )
 
-    # Select only production Java files for this repository.
+    # Select production files according to the repository's source layout.
+
+    # Select production files from standard and supported legacy layouts.
     repo_rows = metadata[metadata["repository_id"].astype(str) == args.repo_id].copy()
 
     normalized_paths = (
         repo_rows["file_path"].astype(str).str.replace("\\", "/", regex=False)
     )
-    production_mask = normalized_paths.str.contains("src/main/java/", regex=False)
 
+    standard_mask = normalized_paths.str.contains("src/main/java/", regex=False)
+
+    legacy_mask = normalized_paths.str.match(
+        r"^(?:src/[^/]+/src|modules/[^/]+/src)/.+\.java$"
+    )
+
+    # Exclude test directories from legacy source paths.
+    legacy_mask &= ~normalized_paths.str.contains(
+        r"/(?:test|tests)/", case=False, regex=True
+    )
+
+    production_mask = standard_mask | legacy_mask
     production = repo_rows.loc[production_mask].copy()
-    if production.empty:
-        raise ValueError(
-            f"No src/main/java/ files found for repository {args.repo_id}."
-        )
+
+    print("Standard source files:", int(standard_mask.sum()))
+    print("Legacy source files:", int(legacy_mask.sum()))
+    print("Selected source files:", len(production))
 
     production["package_path"] = production["file_path"].apply(package_from_file_path)
     production = production[production["package_path"] != ""].copy()
 
     if production.empty:
-        raise ValueError("No valid package paths could be derived.")
+        raise ValueError(
+            f"No production Java files found for repository {args.repo_id}."
+        )
 
     # Use embedding_index to align metadata rows with embedding vectors.
     indices = production["embedding_index"].astype(int).to_numpy()
