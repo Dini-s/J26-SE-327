@@ -1,8 +1,7 @@
-import React from "react";
 
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { layerDistribution } from "../../../../data/architectureData";
 
-import { layerDistribution } from "../../../data/architectureData";
 
 const COLORS = ["#2563eb", "#10b981", "#8b5cf6", "#f97316", "#94a3b8"];
 

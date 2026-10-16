@@ -1,5 +1,3 @@
-import React from "react";
-
 const ConfidenceRing = ({ value }) => {
   const radius = 45;
   const circumference = 2 * Math.PI * radius;

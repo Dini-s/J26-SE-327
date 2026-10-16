@@ -1,5 +1,5 @@
-import React from "react";
-import { AlertTriangle, ArrowLeft, ArrowRight, RotateCw } from "lucide-react";
+
+import {  ArrowLeft, ArrowRight, RotateCw } from "lucide-react";
 
 const DependencyFlow = ({ dependency }) => {
   if (!dependency) return null;

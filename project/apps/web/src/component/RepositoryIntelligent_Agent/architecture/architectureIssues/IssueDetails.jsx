@@ -1,5 +1,4 @@
-import React from "react";
-import { AlertTriangle, ChevronRight, MoreVertical } from "lucide-react";
+import { AlertTriangle, MoreVertical } from "lucide-react";
 
 import ConfidenceRing from "./ConfidenceRing";
 import DependencyFlow from "./DependencyFlow";

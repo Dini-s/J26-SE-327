@@ -1,4 +1,4 @@
-import React from "react";
+
 import { CalendarDays, ChevronRight } from "lucide-react";
 
 import IssueIcon from "./IssueIcon";
