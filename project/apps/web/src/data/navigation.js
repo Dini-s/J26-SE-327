@@ -83,13 +83,13 @@ export const navigation = [
 
           {
             label: "Architecture Visualization",
-            path: "/repository/architecture",
+            path: "/repository-agent/architecture",
             icon: Boxes,
           },
 
           {
             label: "Architecture Issues",
-            path: "/repository/issues",
+            path: "/repository-agent/architecture/issues",
             icon: Bug,
           },
 
