@@ -1,0 +1,569 @@
+[
+ {
+  "id": "PC-REQ-001",
+  "type": "requirement",
+  "text": "The system shall allow a clinic employee to add a new pet owner by entering first name, last name, address, city and telephone number.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-002",
+  "type": "requirement",
+  "text": "The system shall let an employee search for owners by last name; a partial last name matches and an empty search lists all owners.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-003",
+  "type": "requirement",
+  "text": "The system shall show the owners that match a search in a paginated list of five owners per page.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-004",
+  "type": "requirement",
+  "text": "When exactly one owner matches a search, the system shall go directly to that owner's details page.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-005",
+  "type": "requirement",
+  "text": "When no owner matches a search, the system shall stay on the search page and show a 'not found' message.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-006",
+  "type": "requirement",
+  "text": "The system shall display an owner's details: contact information, the owner's pets, and each pet's visit history.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-007",
+  "type": "requirement",
+  "text": "The system shall allow an employee to update an existing owner's information.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-008",
+  "type": "requirement",
+  "text": "The system shall allow an employee to add a new pet to an owner by entering the pet's name, birth date and type.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-009",
+  "type": "requirement",
+  "text": "The system shall allow an employee to edit a pet's name, birth date and type.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-010",
+  "type": "requirement",
+  "text": "The system shall require a pet name, a birth date and a type, and shall reject a pet name that the same owner already uses for another pet.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-011",
+  "type": "requirement",
+  "text": "The system shall not accept a pet birth date that lies in the future.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-012",
+  "type": "requirement",
+  "text": "The system shall allow an employee to schedule a visit for a pet by entering a date and a description.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-013",
+  "type": "requirement",
+  "text": "The system shall list a pet's previous visits, with date and description, on the owner's details page.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-014",
+  "type": "requirement",
+  "text": "The system shall list all veterinarians with their specialties in a paginated table.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-015",
+  "type": "requirement",
+  "text": "The system shall also provide the list of veterinarians as a machine-readable resource (JSON or XML).",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-016",
+  "type": "requirement",
+  "text": "The system shall show a welcome page as the home page of the application.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-017",
+  "type": "requirement",
+  "text": "When an unexpected error occurs, the system shall show a friendly error page instead of technical details.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-018",
+  "type": "requirement",
+  "text": "The system shall present the user interface in the user's language, chosen from the browser locale or a language parameter, and support at least English, German and Spanish.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-019",
+  "type": "requirement",
+  "text": "The system shall validate that an owner's telephone number consists of exactly ten digits and show a message in the user's language when it does not.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-020",
+  "type": "requirement",
+  "text": "The system shall not accept an owner without a first name, last name, address and city.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-021",
+  "type": "requirement",
+  "text": "The system shall cache the list of veterinarians so that repeated requests do not read the database again.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-022",
+  "type": "requirement",
+  "text": "The system shall start with an in-memory database by default and also support MySQL and PostgreSQL through configuration.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-023",
+  "type": "requirement",
+  "text": "The system shall protect against mass-assignment attacks by never binding the identifier fields of owners, pets and visits from a submitted form.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-024",
+  "type": "requirement",
+  "text": "The system shall allow an owner to pay the invoice of a visit online by credit card.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-025",
+  "type": "requirement",
+  "text": "The system shall send an email reminder to the owner 24 hours before a scheduled visit.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "PC-REQ-026",
+  "type": "requirement",
+  "text": "The system shall require employees to authenticate with a username and password before they can see or change owner data.",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport org.springframework.util.StringUtils;\nimport org.springframework.validation.Errors;\nimport org.springframework.validation.Validator;\n\n/**\n * <code>Validator</code> for <code>Pet</code> forms.\n * <p>\n * We're not using Bean Validation annotations here because it is easier to define such\n * validation rule in Java.\n * </p>\n *\n * @author Ken Krebs\n * @author Juergen Hoeller\n */\npublic class PetValidator implements Validator {\n\n\tprivate static final String REQUIRED = \"required\";\n\n\tprivate static final int MAX_NAME_LENGTH = 30;\n\n\t@Override\n\tpublic void validate(Object obj, Errors errors) {\n\t\tPet pet = (Pet) obj;\n\t\tString name = pet.getName();\n\t\t// name validation\n\t\tif (!StringUtils.hasText(name)) {\n\t\t\terrors.rejectValue(\"name\", REQUIRED, REQUIRED);\n\t\t}\n\t\telse if (name.length() > MAX_NAME_LENGTH) {\n\t\t\terrors.rejectValue(\"name\", \"size\", \"Name must be no more than 30 characters\");\n\t\t}\n\n\t\t// type validation\n\t\tif (pet.isNew() && pet.getType() == null) {\n\t\t\terrors.rejectValue(\"type\", REQUIRED, REQUIRED);\n\t\t}\n\n\t\t// birth date validation\n\t\tif (pet.getBirthDate() == null) {\n\t\t\terrors.rejectValue(\"birthDate\", REQUIRED, REQUIRED);\n\t\t}\n\t}\n\n\t/**\n\t * This Validator validates *just* Pet instances\n\t */\n\t@Override\n\tpublic boolean supports(Class<?> clazz) {\n\t\treturn Pet.class.isAssignableFrom(clazz);\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n\npackage org.springframework.samples.petclinic;\n\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\nimport org.springframework.context.annotation.ImportRuntimeHints;\n\n/**\n * PetClinic Spring Boot Application.\n *\n * @author Dave Syer\n */\n@SpringBootApplication\n@ImportRuntimeHints(PetClinicRuntimeHints.class)\npublic class PetClinicApplication {\n\n\tpublic static void main(String[] args) {\n\t\tSpringApplication.run(PetClinicApplication.class, args);\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport java.util.ArrayList;\nimport java.util.List;\nimport java.util.Objects;\n\nimport org.springframework.core.style.ToStringCreator;\nimport org.springframework.samples.petclinic.model.Person;\nimport org.springframework.util.Assert;\n\nimport jakarta.persistence.CascadeType;\nimport jakarta.persistence.Column;\nimport jakarta.persistence.Entity;\nimport jakarta.persistence.FetchType;\nimport jakarta.persistence.JoinColumn;\nimport jakarta.persistence.OneToMany;\nimport jakarta.persistence.OrderBy;\nimport jakarta.persistence.Table;\nimport jakarta.validation.constraints.NotBlank;\nimport jakarta.validation.constraints.Pattern;\nimport jakarta.validation.constraints.Size;\n\n/**\n * Simple JavaBean domain object representing an owner.\n *\n * @author Ken Krebs\n * @author Juergen Hoeller\n * @author Sam Brannen\n * @author Michael Isvy\n * @author Oliver Drotbohm\n * @author Wick Dynex\n */\n@Entity\n@Table(name = \"owners\")\npublic class Owner extends Person {\n\n\t@Column\n\t@NotBlank\n\t@Size(max = 255)\n\tprivate String address;\n\n\t@Column\n\t@NotBlank\n\t@Size(max = 80)\n\tprivate String city;\n\n\t@Column\n\t@NotBlank\n\t@Pattern(regexp = \"\\\\d{10}\", message = \"{telephone.invalid}\")\n\tprivate String telephone;\n\n\t@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)\n\t@JoinColumn(name = \"owner_id\")\n\t@OrderBy(\"name\")\n\tprivate final List<Pet> pets = new ArrayList<>();\n\n\tpublic String getAddress() {\n\t\treturn this.address;\n\t}\n\n\tpublic void setAddress(String address) {\n\t\tthis.address = address;\n\t}\n\n\tpublic String getCity() {\n\t\treturn this.city;\n\t}\n\n\tpublic void setCity(String city) {\n\t\tthis.city = city;\n\t}\n\n\tpublic String getTelephone() {\n\t\treturn this.telephone;\n\t}\n\n\tpublic void setTelephone(String telephone) {\n\t\tthis.telephone = telephone;\n\t}\n\n\tpublic List<Pet> getPets() {\n\t\treturn this.pets;\n\t}\n\n\tpublic void addPet(Pet pet) {\n\t\tif (pet == null) {\n\t\t\treturn;\n\t\t}\n\t\tif (getPets().contains(pet)) {\n\t\t\treturn;\n\t\t}\n\t\tfor (Pet existingPet : getPets()) {\n\t\t\tif (!existingPet.isNew() && !pet.isNew() && Objects.equals(existingPet.getId(), pet.getId())) {\n\t\t\t\treturn;\n\t\t\t}\n\t\t}\n\t\tgetPets().add(pet);\n\t}\n\n\t/**\n\t * Return the Pet with the given name, or null if none found for this Owner.\n\t * @param name to test\n\t * @return the Pet with the given name, or null if no such Pet exists for this Owner\n\t */\n\tpublic Pet getPet(String name) {\n\t\treturn getPet(name, false);\n\t}\n\n\t/**\n\t * Return the Pet with the given id, or null if none found for this Owner.\n\t * @param id to test\n\t * @return the Pet with the given id, or null if no such Pet exists for this Owner\n\t */\n\tpublic Pet getPet(Integer id) {\n\t\tfor (Pet pet : getPets()) {\n\t\t\tif (!pet.isNew()) {\n\t\t\t\tInteger compId = pet.getId();\n\t\t\t\tif (Objects.equals(compId, id)) {\n\t\t\t\t\treturn pet;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn null;\n\t}\n\n\t/**\n\t * Return the Pet with the given name, or null if none found for this Owner.\n\t * @param name to test\n\t * @param ignoreNew whether to ignore new pets (pets that are not saved yet)\n\t * @return the Pet with the given name, or null if no such Pet exists for this Owner\n\t */\n\tpublic Pet getPet(String name, boolean ignoreNew) {\n\t\tfor (Pet pet : getPets()) {\n\t\t\tString compName = pet.getName();\n\t\t\tif (compName != null && compName.equalsIgnoreCase(name)) {\n\t\t\t\tif (!ignoreNew || !pet.isNew()) {\n\t\t\t\t\treturn pet;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn null;\n\t}\n\n\t@Override\n\tpublic String toString() {\n\t\treturn new ToStringCreator(this).append(\"id\", this.getId())\n\t\t\t.append(\"new\", this.isNew())\n\t\t\t.append(\"lastName\", this.getLastName())\n\t\t\t.append(\"firstName\", this.getFirstName())\n\t\t\t.append(\"address\", this.address)\n\t\t\t.append(\"city\", this.city)\n\t\t\t.append(\"telephone\", this.telephone)\n\t\t\t.toString();\n\t}\n\n\t/**\n\t * Adds the given {@link Visit} to the {@link Pet} with the given identifier.\n\t * @param petId the identifier of the {@link Pet}, must not be {@literal null}.\n\t * @param visit the visit to add, must not be {@literal null}.\n\t */\n\tpublic void addVisit(Integer petId, Visit visit) {\n\n\t\tAssert.notNull(petId, \"Pet identifier must not be null!\");\n\t\tAssert.notNull(visit, \"Visit must not be null!\");\n\n\t\tPet pet = getPet(petId);\n\n\t\tAssert.notNull(pet, \"Invalid Pet identifier!\");\n\n\t\tpet.addVisit(visit);\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport java.util.List;\nimport java.util.Objects;\nimport java.util.Optional;\n\nimport org.springframework.data.domain.Page;\nimport org.springframework.data.domain.PageRequest;\nimport org.springframework.data.domain.Pageable;\nimport org.springframework.stereotype.Controller;\nimport org.springframework.ui.Model;\nimport org.springframework.validation.BindingResult;\nimport org.springframework.web.bind.WebDataBinder;\nimport org.springframework.web.bind.annotation.GetMapping;\nimport org.springframework.web.bind.annotation.InitBinder;\nimport org.springframework.web.bind.annotation.ModelAttribute;\nimport org.springframework.web.bind.annotation.PathVariable;\nimport org.springframework.web.bind.annotation.PostMapping;\nimport org.springframework.web.bind.annotation.RequestParam;\nimport org.springframework.web.servlet.ModelAndView;\n\nimport jakarta.validation.Valid;\n\nimport org.springframework.web.servlet.mvc.support.RedirectAttributes;\n\n/**\n * @author Juergen Hoeller\n * @author Ken Krebs\n * @author Arjen Poutsma\n * @author Michael Isvy\n * @author Wick Dynex\n */\n@Controller\nclass OwnerController {\n\n\tprivate static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = \"owners/createOrUpdateOwnerForm\";\n\n\tprivate final OwnerRepository owners;\n\n\tpublic OwnerController(OwnerRepository owners) {\n\t\tthis.owners = owners;\n\t}\n\n\t@InitBinder\n\tpublic void setAllowedFields(WebDataBinder dataBinder) {\n\t\tdataBinder.setDisallowedFields(\"id\", \"*.id\");\n\t}\n\n\t@ModelAttribute(\"owner\")\n\tpublic Owner findOwner(@PathVariable(name = \"ownerId\", required = false) Integer ownerId) {\n\t\treturn ownerId == null ? new Owner()\n\t\t\t\t: this.owners.findById(ownerId)\n\t\t\t\t\t.orElseThrow(() -> new IllegalArgumentException(\"Owner not found with id: \" + ownerId\n\t\t\t\t\t\t\t+ \". Please ensure the ID is correct \" + \"and the owner exists in the database.\"));\n\t}\n\n\t@GetMapping(\"/owners/new\")\n\tpublic String initCreationForm() {\n\t\treturn VIEWS_OWNER_CREATE_OR_UPDATE_FORM;\n\t}\n\n\t@PostMapping(\"/owners/new\")\n\tpublic String processCreationForm(@Valid Owner owner, BindingResult result, RedirectAttributes redirectAttributes) {\n\t\tif (result.hasErrors()) {\n\t\t\tredirectAttributes.addFlashAttribute(\"error\", \"There was an error in creating the owner.\");\n\t\t\treturn VIEWS_OWNER_CREATE_OR_UPDATE_FORM;\n\t\t}\n\n\t\tthis.owners.save(owner);\n\t\tredirectAttributes.addFlashAttribute(\"message\", \"New Owner Created\");\n\t\treturn \"redirect:/owners/\" + owner.getId();\n\t}\n\n\t@GetMapping(\"/owners/find\")\n\tpublic String initFindForm() {\n\t\treturn \"owners/findOwners\";\n\t}\n\n\t@GetMapping(\"/owners\")\n\tpublic String processFindForm(@RequestParam(defaultValue = \"1\") int page, Owner owner, BindingResult result,\n\t\t\tModel model, RedirectAttributes redirectAttributes) {\n\t\t// allow parameterless GET request for /owners to return all records\n\t\tString lastName = owner.getLastName();\n\t\tif (lastName == null) {\n\t\t\tlastName = \"\"; // empty string signifies broadest possible search\n\t\t}\n\t\telse {\n\t\t\tlastName = lastName.strip();\n\t\t}\n\n\t\t// find owners by last name\n\t\tPage<Owner> ownersResults = findPaginatedForOwnersLastName(page, lastName);\n\t\tif (page < 1 || page > Math.max(ownersResults.getTotalPages(), 1)) {\n\t\t\tredirectAttributes.addAttribute(\"page\", 1);\n\t\t\tif (!lastName.isEmpty()) {\n\t\t\t\tredirectAttributes.addAttribute(\"lastName\", lastName);\n\t\t\t}\n\t\t\treturn \"redirect:/owners\";\n\t\t}\n\n\t\tif (ownersResults.isEmpty()) {\n\t\t\t// no owners found\n\t\t\tresult.rejectValue(\"lastName\", \"notFound\", \"not found\");\n\t\t\treturn \"owners/findOwners\";\n\t\t}\n\n\t\tif (ownersResults.getTotalElements() == 1) {\n\t\t\t// 1 owner found\n\t\t\towner = ownersResults.iterator().next();\n\t\t\treturn \"redirect:/owners/\" + owner.getId();\n\t\t}\n\n\t\t// multiple owners found\n\t\treturn addPaginationModel(page, model, ownersResults);\n\t}\n\n\tprivate String addPaginationModel(int page, Model model, Page<Owner> paginated) {\n\t\tList<Owner> listOwners = paginated.getContent();\n\t\tmodel.addAttribute(\"currentPage\", page);\n\t\tmodel.addAttribute(\"totalPages\", paginated.getTotalPages());\n\t\tmodel.addAttribute(\"totalItems\", paginated.getTotalElements());\n\t\tmodel.addAttribute(\"listOwners\", listOwners);\n\t\treturn \"owners/ownersList\";\n\t}\n\n\tprivate Page<Owner> findPaginatedForOwnersLastName(int page, String lastname) {\n\t\tint pageSize = 5;\n\t\tint validatedPage = Math.max(page, 1);\n\t\tPageable pageable = PageRequest.of(validatedPage - 1, pageSize);\n\t\treturn owners.findByLastNameStartingWith(lastname, pageable);\n\t}\n\n\t@GetMapping(\"/owners/{ownerId}/edit\")\n\tpublic String initUpdateOwnerForm() {\n\t\treturn VIEWS_OWNER_CREATE_OR_UPDATE_FORM;\n\t}\n\n\t@PostMapping(\"/owners/{ownerId}/edit\")\n\tpublic String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable(\"ownerId\") int ownerId,\n\t\t\tRedirectAttributes redirectAttributes) {\n\t\tif (result.hasErrors()) {\n\t\t\tredirectAttributes.addFlashAttribute(\"error\", \"There was an error in updating the owner.\");\n\t\t\treturn VIEWS_OWNER_CREATE_OR_UPDATE_FORM;\n\t\t}\n\n\t\tif (!Objects.equals(owner.getId(), ownerId)) {\n\t\t\tresult.rejectValue(\"id\", \"mismatch\", \"The owner ID in the form does not match the URL.\");\n\t\t\tredirectAttributes.addFlashAttribute(\"error\", \"Owner ID mismatch. Please try again.\");\n\t\t\treturn \"redirect:/owners/{ownerId}/edit\";\n\t\t}\n\n\t\towner.setId(ownerId);\n\t\tthis.owners.save(owner);\n\t\tredirectAttributes.addFlashAttribute(\"message\", \"Owner Values Updated\");\n\t\treturn \"redirect:/owners/{ownerId}\";\n\t}\n\n\t/**\n\t * Custom handler for displaying an owner.\n\t * @param ownerId the ID of the owner to display\n\t * @return a ModelMap with the model attributes for the view\n\t */\n\t@GetMapping(\"/owners/{ownerId}\")\n\tpublic ModelAndView showOwner(@PathVariable(\"ownerId\") int ownerId) {\n\t\tModelAndView mav = new ModelAndView(\"owners/ownerDetails\");\n\t\tOptional<Owner> optionalOwner = this.owners.findById(ownerId);\n\t\tOwner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(\n\t\t\t\t\"Owner not found with id: \" + ownerId + \". Please ensure the ID is correct \"));\n\t\tmav.addObject(owner);\n\t\treturn mav;\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport java.time.LocalDate;\n\nimport org.springframework.format.annotation.DateTimeFormat;\nimport org.springframework.samples.petclinic.model.BaseEntity;\n\nimport jakarta.persistence.Column;\nimport jakarta.persistence.Entity;\nimport jakarta.persistence.Table;\nimport jakarta.validation.constraints.NotBlank;\nimport jakarta.validation.constraints.Size;\n\n/**\n * Simple JavaBean domain object representing a visit.\n *\n * @author Ken Krebs\n * @author Dave Syer\n */\n@Entity\n@Table(name = \"visits\")\npublic class Visit extends BaseEntity {\n\n\t@Column(name = \"visit_date\")\n\t@DateTimeFormat(pattern = \"yyyy-MM-dd\")\n\tprivate LocalDate date;\n\n\t@NotBlank\n\t@Size(max = 255)\n\tprivate String description;\n\n\t/**\n\t * Creates a new instance of Visit for tomorrow\n\t */\n\tpublic Visit() {\n\t\tthis.date = LocalDate.now().plusDays(1);\n\t}\n\n\tpublic LocalDate getDate() {\n\t\treturn this.date;\n\t}\n\n\tpublic void setDate(LocalDate date) {\n\t\tthis.date = date;\n\t}\n\n\tpublic String getDescription() {\n\t\treturn this.description;\n\t}\n\n\tpublic void setDescription(String description) {\n\t\tthis.description = description;\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport java.time.LocalDate;\nimport java.util.Map;\nimport java.util.Optional;\n\nimport org.springframework.stereotype.Controller;\nimport org.springframework.validation.BindingResult;\nimport org.springframework.web.bind.WebDataBinder;\nimport org.springframework.web.bind.annotation.GetMapping;\nimport org.springframework.web.bind.annotation.InitBinder;\nimport org.springframework.web.bind.annotation.ModelAttribute;\nimport org.springframework.web.bind.annotation.PathVariable;\nimport org.springframework.web.bind.annotation.PostMapping;\n\nimport jakarta.validation.Valid;\nimport org.springframework.web.servlet.mvc.support.RedirectAttributes;\n\n/**\n * @author Juergen Hoeller\n * @author Ken Krebs\n * @author Arjen Poutsma\n * @author Michael Isvy\n * @author Dave Syer\n * @author Wick Dynex\n */\n@Controller\nclass VisitController {\n\n\tprivate final OwnerRepository owners;\n\n\tpublic VisitController(OwnerRepository owners) {\n\t\tthis.owners = owners;\n\t}\n\n\t@InitBinder\n\tpublic void setAllowedFields(WebDataBinder dataBinder) {\n\t\tdataBinder.setDisallowedFields(\"id\", \"*.id\");\n\t}\n\n\t/**\n\t * Called before each and every @RequestMapping annotated method. 2 goals: - Make sure\n\t * we always have fresh data - Since we do not use the session scope, make sure that\n\t * Pet object always has an id (Even though id is not part of the form fields)\n\t * @param petId\n\t * @return Pet\n\t */\n\t@ModelAttribute(\"visit\")\n\tpublic Visit loadPetWithVisit(@PathVariable(\"ownerId\") int ownerId, @PathVariable(\"petId\") int petId,\n\t\t\tMap<String, Object> model) {\n\t\tOptional<Owner> optionalOwner = owners.findById(ownerId);\n\t\tOwner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(\n\t\t\t\t\"Owner not found with id: \" + ownerId + \". Please ensure the ID is correct \"));\n\n\t\tPet pet = owner.getPet(petId);\n\t\tif (pet == null) {\n\t\t\tthrow new IllegalArgumentException(\n\t\t\t\t\t\"Pet with id \" + petId + \" not found for owner with id \" + ownerId + \".\");\n\t\t}\n\t\tmodel.put(\"pet\", pet);\n\t\tmodel.put(\"owner\", owner);\n\n\t\tVisit visit = new Visit();\n\t\tpet.addVisit(visit);\n\t\treturn visit;\n\t}\n\n\t@ModelAttribute(\"minVisitDate\")\n\tpublic LocalDate minVisitDate() {\n\t\treturn LocalDate.now().plusDays(1);\n\t}\n\n\t// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is\n\t// called\n\t@GetMapping(\"/owners/{ownerId}/pets/{petId}/visits/new\")\n\tpublic String initNewVisitForm() {\n\t\treturn \"pets/createOrUpdateVisitForm\";\n\t}\n\n\t// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is\n\t// called\n\t@PostMapping(\"/owners/{ownerId}/pets/{petId}/visits/new\")\n\tpublic String processNewVisitForm(@ModelAttribute Owner owner, @PathVariable int petId, @Valid Visit visit,\n\t\t\tBindingResult result, RedirectAttributes redirectAttributes) {\n\t\tif (visit.getDate() != null && !visit.getDate().isAfter(LocalDate.now())) {\n\t\t\tresult.rejectValue(\"date\", \"typeMismatch.visitDate\");\n\t\t}\n\n\t\tif (result.hasErrors()) {\n\t\t\treturn \"pets/createOrUpdateVisitForm\";\n\t\t}\n\n\t\towner.addVisit(petId, visit);\n\t\tthis.owners.save(owner);\n\t\tredirectAttributes.addFlashAttribute(\"message\", \"Your visit has been booked\");\n\t\treturn \"redirect:/owners/{ownerId}\";\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n\npackage org.springframework.samples.petclinic.system;\n\nimport org.springframework.boot.cache.autoconfigure.JCacheManagerCustomizer;\nimport org.springframework.cache.annotation.EnableCaching;\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\n\nimport javax.cache.configuration.MutableConfiguration;\n\n/**\n * Cache configuration intended for caches providing the JCache API. This configuration\n * creates the used cache for the application and enables statistics that become\n * accessible via JMX.\n */\n@Configuration(proxyBeanMethods = false)\n@EnableCaching\nclass CacheConfiguration {\n\n\t@Bean\n\tpublic JCacheManagerCustomizer petclinicCacheConfigurationCustomizer() {\n\t\treturn cm -> cm.createCache(\"vets\", cacheConfiguration());\n\t}\n\n\t/**\n\t * Create a simple configuration that enable statistics via the JCache programmatic\n\t * configuration API.\n\t * <p>\n\t * Within the configuration object that is provided by the JCache API standard, there\n\t * is only a very limited set of configuration options. The really relevant\n\t * configuration options (like the size limit) must be set via a configuration\n\t * mechanism that is provided by the selected JCache implementation.\n\t */\n\tprivate javax.cache.configuration.Configuration<Object, Object> cacheConfiguration() {\n\t\treturn new MutableConfiguration<>().setStatisticsEnabled(true);\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CrashController.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.system;\n\nimport org.springframework.stereotype.Controller;\nimport org.springframework.web.bind.annotation.GetMapping;\n\n/**\n * Controller used to showcase what happens when an exception is thrown\n *\n * @author Michael Isvy\n * <p/>\n * Also see how a view that resolves to \"error\" has been added (\"error.html\").\n */\n@Controller\nclass CrashController {\n\n\t@GetMapping(\"/oups\")\n\tpublic String triggerException() {\n\t\tthrow new RuntimeException(\n\t\t\t\t\"Expected: controller used to showcase what \" + \"happens when an exception is thrown\");\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java",
+  "type": "code",
+  "text": "package org.springframework.samples.petclinic.system;\n\nimport org.springframework.context.annotation.Bean;\nimport org.springframework.context.annotation.Configuration;\nimport org.springframework.web.servlet.LocaleResolver;\nimport org.springframework.web.servlet.config.annotation.InterceptorRegistry;\nimport org.springframework.web.servlet.config.annotation.WebMvcConfigurer;\nimport org.springframework.web.servlet.i18n.LocaleChangeInterceptor;\nimport org.springframework.web.servlet.i18n.SessionLocaleResolver;\n\nimport java.util.Locale;\n\n/**\n * Configures internationalization (i18n) support for the application.\n *\n * <p>\n * Handles loading language-specific messages, tracking the user's language, and allowing\n * language changes via the URL parameter (e.g., <code>?lang=de</code>).\n * </p>\n *\n * @author Anuj Ashok Potdar\n */\n@Configuration\n@SuppressWarnings(\"unused\")\npublic class WebConfiguration implements WebMvcConfigurer {\n\n\t/**\n\t * Uses session storage to remember the user’s language setting across requests.\n\t * Defaults to English if nothing is specified.\n\t * @return session-based {@link LocaleResolver}\n\t */\n\t@Bean\n\tpublic LocaleResolver localeResolver() {\n\t\tSessionLocaleResolver resolver = new SessionLocaleResolver();\n\t\tresolver.setDefaultLocale(Locale.ENGLISH);\n\t\treturn resolver;\n\t}\n\n\t/**\n\t * Allows the app to switch languages using a URL parameter like\n\t * <code>?lang=es</code>.\n\t * @return a {@link LocaleChangeInterceptor} that handles the change\n\t */\n\t@Bean\n\tpublic LocaleChangeInterceptor localeChangeInterceptor() {\n\t\tLocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();\n\t\tinterceptor.setParamName(\"lang\");\n\t\treturn interceptor;\n\t}\n\n\t/**\n\t * Registers the locale change interceptor so it can run on each request.\n\t * @param registry where interceptors are added\n\t */\n\t@Override\n\tpublic void addInterceptors(InterceptorRegistry registry) {\n\t\tregistry.addInterceptor(localeChangeInterceptor());\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n\npackage org.springframework.samples.petclinic.system;\n\nimport org.springframework.stereotype.Controller;\nimport org.springframework.web.bind.annotation.GetMapping;\n\n@Controller\nclass WelcomeController {\n\n\t@GetMapping(\"/\")\n\tpublic String welcome() {\n\t\treturn \"welcome\";\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport java.util.Optional;\n\nimport org.springframework.data.domain.Page;\nimport org.springframework.data.domain.Pageable;\nimport org.springframework.data.jpa.repository.JpaRepository;\n\n/**\n * Repository class for <code>Owner</code> domain objects. All method names are compliant\n * with Spring Data naming conventions so this interface can easily be extended for Spring\n * Data. See:\n * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation\n *\n * @author Ken Krebs\n * @author Juergen Hoeller\n * @author Sam Brannen\n * @author Michael Isvy\n * @author Wick Dynex\n */\npublic interface OwnerRepository extends JpaRepository<Owner, Integer> {\n\n\t/**\n\t * Retrieve {@link Owner}s from the data store by last name, returning all owners\n\t * whose last name <i>starts</i> with the given name.\n\t * @param lastName Value to search for\n\t * @return a Collection of matching {@link Owner}s (or an empty Collection if none\n\t * found)\n\t */\n\tPage<Owner> findByLastNameStartingWith(String lastName, Pageable pageable);\n\n\t/**\n\t * Retrieve an {@link Owner} from the data store by id.\n\t * <p>\n\t * This method returns an {@link Optional} containing the {@link Owner} if found. If\n\t * no {@link Owner} is found with the provided id, it will return an empty\n\t * {@link Optional}.\n\t * </p>\n\t * @param id the id to search for\n\t * @return an {@link Optional} containing the {@link Owner} if found, or an empty\n\t * {@link Optional} if not found.\n\t * @throws IllegalArgumentException if the id is null (assuming null is not a valid\n\t * input for id)\n\t */\n\tOptional<Owner> findById(Integer id);\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/model/Person.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.model;\n\nimport jakarta.persistence.Column;\nimport jakarta.persistence.MappedSuperclass;\nimport jakarta.validation.constraints.NotBlank;\nimport jakarta.validation.constraints.Size;\n\n/**\n * Simple JavaBean domain object representing an person.\n *\n * @author Ken Krebs\n */\n@MappedSuperclass\npublic class Person extends BaseEntity {\n\n\t@Column(length = 30)\n\t@Size(max = 30)\n\t@NotBlank\n\tprivate String firstName;\n\n\t@Column(length = 30)\n\t@Size(max = 30)\n\t@NotBlank\n\tprivate String lastName;\n\n\tpublic String getFirstName() {\n\t\treturn this.firstName;\n\t}\n\n\tpublic void setFirstName(String firstName) {\n\t\tthis.firstName = firstName;\n\t}\n\n\tpublic String getLastName() {\n\t\treturn this.lastName;\n\t}\n\n\tpublic void setLastName(String lastName) {\n\t\tthis.lastName = lastName;\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/model/NamedEntity.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.model;\n\nimport jakarta.persistence.Column;\nimport jakarta.persistence.MappedSuperclass;\nimport jakarta.validation.constraints.NotBlank;\n\n/**\n * Simple JavaBean domain object adds a name property to <code>BaseEntity</code>. Used as\n * a base class for objects needing these properties.\n *\n * @author Ken Krebs\n * @author Juergen Hoeller\n * @author Wick Dynex\n */\n@MappedSuperclass\npublic class NamedEntity extends BaseEntity {\n\n\t@Column\n\t@NotBlank\n\tprivate String name;\n\n\tpublic String getName() {\n\t\treturn this.name;\n\t}\n\n\tpublic void setName(String name) {\n\t\tthis.name = name;\n\t}\n\n\t@Override\n\tpublic String toString() {\n\t\tString name = this.getName();\n\t\treturn name != null ? name : \"<null>\";\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Specialty.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.vet;\n\nimport org.springframework.samples.petclinic.model.NamedEntity;\n\nimport jakarta.persistence.Entity;\nimport jakarta.persistence.Table;\n\n/**\n * Models a {@link Vet Vet's} specialty (for example, dentistry).\n *\n * @author Juergen Hoeller\n */\n@Entity\n@Table(name = \"specialties\")\npublic class Specialty extends NamedEntity {\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vet.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.vet;\n\nimport java.util.Comparator;\nimport java.util.HashSet;\nimport java.util.List;\nimport java.util.Set;\nimport java.util.stream.Collectors;\n\nimport org.springframework.samples.petclinic.model.NamedEntity;\nimport org.springframework.samples.petclinic.model.Person;\n\nimport jakarta.persistence.Entity;\nimport jakarta.persistence.FetchType;\nimport jakarta.persistence.JoinColumn;\nimport jakarta.persistence.JoinTable;\nimport jakarta.persistence.ManyToMany;\nimport jakarta.persistence.Table;\nimport jakarta.xml.bind.annotation.XmlElement;\n\n/**\n * Simple JavaBean domain object representing a veterinarian.\n *\n * @author Ken Krebs\n * @author Juergen Hoeller\n * @author Sam Brannen\n * @author Arjen Poutsma\n */\n@Entity\n@Table(name = \"vets\")\npublic class Vet extends Person {\n\n\t@ManyToMany(fetch = FetchType.EAGER)\n\t@JoinTable(name = \"vet_specialties\", joinColumns = @JoinColumn(name = \"vet_id\"),\n\t\t\tinverseJoinColumns = @JoinColumn(name = \"specialty_id\"))\n\tprivate Set<Specialty> specialties;\n\n\tprotected Set<Specialty> getSpecialtiesInternal() {\n\t\tif (this.specialties == null) {\n\t\t\tthis.specialties = new HashSet<>();\n\t\t}\n\t\treturn this.specialties;\n\t}\n\n\t@XmlElement\n\tpublic List<Specialty> getSpecialties() {\n\t\treturn getSpecialtiesInternal().stream()\n\t\t\t.sorted(Comparator.comparing(NamedEntity::getName))\n\t\t\t.collect(Collectors.toList());\n\t}\n\n\tpublic int getNrOfSpecialties() {\n\t\treturn getSpecialtiesInternal().size();\n\t}\n\n\tpublic void addSpecialty(Specialty specialty) {\n\t\tgetSpecialtiesInternal().add(specialty);\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.vet;\n\nimport java.util.List;\n\nimport org.springframework.data.domain.Page;\nimport org.springframework.data.domain.PageRequest;\nimport org.springframework.data.domain.Pageable;\nimport org.springframework.stereotype.Controller;\nimport org.springframework.ui.Model;\nimport org.springframework.web.bind.annotation.GetMapping;\nimport org.springframework.web.bind.annotation.RequestParam;\nimport org.springframework.web.bind.annotation.ResponseBody;\nimport org.springframework.web.servlet.mvc.support.RedirectAttributes;\n\n/**\n * @author Juergen Hoeller\n * @author Mark Fisher\n * @author Ken Krebs\n * @author Arjen Poutsma\n */\n@Controller\nclass VetController {\n\n\tprivate final VetRepository vetRepository;\n\n\tpublic VetController(VetRepository vetRepository) {\n\t\tthis.vetRepository = vetRepository;\n\t}\n\n\t@GetMapping(\"/vets.html\")\n\tpublic String showVetList(@RequestParam(defaultValue = \"1\") int page, Model model,\n\t\t\tRedirectAttributes redirectAttributes) {\n\t\tPage<Vet> paginated = findPaginated(page);\n\t\tif (page < 1 || page > Math.max(paginated.getTotalPages(), 1)) {\n\t\t\tredirectAttributes.addAttribute(\"page\", 1);\n\t\t\treturn \"redirect:/vets.html\";\n\t\t}\n\t\treturn addPaginationModel(page, paginated, model);\n\t}\n\n\tprivate String addPaginationModel(int page, Page<Vet> paginated, Model model) {\n\t\tList<Vet> listVets = paginated.getContent();\n\t\tmodel.addAttribute(\"currentPage\", page);\n\t\tmodel.addAttribute(\"totalPages\", paginated.getTotalPages());\n\t\tmodel.addAttribute(\"totalItems\", paginated.getTotalElements());\n\t\tmodel.addAttribute(\"listVets\", listVets);\n\t\treturn \"vets/vetList\";\n\t}\n\n\tprivate Page<Vet> findPaginated(int page) {\n\t\tint pageSize = 5;\n\t\tint safePage = Math.max(page, 1);\n\t\tPageable pageable = PageRequest.of(safePage - 1, pageSize);\n\t\treturn vetRepository.findAll(pageable);\n\t}\n\n\t@GetMapping({ \"/vets\" })\n\tpublic @ResponseBody Vets showResourcesVetList() {\n\t\t// Here we are returning an object of type 'Vets' rather than a collection of Vet\n\t\t// objects so it is simpler for JSon/Object mapping\n\t\tVets vets = new Vets();\n\t\tvets.getVetList().addAll(this.vetRepository.findAll());\n\t\treturn vets;\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.vet;\n\nimport org.springframework.cache.annotation.Cacheable;\nimport org.springframework.dao.DataAccessException;\nimport org.springframework.data.domain.Page;\nimport org.springframework.data.domain.Pageable;\nimport org.springframework.data.repository.Repository;\nimport org.springframework.transaction.annotation.Transactional;\n\nimport java.util.Collection;\n\n/**\n * Repository class for <code>Vet</code> domain objects All method names are compliant\n * with Spring Data naming conventions so this interface can easily be extended for Spring\n * Data. See:\n * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation\n *\n * @author Ken Krebs\n * @author Juergen Hoeller\n * @author Sam Brannen\n * @author Michael Isvy\n */\npublic interface VetRepository extends Repository<Vet, Integer> {\n\n\t/**\n\t * Retrieve all <code>Vet</code>s from the data store.\n\t * @return a <code>Collection</code> of <code>Vet</code>s\n\t */\n\t@Transactional(readOnly = true)\n\t@Cacheable(\"vets\")\n\tCollection<Vet> findAll() throws DataAccessException;\n\n\t/**\n\t * Retrieve all <code>Vet</code>s from data store in Pages\n\t * @param pageable\n\t * @return\n\t * @throws DataAccessException\n\t */\n\t@Transactional(readOnly = true)\n\t@Cacheable(\"vets\")\n\tPage<Vet> findAll(Pageable pageable) throws DataAccessException;\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.vet;\n\nimport java.util.ArrayList;\nimport java.util.List;\n\nimport jakarta.xml.bind.annotation.XmlElement;\nimport jakarta.xml.bind.annotation.XmlRootElement;\n\n/**\n * Simple domain object representing a list of veterinarians. Mostly here to be used for\n * the 'vets' {@link org.springframework.web.servlet.view.xml.MarshallingView}.\n *\n * @author Arjen Poutsma\n */\n@XmlRootElement\npublic class Vets {\n\n\tprivate List<Vet> vets;\n\n\t@XmlElement\n\tpublic List<Vet> getVetList() {\n\t\tif (vets == null) {\n\t\t\tvets = new ArrayList<>();\n\t\t}\n\t\treturn vets;\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/error.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'error')}\">\n\n<body>\n  <img src=\"../static/resources/images/pets.png\" th:src=\"@{/resources/images/pets.png}\" />\n  <!-- Title: Something happened -->\n  <h2 th:text=\"#{somethingHappened}\">Something happened...</h2>\n\n  <!-- Status-specific error message -->\n  <p th:switch=\"${status}\">\n    <span th:case=\"404\" th:text=\"#{error.404}\">The requested page was not found.</span>\n    <span th:case=\"500\" th:text=\"#{error.500}\">An internal server error occurred.</span>\n    <span th:case=\"*\" th:text=\"#{error.general}\">An unexpected error occurred.</span>\n  </p>\n\n  <!-- Exception message (for developers) -->\n  <p th:text=\"${message}\">Exception message</p>\n</body>\n\n</html>\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/fragments/inputField.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\">\n\n<body>\n  <form>\n    <th:block th:fragment=\"input (label, name, type)\">\n      <div th:with=\"valid=${!#fields.hasErrors(name)}\" th:class=\"${'form-group' + (valid ? '' : ' has-error')}\"\n        class=\"form-group\">\n        <label th:for=\"${name}\" class=\"col-sm-2 control-label\" th:text=\"${label}\">Label</label>\n        <div class=\"col-sm-10\">\n          <div th:switch=\"${type}\">\n            <input th:case=\"'text'\" class=\"form-control\" type=\"text\" th:field=\"*{__${name}__}\" />\n            <input th:case=\"'date'\" class=\"form-control\" type=\"date\" th:field=\"*{__${name}__}\" th:min=\"${minVisitDate}\" />\n          </div>\n          <span th:if=\"${valid}\" class=\"fa fa-ok form-control-feedback\" aria-hidden=\"true\"></span>\n          <th:block th:if=\"${!valid}\">\n            <span class=\"fa fa-remove form-control-feedback\" aria-hidden=\"true\"></span>\n            <span class=\"help-inline\" th:errors=\"*{__${name}__}\" th:text=\"#{error}\">Error</span>\n          </th:block>\n        </div>\n      </div>\n    </th:block>\n  </form>\n</body>\n\n</html>\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/fragments/layout.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html th:fragment=\"layout (template, menu)\" xmlns:th=\"https://www.thymeleaf.org\">\n\n<head>\n\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n  <meta charset=\"utf-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"shortcut icon\" type=\"image/x-icon\" th:href=\"@{/resources/images/favicon.png}\">\n  <title th:text=\"#{layoutTitle}\">PetClinic :: a Spring Framework demonstration</title>\n  <link th:href=\"@{/webjars/font-awesome/css/font-awesome.min.css}\" rel=\"stylesheet\">\n  <link rel=\"stylesheet\" th:href=\"@{/resources/css/petclinic.css}\" />\n\n</head>\n\n<body>\n\n  <nav class=\"navbar navbar-expand-lg navbar-dark\" role=\"navigation\">\n    <div class=\"container-fluid\">\n      <a class=\"navbar-brand\" th:href=\"@{/}\"><span></span></a>\n      <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#main-navbar\">\n        <span class=\"navbar-toggler-icon\"></span>\n      </button>\n      <div class=\"collapse navbar-collapse\" id=\"main-navbar\" style>\n\n        <ul class=\"navbar-nav me-auto mb-2 mb-lg-0\" th:remove=\"all\">\n\n          <li th:fragment=\"menuItem (link,active,title,glyph,text)\" th:class=\"nav-item\">\n            <a th:class=\"${active==menu ? 'nav-link active' : 'nav-link'}\" th:href=\"@{__${link}__}\" th:title=\"${title}\">\n              <span th:class=\"'fa fa-'+${glyph}\" class=\"fa fa-home\"></span>\n              <span th:text=\"${text}\">Template</span>\n            </a>\n          </li>\n\n        </ul>\n\n        <ul class=\"nav navbar-nav me-auto\">\n\n          <li th:replace=\"~{::menuItem ('/','home','home page','home',#{home})}\">\n            <span class=\"fa fa-home\" aria-hidden=\"true\"></span>\n            <span th:text=\"#{home}\">Home</span>\n          </li>\n\n          <li th:replace=\"~{::menuItem ('/owners/find','owners','find owners','search',#{findOwners})}\">\n            <span class=\"fa fa-search\" aria-hidden=\"true\"></span>\n            <span th:text=\"#{findOwners}\">Find owners</span>\n          </li>\n\n          <li th:replace=\"~{::menuItem ('/vets.html','vets','veterinarians','th-list',#{vets})}\">\n            <span class=\"fa fa-th-list\" aria-hidden=\"true\"></span>\n            <span th:text=\"#{vets}\">Veterinarians</span>\n          </li>\n\n          <li\n            th:replace=\"~{::menuItem ('/oups','error','trigger a RuntimeException to see how it is handled','exclamation-triangle',#{error})}\">\n            <span class=\"fa exclamation-triangle\" aria-hidden=\"true\"></span>\n            <span th:text=\"#{error}\">Error</span>\n          </li>\n\n        </ul>\n      </div>\n    </div>\n  </nav>\n  <div class=\"container-fluid\">\n    <div class=\"container xd-container\">\n\n      <th:block th:insert=\"${template}\" />\n\n      <br />\n      <br />\n      <div class=\"container\">\n        <div class=\"row\">\n          <div class=\"col-12 text-center\">\n            <img src=\"../static/images/spring-logo.svg\" th:src=\"@{/resources/images/spring-logo.svg}\"\n              alt=\"VMware Tanzu Logo\" class=\"logo\">\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <script th:src=\"@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}\"></script>\n\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/fragments/selectField.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\">\n\n<body>\n  <form>\n    <th:block th:fragment=\"select (label, name, items)\">\n      <div th:with=\"valid=${!#fields.hasErrors(name)}\" th:class=\"${'form-group' + (valid ? '' : ' has-error')}\"\n        class=\"form-group\">\n        <label th:for=\"${name}\" class=\"col-sm-2 control-label\" th:text=\"${label}\">Label</label>\n\n        <div class=\"col-sm-10\">\n          <select th:field=\"*{__${name}__}\">\n            <option th:each=\"item : ${items}\" th:value=\"${item}\" th:text=\"${item}\">dog</option>\n          </select>\n          <span th:if=\"${valid}\" class=\"fa fa-ok form-control-feedback\" aria-hidden=\"true\"></span>\n          <th:block th:if=\"${!valid}\">\n            <span class=\"fa fa-remove form-control-feedback\" aria-hidden=\"true\"></span>\n            <span class=\"help-inline\" th:errors=\"*{__${name}__}\" th:text=\"#{error}\">Error</span>\n          </th:block>\n        </div>\n      </div>\n    </th:block>\n  </form>\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'owners')}\">\n\n<body>\n\n  <h2 th:text=\"#{owner}\">Owner</h2>\n  <form th:object=\"${owner}\" class=\"form-horizontal\" id=\"add-owner-form\" method=\"post\">\n    <div class=\"form-group has-feedback\">\n      <input th:replace=\"~{fragments/inputField :: input (#{firstName}, 'firstName', 'text')}\" />\n      <input th:replace=\"~{fragments/inputField :: input (#{lastName}, 'lastName', 'text')}\" />\n      <input th:replace=\"~{fragments/inputField :: input (#{address}, 'address', 'text')}\" />\n      <input th:replace=\"~{fragments/inputField :: input (#{city}, 'city', 'text')}\" />\n      <input th:replace=\"~{fragments/inputField :: input (#{telephone}, 'telephone', 'text')}\" />\n    </div>\n    <div class=\"form-group\">\n      <div class=\"col-sm-offset-2 col-sm-10\">\n        <button th:with=\"text=${owner['new']} ? #{addOwner} : #{updateOwner}\" class=\"btn btn-primary\" type=\"submit\"\n          th:text=\"${text}\">Add Owner</button>\n      </div>\n    </div>\n  </form>\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/owners/findOwners.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'owners')}\">\n\n<body>\n\n  <h2 th:text=\"#{findOwners}\">Find Owners</h2>\n\n  <form th:object=\"${owner}\" th:action=\"@{/owners}\" method=\"get\" class=\"form-horizontal\" id=\"search-owner-form\">\n    <div class=\"form-group\">\n      <div class=\"control-group\" id=\"lastNameGroup\">\n        <label class=\"col-sm-2 control-label\" th:text=\"#{lastName}\">Last name </label>\n        <div class=\"col-sm-10\">\n          <input class=\"form-control\" th:field=\"*{lastName}\" size=\"30\" maxlength=\"80\" />\n          <span class=\"help-inline\">\n            <div th:if=\"${#fields.hasAnyErrors()}\">\n              <p th:each=\"err : ${#fields.allErrors()}\" th:text=\"${err}\">Error</p>\n            </div>\n          </span>\n        </div>\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <div class=\"col-sm-offset-2 col-sm-10\">\n        <button type=\"submit\" class=\"btn btn-primary\" th:text=\"#{findOwner}\">Find Owner</button>\n      </div>\n    </div>\n\n    <a class=\"btn btn-primary\" th:href=\"@{/owners/new}\" th:text=\"#{addOwner}\">Add Owner</a>\n\n  </form>\n\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/owners/ownerDetails.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'owners')}\">\n\n<body>\n\n  <h2 th:text=\"#{ownerInformation}\">Owner Information</h2>\n\n  <div th:if=\"${message}\" class=\"alert alert-success\" id=\"success-message\">\n    <span th:text=\"${message}\"></span>\n  </div>\n\n  <div th:if=\"${error}\" class=\"alert alert-danger\" id=\"error-message\">\n    <span th:text=\"${error}\"></span>\n  </div>\n\n  <table class=\"table table-striped\" th:object=\"${owner}\">\n    <tr>\n      <th th:text=\"#{name}\">Name</th>\n      <td><b th:text=\"*{firstName + ' ' + lastName}\"></b></td>\n    </tr>\n    <tr>\n      <th th:text=\"#{address}\">Address</th>\n      <td th:text=\"*{address}\"></td>\n    </tr>\n    <tr>\n      <th th:text=\"#{city}\">City</th>\n      <td th:text=\"*{city}\"></td>\n    </tr>\n    <tr>\n      <th th:text=\"#{telephone}\">Telephone</th>\n      <td th:text=\"*{telephone}\"></td>\n    </tr>\n  </table>\n\n  <a th:href=\"@{__${owner.id}__/edit}\" class=\"btn btn-primary\" th:text=\"#{editOwner}\">Edit\n    Owner</a>\n  <a th:href=\"@{__${owner.id}__/pets/new}\" class=\"btn btn-primary\" th:text=\"#{addNewPet}\">Add\n    New Pet</a>\n\n  <br />\n  <br />\n  <br />\n  <h2 th:text=\"#{petsAndVisits}\">Pets and Visits</h2>\n\n  <table class=\"table table-striped\">\n\n    <tr th:each=\"pet : ${owner.pets}\">\n      <td valign=\"top\">\n        <dl class=\"dl-horizontal\">\n          <dt th:text=\"#{name}\">Name</dt>\n          <dd th:text=\"${pet.name}\"></dd>\n          <dt th:text=\"#{birthDate}\">Birth Date</dt>\n          <dd th:text=\"${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}\"></dd>\n          <dt th:text=\"#{type}\">Type</dt>\n          <dd th:text=\"${pet.type}\"></dd>\n        </dl>\n      </td>\n      <td valign=\"top\">\n        <table class=\"table-condensed\">\n          <thead>\n            <tr>\n              <th th:text=\"#{visitDate}\">Visit Date</th>\n              <th th:text=\"#{description}\">Description</th>\n            </tr>\n          </thead>\n          <tr th:each=\"visit : ${pet.visits}\">\n            <td th:text=\"${#temporals.format(visit.date, 'yyyy-MM-dd')}\"></td>\n            <td th:text=\"${visit?.description}\"></td>\n          </tr>\n          <tr>\n            <td><a th:href=\"@{__${owner.id}__/pets/__${pet.id}__/edit}\" th:text=\"#{editPet}\">Edit Pet</a></td>\n            <td><a th:href=\"@{__${owner.id}__/pets/__${pet.id}__/visits/new}\" th:text=\"#{addVisit}\">Add Visit</a></td>\n          </tr>\n        </table>\n      </td>\n    </tr>\n\n  </table>\n  <script>\n    // Function to hide the success and error messages after 3 seconds\n    function hideMessages() {\n      setTimeout(function () {\n        document.getElementById(\"success-message\").style.display = \"none\";\n        document.getElementById(\"error-message\").style.display = \"none\";\n      }, 3000); // 3000 milliseconds (3 seconds)\n    }\n\n    // Call the function to hide messages\n    hideMessages();\n  </script>\n\n</body>\n\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicRuntimeHints.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n\npackage org.springframework.samples.petclinic;\n\nimport org.springframework.aot.hint.RuntimeHints;\nimport org.springframework.aot.hint.RuntimeHintsRegistrar;\nimport org.springframework.samples.petclinic.model.BaseEntity;\nimport org.springframework.samples.petclinic.model.Person;\nimport org.springframework.samples.petclinic.vet.Vet;\n\npublic class PetClinicRuntimeHints implements RuntimeHintsRegistrar {\n\n\t@Override\n\tpublic void registerHints(RuntimeHints hints, ClassLoader classLoader) {\n\t\thints.resources().registerPattern(\"db/*\"); // https://github.com/spring-projects/spring-boot/issues/32654\n\t\thints.resources().registerPattern(\"db/*/*\"); // nested db/{h2,mysql,postgres}\n\t\thints.resources().registerPattern(\"messages/*\");\n\t\thints.resources().registerPattern(\"mysql-default-conf\");\n\t\thints.reflection().registerType(BaseEntity.class, typeHint -> typeHint.withJavaSerialization(true));\n\t\thints.reflection().registerType(Person.class, typeHint -> typeHint.withJavaSerialization(true));\n\t\thints.reflection().registerType(Vet.class, typeHint -> typeHint.withJavaSerialization(true));\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/model/BaseEntity.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.model;\n\nimport java.io.Serializable;\n\nimport jakarta.persistence.GeneratedValue;\nimport jakarta.persistence.GenerationType;\nimport jakarta.persistence.Id;\nimport jakarta.persistence.MappedSuperclass;\n\n/**\n * Simple JavaBean domain object with an id property. Used as a base class for objects\n * needing this property.\n *\n * @author Ken Krebs\n * @author Juergen Hoeller\n */\n@MappedSuperclass\npublic class BaseEntity implements Serializable {\n\n\t@Id\n\t@GeneratedValue(strategy = GenerationType.IDENTITY)\n\tprivate Integer id;\n\n\tpublic Integer getId() {\n\t\treturn id;\n\t}\n\n\tpublic void setId(Integer id) {\n\t\tthis.id = id;\n\t}\n\n\tpublic boolean isNew() {\n\t\treturn this.id == null;\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/owners/ownersList.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'owners')}\">\n\n<body>\n\n  <h2 th:text=\"#{owners}\">Owners</h2>\n\n  <table id=\"owners\" class=\"table table-striped\">\n    <thead>\n      <tr>\n        <th th:text=\"#{name}\" style=\"width: 150px;\">Name</th>\n        <th th:text=\"#{address}\" style=\"width: 200px;\">Address</th>\n        <th th:text=\"#{city}\">City</th>\n        <th th:text=\"#{telephone}\" style=\"width: 120px\">Telephone</th>\n        <th th:text=\"#{pets}\">Pets</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr th:each=\"owner : ${listOwners}\">\n        <td>\n          <a th:href=\"@{/owners/__${owner.id}__}\" th:text=\"${owner.firstName + ' ' + owner.lastName}\" /></a>\n        </td>\n        <td th:text=\"${owner.address}\" />\n        <td th:text=\"${owner.city}\" />\n        <td th:text=\"${owner.telephone}\" />\n        <td><span th:text=\"${#strings.listJoin(owner.pets, ', ')}\" /></td>\n      </tr>\n    </tbody>\n  </table>\n  <div th:if=\"${totalPages > 1}\">\n    <span th:text=\"#{pages}\">Pages:</span>\n    <span>[</span>\n    <span th:each=\"i: ${#numbers.sequence(1, totalPages)}\">\n      <a th:if=\"${currentPage != i}\" th:href=\"@{'/owners?page=' + ${i}}\">[[${i}]]</a>\n      <span th:unless=\"${currentPage != i}\">[[${i}]]</span>\n    </span>\n    <span>]&nbsp;</span>\n    <span>\n      <a th:if=\"${currentPage > 1}\" th:href=\"@{'/owners?page=1'}\" th:title=\"#{first}\" class=\"fa fa-fast-backward\"></a>\n      <span th:unless=\"${currentPage > 1}\" th:title=\"#{first}\" class=\"fa fa-fast-backward\"></span>\n    </span>\n    <span>\n      <a th:if=\"${currentPage > 1}\" th:href=\"@{'/owners?page=__${currentPage - 1}__'}\" th:title=\"#{previous}\"\n        class=\"fa fa-step-backward\"></a>\n      <span th:unless=\"${currentPage > 1}\" th:title=\"#{previous}\" class=\"fa fa-step-backward\"></span>\n    </span>\n    <span>\n      <a th:if=\"${currentPage < totalPages}\" th:href=\"@{'/owners?page=__${currentPage + 1}__'}\" th:title=\"#{next}\"\n        class=\"fa fa-step-forward\"></a>\n      <span th:unless=\"${currentPage < totalPages}\" th:title=\"#{next}\" class=\"fa fa-step-forward\"></span>\n    </span>\n    <span>\n      <a th:if=\"${currentPage < totalPages}\" th:href=\"@{'/owners?page=__${totalPages}__'}\" th:title=\"#{last}\"\n        class=\"fa fa-fast-forward\"></a>\n      <span th:unless=\"${currentPage < totalPages}\" th:title=\"#{last}\" class=\"fa fa-fast-forward\"></span>\n    </span>\n  </div>\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'owners')}\">\n\n<body>\n\n  <h2>\n    <th:block th:if=\"${pet['new']}\" th:text=\"#{new}\">New </th:block>\n    <span th:text=\"#{pet}\">Pet</span>\n  </h2>\n  <form th:object=\"${pet}\" class=\"form-horizontal\" method=\"post\">\n    <input type=\"hidden\" name=\"id\" th:value=\"*{id}\" />\n    <div class=\"form-group has-feedback\">\n      <div class=\"form-group\">\n        <label class=\"col-sm-2 control-label\" th:text=\"#{owner}\">Owner</label>\n        <div class=\"col-sm-10\">\n          <span th:text=\"${owner?.firstName + ' ' + owner?.lastName}\" />\n        </div>\n      </div>\n      <input th:replace=\"~{fragments/inputField :: input ('Name', 'name', 'text')}\" />\n      <input th:replace=\"~{fragments/inputField :: input ('Birth Date', 'birthDate', 'date')}\" />\n      <input th:replace=\"~{fragments/selectField :: select ('Type', 'type', ${types})}\" />\n    </div>\n    <div class=\"form-group\">\n      <div class=\"col-sm-offset-2 col-sm-10\">\n        <button th:with=\"text=${pet['new']} ? 'Add Pet' : 'Update Pet'\" class=\"btn btn-primary\" type=\"submit\"\n          th:text=\"${text}\">Add Pet</button>\n      </div>\n    </div>\n  </form>\n\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'owners')}\">\n\n<body>\n\n  <h2>\n    <th:block th:if=\"${visit['new']}\" th:text=\"#{new}\">New </th:block>\n    Visit\n  </h2>\n\n  <b th:text=\"#{pet}\">Pet</b>\n  <table class=\"table table-striped\">\n    <thead>\n      <tr>\n        <th th:text=\"#{name}\">Name</th>\n        <th th:text=\"#{birthDate}\">Birth Date</th>\n        <th th:text=\"#{type}\">Type</th>\n        <th th:text=\"#{owner}\">Owner</th>\n      </tr>\n    </thead>\n    <tr>\n      <td th:text=\"${pet.name}\"></td>\n      <td th:text=\"${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}\"></td>\n      <td th:text=\"${pet.type}\"></td>\n      <td th:text=\"${owner?.firstName + ' ' + owner?.lastName}\"></td>\n    </tr>\n  </table>\n\n  <form th:object=\"${visit}\" class=\"form-horizontal\" method=\"post\">\n    <div class=\"form-group has-feedback\">\n      <input th:replace=\"~{fragments/inputField :: input ('Date', 'date', 'date')}\" />\n      <input th:replace=\"~{fragments/inputField :: input ('Description', 'description', 'text')}\" />\n    </div>\n\n    <div class=\"form-group\">\n      <div class=\"col-sm-offset-2 col-sm-10\">\n        <input type=\"hidden\" name=\"petId\" th:value=\"${pet.id}\" />\n        <button class=\"btn btn-primary\" type=\"submit\" th:text=\"#{addVisit}\">Add Visit</button>\n      </div>\n    </div>\n  </form>\n\n  <br />\n  <b th:text=\"#{previousVisits}\">Previous Visits</b>\n  <table class=\"table table-striped\">\n    <tr>\n      <th th:text=\"#{date}\">Date</th>\n      <th th:text=\"#{description}\">Description</th>\n    </tr>\n    <tr th:if=\"${!visit['new']}\" th:each=\"visit : ${pet.visits}\">\n      <td th:text=\"${#temporals.format(visit.date, 'yyyy-MM-dd')}\"></td>\n      <td th:text=\" ${visit.description}\"></td>\n    </tr>\n  </table>\n\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/vets/vetList.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'vets')}\">\n\n<body>\n\n  <h2 th:text=\"#{vets}\">Veterinarians</h2>\n\n  <table id=\"vets\" class=\"table table-striped\">\n    <thead>\n      <tr>\n        <th th:text=\"#{name}\">Name</th>\n        <th th:text=\"#{specialties}\">Specialties</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr th:each=\"vet : ${listVets}\">\n        <td th:text=\"${vet.firstName + ' ' + vet.lastName}\"></td>\n        <td>\n          <span th:each=\"specialty : ${vet.specialties}\" th:text=\"${specialty.name + ' '}\" /> <span\n            th:if=\"${vet.nrOfSpecialties == 0}\" th:text=\"#{none}\">none</span>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  <div th:if=\"${totalPages > 1}\">\n    <span th:text=\"#{pages}\">Pages:</span>\n    <span>[</span>\n    <span th:each=\"i: ${#numbers.sequence(1, totalPages)}\">\n      <a th:if=\"${currentPage != i}\" th:href=\"@{'/vets.html?page=__${i}__'}\">[[${i}]]</a>\n      <span th:unless=\"${currentPage != i}\">[[${i}]]</span>\n    </span>\n    <span>]&nbsp;</span>\n    <span>\n      <a th:if=\"${currentPage > 1}\" th:href=\"@{'/vets.html?page=1'}\" th:title=\"#{first}\"\n        class=\"fa fa-fast-backward\"></a>\n      <span th:unless=\"${currentPage > 1}\" th:title=\"#{first}\" class=\"fa fa-fast-backward\"></span>\n    </span>\n    <span>\n      <a th:if=\"${currentPage > 1}\" th:href=\"@{'/vets.html?page=__${currentPage - 1}__'}\" th:title=\"#{previous}\"\n        class=\"fa fa-step-backward\"></a>\n      <span th:unless=\"${currentPage > 1}\" th:title=\"#{previous}\" class=\"fa fa-step-backward\"></span>\n    </span>\n    <span>\n      <a th:if=\"${currentPage < totalPages}\" th:href=\"@{'/vets.html?page=__${currentPage + 1}__'}\" th:title=\"#{next}\"\n        class=\"fa fa-step-forward\"></a>\n      <span th:unless=\"${currentPage < totalPages}\" th:title=\"#{next}\" class=\"fa fa-step-forward\"></span>\n    </span>\n    <span>\n      <a th:if=\"${currentPage < totalPages}\" th:href=\"@{'/vets.html?page=__${totalPages}__'}\" th:title=\"#{last}\"\n        class=\"fa fa-fast-forward\"></a>\n      <span th:unless=\"${currentPage < totalPages}\" th:title=\"#{last}\" class=\"fa fa-fast-forward\"></span>\n    </span>\n  </div>\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/resources/templates/welcome.html",
+  "type": "code",
+  "text": "<!DOCTYPE html>\n\n<html xmlns:th=\"https://www.thymeleaf.org\" th:replace=\"~{fragments/layout :: layout (~{::body},'home')}\">\n\n<body>\n\n  <h2 th:text=\"#{welcome}\">Welcome</h2>\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <img class=\"img-responsive\" src=\"../static/resources/images/pets.png\" th:src=\"@{/resources/images/pets.png}\" />\n    </div>\n  </div>\n\n</body>\n\n</html>",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport java.time.LocalDate;\nimport java.util.Collection;\nimport java.util.Objects;\nimport java.util.Optional;\n\nimport org.springframework.dao.DataIntegrityViolationException;\nimport org.springframework.stereotype.Controller;\nimport org.springframework.ui.ModelMap;\nimport org.springframework.util.Assert;\nimport org.springframework.util.StringUtils;\nimport org.springframework.validation.BindingResult;\nimport org.springframework.web.bind.WebDataBinder;\nimport org.springframework.web.bind.annotation.GetMapping;\nimport org.springframework.web.bind.annotation.InitBinder;\nimport org.springframework.web.bind.annotation.ModelAttribute;\nimport org.springframework.web.bind.annotation.PathVariable;\nimport org.springframework.web.bind.annotation.PostMapping;\nimport org.springframework.web.bind.annotation.RequestMapping;\n\nimport jakarta.validation.Valid;\n\nimport org.springframework.web.servlet.mvc.support.RedirectAttributes;\n\n/**\n * @author Juergen Hoeller\n * @author Ken Krebs\n * @author Arjen Poutsma\n * @author Wick Dynex\n */\n@Controller\n@RequestMapping(\"/owners/{ownerId}\")\nclass PetController {\n\n\tprivate static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = \"pets/createOrUpdatePetForm\";\n\n\tprivate final OwnerRepository owners;\n\n\tprivate final PetTypeRepository types;\n\n\tpublic PetController(OwnerRepository owners, PetTypeRepository types) {\n\t\tthis.owners = owners;\n\t\tthis.types = types;\n\t}\n\n\t@ModelAttribute(\"types\")\n\tpublic Collection<PetType> populatePetTypes() {\n\t\treturn this.types.findPetTypes();\n\t}\n\n\t@ModelAttribute(\"owner\")\n\tpublic Owner findOwner(@PathVariable(\"ownerId\") int ownerId) {\n\t\tOptional<Owner> optionalOwner = this.owners.findById(ownerId);\n\t\tOwner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(\n\t\t\t\t\"Owner not found with id: \" + ownerId + \". Please ensure the ID is correct \"));\n\t\treturn owner;\n\t}\n\n\t@ModelAttribute(\"pet\")\n\tpublic Pet findPet(@PathVariable(\"ownerId\") int ownerId,\n\t\t\t@PathVariable(name = \"petId\", required = false) Integer petId) {\n\n\t\tif (petId == null) {\n\t\t\treturn new Pet();\n\t\t}\n\n\t\tOptional<Owner> optionalOwner = this.owners.findById(ownerId);\n\t\tOwner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(\n\t\t\t\t\"Owner not found with id: \" + ownerId + \". Please ensure the ID is correct \"));\n\t\treturn owner.getPet(petId);\n\t}\n\n\t@InitBinder(\"owner\")\n\tpublic void initOwnerBinder(WebDataBinder dataBinder) {\n\t\tdataBinder.setDisallowedFields(\"id\", \"*.id\");\n\t}\n\n\t@InitBinder(\"pet\")\n\tpublic void initPetBinder(WebDataBinder dataBinder) {\n\t\tdataBinder.setValidator(new PetValidator());\n\t\tdataBinder.setDisallowedFields(\"id\", \"*.id\");\n\t}\n\n\t@GetMapping(\"/pets/new\")\n\tpublic String initCreationForm(Owner owner, ModelMap model) {\n\t\tPet pet = new Pet();\n\t\towner.addPet(pet);\n\t\treturn VIEWS_PETS_CREATE_OR_UPDATE_FORM;\n\t}\n\n\t@PostMapping(\"/pets/new\")\n\tpublic String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result,\n\t\t\tRedirectAttributes redirectAttributes) {\n\n\t\tif (StringUtils.hasText(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null) {\n\t\t\tresult.rejectValue(\"name\", \"duplicate\", \"already exists\");\n\t\t}\n\n\t\tLocalDate currentDate = LocalDate.now();\n\t\tif (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate)) {\n\t\t\tresult.rejectValue(\"birthDate\", \"typeMismatch.birthDate\");\n\t\t}\n\n\t\tif (result.hasErrors()) {\n\t\t\treturn VIEWS_PETS_CREATE_OR_UPDATE_FORM;\n\t\t}\n\n\t\ttry {\n\t\t\towner.addPet(pet);\n\t\t\tthis.owners.saveAndFlush(owner);\n\t\t}\n\t\tcatch (DataIntegrityViolationException ex) {\n\t\t\tif (!isDuplicatePetNameViolation(ex)) {\n\t\t\t\tthrow ex;\n\t\t\t}\n\t\t\tresult.rejectValue(\"name\", \"duplicate\", \"already exists\");\n\t\t\treturn VIEWS_PETS_CREATE_OR_UPDATE_FORM;\n\t\t}\n\t\tredirectAttributes.addFlashAttribute(\"message\", \"New Pet has been Added\");\n\t\treturn \"redirect:/owners/{ownerId}\";\n\t}\n\n\t@GetMapping(\"/pets/{petId}/edit\")\n\tpublic String initUpdateForm() {\n\t\treturn VIEWS_PETS_CREATE_OR_UPDATE_FORM;\n\t}\n\n\t@PostMapping(\"/pets/{petId}/edit\")\n\tpublic String processUpdateForm(Owner owner, @Valid Pet pet, BindingResult result,\n\t\t\tRedirectAttributes redirectAttributes) {\n\n\t\tString petName = pet.getName();\n\n\t\t// checking if the pet name already exists for the owner\n\t\tif (StringUtils.hasText(petName)) {\n\t\t\tPet existingPet = owner.getPet(petName, false);\n\t\t\tif (existingPet != null && !Objects.equals(existingPet.getId(), pet.getId())) {\n\t\t\t\tresult.rejectValue(\"name\", \"duplicate\", \"already exists\");\n\t\t\t}\n\t\t}\n\n\t\tLocalDate currentDate = LocalDate.now();\n\t\tif (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate)) {\n\t\t\tresult.rejectValue(\"birthDate\", \"typeMismatch.birthDate\");\n\t\t}\n\n\t\tif (result.hasErrors()) {\n\t\t\treturn VIEWS_PETS_CREATE_OR_UPDATE_FORM;\n\t\t}\n\n\t\ttry {\n\t\t\tupdatePetDetails(owner, pet);\n\t\t}\n\t\tcatch (DataIntegrityViolationException ex) {\n\t\t\tif (!isDuplicatePetNameViolation(ex)) {\n\t\t\t\tthrow ex;\n\t\t\t}\n\t\t\tresult.rejectValue(\"name\", \"duplicate\", \"already exists\");\n\t\t\treturn VIEWS_PETS_CREATE_OR_UPDATE_FORM;\n\t\t}\n\t\tredirectAttributes.addFlashAttribute(\"message\", \"Pet details has been edited\");\n\t\treturn \"redirect:/owners/{ownerId}\";\n\t}\n\n\t/**\n\t * Updates the pet details if it exists or adds a new pet to the owner.\n\t * @param owner The owner of the pet\n\t * @param pet The pet with updated details\n\t */\n\tprivate void updatePetDetails(Owner owner, Pet pet) {\n\t\tInteger id = pet.getId();\n\t\tAssert.state(id != null, \"'pet.getId()' must not be null\");\n\t\tPet existingPet = owner.getPet(id);\n\t\tif (existingPet != null) {\n\t\t\t// Update existing pet's properties\n\t\t\texistingPet.setName(pet.getName());\n\t\t\texistingPet.setBirthDate(pet.getBirthDate());\n\t\t\texistingPet.setType(pet.getType());\n\t\t}\n\t\telse {\n\t\t\towner.addPet(pet);\n\t\t}\n\t\tthis.owners.saveAndFlush(owner);\n\t}\n\n\tprivate boolean isDuplicatePetNameViolation(DataIntegrityViolationException ex) {\n\t\tString message = ex.getMessage();\n\t\treturn message != null && message.toLowerCase().contains(\"unique_owner_pet_name\");\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetType.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport org.springframework.samples.petclinic.model.NamedEntity;\n\nimport jakarta.persistence.Entity;\nimport jakarta.persistence.Table;\n\n/**\n * @author Juergen Hoeller Can be Cat, Dog, Hamster...\n */\n@Entity\n@Table(name = \"types\")\npublic class PetType extends NamedEntity {\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport org.springframework.format.Formatter;\nimport org.springframework.stereotype.Component;\n\nimport java.text.ParseException;\nimport java.util.Collection;\nimport java.util.Locale;\nimport java.util.Objects;\n\n/**\n * Instructs Spring MVC on how to parse and print elements of type 'PetType'. Starting\n * from Spring 3.0, Formatters have come as an improvement in comparison to legacy\n * PropertyEditors. See the following links for more details: - The Spring ref doc:\n * https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#format\n *\n * @author Mark Fisher\n * @author Juergen Hoeller\n * @author Michael Isvy\n */\n@Component\npublic class PetTypeFormatter implements Formatter<PetType> {\n\n\tprivate final PetTypeRepository types;\n\n\tpublic PetTypeFormatter(PetTypeRepository types) {\n\t\tthis.types = types;\n\t}\n\n\t@Override\n\tpublic String print(PetType petType, Locale locale) {\n\t\tString name = petType.getName();\n\t\treturn name != null ? name : \"<null>\";\n\t}\n\n\t@Override\n\tpublic PetType parse(String text, Locale locale) throws ParseException {\n\t\tCollection<PetType> findPetTypes = this.types.findPetTypes();\n\t\tfor (PetType type : findPetTypes) {\n\t\t\tif (Objects.equals(type.getName(), text)) {\n\t\t\t\treturn type;\n\t\t\t}\n\t\t}\n\t\tthrow new ParseException(\"type not found: \" + text, 0);\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\n\npackage org.springframework.samples.petclinic.owner;\n\nimport java.util.List;\n\nimport org.springframework.data.jpa.repository.JpaRepository;\nimport org.springframework.data.jpa.repository.Query;\n\n/**\n * Repository class for <code>PetType</code> domain objects.\n *\n * @author Patrick Baumgartner\n */\n\npublic interface PetTypeRepository extends JpaRepository<PetType, Integer> {\n\n\t/**\n\t * Retrieve all {@link PetType}s from the data store.\n\t * @return a Collection of {@link PetType}s.\n\t */\n\t@Query(\"SELECT ptype FROM PetType ptype ORDER BY ptype.name\")\n\tList<PetType> findPetTypes();\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ },
+ {
+  "id": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+  "type": "code",
+  "text": "/*\n * Copyright 2012-2025 the original author or authors.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      https://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage org.springframework.samples.petclinic.owner;\n\nimport java.time.LocalDate;\nimport java.util.Collection;\nimport java.util.LinkedHashSet;\nimport java.util.Set;\n\nimport org.springframework.format.annotation.DateTimeFormat;\nimport org.springframework.samples.petclinic.model.NamedEntity;\n\nimport jakarta.persistence.CascadeType;\nimport jakarta.persistence.Column;\nimport jakarta.persistence.Entity;\nimport jakarta.persistence.FetchType;\nimport jakarta.persistence.JoinColumn;\nimport jakarta.persistence.ManyToOne;\nimport jakarta.persistence.OneToMany;\nimport jakarta.persistence.OrderBy;\nimport jakarta.persistence.Table;\n\n/**\n * Simple business object representing a pet.\n *\n * @author Ken Krebs\n * @author Juergen Hoeller\n * @author Sam Brannen\n * @author Wick Dynex\n */\n@Entity\n@Table(name = \"pets\")\npublic class Pet extends NamedEntity {\n\n\t@Column\n\t@DateTimeFormat(pattern = \"yyyy-MM-dd\")\n\tprivate LocalDate birthDate;\n\n\t@ManyToOne\n\t@JoinColumn(name = \"type_id\")\n\tprivate PetType type;\n\n\t@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)\n\t@JoinColumn(name = \"pet_id\")\n\t@OrderBy(\"date ASC\")\n\tprivate final Set<Visit> visits = new LinkedHashSet<>();\n\n\tpublic void setBirthDate(LocalDate birthDate) {\n\t\tthis.birthDate = birthDate;\n\t}\n\n\tpublic LocalDate getBirthDate() {\n\t\treturn this.birthDate;\n\t}\n\n\tpublic PetType getType() {\n\t\treturn this.type;\n\t}\n\n\tpublic void setType(PetType type) {\n\t\tthis.type = type;\n\t}\n\n\tpublic Collection<Visit> getVisits() {\n\t\treturn this.visits;\n\t}\n\n\tpublic void addVisit(Visit visit) {\n\t\tgetVisits().add(visit);\n\t}\n\n}\n",
+  "metadata": {
+   "dataset": "spring-petclinic",
+   "layer": "code"
+  }
+ }
+]

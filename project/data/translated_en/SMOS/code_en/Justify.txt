@@ -1,0 +1,51 @@
+package smos.bean;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class Justify implements Serializable {
+
+	/** Class that models a justification for an absence @author Nicola Pisanti @version 1.0 */
+	private static final long serialVersionUID = -4726381877687167661L;
+
+	private int idJustify;
+	private int idUser;
+	private Date dateJustify;
+	private int academicYear;
+	
+	/** Method that returns the id of the justification */
+	public int getIdJustify() {
+		return idJustify;
+	}
+	/** Method that sets the id of the justification */
+	public void setIdJustify(int pIdJustify) {
+		this.idJustify = pIdJustify;
+	}
+	/** Method that returns the id of the student related to the justification */
+	public int getIdUser() {
+		return idUser;
+	}
+	/** Method that sets the id of the student related to the justification */
+	public void setIdUser(int pIdUser) {
+		this.idUser = pIdUser;
+	}
+	/** Method that returns the date on which the absence was justified */
+	public Date getDateJustify() {
+		return dateJustify;
+	}
+	/** Method that sets the date on which the absence was justified */
+	public void setDateJustify(Date pDateJustify) {
+		this.dateJustify = pDateJustify;
+	}
+	/** Method that returns the academic year related to the justification */
+	public int getAcademicYear() {
+		return academicYear;
+	}
+	/** Method that sets the academic year related to the justification */
+	public void setAcademicYear(int pAcademicYear) {
+		this.academicYear = pAcademicYear;
+	}
+	
+	
+	
+}

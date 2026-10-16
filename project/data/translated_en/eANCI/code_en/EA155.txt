@@ -1,0 +1,129 @@
+package DB;
+import Bean.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/** The class DbComune (DbMunicipality) takes care of managing the connections to the db @author Antonio Leone @version 1.0 */
+
+public class DbComune {
+	
+private Connection connection;
+	
+	public DbComune() throws DbException
+	{
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: Connessione non riuscita");
+		}
+	}
+	
+	/** Method that inserts a municipality into the db */
+	
+	public boolean inserisciComune(Comune c)throws DbException
+	{
+		int ret=0;
+		PreparedStatement statement=null;
+		String nome=c.getNome();
+		String indirizzo=c.getIndirizzoId();
+		try
+		{
+			statement=connection.prepareStatement("INSERT INTO comune VALUES (?, ?)");
+			statement.setString(1, nome);
+			statement.setString(2, indirizzo);
+			ret= statement.executeUpdate();
+			return (ret==1);
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: inserimento comune non riuscito");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: inserimento comune non riuscito");
+			}
+		}
+	}
+	
+	/** Method that deletes a municipality from the db */
+	
+	public boolean eliminaComune(String nome) throws DbException
+	{	
+		PreparedStatement statement=null;
+		int ret=0;
+		try
+		{
+			statement=connection.prepareStatement("DELETE FROM comune WHERE nome = ?");
+			statement.setString(1,nome);
+			ret= statement.executeUpdate();
+			return (ret==1);
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: cancellazione comune non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: cancellazione comune non riuscita");
+			}
+		}
+	}
+	
+	/** Method that returns a municipality */
+	
+	public Comune getComuneByName(String nome)throws DbException
+	{
+		PreparedStatement statement=null;
+		ResultSet rs=null;
+		Comune ret=null;
+		try
+		{
+			statement=connection.prepareStatement("SELECT* FROM comune WHERE nome = ?");
+			statement.setString(1,nome);
+			rs= statement.executeQuery();
+			if(!rs.next())
+				return ret;
+			String nomeC=rs.getString("nome");
+			String indirizzo=rs.getString("indirizzoIp");
+			ret=new Comune(nomeC,indirizzo);
+			return ret;
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: ricerca del comune tramite il nome non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+				if(rs!=null)
+					rs.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: ricerca del comune tramite il nome non riuscita");
+			}
+		}
+	}
+}

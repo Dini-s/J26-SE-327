@@ -1,0 +1,21 @@
+package smos.exception;
+
+import java.lang.Exception;
+
+/** This class represents the exception raised when a user tries to perform an operation for which he or she does not have permission. */
+public class PermissionException extends Exception {
+	
+	private static final long serialVersionUID = 1881009447251825664L;
+
+	/** Raises the exception without an associated error message. */
+	public PermissionException() {
+		super("Permission Denied!");
+	}
+	
+	/** Raises the exception with an associated error message. */
+	public PermissionException(String pMessage) {
+		super(pMessage);
+	}
+	
+	
+}

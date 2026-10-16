@@ -1,0 +1,43 @@
+package smos.bean;
+
+import java.util.ArrayList;
+
+import smos.exception.InvalidValueException;
+
+/** Class used to model a report card. @author Luigi Colangelo  @version 1.0 */
+public class Report {
+	public ArrayList<Votes> pagella; 
+	
+	/** The constructor of the class */
+	public Report(){
+		pagella=new ArrayList<Votes>();
+	}
+	
+	/** Method that returns the grade from the index in the array given as input */
+	public Votes getVotes(int pInd) throws InvalidValueException{
+		if(pInd<0 || pInd>=pagella.size())throw new InvalidValueException("indice non valido!");
+		return (pagella.get(pInd));
+	}
+	
+	/** Method that adds a grade to the array. */
+	public void addVotes(Votes pVotes) throws InvalidValueException{
+		if(pVotes==null)throw new InvalidValueException("voto non valido!");
+		else pagella.add(pVotes);
+	}
+	
+	/** Method that removes a grade from the array */
+	public void remove(int pId) throws InvalidValueException{
+		if(pId<0 || pId>=pagella.size())throw new InvalidValueException("indice non valido!");
+		pagella.remove(pId);
+	}
+	
+	
+	public String ToString(){
+		String pag="";
+		for(Votes e: pagella){
+			pag=pag+"\n"+e.toString();
+		}
+	return pag;
+	}
+    
+}

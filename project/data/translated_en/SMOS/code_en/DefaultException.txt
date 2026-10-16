@@ -1,0 +1,21 @@
+package smos.exception;
+
+import java.lang.Exception;
+
+/** This class represents the default exception raised by the system. */
+public class DefaultException extends Exception {
+	
+	private static final long serialVersionUID = -8985617134055655964L;
+
+	/** Raises the exception without an associated error message. */
+	public DefaultException() {
+		super();
+	}
+	
+	/** Raises the exception with an associated error message. */
+	public DefaultException(String pMessage) {
+		super(pMessage);
+	}
+	
+	
+}

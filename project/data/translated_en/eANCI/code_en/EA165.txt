@@ -1,0 +1,112 @@
+package Bean;
+
+
+/** Class that manages the methods of the Richiesta (Request) object @author 	Christian Ronca @version 1.0 */
+public class Richiesta {
+	private int idRichiesta;
+	private String tipo;
+	private String data;
+	private int  richiedente;
+	private String stato;
+	private String documento;
+	
+	/** Default constructor */
+	public Richiesta() {
+		
+	}
+	
+	/** Parametric constructor */
+	public Richiesta(int idRichiesta, String tipo, String data, int richiedente, String stato, String documento) {
+		this.idRichiesta = idRichiesta;
+		this.tipo = tipo;
+		this.data = data;
+		this.richiedente = richiedente;
+		this.stato = stato;
+		this.documento = documento;
+	}
+	
+	/** Parametric constructor */
+	public Richiesta(String tipo, String data, int richiedente, String stato, String documento) {
+		this.tipo = tipo;
+		this.data = data;
+		this.richiedente = richiedente;
+		this.stato = stato;
+		this.documento = documento;
+	}
+	
+	/** Retrieves the id of the request */
+	public int getIdRichiesta() {
+		return idRichiesta;
+	}
+	
+	/** Sets a new id for the request */
+	public int setIdRichiesta(int str) {
+		idRichiesta = str;
+		return str;
+	}
+	
+	/** Retrieves the type of request made */
+	public String getTipo() {
+		return tipo;
+	}
+	
+	/** Sets the type of the request */
+	public String setTipo(String str) {
+		tipo = str;
+		return str;
+	}
+	
+	/** Retrieves the date on which the request was made */
+	public String getData() {
+		return data;
+	}
+	
+	/** Sets the date of the request */
+	public String setData(String str) {
+		data = str;
+		return str;
+	}
+	
+	/** Retrieves the id of the applicant who made the request */
+	public int getRichiedente() {
+		return richiedente;
+	}
+	
+	/** Sets the applicant of the request */
+	public int setRichiedente(int str) {
+		richiedente = str;
+		return str;
+	}
+	
+	/** Retrieves the status of the request */
+	public String getStato() {
+		return stato;
+	}
+	
+	/** Sets the status of the request */
+	public String setStato(String str) {
+		stato = str;
+		return str;
+	}
+	
+	/** Retrieves the link to the requested document */
+	public String getDocumento() {
+		return documento;
+	}
+	
+	/** Sets the link to the document */
+	public String setDocumento(String str) {
+		documento = str;
+		return str;
+	}
+	
+	/** Returns a boolean value in case the request has been accepted */
+	public boolean isAccettata() {
+		return stato.equalsIgnoreCase("accettata");
+	}
+	
+	/** Returns a boolean value in case the request has been rejected */
+	public boolean isRifiutata() {
+		return stato.equalsIgnoreCase("rifiutata");
+	}
+}

@@ -1,0 +1,78 @@
+package Bean;
+
+
+/** This class takes care of managing the family status (household) of the citizen @author Christian Ronca */
+public class NucleoFamiliare {
+	private int idNucleoFamiliare;
+	private int capoFamiglia;
+	private String nota;
+	private int nComponenti;
+	
+	/** Standard constructor */
+	public NucleoFamiliare() {
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param idNucleoFamiliare		contiene l'id del gruppo familiare
+	 * @param capofamiglia			contiene l'id del capofamiglia
+	 * @param nota					eventuale nota
+	 */
+	public NucleoFamiliare(int idNucleoFamiliare, int capofamiglia, String nota, int nc) {
+		this.idNucleoFamiliare = idNucleoFamiliare;
+		this.capoFamiglia = capofamiglia;
+		this.nota = nota;
+		this.nComponenti=nc;
+	}
+	
+	/** Returns the id of the family status */
+	public int getIdNucleoFamiliare() {
+		return idNucleoFamiliare;
+	}
+	
+	
+	/** Sets the id of the family status */
+	public int setIdNucleoFamiliare(int str) {
+		idNucleoFamiliare = str;
+		return idNucleoFamiliare;
+	}
+	
+	
+	/** Returns the id of the head of household */
+	public int getCapoFamiglia() {
+		return capoFamiglia;
+	}
+	
+	
+	/** Sets the id of the head of household */
+	public int setCapoFamiglia(int str) {
+		capoFamiglia = str;
+		return capoFamiglia;
+	}
+	
+	
+	/** Returns the notes issued */
+	public String getNote() {
+		return nota;
+	}
+	
+	
+	/** Inserts a note */
+	public String setNote(String str) {
+		nota = str;
+		return nota;
+	}
+	/** Returns the number of members of the family */
+	public int getNComponenti() {
+		return nComponenti;
+	}
+	
+	
+	/** Sets the number of members of the family unit */
+	public int setNComponenti(int str) {
+		nComponenti = str;
+		return nComponenti;
+	}
+}

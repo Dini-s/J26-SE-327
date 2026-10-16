@@ -1,0 +1,54 @@
+package smos.bean;
+
+import java.io.Serializable;
+
+/** Class used to model the main information of a user. */
+public class UserListItem implements Serializable{
+
+	private static final long serialVersionUID = 3436931564172045464L;
+
+	private String name;
+	private String eMail;
+	private int id;
+	
+	
+	
+	/**
+	 * @return Ritorna l'id dell'utente.
+	 */
+	public int getId() {
+		return this.id;
+	}
+	
+	/** Sets the id of the user. */
+	public void setId(int pId) {
+		this.id = pId;
+	}
+	
+	/**
+	 * @return Ritorna il nome dell'utente.
+	 */
+	public String getName() {
+		return this.name;
+	}
+	
+	/** Sets the name of the user. */
+	public void setName(String pName) {
+		this.name = pName;
+	}
+	
+
+	/**
+	 * @return the eMail
+	 */
+	public String getEMail() {
+		return this.eMail;
+	}
+
+	/**
+	 * @param mail the eMail to set
+	 */
+	public void setEMail(String pMail) {
+		this.eMail = pMail;
+	}
+}

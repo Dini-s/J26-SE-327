@@ -1,0 +1,182 @@
+package Servlet;
+import javax.servlet.http.*;
+import javax.servlet.*;
+import java.io.*;
+import java.util.ArrayList;
+import javax.swing.*;
+import DB.DbCartaIdentita;
+import DB.DbException;
+
+public class ServletModificaResidenza extends HttpServlet{
+
+	public void init(ServletConfig conf)throws ServletException{
+		super.init(conf);
+	}
+	/** method that searches for the files containing the change-of-residence requests made by citizens. This folder is saved on the server, where the employee can access it to find the information useful for filling in the form that must be recorded in the municipal archive */
+	public class CercaFiles {
+		// counter used to number the files obtained
+		private int count = 0;
+
+		private File to;
+		private String interno;
+
+		private File from;
+
+		public CercaFiles(){
+			// default constructor
+		}
+
+
+		public String main(int id_citizen,String date){
+			// in the case of the employee the path is c:\\RichiesteCambioResidenza (change-of-residence requests)
+			// directory in which to search for the files with certain extensions
+			from = new File("C:\\RichiesteCambioResidenza");
+
+			// name of the file to search for. For example, if I search for a file named pippo I will enter pippo
+			// if not specified it will search for all files with any name
+			// I save as a string the id of the citizen in order to compare it with
+			// the id of the citizen that arrives from the database to search for the
+			// change file associated with that citizen
+			String id_citt=String.valueOf(id_citizen);
+			String dataric=date;
+
+			String param="interno";
+			String param1="esterno";
+			// name of the file to search for
+			String nome = dataric+"_"+id_citt+"_".concat(param);
+			String nomefile2=dataric+"_"+id_citt+"_".concat(param1);
+
+
+			String[] splitter=nome.split("_");     
+
+			// extension of the file to search for. For example *.mp3 I will enter .mp3
+			// if not specified it will search for all files with any extension
+			String tipo = ".pdf";
+
+			
+			File newfile=esploraFile(from,nome,tipo);
+			if(newfile!=null){
+				interno="interno";
+			}else{
+				newfile=esploraFile(from,nomefile2,tipo);
+				if(newfile!=null){
+					// external file
+					interno="esterno";
+				}
+				else{
+					interno=null;// file not present
+				}
+			}
+			return interno;
+		}
+		/** from is the folder in which to search for the file named 'name' and of type '.pdf' */
+
+		protected File esploraFile(File from, String nome, String tipo) {
+			// we use a filter for the search
+			File[] files = from.listFiles(new Filter(nome, tipo));
+			// we sort the files in the list by date
+			if(files.length>1||files.length==0){
+				return null;
+			}else{
+				return files[0];
+
+			}
+
+		}
+
+		class Filter implements FilenameFilter {
+			// extension of the file
+			private String tipo, nome;
+
+			public Filter(String nome, String tipo) {
+				this.nome = nome;
+				this.tipo = tipo;
+			}
+
+			// we accept all the files with extension s and the directories that are not
+			// hidden
+			public boolean accept(File dir, String file) {
+				File f = new File(dir, file);
+
+				// check on the type.
+				// For example if I search for "pippo.txt", indexOf(.txt) is equal to 6 and is equal
+				// to 10 ("pippo.txt".length()) - 4 (".txt".length)
+
+				boolean flag1=true;
+				if(tipo!=null && tipo!="\\")
+					flag1=(file.indexOf(tipo) == file.length()-tipo.length());
+
+				// check on the name
+				// flag2 is true if the file contains the searched word
+
+				boolean flag2=true;
+				if(nome!=null && nome!="\\")
+					flag2=file.toUpperCase().indexOf(nome.toUpperCase())!=-1;
+				// I return the files that pass the check on type and name, and the directories
+
+				return ( ( flag1 && flag2 ) || f.isDirectory()) && !f.isHidden();
+			}
+		}
+
+
+
+
+		public void doPost(HttpServletRequest request,HttpServletResponse response)
+		throws ServletException,IOException{
+
+			// first of all I retrieve the working session of the citizen
+			HttpSession session=request.getSession();
+			int idCittadino;
+			String idtrovato;
+			/** if the session was created correctly when the employee logged in, the method that checks whether there are pdf files concerning the internal or external change of residence requested by citizens is executed */	 
+			if(session!=null){
+				ServletContext sc=getServletContext();
+				RequestDispatcher rd=null;
+				String ris;
+				try{
+					/** (1) what the servlet must do: it must take from the form the id of the citizen whose identity card code was entered and pass it to the main method to search for the corresponding file */
+					/** (2) it takes the identity card code and the date of the request with request.getParameter, saving them in the appropriate variables; then the method that returns the id of a citizen is called after passing it the name, surname and tax code of the citizen. */
+					String cod_carta=request.getParameter("cod_carta");
+					String data=request.getParameter("year").concat(request.getParameter("month").concat(request.getParameter("day")));
+					/** once the parameters are saved, I pass them to the method that returns the id of this particular citizen who sent the change-of-residence request and whose file is to be searched */
+					DbCartaIdentita dbcarta=new DbCartaIdentita();
+					idCittadino=dbcarta.ricercaCartaIdentitaByNumero(cod_carta).id();
+					String risp;
+					if(idCittadino==-1){
+						risp="Non è possibile recuperare l'id del cittadino all'interno del database";
+						response.sendRedirect("http://localhost:8080/E_ANCI/index.jsp?error=e");// the links need to be modified
+						request.setAttribute("risp", risp);
+					}
+					else{
+						/** once the id of the citizen is known I pass it to the method that searches for the file corresponding to him or her */
+						CercaFiles search=new CercaFiles();
+						idtrovato=search.main(idCittadino,data);
+						/** now the variable idtrovato (id found) contains the outcome of the search for the file of a given citizen who sent the change-of-residence request. This value must be checked; if it is true, the form to fill in is presented to the employee to keep track of the request after the necessary checks have been made */
+						if(idtrovato==null){
+							ris="File della richiesta di cambio di residenza non trovato";
+							request.setAttribute("ris", ris);
+							rd=sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");// the links need to be modified
+						}
+						else
+							if(idtrovato.equals("interno")){
+								rd=sc.getRequestDispatcher("/workers/index.jsp?func=pra&page=modulone");// the links need to be modified
+							}
+							else if(idtrovato.equals("esterno")){
+								rd=sc.getRequestDispatcher("/workers/index.jsp?func=pra&page=modulone");// the links need to be modified
+							}
+						rd.forward(request, response);
+					}
+				}catch(DbException e){
+					ris=e.getMessage();
+					request.setAttribute("ris", ris);
+					rd=sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");// the links need to be modified
+					rd.forward(request,response);
+				}
+
+			}else{
+				String url="/workers/Accesso.jsp";// the links need to be modified
+				response.sendRedirect(url);
+			}
+		}
+	}
+}

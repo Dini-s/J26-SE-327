@@ -1,0 +1,120 @@
+package smos.bean;
+
+import java.io.Serializable;
+
+import smos.exception.InvalidValueException;
+
+/** Class used to model a grade. @author Luigi Colangelo  @version 1.0 */
+public class Votes implements Serializable {
+
+	/** Class used to model a grade */
+	private static final long serialVersionUID = 3014235634635608576L;
+    private int id_votes;
+    private int id_user;
+    private int teaching;
+    private int written;
+    private int oral;
+    private int laboratory;
+    private int accademicYear;
+    private int turn;
+    
+    /** The constructor of the class */
+    public Votes(){
+    	id_votes=0;
+    }
+    
+    /** Method that returns the id of the grade. */
+	public int getId_votes() {
+		return id_votes;
+	}
+	
+	/** Method that sets the id of the grade */
+	public void setId_votes(int pId_votes) {
+		this.id_votes = pId_votes;
+	}
+	
+	/** Method that returns the id of the user linked to the grade */
+	public int getId_user() {
+		return id_user;
+	}
+	
+	/** Method that sets the id of the user related to the grade */
+	public void setId_user(int pId_user) {
+		this.id_user = pId_user;
+	}
+	
+	/** method that returns the code of the teaching of the grade */
+	public int getTeaching() {
+		return teaching;
+	}
+	
+	/** Method that sets the code of the teaching related to the grade */
+	public void setTeaching(int pTeaching) {
+		this.teaching = pTeaching;
+	}
+	
+	/** Method that returns the grade of the written test */
+	public int getWritten() {
+		return written;
+	}
+	
+	/** Method that sets the grade of the written test, checking that it is between 0 and 10 */
+	public void setWritten(int pWritten) throws InvalidValueException {
+		if (pWritten < 0 || pWritten > 10)
+			throw new InvalidValueException();
+		else
+		this.written = pWritten;
+	}
+	
+	/** method that returns the grade of the oral test */
+	public int getOral() {
+		return oral;
+	}
+	
+	/** Method that sets the grade of the oral test, checking that it is between 0 and 10 */
+	public void setOral(int pOral) throws InvalidValueException{
+		if (pOral < 0 || pOral > 10)
+			throw new InvalidValueException();
+		else
+		this.oral = pOral;
+	}
+	
+	/** Method that returns the grade of the laboratory */
+	public int getLaboratory() {
+		return laboratory;
+	}
+	
+	/** method that sets the grade of the laboratory, checking that it is between 0 and 10 */
+	public void setLaboratory(int pLaboratory)throws InvalidValueException {
+		if (pLaboratory < 0 || pLaboratory > 10)
+			throw new InvalidValueException();
+		else
+		this.laboratory = pLaboratory;
+	}
+	
+	/** Method that returns the academic year of the grade */
+	public int getAccademicYear() {
+		return accademicYear;
+	}
+	
+	/** method that sets the academic year of the grade */
+	public void setAccademicYear(int pAccademicYear) {
+		this.accademicYear = pAccademicYear;
+	}
+	
+	/** Method that returns the term (quarter) of the grade */
+	public int getTurn() {
+		return turn;
+	}
+	
+	/** Method that sets the term (quarter) of the grade */
+	public void setTurn(int pTurn) {
+		this.turn = pTurn;
+	}
+	
+	public String toString(){
+		return("id voto= "+id_votes+" id user= "+id_user+" id insegnamento= "+teaching+" scritto= "+written+" orale= "+oral+" laboratorio= "+laboratory+" anno accademico= "+accademicYear+" quadrimestre= "+turn);
+	}
+    
+ 
+}

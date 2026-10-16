@@ -1,0 +1,43 @@
+package Manager;
+
+import java.util.Collection;
+
+import Bean.Impiegato;
+import DB.DbException;
+import DB.DbImpiegato;
+/** The class ImpiegatoManager interacts with the database management classes. The class ImpiegatoManager has no dependencies @author Federico Cinque */
+public class ImpiegatoManager {
+	private DbImpiegato dbImpiegato;
+	/** Default constructor of the class ImpiegatoManager */
+	public ImpiegatoManager(){
+		dbImpiegato = new DbImpiegato();
+	}
+	/** Method that modifies an employee by invoking the corresponding method of the db class */
+	public boolean modificaImpiegato(String matricola, Impiegato newImpiegato)throws DbException{
+		return dbImpiegato.modificaImpiegato(matricola, newImpiegato);
+	}
+	/** Method that returns an employee by invoking the corresponding method of the db class */
+	public Impiegato ricercaImpiegatoByMatricola(String matricola) throws DbException{
+		return dbImpiegato.getImpiegatoByMatricola(matricola);
+	}
+	/** Method that inserts an employee into the db by invoking the corresponding method of the db class */
+	public boolean inserisciImpiegato(Impiegato newImpiegato)throws DbException{
+		return dbImpiegato.inserisciImpiegato(newImpiegato);
+	}
+	/** Method that deletes an employee from the db by invoking the corresponding method of the db class */
+	public boolean eliminaImpiegato(String matricola)throws DbException{
+		return dbImpiegato.eliminaImpiegato(matricola);
+	}
+	/** Method that returns an employee by invoking the corresponding method of the db class */
+	public Impiegato getImpiegatoByLogin(String login) throws DbException{
+		return dbImpiegato.getImpiegatoByLogin(login);
+	}
+	/** Method that returns a set of employees by invoking the corresponding method of the db class */
+	public Collection<Impiegato> getImpiegatoByName(String nomeImp,String cognImp) throws DbException{
+		return dbImpiegato.getImpiegatoByName(nomeImp, cognImp);
+	}
+	/** Method that returns all the stored employees by invoking the corresponding method of the db class */
+	public Collection<Impiegato> getImpiegati() throws DbException{
+		return dbImpiegato.getImpiegati();
+	}
+}

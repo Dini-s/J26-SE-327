@@ -1,0 +1,54 @@
+package Bean;
+
+/** The class Comune (Municipality) allows communication with the other municipalities @author Antonio Leone @version 1.0 */
+public class Comune {
+	
+	private String nome;
+	private String indirizzoIp;
+	
+	/** Default constructor */
+	
+	public Comune()
+	{
+		
+	}
+	
+	/** Parametric constructor */
+	
+	public Comune(String n, String i)
+	{
+		this.nome=n;
+		this.indirizzoIp=i;
+	}
+	
+	/** Retrieves the name of the municipality */
+	
+	public String getNome()
+	{
+		return this.nome;
+	}
+	
+	/** Sets the name of the municipality */
+	
+	public String setNome(String n)
+	{
+		this.nome=n;
+		return n;
+	}
+	
+	/** Retrieves the ip address of the municipality */
+	
+	public String getIndirizzoId()
+	{
+		return this.indirizzoIp;
+	}
+	
+	/** Sets the ip address of the municipality */
+	
+	public String setIndirizzoId(String i)
+	{
+		this.indirizzoIp=i;
+		return i;
+	}
+	
+}

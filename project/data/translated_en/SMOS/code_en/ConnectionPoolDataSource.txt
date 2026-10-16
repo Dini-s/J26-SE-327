@@ -1,0 +1,305 @@
+/*
+ * ConnectionPoolDataSource
+ *
+ */
+
+package smos.storage.connectionManagement;
+
+import smos.storage.connectionManagement.exception.NotImplementedYetException;
+
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Properties;
+import java.util.Vector;
+import javax.sql.DataSource;
+
+/** Implementation of the connection pool through the implementation of the interface java.sql.DataSource. The pool periodically checks the active connections and those that are pooled, i.e. released but still usable (kept in memory). The release time of the active connections and of the pooled ones is represented by two parameters inside the class, connectionPoolCloseTimeout and inactiveMaxTimeout; these values, like all the others concerning the pool, have a default value that can be configured through the properties file connection.properties */
+
+public class ConnectionPoolDataSource implements DataSource {
+
+    /** Thread inside the class ConnectionPoolDataSource that, every connectionPoolCloseTimeout milliseconds, releases the pooled connections. */
+    private class ConnectionCloser extends Thread {
+
+        private long connectionActionTimestamp = 0;
+
+        private int connectionPoolCloseTimeout = 300000;
+
+        private long timeStamp = 0;
+
+        /** Constructor that sets the release time of the pooled connections @author Di Giorgio Domenico, Cris Malinconico */
+		private ConnectionCloser(int pTime) {
+            setDaemon(true);
+            setName("ConnectionPoolCloser");
+            if (pTime > 0)
+            	this.connectionPoolCloseTimeout = pTime;
+        }
+
+        /** Every time a connection generates an event with an invocation of getConnection() or release(), the timestamp is set to the current time value through this method. */
+		public void connectionEvent() {
+			this.connectionActionTimestamp = System.currentTimeMillis();
+        }
+
+        /** Checks every connectionPoolCloseTimeout milliseconds whether the pooled connections can be closed, freeing memory in that case. */
+		public void run() {
+            boolean working = true;
+            while (working) {
+                try {
+                	this.timeStamp = System.currentTimeMillis();
+                    Thread.sleep(this.connectionPoolCloseTimeout);
+                    if (this.connectionActionTimestamp < this.timeStamp) {
+                        closeAllConnections(ConnectionPoolDataSource.this.pool);
+                    }
+                } catch (InterruptedException e) {
+                    working = false;
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    working = false;
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private List<SMOSConnection> active = new Vector<SMOSConnection>();
+
+    private Properties config = new Properties();
+
+    private ConnectionCloser connectionCloser;
+
+    private Driver driver;
+
+    private String fullConnectionString;
+
+    private long inactiveMaxTimeout = 20000;
+
+    private int maxPoolSize;
+
+    private List<Connection> pool = new Vector<Connection>();
+
+    /** Creates a new instance of the connection pool. */
+
+    
+	public ConnectionPoolDataSource(String pJdbcDriverName,
+            String pFullConnectionString, String pUser, String pPassword,
+            int pMaxPoolSize, int pPoolTime) throws ClassNotFoundException,
+            SQLException {
+
+        if (pMaxPoolSize < 1) {
+            throw new IllegalArgumentException(
+                    "maxPoolSize deve essere >0 ma ï¿½: " + pMaxPoolSize);
+        }
+        if (pFullConnectionString == null) {
+            throw new IllegalArgumentException("fullConnectionString "
+                    + "ha valore Null");
+        }
+        if (pUser == null) {
+            throw new IllegalArgumentException("il nome utente ha valore Null");
+        }
+        this.maxPoolSize = pMaxPoolSize;
+        this.fullConnectionString = pFullConnectionString;
+        this.config.put("user", pUser);
+        if (pPassword != null) {
+            this.config.put("password", pPassword);
+        }
+        Class.forName(pJdbcDriverName);
+        this.driver = DriverManager.getDriver(pFullConnectionString);
+        this.connectionCloser = new ConnectionCloser(pPoolTime);
+        this.connectionCloser.start();
+    }
+
+    /** Returns the size of the list of active connections. */
+	public int activeSize() {
+        return this.active.size();
+    }
+
+    /** Empties the connection pool of the active connections that have not performed operations for inactiveMaxTimeout milliseconds. */
+    protected void clearActive() {
+        long temp = 0;
+        long TIME = System.currentTimeMillis();
+        SMOSConnection adc = null;
+
+        for (int count = 0; count < this.active.size(); count++) {
+            adc = (SMOSConnection) this.active.get(count);
+            temp = TIME - adc.getLastTime();
+            if (temp >= this.inactiveMaxTimeout) {
+                this.release(adc.getConnection());
+            }
+        }
+    }
+
+    /** Closes all the connections of the pool, both the active ones and the pooled ones. @author Di Giorgio Domenico, Cris Malinconico */
+    public synchronized void closeAllConnections() throws SQLException {
+        closeAllConnections(this.pool);
+        closeAllConnections(this.active);
+    }
+
+    /** Closes all the connections indicated in the list connection. @author Di Giorgio Domenico, Cris Malinconico */
+    private synchronized void closeAllConnections(List pConnections)
+            throws SQLException {
+
+        while (pConnections.size() > 0) {
+            ConnectionWrapper conn = (ConnectionWrapper) pConnections.remove(0);
+            conn.closeWrappedConnection();
+        }
+    }
+
+    /** Closes all the connections of the pool that are in the list pool. */
+    public synchronized void closeAllPooledConnections() throws SQLException {
+        closeAllConnections(this.pool);
+    }
+
+    /** Method used by getConnection() to create a new connection if there are none in the pool list. */
+    private synchronized Connection createNewConnection() {
+        Connection rawConn = null;
+        try {
+            rawConn = this.driver.connect(this.fullConnectionString, this.config);
+            Connection conn = new ConnectionWrapper(rawConn, this);
+            SMOSConnection ac = new SMOSConnection();
+            ac.setConnection(conn);
+            ac.setLastTime(System.currentTimeMillis());
+            this.active.add(ac);
+            return conn;
+        } catch (SQLException e) {
+            System.out.println("Creazione della connessione fallita "
+                    + "in ConnectionPoolDataSource:" + e);
+            return null;
+        }
+    }
+
+    /** Returns a connection if the pool is not full; the check is made first in the list of pooled connections to avoid useless creations, otherwise a new connection will be created. */
+    public synchronized Connection getConnection() throws SQLException {
+
+        Connection connection = getPooledConnection(0);
+
+        if (connection == null) {
+            if (this.active.size() >= this.maxPoolSize) {
+                throw new SQLException("Connection pool limit of "
+                        + this.maxPoolSize + " exceeded");
+            } else {
+                connection = createNewConnection();
+            }
+        }
+        this.connectionCloser.connectionEvent();
+        //System.out.println("GET CONNECTION: " + active.size() + "/" + pool.size());
+        return connection;
+    }
+
+    /** Method not implemented */
+
+    public Connection getConnection(String pArg1, String pArg2)
+            throws SQLException {
+        throw new NotImplementedYetException();
+    }
+
+    /** Method not implemented */
+
+    public int getLoginTimeout() throws SQLException {
+        throw new NotImplementedYetException();
+    }
+
+    /** Method not implemented */
+
+    public PrintWriter getLogWriter() throws SQLException {
+        throw new NotImplementedYetException();
+    }
+
+    /** Returns the maximum number of active connections */
+
+    public int getMaxPoolSize() {
+        return this.maxPoolSize;
+    }
+
+    /** Method used by getConnection() to establish whether in the list of pooled connections there is one that can be reused. */
+    private synchronized Connection getPooledConnection(int pPoolIndex) {
+        SMOSConnection ac = new SMOSConnection();
+        Connection connection = null;
+        if (this.pool.size() > 0) {
+            connection = (Connection) this.pool.remove(pPoolIndex);
+            ac.setConnection(connection);
+            ac.setLastTime(System.currentTimeMillis());
+            this.active.add(ac);
+        }
+        return ac.getConnection();
+    }
+
+    /** Returns the size of the list of pooled connections */
+    public int poolSize() {
+        return this.pool.size();
+    }
+
+    /** Releases a connection, removing it from the active ones and inserting it into the pooled ones so that it can be reused later. */
+    public synchronized void release(Connection pConnection) {
+        boolean exists = false;
+        int activeIndex = 0;
+
+        if (pConnection != null) {
+            SMOSConnection adc = null;
+            while ((activeIndex < this.active.size()) && (!exists)) {
+                adc = (SMOSConnection) this.active.get(activeIndex);
+                if (adc.equals(pConnection)) {
+                	this.active.remove(adc);
+                	this.pool.add(adc.getConnection());
+                    exists = true;
+                }
+                activeIndex++;
+            }
+            this.connectionCloser.connectionEvent();
+            //System.out.println("RELEASE CONNECTION: " + active.size() + "/" + pool.size());
+        }
+    }
+
+    /** Sets the lifetime of the active connections in milliseconds. */
+
+    public void setActivedTimeout(long pTimeOut) {
+        if (pTimeOut > 0) {
+        	this.inactiveMaxTimeout = pTimeOut;
+        }
+    }
+
+    /** Resets the lifetime of the connection after the execution of an operation. From this moment the connection can stay active without performing any operation for another inactiveMaxTimeout milliseconds. */
+
+    void setLastTime(Connection pConnection) {
+        boolean exists = false;
+        int count = 0;
+        SMOSConnection adc = null;
+
+        while ((count < this.active.size()) && (!exists)) {
+            adc = (SMOSConnection) this.active.get(count);
+            count++;
+            if (adc.equals(pConnection)) {
+                adc.setLastTime(System.currentTimeMillis());
+                exists = true;
+            }
+        }
+    }
+
+    /** Method not implemented */
+    public void setLoginTimeout(int pArg0) throws SQLException {
+        throw new NotImplementedYetException();
+    }
+
+    /** Method not implemented */
+    public void setLogWriter(PrintWriter pArg0) throws SQLException {
+        throw new NotImplementedYetException();
+    }
+
+    /** Converts an object of the class ConnectionPoolDataSource into a String */
+
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+
+        buf.append("[");
+        buf.append("maxPoolSize=").append(this.maxPoolSize);
+        buf.append(", activeSize=").append(activeSize());
+        buf.append(", poolSize=").append(poolSize());
+        buf.append(", fullConnectionString=").append(this.fullConnectionString);
+        buf.append("]");
+        return (buf.toString());
+    }
+
+	
+}

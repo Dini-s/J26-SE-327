@@ -1,0 +1,56 @@
+package Manager;
+
+import java.util.Collection;
+
+import Bean.Cittadino;
+import DB.DbCittadino;
+import DB.DbException;
+/** The class CittadinoManager (CitizenManager) interacts with the database management classes. The class CittadinoManager has no dependencies @author Federico Cinque */
+public class CittadinoManager {
+
+	private DbCittadino dbCittadino;
+	/** Default constructor of the class CIManager */
+	public CittadinoManager(){
+		dbCittadino = new DbCittadino();
+	}
+	/** Method that allows searching for a citizen by his or her login by invoking the corresponding method of the db class */
+	public Cittadino getCittadinoByLogin(String login) throws DbException{
+		return dbCittadino.getCittadinoByLogin(login);
+	}
+	/** Method that allows modifying the login of a specific citizen by invoking the corresponding method of the db class */
+	public boolean modificaLogin(int idCitt, String newLogin)throws DbException{
+		return dbCittadino.modificaLogin(idCitt,newLogin);
+	}
+	/** Method that allows modifying the e-mail address of a specific citizen by invoking the corresponding method of the db class */
+	public boolean modificaEmail(int idCittadino, String email) throws DbException{
+		return dbCittadino.modificaEmailCittadino(idCittadino, email);
+	}
+	/** Method that allows inserting a new citizen by invoking the corresponding method of the db class */
+	public int inserisciCittadino(Cittadino cittadino)throws DbException{
+		return dbCittadino.registraCittadino(cittadino);
+	}
+	/** Method that allows searching for a set of citizens by their first and last name by invoking the corresponding method of the db class */
+	public Collection<Cittadino> ricercaCittadino(String nome, String cognome)throws DbException{
+		return dbCittadino.getCittadinoByName(nome,cognome);
+	}
+	/** Method that allows deleting a citizen by invoking the corresponding method of the db class */
+	public boolean cancellaCittadino(int idCitt)throws DbException{
+		return dbCittadino.cancellaCittadino(idCitt);
+	}
+	/** Method that allows searching for a citizen by his or her id by invoking the corresponding method of the db class */
+	public Cittadino getCittadinoById(int idCitt)throws DbException{
+		return dbCittadino.getCittadinoByCodice(idCitt);
+	}
+	/** Method that modifies the family unit (household) of the citizen given his or her id by invoking the corresponding method of the db class */
+	public boolean modificaNucleoFamiliare(int idCitt, int newid)throws DbException{
+		return dbCittadino.modificaNucleoFamiliareCittadino(idCitt, newid);
+	}
+	/** Method that allows modifying the first name of a specific citizen by invoking the corresponding method of the db class */
+	public boolean modificaNome(int idCitt, String nome)throws DbException{
+		return dbCittadino.modificaNomeCittadino(idCitt, nome);
+	}
+	/** Method that allows modifying the last name of a specific citizen by invoking the corresponding method of the db class */
+	public boolean modificaCognome(int idCitt, String cognome)throws DbException{
+		return dbCittadino.modificaCognomeCittadino(idCitt, cognome);
+	}
+}

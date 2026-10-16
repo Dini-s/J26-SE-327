@@ -1,0 +1,871 @@
+[
+ {
+  "id": "RQ100",
+  "type": "requirement",
+  "text": "Requirements shall be managed in a 3rd party requirements management tool such as DOORS.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ101",
+  "type": "requirement",
+  "text": "Non-requirement artifacts shall be managed in 3rd party tools such as Rational Rose or Clear case",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ102",
+  "type": "requirement",
+  "text": "Only registered subscribers shall be allowed to establish traces.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ103",
+  "type": "requirement",
+  "text": "A user shall register as a subscriber.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ104",
+  "type": "requirement",
+  "text": "On registration a subscriber shall register itself under the control of a subscriber manager",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ105",
+  "type": "requirement",
+  "text": "The user shall establish traces between requirements and other types of artifacts by establishing a subscription from an artifact to the relevant requirement",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ106",
+  "type": "requirement",
+  "text": "Each artifact shall be placed under the control of a subscriber manager",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ107",
+  "type": "requirement",
+  "text": "The user shall be able to delete subscriptions.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ108",
+  "type": "requirement",
+  "text": "A subscriber manager shall register itself with the eventserver so that it may receive relevant event messages.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ109",
+  "type": "requirement",
+  "text": "If the subscriber manager is online; the push model shall be used to send it event notifications in real time.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ110",
+  "type": "requirement",
+  "text": "Whenever the subscriber manager first comes on line; it shall implement the pull model to retrieve outstanding event messages from the eventserver.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ111",
+  "type": "requirement",
+  "text": "A subscriber manager shall receive event notifications on behalf of the artifacts that it manages.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ112",
+  "type": "requirement",
+  "text": "A subscriber manager shall manage traces for one or more artifacts.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ113",
+  "type": "requirement",
+  "text": "On receipt of an event message; the subscriber manager shall differentiate between speculative and evolutionary events.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ114",
+  "type": "requirement",
+  "text": "The subscriber manager shall store information for evolutionary events in an eventlog.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ115",
+  "type": "requirement",
+  "text": "The user shall be able to construct speculative queries using a GUI.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ116",
+  "type": "requirement",
+  "text": "The subscriber manager shall immediately process speculative events.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ117",
+  "type": "requirement",
+  "text": "The subscriber manager shall re execute the model using the speculative values.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ118",
+  "type": "requirement",
+  "text": "The subscriber manager shall report results indicating whether the speculative change negatively impacts other requirements and constraints.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ119",
+  "type": "requirement",
+  "text": "The subscriber manager shall restore the executable model to its prior state.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ120",
+  "type": "requirement",
+  "text": "The prototype system shall utilize a driver to trigger events.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ121",
+  "type": "requirement",
+  "text": "Event types shall include adding new requirements.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ122",
+  "type": "requirement",
+  "text": "Event types shall include decomposing one requirement into two or more requirements.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ123",
+  "type": "requirement",
+  "text": "Event types shall include refining one requirement by adding an additional requirement to the existing one.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ124",
+  "type": "requirement",
+  "text": "Event types shall include modifying a requirement.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ125",
+  "type": "requirement",
+  "text": "Event types shall include deleting a requirement.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ126",
+  "type": "requirement",
+  "text": "Event types shall include merging requirements.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ127",
+  "type": "requirement",
+  "text": "The eventserver shall receive event messages when a requirement changes.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ128",
+  "type": "requirement",
+  "text": "On receipt of an event message the eventserver shall record the event in an eventlog.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ129",
+  "type": "requirement",
+  "text": "On receipt of an event; the eventserver shall identify all relevant subscribers for the event.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ130",
+  "type": "requirement",
+  "text": "The eventserver shall differentiate between evolutionary and speculative events.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ131",
+  "type": "requirement",
+  "text": "When an evolutionary event occurs; the eventserver shall notify subscribers of the event.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ132",
+  "type": "requirement",
+  "text": "For speculative events; the eventserver shall construct a composite event message.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ133",
+  "type": "requirement",
+  "text": "The eventserver shall identify all related requirements and constraints for each impacted executable model.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ134",
+  "type": "requirement",
+  "text": "The eventserver shall retrieve quantitative values related to these additional requirements and constraints through querying the requirements management tool.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ135",
+  "type": "requirement",
+  "text": "The eventserver shall create a composite speculative message which includes the speculative event plus all related requirements and constraint values for each impacted model.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ136",
+  "type": "requirement",
+  "text": "The eventserver shall send the customized message to each impacted executable model.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ137",
+  "type": "requirement",
+  "text": "The user shall view all evolutionary events received for a specific artifact in the order in which they were received.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ138",
+  "type": "requirement",
+  "text": "The user shall update related artifacts according to the information contained in the event messages.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ139",
+  "type": "requirement",
+  "text": "The user shall eliminate unnecessary traces that were temporarily constructed by the eventserver during initial event processing.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "RQ140",
+  "type": "requirement",
+  "text": "The notification processing system shall automatically eliminate any events that are not longer valid as a result of the user eliminating temporary traces.",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "requirement"
+  }
+ },
+ {
+  "id": "46.java",
+  "type": "code",
+  "text": "private JPanel center  Panel = null  ;\r\n\r\n private JLabel des  Label = null  ;\r\n private JLabel change  Label = null  ;\r\n private JLabel from  Label = null  ;\r\n private JLabel to  Label = null  ;\r\n private JText  Area des  Text = null  ;\r\n private JText  Field c Speculate Gui public Speculate  Gui  ()\r\n {\r\n\r\n  super  (\"  Speculate GUI  \");\r\n\r\n  container = get  Content  Pane  ();\r\n\r\n  set  Size  (  800  , 600  );\r\n\r\n  this  . event  Server  IP =\r\n   JOption  Pane\r\n    . show  Input  Dialog  (\"  Please Enter the IP Address of eventserver  Submit Listener public void action  Performed  (  Action  Event e  ) {\r\n\r\n   if ( e  . get  Source  () == submit  Button  ) {\r\n\r\n    send  Query  TO Server  ();\r\n\r\n   }\r\n\r\n   if ( e  . get  Source  () == fetch  Button  ) {\r\n\r\n\r\n    System  . out  . println  (\"  Fetch Button Pressed void send  Query  TO Server  ()\r\n {\r\n\r\n  String ip = this  . event  Server  IP  ;\r\n  int Port  No = 1701  ;\r\n\r\n  Socket socket  ;\r\n  try {\r\n\r\n   socket = new Socket  ( ip  , Port  No  );\r\n\r\n   Output  Stream os = socket  . get  Output  Stream  ();\r\n   Output  Stream  public void pull  Value  From  DOORS  ()\r\n {\r\n\r\n  String server  IP = new String  ( doors server  IP  ); //\"  140  .  192  .  37  .  150  \";\r\n\r\n  String  [] attribute = { \"  Value  \", \"  Attribute  \" };\r\n\r\n  String project  Name = this  . proj  Name  Text  . get public static void main  (  String  [] args  )\r\n {\r\n  new Speculate  Gui  ();\r\n }",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "47.java",
+  "type": "code",
+  "text": "47\t\"Impact Report private String server  IP = \"\" local host  \"\";\n private JPanel center  Panel = null  ;\n\n private JPanel driver  Panel = new JPanel  ();\n\n private JPanel driver  Inner  Panel = null  ;\n\n private JPanel impact  Panel = null  ;\n private JPanel impact  Inner  P public Impact  Report  ()\n {\n\n  super  (\"\"  Search Result GUI  \"\");\n\n  container = get  Content  Pane  ();\n\n  set  Size  (  800  , 250  );\n\n  panel = new JPanel  ();\n\n  panel  . set  Layout  ( null  );\n\n  this  . server  IP =\n   JOption  Pane\n    . show  In public static void main  (  String [] args  )\n {\n\n  Impact  Report im = new Impact  Report  ();\n\n\n\n } public Vector search  Date  ()\n {\n\n  date  Vector = new Vector  ();\n  date  Vector  . add  (\"\"  Select Query Date  \"\");\n  Socket server  ;\n  String line = new String  ();\n\n\n  try\n  {\n\n   server = new Socket  ( server  IP  ,  1701  );\n   if ( server  . is  C public void search  Query  ID  (  String date  )\n {\n\n  pair  Vector = new Vector  ();\n\n  query  String  Combo  . remove  All  Items  ();\n\n  query  String  Combo  . add  Item  (\"\"  Select Query String  \"\");\n\n  Socket server  ;\n  String line = new String  (); Select Actions public void action  Performed  (  Action  Event e  )\n  {\n\n   if ( date  Combo == (  JCombo  Box  ) e  . get  Source  ())\n   {\n    date = (  String  ) date  Combo  . get  Selected  Item  ();\n    search  Query  ID  ( date  );\n   }\n  } Button Actions  public void action  Performed  (  Action  Event e  ) {\n\n   if ( submit  Button == e  . get  Source  ()) {\n\n    for ( int i = 0  ; i < pair  Vector  . size  (); i  ++) {\n\n     Pair pair = (  Pair  ) pair  Vector  . get  ( i  );\n\n     if ( pair\n      . get public void impact  Report  (  String id  )\n {\n\n  // super  (\"\"  Impact Report  \"\");\n\n  container = get  Content  Pane  ();\n\n  set  Size  (  1020  , 740  );\n\n  this  . query  ID = id  ;\n\n  System  . out  . println  (\"\"  Impact Report Constructor ..... ID \"\" + public Vector get  Constraint  From  Data  Base  ()\n {\n\n  Vector v = new Vector  ();\n\n  Socket server  ;\n  String line = new String  ();\n\n\n  try\n  {\n   server = new Socket  ( server  IP  ,  1701  );\n\n   if ( server  . is  Connected  () )\n   {\n    Buffered  public Vector get  Driver  From  Data  Base  ()\n {\n\n  Vector v = new Vector  ();\n\n     Socket server  ;\n  String line = new String  ();\n\n\n  try\n  {\n   server = new Socket  ( server  IP  ,  1701  );\n\n   if ( server  . is  Connected  () )\n   {\n    Buffered\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "48.java",
+  "type": "code",
+  "text": "48\t\"Constraint Inner Panel  private String server  IP = \"\" local host  \"\";\n private JLabel performance  Model  Label = null  ;\n private JLabel project  Name  Label = null  ;\n private JLabel module  Path  Label = null  ;\n private JLabel requirement  Id  Label = null  ;\n private JLabel public Constraint  Inner  Panel  (\n  String performance  Model  Name  ,\n  String project  Name  ,\n  String module  Path  ,\n  String requirement  Id  ,\n  String description  ,\n  String logic  ,\n  String units  ,\n  String value  ,\n  String impacted  Value    private void set goal  Label  Values  (\n  String attribute  ,\n  String logic  ,\n  String value  ,\n  String units  )\n {\n  goal  Label  . set  Text  (\n   \"\"  Goal : \"\" + attribute + \"\"  \"\" + logic + \"\"  \"\" + value + \"\" \"\" + units  );\n\n }  public Vector get  Values  From  Data  Base  ()\n {\n\n  Vector v = new Vector  ();\n\n  Socket server  ;\n  String line = new String  ();\n\n\n  try\n  {\n   server = new Socket  ( server  IP  ,  1701  );\n\n   if ( server  . is  Connected  () )\n   {\n    Buffered  R  private void set impacted  Label  Value  (\n  String attribute  ,\n  String value  ,\n  String impacted  Value  ,\n  String units  ,\n  String logic  )\n {\n\n  if ( impacted  Value !  = null  )\n  {\n\n   double value  1 = Double  . parse  Double  ( value  );\n   d  public JPanel get  Panel  ()\n {\n  return panel  ;\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "49.java",
+  "type": "code",
+  "text": "49\t\"Constraints Description private String project  Name = null  ;\n private String module  Path = null  ;\n private String requirement  ID = null  ;\n\n private String value = null  ;\n private String logic = null  ;\n private String units = null  ;\n private String description = null  ;\n public Constraints  Description  (\n  String project  Name  ,\n  String module  Path  ,\n  String requirement  ID  )\n {\n\n  this  . project  Name = project  Name  ;\n  this  . module  Path = module  Path  ;\n  this  . requirement  ID = requirement  ID  ;\n\n }  public String get  Description  () {\n  return this  . description  ;\n }  public String get  Logic  () {\n  return this  . logic  ;\n }  public String get  Module  Path  () {\n  return this  . module  Path  ;\n }  public String get  Project  Name  () {\n  return this  . project  Name  ;\n }  public String get  Requirement  ID  () {\n  return this  . requirement  ID  ;\n }  public String get  Units  () {\n  return this  . units  ;\n }  public String get  Value  () {\n  return this  . value  ;\n }  public void set  Description  (  String description  ) {\n  this  . description = description  ;\n }  public void set  Logic  (  String logic  ) {\n  this  . logic = logic  ;\n }  public void set  Module  Path  (  String module  Path  ) {\n  this  . module  Path = module  Path  ;\n }  public void set  Project  Name  (  String project  Name  ) {\n  this  . project  Name = project  Name  ;\n }  public void set  Requirement  ID  (  String requirement  ID  ) {\n  this  . requirement  ID = requirement  ID  ;\n }  public void set  Units  (  String units  ) {\n  this  . units = units  ;\n }  public void set  Value  (  String units  ) {\n  this  . value = units  ;\n }  public String get  Impacted  Constraint  () {\n  return this  . impacted  Constraint  ;\n }  public void set  Impacted  Constraint  (  String impacted  Constraint  ) {\n  this  . impacted  Constraint = impacted  Constraint  ;\n }  public String get  Attribute  () {\n  return this  . attribute  ;\n }  public void set  Attribute  (  String attribute  ) {\n  this  . attribute = attribute  ;\n }  public String get  Performance  Model  Name  () {\n  return this  . performance  Model  Name  ;\n }  public void set  Performance  Model  Name  (  String performance  Model  Name  ) {\n  this  . performance  Model  Name = performance  Model  Name  ;\n } public String to  String  () {\n\n  String str =\n   \"\"\\ n  Project Name = \"\"\n    + this  . project  Name\n    + \"\"\\ n  \"\"\n    + \"\"  Module Path = \"\"\n    + this  . module  Path\n    + \"\"\\ n  \"\"\n    + \"\"  Requirement ID = \"\"\n    + this  . requirement  ID\n    + \"\"\\ n  \"\"\n   public boolean equals  (  Object o  ) {\n\n  if (!( o instance of Constraints  Description  ))\n   return false  ;\n\n  Constraints  Description cd = (  Constraints  Description  ) o  ;\n\n  if ( cd  . project  Name  . equals  Ignore  Case  ( this  . project  Na  public int hash  Code  () {\n\n  int hash  Code = 0  ;\n\n  if ( hash  Code == 0  ) {\n   int result = 17  ;\n   result = 37 * result + this  . project  Name  . hash  Code  ();\n   result = 37 * result + this  . module  Path  . hash  Code  ();\n   result = 37 * \"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "50.java",
+  "type": "code",
+  "text": "50\t\"Driver Description private String projectName = null;\n private String modulePath = null;\n private String requirementID = null;\n\n private String description = null; // Description of the requirement.\n private String changedArrtibute = null;\n private Strinpublic DriverDescription(\nString projectName,\nString modulePath,\nString requirementID,\nString description,\nString changedAttribute,\nString fromAttribute,\nString toAttribute)\n {\n\nthis. projectName = projecpublic String getChangedAttribute()\n {\nreturn changedAttribute;\n }public String getDescription()\n {\nreturn description;\n }public String getFromAttribute()\n {\nreturn fromAttribute;\n } public String getModulePath()\n {\nreturn modulePath;\n }public String getProjectName()\n {\nreturn projectName;\n } public String getRequirementID()\n {\nreturn requirementID;\n } public String getToAttribute()\n {\nreturn toAttribute;\n } public void setChangedAttribute(String changedAttribute)\n {\nthis. changedAttribute = changedAttribute;\n } public void setDescription(String description)\n {\nthis. description = description;\n } public void setFromAttribute(String fromAttribute)\n {\nthis. fromAttribute = fromAttribute;\n } public void setModulePath(String modulePath)\n {\nthis. modulePath = modulePath;\n } public void setProjectName(String projectName)\n {\nthis. projectName = projectName;\n } public void setRequirementID(String requirementID)\n {\nthis. requirementID = requirementID;\n } public void setToAttribute(String toAttribute)\n {\nthis. toAttribute = toAttribute;\n } public String createKey()\n {\nString key =\n this. projectName + this. modulePath + \"\"\\\\\"\" + this. requirementID;\n\nreturn key. toLowerCase();\n\n } public boolean equals(Object o)\n {\nif (!( o instance of DriverDescription))\n return false;\n\nDriverDescription dd = (DriverDescription) o;\n\nif ( dd. projectName. equalsIgnoreCase( this. projectName)\n && ddpublic String toString()\n {\n\nString str =\n \"\"\\ nProject Name = \"\"\n+ this. projectName\n+ \"\"\\ n\"\"\n+ \"\"Module Path = \"\"\n+ this. modulePath\n+ \"\"\\ n\"\"\n+ \"\"Requirement ID = \"\"\n+ this. requirementID\n+ \"\"\\ n\"\"\npublic int hashCode()\n {\n\nint hashCode = 0;\n\nif ( hashCode == 0)\n{\n int result = 17;\n result = 37 * result + this. projectName. hashCode();\n result = 37 * result + this. modulePath. hashCode();\n result = 37 \"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "51.java",
+  "type": "code",
+  "text": "51\t\"Driver Inner Panel private JLabel projectNameLabel = null;\n private JLabel modulePathLabel = null;\n private JLabel requirementIdLabel = null;\n private JLabel desLabel = null;\n private JLabel changeLabel = null;\n private JLabel fromLabel = null;String projectName,\nString modulePath,\nString requirementID,\nString description,\nString changeAttribute,\nString fromValue,\nString toValue) {\n\npanel = new JPanel();\n\npanel. setBackground(Color.LIGHTpublic JPanel createPanel() {\n\nreturn panel;\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "52.java",
+  "type": "code",
+  "text": "52\t\"Pair private String queryID;\n private String queryString; public Pair(String queryID, String queryString) {\n\nthis. queryID = queryID;\nthis. queryString = queryString;\n\n } public String getQueryID() {\nreturn this. queryID;\n } public String getQueryString() {\nreturn this. queryString;\n } public void setQueryID(String queryID) {\nthis. queryID = queryID ;\n } public void setQueryString(String queryString) {\nthis. queryString = queryString;\n } public String toString(){\n\n\nreturn \"\"Query ID: \"\"\n+ this. queryID\n+ \"\"\\ n\"\"\n+\"\"Query String : \"\"\n+ this. queryString\n+ \"\"\\ n\"\";\n\n\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "53.java",
+  "type": "code",
+  "text": "53\t\"Performance Modelprivate String name = null;\n private Vector driverVector = null;\n private Vector constraintVector = null;\n\n private long queryID = 0;\n\n public static int count = 0; public PerformanceModel(String name, long queryID)\n {\nthis. name = name;\nthis. queryID = queryID;\n\nthis. driverVector = new Vector();\nthis. constraintVector = new Vector();\n } public Vector getConstraints()\n {\nreturn constraintVector;\n } public Vector getDrivers()\n {\nreturn driverVector;\n } public String getName()\n {\nreturn name;\n } public void setName(String name)\n {\nthis. name = name;\n } public void addDriver(DriverDescription driver)\n {\n\nif ( driverVector. contains( driver))\n{\n}\nelse\n this. driverVector. add( driver);\n\n } public void removeDriver(DriverDescription driver)\n {\nthis. driverVector. remove( driver);\n } public boolean containsDriver(DriverDescription driver)\n {\nreturn this. driverVector. contains( driver);\n } public void addConstraint(ConstraintsDescription constraint)\n {\nthis. constraintVector. add( constraint);\n } public boolean containsConstraint(ConstraintsDescription constraint)\n {\nreturn this. constraintVector. contains( constraint);\n } public void removeConstraint(ConstraintsDescription constraint)\n {\nthis. constraintVector. remove( constraint);\n } public DriverDescription getDriver(DriverDescription driver)\n {\nDriverDescription dd = null;\n\nfor ( int i = 0; i < this. driverVector. size(); i++)\n{\n dd = (DriverDescription) this. driverVector. get( i) public ConstraintsDescription getConstraint(ConstraintsDescription constraint)\n {\nConstraintsDescription cd = null;\n\nfor ( int i = 0; i < this. constraintVector. size(); i++)\n{\n cd = (ConstraintsDescription) thispublic long getQueryID()\n {\nreturn this. queryID;\n } public void setQueryID( long id)\n {\nthis. queryID = id;\n } public String toString()\n {\nreturn \"\"performance modelName = \"\"\n + this. name\n + \"\"\\ n\"\"\n + \"\"Query ID = \"\"\n + this. queryID\n + \"\"\\ n\"\"\n + \"\"Drivers = \"\"\n + this. driverVector\n + \"\"\\ n\"\"\n + \"\"Constraints = \"\"\n + this.\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "54.java",
+  "type": "code",
+  "text": "54\t\"eventserver public static void main(String args[])\n {\n\nThreadPool pool = new ThreadPool(1);\n\n int port = defaultPort;\n try\n {\n ServerSocket ss = new ServerSocket( port);\n for( int i=0; i<4; i++)\n {\np public final static int defaultPort = 1701;\n ServerSocket theServer;\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "55.java",
+  "type": "code",
+  "text": "55\t\"eventserver Threadstatic private int count = 0;\n private int taskNumber;\n protected Done done;\n ServerSocket theServer;\n\n private Connection conn;\n private Statement stmt;\n private ResultSet rs;\n\n private EventParser ep;\n private int id; EventServerThread(ServerSocket ss)\n {\n theServer = ss;\n count++;\n taskNumber = count;\n ep = new EventParser();\n } public void run()\n {\n\n while( true)\n {\n try\n {\n\nSocket client = theServer. accept();\nBufferedReader input = new BufferedReader( new InputStreamReader( client. getInputStream()));\nPrintWriter output = new P public String getNextID()\n {\n\ntry\n{\nClass. forName(\"\" sun. jdbc. odbc.jdbcodbcDriver\"\");\nthis. conn = DriverManager. getConnection(\"\" jdbc: odbc:EBT\"\",\"\"EBT\"\",\"\"EBT\"\");\nthis. stmt = connpublic String searchDate()\n {\n\nString dateString = new String();\nVector dateVector = new Vector();\n\ntry\n{\n\n Class. forName(\"\" sun. jdbc. odbc.jdbcodbcDriver\"\");\n Connection conn = DriverManager. getConnectio public String searchQueryID(String date)\n {\nVector queryVector = new Vector();\n\nString searchQuery = new String();\n\ntry\n{\n Class. forName(\"\" sun. jdbc. odbc.JdbcOdbcDriver\"\");\n conn = DriverManager. getpublic String getConstraintFromDataBase(String queryID)\n {\n\nString ConstString = new String();\n\n\ntry\n{\n\n Class. forName(\"\" sun. jdbc. odbc.JdbcOdbcDriver\"\");\n\n conn = DriverManager. getConnection(\"\" j public String getDriverFromDataBase(String queryID)\n {\n\nString driverString = new String();\n\ntry\n{\n\n Class. forName(\"\" sun. jdbc. odbc.JdbcOdbcDriver\"\");\n\n conn = DriverManager. getConnection(\"\" jdbc \"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "56.java",
+  "type": "code",
+  "text": "56\t\"Event Parser private Connection conn;\n private ResultSet rs;\n private Statement stmt; //EventParser Constructor\n // initializes the Database connection\n public EventParser()\n {\ntry\n{\n Class. forName(\"\" sun. jdbc. odbc.JdbcOdbcDriver\"\");\n this. conn = DriverManager. getConnection(\"\" jdbc: odbc: public void updateEvent(String str, String ID)\n {\n\nString mProject;\nString mEvent;\nString mType;\nString mNum;\nString mrequirement ;\nString mModule;\nString mSQL;\nString mDate;\nString mReqtext;\n//Check if a subscription exists\n public boolean CheckSubscription(String str)\n {\n\nStringTokenizer tokens = new StringTokenizer( str, \"\"|\"\");\nString Message type = tokens. nextToken();\nString SubscriberName = tokens. next //Insert a subscription into the \"\"Subscription\"\" table\n public void AddSubscription(String str, int ID)\n {\n\n// Parse the message string and get the fields\n\nStringTokenizer tokens = new StringTokenizer( str, \"\"|\"\");\nString Messag //DeleteSubscription from the \"\"Subscription\"\" table\n public void DeleteSubscription(String str, int ID)\n {\n// Parse the message string and get the fields\nStringTokenizer tokens = new StringTokenizer( str, \"\"|\"\");\nString Messag //Speculate method will receive a string from the Speculative GUI\n // tool and parse it using CallBack class to identify the\n // performance models\n public void speculate(String str)\n {\nSystem. out. println(\"\"Speculate\"\");\nCallBack public void impactReport(String str)\n {\nCallBack cb = new CallBack();\ncb. parseImpactReport( str);\n }// end impactReport()\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "57.java",
+  "type": "code",
+  "text": "57\t\"Event Notifier // Variables to process the requirement\n private String requirement No;//Requirement No.\n private String ProjName; //Project name\n private String ModPath;//Modular path\n private String requirement Text;/ public EventNotifier(String rno, String proj, String mod, String rtext,String eID, String em, String eventType)\n {\nrequirement No = rno;//Requirement number\nProjName = proj;// project name\nModPath = mo // finds the subscribers for this requirement\n public void IdentifySubscribers()\n {\nString mSQL;\n// Create an SQL statement that will limit the selection as much as possible\n// If a subscription is to a specific requirement - check for requi //Reads the result from IdentifySubscribers method selection\n // and adds each result into ActualSubscribers Vector.\n void ProcessResultSet()\n {\n\nString sName, sReqno, sModule, sKey1, sKey2;\ntry\n{\n System. o // Send messages to all subscribers listed in ActualSubscriber Vector\n// Possible that a sort routine can be added later so that all notification to\n// the same subscribermanager can be batched.This is not implemented yet.\n\n public void Dispatch public String getErrorMessage()\n {\n return errMsg;\n\n } public boolean Contains(String ContextString, String SearchString)\n {\nint cLen = ContextString. length();\nint sLen = SearchString. length();\nif (SearchString. length() == 0)\n return false;\n\nfor ( int i = 0\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "58.java",
+  "type": "code",
+  "text": "58\t\"Subscribed Model private String SubscriberName;\nprivate String SubscriberReqno;\nprivate String SubscriberModule;\nprivate String SubscriberKeyword1;\nprivate String SubscriberKeyword2;public SubscribedModel(String sn, String sr, String sm, String sk1, String sk2)\n{\nSubscriberName = sn;\nSubscriberReqno = sr;\nSubscriberModule = sm;\nSubscriberKeyword1 = sk1;\nSubscriberKeyword2 = s public String GetSubscriberName() { return SubscriberName;} public String GetSubscriberReqno() { return SubscriberReqno;} public String GetSubscriberModule() { return SubscriberModule;} public String GetSubscriberKeyword1() { return SubscriberKeyword1;} public String GetSubscriberKeyword2() { return SubscriberKeyword2;}\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "59.java",
+  "type": "code",
+  "text": "59\t\"Done /**\n* The number of Worker object\n* threads that are currently working\n* on something.\n*/\n private int _ activeThreads = 0;\n\n /**\n* This boolean keeps track of if\n* the very first thread has started\n* or not. This prevents this objec /**\n* This method can be called to block\n* the current thread until the ThreadPool\n* is done.\n*/\n\n synchronized public void waitDone()\n {\ntry {\n while ( _ activeThreads>0 ) {\nwait();\n }\n} catch ( InterruptedException/**\n* Called to wait for the first thread to\n* start. Once this method returns the\n* process has begun.\n*/\n\n synchronized public void waitBegin()\n {\ntry {\n while ( !_ started ) {\nwait();\n }\n} catch ( InterruptedException e/**\n* Called by a Worker object\n* to indicate that it has begun\n* working on a workload.\n*/\n synchronized public void workerBegin()\n {\n_ activeThreads++;\n_ started = true;\nnotify();\n } /**\n* Called by a Worker object to\n* indicate that it has completed a\n* workload.\n*/\n synchronized public void workerEnd()\n {\n_ activeThreads--;\nnotify();\n } /**\n* Called to reset this object to\n* its initial state.\n*/\n synchronized public void reset()\n {\n_ activeThreads = 0;\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "60.java",
+  "type": "code",
+  "text": "60\t\"Thread Pool /**\n* The threads in the pool.\n*/\nprotected Thread threads[] = null;\n/**\n* The backlog of assignments, which are waiting\n* for the thread pool.\n*/\nCollection assignments = new ArrayList(3);\n/**\n* A Done object that is /**\n * The constructor.\n *\n * @param sizeHow many threads in the thread pool.\n */\npublic ThreadPool( int size)\n{\n\nthreads = new WorkerThread[ size];\n\nfor ( int i=0; i< threads. length; i++)\n{\nthr /**\n* Add a task to the thread pool. Any class\n* which implements the Runnable interface\n* may be assigned. When this task runs, its\n* run method will be called.\n*\n* @param r An object that implements the Runnable interface\n*/\n pub /**\n* Get a new work assignment.\n*\n* @return A new assignment\n*/\n public synchronized Runnable getAssignment()\n {\ntry {\n while ( ! assignments. iterator(). hasNext() )\nwait();\n\n Runnable r = (Runnable) assignments./**\n* Called to block the current thread until\n* the thread pool has no more work.\n*/\n public void complete()\n {\ndone. waitBegin();\ndone. waitDone();\n } protected void finalize()\n {\ndone. reset();\nfor ( int i=0; i< threads. length; i++) {\n threads[ i]. interrupt();\n done. workerBegin();\n threads[ i]. destroy();\n}\ndone. waitDone();\n }\n}\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "61.java",
+  "type": "code",
+  "text": "61\t\"Worker Thread /**\n* True if this thread is currently processing.\n */\npublic boolean busy;\n/**\n * The thread pool that this object belongs to.\n */\npublic ThreadPool owner; /**\n * The constructor.\n *\n * @param o the thread pool\n */\nWorkerThread(ThreadPool o)\n{\nowner = o;\n} /**\n * Scan for and execute tasks.\n */\npublic void run()\n{\nRunnable target = null;\n\ndo\n{\ntarget = owner. getAssignment();\nif ( target!=null)\n{\n target. run();\n owner. done. worker\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "62.java",
+  "type": "code",
+  "text": "62\t\"Call Back private Hash table requirementDescTable = new Hash table();\n\n private Hash table constraintDescTable = new Hash table();\n\n private Hash table performanceModelTable = new Hash table();\n\n private PerformanceModel performance model= nullpublic void parseSpeculateInformation(String str)\n {\n\nSystem. out. println(\"\"Received String = \"\" + str);\n\nConnection conn = null;\n\nStatement stmt = null;\n\nDriverDescription dd = null;\n\nString eventType = null; // public void identifyPerformanceModels()\n {\n\nConnection conn = null;\nResultSet rs = null;\nStatement stmt = null;\n\nString subscriberName = null;\n\nDriverDescription dd = null;\n\nEnumeration subscriberTableEnumeration = nu public void pullInformationFromDoors()\n {\n\nString serverIP = \"\"140.192.37.150\"\";\n\nString[] attribute = { \"\"Value\"\", \"\"Logic\"\", \"\"Units\"\", \"\"Attribute\"\" };\n\nString subscriberName = null;\n\nVector constraints = n public void insertValuesInDataBase()\n {\n\nConnection conn = null;\n\nStatement stmt = null;\n\nString subscriberName = null;\n\nDriverDescription dd = null;\nVector driverVector = null;\n\nConstraintsDescription cd = null;\n public void createExecuteString()\n {\n\nConnection conn = null;\n\nStatement stmt = null;\n\nResultSet rs = null;\n\nStringBuffer sb = null;\n\nString subscriberName = null;\n\nDriverDescription dd = null;\nVector driverVector public void parseImpactReport(String str)\n {\n\nConnection conn = null;\n\nStatement stmt = null;\n\nVector constraintsVector = null;\nVector driversVector = null;\n\nConstraintsDescription constraint = null;\n\nint driverLoop\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "63.java",
+  "type": "code",
+  "text": "63\t\"Doors Thread static private int count = 0;\n private int taskNumber;\n protected Done done;\n ServerSocket theServer;\n\n private Connection conn;\n private Statement stmt;\n private ResultSet rs; DOORsThread(ServerSocket ss)\n {\n theServer = ss;\n count++;\n taskNumber = count;\n } public void run()\n {\n\n while( true)\n {\n try\n {\n\nSocket client = theServer. accept();\nBufferedReader input = new BufferedReader( new InputStreamReader( client. getInputStream()));\nPrintWriter output = new P\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "64.java",
+  "type": "code",
+  "text": "64\t\"DOORs Thread Pool public final static int defaultPort = 2347;\n ServerSocket theServer;\n // static int numberOfThreads = 3; //@param argsNo arguments are used.\n public static void main(String args[])\n {\n\nThreadPool pool = new ThreadPool(1);\n\n int port = defaultPort;\n try\n {\n ServerSocket ss = new ServerSocket( port);\n for\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "65.java",
+  "type": "code",
+  "text": "65\t\"About Dialog public AboutDialog(JFrame parent, boolean modal) {\n\n super ( parent, modal);\n \n getContentPane (). setLayout ( new BorderLayout ());\n setTitle (\"\"About\"\");\n setName (\"\" aboutDialog\"\");\n \n private JTextArea text;\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "66.java",
+  "type": "code",
+  "text": "66\t\"Config Dialog public ConfigDialog(Notification_Processing parent, boolean modal) {\n \nsuper ( parent, modal);\n setTitle(\"\"Config Dialog Box\"\");\n getContentPane (). setLayout ( new GridLayout(5,2));\n\nprivate void closeDialog(WindowEvent evt) {\nsetVisible ( false);\ndispose ();\n}// event listener for \"\"Ok\"\" button \nprivate void okButtonActionPerformed (ActionEvent evt) {\n \n if( UserName. getText(). equals(\"\"\"\") || DSN. getText(). equals(\"\"\"\") || EventServerIP. getText(). equa// event listener for \"\"Cancel\"\" button\nprivate void cancelButtonActionPerformed (ActionEvent evt) {\nsetVisible ( false);\ndispose (); \n} // configuration entries\nprivate JLabel UserNameLabel; \nprivate JTextField UserName;\nprivate JLabel DSN Label; \nprivate JTextField DSN;\nprivate JLabel EventServerIP Label; \nprivate JTextField EventSe\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "67.java",
+  "type": "code",
+  "text": "67\t\"Event Detail Dialog private GridBagLayout grid bag;\nprivate GridBagConstraints c;\n\n// objects in top panel\nprivate JPanel topPanel;\nprivate JLabel modelLabel;\nprivate JLabel typeLabel;\nprivate JTextField modelField;\np public EventDetailDialog(EventsProcessor parent, boolean modal,Notification_Event nEvt, boolean mode)\n{\n\nsuper ( parent, modal);\n setTitle(\"\"Event Details\"\");\n getContentPane (). setLayout (private void closeDialog(WindowEvent evt)\n{\nsetVisible ( false);\ndispose ();\n} // event listener for \"\"Ok/Update\"\" button\nprivate void okButtonActionPerformed (ActionEvent evt)\n{\n\n if ( displayMode == true)\n {\n\n// m_ parent.DeleteEvent( m_Evt. m_SubscriberName, m_ // event listener for \"\"Cancel\"\" button\nprivate void cancelButtonActionPerformed (ActionEvent evt)\n{\nsetVisible ( false);\ndispose ();\n} private void LeftListClicked(MouseEvent e){\n\n if (!LeftList. isSelectionEmpty()) {\n\n int index = LeftList. getSelectedIndex();\n Requirement requirement= (Requirement) m_Evt. m_LeftSideprivate void RightListClicked(MouseEvent e){\n\n if (!RightList. isSelectionEmpty()) {\n\n int index = RightList. getSelectedIndex();\n Requirement requirement= (Requirement) m_Evt. m_RightS\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "68.java",
+  "type": "code",
+  "text": "68\t\"Events Processor // event list\n private JList eventList;\n private DefaultListModel listModel;\n private ArrayList events;\n\n // popup menu\n private JPopupMenu popup;\n\n // Subscriber name\n String m_SubscriberName;\n\n // list of requirements to be d public EventsProcessor(Notification_Processing parent, boolean modal, String SubsName)\n {\n\n setTitle(\"\"EventsProcessor\"\");\n\naddWindowListener( new WindowAdapter()\n{\n public void windowClosing(WindowEve void exitApplication() {\nm_ parent.UpdateDisplayList();\n this. setVisible( false);\n this. dispose();\n} // action for \"\" double click on Event List\"\"\n private void doubleClickEventList (MouseEvent evt)\n {\n\nint index = eventList. getSelectedIndex();\nif ( index != -1)\n{\n try\n {\nNotification // action for \"\"Open First Record\"\" in popup menu\n private void popupOpenActionPerformed (ActionEvent evt)\n {\nif (! listModel. isEmpty())\n{\n int index =0;\n try\n {\nNotification_Event nEvt1 = (Notificati / action for \"\"View Current Record\"\" in popup menu\n private void popupViewActionPerformed (ActionEvent evt)\n {\nint index = eventList. getSelectedIndex();\nif ( index != -1)\n{\n try\n {\nN void DeleteEvent(String SubscriberName, String EventID)\n {\n\ntry\n{\n\n int i, j=-1;\n for ( i=0; i< events. size(); i++)\n {\nNotification_Event nEvt = (Notification_Event) events. get( i);\ni void DeleteRelatedEvents()\n {\n\nwhile ( m_Deleterequirement List. size()!=0)\n{\n\n Requirement requirement= (Requirement)( m_Deleterequirement List. get(0));\n\n m_Deleterequirement List. remove(0);\nvoid AddSubscription(String SubscriberName, Requirement requirement )\n {\n\nString SubscriberDependency = \"\"Requirements\"\";\n\nString Message = \"\"ADD_SUBSCRIPTION\"\"+\"\"|\"\";\nMessage += m_UserName + \"\"|\"\";\nMessage += Subscribervoid DeleteSubscription(String SubscriberName, Requirement requirement )\n {\nString Message = \"\"REMOVE_SUBSCRIPTION\"\"+\"\"|\"\";\nMessage += SubscriberName + \"\"|\"\";\nMessage += requirement . m_RequirementID + \"\",\"\";\nMessage += req void UpdateDisplayList()\n {\n\nlistModel. removeAllElements();\n\nfor ( int j=0; j< events. size(); j++)\n{\n\n Notification_Event nEvt = (Notification_Event) events. get( j);\n\n String displayStri // Passes a CHECK_SUBSCRIPTION message to the eventserver and waits for a response\nprivate boolean Check_Subscription(String ip,\n int PortNo,\n String SubscriberName,\n String Requirement // Takes an event string returned from the eventserver and\n// extracts True or False response\nprivate boolean Analyze_CheckSubscription(String str)\n{\nStringTokenizer tokens = new StringTokenizer( str,\"\"|\"\");\nString Messag\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "69.java",
+  "type": "code",
+  "text": "69\t\"Notification Event public String m_SubscriberName = \"\"\"\";\npublic String m_EventID = \"\"\"\";\npublic String m_Message type = \"\"\"\";\npublic String m_EventType = \"\"\"\";\npublic int m_NumberOfRequirements = 0;\npublic String m_EventTim public Notification_Event()\n{\n m_LeftSide = new ArrayList();\n m_RightSide = new ArrayList();\n} public Object clone() throws CloneNotSupportedException\n {\n\nNotification_Event nEvt = (Notification_Event) super. clone();\n nEvt. m_LeftSide = new ArrayList();\n nEvt. m_RightSide = new ArrayLis public void ParseEvent(String TextLine)\n {\n\n StringTokenizer LineSt; // Tokenizer for the line\n\nint i=0;\n\nLineSt = new StringTokenizer(TextLine, \"\"|\"\");\n\nm_SubscriberName = LineSt. nextToken// Set the other members before calling this function\n\n public void ParseLeftAndRightLists(String LeftLine, String RightLine)\n {\n\nm_LeftSide = new ArrayList();\n m_RightSide = new ArrayList();\n\nif ( m_Eve public void DisplayValues()\n{\n System. out. println(\"\"\\ r\\ nValues of the event:\\ r\\ n\"\");\n System. out. println(\"\" m_SubscriberName: \"\"+ m_SubscriberName);\n System. out. println(\"\" m_EventI\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "70.java",
+  "type": "code",
+  "text": "70\t\"Notification Processing // member variables for menu\n private JMenuBar menuBar;\n\n // subscriber list\n private JList SubscriberList;\n private DefaultListModel listModel;\n\n // popup menu\n\n private JPopupMenu popup;\n\n // database and eventserver information\n S public Notification_Processing()\n {\n\nsetDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);\n\naddWindowListener( new WindowAdapter()\n{\n public void windowClosing(WindowEvent evt)\n {\ntry\npublic static void main(String args[])\n {\ntry\n{\n Notification_Processing mainFrame = new Notification_Processing();\n mainFrame. setSize(600, 400);\n mainFrame. setLocation(100, 100);\n mainFrame. void exitApplication()\n{\ntry\n{\nint reply = JOptionPane. showConfirmDialog( this,\n\"\"Do you really want to exit?\"\",\n\"\"No // action for \"\"Open log database\"\"\n private void openMenuItemActionPerformed (ActionEvent evt)\n {\nnew ConfigDialog( this, true). show();\n\n if( m_DSN. equals(\"\"\"\") || m_EventServerIP. equals(\"\"\"\") || m_// action for \"\"Close log database\"\"\n private void saveMenuItemActionPerformed (ActionEvent evt)\n {\ntry\n{\n m_ conn. close();\n m_DSN=\"\"\"\";\n m_EventServerIP=\"\"\"\";\n m_EventServerPort=\"\"\"\";\n\n // action for \"\" exit\"\"\n private void exitMenuItemActionPerformed (ActionEvent evt)\n {\nexitApplication();\n } // action for \"\"Open Events\"\" in popup menu\n private void popupOpenActionPerformed (ActionEvent evt)\n {\nopenEventsMenuItemActionPerformed( evt);\n } // action for \"\"Open Events\"\"\n private void openEventsMenuItemActionPerformed (ActionEvent evt)\n {\nif (! listModel. isEmpty())\n{\n int index = SubscriberList. getSelectedIndex();\n if ( index != -1)\n // action for \"\" double click on Subscriber List\"\"\n private void doubleClickSubscriberList (MouseEvent evt)\n {\nif (! listModel. isEmpty())\n{\n int index = SubscriberList. getSelectedIndex();\n if ( index != -1 // action for \"\"About\"\"\n private void aboutMenuItemActionPerformed (ActionEvent evt)\n {\nnew AboutDialog ( this, true). show();\n } void UpdateDisplayList()\n {\nlistModel. removeAllElements();\n\n String mSQL = \"\"SELECT distinct SubscriberName FROM EventDetails\"\";\n\ntry\n{\n rs = stmt. executeQuery( mSQL);\n while ( rs. next())\n {\n \"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "71.java",
+  "type": "code",
+  "text": "71\t\"Requirementpublic String m_RequirementID =\"\"\"\";\npublic String m_Project =\"\"\"\";\npublic String m_ModulePath=\"\"\"\";\npublic String m_Content = \"\"\"\";\npublic String m_RegFlag = \"\"N\"\"; public Requirement()\n{\n\n} public Object clone() throws CloneNotSupportedException\n {\n\nRequirement requirement= (Requirement) super. clone();\nreturn requirement ;\n } public void ReadValues(String RequirementID, String Project, String ModulePath, String Content, String RegFlag)\n {\nthis. m_RequirementID = RequirementID;\nthis. m_Project = Project;\nthis. m_ModulePath public void ParseRequirement(String TextLine)\n {\n\n StringTokenizer LineSt;\nLineSt = new StringTokenizer(TextLine, \"\",\"\");\nm_RequirementID=LineSt. nextToken();\nm_Project=LineSt. \"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "72.java",
+  "type": "code",
+  "text": "72\t\"Balance /**\n * Symbol represents what will be placed on the stack.\n */\nprivate static class Symbol\n{\npublic chartoken;\npublic int theLine;\n\npublic Symbol( char tok, int line )\n{\ntoken = /**\n * Constructor.\n * @param inStream the stream containing a program.\n */\npublic Balance( Reader inStream )\n{\nerrors = 0;\ntok = new Tokenizer( inStream );\n}/**\n * Print an error message for unbalanced symbols.\n * @return number of errors detected.\n */\npublic int checkBalance( )\n{\nchar ch;\nSymbol match = null;\nStack pendingTokens = new Stack( );\n\n private Tokenizer tok;\nprivate int errors; /**\n * Print an error message if clSym does not match opSym.\n * Update errors.\n */\nprivate void checkMatch( Symbol opSym, Symbol clSym )\n{\nif( opSym. token == '(' && clSym. token != ')' ||\n /**\n * main routine for balanced symbol checker.\n * Slightly different from text.\n * If no command line parameters, standard input is used.\n * Otherwise, files in command line are used.\n */\npublic static void main( St\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "73.java",
+  "type": "code",
+  "text": "73\t\"Constraints String id;\n String name;\n double value;\n String logic; Constraints(String id, String name, double value, String logic){\nthis. id = id;\nthis. name = name;\nthis. value = value;\nthis. logic = logic;\n } public String toString(){\n String temp;\n temp = \"\"ID = \"\" + id + \"\", Name = \"\" + name +\"\", value = \"\" + value + \"\", Logic = \"\" + logic;\n return temp;\n } /**\n* Returns the id.\n* @return int\n*/\n public String getId() {\nreturn id;\n } /**\n* Returns the logic.\n* @return String\n*/\n public String getLogic() {\nreturn logic;\n } /**\n* Returns the name.\n* @return String\n*/\n public String getName() {\nreturn name;\n } /**\n* Returns the value.\n* @return double\n*/\n public double getValue() {\nreturn value;\n } /**\n* Sets the id.\n* @param id The id to set\n*/\n public void setId(String id) {\nthis. id = id;\n } **\n* Sets the logic.\n* @param logic The logic to set\n*/\n public void setLogic(String logic) {\nthis. logic = logic;\n } /**\n* Sets the name.\n* @param name The name to set\n*/\n public void setName(String name) {\nthis. name = name;\n } /**\n* Sets the value.\n* @param value The value to set\n*/\n public void setValue( double value) {\nthis. value = value;\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "74.java",
+  "type": "code",
+  "text": "74\t\"database QueryConnection conn=null;\n ResultSet rs=null;\n Statement stmt=null;\n String mSQL=\"\"\"\";\n\n Vector structVector = new Vector(); // for holding the dummy variable objects used in executeStructure()\n Variable v;// create this object and /**\n * Construct a connection object.\n * @param Returns an object of type Connection\n */\n public Connection getConnection()\n {\nSystem. out. println(\"\" in get Connection\"\");\nConnection connect=null;\ntry\n{\n Class. fo /**\n* Returns GraphId as int\n* @param graphName performance modelHandler calls this method with graphName\n* as parameter, performance modelHandler parse the EventServer message and get the\n* graphName\n*/\n public int get /**\n* Copy data from one set of columns to other in table Variable\n* @param graphId is the id of graph for which you want to save the\n* current state of variables\n*/\n public void saveCurrentModel( int graphId)\n {\n\nconn = this. getConnect/**\n* Injects new value into Variable table, using Data stored in\n* Vector of Variable object\n* @param graphId is the id of graph\n* @param Vector var is the Vector that stores the Object of type Variable\n*/\n public void injectVa /**\n* this method will pick up the structure id from SPE Structure\n* If DependentStructureId is 0 then select StructureID\n* and invoke the executeStructure method on Selected\n* StructureId\n* Who Invokes this method: performance model // this method is about executing the structure\n // based on StructureId find all the data related to given StructureId\n // and using the equation in string format call the method equationParser.\n //I am passing Vector that has all the data abou public void solveStructure( int StructureId, Vector vr)\n {\nSystem. out. println(\"\"Inside solveStructure()&&&&&&&&&&&&&&&&&&&&&&&\"\");\n\nConnection conn1 = this. getConnection();\nSystem. out. println(\"\" in solveStru public void solveStructureEquation()\n {\nSystem. out. println(\"\"Inside solveStructureEquation()%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\"\");\n\n//Based on that result find out the equation and replace the name by its value\nSystem public void getTrackVariableName()\n {\nSystem. out. println(\"\"Inside getTrackVariableName()$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\"\");\n//This will get the variable name from SPE Graph and find the same name in variable\n// and inse public void setCalculatedValues()\n {\nSystem. out. println(\"\"Inside setCalculatedValues()>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\"\");\n// and at matching location put the calculated values\nSystem. out. println(\"\" enter calcValue // this method creates the token for each variable name in the string\n // and store that variable into vector\n // it also creates the vector called varValues\n // varValues has values of each variable stored in varName\n //So equation has variable n public Vector getImpactReport()\n {\n//This SPE Graph works on the assumption that each model tracks\n// the effect of changes on one variable\nVector report = new Vector();\nreport. add( trackVariableName);\nreport. add(Stri\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "75.java",
+  "type": "code",
+  "text": "75\t\"Driver String id;\n double valueFrom;\n double valueTo;\n String name; Driver(String id, double valueFrom, double valueTo, String name)\n {\nthis. id = id;\nthis. valueFrom = valueFrom;\nthis. valueTo = valueTo;\nthis. name = name;\n } public String toString()\n {\nString temp;\ntemp = \"\"ID = \"\" + id + \"\", valueFrom = \"\" + valueFrom + \"\", valueTo = \"\" + valueTo + \"\", Name = \"\" + name;\nreturn temp;\n } /**\n* Returns the id.\n* @return int\n*/\n public String getId()\n {\nreturn id;\n } /**\n* Returns the name.\n* @return String\n*/\n public String getName()\n {\nreturn name;\n } /**\n* Returns the value.\n* @return double\n*/\n public double getValueFrom()\n {\nreturn valueFrom;\n } public double getValueTo()\n {\nreturn valueTo;\n } /**\n* Sets the id.\n* @param id The id to set\n*/\n public void setId(String id)\n {\nthis. id = id;\n } **\n* Sets the name.\n* @param name The name to set\n*/\n public void setName(String name)\n {\nthis. name = name;\n } **\n* Sets the value.\n* @param value The value to set\n*/\n public void setValueFrom( double value)\n {\nthis. valueFrom = valueFrom;\n } public void setValueTo( double value)\n {\nthis. valueTo = valueTo;\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "76.java",
+  "type": "code",
+  "text": "76\t\"Evaluatorprivate static final int EOL = 0;\nprivate static final int VALUE = 1;\nprivate static final int OPAREN= 2;\nprivate static final int CPAREN= 3;\nprivate static final int EXP = 4;\nprivate static final int MULT= private static class Precedence\n{\n\npublic int inputSymbol; // refers to the precedence level of operator\npublic int topOfStack; // stores the operator in the form of integer\n\npublic Precedence( int inSymbol, int // PrecTable matches order of Token enumeration\nprivate static Precedence [ ] precTable = new Precedence[ ]\n{\n\nnew Precedence( 0, -1 ),// EOL\nnew Precedence( 0,0 ),// VALUE\nnew Precedence( 100private static class Token\n{\n\npublic Token( ) { this( EOL ); }\n\npublic Token( int t ) { this( t, 0 ); }\n\npublic Token( int t, double v ) {\n\n System. out. println(\"\" INSIDE Token.Token()\"\");\n private static class EvalTokenizer {\n\npublic EvalTokenizer( StringTokenizer is ) {\n System. out. println(\"\"INSIDE EvalTokenizer\"\");\n str = is;\n} /**\n * Find the next token, skipping blanks, and return it.\n * For VALUE token, place the processed value in currentValue.\n * Print error message if input is unrecognized.\n */\npublic Token getToken /**\n * Construct an evaluator object.\n * @param s the string containing the expression.\n */\npublic Evaluator( String s ) {\n\nopStack = new Stack( );\npostfixStack = new Stack( );\nstr = new StringTokeni // The only publicly visible routine\n/**\n * Public routine that performs the evaluation.\n * Examine thepostfix machine to see if a single result is\n * left and if so, return it; otherwise print error.\n * @return the result. private Stack opStack; // Operator stack for conversion\nprivate Stack postfixStack;// Stack for postfix machine that stores the numbers could be values or result\nprivate StringTokenizer str; // StringTokenizer stream, conte /**\n * Internal method that hides type-casting.\n * Changed the method to support double\n */\nprivate double postFixTopAndPop( ) {\n System. out. println(\"\"INSIDE postFixTopAndPop method\"\");\n System /**\n * Another internal method that hides type-casting.\n */\nprivate int opStackTop( ) {\nreturn ( (Integer) ( opStack. peek( ) ) ). intValue( );\n} /**\n * After a token is read, use operator precedence parsing\n * algorithm to process it; missing opening parentheses\n * are detected here.\n */\nprivate void processToken( Token lastToken ) {\n\nSystem. out. printl /*\n * topAndPop the postfix machine stack; return the result.\n * If the stack is empty, print an error message.\n */\nprivate double getTop( ) { // change to support double\n System. out. println(\"\"INSIDE GET TOP/**\n * Internal routine to compute x^ n.\n */\nprivate static double pow( double x, double n ) {\n System. out. println(\"\"INSIDE pow\"\");\n\nif( x == 0 ) {\n if( n == 0 ){\nSystem. out. /**\n * Process an operator by taking two items off the postfix\n * stack, applying the operator, and pushing the result.\n * Print error if missing closing parenthesis or division by 0.\n */\nprivate void binaryOp( int topOp/**\n * Simple main to exercise Evaluator class.\n */\npublic static void main( String [ ] args ) {\n\n\n\nString str;\nBufferedReader in = new BufferedReader( new InputStreamReader( System. in ) );\n\ntry {\n \"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "77.java",
+  "type": "code",
+  "text": "77\t\"Model Driver String msg=\"\"\"\"; public ModelDriver(String text)\n {\nthis. msg = text;\ninit();\n } public void init()\n {\n\nSystem. out. println(\"\"MODEL DRIVER CLASS 1/10\"\");\nperformance modelHandler pmh = new performance modelHandler( msg);\nSystem. out. println(\"\"MODEL DRIVER CLASS 2/10\"\");\n pmh. messageParser\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "78.java",
+  "type": "code",
+  "text": "78\t\"Notification Event public String m_SubscriberName = \"\"\"\";\npublic String m_EventID = \"\"\"\";\npublic String m_Message type = \"\"\"\";\npublic String m_EventType = \"\"\"\";\npublic int m_NumberOfRequirements = 0;\npublic String m_EventTim // constructor\npublic Notification_Event()\n{\n m_LeftSide = new ArrayList();\n m_RightSide = new ArrayList();\n}// end of class Notification_Event public Object clone() throws CloneNotSupportedException\n {\n\n// create new object with the same type\nNotification_Event nEvt = (Notification_Event) super. clone();\n nEvt. m_LeftSide = new ArrayList();\n npublic void ParseEvent(String TextLine)\n {\n\nString msg = TextLine;\n\nif( msg. startsWith(\"\"Re-execute\"\") )\n{\n\n ModelDriver md = new ModelDriver( msg );\n md. init();\n\n//ToDo:\n// divert all the calls fo // Set the other members before calling this function\n\n public void ParseLeftAndRightLists(String LeftLine, String RightLine)\n {\n\nm_LeftSide = new ArrayList();\n m_RightSide = new ArrayList();\n\nif ( m_Eve //Comment Added by Amit Uchat\n //This method displays the contents of two array list to console\npublic void DisplayValues()\n{\n System. out. println(\"\"\\ r\\ nValues of the event:\\ r\\ n\"\");\n System. out. println(\"\" \"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "79.java",
+  "type": "code",
+  "text": "79\t\"performance model Handler String strES; // string received from eventserver\n String impactReport;// string to be send to eventServer\n\n String commandStr; // represent the command ex. execute, re - execute etc\n String eventId;// refers to the eventId\n String performance model Handler(String msg)\n {\nthis. strES = msg;\n } public void messageParser()\n {\nSystem. out. println(\"\"INSIDE PARSER\"\");\n\nmainSto = new StringTokenizer( strES,\"\"|\"\"); // current ex will have 10 tokens in mainSto\n\n\ntempStr1 = mainSto. nextToken();\n//Re-execut public String generateReport()\n{\n System. out. println(\"\"INSIDE generateReport\"\");\n\n mainSto = new StringTokenizer( strES,\"\"|\"\"); // current ex will have 10 tokens in mainSto\n /*\n\"\"ImpactReport|1015818161020| int grId; public int getId(){\n // get GraphId\n System. out. println(\"\"database start\"\");\n int grId = database. getGraphId( modelName);\n return grId;\n } public void saveModel( int id)\n {\n// save current model\ndatabase. saveCurrentModel( id);\n } public void insertData( int id){\n// inject data into model\ndatabase. injectVariables( id, variable);\n } public void execute( int id){\n// inject data into model\ndatabase. executeModel( id, variable);\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "80.java",
+  "type": "code",
+  "text": "80\t\"Requirement public String m_RequirementID =\"\"\"\";\npublic String m_Project =\"\"\"\";\npublic String m_ModulePath=\"\"\"\";\npublic String m_Content = \"\"\"\";\npublic String m_RegFlag = \"\"N\"\";public Requirement() {// empty constructor\n\n} public Object clone() throws CloneNotSupportedException {\n\nRequirement requirement= (Requirement) super. clone();\n\nreturn requirement ; \n } public void ReadValues(String RequirementID, String Project, String ModulePath, String Content, String RegFlag) {\nthis. m_RequirementID = RequirementID;\nthis. m_Project = Project;\nthis. m_ModulePathpublic void ParseRequirement(String TextLine) {\n\n StringTokenizer LineSt;\nLineSt = new StringTokenizer(TextLine, \"\",\"\");\n\nm_RequirementID=LineSt. nextToken();\nm_Project=Line\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "81.java",
+  "type": "code",
+  "text": "81\t\"subscribermanager Socket aSocket;\n int ID;\n String EventLog;\n\n Connection conn;\n ResultSet rs;\n Statement stmt; // constructor, this object will be created in the main method of these class\n SubscriberListener() { } // constructor, this object will be created in the main method of these class\n SubscriberListener(Socket socket, int ID, String ELog)\n {\n\n this. aSocket = socket;\nthis.ID = ID;\nthis.EventLog = ELog;\n\ntry\n{\npublic void sendImpactReportToEventServer(String text)\n {\n\n//String impactReport = text;\nSystem. out. println(\"\"WOW IN SEND REPORT\"\");\nSystem. out. println(\"\"The IR = \"\"+ text);\nString serverIP = \"\"140. // run method will be execute from the main method when u say Thread. start() in main\n public void run()\n {\n\nSystem. out. println(\"\"Inside Run method\"\");\n\nString str=\"\"\"\";\ntry\n{\n // set up for reading the byte data in to characte // start of class from here\n public static void main(String[] args)\n {\n// default port number\nint port = 1705;\n// the message coming from eventserver\nString LogName = \"\"EventLog\"\";\n//LogName is the database name used to log t\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "82.java",
+  "type": "code",
+  "text": "82\t\"Tokenizer /**\n * Constructor.\n * @param inStream the stream containing a program.\n */\npublic Tokenizer( Reader inStream )\n{\nerrors = 0;\nch = '\\0';\ncurrentLine = 1;\nin = new PushbackReader /**\n * Gets current line number.\n * @return current line number.\n */\npublic int getLineNumber( )\n{\nreturn currentLine;\n} /**\n * Gets error count.\n * @return error count.\n */\npublic int getErrorCount( )\n{\nreturn errors;\n} /**\n * Get the next opening or closing symbol.\n * Return false if end of file.\n * Skip past comments and character and string constants\n */\npublic char getNextOpenClose( )\n{\nwhile( nextChar( ) )\n{\n /**\n * Return true if ch can be part of a Java identifier\n */\nprivate static final boolean isIdChar( char ch )\n{\nreturn Character. isJavaIdentifierPart( ch );\n}/**\n * Return an identifier read from input stream\n * First character is already read into ch\n */\nprivate String getRemainingString( )\n{\nString result = \"\"\"\" + ch;\n\nfor( ; nextChar( ); result += ch )\n /**\n * Return next identifier, skipping comments\n * string constants, and character constants.\n * Place identifier in currentIdNode. word and return false\n * only if end of stream is reached.\n */\npublic String getNe /**\n * nextChar sets ch based on the next character in the input stream.\n * putBackChar puts the character back onto the stream.\n * It should only be used once after a nextChar.\n * Both routines adjust currentLine if necess private void putBackChar( )\n{\nif( ch == '\\ n' )\ncurrentLine--;\ntry\n{ in. unread( ( int) ch ); }\ncatch( IO Exception e ) { }\n} /**\n * Precondition: We are about to process a comment; have already seen\n * comment-start token\n * Post condition: Stream will be set immediately after\n * comment-ending token\n */\nprivate/**\n * Precondition: We are about to process a quote; have already seen\n * beginning quote.\n * Post condition: Stream will be set immediately after\n * matching quote\n */\nprivate void skip /**\n * After the opening slash is seen deal with next character.\n * If it is a comment starter, process it; otherwise put back\n * the next character if it is not a new line.\n */\nprivate void processSlash( )\n{\nifpublic static final int SLASH_SLASH = 0;\npublic static final int SLASH_STAR= 1;\n\nprivate PushbackReader in;// The input stream\nprivate char ch;// Current character\nprivate int currentLine;//\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "83.java",
+  "type": "code",
+  "text": "83\t\"Variable String id = \"\"\"\"; // requirement id ex WB10\n String type= \"\"\"\"; // type of requirement ex Driver or Constraints\n String name= \"\"\"\"; // requirement name which is same as variable name in graph\n double value= 0.0; // value of variable\n double speculat //General Constructor to initialize all the members\n Variable(String id, String type, String name, double value, double speculateValue, String logic, String project_ path)\n {\nthis. id = id;\nthis. type = type;\nthis.//Constructor to Add driver related members\n Variable(String id, String type, String name, double value, double speculateValue)\n {\nthis. id = id;\nthis. type = type;\nthis. name = name;\nthis. value = value;\nthis //Constructor to Add constraints related members\n Variable(String id, String type, String name, double value, String logic){\nthis. id = id;\nthis. type = type;\nthis. name = name;\nthis. value = value;\nthis. logicpublic String toString()\n {\nString temp;\ntemp = \"\"ID = \"\" + id + \"\", Type = \"\" + type + \"\", Name = \"\" + name +\"\", value = \"\" + value +\n \"\", SpeculateValue = \"\" + speculateValue + \"\", Logic = \"\" + logic + \"\", Project_Path = \"\" + project_ path /**\n* Returns the id.\n* @return int\n*/\n public String getId()\n {\nreturn id;\n } /**\n* Returns the logic.\n* @return String\n*/\n public String getLogic()\n {\nreturn logic;\n } /**\n* Returns the name.\n* @return String\n*/\n public String getName()\n {\nreturn name;\n } /**\n* Returns the value.\n* @return double\n*/\n public double getValue() {\nreturn value;\n } /**\n* Sets the id.\n* @param id The id to set\n*/\n public void setId(String id) {\nthis. id = id;\n } /**\n* Sets the logic.\n* @param logic The logic to set\n*/\n public void setLogic(String logic) {\nthis. logic = logic;\n } /**\n* Sets the name.\n* @param name The name to set\n*/\n public void setName(String name) {\nthis. name = name;\n } /**\n* Sets the value.\n* @param value The value to set\n*/\n public void setValue( double value) {\nthis. value = value;\n } /**\n* Returns the speculateValue.\n* @return double\n*/\n public double getSpeculateValue() {\nreturn speculateValue;\n } /**\n* Sets the speculateValue.\n* @param speculateValue The speculateValue to set\n*/\n public void setSpeculateValue( double speculateValue) {\nthis. speculateValue = speculateValue;\n } /**\n* Returns the type.\n* @return String\n*/\n public String getType() {\nreturn type;\n } /**\n* Sets the type.\n* @param type The type to set\n*/\n public void setType(String type) {\nthis. type = type;\n } /**\n* Returns the project_ path.\n* @return String\n*/\n public String getProject_ path() {\nreturn project_ path;\n } /**\n* Sets the project_ path.\n* @param project_ path The project_ path to set\n*/\n public void setProject_ path(String project_ path) {\nthis. project_ path = project_ path;\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "84.java",
+  "type": "code",
+  "text": "84\t\"White Board Execution Graph //Driver data members\n double avgShapeSize_Original;\n double avgShapeSize_Speculate;\n\n // constraints data members\n double avgTextSize;\n double writeTime;\n double noShapes;\n double noTextItems;\n double bandWidth public WhiteBoardExecutionGraph(Vector driver, Vector constraints){\nthis. driver = driver;\nthis. constraints = constraints;\n }// end of constructor public String toString(){\n String result;\n\n result = \"\" avgShapeSize_Original = \"\" + avgShapeSize_Original +\n\"\",\\ navgShapeSize_Speculate = \"\" + avgShapeSize_Speculate +\n\"\",\\ navgTextSize = \"\" + avgTextSizepublic void injectDrivers(){\nSystem. out. println(\"\"\\ t\\ tINSIDE INJECT DRIVERs METHOD\"\");\n//To Do: Run for loop for more then one drivers\n//To Do: have a case insensitive check for driver name and then populate the data member public void injectConstraints(){\nSystem. out. println(\"\"\\ t\\ tINSIDE INJECT CONSTRAINTs METHOD\"\");\n\n//To Do: have a case insensitive check for constraints name and then populate the data member\n//System. out. println( const public double timeToBroadcastShapeBefore(){\nSystem. out. println(\"\"\\ t\\ t\\ tINSIDE timeToBroadcastShapeBefore METHOD\"\");\n\ndouble targetResponse time_ temp = 0.00;\n\n for( int i=0; i< noShapes; i++ public double timeToBroadcastShapeAfter(){\nSystem. out. println(\"\"\\ t\\ t\\ tINSIDE timeToBroadcastShapeAfter METHOD\"\");\n\ndouble targetResponse time_ temp = 0.00;\n\n for( int i=0; i< noShapes; i++){ public double timeToBroadcastText(){\nSystem. out. println(\"\"\\ t\\ t\\ tINSIDE timeToBroadcastText METHOD\"\");\n\ndouble targetResponse time_ temp = 0.00;\n\n for( int i=0; i< noTextItems; i++){\n\n target public double writeTime(){\nSystem. out. println(\"\"\\ t\\ t\\ tINSIDE writeTime METHOD\"\");\n\nSystem. out. println(\"\"\\ t\\ t\\ t\\ tTotal time to write = \"\" + writeTime);\n\nSystem. out. println(\"\"\\ t\\ t\\ tLEAVING w public double targetResponseTimeBefore(){\nSystem. out. println(\"\"\\ t\\ tINSIDE targetResponseTimeBefore METHOD\\ n\"\");\n\ntargetResponse time = timeToBroadcastShapeBefore() +\ntimeToBroadcastText()public double targetResponseTimeAfter(){\nSystem. out. println(\"\"\\ t\\ tINSIDE targetResponseTimeAfter METHOD\\ n\"\");\n\ntargetResponse time = timeToBroadcastShapeAfter() +\ntimeToBroadcastText() + w\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "85.java",
+  "type": "code",
+  "text": "85\t\"Decompose Model public DecomposeModel(EBT em)\n{\nsuper( em);\nMinimumNoRects = 3;\n }// Construct Visual model for Merge Event\npublic void BuildEvent()\n{\n ClearVectors();\nAddEventRect(20,20,1);\nAddEventRect(60,70,1);\nAddEventRect(60,120,1);\nAddEventRect public StringBuffer GenerateEvent()\n{\nStringBuffer thisEvent = new StringBuffer();\nStringBuffer temp = new StringBuffer();\nint Count = -1;\nthisEvent. append(\"\"Decompose|\"\");\n\nfor ( int i = 0; i < EventShapes\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "86.java",
+  "type": "code",
+  "text": "86\t\"EB Shape private int x, y;\n private String requirement No;\n private String ProjectName, ModulePath;\nprivate Color c; public EBShape( int xpos, int ypos, Color col)\n {\nx = xpos;\ny = ypos;\nc = col;\nrequirement No = \"\"\"\";\nProjectName = \"\"\"\";\nModulePath = \"\"\"\";\n } public void Updaterequirement Info(String rno, String pname, String mname)\n {\nrequirement No = rno. trim();\nProjectName = pname. trim();\nModulePath = mname. trim();\n } public boolean match( int mx, int my)\n {\nreturn true;\n\n } public int GetX()\n {\nreturn x;\n } public int GetY()\n {\nreturn y;\n } public Color GetC()\n{\nreturn c;\n } public String GetReqno()\n {\nreturn requirement No;\n } public String GetProject()\n {\nreturn ProjectName;\n } public String GetModule()\n {\nreturn ModulePath;\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "87.java",
+  "type": "code",
+  "text": "87\t\"EBTprivate JSplitPane splitPane;\nprivate JSplitPane splitPane2;\nprivate Frame FrameParent;\nprivate JPanel MenuPanel;\nprivate TextModel WorkArea;\nprivate EventModel VisualPanel;\nprivate MergeModel M public EBT(Frame f)\n{\n\nFrameParent = f;\nCurrentEvent = -1;\n\nthis. serverIP =\n JOptionPane\n. showInputDialog(\"\"Please Enter the IP Address of eventserver\"\")\n. trim();\n\n // Set up JList Selection wid public void getrequirement Text(EBShape sh)\n{\nWorkArea. showText( sh);\n } public boolean mouseDown( java. awt.Evente, int x, int y)\n {\n return true;\n }public boolean mouseUp( java. awt.Evente, int x, int y)\n{\nreturn true;\n } public void mouseClicked( java. awt. event.MouseEvente)\n{\nVisualPanel.Clicked( e. getX(), e. getY());\n} public void mouseExited( java. awt. event.MouseEvente){} public void mousePressed( java. awt. event.MouseEvente){} public void mouseReleased( java. awt. event.MouseEvente){}public void mouseEntered( java. awt. event.MouseEvente){} public void paint(Graphics g) {} public void update(Graphics g) {} public JSplitPane getSplitPane()\n{\nreturn splitPane;\n} public void valueChanged(ListSelectionEvent e)\n{\nif ( e. getValueIsAdjusting())\nreturn;\n} private class ValueReporter implements ListSelectionListener\n{\n\npublic void valueChanged(ListSelectionEvent event)\n{\n if (! event. getValueIsAdjusting())\n {\nswitch(EventList. getSelectedIndex())\npublic void RedrawAll(EBShape sh)\n{\nVisualPanel. drawModel( sh);\nVisualPanel.CheckNotifyStatus();\n} public static void main(String s[])\n{\nJFrame mainframe = new JFrame(\"\"Trigger an Event Notification\"\");\n\nmainframe. addWindowListener( new WindowAdapter()\n{\npublic void windowClosing(Wind\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "88.java",
+  "type": "code",
+  "text": "88\t\"Event Model \nprotected Vector EventShapes = new Vector();\nprotected Vector EventLines = new Vector();\nprotected EB Shape ebs, ebs2;\nprotected EventLine mline;\nprotected Color ShapeColor = new Color (190,190,190);\n public EventModel(EBT e)\n{\nebt = e;\nCurrentEvent = -1;\nNotifyButton = new JButton(\"\"Notify\"\");\nsetLayout( null);\nNotifyButton. setBounds(305,265,80,25);\nMinimumNoRects = 1;\n\nadd public void getIP Server( String serverIP)\n {\n\nthis. serverIP = serverIP;\n } public void ClearVectors()\n{\nEventShapes. removeAllElements();\nEventLines. removeAllElements();\n}public void drawModel()\n{\nrepaint();\n} public void drawModel(EBShape sh)\n{\nEventShapes. setElementAt( sh, ESCursor);\nrepaint();\n} private void ClearData()\n{\nfor ( int i = 0; i < EventShapes. size(); i++)\n{\nebs = (EBShape)EventShapes. elementAt( i);\nebs.Updaterequirement Info(\"\"\"\",\"\"\"\",\"\"\"\");\n }\n}public void Clicked ( int x, int y)\n{\nint Hit = 0;\nfor ( int i = 0; i < EventShapes. size(); i++)\n{\n ebs = (EBShape)EventShapes. elementAt( i);\n\nif (( x >= ebs.GetX() && ( x <= ebs public void CheckNotifyStatus()\n {\n//Check if Minimum Standards have been met.\nint j = 0;\nfor ( j = 0; j < MinimumNoRects; j++)\n{\nebs2 = (EBShape)EventShapes. elementAt( j);\n\n if (((((protected void BuildEvent(){} protected void AddLine( int t, int l, int r, int b)\n{\nEventLines. addElement( new EventLine( t, l, r, b));\n} protected void AddEventRect( int x, int y, int colorStatus)\n{\nif ( colorStatus == 1)\n{\n EventShapes. addElement( new EBShape( x, y, new Color (100,100,100)));\n }\n else\n {\nEven public String getrequirement Text(String r, String p, String m)\n{\nreturn new String(\"\"requirementwill go here\"\");\n } public StringBuffer GenerateEvent()\n{\nreturn new StringBuffer(\"\" \"\");\n }// end of GenerateEvent method protected void paintComponent(Graphics g)\n{\nsuper. paintComponent( g);\nfor ( int i = 0; i < EventShapes. size(); i++)\n{\nebs = (EBShape)EventShapes. elementAt( i);\n g. setC\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "89.java",
+  "type": "code",
+  "text": "89\t\"Event Line protected int top, left, right, bottom; public EventLine ( int t, int l, int r, int b)\n{\ntop = t;\nleft = l;\nright = r;\nbottom = b;\n} public int GetT() { return top;} public int GetL() { return left;}public int GetR() { return right;} public int GetB() { return bottom;}\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "90.java",
+  "type": "code",
+  "text": "90\t\"Merge Model public MergeModel(EBT em)\n {\nsuper( em);\n MinimumNoRects = 3;\n } // Construct Visual model for Merge Event\npublic void BuildEvent()\n{\n ClearVectors();\nAddEventRect(90,220,1);\n AddEventRect(20,20,1);\nAddEventRect(20,70,1);\nAddEvent public StringBuffer GenerateEvent()\n{\nStringBuffer thisEvent = new StringBuffer();\nStringBuffer temp = new StringBuffer();\nint MergeCount = -1;\nthisEvent. append(\"\"Merge|\"\");\n\nfor ( int i = 0; i < EventSha\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "91.java",
+  "type": "code",
+  "text": "91\t\"Modify Model public ModifyModel(EBT em)\n{\nsuper( em);\n } // Construct Visual model for Merge Event\npublic void BuildEvent()\n{\n ClearVectors();\nAddEventRect(60,80,1);\nCurrentEvent = 4;\n} public StringBuffer GenerateEvent()\n{\nStringBuffer thisEvent = new StringBuffer();\nthisEvent. append(\"\"Modify|0|\"\");\nthisEvent. append( new Date(). toString()+ \"\"|\"\");\n ebs = (EBShape)EventShapes protected void paintComponent(Graphics g)\n{\ng. drawString(\"\"TESTING MODIFY\"\",5,5);\nsuper. paintComponent( g);\n }\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "92.java",
+  "type": "code",
+  "text": "92\t\"New Modelpublic NewModel(EBT em)\n{\nsuper( em);\n } // Construct Visual model for Merge Event\npublic void BuildEvent()\n{\nClearVectors();\nAddEventRect(60,80,1);\nAddArrow(35,97,59,97);\nCurrentEvent = 0;\n} public StringBuffer GenerateEvent()\n{\nStringBuffer thisEvent = new StringBuffer();\nthisEvent. append(\"\"New|0|\"\");\nthisEvent. append( new Date(). toString()+ \"\"|\"\");\nebs = (EBShape)EventShapes. elem\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "93.java",
+  "type": "code",
+  "text": "93\t\"Obsolete Modelpublic ObsoleteModel(EBT em)\n{\nsuper( em);\n } // Construct Visual model for Merge Event\npublic void BuildEvent()\n{\n ClearVectors();\nAddEventRect(60,80,1);\nAddLine(60,60,225,135);\nAddLine(60,135,225,60);\nCurrentEve public StringBuffer GenerateEvent()\n {\nStringBuffer thisEvent = new StringBuffer();\nthisEvent. append(\"\"Obsolete|0|\"\");\nthisEvent. append( new Date(). toString()+\"\"|\"\");\nebs = (EBShape)EventShapes. e\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "94.java",
+  "type": "code",
+  "text": "94\t\"Refine Modelpublic RefineModel(EBT em)\n{\nsuper( em);\n } // Construct Visual model for Merge Event\npublic void BuildEvent()\n{\n ClearVectors();\nAddEventRect(60,80,1);\nCurrentEvent = 3;\n} public StringBuffer GenerateEvent()\n{\nStringBuffer thisEvent = new StringBuffer();\nthisEvent. append(\"\"Refine|0|\"\");\nthisEvent. append( new Date(). toString()+\"\"|\"\");\nebs = (EBShape)EventShapes. el\"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ },
+ {
+  "id": "95.java",
+  "type": "code",
+  "text": "95\t\"Text Model private int CurrentEvent;\nprivate EBT ebt;\nprivate JLabel lblrequirement No, lblProject, lblModulePath;\nprivate JTextField txtrequirement No, txtProject, txtModulePath;\nprivate boolean HideMsg;\np public TextModel(EBT e)\n{\n // System. out. println(\"\"Trying to create text box\"\");\nebt = e;\nCurrentEvent = -1;\n// setForeground( new Color ( 255,255,255) );\n lblrequirement No = new JLabel(\"\"requirement public void showText(EBShape sh)\n{\n // Hide message in bottom box.\n HideMsg = true;\n repaint();\nlblProject. setVisible( true);\nlblrequirement No. setVisible( true);\nlblModulePath. set public void HideText()\n{\nlblProject. setVisible( false);\nlblrequirement No. setVisible( false);\nlblModulePath. setVisible( false);\ntxtProject. setVisible( false);\ntxtrequirement No. setVisi public void ShowInfo( int CE)\n{\nCurrentEvent = CE;\nHideMsg = false;\nHideText();\n repaint();\n} public void drawModel()\n{\nrepaint();\n} protected void paintComponent(Graphics g)\n{\n super. paintComponent( g);\n\nif (HideMsg == true)\n{\n g. drawString(\"\" \"\",20,25);\n g. drawString(\"\" \"\",20,40);\n g. drawString(\"\" \"\",20,55 \"\r\n",
+  "metadata": {
+   "dataset": "EBT",
+   "layer": "code",
+   "language": "java"
+  }
+ }
+]

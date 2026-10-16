@@ -1,0 +1,1295 @@
+{
+ "note": "Llama 3.1 8B verdicts collected from earlier runs (expert prompt, temperature 0). kept = is_linked and confidence >= 0.5",
+ "pairs": {
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET artifact (Owner.java) implements the requirement specified in the SOURCE artifact (PC-REQ-001) by providing fields for first name, last name, address, city, and telephone number. The fields are annotated with constraints (e.g., @NotBlank, @Size) that match the requirement's intent. Howeve"
+  },
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The source requirement specifies a business process for adding a new pet owner, while the target code is the main application class for a Spring Boot application. There is no direct implementation, verification, realisation or dependency of the requirement in the code. The code does not even contain"
+  },
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The TARGET code (PetController.java) implements the functionality to add a new pet owner, which matches the intent of the SOURCE requirement (PC-REQ-001). The code includes methods to create a new pet owner, validate input, and save the owner to the database. Although the code does not directly refe"
+  },
+  "PC-REQ-001||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies the ability to add a new pet owner, but the target artifact is a HTML template for displaying a list of existing owners. While the template does display owner information, including name, address, city, and telephone number, it does not provide a form for adding new "
+  },
+  "PC-REQ-001||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies the ability to add a new pet owner, but the target artifact is a HTML template for displaying owner information, not for adding new owners. However, the template does contain a link to add a new pet, which is related to the owner, but not directly to adding a new own"
+  },
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies adding a new pet owner, but the target code is related to managing visits for existing pet owners. The code does implement functionality for adding visits, but it does not directly implement the requirement of adding a new pet owner. The shared vocabulary of 'owner' "
+  },
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies adding a new pet owner with multiple fields, but the target code only validates a subset of these fields (name, type, birth date). Although the target code is related to pet validation, it does not directly implement or verify the requirement as a whole. The requirem"
+  },
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that the system shall allow a clinic employee to add a new pet owner by entering first name, last name, address, city and telephone number. The target code contains a POST request to /owners/new that accepts an Owner object, which matches the requirement. The code also cont"
+  },
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a high-level business process (adding a new pet owner), while the target code implements a specific formatter for parsing and printing 'PetType' elements. Although the requirement mentions entering 'first name, last name, address, city and telephone number', the targ"
+  },
+  "PC-REQ-002||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies a search function for owners by last name, and the code includes a GET mapping for /owners/find that allows searching for owners by last name. The code also includes a function to find owners by last name in the processFindForm method. The requirement's mention of a partial"
+  },
+  "PC-REQ-002||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The requirement specifies a search function by last name, and the code provides a method 'findByLastNameStartingWith' that matches this requirement. The method name and description closely match the requirement's intent, and the method's functionality (returning owners whose last name starts with th"
+  },
+  "PC-REQ-002||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a search function for owners by last name, but the target code is a HTML template for the layout of the application, which does not directly implement or verify the search function. However, the template does include a link to the '/owners/find' page, which might be "
+  },
+  "PC-REQ-002||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies searching for owners by last name, but the target code does not implement this functionality. The target code is focused on managing pets, not searching for owners. However, the target code does implement searching for owners by ID, which is a different requirement ("
+  },
+  "PC-REQ-002||spring-petclinic:src/main/resources/templates/owners/findOwners.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The HTML template findOwners.html in the TARGET artifact contains a form with a field for last name, which matches the requirement in the SOURCE artifact. The form's action is set to /owners, which is consistent with the requirement. However, the requirement specifies that an empty search lists all "
+  },
+  "PC-REQ-002||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a search function for owners by last name, but the target code snippet is a template for displaying a list of owners, not a search interface. However, the template does include a pagination feature, which suggests that the code is part of a larger system that may inc"
+  },
+  "PC-REQ-002||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies searching for owners by last name, but the provided code does not contain any methods or fields related to searching. The code is a JavaBean domain object representing an owner, but it does not implement any search functionality. However, the requirement is not entirely unr"
+  },
+  "PC-REQ-002||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a search function for owners by last name, but the target code does not implement this functionality. The target code is related to visit management, not owner search. However, the source requirement does not explicitly exclude the target code's functionality, so the"
+  },
+  "PC-REQ-002||spring-petclinic:src/main/java/org/springframework/samples/petclinic/model/Person.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies searching for owners by last name, but the target code only contains a Person class with a lastName field, without any search functionality. However, the requirement does not explicitly state that the search functionality should be implemented in the Person class, so the co"
+  },
+  "PC-REQ-002||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies searching for owners by last name, but the target template does not appear to implement this functionality. However, the template does display owner information, which suggests some level of relatedness. The confidence is moderate because the template does contain a "
+  },
+  "PC-REQ-003||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies a paginated list of owners, and the code in OwnerController.java implements a paginated list of owners in the /owners endpoint. The code uses the OwnerRepository to find owners by last name, which matches the requirement's intent. However, the code does not explicitly handl"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a paginated list of owners, but the target code shows a paginated list of vets. Although the pagination logic is similar, the target code does not implement the requirement as specified. The requirement mentions 'owners', but the target code is about 'vets'. The code"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a paginated list of owners, and the target code implements a paginated list of owners with a table and pagination links. The table columns and pagination links match the requirement's intent. However, the requirement does not specify the exact layout or formatting, s"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies a paginated list of owners, but the code only provides methods for retrieving owners by last name or id. There is no method that directly implements the requirement's pagination feature. However, the requirement's intent is somewhat matched by the 'findByLastNameStartingWit"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a paginated list of owners, but the target code snippet is a HTML template for the overall layout of the page, including navigation and other elements. While it does contain a link to the owners page, it does not directly implement or verify the requirement. However,"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/resources/templates/owners/findOwners.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The HTML template in the TARGET artifact appears to implement the requirement in the SOURCE artifact, as it contains a form with a search field and a 'Find Owner' button, which matches the description of showing owners that match a search in a paginated list. However, the template does not include p"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET code implements the functionality described in the SOURCE requirement. The code includes methods for searching owners, retrieving owner information, and handling CRUD operations for owners. The requirement specifies that the system shall show owners that match a search in a paginated list"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/resources/templates/vets/vetList.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a paginated list of owners, and the target code implements a paginated list of veterinarians. Although the data types are different, the intent of the pagination is the same. The target code uses Thymeleaf to display the list, but the pagination links and the display"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions a paginated list of owners, but the target code does not implement this feature. The code is focused on managing visits for pets, and does not appear to be related to displaying owners in a list. However, the code does use an OwnerRepository, which suggests some level"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions a paginated list of owners, while the target code is about a list of veterinarians. Although both are lists, the context and content are different. However, the use of pagination is not present in the target code, which reduces the confidence in a link between the two"
+  },
+  "PC-REQ-004||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a direct navigation to an owner's details page when exactly one owner matches a search. However, the target code does not implement this behavior. Instead, it handles multiple owners found in a search by returning a list of owners and providing pagination. The code d"
+  },
+  "PC-REQ-004||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET code (PetController.java) implements the functionality described in the SOURCE requirement (PC-REQ-004). The code includes a method findOwner() that retrieves an owner's details when a matching owner ID is provided, which directly corresponds to the requirement's description. Although the"
+  },
+  "PC-REQ-004||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies a direct navigation to an owner's details page when exactly one owner matches a search. However, the code snippet provided is an interface for a repository class, which does not directly implement this requirement. The repository class provides methods for retrieving owners"
+  },
+  "PC-REQ-004||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a direct transition to an owner's details page when a single owner matches a search. The target code, however, handles visits and pets, and does not appear to directly implement or verify the specified requirement. Although the code does involve owners and pets, the "
+  },
+  "PC-REQ-004||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a specific behavior for a search result with exactly one owner, but the target code does not implement this behavior. However, the target code does contain a method 'showResourcesVetList()' that returns a list of vets, which could be considered as indirectly related "
+  },
+  "PC-REQ-004||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a specific behavior for a search result with exactly one owner, whereas the target code snippet is a template for displaying a list of owners. While the target code does handle pagination, which is related to the source requirement's mention of 'exactly one owner', t"
+  },
+  "PC-REQ-004||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies a specific behavior for the system when exactly one owner matches a search, but the code does not implement this behavior. The code is a Java class representing an owner, but it does not contain any logic related to searching or redirecting to an owner's details page. Howev"
+  },
+  "PC-REQ-004||spring-petclinic:src/main/resources/templates/owners/findOwners.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a system behavior when exactly one owner matches a search, but the target artifact is an HTML template for a search form. While the template does contain a 'Find Owner' button, it does not directly implement the system behavior described in the requirement. However, "
+  },
+  "PC-REQ-004||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a specific behavior for the system when exactly one owner matches a search, but the target code is a HTML template for a layout, which does not directly implement or verify this behavior. However, the template does contain a link to the owners page, which is related "
+  },
+  "PC-REQ-004||spring-petclinic:src/main/resources/templates/vets/vetList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a direct transition to an owner's details page when exactly one owner matches a search. The target code snippet is a HTML template for a list of veterinarians, which does not directly implement this requirement. However, the template does handle pagination, which is "
+  },
+  "PC-REQ-005||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a specific behavior when no owner matches a search, but the target code does not implement this exact behavior. The target code handles cases where no owners are found, but it does so in a different way (e.g., by returning a 'not found' message on the same page). Whi"
+  },
+  "PC-REQ-005||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies a 'not found' message when no owner matches a search, but the code does not explicitly handle this scenario. However, the code does provide a method to retrieve an Owner by id, which returns an empty Optional if not found. This suggests that the system does handle the case "
+  },
+  "PC-REQ-005||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a specific behavior when no owner matches a search, but the target code does not implement this behavior. The target code handles owner not found errors, but it redirects to a different page instead of staying on the search page and showing a 'not found' message. How"
+  },
+  "PC-REQ-005||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a specific behavior when no owner matches a search, but the target code does not implement this behavior. The code handles owner not found errors, but it does not stay on the search page and show a 'not found' message. However, the code does handle other error cases,"
+  },
+  "PC-REQ-005||spring-petclinic:src/main/resources/templates/error.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a 'not found' message on the search page, but the target code snippet shows a generic error page with multiple possible error messages, including 'The requested page was not found.' However, the target code does not specifically implement the 'not found' message as d"
+  },
+  "PC-REQ-005||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a system behavior when no owner matches a search, but the target artifact is an HTML template for a layout. While the template does contain a search functionality, it does not directly implement or verify the specific behavior described in the source requirement. The"
+  },
+  "PC-REQ-005||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.2,
+   "reasoning": "The requirement specifies a system behavior when no owner matches a search, but the target code is a Java class representing an owner entity, with no apparent connection to search functionality. The class has methods for getting pets by name or ID, but these do not seem to be related to the requirem"
+  },
+  "PC-REQ-005||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a 'not found' message when no owner matches a search, but the target code does not display such a message. However, the target code does display error messages in a similar format, suggesting a shared vocabulary. The code also includes a function to hide success and "
+  },
+  "PC-REQ-005||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The requirement specifies a 'not found' message when no owner matches a search, but the code does not handle this scenario. However, the code does handle pagination and page navigation, which is related to the requirement's intent. The confidence level is moderate because the code does implement som"
+  },
+  "PC-REQ-005||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a specific error handling behavior when no owner matches a search, whereas the target artifact is a HTML template for displaying a list of owners. Although the template does contain pagination links, there is no indication that it handles the 'not found' case as spec"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET artifact (PetController.java) implements the functionality described in the SOURCE artifact (PC-REQ-006). The controller handles requests related to owner's details, including displaying contact information, owner's pets, and each pet's visit history. The code includes methods for finding"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET code (VisitController.java) implements the functionality described in the SOURCE requirement (PC-REQ-006). The code includes methods for loading a pet's visit history, creating a new visit, and processing a new visit form. These methods directly relate to the requirement's specification o"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The source requirement specifies that the system shall display an owner's details, including contact information, the owner's pets, and each pet's visit history. The target code (Owner.java) represents an owner entity with attributes for address, city, telephone, and a list of pets. The code also in"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The TARGET artifact (ownerDetails.html) displays an owner's details, including contact information, pets, and each pet's visit history, which matches the intent of the SOURCE artifact (PC-REQ-006). The table in the TARGET artifact lists each pet's name, birth date, type, and visit history, which cor"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.2,
+   "reasoning": "The source requirement mentions 'owner's details', which includes 'contact information' and 'the owner's pets'. However, the target code artifact is a class representing a 'pet', not an 'owner'. Although it does contain a field for 'visits', which could be related to the owner's pets, the overall st"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that the system shall display an owner's details, including contact information, the owner's pets, and each pet's visit history. The target code, OwnerController.java, handles owner-related operations, including displaying owner details, creating new owners, and finding own"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall display an owner's details, including contact information, the owner's pets, and each pet's visit history. The target code snippet is a HTML template that displays a list of owners, including their contact information, pets, and a link to view e"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions 'the owner's pets' and 'each pet's visit history', which is partially implemented in the target code. The code displays a form to add a new visit for a pet, and also shows a table of previous visits for a pet. However, the code does not display the owner's contact inf"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions 'owner's details', 'contact information', 'owner's pets', and 'each pet's visit history'. The target code, however, only deals with veterinarians (Vets) and their lists. Although the code is part of the Spring PetClinic application, which is related to veterinary care"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies the display of owner's details, including contact information, owner's pets, and each pet's visit history. The target code, however, is a validator for Pet forms, focusing on individual pet details (name, type, birth date) rather than the comprehensive display of own"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET code (PetController.java) contains methods for updating an existing owner's information, specifically in the processCreationForm method where it checks for duplicate pet names and updates the owner's pet list. This matches the intent of the SOURCE requirement (PC-REQ-007). However, the re"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement PC-REQ-007 specifies that the system shall allow an employee to update an existing owner's information. The OwnerController.java class contains a method processCreationForm() that allows updating an existing owner's information. Additionally, the method processFindForm() allows findi"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies the ability to update an existing owner's information, but the target code (Owner.java) does not appear to implement this functionality. The code is focused on representing an owner's information, but it does not include any methods or fields related to updating exis"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions updating an existing owner's information, but the target code does not directly implement this functionality. The code is related to managing visits for pets, and updating owner information is not explicitly mentioned. However, the code does involve updating an owner'"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies the ability to update an existing owner's information, but the target artifact is a HTML template for displaying owner information, not for updating it. The template does contain links to edit the owner and add new pets, but these links are not directly related to up"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies updating an existing owner's information, but the code artifact is a repository interface for Owner domain objects, which does not directly implement this functionality. The repository interface provides methods for retrieving Owners by last name or id, but does not include"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The HTML form in the target artifact allows an employee to update an existing owner's information, which matches the intent of the source requirement. The form fields for 'firstName', 'lastName', 'address', 'city', and 'telephone' correspond to the information that needs to be updated. However, the "
+  },
+  "PC-REQ-007||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions updating an existing owner's information, but the target code snippet appears to be related to creating or updating a visit for a pet, not updating an owner's information. However, the code does display owner information for a pet, which is related to the source requi"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies the ability to update an existing owner's information, but the target artifact is a HTML template for displaying a list of owners. While it does contain links to individual owner pages, there is no indication that it allows updating of owner information. However, the"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.2,
+   "reasoning": "The source requirement specifies the ability to update an existing owner's information, but the target artifact is a HTML template for a navigation bar, which does not implement or verify this functionality. The template does contain links to various pages, including one for 'owners', but this is no"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The TARGET code (PetController.java) implements the functionality described in the SOURCE requirement (PC-REQ-008). The code includes methods for adding a new pet to an owner, which matches the requirement's description. The requirement's intent is to allow an employee to add a new pet, and the code"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies adding a new pet to an owner, which involves entering the pet's name, birth date, and type. The target code, however, represents a simple business object for a pet, with attributes for birth date and type, but no indication of adding a pet to an owner. The code does "
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies adding a new pet to an owner, which is partially implemented in the Owner class's addPet method. The method allows adding a new pet to the owner's list of pets, but it does not explicitly handle the pet's name, birth date, and type. However, the requirement's intent "
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies adding a new pet to an owner by entering the pet's name, birth date and type. The target code, however, only validates the existence and length of the pet's name, the existence of the pet's type (if it's a new pet), and the existence of the pet's birth date. It does "
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement PC-REQ-008 specifies adding a new pet to an owner, which is partially implemented in the VisitController class. The class has methods for loading a pet with a visit, processing a new visit form, and adding a visit to an owner. However, the requirement also mentions entering the pet's"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies adding a new pet to an owner, but the target code snippet is for displaying owner information and does not contain any functionality for adding new pets. However, it does contain a link to add a new pet, which suggests that the functionality is elsewhere in the syste"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The requirement PC-REQ-008 specifies adding a new pet to an owner, which involves entering the pet's name, birth date, and type. The code in PetTypeFormatter.java is related to formatting and parsing PetType objects, but it does not directly implement or verify the requirement. However, the requirem"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The requirement PC-REQ-008 specifies adding a new pet to an owner, which involves entering pet's name, birth date and type. The target artifact, PetTypeRepository.java, is related to PetType domain objects, but it does not directly implement or verify the requirement. The findPetTypes() method retri"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies adding a new pet to an owner, which includes entering the pet's name, birth date, and type. The target HTML template, 'createOrUpdateVisitForm.html', appears to be related to adding a new visit for a pet, but it also includes fields for the pet's name, birth date, an"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies adding a new pet to an owner by entering the pet's name, birth date and type. The target artifact is a HTML template for a form to create or update a pet, but it does not directly implement the requirement. The form fields match the requirement's fields, but the temp"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions editing a pet's name, birth date, and type, but the target code only includes fields for birth date and type. The code does not appear to implement editing of a pet's name. However, the code does include a method for adding a visit, which is not mentioned in the sourc"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The TARGET artifact (PetController.java) implements the functionality to edit a pet's name, birth date and type as specified in the SOURCE artifact (PC-REQ-009). The controller methods handle CRUD operations for pets, including editing their details. The requirement's intent is met by the controller"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The PetValidator class in the TARGET artifact implements validation rules for a Pet's name, birth date, and type, which directly corresponds to the requirements specified in the SOURCE artifact. Although the TARGET artifact does not explicitly mention editing these fields, the validation rules sugge"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET artifact is a Thymeleaf template for displaying owner information, including a table with columns for name, birth date, and type. This directly corresponds to the requirements specified in the SOURCE artifact, which mentions editing a pet's name, birth date, and type. While the template d"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall allow an employee to edit a pet's name, birth date and type. The target code is a form for editing a pet's visit, which includes fields for name, birth date and type. Although the target code is focused on visits rather than pets directly, it ap"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions editing a pet's name, birth date, and type, but the target code only deals with formatting and parsing of pet types. While the code is related to pet types, it does not directly implement or verify the editing of pet information as specified in the source requirement."
+  },
+  "PC-REQ-009||spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies editing a pet's name, birth date, and type, but the target HTML template only allows editing a pet's name and birth date. The type field is present but not editable. The template does not directly implement or verify the requirement, but it does provide a form for ed"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies editing a pet's name, birth date, and type, which is partially implemented in the Owner class's methods for getting and setting pets. However, the requirement does not explicitly mention editing address, city, or telephone, which are present in the Owner class. The Owner cl"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions editing a pet's name, birth date, and type, but the target code only deals with retrieving PetType objects from the data store. Although the code is related to pet types, it does not implement the editing functionality specified in the requirement. The shared vocabula"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetType.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions editing a pet's name, birth date, and type, but the target code only defines a PetType class, which does not directly relate to editing these attributes. However, the source requirement does not explicitly mention the creation of a new PetType entity, so there is some"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall require a pet name, a birth date and a type, and shall reject a pet name that the same owner already uses for another pet. The target code implements a PetController class that handles pet creation and update, including validation of pet name un"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The PetValidator class in the TARGET artifact implements validation rules for pet name, type, and birth date, which directly corresponds to the requirements specified in the SOURCE artifact. Although the TARGET artifact does not explicitly mention the requirement of not using a pet name already used"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall require a pet name, birth date, and type, and reject a pet name already used by the same owner. The target code (Owner.java) does not directly implement this requirement. However, it does contain fields for address, city, and telephone, which ar"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions a pet name, birth date, and type, but the target code only includes fields for birth date and type. The target code does not appear to implement the requirement for a unique pet name, and the field for pet name is not present. However, the target code does implement t"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall require a pet name, birth date, and type, and reject a pet name already used by the same owner. The target code does not directly implement or verify this requirement. However, it does handle pet and owner data, including validation and data bin"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a business rule for pet name uniqueness, while the target code implements a formatter for pet types. Although the code uses a repository to find pet types, there is no direct evidence that it enforces the uniqueness rule. The requirement mentions rejection of duplica"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a business rule for pet registration, while the target code is an interface for retrieving PetType domain objects. Although the code is related to pet data, it does not directly implement or verify the requirement. The requirement mentions pet name, birth date, and t"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies that the system shall require a pet name, birth date, and type, and reject a pet name already used by the same owner. The target artifact is a HTML template for displaying owner information, including a table of pets. While the template does display pet information, "
+  },
+  "PC-REQ-010||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies that the system shall require a pet name, birth date, and type, and reject a pet name already used by the owner. The target code is a form for creating or updating a visit, which includes fields for pet name, birth date, and type, but does not implement the requireme"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetType.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The source requirement specifies a business rule for pet data, while the target code appears to be a data model for pet types, with no indication of implementing or verifying the specified rule."
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement states that the system shall not accept a pet birth date that lies in the future. The target code contains a check in the processCreationForm method that rejects the creation of a pet with a birth date that is after the current date. This matches the intent of the source requi"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The PetValidator class in the TARGET artifact contains a method validate() that checks for a valid birth date. Although the requirement SOURCE does not explicitly mention the validation of birth date, it does specify that the system shall not accept a pet birth date that lies in the future. The vali"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that the system shall not accept a pet birth date in the future, but the code does not enforce this constraint. The birthDate field is annotated with @DateTimeFormat(pattern = \"yyyy-MM-dd\"), which suggests that it is intended to hold a date in the past, but it does not prev"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies that the system shall not accept a pet birth date that lies in the future. However, the target code snippet does not directly implement or verify this requirement. The code does display pet birth dates, but it does not check whether the date is in the future. The req"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a constraint on pet birth dates, while the target code is related to the Owner entity, which does not seem to be directly related to pet birth dates. However, the requirement is not explicitly mentioned in the code, but the code does not contradict the requirement ei"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement states that the system shall not accept a pet birth date that lies in the future. However, the code does not directly implement this requirement. Instead, it checks if the visit date is after the current date in the processNewVisitForm method. This is a related but not identical requ"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall not accept a pet birth date that lies in the future. However, the target code snippet does not contain any input field for the birth date, nor does it perform any validation on the birth date. The code does display the birth date of the pet, but"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a system constraint on pet birth dates, while the target artifact is a HTML template for a form to create or update a pet. Although the form includes a field for 'Birth Date', there is no indication that the system will enforce the constraint specified in the source "
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that the system shall not accept a pet birth date in the future, but the target code does not directly implement or verify this requirement. The code does contain a field for visit date, but it is set to the current date plus one day in the constructor, which is not related"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement PC-REQ-011 specifies a constraint on pet birth dates, while the target code is related to retrieving PetType objects from the data store. Although the requirement is related to dates, the target code does not directly implement or verify this requirement. However, the requirement is "
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions scheduling a visit by entering a date and description, but the target code only represents a visit with a date and description, it does not implement the scheduling functionality. The code is a domain object for a visit, not a scheduling mechanism."
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The requirement PC-REQ-012 specifies that the system shall allow an employee to schedule a visit for a pet by entering a date and a description. The VisitController.java class in the target artifact implements this requirement by providing methods to load a pet with a visit, set the minimum visit da"
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.2,
+   "reasoning": "The source requirement mentions scheduling a visit, but the target code only contains a Pet class with attributes and methods unrelated to scheduling visits. The only mention of 'visit' is in the context of a Set<Visit> which is a collection of visits, not a scheduling action. The source and target "
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies scheduling a visit for a pet, while the target code is related to managing owners and their pets. Although the target code does contain methods for getting pets by name or ID, it does not directly implement the scheduling of visits. The requirement mentions entering "
+  },
+  "PC-REQ-012||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions scheduling a visit for a pet, but the target artifact is an HTML template for displaying owner information, including pets and visits. While the template does display information about pets and visits, it does not implement the ability to schedule a visit. The templat"
+  },
+  "PC-REQ-012||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions scheduling a visit for a pet by entering a date and a description. The target HTML template contains input fields for 'Date' and 'Description', which aligns with the source requirement. Additionally, the template includes a form with a submit button to add a visit, fu"
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET code (PetController.java) implements the functionality to schedule a visit for a pet by entering a date and a description, as specified in the SOURCE requirement (PC-REQ-012). The code includes methods to create and update pets, which aligns with the requirement. However, the requirement "
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions scheduling a visit for a pet, but the target code is a validator for Pet forms, focusing on name, type, and birth date validation. Although the target code is part of the pet clinic system, it does not directly implement or verify the scheduling functionality specifie"
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The source requirement specifies a specific business process (scheduling a visit), while the target code is the main application class for a pet clinic system, but it does not contain any code related to scheduling visits. The code is focused on setting up the application, not implementing the busin"
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions scheduling a visit for a pet, while the target code is related to retrieving PetType objects. Although both artifacts are related to pet clinic functionality, the specific intent and behavior described in the source requirement do not directly match the target code's "
+  },
+  "PC-REQ-013||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET code (PetController.java) handles CRUD operations for pets, including listing a pet's previous visits. The SOURCE requirement (PC-REQ-013) specifies that the system shall list a pet's previous visits on the owner's details page. Although the requirement does not explicitly mention CRUD op"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The code artifact represents a simple JavaBean domain object for a visit, which is a specific implementation detail. The requirement is more general, asking for a list of previous visits on the owner's details page. While the code artifact does contain fields for date and description, which are ment"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions listing a pet's previous visits on the owner's details page, but the target code only defines a Pet object with a set of visits. There is no clear indication that the visits are being listed on the owner's details page. However, the presence of a set of visits in the "
+  },
+  "PC-REQ-013||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The source requirement specifies that the system shall list a pet's previous visits on the owner's details page. The target code, which is a template for the owner's details page, includes a table that lists previous visits for a pet. The table has columns for date and description, which matches the"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The requirement PC-REQ-013 specifies that the system shall list a pet's previous visits on the owner's details page. The VisitController.java code implements this requirement by providing methods to load and process visit data, including listing previous visits on the owner's details page. The code'"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The source requirement specifies that the system shall list a pet's previous visits, with date and description, on the owner's details page. The target code snippet is the HTML template for the owner's details page, which includes a table listing the owner's pets and their visits. The table includes"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies listing a pet's previous visits on the owner's details page, but the target code (Owner.java) does not appear to implement this functionality. The code does contain a list of pets for an owner, but it does not include any information about previous visits. The requir"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies listing a pet's previous visits on the owner's details page, but the target code does not implement this functionality. The target code handles owner-related operations, but it does not include any logic for listing previous visits. However, the requirement is not ex"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies listing a pet's previous visits on the owner's details page, but the target code snippet is for the owners list page, which does not directly relate to the requirement. However, the code does list owner information, including pets, which is a related concept. The con"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement asks for a list of a pet's previous visits on the owner's details page, but the target code does not implement this functionality. The target code does handle vet-related operations, but it does not seem to be directly related to the source requirement. However, the source req"
+  },
+  "PC-REQ-014||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET code implements the requirement by listing all veterinarians with their specialties in a paginated table. The code includes a paginated table in the 'vets/vetList' view, which is referenced in the 'addPaginationModel' method. Additionally, the 'findPaginated' method retrieves a paginated "
+  },
+  "PC-REQ-014||spring-petclinic:src/main/resources/templates/vets/vetList.html": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The source requirement specifies that the system shall list all veterinarians with their specialties in a paginated table. The target code, located at src/main/resources/templates/vets/vetList.html, appears to implement this requirement. The table in the code displays veterinarians with their specia"
+  },
+  "PC-REQ-014||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions a paginated table, but the target code only shows a JavaBean domain object representing a veterinarian with a set of specialties. There is no indication that the code is intended to list veterinarians in a table, let alone a paginated one. However, the code does provi"
+  },
+  "PC-REQ-014||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions a paginated table, but the target code only defines a simple domain object with a list of veterinarians. Although the code is related to the 'vets' view, it does not directly implement the requirement's intent. The requirement specifies a table with multiple columns ("
+  },
+  "PC-REQ-014||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Specialty.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions a paginated table listing veterinarians with their specialties, whereas the target code models a single specialty entity. Although the source mentions veterinarians, the target code focuses on the specialty aspect, suggesting a partial implementation or a different sc"
+  },
+  "PC-REQ-014||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a paginated table listing all veterinarians with their specialties. The target code, OwnerController.java, handles CRUD operations for owners, but does not explicitly implement a paginated table for veterinarians. However, it does handle pagination for owners in the "
+  },
+  "PC-REQ-014||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a paginated table listing all veterinarians with their specialties, whereas the target artifact is a HTML template for the layout of a web page. While the template does contain a list of veterinarians, it does not appear to be paginated, and the requirement for speci"
+  },
+  "PC-REQ-014||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement asks for a paginated table listing all veterinarians with their specialties. The target artifact is a HTML template for displaying owner information, including a table listing pets and visits. While the table structure is similar, there is no indication that veterinarians or t"
+  },
+  "PC-REQ-014||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetType.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The source requirement specifies a system-level feature (listing veterinarians with specialties), while the target code appears to be a Java class for a specific entity (PetType) in a database, with no indication of implementing or verifying the required feature."
+  },
+  "PC-REQ-014||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a paginated table listing all veterinarians with their specialties. The target HTML template implements this requirement by displaying a paginated table with veterinarians' information, including name, address, city, telephone, and pets. The table is paginated, and n"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET artifact implements a 'Vets' class that provides a list of veterinarians as a machine-readable resource, which matches the intent of the SOURCE artifact. The class is annotated with @XmlRootElement, indicating it can be serialized to XML, and the getVetList() method returns a list of vete"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a machine-readable resource (JSON or XML) for veterinarians, but the target code provides a JSON object for veterinarians. Although the target code does implement a resource for veterinarians, it does not match the exact format specified in the source requirement. Th"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/resources/templates/vets/vetList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a machine-readable resource (JSON or XML) containing a list of veterinarians, whereas the target artifact is an HTML template for displaying a list of veterinarians. Although the target artifact does implement a list of veterinarians, it does not provide a machine-re"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a machine-readable resource (JSON or XML) containing a list of veterinarians, whereas the target artifact is an HTML template for a web page layout. Although the target artifact does contain a link to a 'veterinarians' page, there is no indication that this page prov"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a machine-readable resource (JSON or XML) containing a list of veterinarians, whereas the target code defines a JavaBean domain object representing a veterinarian. Although the target code does contain a list of specialties, there is no evidence that it provides a ma"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Specialty.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The source requirement specifies a machine-readable resource listing veterinarians, while the target code defines a Specialty class, which is unrelated to the requirement. The code is focused on modeling a vet's specialty, not providing a list of veterinarians."
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a machine-readable resource (JSON or XML) containing a list of veterinarians, whereas the target code is a Java class representing an owner entity in a pet clinic system. Although the target code contains a list of pets, there is no indication that it provides a list"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a machine-readable resource (JSON or XML) listing veterinarians, whereas the target code is a validator for Pet forms, which does not directly relate to the provision of a list of veterinarians. However, the code does validate pet-related information, and the shared "
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a machine-readable resource, but the target code provides a repository interface for PetType domain objects. While the target code does provide a list of PetTypes, it is not explicitly stated as a machine-readable resource. However, the use of JSON or XML is not ment"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a machine-readable resource (JSON or XML) for veterinarians, but the target code does not directly implement this. However, the target code does provide a list of owners as a machine-readable resource (JSON) in the /owners endpoint. Although the specific format (JSON"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The source requirement specifies a welcome page as the home page, while the target code defines a WelcomeController class with a welcome() method that returns the 'welcome' view. The @GetMapping(\"/\") annotation indicates that this method is invoked when the root URL is accessed, which matches the so"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a welcome page as the home page, but the target code does not directly implement or reference this requirement. However, the code does contain a Spring Boot application class, which suggests a connection to the application's configuration and startup. The confidence "
+  },
+  "PC-REQ-016||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall show a welcome page as the home page of the application. The target code is a HTML template that defines a layout for the application, including a welcome page as the home page. The template uses Thymeleaf syntax to include a fragment called 'la"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a 'welcome page' as the home page, while the target code implements a 'VetController' with endpoints for listing vets. Although the target code does handle pagination and listing of vets, there is no direct evidence that it implements a welcome page. The confidence l"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a welcome page as the home page, but the target code does not implement this functionality. The target code is related to owner management, and there is no direct connection to a welcome page. However, the code does contain a comment about ensuring the ID is correct,"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a 'welcome page' as the home page of the application, whereas the target code snippet appears to be a template for a list of owners. Although both artifacts are related to the application's user interface, there is no direct evidence that the target code snippet impl"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/resources/templates/welcome.html": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The welcome page requirement (PC-REQ-016) is directly implemented in the welcome.html template, which includes the layout and displays the welcome message and image. The th:replace and th:text attributes in the template match the requirement's intent."
+  },
+  "PC-REQ-016||spring-petclinic:src/main/resources/templates/vets/vetList.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a welcome page as the home page of the application, but the target code is a template for a vet list page. While the target code does contain links to other pages, there is no direct evidence that it implements or verifies the welcome page requirement. However, the u"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/resources/templates/error.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a 'welcome page' as the home page, but the target code is an error page template. Although the code uses a layout fragment, there is no indication that it is used for the welcome page. The code's purpose is to handle errors, not to display a welcome page."
+  },
+  "PC-REQ-016||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a welcome page as the home page, while the target code focuses on internationalization and language settings. Although the target code does handle language changes via the URL parameter, it does not directly implement or verify the welcome page requirement. The code "
+  },
+  "PC-REQ-017||spring-petclinic:src/main/resources/templates/error.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The error.html template in the TARGET artifact shows a friendly error page with a generic error message when an unexpected error occurs, which aligns with the requirement in the SOURCE artifact. The template uses Thymeleaf to display a user-friendly error message, which is consistent with the requir"
+  },
+  "PC-REQ-017||spring-petclinic:src/main/resources/templates/fragments/selectField.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a system-level behavior (showing a friendly error page), while the target artifact is a specific HTML template for a select field. Although the template is part of the Spring Petclinic system, it does not directly implement or verify the error handling behavior speci"
+  },
+  "PC-REQ-017||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CrashController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a system behavior in case of an unexpected error, whereas the target code implements a controller that triggers an exception. Although the code includes a comment mentioning an error page, it does not directly implement the error handling behavior described in the re"
+  },
+  "PC-REQ-017||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a general error handling behavior, while the target code is focused on pet management and CRUD operations. Although the code does handle exceptions and provides informative error messages, there is no direct evidence that it implements the specific error handling beh"
+  },
+  "PC-REQ-017||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a friendly error page for unexpected errors, but the target code is a HTML template for the layout of the application, which does not directly relate to error handling. However, the presence of a 'trigger a RuntimeException' link in the template suggests that the app"
+  },
+  "PC-REQ-017||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a general error handling behavior, while the target code implements a specific feature for owner management. Although the code includes error handling in the processCreationForm method, it does not directly address the requirement of showing a friendly error page in "
+  },
+  "PC-REQ-017||spring-petclinic:src/main/resources/templates/fragments/inputField.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a system-level behavior (showing a friendly error page), while the target artifact is a specific HTML template for input fields. Although the template is part of the Spring Petclinic application, which is likely related to the requirement, there is no direct evidence"
+  },
+  "PC-REQ-017||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a system behavior in case of an unexpected error, which is to show a friendly error page. The target artifact is an HTML template for displaying owner information, which does not directly relate to error handling. However, the template does contain a section for disp"
+  },
+  "PC-REQ-017||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a friendly error page for unexpected errors, but the target code does not handle errors in this way. The code does handle pagination and list display, but this is not directly related to error handling. The code does contain error handling in the findPaginated method"
+  },
+  "PC-REQ-017||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies the behavior of the system when an unexpected error occurs, which is to show a friendly error page. The target artifact is an HTML template for displaying a list of owners, which does not directly relate to error handling. However, the template does handle pagination"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The target code (WebConfiguration.java) implements internationalization (i18n) support, which matches the intent of the source requirement (PC-REQ-018). The code uses session storage to remember the user's language setting and defaults to English if nothing is specified, aligning with the requiremen"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies the presentation of the user interface in the user's language, chosen from the browser locale or a language parameter. The target code, however, is a formatter for PetType objects, which does not directly relate to the presentation of the user interface in a specific"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall present the user interface in the user's language, chosen from the browser locale or a language parameter. The target code snippet is a HTML template that includes a Thymeleaf fragment for the layout, which suggests that it is designed to be lan"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/resources/templates/error.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies the presentation of the user interface in the user's language, while the target code is an HTML template for error pages. Although the code uses Thymeleaf for internationalization, there is no direct evidence that it implements the language support specified in the r"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/resources/templates/fragments/inputField.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies the presentation of the user interface in the user's language, chosen from the browser locale or a language parameter. The target artifact is an HTML template for an input field, which does not directly implement or verify the language selection requirement. However,"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/resources/templates/vets/vetList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies that the system shall present the user interface in the user's language, chosen from the browser locale or a language parameter. The target artifact is an HTML template for displaying a list of veterinarians, which does not directly implement this requirement. Howeve"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CrashController.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The source requirement specifies a user interface language feature, while the target code implements a controller for showcasing exception handling. There is no direct connection between the two, and the code does not implement or verify the language feature specified in the requirement."
+  },
+  "PC-REQ-018||spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies the presentation of the user interface in the user's language, chosen from the browser locale or a language parameter. The target artifact is an HTML template for a form to create or update a pet, which does not directly implement or verify the language presentation "
+  },
+  "PC-REQ-018||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies the presentation of the user interface in the user's language, chosen from the browser locale or a language parameter. The target artifact is an HTML template for displaying a list of owners, which does not directly implement this requirement. However, the template d"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies the presentation of the user interface in the user's language, chosen from the browser locale or a language parameter. The target artifact is an HTML template for a specific form, which does not directly implement or verify the language selection requirement. However"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a specific validation rule for owner's telephone number, whereas the target code focuses on internationalization (i18n) and language settings. Although the target code does handle language changes via URL parameter, it does not explicitly validate the telephone numbe"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET artifact (Owner.java) contains a field 'telephone' with a @Pattern annotation that matches the requirement's specification of exactly ten digits. Additionally, the requirement mentions showing a message in the user's language when the telephone number is invalid, which is not directly imp"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a validation rule for an owner's telephone number, but the target artifact is an HTML template for displaying a list of owners. While the template does display the telephone number of each owner, it does not implement the validation rule specified in the source requi"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies validation of an owner's telephone number, but the target code snippet only includes a text input field for the telephone number without any validation logic. However, the input field is labeled as 'telephone' which matches the source's terminology, indicating some l"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies validation of an owner's telephone number, which is not mentioned in the target code. However, the target code does handle validation of pet data, including checking for duplicate pet names and invalid birth dates. The code also handles owner data, including finding "
+  },
+  "PC-REQ-019||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a validation for an owner's telephone number, but the target HTML template does not contain any code related to telephone number validation. However, it does contain a table displaying owner information, which includes a telephone field. This suggests that the templa"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies validation of an owner's telephone number, which is not addressed in the target code. The target code is focused on validating pet-related information, such as name, type, and birth date. Although the target code does perform validation, it does not implement the spe"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies a specific validation rule for an owner's telephone number, which is not directly implemented or verified in the target code. However, the target code does handle validation and data binding for owner objects, which is related to the requirement. The confidence level"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies validation of an owner's telephone number, but the target code does not contain any relevant logic for telephone number validation. However, the code does contain validation logic for the date of a visit, which is a related concept. The requirement and code share som"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/resources/templates/error.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies a specific validation rule for an owner's telephone number, while the target code snippet appears to be a generic error template. Although the target code does contain a generic error message, there is no evidence that it specifically addresses the telephone number v"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The requirement specifies that the system shall not accept an owner without a first name, last name, address and city. The target code includes fields for address and city, but not first name. However, the requirement is likely referring to the owner's profile, which is not shown in this code snippe"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall not accept an owner without a first name, last name, address, and city. However, the target code snippet is a HTML template for displaying a list of owners, and it does not contain any validation logic for accepting or rejecting owners. While th"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that the system shall not accept an owner without a first name, last name, address and city. However, the code does not explicitly enforce this rule. The OwnerController class handles owner creation and retrieval, but it does not validate the presence of all required fields"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall not accept an owner without a first name, last name, address and city. However, the target code does not explicitly check for the presence of these fields when accepting an owner. Instead, it relies on the OwnerRepository to validate the owner's"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies that the system shall not accept an owner without a first name, last name, address, and city. However, the target code snippet is a HTML template for displaying owner information, not for accepting new owners. The template does include fields for first name, last nam"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall not accept an owner without a first name, last name, address and city. However, the target code does not explicitly implement this requirement. The code does handle owner data, but it does not enforce the presence of all required fields. The lac"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that the system shall not accept an owner without a first name, last name, address and city. However, the code artifact (OwnerRepository.java) does not directly implement this requirement. It provides methods for retrieving owners by last name and id, but it does not enforc"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that the system shall not accept an owner without a first name, last name, address and city. The target code, however, only includes fields for first name, last name, address, city, and telephone. The telephone field is not mentioned in the source requirement, and th"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies that an owner must have a first name, last name, address, and city. The target code validates a Pet object, which has attributes for name, type, and birth date, but not address or city. Although the code does validate the name attribute, which is related to the first"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/java/org/springframework/samples/petclinic/model/Person.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that the system shall not accept an owner without a first name, last name, address and city. The target code defines a Person class with properties for first name, last name, but does not enforce the presence of address and city. Although the requirement is partially addres"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement PC-REQ-021 specifies caching the list of veterinarians to avoid repeated database reads. The TARGET artifact CacheConfiguration.java implements a cache configuration for the application, specifically creating a cache named 'vets' which matches the requirement's intent. While the requ"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The code artifact describes a domain object for a list of veterinarians, but it does not explicitly cache the list. The requirement mentions caching to avoid repeated database reads, which is not evident in the code. However, the code does initialize the list lazily, which might be a performance opt"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The requirement mentions caching the list of veterinarians to avoid repeated database reads. The target code contains a @Cacheable annotation on the findAll() method, which suggests that the list of veterinarians is indeed cached. However, the requirement does not explicitly mention the use of Sprin"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies caching the list of veterinarians to avoid repeated database reads. The target code does not implement caching, but rather uses a database query to retrieve the list of veterinarians. However, the code does use pagination to limit the number of database queries. The "
+  },
+  "PC-REQ-021||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.2,
+   "reasoning": "The source requirement specifies caching the list of veterinarians to avoid repeated database reads. The target artifact is an HTML template for a web page layout, which does not implement or verify caching of veterinarians. The only mention of veterinarians is in a menu item, which is not related t"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/resources/templates/vets/vetList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies caching the list of veterinarians to avoid repeated database reads. The target artifact is a HTML template for displaying a list of veterinarians, but it does not appear to implement caching. However, the template does use a list of veterinarians (${listVets}) which "
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies caching the list of veterinarians, but the target code does not appear to implement this functionality. The code is related to the Owner class, which represents a domain object for an owner in the pet clinic system. While the code does contain methods for retrieving pets as"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions caching the list of veterinarians to avoid repeated database reads. However, the target code does not implement any caching mechanism for veterinarians. It does cache other data, such as pet types and owners, but not veterinarians. The code does contain methods for re"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies caching the list of veterinarians to avoid repeated database reads. The target code does not explicitly mention caching, but it does use an OwnerRepository to find and save owners, which suggests that it is retrieving data from a database. The OwnerController's processCreat"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions caching the list of veterinarians to avoid repeated database reads, but the target code does not implement caching. Instead, it fetches specialties eagerly and stores them in memory. However, the target code does implement a method to add a specialty, which could be u"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions database configuration options (MySQL and PostgreSQL), but the target code only deals with JCache API configuration. Although the target code does configure an in-memory cache, it does not implement the database configuration options mentioned in the source requiremen"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicRuntimeHints.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The TARGET code registers database-related patterns and types, which aligns with the SOURCE requirement's mention of supporting MySQL and PostgreSQL through configuration. However, the SOURCE requirement does not explicitly mention in-memory database configuration, which is also present in the TARGE"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions database configuration, while the target code focuses on internationalization (i18n) and locale management. Although both involve configuration, the intent and behavior are distinct. However, the target code does use session storage, which is a form of in-memory stora"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that the system shall support MySQL and PostgreSQL through configuration. The target code uses OwnerRepository which is likely to be a data access object for interacting with the database. Although the code does not explicitly mention MySQL or PostgreSQL, it is likely that "
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions support for MySQL and PostgreSQL through configuration, but the target code does not implement any configuration options for these databases. However, the target code does use an in-memory database by default, which aligns with the source requirement. The confidence i"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies database configuration options, but the target code only implements data access methods for a specific repository interface. While the code does use Spring Data, which supports multiple databases, there is no direct evidence that it supports MySQL and PostgreSQL through con"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.2,
+   "reasoning": "The source requirement mentions database configuration, but the target code only deals with a simple business object representing a pet, with no indication of database configuration or interaction. The only possible connection is the use of JPA annotations, but this is a common pattern in Spring-bas"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies the system's default database and supported databases through configuration. The target artifact is an HTML template for displaying owner information, which does not directly relate to database configuration. However, the template does use Thymeleaf, a templating eng"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetType.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions specific database configurations (MySQL and PostgreSQL), while the target code only defines a PetType entity with no indication of database configuration or interaction. However, the presence of the @Entity and @Table annotations suggests some database-related functio"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies database configuration options, but the target code only contains the main application class and does not explicitly configure or use any databases. However, the presence of the @SpringBootApplication annotation suggests that the application is built using Spring Boo"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The requirement specifies protection against mass-assignment attacks by not binding identifier fields from a submitted form. The code in VisitController.java does not directly bind identifier fields from a submitted form, but it does ensure that the Pet object always has an id. This aligns with the "
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies protection against mass-assignment attacks by not binding identifier fields from a submitted form. The target code does not explicitly address this requirement, but it does have a method to add a pet to the owner's list of pets. However, this method does not appear to be vu"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": true,
+   "confidence": 0.9,
+   "reasoning": "The TARGET code implements the requirement by binding the identifier fields of owners, pets and visits from a submitted form, which is explicitly forbidden by the SOURCE requirement. The code uses @InitBinder to disallow binding of 'id' fields, and the processCreationForm method checks for duplicate"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies protection against mass-assignment attacks by not binding identifier fields from a submitted form. The target code, specifically the setAllowedFields method in OwnerController, disallows binding the 'id' field, which aligns with the requirement. However, the requirement als"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies protection against mass-assignment attacks, which is not directly related to the target HTML template. However, the template does bind identifier fields of owners, pets, and visits from a submitted form, which is a potential security risk. The requirement is more foc"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies protection against mass-assignment attacks by not binding identifier fields from a submitted form. The target artifact is a HTML template for a form to create or update a visit. While it does bind fields from the form, it does not bind identifier fields (e.g. petId) "
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions mass-assignment attacks and identifier fields, but the target code does not implement any protection against such attacks. The code defines a Pet class with various attributes and methods, but none of them relate to the protection against mass-assignment attacks. Howe"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies protection against mass-assignment attacks by not binding identifier fields from a submitted form. The target artifact is an HTML template for creating or updating a pet, which does not directly implement this requirement. However, it does bind the 'id' field in a hi"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement addresses mass-assignment attacks by not binding identifier fields, whereas the target code validates specific fields (name, type, birthDate) but does not address mass-assignment attacks. Although the code is related to the requirement's context (pet clinic), the specific inte"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions paying an invoice online by credit card, but the target code does not implement this functionality. The target code is related to managing visits for pets, which is a different requirement. However, the code does implement online payment processing for visits, but thi"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.2,
+   "reasoning": "The source requirement specifies the ability to pay an invoice online by credit card, while the target code is a Java class representing an owner in a pet clinic system. Although the target code includes methods for managing pets, there is no direct evidence that it supports online payment by credit"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The source requirement specifies an online payment feature for an invoice, while the target code is a Java class representing a Pet entity in a veterinary clinic system. There is no mention of payment or invoices in the target code, and the class is focused on storing information about pets, their t"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions paying an invoice online by credit card, but the target artifact is a HTML template for displaying owner information, including a table of pets and visits. While the template does contain links to edit and add new pets and visits, there is no indication that it handle"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions paying an invoice online by credit card, but the target code snippet is related to creating or updating a visit for a pet, including adding a new visit or viewing previous visits. While the code does involve online interactions, there is no direct evidence that it imp"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions paying an invoice by credit card, but the target code does not contain any functionality related to payment processing. However, the target code does contain functionality for creating and managing owners, which is a related concept. The code does not directly impleme"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions online payment by credit card, but the target code only represents a simple JavaBean domain object for a visit, without any indication of payment functionality. However, the code does contain a setter method for a description field, which could be related to the requi"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement mentions paying an invoice by credit card, but the target code does not contain any functionality related to online payments or credit card processing. However, the target code does contain functionality for managing pets and owners, which is related to the overall pet clinic "
+  },
+  "PC-REQ-024||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement mentions paying an invoice by credit card, but the target code only deals with retrieving Owners by last name or id, and does not mention payment or invoices. However, the code does implement a data access layer for Owners, which is a related concept. The confidence is moderat"
+  },
+  "PC-REQ-024||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies the ability to pay an invoice online by credit card, while the target artifact is a HTML template for displaying a list of owners. Although the template is part of the Spring Petclinic application, which is related to the requirement, the template does not directly i"
+  },
+  "PC-REQ-025||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies sending an email reminder 24 hours before a scheduled visit, but the target code does not appear to implement this functionality. The code is related to managing visits and owners in a pet clinic, but it does not mention sending email reminders. However, the requirem"
+  },
+  "PC-REQ-025||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.2,
+   "reasoning": "The source requirement specifies sending an email reminder to the owner 24 hours before a scheduled visit, but the target code artifact is a Java class representing an owner, with no apparent functionality related to sending email reminders. The only mention of 'email' is in a comment, and it's not "
+  },
+  "PC-REQ-025||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The source requirement specifies sending an email reminder to the owner 24 hours before a scheduled visit, but the target code artifact is a Java class representing a pet, with no mention of email reminders or owners. The classes and methods in this code snippet are focused on storing and managing p"
+  },
+  "PC-REQ-025||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies sending an email reminder to the owner 24 hours before a scheduled visit. The target artifact is an HTML template for displaying owner information, including a table of pets and visits. While the template does display information about visits, there is no indication "
+  },
+  "PC-REQ-025||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java": {
+   "is_linked": false,
+   "confidence": 0.0,
+   "reasoning": "The code artifact describes a JavaBean domain object representing a visit, but there is no mention of sending email reminders or any related functionality. The requirement specifies a specific action (sending an email reminder) that is not implemented in the code."
+  },
+  "PC-REQ-025||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies sending an email reminder 24 hours before a scheduled visit, but the target code is related to creating or updating a visit form in the Spring Pet Clinic application. While the target code does handle visits, there is no direct evidence that it sends email reminders."
+  },
+  "PC-REQ-025||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies sending an email reminder to the owner 24 hours before a scheduled visit. However, the target code does not contain any functionality related to sending email reminders. The code is focused on managing pet owners and pets, and does not mention email reminders. Althou"
+  },
+  "PC-REQ-025||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies sending an email reminder 24 hours before a scheduled visit, but the target code does not contain any functionality related to sending emails or reminders. However, the code does handle owner-related operations, such as creating, updating, and finding owners. The sha"
+  },
+  "PC-REQ-025||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies sending an email reminder to the owner 24 hours before a scheduled visit. The target artifact is an HTML template for displaying a list of owners, which does not directly relate to sending email reminders. However, the template does contain links to individual owner "
+  },
+  "PC-REQ-025||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The requirement specifies sending an email reminder, but the target artifact is a data access object (DAO) interface for retrieving Owners from the data store. While it's possible to implement the email reminder feature using this DAO, there is no direct evidence in the code that it's intended to do"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "is_linked": true,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies that employees must authenticate with a username and password to see or change owner data. The target code, OwnerController.java, handles owner data operations, including authentication (e.g., findById method), but it does not explicitly require authentication for all opera"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies authentication with username and password for owner data, but the target code does not implement this functionality. The code is related to managing visits for pets, which is a different aspect of the system. However, the code does use authentication (e.g., findById "
+  },
+  "PC-REQ-026||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies authentication with username and password for owner data, but the target code does not implement this functionality. The code is related to owner and pet management, but it does not involve authentication. The only mention of authentication is in the initOwnerBinder "
+  },
+  "PC-REQ-026||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies authentication with username and password for owner data access, while the target code snippet deals with internationalization (i18n) and language settings. Although both artifacts are related to user settings, there is no direct evidence that the target code impleme"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies authentication for owner data, but the target code is related to vet data. Although both are related to employees, the specific requirement is not directly implemented or verified in the target code. The code is more related to data retrieval and caching, rather than authen"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies authentication with username and password, but the target code does not implement this functionality. The code is related to data access and retrieval of Owner objects, but it does not address authentication. However, the requirement is not explicitly contradicted by the co"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The requirement specifies authentication with username and password for owner data, but the target code (Owner.java) does not implement authentication. It does, however, contain fields for address, city, and telephone, which are related to owner data. The code also contains methods for managing pets"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies authentication with a username and password before accessing owner data. The target artifact is an HTML template for displaying a list of owners, which does not involve authentication. However, the template does use Thymeleaf expressions to display data, which sugges"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html": {
+   "is_linked": false,
+   "confidence": 0.6,
+   "reasoning": "The source requirement specifies authentication for owner data, but the target code is related to creating or updating visit forms for pets. While the code does display owner information, it does not implement authentication for owner data access. The shared vocabulary of 'owner' and 'pet' is not su"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "is_linked": false,
+   "confidence": 0.8,
+   "reasoning": "The source requirement specifies authentication with username and password for owner data, but the target code is a HTML template for a navigation bar, which does not implement or verify authentication. However, the code does include links to other pages, which may indirectly relate to the requireme"
+  }
+ }
+}

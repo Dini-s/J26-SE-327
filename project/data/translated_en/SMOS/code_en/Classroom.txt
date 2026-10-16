@@ -1,0 +1,80 @@
+package smos.bean;
+
+import java.io.Serializable;
+
+public class Classroom implements Serializable{
+
+	/** Class used to model a class (school class) @author Nicola Pisanti @version 1.0 */
+	
+	private static final long serialVersionUID = -8295647317972301446L; 
+
+	private int idClassroom; // Id of the class
+	private int idAddress;	// Id of the address
+	private String name;	// Name of the class
+	private int academicYear; // Academic year of the class; enter the year of the first semester.
+	
+	
+	public Classroom(){
+		this.idAddress=0;
+		this.idClassroom=0;
+		
+	}
+	
+	
+	/** Method that returns the academic year */
+	public int getAcademicYear() {
+		return academicYear;
+	}
+	
+	
+	
+	/** Method that sets the academic year */
+	public void setAcademicYear(int pAcademicYear) {
+		this.academicYear = pAcademicYear;
+	}
+	
+	
+	/** Method to get the ID of the address of the class */
+	public int getIdAddress() {
+		return idAddress;
+	}
+	
+	
+	/** Method that sets the ID of the address of the class */
+	public void setIdAddress(int pIdAddress) {
+		this.idAddress = pIdAddress;
+	}
+	
+	
+	/** Method that returns the ID of the class */
+	public int getIdClassroom() {
+		return idClassroom;
+	}
+	
+	
+	/** Method that sets the ID of the class */
+	public void setIdClassroom(int pIdClassroom) {
+		this.idClassroom = pIdClassroom;
+	}
+	
+	
+	/** Method that returns the name of the class */
+	public String getName() {
+		return name;
+	}
+	
+	
+	/** Method that sets the name of the class */
+	public void setName(String pName) {
+		this.name = pName;
+	}
+	
+	
+	
+	public String toString(){
+		
+		return (name + " "+ academicYear+ " ID: "+ idClassroom);
+	}
+	
+	
+}

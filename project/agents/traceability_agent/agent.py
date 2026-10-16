@@ -69,6 +69,8 @@ class TraceabilityAgent:
         chunk_size: Optional[int] = CHUNK_WORDS,
         run_logger: Optional[RunLogger] = None,
         project: Optional[str] = None,
+        reranker: Optional[Any] = None,
+        rerank_pool: int = 20,
     ) -> None:
         """Wire up dependencies (injectable so tests can pass mocks).
 
@@ -86,6 +88,9 @@ class TraceabilityAgent:
             project: Only read and link artifacts of this project / repository (``None`` = whole graph).
             chunk_size: Score each target as its best chunk of this many words, so long files
                 aren't judged on their first few lines only; ``None`` embeds whole texts.
+            reranker: Optional ``CrossEncoderReranker``. Stage 1 then shortlists ``rerank_pool`` candidates per
+                requirement and the reranker keeps the best ``top_k`` of them for the LLM (off by default).
+            rerank_pool: Candidates per requirement that stage 1 hands to the reranker.
         """
         if retrieval not in ("embeddings", "tfidf", "hybrid"):
             raise ValueError(f"Unknown retrieval method: {retrieval!r}")
@@ -95,6 +100,8 @@ class TraceabilityAgent:
         self.chunk_size = chunk_size
         self.run_logger = run_logger
         self.project = project
+        self.reranker = reranker
+        self.rerank_pool = rerank_pool
         self.uskg = uskg if uskg is not None else USKGClient()
         self.embedder = embedder if embedder is not None else Embedder()
         self.llm = (
@@ -148,7 +155,10 @@ class TraceabilityAgent:
             similarities = hybrid_matrix(source_artifacts, target_artifacts, self.embedder, retrieval_text, self.chunk_size)
         else:
             similarities = embedding_matrix(source_artifacts, target_artifacts, self.embedder, retrieval_text, self.chunk_size)
-        candidates = select_candidates(source_artifacts, target_artifacts, similarities, top_k, threshold)
+        pool = max(top_k, self.rerank_pool) if self.reranker is not None else top_k
+        candidates = select_candidates(source_artifacts, target_artifacts, similarities, pool, threshold)
+        if self.reranker is not None:
+            candidates = self.reranker.select(candidates, keep=top_k)
         if self.run_logger:
             for source in source_artifacts:
                 self.run_logger.emit(

@@ -1,0 +1,43 @@
+package smos.bean;
+
+import smos.exception.InvalidValueException;
+
+import java.io.Serializable;
+
+/** Class used to model a teaching. @author Giulio D'Amora @version 1.0 */
+
+public class Teaching implements Serializable {
+
+	private static final long serialVersionUID = 2523612738702790957L;
+	private int id_teaching;
+	private String name;
+
+	/** The constructor of the class. */
+	public Teaching() {
+		this.id_teaching = 0;
+	}
+
+	/** Returns the name of the teaching */
+	public String getName() {
+		return this.name;
+	}
+
+	/** Sets the name of the teaching. */
+	public void setName(String pName) throws InvalidValueException {
+		if (pName.length() <= 4)// the test is to be verified
+			throw new InvalidValueException();
+		else
+			this.name = pName;
+	}
+
+	/** Returns the id of the teaching. */
+	public int getId() {
+		return this.id_teaching;
+	}
+
+	/** Sets the id of the teaching. */
+	public void setId(int pId) {
+		this.id_teaching = pId;
+	}
+
+}

@@ -1,0 +1,34 @@
+package smos.bean;
+
+
+import java.io.Serializable;
+/** Class used to model the role of a user. @author Bavota Gabriele, Carnevale Filomena. */
+public class Role implements Serializable {
+	
+	private static final long serialVersionUID = 8833734317107515203L;
+	
+	
+	
+	/** The id of the administrator role */
+	public static final int ADMIN = 1;
+	
+	/** The id of the teacher role */
+	public static final int TEACHER = 2;
+	
+	/** The id of the student role */
+	
+	public static final int STUDENT	 = 3;
+	
+	/** The id of the parent role */
+	
+	public static final int PARENT = 4;
+	
+	/** The id of the ata (administrative, technical and auxiliary staff) role */
+	
+	public static final int ATA = 5;
+	
+	/** The id of the management role */
+	
+	public static final int DIRECTOR = 6;
+
+}

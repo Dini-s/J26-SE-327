@@ -1,0 +1,73 @@
+package Bean;
+
+
+/** The class Impiegato (Employee) allows only the administrator to manage the employees. The class Impiegato has no dependencies @author Federico Cinque */
+public class Impiegato {
+	
+	private String Nome;
+	private String Cognome;
+	private String Matricola;
+	private String Email;
+	private String Login;
+	
+	/** Empty constructor of the class Impiegato */
+	public Impiegato(){
+		Nome=null;
+		Cognome=null;
+		Matricola=null;
+		Email=null;
+		Login=null;
+	}
+	/** Constructor of the class Impiegato */
+	public Impiegato(String Nome, String Cognome,String  Matricola, String Email, String Login){
+		this.Nome=Nome;
+		this.Cognome=Cognome;
+		this.Matricola=Matricola;
+		this.Email=Email;
+		this.Login=Login;
+	}
+	/** Method that returns the first name of the employee */
+	public String getNome() {
+		return Nome;
+	}
+	/** Method that sets the first name of the employee */
+	public void setNome(String nome) {
+		Nome = nome;
+	}
+	/** Method that returns the last name of the employee */
+	public String getCognome() {
+		return Cognome;
+	}
+	/** Method that sets the last name of the employee */
+	public void setCognome(String cognome) {
+		Cognome = cognome;
+	}
+	/** Method that returns the employee number (matricola) of the employee */
+	public String getMatricola() {
+		return Matricola;
+	}
+	/** Method that sets the employee number (matricola) of the employee */
+	public void setMatricola(String matricola) {
+		Matricola = matricola;
+	}
+	/** Method that returns the e-mail of the employee */
+	public String getEmail() {
+		return Email;
+	}
+	/** Method that sets the e-mail of the employee */
+	public void setEmail(String email) {
+		Email = email;
+	}
+	/** Method that returns the login of the employee */
+	public String getLogin() {
+		return Login;
+	}
+	/** Method that sets the login of the employee */
+	public void setLogin(String login) {
+		Login = login;
+	}
+	/** Method that converts the information of an access into a string */
+	public String toString() {
+		return "Nome: "+Nome+", Cognome: "+Cognome+", Matricola: "+Matricola+", e-mail: "+Email+", Login: "+Login;
+	}
+}

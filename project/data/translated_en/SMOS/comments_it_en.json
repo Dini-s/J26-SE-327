@@ -1,0 +1,2006 @@
+[
+ {
+  "it": "Classe che modella l'assenza di uno studente",
+  "en": "Class that models the absence of a student"
+ },
+ {
+  "it": "Metodo che restituisce l'id dell'assenza",
+  "en": "Method that returns the id of the absence"
+ },
+ {
+  "it": "Metodo che setta l'id dell'assenza",
+  "en": "Method that sets the id of the absence"
+ },
+ {
+  "it": "Metodo che restituisce l'id dello studente relativo all'assenza",
+  "en": "Method that returns the id of the student related to the absence"
+ },
+ {
+  "it": "Metodo che setta l'id dello studente relativo all'assenza",
+  "en": "Method that sets the id of the student related to the absence"
+ },
+ {
+  "it": "Metodo che restituisce la data dell'assenza",
+  "en": "Method that returns the date of the absence"
+ },
+ {
+  "it": "Metodo che setta la data dell'assenza",
+  "en": "Method that sets the date of the absence"
+ },
+ {
+  "it": "Metodo che ritorna l'id della giustifica relativa all'assenza",
+  "en": "Method that returns the id of the justification related to the absence"
+ },
+ {
+  "it": "Metodo che setta l'id della giustifica relativa all'assenza",
+  "en": "Method that sets the id of the justification related to the absence"
+ },
+ {
+  "it": "Metodo che restituisce l'anno accademico relativo all'assenza",
+  "en": "Method that returns the academic year related to the absence"
+ },
+ {
+  "it": "Metodo che setta l'anno accademico relativo all'assenza",
+  "en": "Method that sets the academic year related to the absence"
+ },
+ {
+  "it": "AdaptorException",
+  "en": null
+ },
+ {
+  "it": "Thrown when a problem occurs running code in ensj.",
+  "en": null
+ },
+ {
+  "it": "Classe utilizzata per modellare un indirizzo.",
+  "en": "Class used to model an address (course of study)."
+ },
+ {
+  "it": "Il costruttore della classe.",
+  "en": "The constructor of the class."
+ },
+ {
+  "it": "Setta l' id dell' indirizzo.",
+  "en": "Sets the id of the address."
+ },
+ {
+  "it": "Setta il nome dell' indirizzo.",
+  "en": "Sets the name of the address."
+ },
+ {
+  "it": "Classe impiegata per modellare una classe",
+  "en": "Class used to model a class (school class)"
+ },
+ {
+  "it": "Metodo che restituisce l'anno accademico",
+  "en": "Method that returns the academic year"
+ },
+ {
+  "it": "Metodo che setta l'anno accademico",
+  "en": "Method that sets the academic year"
+ },
+ {
+  "it": "Metodo per avere l'ID dell'indirizzo della classe",
+  "en": "Method to get the ID of the address of the class"
+ },
+ {
+  "it": "Metodo che setta l'ID dell'indirizzo della classe",
+  "en": "Method that sets the ID of the address of the class"
+ },
+ {
+  "it": "Metodo che restituisce l'ID della classe",
+  "en": "Method that returns the ID of the class"
+ },
+ {
+  "it": "Metodo che setta l'ID della classe",
+  "en": "Method that sets the ID of the class"
+ },
+ {
+  "it": "Metodo che restituisce il nome della classe",
+  "en": "Method that returns the name of the class"
+ },
+ {
+  "it": "Metodo che setta il nome della classe",
+  "en": "Method that sets the name of the class"
+ },
+ {
+  "it": "Id della classe",
+  "en": "Id of the class"
+ },
+ {
+  "it": "Id dell'indirizzo",
+  "en": "Id of the address"
+ },
+ {
+  "it": "Nome della classe",
+  "en": "Name of the class"
+ },
+ {
+  "it": "Anno accademico della classe, da inserire l'anno del primo semestre.",
+  "en": "Academic year of the class; enter the year of the first semester."
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione generata quando non � possibile ottenere una connessione al database",
+  "en": "This class represents the exception raised when it is not possible to obtain a connection to the database"
+ },
+ {
+  "it": "Genera l'eccezione senza un messagio di errore associato.",
+  "en": "Raises the exception without an associated error message."
+ },
+ {
+  "it": "Genera l'eccezione con un messagio di errore associato.",
+  "en": "Raises the exception with an associated error message."
+ },
+ {
+  "it": "ConnectionPoolDataSource",
+  "en": null
+ },
+ {
+  "it": "Realizzazione del pool di connessioni tramite l'implementazione dell'interfaccia java.sql.DataSource. Il pool controlla periodicamente le connessioni attive e quelle che sono pool, ossia quelle rilasciate ma ancora utilizzabili (presenti cioe' in memoria). Il tempo di rilascio delle connessioni attive e di quelle pool � rappresentato da due parametri presenti all'interno della classe e che sono connectionPoolCloseTimeout e inactiveMaxTimeout; tali valori cosi come tutti gli altri inerenti al pool hanno un loro valore di default, parametrizzabile tramite il file di properties connection.properties",
+  "en": "Implementation of the connection pool through the implementation of the interface java.sql.DataSource. The pool periodically checks the active connections and those that are pooled, i.e. released but still usable (kept in memory). The release time of the active connections and of the pooled ones is represented by two parameters inside the class, connectionPoolCloseTimeout and inactiveMaxTimeout; these values, like all the others concerning the pool, have a default value that can be configured through the properties file connection.properties"
+ },
+ {
+  "it": "Thread inside della classe ConnectionPoolDataSource che stabilisce ogni connectionPoolCloseTimeout millisecondi il rilascio delle connessioni pool.",
+  "en": "Thread inside the class ConnectionPoolDataSource that, every connectionPoolCloseTimeout milliseconds, releases the pooled connections."
+ },
+ {
+  "it": "Costruttore che setta il tempo di rilascio delle connessioni pool",
+  "en": "Constructor that sets the release time of the pooled connections"
+ },
+ {
+  "it": "Ogni volta che una connessione genera un evento con un'invocazione di getConnection() o release() il timestamp viene settato al valore temporale corrente tramite questo metodo.",
+  "en": "Every time a connection generates an event with an invocation of getConnection() or release(), the timestamp is set to the current time value through this method."
+ },
+ {
+  "it": "Controlla ogni connectionPoolCloseTimeout millisecondi se le connessioni pool possono essere chiuse liberando in tal caso memoria.",
+  "en": "Checks every connectionPoolCloseTimeout milliseconds whether the pooled connections can be closed, freeing memory in that case."
+ },
+ {
+  "it": "Crea una nuova istanza del pool di connessioni.",
+  "en": "Creates a new instance of the connection pool."
+ },
+ {
+  "it": "Restituisce la dimensione della lista delle connessioni attive.",
+  "en": "Returns the size of the list of active connections."
+ },
+ {
+  "it": "Svuota il pool di connessioni da quelle attive che non hanno pi� eseguito operazioni per inactiveMaxTimeout millisecondi.",
+  "en": "Empties the connection pool of the active connections that have not performed operations for inactiveMaxTimeout milliseconds."
+ },
+ {
+  "it": "Chiude tutte le connessioni del pool sia quelle attive e sia quelle che sono pool.",
+  "en": "Closes all the connections of the pool, both the active ones and the pooled ones."
+ },
+ {
+  "it": "Chiude tutte le connessioni indicate nella lista connection.",
+  "en": "Closes all the connections indicated in the list connection."
+ },
+ {
+  "it": "Chiude tutte le connessioni del pool che sono nella lista pool.",
+  "en": "Closes all the connections of the pool that are in the list pool."
+ },
+ {
+  "it": "Metodo utilizzato da getConnection() per creare una nuova connessione qualora nella lista delle pool non siano presenti.",
+  "en": "Method used by getConnection() to create a new connection if there are none in the pool list."
+ },
+ {
+  "it": "Restituisce una connessione se il pool non � pieno, il controllo avviene prima nella lista delle connessioni pool per evitare delle creazioni inutili altrimenti una nuova connessione sar� creata.",
+  "en": "Returns a connection if the pool is not full; the check is made first in the list of pooled connections to avoid useless creations, otherwise a new connection will be created."
+ },
+ {
+  "it": "Metodo non implementato",
+  "en": "Method not implemented"
+ },
+ {
+  "it": "Restituisce il numero massimo di connessioni attive",
+  "en": "Returns the maximum number of active connections"
+ },
+ {
+  "it": "Metodo utilizzato da getConnection() per stabilire se nella lista delle connessioni pool ve ne sia qualcuna da poter riutilizzare.",
+  "en": "Method used by getConnection() to establish whether in the list of pooled connections there is one that can be reused."
+ },
+ {
+  "it": "Restituisce la dimensione della lista delle connessioni pool",
+  "en": "Returns the size of the list of pooled connections"
+ },
+ {
+  "it": "Rilascia una connessione, eliminandola da quelle attive ed inserendola in quelle pool per poter essere successivamente riutilizzata.",
+  "en": "Releases a connection, removing it from the active ones and inserting it into the pooled ones so that it can be reused later."
+ },
+ {
+  "it": "Setta il tempo di vita delle connessioni attive in millisecondi.",
+  "en": "Sets the lifetime of the active connections in milliseconds."
+ },
+ {
+  "it": "Riazzera il tempo di vita della connessione dovutocall'esecuzione di un'operazione.Da questo momento la connessione potr� essere attiva senza eseguire alcuna operazione per altri inactiveMaxTimeout millisecondi.",
+  "en": "Resets the lifetime of the connection after the execution of an operation. From this moment the connection can stay active without performing any operation for another inactiveMaxTimeout milliseconds."
+ },
+ {
+  "it": "Converte un oggetto della classe ConnectionPoolDataSource in String",
+  "en": "Converts an object of the class ConnectionPoolDataSource into a String"
+ },
+ {
+  "it": "System.out.println(\"GET CONNECTION: \" + active.size() + \"/\" + pool.size());",
+  "en": null
+ },
+ {
+  "it": "System.out.println(\"RELEASE CONNECTION: \" + active.size() + \"/\" + pool.size());",
+  "en": null
+ },
+ {
+  "it": "ConnectionWrapper",
+  "en": null
+ },
+ {
+  "it": "ConnectionWrapper � una classe che aggiunge a tutti i metodi della classe Connection il settaggio del tempo in cui l'operazione sulla particolare connessione � avvenuta informando il pool di quanto accaduto.",
+  "en": "ConnectionWrapper is a class that adds, to all the methods of the class Connection, the setting of the time at which the operation on that particular connection took place, informing the pool of what happened."
+ },
+ {
+  "it": "@see java.sql.Connection#clearWarnings()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#close()",
+  "en": null
+ },
+ {
+  "it": "Close the wrapped connection.",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#commit()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#createStatement()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#createStatement(int, int)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#createStatement(int, int, int)",
+  "en": null
+ },
+ {
+  "it": "Closes the wrapped connection.",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#getAutoCommit()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#getCatalog()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#getHoldability()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#getMetaData()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#getTransactionIsolation()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#getTypeMap()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#getWarnings()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#isClosed()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#isReadOnly()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#nativeSQL(java.lang.String)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareCall(java.lang.String)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareCall(java.lang.String, int, int)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareCall(java.lang.String, int, int, int)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareStatement(java.lang.String)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareStatement(java.lang.String, int)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareStatement(java.lang.String, int, int)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareStatement(java.lang.String, int, int, int)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareStatement(java.lang.String, int[])",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#prepareStatement(java.lang.String, java.lang.String[])",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#releaseSavepoint(java.sql.Savepoint)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#rollback()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#rollback(java.sql.Savepoint)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#setAutoCommit(boolean)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#setCatalog(java.lang.String)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#setHoldability(int)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#setReadOnly(boolean)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#setSavepoint()",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#setSavepoint(java.lang.String)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#setTransactionIsolation(int)",
+  "en": null
+ },
+ {
+  "it": "@see java.sql.Connection#setTypeMap(java.util.Map)",
+  "en": null
+ },
+ {
+  "it": "@see java.lang.Object#toString()",
+  "en": null
+ },
+ {
+  "it": "TODO Auto-generated method stub",
+  "en": null
+ },
+ {
+  "it": "Implementazione del thread in grado di mantenere la connessione al database Mysql qualora non vi siano pi� connessioni attive (risoluzione del problema dell'autoreconnect di Mysql). Tale classe si occupa anche di richimare il metodo di rilascio delle connessioni attive che non hanno eseguito operazioni in un certo intervallo di tempo.",
+  "en": "Implementation of the thread able to keep the connection to the MySQL database when there are no more active connections (solution to the problem of MySQL's autoreconnect). This class also takes care of calling the method that releases the active connections that have not performed operations within a certain interval of time."
+ },
+ {
+  "it": "Crea una nuova istanza del Thread.",
+  "en": "Creates a new instance of the Thread."
+ },
+ {
+  "it": "Il thread non fa altro che dormire quando ci sono utenti attivi e mantenere aperta la connessione con MySQL altrimenti.",
+  "en": "The thread does nothing but sleep when there are active users, and otherwise keeps the connection to MySQL open."
+ },
+ {
+  "it": "DBConnection",
+  "en": null
+ },
+ {
+  "it": "Classe che s'interfaccia con il pool di connessioni. In particolare crea un unico oggetto ConnectionPoolDataSource (il pool di connessioni) ed ottiene i suoi parametri di configurazione dal file di properties connection.properties.",
+  "en": "Class that interfaces with the connection pool. In particular it creates a single ConnectionPoolDataSource object (the connection pool) and obtains its configuration parameters from the properties file connection.properties."
+ },
+ {
+  "it": "Blocco d'inizializzazione statico che si occupa di generare il pool nel momento in cui ci sar� una prima invocazione del metodo getConnection()",
+  "en": "Static initialization block that takes care of generating the pool at the time of the first invocation of the method getConnection()"
+ },
+ {
+  "it": "Se il file di properties non esiste carica valori di default",
+  "en": "If the properties file does not exist, loads default values"
+ },
+ {
+  "it": "Se un'eccezione viene generata in precedenza",
+  "en": "If an exception was previously raised"
+ },
+ {
+  "it": "Restituisce una connessione dal pool.",
+  "en": "Returns a connection from the pool."
+ },
+ {
+  "it": "Creazione effettiva del pool di connessione.",
+  "en": "Actual creation of the connection pool."
+ },
+ {
+  "it": "Restituisce una connessione al pool che sar� inserita nella lista delle connesioni pool, ossia quelle riutilizzabili in seguito.",
+  "en": "Returns a connection to the pool, which will be inserted into the list of pooled connections, i.e. those that can be reused later."
+ },
+ {
+  "it": "Crea il manager e prepara il pool di connessioni",
+  "en": "Creates the manager and prepares the connection pool"
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione predefinita generata dal sistema.",
+  "en": "This class represents the default exception raised by the system."
+ },
+ {
+  "it": "Classe che modella un entrata in ritardo di uno studente",
+  "en": "Class that models a late arrival of a student"
+ },
+ {
+  "it": "Metodo che restituisce l'id del Ritardo",
+  "en": "Method that returns the id of the Delay (lateness)"
+ },
+ {
+  "it": "Metodo che setta l'id del Ritardo",
+  "en": "Method that sets the id of the Delay (lateness)"
+ },
+ {
+  "it": "Metodo che restituisce l'id dello studente ritardatario",
+  "en": "Method that returns the id of the late student"
+ },
+ {
+  "it": "Metodo che setta l'id dello studente relativo al ritardo",
+  "en": "Method that sets the id of the student related to the lateness"
+ },
+ {
+  "it": "Metodo che restituisce la data del ritardo",
+  "en": "Method that returns the date of the lateness"
+ },
+ {
+  "it": "Metodo che setta la data del ritardo",
+  "en": "Method that sets the date of the lateness"
+ },
+ {
+  "it": "Metodo che restituisce l'ora d'entrata dello studente",
+  "en": "Method that returns the entry time of the student"
+ },
+ {
+  "it": "Metodo che setta l'ora di entrata dello studente",
+  "en": "Method that sets the entry time of the student"
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione generata quando un utente tenta di eliminare l'unico utente Admin nel database.",
+  "en": "This class represents the exception raised when a user tries to delete the only Admin user in the database."
+ },
+ {
+  "it": "Genera l'eccezione senza un messaggio di errore associato.",
+  "en": "Raises the exception without an associated error message."
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione generata quando un utente tenta di eliminare l'unico utente Manager nel database.",
+  "en": "This class represents the exception raised when a user tries to delete the only Manager user in the database."
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione generata quando si tenta di inserire un'entit� gi� presente nel database.",
+  "en": "This class represents the exception raised when one tries to insert an entity already present in the database."
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione generata quando un'entita' non viene trovata nel database.",
+  "en": "This class represents the exception raised when an entity is not found in the database."
+ },
+ {
+  "it": "Classe utilizzata per contenere le variabili d'ambiente di GESA",
+  "en": "Class used to hold the environment variables of GESA"
+ },
+ {
+  "it": "Messaggio di errore di default.",
+  "en": "Default error message."
+ },
+ {
+  "it": "Classe che modella una giustifica per un assenza",
+  "en": "Class that models a justification for an absence"
+ },
+ {
+  "it": "Metodo che restituisce l'id della giustifica",
+  "en": "Method that returns the id of the justification"
+ },
+ {
+  "it": "Metodo che setta l'id della giustifica",
+  "en": "Method that sets the id of the justification"
+ },
+ {
+  "it": "Metodo restituisce l'id dello studente relativo alla giustifica",
+  "en": "Method that returns the id of the student related to the justification"
+ },
+ {
+  "it": "Metodo che setta l'id dello studente relativo alla giustifica",
+  "en": "Method that sets the id of the student related to the justification"
+ },
+ {
+  "it": "Metodo che restituisce la data alla quale è stata giustificata l'assenza",
+  "en": "Method that returns the date on which the absence was justified"
+ },
+ {
+  "it": "Metodo che setta la data alla quale è stata giustificata l'assenza",
+  "en": "Method that sets the date on which the absence was justified"
+ },
+ {
+  "it": "Metodo che restituisce l'anno accademico relativo alla giustifica",
+  "en": "Method that returns the academic year related to the justification"
+ },
+ {
+  "it": "Metodo che setta l'anno accademico relativo alla giustifica",
+  "en": "Method that sets the academic year related to the justification"
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione generata quando un utente inserisce una password errata durante l'autenticazione",
+  "en": "This class represents the exception raised when a user enters a wrong password during authentication"
+ },
+ {
+  "it": "Creazione di una mail session",
+  "en": "Creation of a mail session"
+ },
+ {
+  "it": "Creazione del messaggio da inviare",
+  "en": "Creation of the message to send"
+ },
+ {
+  "it": "Aggiunta degli indirizzi del mittente e del destinatario",
+  "en": "Addition of the sender's and recipient's addresses"
+ },
+ {
+  "it": "Invio del messaggio",
+  "en": "Sending the message"
+ },
+ {
+  "it": "Classe manager degli indirizzi",
+  "en": "Manager class for addresses"
+ },
+ {
+  "it": "Il nome della tabella degli indirizzi",
+  "en": "The name of the addresses table"
+ },
+ {
+  "it": "Ritorna la sola istanza della classe esistente.",
+  "en": "Returns the only existing instance of the class."
+ },
+ {
+  "it": "Verifica l'esistenza di un indirizzo nel database.",
+  "en": "Checks the existence of an address in the database."
+ },
+ {
+  "it": "Inserisce un nuovo indirizzo nella tabella address.",
+  "en": "Inserts a new address into the table address."
+ },
+ {
+  "it": "Elimina un indirizzo dalla tabella address.",
+  "en": "Deletes an address from the table address."
+ },
+ {
+  "it": "Ritorna l'id dell'indirizzo passato come parametro.",
+  "en": "Returns the id of the address passed as a parameter."
+ },
+ {
+  "it": "Prepariamo la stringa SQL per recuperare le informazioni corrispondenti all'id dell'indirizzo passato come parametro.",
+  "en": "We prepare the SQL string to retrieve the information corresponding to the id of the address passed as a parameter."
+ },
+ {
+  "it": "Ritorna l'indirizzo corrispondente all'id passato come parametro.",
+  "en": "Returns the address corresponding to the id passed as a parameter."
+ },
+ {
+  "it": "Ritorna l'insieme di tutti gli indirizzi presenti nel database.",
+  "en": "Returns the set of all the addresses present in the database."
+ },
+ {
+  "it": "Ritorna il nome dell'indirizzo corrispondente all'id passato come parametro.",
+  "en": "Returns the name of the address corresponding to the id passed as a parameter."
+ },
+ {
+  "it": "Prepariamo la stringa SQL per recuperare le informazioni corrispondenti all'id dell'utente passato come parametro",
+  "en": "We prepare the SQL string to retrieve the information corresponding to the id of the user passed as a parameter"
+ },
+ {
+  "it": "Ritorna una collection con gli id degli insegnamenti associati all'id passato come parametro.",
+  "en": "Returns a collection with the ids of the teachings associated with the id passed as a parameter."
+ },
+ {
+  "it": "Consente la lettura di un record dal ResultSet.",
+  "en": "Allows reading a record from the ResultSet."
+ },
+ {
+  "it": "Consente la lettura dei record dal ResultSet.",
+  "en": "Allows reading the records from the ResultSet."
+ },
+ {
+  "it": "Preparimao la stringa sql",
+  "en": "We prepare the SQL string"
+ },
+ {
+  "it": "Inviamo la Query al database",
+  "en": "We send the query to the database"
+ },
+ {
+  "it": "rilasciamo le risorse",
+  "en": "we release the resources"
+ },
+ {
+  "it": "Otteniamo la connessione al database",
+  "en": "We obtain the connection to the database"
+ },
+ {
+  "it": "controllo dei campi obbligatori",
+  "en": "check of the mandatory fields"
+ },
+ {
+  "it": "Prepariamo la stringa Sql",
+  "en": "We prepare the SQL string"
+ },
+ {
+  "it": "rilascia le risorse",
+  "en": "releases the resources"
+ },
+ {
+  "it": "ManagerAddress.getInstance().AddressOnDeleteCascade(pAddress);",
+  "en": null
+ },
+ {
+  "it": "Prepariamo la stringa SQL",
+  "en": "We prepare the SQL string"
+ },
+ {
+  "it": "Otteniamo una Connessione al DataBase",
+  "en": "We obtain a connection to the database"
+ },
+ {
+  "it": "Inviamo la Query al DataBase",
+  "en": "We send the query to the database"
+ },
+ {
+  "it": "Prepariamo la stringa sql",
+  "en": "We prepare the SQL string"
+ },
+ {
+  "it": "Se non e' stato fornito l'id restituiamo un codice di errore",
+  "en": "If the id was not provided, we return an error code"
+ },
+ {
+  "it": "Classe che gestiste le classi dell'istituto",
+  "en": "Class that manages the classes (school classes) of the institute"
+ },
+ {
+  "it": "Verifica se la classe data in input è nel database",
+  "en": "Checks whether the class given as input is in the database"
+ },
+ {
+  "it": "Inserisce l'oggetto di tipo classe nel database",
+  "en": "Inserts the object of type class into the database"
+ },
+ {
+  "it": "Aggiorna le statistiche di una classe",
+  "en": "Updates the statistics of a class"
+ },
+ {
+  "it": "Cancella una classe dal database",
+  "en": "Deletes a class from the database"
+ },
+ {
+  "it": "Prepariamo la stringa SQL per recuperare le informazioni corrispondenti alla classe dell'id passato",
+  "en": "We prepare the SQL string to retrieve the information corresponding to the class of the id passed"
+ },
+ {
+  "it": "Restituisce la classe che ha l'ID passato",
+  "en": "Returns the class that has the given ID"
+ },
+ {
+  "it": "Restituisce una collezione di classi dello stesso anno accademico",
+  "en": "Returns a collection of classes of the same academic year"
+ },
+ {
+  "it": "Prepariamo la stringa SQL per recuperare le informazioni",
+  "en": "We prepare the SQL string to retrieve the information"
+ },
+ {
+  "it": "COnsente la lettura di un intero dal recod resultSet",
+  "en": "Allows reading an integer from the resultSet record"
+ },
+ {
+  "it": "Consente la lettura di un solo record dal Result Set",
+  "en": "Allows reading a single record from the Result Set"
+ },
+ {
+  "it": "Consente la lettura di un più record dal Result Set",
+  "en": "Allows reading several records from the Result Set"
+ },
+ {
+  "it": "l'utente inserisce l'indirizzo, viene convertito in idAddress",
+  "en": "the user enters the address, it is converted into idAddress"
+ },
+ {
+  "it": "effettua una nuova connessione e invia la query",
+  "en": "makes a new connection and sends the query"
+ },
+ {
+  "it": "ManagerUser.getInstance().userOnDeleteCascade(pUser);",
+  "en": null
+ },
+ {
+  "it": "Se non esiste l'utente",
+  "en": "If the user does not exist"
+ },
+ {
+  "it": "Se non è stato fornito l'id restituiamo un codice di errore",
+  "en": "If the id was not provided, we return an error code"
+ },
+ {
+  "it": "Classe che gestisce il Registro Digitale",
+  "en": "Class that manages the Digital Register"
+ },
+ {
+  "it": "Inserisce un assenza nel database",
+  "en": "Inserts an absence into the database"
+ },
+ {
+  "it": "Inserisce un ritardo nel database",
+  "en": "Inserts a lateness into the database"
+ },
+ {
+  "it": "Inserisce una nota nel database",
+  "en": "Inserts a note into the database"
+ },
+ {
+  "it": "Inserisce una giustifica nel database",
+  "en": "Inserts a justification into the database"
+ },
+ {
+  "it": "Cancella un'assenza dal database",
+  "en": "Deletes an absence from the database"
+ },
+ {
+  "it": "Cancella un ritardo dal database",
+  "en": "Deletes a lateness from the database"
+ },
+ {
+  "it": "Cancella una nota dal database",
+  "en": "Deletes a note from the database"
+ },
+ {
+  "it": "Aggiorna le statistiche di un'assenza",
+  "en": "Updates the statistics of an absence"
+ },
+ {
+  "it": "Aggiorna le statistiche di un ritardo",
+  "en": "Updates the statistics of a lateness"
+ },
+ {
+  "it": "Metodo che aggiorna le statistiche di una Nota",
+  "en": "Method that updates the statistics of a note"
+ },
+ {
+  "it": "Aggiorna le statistiche di una giustifica",
+  "en": "Updates the statistics of a justification"
+ },
+ {
+  "it": "Metodo che restituisce una nota dato l'id della note stessa",
+  "en": "Method that returns a note given the id of the note itself"
+ },
+ {
+  "it": "Metodo che restituisce un assenza dato l'id della giustifca associata a tale assenza",
+  "en": "Method that returns an absence given the id of the justification associated with that absence"
+ },
+ {
+  "it": "Metodo che restituisce un assenza dato l'id di questa",
+  "en": "Method that returns an absence given its id"
+ },
+ {
+  "it": "Metodo che restituisce un ritardo dato l'id di questo",
+  "en": "Method that returns a lateness given its id"
+ },
+ {
+  "it": "Metodo che restituisce true se l'assenza data in input ha una giustifica assegnata",
+  "en": "Method that returns true if the absence given as input has an assigned justification"
+ },
+ {
+  "it": "Metodo che restituisce la giustifica legata a una data assenza",
+  "en": "Method that returns the justification linked to a given absence"
+ },
+ {
+  "it": "Metodo che restituisce le assenze preso un dato anno scolastico e utente in input",
+  "en": "Method that returns the absences for a given school year and user given as input"
+ },
+ {
+  "it": "Metodo che restituisce una collezione di note per un dato utente ed un dato anno scolastico",
+  "en": "Method that returns a collection of notes for a given user and a given school year"
+ },
+ {
+  "it": "Metodo che restituisce l'assenza di una dato studente in un dato giorno",
+  "en": "Method that returns the absence of a given student on a given day"
+ },
+ {
+  "it": "Metodo che restituisce il ritardo di una dato studente in un dato giorno",
+  "en": "Method that returns the lateness of a given student on a given day"
+ },
+ {
+  "it": "Metodo che verifica se c'� un'assenza in una linea del registro",
+  "en": "Method that checks whether there is an absence in a line of the register"
+ },
+ {
+  "it": "Metodo che verifica se c'� un ritardo in una linea del registro",
+  "en": "Method that checks whether there is a lateness in a line of the register"
+ },
+ {
+  "it": "� normale se un exception viene generata",
+  "en": "It is normal if an exception is raised"
+ },
+ {
+  "it": "dato che pu� essere che stiamo cancellando una giustifica",
+  "en": "since we may be deleting a justification"
+ },
+ {
+  "it": "di cui abbiamo appena cancellato l'assenza",
+  "en": "of which we have just deleted the absence"
+ },
+ {
+  "it": "idem per l'id user",
+  "en": "same for the user id"
+ },
+ {
+  "it": "TODO controlli sulla formattazione della stringa",
+  "en": "TODO checks on the formatting of the string"
+ },
+ {
+  "it": "Classe manager degli insegnamenti.",
+  "en": "Manager class for the teachings (subjects)."
+ },
+ {
+  "it": "Il nome della tabella degli insegnamenti.",
+  "en": "The name of the teachings table."
+ },
+ {
+  "it": "Il nome della tabella che modella l'associazione molti a molti tra indirizzi ed insegnamenti.",
+  "en": "The name of the table that models the many-to-many association between addresses and teachings."
+ },
+ {
+  "it": "Il nome della tabella che modella l'associazione molti a molti tra utenti e insegnamenti.",
+  "en": "The name of the table that models the many-to-many association between users and teachings."
+ },
+ {
+  "it": "Ritorna la sola istanza dell'insegnamento esistente.",
+  "en": "Returns the only existing instance of the teaching."
+ },
+ {
+  "it": "Verifica l'esistenza di un insegnamento nel database.",
+  "en": "Checks the existence of a teaching in the database."
+ },
+ {
+  "it": "Inserisce un nuovo insegnamento nella tabella teaching.",
+  "en": "Inserts a new teaching into the table teaching."
+ },
+ {
+  "it": "Aggiorna un insegnamento presente nella tabella teaching.",
+  "en": "Updates a teaching present in the table teaching."
+ },
+ {
+  "it": "Elimina un insegnamento dalla tabella teaching.",
+  "en": "Deletes a teaching from the table teaching."
+ },
+ {
+  "it": "Ritorna l'id dell'insegnamento passato come parametro.",
+  "en": "Returns the id of the teaching passed as a parameter."
+ },
+ {
+  "it": "Prepariamo la stringa SQL per recuperare le informazioni corrispondenti all'id dell'insegnamento passato come parametro.",
+  "en": "We prepare the SQL string to retrieve the information corresponding to the id of the teaching passed as a parameter."
+ },
+ {
+  "it": "Ritorna il nome dell'insegnamento corrispondente all'id passato come parametro.",
+  "en": "Returns the name of the teaching corresponding to the id passed as a parameter."
+ },
+ {
+  "it": "Prepariamo la stringa SQL per recuperare le informazioni corrispondenti all'id dell'insegnamento passato come parametro",
+  "en": "We prepare the SQL string to retrieve the information corresponding to the id of the teaching passed as a parameter"
+ },
+ {
+  "it": "Ritorna l'insegnamento corrispondente all'id passato come parametro.",
+  "en": "Returns the teaching corresponding to the id passed as a parameter."
+ },
+ {
+  "it": "Ritorna l'insieme di tutti gli insegnamenti presenti nel database.",
+  "en": "Returns the set of all the teachings present in the database."
+ },
+ {
+  "it": "Ritorna l'insieme degli insegnamenti associati all'utente corrispondente all'id passato come paramentro.",
+  "en": "Returns the set of the teachings associated with the user corresponding to the id passed as a parameter."
+ },
+ {
+  "it": "Ritorna l'insieme degli insegnamenti che il docente insegna nella classe",
+  "en": "Returns the set of the teachings that the teacher teaches in the class"
+ },
+ {
+  "it": "Verifica se un insegnamento ha un professore assegnato.",
+  "en": "Checks whether a teaching has an assigned professor."
+ },
+ {
+  "it": "Ritorna l'insieme degli insegnamenti associati alla classe specificata",
+  "en": "Returns the set of the teachings associated with the specified class"
+ },
+ {
+  "it": "ManagerTeaching.getInstance().teachingOnDeleteCascade(pTeaching);",
+  "en": null
+ },
+ {
+  "it": "select teaching.* from teacher_has_classroom AS THC , teaching where thc.id_user = 54",
+  "en": null
+ },
+ {
+  "it": "&& thc.id_classroom = 64 && thc.id_teaching = teaching.id_teaching",
+  "en": null
+ },
+ {
+  "it": "Classe manager dei voti.",
+  "en": "Manager class for the grades (votes)."
+ },
+ {
+  "it": "Il nome della tabella dei voti.",
+  "en": "The name of the grades table."
+ },
+ {
+  "it": "Ritorna la sola istanza del voto esistente.",
+  "en": "Returns the only existing instance of the grade."
+ },
+ {
+  "it": "Verifica l'esistenza di voto nel database.",
+  "en": "Checks the existence of a grade in the database."
+ },
+ {
+  "it": "Inserisce un nuovo voto nella tabella Votes.",
+  "en": "Inserts a new grade into the table Votes."
+ },
+ {
+  "it": "Aggiorna un voto presente nella tabella votes.",
+  "en": "Updates a grade present in the table votes."
+ },
+ {
+  "it": "Verifica se uno studente passato come parametro ha un voto assegnato nell'insegnamento passato come parametro nell'anno passato come parametro e nel quadrimestre passato come parametro",
+  "en": "Checks whether a student passed as a parameter has a grade assigned in the teaching passed as a parameter, in the year passed as a parameter and in the term passed as a parameter"
+ },
+ {
+  "it": "Elimina un voto dalla tabella votes.",
+  "en": "Deletes a grade from the table votes."
+ },
+ {
+  "it": "Ritorna l'id dell'insegnamento corrispondente all'id del voto passato come parametro.",
+  "en": "Returns the id of the teaching corresponding to the id of the grade passed as a parameter."
+ },
+ {
+  "it": "Ritorna l'insieme di tutti i voti presenti nel database.",
+  "en": "Returns the set of all the grades present in the database."
+ },
+ {
+  "it": "Ritorna l'insieme dei voti associati all'utente corrispondente all'id passato come paramentro.",
+  "en": "Returns the set of the grades associated with the user corresponding to the id passed as a parameter."
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione generata quando si tenta di inserire un'entit� senza specificare un campo obbligatorio",
+  "en": "This class represents the exception raised when one tries to insert an entity without specifying a mandatory field"
+ },
+ {
+  "it": "NotYetImplementedException",
+  "en": null
+ },
+ {
+  "it": "This exception is thrown as a warning from a part of the code which has not been implemented yet, but will be in future.",
+  "en": null
+ },
+ {
+  "it": "Classe che modella una nota sul registro",
+  "en": "Class that models a note on the register"
+ },
+ {
+  "it": "Metodo che restituisce l'id della nota",
+  "en": "Method that returns the id of the note"
+ },
+ {
+  "it": "Metodo per settare l'id della nota",
+  "en": "Method to set the id of the note"
+ },
+ {
+  "it": "Metodo che restituisce l'id dello studente che ha ricevuto la nota",
+  "en": "Method that returns the id of the student who received the note"
+ },
+ {
+  "it": "Metodo per settare l'id dello studente che ha ricevuto la nota",
+  "en": "Method to set the id of the student who received the note"
+ },
+ {
+  "it": "Metodo che restituisce una stringa che rappresenta la data in cui è stata data la nota",
+  "en": "Method that returns a string representing the date on which the note was given"
+ },
+ {
+  "it": "Metodo che setta una stringa che rappresenta la data in cui è stata data la nota",
+  "en": "Method that sets a string representing the date on which the note was given"
+ },
+ {
+  "it": "Metodo che restituisce il testo della nota",
+  "en": "Method that returns the text of the note"
+ },
+ {
+  "it": "Metodo che setta la descrizione della nota",
+  "en": "Method that sets the description of the note"
+ },
+ {
+  "it": "Metodo che restituisce l'id dell'insegnante che ha dato la nota",
+  "en": "Method that returns the id of the teacher who gave the note"
+ },
+ {
+  "it": "Metodo che setta l'id dell'insegnante che ha dato la nota",
+  "en": "Method that sets the id of the teacher who gave the note"
+ },
+ {
+  "it": "Metodo che restituisce l'anno accademico in corso",
+  "en": "Method that returns the current academic year"
+ },
+ {
+  "it": "Medoto che setta l'anno accademico in corso durante l'assegnazione della nota",
+  "en": "Method that sets the current academic year during the assignment of the note"
+ },
+ {
+  "it": "Questa classe rappresenta l'eccezione generata quando un utente tenta di compiere un'operazione per la quale non ha il permesso.",
+  "en": "This class represents the exception raised when a user tries to perform an operation for which he or she does not have permission."
+ },
+ {
+  "it": "Classe che modella una linea del registro",
+  "en": "Class that models a line of the register"
+ },
+ {
+  "it": "Metodo che restituisce lo studente di questa riga del registro",
+  "en": "Method that returns the student of this line of the register"
+ },
+ {
+  "it": "Metodo che setta lo studente di questa riga del registro",
+  "en": "Method that sets the student of this line of the register"
+ },
+ {
+  "it": "Metodo che restituisce l'assenza dello studente di questa riga del registro",
+  "en": "Method that returns the absence of the student of this line of the register"
+ },
+ {
+  "it": "Metodo che setta l'assenza dello studente di questa riga del registro",
+  "en": "Method that sets the absence of the student of this line of the register"
+ },
+ {
+  "it": "Metodo che restituisce il ritardo dello studente di questa riga del registro",
+  "en": "Method that returns the lateness of the student of this line of the register"
+ },
+ {
+  "it": "Metodo che setta il ritardo dello studente di questa riga del registro",
+  "en": "Method that sets the lateness of the student of this line of the register"
+ },
+ {
+  "it": "Classe utilizzata per modellare una pagella.",
+  "en": "Class used to model a report card."
+ },
+ {
+  "it": "Il costruttore della classe",
+  "en": "The constructor of the class"
+ },
+ {
+  "it": "Metodo che restituisce il voto dall'indice nell'array dato in input",
+  "en": "Method that returns the grade from the index in the array given as input"
+ },
+ {
+  "it": "Metodo che aggiunge un voto all'array.",
+  "en": "Method that adds a grade to the array."
+ },
+ {
+  "it": "Metodo che elimina un voto dall'array",
+  "en": "Method that removes a grade from the array"
+ },
+ {
+  "it": "Classe utilizzata per modellare il ruolo di un utente.",
+  "en": "Class used to model the role of a user."
+ },
+ {
+  "it": "L'id del ruolo amministratore",
+  "en": "The id of the administrator role"
+ },
+ {
+  "it": "L'id del ruolo di docente",
+  "en": "The id of the teacher role"
+ },
+ {
+  "it": "L'id del ruolo studente",
+  "en": "The id of the student role"
+ },
+ {
+  "it": "L'id del ruolo geniotore",
+  "en": "The id of the parent role"
+ },
+ {
+  "it": "L'id del ruolo ata",
+  "en": "The id of the ata (administrative, technical and auxiliary staff) role"
+ },
+ {
+  "it": "L'id del ruolo direzione",
+  "en": "The id of the management role"
+ },
+ {
+  "it": "Servlet utilizzata per assegnare Insegnamenti ad un docente",
+  "en": "Servlet used to assign Teachings to a teacher"
+ },
+ {
+  "it": "Definizione del metodo doGet",
+  "en": "Definition of the method doGet"
+ },
+ {
+  "it": "Definizione del metodo doPost",
+  "en": "Definition of the method doPost"
+ },
+ {
+  "it": "//Mi servono l'id dell'address e le due liste di insegnamenti!",
+  "en": "I need the id of the address and the two lists of teachings!"
+ },
+ {
+  "it": "Aggiungiamo gli insegnamenti selezionati!!",
+  "en": "We add the selected teachings!!"
+ },
+ {
+  "it": "Rimuoviamo gli insegnamenti non selezionati",
+  "en": "We remove the teachings that are not selected"
+ },
+ {
+  "it": "session.setAttribute(\"teachingListTeacher\", listSelcected);",
+  "en": null
+ },
+ {
+  "it": "TODO Auto-generated catch block",
+  "en": "TODO Auto-generated catch block"
+ },
+ {
+  "it": "//Mi servono i 3 Id user class teachings(che non so quanti ne sono)",
+  "en": "I need the 3 ids: user, class, teachings (I do not know how many there are)"
+ },
+ {
+  "it": "Collection<Teaching> listSelcected = new Vector<Teaching>();",
+  "en": null
+ },
+ {
+  "it": "listSelcected.add(managerTeaching.getTeachingById(temp));",
+  "en": null
+ },
+ {
+  "it": "Servlet utilizzata per visualizzare gli insegnamenti associati ad un indirizzo.",
+  "en": "Servlet used to display the teachings associated with an address."
+ },
+ {
+  "it": "Servlet di modifica Password dell'utente loggato.",
+  "en": "Servlet for changing the password of the logged-in user."
+ },
+ {
+  "it": "verifichiamo che la login sia unica.",
+  "en": "we check that the login is unique."
+ },
+ {
+  "it": "aggiorniamo",
+  "en": "we update"
+ },
+ {
+  "it": "Servlet che modifica il record dello studente con l'id del padre.",
+  "en": "Servlet that modifies the record of the student with the id of the father."
+ },
+ {
+  "it": "Verifica che l'utente abbia effettuato il login",
+  "en": "Checks that the user has logged in"
+ },
+ {
+  "it": "recupero userStudente",
+  "en": "retrieval of userStudent (the student user)"
+ },
+ {
+  "it": "Servlet utilizzata per assegnare uno o piu ruoli ad un utente.",
+  "en": "Servlet used to assign one or more roles to a user."
+ },
+ {
+  "it": "controlliamo se il ruolo che stiamo assegnando e' quello di docente",
+  "en": "we check whether the role we are assigning is that of teacher"
+ },
+ {
+  "it": "if ((role == Role.TEACHER) && (!managerUser.isTeacher(user))){ gotoPage=\"./loadYearForTeachings\"; }",
+  "en": null
+ },
+ {
+  "it": "controlliamo se il ruolo che stiamo assegnando e' quello di studente",
+  "en": "we check whether the role we are assigning is that of student"
+ },
+ {
+  "it": "if ((role == Role.STUDENT) && (!managerUser.isStudent(user))){ gotoPage=\"./showUserList\"; }",
+  "en": null
+ },
+ {
+  "it": "controlliamo se il ruolo che stiamo assegnando e' quello di genitore",
+  "en": "we check whether the role we are assigning is that of parent"
+ },
+ {
+  "it": "if((role==Role.PARENT)&& (!managerUser.isParent(user))){ gotoPage=\"./persistentDataManagement/userManagement/showStudentParentForm.jsp\"; }",
+  "en": null
+ },
+ {
+  "it": "Studente selezionato",
+  "en": "Selected student"
+ },
+ {
+  "it": "anno accademico selezionato",
+  "en": "selected academic year"
+ },
+ {
+  "it": "id classe selezionata che e' zero se vogliamo eliminare",
+  "en": "id of the selected class, which is zero if we want to delete"
+ },
+ {
+  "it": "l'associazione",
+  "en": "the association"
+ },
+ {
+  "it": "Servlet utilizzata per cancellare un indirizzo dal database",
+  "en": "Servlet used to delete an address from the database"
+ },
+ {
+  "it": "Servlet per cancellare una classe",
+  "en": "Servlet to delete a class"
+ },
+ {
+  "it": "catch (DeleteManagerException deleteManagerException) { errorMessage = Environment.DEFAULT_ERROR_MESSAGE + deleteManagerException.getMessage(); gotoPage = \"./error.jsp\"; deleteManagerException.printStackTrace(); }",
+  "en": null
+ },
+ {
+  "it": "instanziare gli oggetti qua",
+  "en": "instantiate the objects here"
+ },
+ {
+  "it": "settare le cose da passare alla session, usare session.setAttribute(String, attribute)",
+  "en": "set the things to pass to the session, use session.setAttribute(String, attribute)"
+ },
+ {
+  "it": "Servlet utilizzata per visualizzare gli alunni associati ad una Classe.",
+  "en": "Servlet used to display the pupils associated with a Class."
+ },
+ {
+  "it": "Servlet utilizzata per eliminare un insegnamento.",
+  "en": "Servlet used to delete a teaching."
+ },
+ {
+  "it": "Servlet utilizzata per eliminare un utente.",
+  "en": "Servlet used to delete a user."
+ },
+ {
+  "it": "cancella utente se non � amministratore",
+  "en": "deletes the user if he or she is not an administrator"
+ },
+ {
+  "it": "controllo se l'utente � amministratore e se ce ne sono degli altri",
+  "en": "I check whether the user is an administrator and whether there are others"
+ },
+ {
+  "it": "Servlet utilizzata per inizializzare i parametri del sistema.",
+  "en": "Servlet used to initialize the parameters of the system."
+ },
+ {
+  "it": "Inizializza i parametri",
+  "en": "Initializes the parameters"
+ },
+ {
+  "it": "Setto il server smtp specificato nel file di configurazione xml",
+  "en": "I set the smtp server specified in the xml configuration file"
+ },
+ {
+  "it": "Setto i parametri necessari alla connessione al Database",
+  "en": "I set the parameters needed for the connection to the Database"
+ },
+ {
+  "it": "Servlet utilizzata per inserire un indirizzo nel database",
+  "en": "Servlet used to insert an address into the database"
+ },
+ {
+  "it": "Verifichiamo che l' indirizzo non sia presente nel database e lo inseriamo",
+  "en": "We check that the address is not present in the database and we insert it"
+ },
+ {
+  "it": "Servlet per inserire una classe",
+  "en": "Servlet to insert a class"
+ },
+ {
+  "it": "String idC = pRequest.getParameter(\"idClassroom\");",
+  "en": null
+ },
+ {
+  "it": "int idClassroom= Integer.parseInt(idC);",
+  "en": null
+ },
+ {
+  "it": "gotoPage+=idClassroom;",
+  "en": null
+ },
+ {
+  "it": "inserimento giustifica",
+  "en": "insertion of justification"
+ },
+ {
+  "it": "managerUser.getUserById(Integer.valueOf((String)pRequest.getAttribute(\"student\")));",
+  "en": null
+ },
+ {
+  "it": "Servlet utilizzata per inserire una pagella di uno studente.",
+  "en": "Servlet used to insert a report card of a student."
+ },
+ {
+  "it": "Lista teaching",
+  "en": "Teaching list"
+ },
+ {
+  "it": "Quadrimestre",
+  "en": "Term (quarter)"
+ },
+ {
+  "it": "Servlet utilizzata per inserire un insegnamento nel DataBase.",
+  "en": "Servlet used to insert a teaching into the Database."
+ },
+ {
+  "it": "String isWizard = \"yes\";",
+  "en": null
+ },
+ {
+  "it": "session.setAttribute(\"isWizard\", isWizard);",
+  "en": null
+ },
+ {
+  "it": "Servlet utilizzata per inserire un utente nel DataBase.",
+  "en": "Servlet used to insert a user into the Database."
+ },
+ {
+  "it": "inserimento utente",
+  "en": "insertion of user"
+ },
+ {
+  "it": "Servlet utilizzata per visualizzare tutti gli anni accademici presenti nel db.",
+  "en": "Servlet used to display all the academic years present in the db."
+ },
+ {
+  "it": "Date oggi = new Date();",
+  "en": null
+ },
+ {
+  "it": "recuperiamo l'anno accademico selezionato",
+  "en": "we retrieve the selected academic year"
+ },
+ {
+  "it": "Calcoliamo l'elenco delle classi dell'anno accademico selezionato",
+  "en": "We compute the list of the classes of the selected academic year"
+ },
+ {
+  "it": "session.removeAttribute(\"selectedClass\");",
+  "en": null
+ },
+ {
+  "it": "Servlet utilizzata per caricare la Pagella di uno studente.",
+  "en": "Servlet used to load the Report card of a student."
+ },
+ {
+  "it": "Lista Voti",
+  "en": "List of grades"
+ },
+ {
+  "it": "provare i dati",
+  "en": "test the data"
+ },
+ {
+  "it": "Servlet utilizzata per caricare la lista degli insegnamenti Associati alla classe dello studente.",
+  "en": "Servlet used to load the list of the teachings associated with the class of the student."
+ },
+ {
+  "it": "Servlet utilizzata per effettuare il login dell'utente.",
+  "en": "Servlet used to perform the login of the user."
+ },
+ {
+  "it": "Ottengo i dati dalla request",
+  "en": "I get the data from the request"
+ },
+ {
+  "it": "Login dell'utente",
+  "en": "Login of the user"
+ },
+ {
+  "it": "Servlet utilizzata per effettuare il logout dell'utente.",
+  "en": "Servlet used to perform the logout of the user."
+ },
+ {
+  "it": "Servlet utilizzata per rimuovere Insegnamenti ad un docente",
+  "en": "Servlet used to remove Teachings from a teacher"
+ },
+ {
+  "it": "Servlet utilizzata per visualizzare un report degli insegnamenti di un docente",
+  "en": "Servlet used to display a report of the teachings of a teacher"
+ },
+ {
+  "it": "Calcoliamo l'elenco delle classi in cui insegna il docente in base all'anno selezionato",
+  "en": "We compute the list of the classes in which the teacher teaches, based on the selected year"
+ },
+ {
+  "it": "Servlet utilizzata per modificare un indirizzo.",
+  "en": "Servlet used to modify an address."
+ },
+ {
+  "it": "Servlet utilizzata per visualizzare tutti gli indirizzi.",
+  "en": "Servlet used to display all the addresses."
+ },
+ {
+  "it": "prendere l'academic year dalla session",
+  "en": "take the academic year from the session"
+ },
+ {
+  "it": "Servlet per mostrare i dettagli di una classe",
+  "en": "Servlet to show the details of a class"
+ },
+ {
+  "it": "Servlet utilizzata per visualizzare tutti gli insegnamenti.",
+  "en": "Servlet used to display all the teachings."
+ },
+ {
+  "it": "User teacher = (User) session.getAttribute(\"user\");",
+  "en": null
+ },
+ {
+  "it": "recuperiamo l'id della classe selezionata",
+  "en": "we retrieve the id of the selected class"
+ },
+ {
+  "it": "Calcoliamo l'elenco degli insegnamenti associati alla class eselezionata",
+  "en": "We compute the list of the teachings associated with the selected class"
+ },
+ {
+  "it": "Servlet utilizzata per modificare un insegnamento.",
+  "en": "Servlet used to modify a teaching."
+ },
+ {
+  "it": "Servlet utilizzata per recuperare i dettagli dell'utente.",
+  "en": "Servlet used to retrieve the details of the user."
+ },
+ {
+  "it": "Servlet utilizzata per visualizzare tutti gli utenti.",
+  "en": "Servlet used to display all the users."
+ },
+ {
+  "it": "Servlet utilizzata per visualizzare il form di gestione dei ruoli degli utenti.",
+  "en": "Servlet used to display the form for managing the roles of the users."
+ },
+ {
+  "it": "prepariamo i valori da passare alla jsp",
+  "en": "we prepare the values to pass to the jsp"
+ },
+ {
+  "it": "Iterator<Classroom> iteClass = classList.iterator(); Classroom tmp = null; while(iteClass.hasNext()){ tmp=iteClass.next(); if(tmp.getAcademicYear()!= an){ classList.remove(tmp); } }",
+  "en": null
+ },
+ {
+  "it": "int idTeacher= user.getId();",
+  "en": null
+ },
+ {
+  "it": "@SuppressWarnings(\"unused\")",
+  "en": null
+ },
+ {
+  "it": "Collection<Teaching> teachingListByClassroom=null;",
+  "en": null
+ },
+ {
+  "it": "Collection<Classroom,Teaching> list= new Vector <Classroom,Teaching>();",
+  "en": null
+ },
+ {
+  "it": "verifichiamo che la giustifica esista.",
+  "en": "we check that the justification exists."
+ },
+ {
+  "it": "Invoco il metodo della managerRegister per recuperare dal db le informazioni inerenti il registro di una classe ad una particolare data (Assenze, Ritardi)",
+  "en": "I invoke the method of the managerRegister to retrieve from the db the information about the register of a class on a particular date (Absences, Lateness)"
+ },
+ {
+  "it": "Variabile booleana utilizzata per verificare se lo studente ha o meno un'assenza",
+  "en": "Boolean variable used to check whether the student has an absence or not"
+ },
+ {
+  "it": "Collection utilizzata per la memorizzazione del registro di una particolare data",
+  "en": "Collection used to store the register of a particular date"
+ },
+ {
+  "it": "Iteratore necessario a scorrere la collection",
+  "en": "Iterator needed to scroll through the collection"
+ },
+ {
+  "it": "Variabile temporanea necessaria a leggere le informazioni dalla collection",
+  "en": "Temporary variable needed to read the information from the collection"
+ },
+ {
+  "it": "Variabile temporanea necessaria all'inserimento delle nuove assenze",
+  "en": "Temporary variable needed to insert the new absences"
+ },
+ {
+  "it": "Variabile temporanea necessaria all'inserimento di nuovi ritardi",
+  "en": "Temporary variable needed to insert new lateness records"
+ },
+ {
+  "it": "Classi manager necessarie all'elaborazione",
+  "en": "Manager classes needed for the processing"
+ },
+ {
+  "it": "Variabili necessarie per la memorizzazione dei dati provenienti dalla request",
+  "en": "Variables needed to store the data coming from the request"
+ },
+ {
+  "it": "Memorizza gli alunni assenti",
+  "en": "Stores the absent pupils"
+ },
+ {
+  "it": "Memorizza gli alunni ritardatari",
+  "en": "Stores the late pupils"
+ },
+ {
+  "it": "Recupero l'utente loggato dalla sessione",
+  "en": "I retrieve the logged-in user from the session"
+ },
+ {
+  "it": "Verifico che l'utente loggato abbia i permessi necessari",
+  "en": "I check that the logged-in user has the necessary permissions"
+ },
+ {
+  "it": "Recupero i parametri dalla pRequest",
+  "en": "I retrieve the parameters from pRequest"
+ },
+ {
+  "it": "Recupero l'oggetto classroom dalla session",
+  "en": "I retrieve the classroom object from the session"
+ },
+ {
+  "it": "Recupero lo studente cui la register line si riferisce",
+  "en": "I retrieve the student to whom the register line refers"
+ },
+ {
+  "it": "Verifico se per lo studente e' stata inserita o meno un'assenza",
+  "en": "I check whether an absence was entered for the student"
+ },
+ {
+  "it": "Verifico se per lo studente e' stata inserito o meno un ritardo",
+  "en": "I check whether a lateness was entered for the student"
+ },
+ {
+  "it": "Servlet utilizzata per aggiornare la pagella di uno studente.",
+  "en": "Servlet used to update the report card of a student."
+ },
+ {
+  "it": "SE il voto non esiste dobbiamo crearlo",
+  "en": "IF the grade does not exist we must create it"
+ },
+ {
+  "it": "Se il voto esiste dobbiamo aggiornarlo",
+  "en": "If the grade exists we must update it"
+ },
+ {
+  "it": "Servlet utilizzata per modificare un utente.",
+  "en": "Servlet used to modify a user."
+ },
+ {
+  "it": "Classe utilizzata per modellare un insegnamento.",
+  "en": "Class used to model a teaching."
+ },
+ {
+  "it": "Ritorna il nome dell'insegnamento",
+  "en": "Returns the name of the teaching"
+ },
+ {
+  "it": "Setta il nome dell'insegnamento.",
+  "en": "Sets the name of the teaching."
+ },
+ {
+  "it": "Ritorna l'id dell'insegnamento.",
+  "en": "Returns the id of the teaching."
+ },
+ {
+  "it": "Setta l'id dell'insegnamento.",
+  "en": "Sets the id of the teaching."
+ },
+ {
+  "it": "da verificare il test",
+  "en": "the test is to be verified"
+ },
+ {
+  "it": "try { absence= mr.getAbsenceByIdAbsence(12); } catch (InvalidValueException e1) { // TODO Auto-generated catch block e1.printStackTrace(); } catch (EntityNotFoundException e1) { // TODO Auto-generated catch block e1.printStackTrace(); } catch (ConnectionException e1) { // TODO Auto-generated catch block e1.printStackTrace(); } catch (SQLException e1) { // TODO Auto-generated catch block e1.printStackTrace(); }",
+  "en": null
+ },
+ {
+  "it": "Collection<RegisterLine> crl = mr.getRegisterByClassIDAndDate(64, datenow ); for(RegisterLine x : crl){ System.out.println(x.getStudent().getName()); if(mr.hasAbsence(x)){ System.out.println(\"assente\"); } System.out.println(mr.hasAbsence(x)); if(mr.hasDelay(x)){ System.out.println(\"ritardo\"); } } //",
+  "en": null
+ },
+ {
+  "it": "database errato, impossibile inserire null nel campo id_justify di absence",
+  "en": "wrong database, impossible to insert null into the field id_justify of absence"
+ },
+ {
+  "it": "absence.setIdAbsence(13);",
+  "en": null
+ },
+ {
+  "it": "delay.setIdDelay(3);",
+  "en": null
+ },
+ {
+  "it": "mr.insertAbsence(absence);",
+  "en": null
+ },
+ {
+  "it": "if(mr.exists(absence)) System.out.println(\"esiste\");;",
+  "en": null
+ },
+ {
+  "it": "mr.deleteAbsence(absence);",
+  "en": null
+ },
+ {
+  "it": "mr.updateAbsence(absence);",
+  "en": null
+ },
+ {
+  "it": "if(mr.exists(delay)) System.out.println(\"esiste\");;",
+  "en": null
+ },
+ {
+  "it": "mr.updateDelay(delay);",
+  "en": null
+ },
+ {
+  "it": "mr.deleteDelay(delay);",
+  "en": null
+ },
+ {
+  "it": "mr.insertNote(notenew);",
+  "en": null
+ },
+ {
+  "it": "mr.deleteNote(notenew);",
+  "en": null
+ },
+ {
+  "it": "mr.insertJustify(justifynew, absence);",
+  "en": null
+ },
+ {
+  "it": "mr.deleteJustify(justifynew.getIdJustify());",
+  "en": null
+ },
+ {
+  "it": "if(mr.hasJustify(absence))System.out.println(\"giustificata\");",
+  "en": null
+ },
+ {
+  "it": "absence= mr.getAbsenceByIDUserAndDate(2, \"2009-05-18\");",
+  "en": null
+ },
+ {
+  "it": "absence= mr.getAbsenceByIdJustify(1);",
+  "en": null
+ },
+ {
+  "it": "System.out.println(absence.getDateAbsence());",
+  "en": null
+ },
+ {
+  "it": "Collection<Absence> ac= mr.getAbsenceByIDUserAndAcademicYear(2, 2009);",
+  "en": null
+ },
+ {
+  "it": "for(Absence x : ac) System.out.println(x.getDateAbsence());",
+  "en": null
+ },
+ {
+  "it": "justifynew=mr.getJustifyByAbsence(absence);",
+  "en": null
+ },
+ {
+  "it": "System.out.println(justifynew.getDateJustify());",
+  "en": null
+ },
+ {
+  "it": "Collection<Note> nc = mr.getNoteByIDUserAndAcademicYear(2, 2009);",
+  "en": null
+ },
+ {
+  "it": "for(Note x : nc) System.out.println(x.getDescription());",
+  "en": null
+ },
+ {
+  "it": "delay= mr.getDelayByIDUserAndDate(1, datenow);",
+  "en": null
+ },
+ {
+  "it": "System.out.println(delay.getDateDelay());",
+  "en": null
+ },
+ {
+  "it": "System.out.println(delay.getTimeDelay());",
+  "en": null
+ },
+ {
+  "it": "Classe utilizzata per modellare un utente.",
+  "en": "Class used to model a user."
+ },
+ {
+  "it": "Setta la login dell'utente.",
+  "en": "Sets the login of the user."
+ },
+ {
+  "it": "Setta il nome dell'utente.",
+  "en": "Sets the name of the user."
+ },
+ {
+  "it": "Setta la password dell'utente.",
+  "en": "Sets the password of the user."
+ },
+ {
+  "it": "Setta il cognome dell'utente.",
+  "en": "Sets the surname of the user."
+ },
+ {
+  "it": "Setta l'id dell'utente.",
+  "en": "Sets the id of the user."
+ },
+ {
+  "it": "Ritorna una stringa contenente nome e cognome dell'utente. @see java.lang.Object#toString()",
+  "en": "Returns a string containing the first name and last name of the user."
+ },
+ {
+  "it": "Classe utilizzata per modellare le informazioni principali di un utente.",
+  "en": "Class used to model the main information of a user."
+ },
+ {
+  "it": "Questa classe contiene un insieme di utility per la gestione del sistema.",
+  "en": "This class contains a set of utilities for the management of the system."
+ },
+ {
+  "it": "Costanti",
+  "en": "Constants"
+ },
+ {
+  "it": "Ritorna, dati un campo e una tabella, il valore massimo del campo nella tabella.",
+  "en": "Returns, given a field and a table, the maximum value of the field in the table."
+ },
+ {
+  "it": "Se non sono stati forniti il campo e la tabella restituiamo un codice di errore",
+  "en": "If the field and the table were not provided, we return an error code"
+ },
+ {
+  "it": "Prepariamo la stringa SQL per recuperare le informazioni richieste",
+  "en": "We prepare the SQL string to retrieve the requested information"
+ },
+ {
+  "it": "Converte una data in una stringa formattata per il database.",
+  "en": "Converts a date into a string formatted for the database."
+ },
+ {
+  "it": "Controlla se la stringa passata come parametro e' null.",
+  "en": "Checks whether the string passed as a parameter is null."
+ },
+ {
+  "it": "Controlla se un dato intero � null.",
+  "en": "Checks whether a given integer is null."
+ },
+ {
+  "it": "Controlla se una data e' null.",
+  "en": "Checks whether a date is null."
+ },
+ {
+  "it": "Converte una String in Integer.",
+  "en": "Converts a String into an Integer."
+ },
+ {
+  "it": "Sostituisce i caratteri ' e \\ con '' nella stringa passata come parametro.",
+  "en": "Replaces the characters ' and \\ with '' in the string passed as a parameter."
+ },
+ {
+  "it": "Sostituisce il carattere ' con la stringa \" \" nella stringa passata come parametro.",
+  "en": "Replaces the character ' with the string \" \" in the string passed as a parameter."
+ },
+ {
+  "it": "Esegue un'operazione sul database tramite una stringa SQL.",
+  "en": "Executes an operation on the database through an SQL string."
+ },
+ {
+  "it": "Esegue una Query SQL sul database.",
+  "en": "Executes an SQL query on the database."
+ },
+ {
+  "it": "Converte un dato booleano in intero.",
+  "en": "Converts a boolean value into an integer."
+ },
+ {
+  "it": "Converte un dato intero in booleano.",
+  "en": "Converts an integer value into a boolean."
+ },
+ {
+  "it": "Restituisce la data corrente.",
+  "en": "Returns the current date."
+ },
+ {
+  "it": "Restituisce la data contenuta nella stringa in input.",
+  "en": "Returns the date contained in the input string."
+ },
+ {
+  "it": "Restituisce la data in input in formato String.",
+  "en": "Returns the input date as a String."
+ },
+ {
+  "it": "Calcola la distanza in giorni tra 2 date passate.",
+  "en": "Computes the distance in days between 2 given dates."
+ },
+ {
+  "it": "carattere '/' in ascii",
+  "en": "the character '/' in ascii"
+ },
+ {
+  "it": "carattere '\\' in ascii",
+  "en": "the character '\\' in ascii"
+ },
+ {
+  "it": "Variabili da impostare all'avvio di Tomcat",
+  "en": "Variables to be set at the start of Tomcat"
+ },
+ {
+  "it": "Variabili per l'aspetto grafico del programma",
+  "en": "Variables for the graphical appearance of the program"
+ },
+ {
+  "it": "server smtp per invio e-mail",
+  "en": "smtp server for sending e-mail"
+ },
+ {
+  "it": "Giorni minimi di distanza dall'esame per sottoscrivere o eliminare una prenotazione",
+  "en": "Minimum days of distance from the exam to subscribe to or delete a booking"
+ },
+ {
+  "it": "Giorni massimi di distanza dall'esame per sottoscrivere una prenotazione",
+  "en": "Maximum days of distance from the exam to subscribe to a booking"
+ },
+ {
+  "it": "pdf path per il percorso di memorizzazione dei file pdf",
+  "en": "pdf path for the path where pdf files are stored"
+ },
+ {
+  "it": "upload path per il percorso di memorizzazione dei file per l'importazione dei dati",
+  "en": "upload path for the path where the files for data import are stored"
+ },
+ {
+  "it": "Variabili per la connessione al database",
+  "en": "Variables for the connection to the database"
+ },
+ {
+  "it": "java.util.Date creationDate = new java.util.Date();",
+  "en": null
+ },
+ {
+  "it": "Timestamp timeStamp = new Timestamp(creationDate.getTime());",
+  "en": null
+ },
+ {
+  "it": "return (java.util.Date) timeStamp;",
+  "en": null
+ },
+ {
+  "it": "La funzione precedente va in loop se sostituisco \"\\\" con \"\\\\\"",
+  "en": "The previous function goes into a loop if I replace \"\\\" with \"\\\\\""
+ },
+ {
+  "it": "usiamo allora due variabile la prima viene \"consumata\" ad ogni occorrenza",
+  "en": "so we use two variables; the first one is \"consumed\" at each occurrence"
+ },
+ {
+  "it": "del pattern",
+  "en": "of the pattern"
+ },
+ {
+  "it": "Classe utilizzata per modellare una voto.",
+  "en": "Class used to model a grade."
+ },
+ {
+  "it": "Classe utilizzata per modellare un voto",
+  "en": "Class used to model a grade"
+ },
+ {
+  "it": "Metodo che restituisce l'id del voto.",
+  "en": "Method that returns the id of the grade."
+ },
+ {
+  "it": "Metodo che setta l'id del voto",
+  "en": "Method that sets the id of the grade"
+ },
+ {
+  "it": "Metodo che restituisce l'id dell'utente collegato al voto",
+  "en": "Method that returns the id of the user linked to the grade"
+ },
+ {
+  "it": "Metodo che setta l'id dell'utente relativo al voto",
+  "en": "Method that sets the id of the user related to the grade"
+ },
+ {
+  "it": "metodo che restituisce il codice dell'insegnamento del voto",
+  "en": "method that returns the code of the teaching of the grade"
+ },
+ {
+  "it": "Metodo che setta il codice dell'insegnamento relativo al voto",
+  "en": "Method that sets the code of the teaching related to the grade"
+ },
+ {
+  "it": "Metodo che restituisce il voto dello scritto",
+  "en": "Method that returns the grade of the written test"
+ },
+ {
+  "it": "Metodo che setta il voto dello scritto, controllando che esso sia compreso tra 0 e 10",
+  "en": "Method that sets the grade of the written test, checking that it is between 0 and 10"
+ },
+ {
+  "it": "metodo che restituisce il voto dell' orale",
+  "en": "method that returns the grade of the oral test"
+ },
+ {
+  "it": "Metodo che setta il voto dell'orale, controllando che esso sia compreso tra 0 e 10",
+  "en": "Method that sets the grade of the oral test, checking that it is between 0 and 10"
+ },
+ {
+  "it": "Metodo che restituisce il voto del laboratorio",
+  "en": "Method that returns the grade of the laboratory"
+ },
+ {
+  "it": "metodo che setta il voto del laboratorio, controllando che esso sia compreso tra 0 e 10",
+  "en": "method that sets the grade of the laboratory, checking that it is between 0 and 10"
+ },
+ {
+  "it": "Metodo che restituisce l'anno accademico del voto",
+  "en": "Method that returns the academic year of the grade"
+ },
+ {
+  "it": "metodo che setta l'anno accademico del voto",
+  "en": "method that sets the academic year of the grade"
+ },
+ {
+  "it": "Metodo che restituisce il quadrimestre del voto",
+  "en": "Method that returns the term (quarter) of the grade"
+ },
+ {
+  "it": "Metodo che setta il quadrimestre del voto",
+  "en": "Method that sets the term (quarter) of the grade"
+ },
+ {
+  "it": "displaytag stylesheet",
+  "en": null
+ },
+ {
+  "it": "non supportata da mozilla",
+  "en": "not supported by Mozilla"
+ },
+ {
+  "it": "W3C//DTD HTML 4.0 Transitional//EN\">",
+  "en": null
+ }
+]

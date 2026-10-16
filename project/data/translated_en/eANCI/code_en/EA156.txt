@@ -1,0 +1,71 @@
+package DB;
+import Bean.*;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import java.util.*;
+import java.beans.PropertyVetoException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.*;
+
+/** This class provides a connection pool @author Antonio Leone */
+
+public class DbConnection  {
+	
+	private static Properties dbProperties;
+	private static ComboPooledDataSource cpds=null;
+	
+	/** This portion of code creates a connection pool and defines the db properties */
+	static 
+	{
+            try 
+            {
+				DbConnection.loadDbProperties();
+				DbConnection.createPool();
+			} 
+            catch (IOException e) 
+            {
+				throw new DbException("Errore nella definizione dei DB properties");
+			}
+			catch (SQLException e) 
+			{
+				throw new DbException("Errore nella creazione del Poll di Connessioni");
+			} 
+			catch (PropertyVetoException e) 
+			{
+				throw new DbException("Errore nella creazione del Poll di Connessioni");
+			} 
+    }
+	
+	private static void createPool() throws SQLException, PropertyVetoException
+	{
+    	cpds = new ComboPooledDataSource(); 
+		cpds.setJdbcUrl( DbConnection.dbProperties.getProperty("url")); 
+		cpds.setDriverClass(DbConnection.dbProperties.getProperty("driver")); 
+		cpds.setUser(DbConnection.dbProperties.getProperty("username")); 
+		cpds.setPassword(DbConnection.dbProperties.getProperty("password"));
+	}
+	
+	/** Returns a connection to the db; if one is not already available, a new one is created */
+	
+	public static synchronized Connection getConnection() throws SQLException  
+	{
+		return cpds.getConnection();
+	}
+	
+	/** Loads the db properties */
+	
+	private static void loadDbProperties() throws IOException
+	{
+		 InputStream fileProperties = new FileInputStream("database.properties");
+		 DbConnection.dbProperties = new Properties();
+		 DbConnection.dbProperties.load(fileProperties);      	
+	}
+	
+	/** Method that closes the connection pool */
+	
+	public void closePool()
+	{
+		cpds.close();
+	}
+}

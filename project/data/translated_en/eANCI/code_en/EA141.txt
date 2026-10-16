@@ -1,0 +1,49 @@
+package Bean;
+/** The class Accesso (Access) allows the management of the accesses. The class Accesso has no dependencies @author Federico Cinque */
+public class Accesso {
+	
+	private String Login;
+	private String Password;
+	private String Tipo;
+	
+	/** Empty constructor of the class Accesso */
+	public Accesso(){
+		Login=null;
+		Password=null;
+		Tipo=null;
+	}
+	/** Constructor of the class Accesso */
+	public Accesso(String Login, String Password, String Tipo){
+		this.Login=Login;
+		this.Password=Password;
+		this.Tipo=Tipo;
+	}
+	/** Method that returns a login */
+	public String getLogin() {
+		return Login;
+	}
+	/** Method that sets a login */
+	public void setLogin(String login) {
+		Login = login;
+	}
+	/** Method that returns a password */
+	public String getPassword() {
+		return Password;
+	}
+	/** Method that sets a password */
+	public void setPassword(String password) {
+		Password = password;
+	}
+	/** Method that returns the type of user who accesses */
+	public String getTipo() {
+		return Tipo;
+	}
+	/** Method that sets the type of user who accesses */
+	public void setTipo(String tipo) {
+		Tipo = tipo;
+	}
+	/** Method that converts the information of an access into a string */
+	public String toString() {
+		return "Login: "+Login+", Password: "+Password+", Tipo: "+Tipo;
+	}
+}

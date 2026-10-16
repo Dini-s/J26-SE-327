@@ -1,0 +1,346 @@
+{
+ "dataset": "itrust",
+ "model": "llama3.1-8k",
+ "answers": {
+  "UC10E1": {
+   "terms": [
+    "MedicalIdentificationService",
+    "validateMedicalId",
+    "tryAgain",
+    "MedicalIdentificationValidator",
+    "invalidIdPrompt",
+    "MedicalIdentificationController",
+    "handleInvalidId",
+    "showPrompt",
+    "MedicalIdentificationDAO",
+    "getMedicalId",
+    "MedicalIdentificationModel",
+    "tryAgainPrompt"
+   ],
+   "seconds": 354.9
+  },
+  "UC10E2": {
+   "terms": [
+    "PatientDAO",
+    "confirmPatient",
+    "selectPatient",
+    "PatientService",
+    "verifyPatient",
+    "confirmSelection",
+    "promptAgain",
+    "PatientController",
+    "displayPatient",
+    "getPatient",
+    "updatePatient",
+    "patientList"
+   ],
+   "seconds": 10.8
+  },
+  "UC10S1": {
+   "terms": [
+    "PatientService",
+    "ConfirmPatientSelection",
+    "PersonalHealthInfo",
+    "EditHistoricalValues",
+    "Immunizations",
+    "OfficeVisit",
+    "FamilyHistory",
+    "BmiCalculator",
+    "PatientStatus",
+    "GraphPatientData",
+    "PatientController",
+    "PatientDAO"
+   ],
+   "seconds": 20.0
+  },
+  "UC10S2": {
+   "terms": [
+    "PatientGraphController",
+    "GraphService",
+    "LineChart",
+    "HeightGraph",
+    "WeightGraph",
+    "PatientData",
+    "GraphModel",
+    "QuarterlyAverage",
+    "ChartView",
+    "patientHeight",
+    "patientWeight",
+    "graphData"
+   ],
+   "seconds": 12.2
+  },
+  "UC11E1": {
+   "terms": [
+    "MedicalIdentificationService",
+    "validateMedicalId",
+    "promptInvalidId",
+    "tryAgain",
+    "MedicalIdentificationController",
+    "handleInvalidId",
+    "showPrompt",
+    "MedicalIdentificationDAO",
+    "getMedicalId",
+    "MedicalIdentificationValidator",
+    "MedicalIdentificationModel",
+    "showError"
+   ],
+   "seconds": 10.1
+  },
+  "UC11E2": {
+   "terms": [
+    "PatientDAO",
+    "confirmPatient",
+    "selectPatient",
+    "PatientService",
+    "verifyPatient",
+    "patientList",
+    "patientDetails",
+    "confirmButton",
+    "retryPrompt",
+    "patientSelection",
+    "patientConfirm",
+    "patientError"
+   ],
+   "seconds": 8.9
+  },
+  "UC11S1": {
+   "terms": [
+    "PatientSearch",
+    "OfficeVisit",
+    "Patient",
+    "Medication",
+    "LabProcedure",
+    "Diagnosis",
+    "Procedure",
+    "Immunization",
+    "Referral",
+    "Logger",
+    "PatientService",
+    "OfficeVisitService"
+   ],
+   "seconds": 18.4
+  },
+  "UC11S2": {
+   "terms": [
+    "OfficeVisit",
+    "modifyOfficeVisit",
+    "deleteOfficeVisit",
+    "OfficeVisitController",
+    "OfficeVisitService",
+    "OfficeVisitDAO",
+    "OfficeVisit.jsp",
+    "OfficeVisit.html",
+    "updateOfficeVisit",
+    "deleteOfficeVisitField",
+    "logEvent",
+    "verifyHCPChanges"
+   ],
+   "seconds": 11.3
+  },
+  "UC12": {
+   "terms": [
+    "LoginController",
+    "LoginService",
+    "UserProfile",
+    "TransactionLogger",
+    "UserType",
+    "LoginDAO",
+    "UserProfileDAO",
+    "TransactionType",
+    "UserTypeDAO",
+    "login.jsp",
+    "profile.jsp",
+    "transactionStats.jsp"
+   ],
+   "seconds": 9.8
+  },
+  "UC13": {
+   "terms": [
+    "Patient",
+    "DLHCP",
+    "PersonalRep",
+    "addRep",
+    "deleteRep",
+    "MID",
+    "E1",
+    "E2",
+    "repList",
+    "addRepForm",
+    "deleteRepForm",
+    "saveRep"
+   ],
+   "seconds": 8.1
+  },
+  "UC13E1": {
+   "terms": [
+    "MedicalIdentificationService",
+    "validateMedicalId",
+    "tryAgain",
+    "MedicalIdentificationValidator",
+    "invalidIdError",
+    "promptUser",
+    "MedicalIdentificationController",
+    "handleInvalidId",
+    "retryMedicalId",
+    "MedicalIdentificationForm",
+    "idNumberInput",
+    "errorDisplay"
+   ],
+   "seconds": 10.0
+  },
+  "UC15E1": {
+   "terms": [
+    "AdminController",
+    "validateCode",
+    "getCode",
+    "tryAgain",
+    "codeForm",
+    "getCodeError",
+    "displayError",
+    "getCodeInput",
+    "getCodeSubmit",
+    "getCodeValidation",
+    "getCodePrompt",
+    "getCodeRetry"
+   ],
+   "seconds": 7.3
+  },
+  "UC15S1": {
+   "terms": [
+    "Immunization",
+    "CptCode",
+    "addImmunization",
+    "updateImmunization",
+    "ImmunizationList",
+    "CptCodeService",
+    "saveImmunization",
+    "getImmunization",
+    "ImmunizationController",
+    "ImmunizationDAO",
+    "ImmunizationForm",
+    "adminImmunization.jsp"
+   ],
+   "seconds": 20.2
+  },
+  "UC15S2": {
+   "terms": [
+    "DiagnosisDAO",
+    "DiagnosisService",
+    "DiagnosisController",
+    "ICD9CMCode",
+    "DiagnosisType",
+    "ChronicDiagnosis",
+    "ShortTermDiagnosis",
+    "DiagnosisName",
+    "DiagnosisList",
+    "DiagnosisBean",
+    "getDiagnoses",
+    "saveDiagnosis"
+   ],
+   "seconds": 12.5
+  },
+  "UC15S3": {
+   "terms": [
+    "DrugListing",
+    "NDCManager",
+    "addDrug",
+    "updateDrug",
+    "getDrug",
+    "DrugDAO",
+    "DrugService",
+    "drugListing.jsp",
+    "drugForm.jsp",
+    "NDCValidator",
+    "saveDrug",
+    "loadDrugs"
+   ],
+   "seconds": 9.9
+  },
+  "UC15S4": {
+   "terms": [
+    "Service",
+    "LOINC",
+    "LabService",
+    "addService",
+    "updateService",
+    "LOINCCode",
+    "ServiceList",
+    "addLOINC",
+    "updateLOINC",
+    "LOINCService",
+    "serviceDAO",
+    "loincDAO"
+   ],
+   "seconds": 10.9
+  },
+  "UC16": {
+   "terms": [
+    "ChronicDiseaseService",
+    "PatientService",
+    "RiskFactorDAO",
+    "DiabetesRiskFactors",
+    "Type1RiskFactors",
+    "Type2RiskFactors",
+    "HeartDiseaseRiskFactors",
+    "PersonalHealthRecordsController",
+    "displayWarningMessage",
+    "getRiskFactors",
+    "checkPreconditions",
+    "riskFactorList.jsp"
+   ],
+   "seconds": 19.4
+  },
+  "UC17S1": {
+   "terms": [
+    "Patient",
+    "Diabetes",
+    "Asthma",
+    "Circulatory",
+    "ICD",
+    "Code",
+    "Diagnose",
+    "Visit",
+    "Year",
+    "Alive",
+    "Disease",
+    "Status"
+   ],
+   "seconds": 9.7
+  },
+  "UC17S2": {
+   "terms": [
+    "Patient",
+    "AgeCalculator",
+    "FluShotService",
+    "CptCode",
+    "InfluenzaService",
+    "VaccinationHistory",
+    "PatientRepository",
+    "FluShotStatus",
+    "CalendarService",
+    "DateRange",
+    "FluShotRecord",
+    "VaccinationStatus"
+   ],
+   "seconds": 11.2
+  },
+  "UC17S3": {
+   "terms": [
+    "Patient",
+    "Immunization",
+    "Schedule",
+    "CatchUp",
+    "Vaccination",
+    "Age",
+    "Immunized",
+    "PatientService",
+    "getCatchUpSchedule",
+    "isImmunized",
+    "getAge",
+    "immunizePatient"
+   ],
+   "seconds": 7.8
+  }
+ }
+}

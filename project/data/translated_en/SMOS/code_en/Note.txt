@@ -1,0 +1,81 @@
+package smos.bean;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/** Class that models a note on the register @author Nicola Pisanti @version 1.0 */
+
+
+public class Note implements Serializable{
+
+	private static final long serialVersionUID = 5953926210895315436L;
+	
+	private int idNote;
+	private int idUser;
+	private Date dateNote;
+	private String description;
+	private String teacher;
+	private int academicYear;
+	
+	
+	public Note(){
+		
+	}
+	
+	
+	
+	/** Method that returns the id of the note */
+	public int getIdNote() {
+		return idNote;
+	}
+	/** Method to set the id of the note */
+	public void setIdNote(int pIdNote) {
+		this.idNote = pIdNote;
+	}
+	/** Method that returns the id of the student who received the note */
+	public int getIdUser() {
+		return idUser;
+	}
+	/** Method to set the id of the student who received the note */
+	public void setIdUser(int pIdUser) {
+		this.idUser = pIdUser;
+	}
+	/** Method that returns a string representing the date on which the note was given */
+	public Date getDateNote() {
+		return dateNote;
+	}
+	/** Method that sets a string representing the date on which the note was given */
+	public void setDateNote(Date pDateNote) {
+		this.dateNote = pDateNote;
+	}
+	/** Method that returns the text of the note */
+	public String getDescription() {
+		return description;
+	}
+	/** Method that sets the description of the note */
+	public void setDescription(String pDescription) {
+		this.description = pDescription;
+	}
+	/** Method that returns the id of the teacher who gave the note */
+	public String getTeacher() {
+		return teacher;
+	}
+	/** Method that sets the id of the teacher who gave the note */
+	public void setTeacher(String pTeacher) {
+		this.teacher = pTeacher;
+	}
+	/** Method that returns the current academic year */
+	public int getAcademicYear() {
+		return academicYear;
+	}
+	/** Method that sets the current academic year during the assignment of the note */
+	public void setAcademicYear(int academicYear) {
+		this.academicYear = academicYear;
+	}
+
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,99 @@
+package Servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import Manager.AccessManager;
+import Manager.AdminManager;
+import Bean.Accesso;
+import Bean.Amministratore;
+import DB.DbException;
+/** The class ServletEliminaAmministratore (ServletDeleteAdministrator) searches for and deletes an administrator. The class has no dependencies @author Federico Cinque */
+public class ServletEliminaAmministratore extends HttpServlet{
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session = request.getSession();
+		if(session!=null){ // If the session is null, performs a redirect to the authentication page
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = null;
+			String ris;
+			try{
+				// If the session attributes amm and acc are null I have to perform the search
+				if(session.getAttribute("amm")==null && session.getAttribute("acc")==null){
+					String matricola = request.getParameter("matricola");
+					AdminManager AdM = new AdminManager();
+					Amministratore am = AdM.ricercaAdminByMatricola(matricola);
+					if(am != null){
+						session.setAttribute("amm", am);
+
+						AccessManager AM = new AccessManager();
+						Accesso ac = AM.getAccesso(am.getLogin());
+						session.setAttribute("acc", ac);
+
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=cancella&page=amministratore"); 
+						rd.forward(request,response);
+					}
+					else{
+						ris="La matricola non corrisponde ad un amministratore";
+						request.setAttribute("ris", ris);
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita"); 
+						rd.forward(request,response);
+					}
+				}
+				else{	// If the attributes are present I proceed with the deletion
+
+					AccessManager AM = new AccessManager();
+					AdminManager AdM = new AdminManager();
+
+					Accesso ac = (Accesso) session.getAttribute("acc");
+					Amministratore am = (Amministratore) session.getAttribute("amm");
+
+					String matricola = am.getMatricola();
+					String login = ac.getLogin();
+
+					String risCanc = AdM.eliminaAmministratore(matricola);	// I try to perform the deletion
+
+					if(risCanc.equals("ok")){ // I check that the administrator is not the only one and has been deleted
+						if(AM.eliminaAccesso(login)){ // deletes the corresponding access
+							ris="ok";
+							request.setAttribute("ris", ris);
+							rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=riuscita"); 
+						}
+						else{
+							ris="fallita";
+							request.setAttribute("ris", ris);
+							rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+						}
+					}
+					else{
+						if(risCanc.equals("unico")) // if the administrator is the only one, he or she has not been deleted
+							ris="Non si pu˜ cancellare l'ultimo amministratore";
+						else
+							ris="fallita";
+						request.setAttribute("ris", ris);
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+					}
+					rd.forward(request,response);
+					session.removeAttribute("amm");
+					session.removeAttribute("acc");
+				}
+			}
+			catch(DbException e){
+				ris=e.getMessage();
+				request.setAttribute("ris", ris);
+				rd=sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+				rd.forward(request,response);
+			}
+		}
+		else{
+			String url="/myDoc/workers/Accesso.jsp";
+			response.sendRedirect(url);
+		}
+	}
+}

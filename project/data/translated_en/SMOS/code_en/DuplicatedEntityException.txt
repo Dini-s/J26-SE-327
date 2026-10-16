@@ -1,0 +1,21 @@
+package smos.exception;
+
+import java.lang.Exception;
+
+/** This class represents the exception raised when one tries to insert an entity already present in the database. */
+public class DuplicatedEntityException extends Exception {
+	
+	private static final long serialVersionUID = 4858261134352455533L;
+
+	/** Raises the exception without an associated error message. */
+	public DuplicatedEntityException() {
+		super("Duplicate Key into the Repository!");
+	}
+	
+	/** Raises the exception with an associated error message. */
+	public DuplicatedEntityException (String pMessage) {
+		super(pMessage);
+	}
+	
+	
+}

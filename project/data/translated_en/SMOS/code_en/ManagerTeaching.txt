@@ -1,0 +1,571 @@
+package smos.storage;
+
+import smos.bean.Teaching;
+import smos.exception.EntityNotFoundException;
+import smos.exception.InvalidValueException;
+import smos.exception.MandatoryFieldException;
+import smos.storage.connectionManagement.DBConnection;
+import smos.storage.connectionManagement.exception.ConnectionException;
+import smos.utility.Utility;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Vector;
+import java.sql.Connection;
+
+/** Manager class for the teachings (subjects). @author Giulio D'Amora @version 1.0 */
+
+public class ManagerTeaching {
+	private static ManagerTeaching instance;
+
+	/** The name of the teachings table. */
+	public static final String TABLE_TEACHING = "teaching";
+
+	/** The name of the table that models the many-to-many association between addresses and teachings. */
+	public static final String TABLE_ADDRESS_TEACHINGS = "address_has_teaching";
+
+	/** The name of the table that models the many-to-many association between users and teachings. */
+	public static final String TABLE_TEACHER_CLASSROOM = "teacher_has_classroom";
+
+	/** The constructor of the class. */
+	private ManagerTeaching() {
+		super();
+	}
+
+	/** Returns the only existing instance of the teaching. */
+	public static synchronized ManagerTeaching getInstance() {
+		if (instance == null) {
+			instance = new ManagerTeaching();
+		}
+		return instance;
+	}
+
+	/** Checks the existence of a teaching in the database. */
+	public synchronized boolean exists(Teaching pTeaching)
+			throws MandatoryFieldException, ConnectionException, SQLException {
+
+		boolean result = false;
+		Connection connect = null;
+
+		if (pTeaching.getName() == null)
+			throw new MandatoryFieldException("Specificare il nome.");
+		try {
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			String sql = "SELECT * FROM " + ManagerTeaching.TABLE_TEACHING
+					+ " WHERE name = " + Utility.isNull(pTeaching.getName());
+
+			// We send the query to the database
+			ResultSet tRs = Utility.queryOperation(connect, sql);
+
+			if (tRs.next())
+				result = true;
+
+			return result;
+
+		} finally {
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Inserts a new teaching into the table teaching. */
+	public synchronized void insert(Teaching pTeaching)
+			throws MandatoryFieldException, ConnectionException, SQLException,
+			EntityNotFoundException, InvalidValueException {
+		Connection connect = null;
+		try {
+			// check of the mandatory fields
+			if (pTeaching.getName() == null)
+				throw new MandatoryFieldException("Specificare il campo nome");
+
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+			// We prepare the SQL string
+			String sql = "INSERT INTO " + ManagerTeaching.TABLE_TEACHING
+					+ " (name) " + "VALUES ("
+					+ Utility.isNull(pTeaching.getName()) + ")";
+
+			Utility.executeOperation(connect, sql);
+
+			pTeaching.setId(Utility.getMaxValue("id_teaching",
+					ManagerTeaching.TABLE_TEACHING));
+
+		} finally {
+			// releases the resources
+
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Updates a teaching present in the table teaching. */
+	public synchronized void update(Teaching pTeaching)
+			throws ConnectionException, SQLException, EntityNotFoundException,
+			MandatoryFieldException {
+		Connection connect = null;
+
+		try {
+			if (pTeaching.getId() <= 0)
+				throw new EntityNotFoundException(
+						"Impossibile trovare l'insegnamento!");
+
+			if (pTeaching.getName() == null)
+				throw new MandatoryFieldException("Specificare il campo nome");
+
+			// We prepare the SQL string
+			String sql = "UPDATE " + ManagerTeaching.TABLE_TEACHING + " SET"
+					+ " name = " + Utility.isNull(pTeaching.getName())
+					+ " WHERE id_teaching = "
+					+ Utility.isNull(pTeaching.getId());
+
+			// makes a new connection and sends the query
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			Utility.executeOperation(connect, sql);
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Deletes a teaching from the table teaching. */
+	public synchronized void delete(Teaching pTeaching)
+			throws ConnectionException, SQLException, EntityNotFoundException,
+			MandatoryFieldException, InvalidValueException {
+		Connection connect = null;
+
+		try {
+			// ManagerTeaching.getInstance().teachingOnDeleteCascade(pTeaching);
+			connect = DBConnection.getConnection();
+			// We prepare the SQL string
+			String sql = "DELETE FROM " + ManagerTeaching.TABLE_TEACHING
+					+ " WHERE id_teaching = "
+					+ Utility.isNull(pTeaching.getId());
+
+			Utility.executeOperation(connect, sql);
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Returns the id of the teaching passed as a parameter. */
+	public synchronized int getTeachingId(Teaching pTeaching)
+			throws EntityNotFoundException, ConnectionException, SQLException {
+		int result = 0;
+		Connection connect = null;
+		try {
+			if (pTeaching == null)
+				throw new EntityNotFoundException(
+						"Impossibile trovare l'insegnamento!");
+
+			/** We prepare the SQL string to retrieve the information corresponding to the id of the teaching passed as a parameter. */
+			String tSql = "SELECT id_teaching FROM "
+					+ ManagerTeaching.TABLE_TEACHING + " WHERE name = "
+					+ Utility.isNull(pTeaching.getName());
+
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We send the query to the database
+			ResultSet tRs = Utility.queryOperation(connect, tSql);
+
+			if (tRs.next())
+				result = tRs.getInt("id_teaching");
+
+			return result;
+		} finally {
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Returns the name of the teaching corresponding to the id passed as a parameter. */
+	public synchronized String getTeachingNameById(int pId)
+			throws EntityNotFoundException, ConnectionException, SQLException {
+		String result;
+		Connection connect = null;
+		try {
+			// If the id was not provided, we return an error code
+			if (pId <= 0)
+				throw new EntityNotFoundException(
+						"Impossibile trovare l'insegnamento!");
+
+			/** We prepare the SQL string to retrieve the information corresponding to the id of the teaching passed as a parameter */
+			String tSql = "SELECT name FROM " + ManagerTeaching.TABLE_TEACHING
+					+ " WHERE id_teaching = " + Utility.isNull(pId);
+
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We send the query to the database
+			ResultSet tRs = Utility.queryOperation(connect, tSql);
+
+			if (tRs.next())
+				result = tRs.getString("name");
+			else
+				throw new EntityNotFoundException(
+						"Impossibile trovare l'insegnamento!");
+
+			return result;
+		} finally {
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Returns the teaching corresponding to the id passed as a parameter. */
+	public synchronized Teaching getTeachingById(int pId)
+			throws ConnectionException, SQLException, EntityNotFoundException,
+			InvalidValueException {
+		Teaching result = null;
+		Connection connect = null;
+		try {
+
+			if (pId <= 0)
+				throw new EntityNotFoundException(
+						"Impossibile trovare l'insegnamento!");
+
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We prepare the SQL string
+			String sql = "SELECT * FROM " + ManagerTeaching.TABLE_TEACHING
+					+ " WHERE id_teaching = " + Utility.isNull(pId);
+
+			// We send the query to the database
+			ResultSet pRs = Utility.queryOperation(connect, sql);
+
+			if (pRs.next())
+				result = this.loadRecordFromRs(pRs);
+			else
+				throw new EntityNotFoundException(
+						"Impossibile trovare l'insegnamento!");
+
+			return result;
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Returns the set of all the teachings present in the database. */
+	public synchronized Collection<Teaching> getTeachings()
+			throws ConnectionException, SQLException, InvalidValueException,
+			EntityNotFoundException {
+		Collection<Teaching> result = null;
+		Connection connect = null;
+
+		try {
+			// We prepare the SQL string
+			String sql = "SELECT * FROM " + ManagerTeaching.TABLE_TEACHING
+					+ " ORDER BY name";
+
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We send the query to the database
+			ResultSet pRs = Utility.queryOperation(connect, sql);
+
+			if (pRs.next())
+				result = this.loadRecordsFromRs(pRs);
+
+			return result;
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+
+	}
+
+	/** Returns the set of the teachings associated with the user corresponding to the id passed as a parameter. */
+	public synchronized Collection<Teaching> getTeachingsByUserId(int pId)
+			throws EntityNotFoundException, ConnectionException, SQLException,
+			InvalidValueException {
+
+		Collection<Teaching> result = null;
+		Connection connect = null;
+
+		if (pId <= 0)
+			throw new EntityNotFoundException("specificare l'utente");
+
+		try {
+			// We prepare the SQL string
+			String sql = "SELECT " + ManagerTeaching.TABLE_TEACHING
+					+ ".* FROM " + ManagerTeaching.TABLE_TEACHER_CLASSROOM
+					+ ", " + ManagerTeaching.TABLE_TEACHING + " WHERE ("
+					+ ManagerTeaching.TABLE_TEACHER_CLASSROOM
+					+ ".id_teaching = " + ManagerTeaching.TABLE_TEACHING
+					+ ".id_teaching AND "
+					+ ManagerTeaching.TABLE_TEACHER_CLASSROOM + ".id_user = "
+					+ Utility.isNull(pId) + ")" + " ORDER BY name";
+
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We send the query to the database
+			ResultSet pRs = Utility.queryOperation(connect, sql);
+
+			if (pRs.next())
+				result = this.loadRecordsFromRs(pRs);
+
+			return result;
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Returns the set of the teachings that the teacher teaches in the class */
+	public synchronized Collection<Teaching> getTeachingsByUserIdClassID(int pIdTeacher,int pIdClass)
+			throws EntityNotFoundException, ConnectionException, SQLException,
+			InvalidValueException {
+
+		Collection<Teaching> result = null;
+		Connection connect = null;
+
+		if (pIdTeacher <= 0)
+			throw new EntityNotFoundException("specificare l'utente");
+		if (pIdClass <= 0)
+			throw new EntityNotFoundException("specificare la classe");
+
+		try {
+			// We prepare the SQL string
+			
+			String sql = "SELECT DISTINCT " + ManagerTeaching.TABLE_TEACHING
+					+ ".* FROM " + ManagerTeaching.TABLE_TEACHER_CLASSROOM
+					+ ", " + ManagerTeaching.TABLE_TEACHING + " WHERE ("
+					+ ManagerTeaching.TABLE_TEACHER_CLASSROOM + ".id_user = "
+					+ Utility.isNull(pIdTeacher) +" AND "
+					+ ManagerTeaching.TABLE_TEACHER_CLASSROOM 
+					+ ".id_teaching= " + Utility.isNull(pIdClass)
+					+ " AND "
+					+ ManagerTeaching.TABLE_TEACHER_CLASSROOM
+					+ ".id_teaching = " + ManagerTeaching.TABLE_TEACHING
+					+ ".id_teaching "
+					+") ORDER BY name";
+
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We send the query to the database
+			ResultSet pRs = Utility.queryOperation(connect, sql);
+
+			if (pRs.next())
+				result = this.loadRecordsFromRs(pRs);
+
+			return result;
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Checks whether a teaching has an assigned professor. */
+	public synchronized boolean hasTeacher(Teaching pTeaching)
+			throws SQLException, EntityNotFoundException, ConnectionException,
+			InvalidValueException {
+		Connection connect = null;
+		boolean result = false;
+		if (pTeaching.getId() <= 0)
+			throw new EntityNotFoundException("Specificare l'insegnamento");
+
+		try {
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We prepare the SQL string
+			String sql = "SELECT * FROM "
+					+ ManagerTeaching.TABLE_TEACHER_CLASSROOM
+					+ " WHERE id_teaching = "
+					+ Utility.isNull(pTeaching.getId());
+			// We send the query to the database
+			ResultSet pRs = Utility.queryOperation(connect, sql);
+			if (pRs.next())
+				result = true;
+
+			return result;
+
+		} finally {
+			// we release the resources
+			DBConnection.releaseConnection(connect);
+
+		}
+	}
+
+	/** Returns the set of the teachings associated with the specified class */
+	public synchronized Collection<Teaching> getTeachingsByClassroomId(int pId)
+			throws EntityNotFoundException, ConnectionException, SQLException,
+			InvalidValueException {
+
+		Collection<Teaching> result = null;
+		Connection connect = null;
+
+		if (pId < 0)
+			throw new EntityNotFoundException("specificare l'id della Classe!");
+
+		try {
+			// We prepare the SQL string
+			String sql = "SELECT " + ManagerTeaching.TABLE_TEACHING
+					+ ".* FROM " + ManagerClassroom.TABLE_CLASSROOM + ", "
+					+ ManagerTeaching.TABLE_ADDRESS_TEACHINGS + ", "
+					+ ManagerTeaching.TABLE_TEACHING + " WHERE "
+					+ ManagerClassroom.TABLE_CLASSROOM + ".id_classroom = "
+					+ Utility.isNull(pId) + " AND "
+					+ ManagerClassroom.TABLE_CLASSROOM + ".id_address = "
+					+ ManagerTeaching.TABLE_ADDRESS_TEACHINGS
+					+ ".id_address AND " + ManagerTeaching.TABLE_TEACHING
+					+ ".id_teaching= "
+					+ ManagerTeaching.TABLE_ADDRESS_TEACHINGS + ".id_teaching ";
+
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We send the query to the database
+			ResultSet pRs = Utility.queryOperation(connect, sql);
+
+			if (pRs.next())
+				result = this.loadRecordsFromRs(pRs);
+
+			return result;
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Returns the set of the teachings associated with the specified class */
+	public synchronized Collection<Teaching> getTeachingsByClassroomName(
+			String name) throws EntityNotFoundException, ConnectionException,
+			SQLException, InvalidValueException {
+
+		Collection<Teaching> result = null;
+		Connection connect = null;
+
+		if ((name == null) || (name == ""))
+			throw new EntityNotFoundException(
+					"specificare il nome della Classe!");
+
+		try {
+			// We prepare the SQL string
+			String sql = "SELECT " + ManagerTeaching.TABLE_TEACHING
+					+ ".* FROM " + ManagerClassroom.TABLE_CLASSROOM + ", "
+					+ ManagerTeaching.TABLE_ADDRESS_TEACHINGS + ", "
+					+ ManagerTeaching.TABLE_TEACHING + " WHERE "
+					+ ManagerClassroom.TABLE_CLASSROOM + ".name = "
+					+ Utility.isNull(name) + " AND "
+					+ ManagerClassroom.TABLE_CLASSROOM + ".id_address = "
+					+ ManagerTeaching.TABLE_ADDRESS_TEACHINGS
+					+ ".id_address AND " + ManagerTeaching.TABLE_TEACHING
+					+ ".id_teaching= "
+					+ ManagerTeaching.TABLE_ADDRESS_TEACHINGS + ".id_teaching ";
+
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We send the query to the database
+			ResultSet pRs = Utility.queryOperation(connect, sql);
+
+			if (pRs.next())
+				result = this.loadRecordsFromRs(pRs);
+
+			return result;
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+	}
+	
+	public synchronized Collection<Teaching> getTeachingsByIdUserIdClassroom(int pUser, int pClass) throws SQLException,
+	EntityNotFoundException, ConnectionException, InvalidValueException {
+		
+		
+		Collection<Teaching> result = null;
+		Connection connect = null;
+		try {
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We prepare the SQL string
+			//select teaching.* from teacher_has_classroom AS THC , teaching where thc.id_user = 54 
+			//&& thc.id_classroom = 64 && thc.id_teaching = teaching.id_teaching
+			
+			String sql = "SELECT DISTINCT "
+				+ManagerTeaching.TABLE_TEACHING+".*" 
+				+" FROM " 
+				+ ManagerUser.TABLE_TEACHER_CLASSROOM
+				+" , "
+				+ManagerTeaching.TABLE_TEACHING
+				+ " WHERE "
+				+ ManagerUser.TABLE_TEACHER_CLASSROOM
+				+ ".id_user = "  
+				+ Utility.isNull(pUser)
+				+ " AND "
+				+ ManagerUser.TABLE_TEACHER_CLASSROOM
+				+ ".id_classroom= "
+				+ Utility.isNull(pClass)
+				+ " AND "
+				+ ManagerUser.TABLE_TEACHER_CLASSROOM
+				+".id_teaching ="
+				+ManagerTeaching.TABLE_TEACHING
+				+".id_teaching";
+				// We send the query to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			// We send the query to the database
+			ResultSet pRs = Utility.queryOperation(connect, sql);
+
+			if (pRs.next())
+				result = this.loadRecordsFromRs(pRs);
+
+			return result;
+		} finally {
+			// releases the resources
+			DBConnection.releaseConnection(connect);
+		}
+	}
+
+	/** Allows reading a record from the ResultSet. */
+	private Teaching loadRecordFromRs(ResultSet pRs) throws SQLException,
+			InvalidValueException {
+		Teaching teaching = new Teaching();
+		teaching.setName(pRs.getString(("name")));
+		teaching.setId(pRs.getInt("id_teaching"));
+
+		return teaching;
+	}
+
+	/** Allows reading the records from the ResultSet. */
+	private Collection<Teaching> loadRecordsFromRs(ResultSet pRs)
+			throws SQLException, InvalidValueException {
+		Collection<Teaching> result = new Vector<Teaching>();
+		do {
+			result.add(loadRecordFromRs(pRs));
+		} while (pRs.next());
+		return result;
+	}
+
+}

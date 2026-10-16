@@ -1,0 +1,51 @@
+package Manager;
+
+import java.util.Collection;
+
+import Bean.Amministratore;
+import DB.DbAmministratore;
+import DB.DbException;
+/** The class AdminManager interacts with the database management classes. The class AdminManager has no dependencies @author Federico Cinque */
+public class AdminManager {
+	private DbAmministratore dbAmministratore;
+	/** Default constructor of the class AdminManager */
+	public AdminManager(){
+		dbAmministratore = new DbAmministratore();
+	}
+	/** Method that modifies an administrator by invoking the corresponding method of the db class */
+	public boolean modificaAdmin(String matricola, Amministratore newAdmin)throws DbException{
+		return dbAmministratore.modificaAmministratore(matricola, newAdmin);
+	}
+	/** Method that returns an administrator by invoking the corresponding method of the db class */
+	public Amministratore ricercaAdminByMatricola(String matricola)throws DbException{
+		return dbAmministratore.getAmministratoreByMatricola(matricola);
+	}
+	/** Method that inserts an administrator into the db by invoking the corresponding method of the db class */
+	public boolean inserisciAdmin(Amministratore newAdmin)throws DbException{
+		return dbAmministratore.inserisciAmministratore(newAdmin);
+	}
+	/** Method that deletes an Administrator from the db by invoking the corresponding method of the db class */
+	public String eliminaAmministratore(String matricola)throws DbException{
+		Collection<Amministratore> Amministratori = dbAmministratore.getAmministratori();
+		if(Amministratori.size()>1){
+			if(dbAmministratore.eliminaAmministratore(matricola))
+				return "ok";
+			else
+				return "errore";
+		}
+		else
+			return "unico";
+	}
+	/** Method that returns an administrator by invoking the corresponding method of the db class */
+	public Amministratore getAmministratoreByLogin(String login) throws DbException{
+		return dbAmministratore.getAmministratoreByLogin(login);
+	}
+	/** Method that returns a set of administrators by invoking the corresponding method of the db class */
+	public Collection<Amministratore> getAmministratoreByName(String nomeAmm,String cognAmm) throws DbException{
+		return dbAmministratore.getAmministratoreByName(nomeAmm, cognAmm);
+	}
+	/** Method that returns all the stored administrators */
+	public Collection<Amministratore> getAmministratori() throws DbException{
+		return dbAmministratore.getAmministratori();
+	}
+}

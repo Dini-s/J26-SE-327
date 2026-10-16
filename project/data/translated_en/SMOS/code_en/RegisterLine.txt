@@ -1,0 +1,45 @@
+package smos.bean;
+
+import java.io.Serializable;
+
+public class RegisterLine implements Serializable {
+
+	/** Class that models a line of the register @author Nicola Pisanti @version 1.0  */
+	private static final long serialVersionUID = -6010085925185873838L;
+	
+	private UserListItem student;
+	private Absence absence;
+	private Delay delay;
+	
+	public RegisterLine(){
+		absence=null;
+		delay=null;
+		
+	}
+	
+	/** Method that returns the student of this line of the register */
+	public UserListItem getStudent() {
+		return student;
+	}
+	/** Method that sets the student of this line of the register */
+	public void setStudent(UserListItem student) {
+		this.student = student;
+	}
+	/** Method that returns the absence of the student of this line of the register */
+	public Absence getAbsence() {
+		return absence;
+	}
+	/** Method that sets the absence of the student of this line of the register */
+	public void setAbsence(Absence absence) {
+		this.absence = absence;
+	}
+	/** Method that returns the lateness of the student of this line of the register */
+	public Delay getDelay() {
+		return delay;
+	}
+	/** Method that sets the lateness of the student of this line of the register */
+	public void setDelay(Delay delay) {
+		this.delay = delay;
+	}
+
+}

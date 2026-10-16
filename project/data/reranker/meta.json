@@ -1,0 +1,94 @@
+{
+ "retrieval": "hybrid",
+ "hard_per_requirement": 6,
+ "random_per_requirement": 3,
+ "test_k": 20,
+ "train": [
+  "itrust",
+  "smos",
+  "eanci",
+  "etour"
+ ],
+ "test": [
+  "libest",
+  "cm1",
+  "ebt"
+ ],
+ "seed": 13,
+ "datasets": {
+  "iTrust": {
+   "requirements": 131,
+   "code": 392,
+   "true_links": 399,
+   "train_pairs": {
+    "pos": 361,
+    "hard": 600,
+    "random": 300
+   },
+   "valid_requirements": 11
+  },
+  "SMOS": {
+   "requirements": 67,
+   "code": 100,
+   "true_links": 1044,
+   "train_pairs": {
+    "pos": 947,
+    "hard": 366,
+    "random": 183
+   },
+   "valid_requirements": 6
+  },
+  "eANCI": {
+   "requirements": 39,
+   "code": 55,
+   "true_links": 567,
+   "train_pairs": {
+    "pos": 538,
+    "hard": 210,
+    "random": 105
+   },
+   "valid_requirements": 3
+  },
+  "eTour": {
+   "requirements": 58,
+   "code": 116,
+   "true_links": 308,
+   "train_pairs": {
+    "pos": 278,
+    "hard": 312,
+    "random": 156
+   },
+   "valid_requirements": 5
+  },
+  "LibEST": {
+   "requirements": 52,
+   "code": 14,
+   "true_links": 204,
+   "stage1_recall_at_k": 1.0,
+   "candidates": 728
+  },
+  "CM-1": {
+   "requirements": 22,
+   "code": 53,
+   "true_links": 45,
+   "stage1_recall_at_k": 0.978,
+   "candidates": 440
+  },
+  "EBT": {
+   "requirements": 41,
+   "code": 50,
+   "true_links": 98,
+   "stage1_recall_at_k": 0.878,
+   "candidates": 820
+  }
+ },
+ "rows": {
+  "train": 4356,
+  "valid": 419,
+  "test_candidates": 1988
+ },
+ "train_label_balance": {
+  "positive": 2124,
+  "negative": 2232
+ }
+}

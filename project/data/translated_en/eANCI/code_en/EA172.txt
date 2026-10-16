@@ -1,0 +1,133 @@
+package Servlet;
+
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import Manager.AccessManager;
+import Manager.CIManager;
+import Manager.CittadinoManager;
+import Manager.NucleoFamiliareManager;
+import Bean.Accesso;
+import Bean.CartaIdentita;
+import Bean.Cittadino;
+import Bean.NucleoFamiliare;
+import DB.DbException;
+/** The class ServletEliminaCittadino (ServletDeleteCitizen) searches for and deletes a citizen. The class has no dependencies @author Federico Cinque */
+public class ServletEliminaCittadino extends HttpServlet{
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session = request.getSession();
+		if(session!=null){	// If the session is null, performs a redirect to the authentication page
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = null;
+			String ris;
+			try{
+				// If the session attributes c and acc are null I have to perform the search
+				if(session.getAttribute("c")==null && session.getAttribute("acc")==null){
+					String cod = request.getParameter("ci").toUpperCase();
+					CIManager CIM = new CIManager();
+					CittadinoManager CM = new CittadinoManager();
+					CartaIdentita CI = CIM.getCartaByNumero(cod);
+
+					if(CI!=null){
+						Cittadino c = CM.getCittadinoById(CI.id());
+						session.setAttribute("c", c);
+
+						AccessManager AM = new AccessManager();
+						Accesso ac = AM.getAccesso(c.getLogin());
+						session.setAttribute("acc", ac);
+
+						NucleoFamiliareManager NFM = new NucleoFamiliareManager();
+						int componenti = NFM.getNComponentiNucleo(c.getNucleoFamiliare());
+						NucleoFamiliare nf = NFM.getNucleo(c.getNucleoFamiliare());
+						if(componenti>1 && nf.getCapoFamiglia()== c.getIdCittadino()){
+							String nc = "si"; 
+							session.setAttribute("newCapo", nc);
+						}
+
+						sc = getServletContext();
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=cancella&page=cittadino"); 
+						rd.forward(request,response);
+					}
+					else{
+						ris="Siamo spiacenti, il codice della carta d'identitˆ non è presente nel database";
+						request.setAttribute("ris", ris);
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+					}
+				}
+				else{// If the attributes are present I proceed with the deletion
+					AccessManager AM = new AccessManager();
+					CittadinoManager CM = new CittadinoManager();
+
+					Accesso ac = (Accesso) session.getAttribute("acc");
+					Cittadino c = (Cittadino) session.getAttribute("c");
+
+					String login = ac.getLogin();
+
+					if(request.getParameter("ci").equals("")){	// If there is no identity card code
+																// the citizen to be deleted is alone in the family unit
+						if(AM.eliminaAccesso(login) && CM.cancellaCittadino(c.getIdCittadino())){	// deletes the citizen and the access
+																									// checking that the outcome is positive
+							NucleoFamiliareManager NFM = new NucleoFamiliareManager();
+							NFM.getNComponentiNucleo(c.getNucleoFamiliare());
+							ris="ok";
+							request.setAttribute("ris", ris);
+							rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=riuscita"); 
+						}
+						else{
+							ris="fallita";
+							request.setAttribute("ris", ris);
+							rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+						}
+					}
+					else{	// If a code is present I have to replace the head of household
+						NucleoFamiliareManager NFM = new NucleoFamiliareManager();
+						CIManager CIM = new CIManager();
+						CartaIdentita CI = CIM.getCartaByNumero(request.getParameter("ci")); 
+						if(CI!=null){	// I check that the new head of household exists in the db
+							Cittadino newCapo = CM.getCittadinoById(CI.id());
+							NFM.setCapoFamiglia(c.getNucleoFamiliare(), newCapo.getIdCittadino()); // I modify the head of household of the family unit
+							if(CM.cancellaCittadino(c.getIdCittadino())){// deletes the citizen and the access
+																								// checking that the outcome is positive
+								NFM.decrementaComponenti(c.getNucleoFamiliare());	// I decrement the number of members of the family unit
+								AM.eliminaAccesso(login);
+								ris="ok";
+								request.setAttribute("ris", ris);
+								rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=riuscita"); 
+							}
+							else{
+								ris="fallita";
+								request.setAttribute("ris", ris);
+								rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+							}
+						}
+						else{
+							ris="Siamo spiacenti, il codice della carta d'identità del nuovo capo famiglia non è presente nel database";
+							request.setAttribute("ris", ris);
+							rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+						}
+					}
+					rd.forward(request,response);
+					session.removeAttribute("c");
+					session.removeAttribute("acc");
+					session.removeAttribute("newCapo");
+				}
+			}
+			catch(DbException e){
+				ris=e.getMessage();
+				request.setAttribute("ris", ris);
+				rd=sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+				rd.forward(request,response);
+			}
+		}
+		else{
+			String url="/myDoc/workers/Accesso.jsp";
+			response.sendRedirect(url);
+		}
+	}
+}

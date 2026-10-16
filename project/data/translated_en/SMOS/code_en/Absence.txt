@@ -1,0 +1,63 @@
+package smos.bean;
+
+import java.io.Serializable;
+import java.util.Date;
+public class Absence implements Serializable {
+
+	/** Class that models the absence of a student @author Nicola Pisanti @version 1.0  */
+	private static final long serialVersionUID = -8396513309450121449L;
+	
+	private int idAbsence;
+	private int idUser;
+	private Date dateAbsence;
+	private Integer idJustify;
+	private int academicYear;
+	
+	public Absence (){
+		
+	}
+	
+	/** Method that returns the id of the absence */
+	public int getIdAbsence() {
+		return idAbsence;
+	}
+	/** Method that sets the id of the absence */
+	public void setIdAbsence(int pIdAbsence) {
+		this.idAbsence = pIdAbsence;
+	}
+	/** Method that returns the id of the student related to the absence */
+	public int getIdUser() {
+		return idUser;
+	}
+	/** Method that sets the id of the student related to the absence */
+	public void setIdUser(int pIdUser) {
+		this.idUser = pIdUser;
+	}
+	/** Method that returns the date of the absence */
+	public Date getDateAbsence() {
+		return dateAbsence;
+	}
+	/** Method that sets the date of the absence */
+	public void setDateAbsence(Date pDateAbsence) {
+		this.dateAbsence = pDateAbsence;
+	}
+	/** Method that returns the id of the justification related to the absence */
+	public Integer getIdJustify() {
+		
+		return idJustify;
+		
+	}
+	/** Method that sets the id of the justification related to the absence */
+	public void setIdJustify(Integer pIdJustify) {
+		this.idJustify = pIdJustify;
+	}
+	/** Method that returns the academic year related to the absence */
+	public int getAcademicYear() {
+		return academicYear;
+	}
+	/** Method that sets the academic year related to the absence */
+	public void setAcademicYear(int pAcademicYear) {
+		this.academicYear = pAcademicYear;
+	}
+
+}

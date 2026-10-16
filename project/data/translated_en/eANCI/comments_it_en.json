@@ -1,0 +1,1378 @@
+[
+ {
+  "it": "La classe AccessManager interagisce con le classi di gestione del database La classe AccessManager non ha dipendenze",
+  "en": "The class AccessManager interacts with the database management classes. The class AccessManager has no dependencies"
+ },
+ {
+  "it": "Costruttore di default della classe AccessManager",
+  "en": "Default constructor of the class AccessManager"
+ },
+ {
+  "it": "Metodo che permette di controllare la correttezza della login e della password di un accesso invocando il relativo metodo della classe db",
+  "en": "Method that checks the correctness of the login and password of an access by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette di controllare l'esistenza della login invocando il relativo metodo della classe db",
+  "en": "Method that checks the existence of the login by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce un accesso invocando il relativo metodo della classe db",
+  "en": "Method that returns an access by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che inserisce un accesso all'interno del db invocando il relativo metodo della classe db",
+  "en": "Method that inserts an access into the db by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che elimina un accesso dal db invocando il relativo metodo della classe db",
+  "en": "Method that deletes an access from the db by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce tutti gli accessi memorizzati invocando il relativo metodo della classe db",
+  "en": "Method that returns all the stored accesses by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "La classe Accesso permette la gestione degli accessi La classe Accesso non ha dipendenze",
+  "en": "The class Accesso (Access) allows the management of the accesses. The class Accesso has no dependencies"
+ },
+ {
+  "it": "Costruttore vuoto della classe Accesso",
+  "en": "Empty constructor of the class Accesso"
+ },
+ {
+  "it": "Costruttore della classe Accesso",
+  "en": "Constructor of the class Accesso"
+ },
+ {
+  "it": "Metodo che restituisce una login",
+  "en": "Method that returns a login"
+ },
+ {
+  "it": "Metodo che imposta una login",
+  "en": "Method that sets a login"
+ },
+ {
+  "it": "Metodo che restituisce una password",
+  "en": "Method that returns a password"
+ },
+ {
+  "it": "Metodo che imposta una password",
+  "en": "Method that sets a password"
+ },
+ {
+  "it": "Metodo che restituisce il tipo di utente che accede",
+  "en": "Method that returns the type of user who accesses"
+ },
+ {
+  "it": "Metodo che imposta il tipo di utente che accede",
+  "en": "Method that sets the type of user who accesses"
+ },
+ {
+  "it": "Metodo che converete in una stringa le informazioni di un accesso",
+  "en": "Method that converts the information of an access into a string"
+ },
+ {
+  "it": "La classe AdminManager interagisce con le classi di gestione del database La classe AdminManager non ha dipendenze",
+  "en": "The class AdminManager interacts with the database management classes. The class AdminManager has no dependencies"
+ },
+ {
+  "it": "Costruttore di default della classe AdminManager",
+  "en": "Default constructor of the class AdminManager"
+ },
+ {
+  "it": "Metodo che modifica un amministratore invocando il relativo metodo della classe db",
+  "en": "Method that modifies an administrator by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce un amministratore invocando il relativo metodo della classe db",
+  "en": "Method that returns an administrator by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che inserisce un amministratore all'interno del db invocando il relativo metodo della classe db",
+  "en": "Method that inserts an administrator into the db by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che elimina un Amministratore dal db invocando il relativo metodo della classe db",
+  "en": "Method that deletes an Administrator from the db by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce un insieme di amministratori invocando il relativo metodo della classe db",
+  "en": "Method that returns a set of administrators by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce tutti gli amministratori memorizzati",
+  "en": "Method that returns all the stored administrators"
+ },
+ {
+  "it": "La classe Amministratore permette la gestione degli amministratori La classe Amministratore non ha dipendenze",
+  "en": "The class Amministratore (Administrator) allows the management of the administrators. The class Amministratore has no dependencies"
+ },
+ {
+  "it": "Costruttore vuoto della classe Amministratore",
+  "en": "Empty constructor of the class Amministratore"
+ },
+ {
+  "it": "Costruttore della classe Amministratore",
+  "en": "Constructor of the class Amministratore"
+ },
+ {
+  "it": "Metodo che restituisce il nome dell'impiegato",
+  "en": "Method that returns the first name of the employee"
+ },
+ {
+  "it": "Metodo che imposta il nome dell'impiegato",
+  "en": "Method that sets the first name of the employee"
+ },
+ {
+  "it": "Metodo che restituisce il cognome dell'impiegato",
+  "en": "Method that returns the last name of the employee"
+ },
+ {
+  "it": "Metodo che imposta il cognome dell'impiegato",
+  "en": "Method that sets the last name of the employee"
+ },
+ {
+  "it": "Metodo che restituisce la matricola dell'impiegato",
+  "en": "Method that returns the employee number (matricola) of the employee"
+ },
+ {
+  "it": "Metodo che imposta la matricola dell'impiegato",
+  "en": "Method that sets the employee number (matricola) of the employee"
+ },
+ {
+  "it": "Metodo che restituisce l'e-mail dell'impiegato",
+  "en": "Method that returns the e-mail of the employee"
+ },
+ {
+  "it": "Metodo che imposta l'e-mail dell'impiegato",
+  "en": "Method that sets the e-mail of the employee"
+ },
+ {
+  "it": "Metodo che restituisce la login dell'impiegato",
+  "en": "Method that returns the login of the employee"
+ },
+ {
+  "it": "Metodo che imposta la login dell'impiegato",
+  "en": "Method that sets the login of the employee"
+ },
+ {
+  "it": "� un JavaBean che gestisce i metodi di settaggio e restituzione degli attributi della carta di identit� di un cittadino",
+  "en": "It is a JavaBean that manages the methods for setting and returning the attributes of the identity card of a citizen"
+ },
+ {
+  "it": "rappresenta il codice della carta di identit� che viene inserito dall'impiegato",
+  "en": "represents the code of the identity card that is entered by the employee"
+ },
+ {
+  "it": "Costruttore di default vuoto",
+  "en": "Empty default constructor"
+ },
+ {
+  "it": "oggetto che viene restituito dal database",
+  "en": "object that is returned by the database"
+ },
+ {
+  "it": "crea la carta di identit� del cittadino che si � registrato nel sistema comunale prendendo dalla classe cittadino le informazioni necessarie per la creazione del documento di riconoscimento",
+  "en": "creates the identity card of the citizen who registered in the municipal system, taking from the citizen class the information needed to create the identification document"
+ },
+ {
+  "it": "il codice univoco della carta di identit� richiesta dal cittadino, viene inserito dall'impiegato all'atto della creazione cartacea del documento e nel momento in cui le informazioni devono essere mantenute nel database.",
+  "en": "the unique code of the identity card requested by the citizen; it is entered by the employee when the paper document is created and when the information has to be kept in the database."
+ },
+ {
+  "it": "assegno la carta di identit� che sto creando al cittadino che ne ha fatto richiesta e che � presente all'interno del database comunale",
+  "en": "I assign the identity card that I am creating to the citizen who requested it and who is present in the municipal database"
+ },
+ {
+  "it": "TODO Auto-generated constructor stub",
+  "en": "TODO Auto-generated constructor stub"
+ },
+ {
+  "it": "mi devo recuperare il cognome, nome, e data nascita dalla classe db",
+  "en": "I have to retrieve the surname, name and date of birth from the db class"
+ },
+ {
+  "it": "La classe CIManager interagisce con le classi di gestione del database La classe CIManager non ha dipendenze",
+  "en": "The class CIManager interacts with the database management classes. The class CIManager has no dependencies"
+ },
+ {
+  "it": "Costruttore di default della classe CIManager",
+  "en": "Default constructor of the class CIManager"
+ },
+ {
+  "it": "Metodo che permette la ricerca di una carta d'identita tramite il suo numero invocando il relativo metodo della classe db",
+  "en": "Method that allows searching for an identity card by its number by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "� un JavaBean che gestisce i metodi get e set degli attributi di un Cittadino",
+  "en": "It is a JavaBean that manages the get and set methods of the attributes of a Citizen"
+ },
+ {
+  "it": "costruttore di default vuoto",
+  "en": "empty default constructor"
+ },
+ {
+  "it": "costruttore parametrico che crea l'oggetto cittadino con i dati inseriti da quest'ultimo all'atto della registrazione nel sistema comunale",
+  "en": "parametric constructor that creates the citizen object with the data entered by the citizen at registration in the municipal system"
+ },
+ {
+  "it": "La classe CittadinoManager interagisce con le classi di gestione del database La classe CittadinoManager non ha dipendenze",
+  "en": "The class CittadinoManager (CitizenManager) interacts with the database management classes. The class CittadinoManager has no dependencies"
+ },
+ {
+  "it": "Metodo che permette la ricerca di un cittadino tramite la sua login invocando il relativo metodo della classe db",
+  "en": "Method that allows searching for a citizen by his or her login by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette la modifica della login per uno specifico cittadino invocando il relativo metodo della classe db",
+  "en": "Method that allows modifying the login of a specific citizen by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette la modifica dell'indirizzo e-mail di uno specifico cittadino invocando il relativo metodo della classe db",
+  "en": "Method that allows modifying the e-mail address of a specific citizen by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette di inserire un nuovo cittadino invocando il relativo metodo della classe db",
+  "en": "Method that allows inserting a new citizen by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette la ricerca di un insieme di cittadini in base al loro nome e cognome invocando il relativo metodo della classe db",
+  "en": "Method that allows searching for a set of citizens by their first and last name by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette la cancellazione di un cittadino invocando il relativo metodo della classe db",
+  "en": "Method that allows deleting a citizen by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette la ricerca di un cittadino tramite il suo id invocando il relativo metodo della classe db",
+  "en": "Method that allows searching for a citizen by his or her id by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che modifica il nucleo familiare del cittadino dato il suo id invocando il relativo metodo della classe db",
+  "en": "Method that modifies the family unit (household) of the citizen given his or her id by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette la modifica del nome di uno specifico cittadino invocando il relativo metodo della classe db",
+  "en": "Method that allows modifying the first name of a specific citizen by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette la modifica del cognome di uno specifico cittadino invocando il relativo metodo della classe db",
+  "en": "Method that allows modifying the last name of a specific citizen by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "La classe Comune permette la comunicazione con gli altri comuni",
+  "en": "The class Comune (Municipality) allows communication with the other municipalities"
+ },
+ {
+  "it": "Costruttore di default",
+  "en": "Default constructor"
+ },
+ {
+  "it": "Costruttore parametrico",
+  "en": "Parametric constructor"
+ },
+ {
+  "it": "Preleva il nome del comune",
+  "en": "Retrieves the name of the municipality"
+ },
+ {
+  "it": "Setta il nome del comune",
+  "en": "Sets the name of the municipality"
+ },
+ {
+  "it": "Preleva l'indirizo ip del comune",
+  "en": "Retrieves the ip address of the municipality"
+ },
+ {
+  "it": "Setta l'indirizzo ip del comune",
+  "en": "Sets the ip address of the municipality"
+ },
+ {
+  "it": "La classe ControllerFiles gestisce l'upload di un file La classe non ha nessuna dipendenza",
+  "en": "The class ControllerFiles manages the upload of a file. The class has no dependencies"
+ },
+ {
+  "it": "instanzio le variabili",
+  "en": "I instantiate the variables"
+ },
+ {
+  "it": "Il ServletContext sevir� per ricavare il MIME type del file uploadato",
+  "en": "The ServletContext will be used to obtain the MIME type of the uploaded file"
+ },
+ {
+  "it": "Stabiliamo la grandezza massima del file che vogliamo uploadare",
+  "en": "We establish the maximum size of the file we want to upload"
+ },
+ {
+  "it": "ricaviamo i dati del file mediante un InputStream",
+  "en": "we obtain the data of the file through an InputStream"
+ },
+ {
+  "it": "stabiliamo dove andr� scritto il file",
+  "en": "we establish where the file will be written"
+ },
+ {
+  "it": "salviamo il file nel percorso specificato",
+  "en": "we save the file in the specified path"
+ },
+ {
+  "it": "chiudiamo gli stream",
+  "en": "we close the streams"
+ },
+ {
+  "it": "mettiamo nella request i dati cos� da poterli ricavare dalla jsp",
+  "en": "we put the data in the request so that they can be obtained from the jsp"
+ },
+ {
+  "it": "La classe DbAccesso si occupa di gestire le connessioni al db per consentire gli accessi.",
+  "en": "The class DbAccesso (DbAccess) takes care of managing the connections to the db to allow the accesses."
+ },
+ {
+  "it": "Metodo che inserisce un accesso all'interno del db",
+  "en": "Method that inserts an access into the db"
+ },
+ {
+  "it": "Metodo che elimina un accesso dal db",
+  "en": "Method that deletes an access from the db"
+ },
+ {
+  "it": "Metodo che restituisce un accesso",
+  "en": "Method that returns an access"
+ },
+ {
+  "it": "Metodo che restituisce tutti gli accessi memorizzati",
+  "en": "Method that returns all the stored accesses"
+ },
+ {
+  "it": "Metodo che permette di controllare l�esistenza della login",
+  "en": "Method that allows checking the existence of the login"
+ },
+ {
+  "it": "Metodo che permette di controllare la correttezza della login e della password di un accesso per garantire l'apertura di una sessione autenticata",
+  "en": "Method that allows checking the correctness of the login and password of an access to guarantee the opening of an authenticated session"
+ },
+ {
+  "it": "Metodo che modifica un accesso",
+  "en": "Method that modifies an access"
+ },
+ {
+  "it": "La classe DbAmministratore si occupa di gestire le connessioni al db",
+  "en": "The class DbAmministratore (DbAdministrator) takes care of managing the connections to the db"
+ },
+ {
+  "it": "Metodo che inserisce un amministratore all'interno del db",
+  "en": "Method that inserts an administrator into the db"
+ },
+ {
+  "it": "Metodo che elimina un Amministratore dal db",
+  "en": "Method that deletes an Administrator from the db"
+ },
+ {
+  "it": "Metodo che restituisce un insieme di amministratori",
+  "en": "Method that returns a set of administrators"
+ },
+ {
+  "it": "Metodo che restituisce un amministratore",
+  "en": "Method that returns an administrator"
+ },
+ {
+  "it": "Metodo che modifica un amministratore",
+  "en": "Method that modifies an administrator"
+ },
+ {
+  "it": "Classe che si occupa di gestire le connessioni con il database e di schermare le servet con il DBMS.",
+  "en": "Class that takes care of managing the connections with the database and of shielding the servlets from the DBMS."
+ },
+ {
+  "it": "Metodo che permette la cancellazione della carta d'identit� del cittadino nel momento in cui esso cambia residenza verso un comune esterno (aggiornamento del db)",
+  "en": "Method that allows deleting the identity card of the citizen when he or she changes residence to an external municipality (db update)"
+ },
+ {
+  "it": "Metodo che permette l'aggiornamento della residenza salvata nella carta d'identità del cittadino che ha effettuato un cambio di residenza nello stesso comune in cui attualmente risiede.(aggiornamento del db)",
+  "en": "Method that allows updating the residence saved in the identity card of the citizen who has changed residence within the same municipality in which he or she currently lives. (db update)"
+ },
+ {
+  "it": "Classe che si occupa di gestire le connessioni con il database e di schermare le servlet dal DBMS.",
+  "en": "Class that takes care of managing the connections with the database and of shielding the servlets from the DBMS."
+ },
+ {
+  "it": "Metodo che permette la ricerca di una carta d'identit� tramite il suo numero.",
+  "en": "Method that allows searching for an identity card by its number."
+ },
+ {
+  "it": "Metodo che permette la cancellazione di una carta d'identit�. (aggiornamento del db)",
+  "en": "Method that allows deleting an identity card. (db update)"
+ },
+ {
+  "it": "Metodo che permette la registrazione di una nuova carta d'identit� all'interno del database",
+  "en": "Method that allows registering a new identity card in the database"
+ },
+ {
+  "it": "Metodo che permette la modifica della via in una specifica carta d'identit�. (aggiornamento del db)",
+  "en": "Method that allows modifying the street in a specific identity card. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica del numero civico in una specifica carta d'identit�. (aggiornamento del db)",
+  "en": "Method that allows modifying the house number in a specific identity card. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica della residenza (via e numero civio) in una specifica carta d'identit�. (aggiornamento del db)�",
+  "en": "Method that allows modifying the residence (street and house number) in a specific identity card. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica della data di rilascio di una specifica carta d'identit�. (aggiornamento del db)",
+  "en": "Method that allows modifying the issue date of a specific identity card. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica della data di scadenza per una specifica carta d'identit�. (aggiornamento del db)",
+  "en": "Method that allows modifying the expiry date of a specific identity card. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica della validit�per l'espatrio di una specifica carta d'identit�. (aggiornamento del db)",
+  "en": "Method that allows modifying the validity for travel abroad of a specific identity card. (db update)"
+ },
+ {
+  "it": "Metodo che permette la ricerca di una carta d'identit� a partire dall'id del proprietario",
+  "en": "Method that allows searching for an identity card starting from the id of the owner"
+ },
+ {
+  "it": "Metodo che permette di registrare un nuovo cittadino. (aggiornamento del db)",
+  "en": "Method that allows registering a new citizen. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica del nome di uno specifico cittadino. (aggiornamento del db)",
+  "en": "Method that allows modifying the first name of a specific citizen. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica del cognome di uno specifico cittadino. (aggiornamento del db)",
+  "en": "Method that allows modifying the last name of a specific citizen. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica del codice fiscale di uno specifico cittadino. (aggiornamento del db)",
+  "en": "Method that allows modifying the tax code (codice fiscale) of a specific citizen. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica dell'indirizzo e-mail di uno specifico cittadino. (aggiornamento del db)",
+  "en": "Method that allows modifying the e-mail address of a specific citizen. (db update)"
+ },
+ {
+  "it": "Metodo che permette la modifica del campo advertise di uno specifico cittadino. (aggiornamento del db)",
+  "en": "Method that allows modifying the advertise field of a specific citizen. (db update)"
+ },
+ {
+  "it": "Metodo che permette la cancellazione di un cittadino. (aggiornamento del db)",
+  "en": "Method that allows deleting a citizen. (db update)"
+ },
+ {
+  "it": "Metodo che permette la ricerca di un cittadino tramite il suo id.",
+  "en": "Method that allows searching for a citizen by his or her id."
+ },
+ {
+  "it": "Metodo che permette la ricerca di un insieme di cittadini in base al loro nome e cognome.",
+  "en": "Method that allows searching for a set of citizens by their first and last name."
+ },
+ {
+  "it": "Metodo che permette la modifica della login per uno specifico cittadino. (aggiornamento del db)",
+  "en": "Method that allows modifying the login of a specific citizen. (db update)"
+ },
+ {
+  "it": "if(rs.next()) { String l = rs.getString(\"login\"); stmt = connection.prepareStatement(\"UPDATE accesso SET login = ? WHERE login = ?\"); stmt.setString(1, newLogin); stmt.setString(2, l);",
+  "en": null
+ },
+ {
+  "it": "Metodo che permette la ricerca di un cittadino tramite la sua login.",
+  "en": "Method that allows searching for a citizen by his or her login."
+ },
+ {
+  "it": "Metodo privato che ritorna l'id dell'ultimo cittadino inserito.",
+  "en": "Private method that returns the id of the last citizen inserted."
+ },
+ {
+  "it": "Metodo che permette di conoscere l'id del cittadino a partire dai suoi dati anagrafici (codice fiscale,cognome,nome)",
+  "en": "Method that allows finding out the id of the citizen starting from his or her personal data (tax code, surname, first name)"
+ },
+ {
+  "it": "Metodo che permette la ricerca del codice fiscale del cittadino a partire dal suo ID",
+  "en": "Method that allows searching for the tax code of the citizen starting from his or her ID"
+ },
+ {
+  "it": "Metodo che modifica il nucleo familiare del cittadino dato il suo id",
+  "en": "Method that modifies the family unit (household) of the citizen given his or her id"
+ },
+ {
+  "it": "rs = stmt.executeQuery();",
+  "en": null
+ },
+ {
+  "it": "return false;",
+  "en": null
+ },
+ {
+  "it": "La classe DbComune si occupa di gestire le connessioni al db",
+  "en": "The class DbComune (DbMunicipality) takes care of managing the connections to the db"
+ },
+ {
+  "it": "Metodo che inserisce un comune all'interno del db",
+  "en": "Method that inserts a municipality into the db"
+ },
+ {
+  "it": "Metodo che elimina un comune dal db",
+  "en": "Method that deletes a municipality from the db"
+ },
+ {
+  "it": "Metodo che restituisce un comune",
+  "en": "Method that returns a municipality"
+ },
+ {
+  "it": "Questa classe fornisce un pool di connesione",
+  "en": "This class provides a connection pool"
+ },
+ {
+  "it": "Questa porzione di codice crea un pool di connessione e definisce i db properties",
+  "en": "This portion of code creates a connection pool and defines the db properties"
+ },
+ {
+  "it": "Ritorna una connessione al db, se non � gi� disponibile ne viene creata una nuova",
+  "en": "Returns a connection to the db; if one is not already available, a new one is created"
+ },
+ {
+  "it": "Carica i db properties",
+  "en": "Loads the db properties"
+ },
+ {
+  "it": "Metodo che chiude il pool di connessione",
+  "en": "Method that closes the connection pool"
+ },
+ {
+  "it": "La classe DbException viene lanciata quando si verifica un eccezione legata al db",
+  "en": "The class DbException is thrown when an exception related to the db occurs"
+ },
+ {
+  "it": "La classe DbImpiegato si occupa di gestire le connessioni al db",
+  "en": "The class DbImpiegato (DbEmployee) takes care of managing the connections to the db"
+ },
+ {
+  "it": "Metodo che inserisce un impiegato all'interno del db",
+  "en": "Method that inserts an employee into the db"
+ },
+ {
+  "it": "Metodo che elimina un impiegato dal db",
+  "en": "Method that deletes an employee from the db"
+ },
+ {
+  "it": "Metodo che restituisce un insieme di impiegati",
+  "en": "Method that returns a set of employees"
+ },
+ {
+  "it": "Metodo che restituisce un impiegato",
+  "en": "Method that returns an employee"
+ },
+ {
+  "it": "Metodo che restituisce tutti gli impiegati memorizzati",
+  "en": "Method that returns all the stored employees"
+ },
+ {
+  "it": "Metodo che modifica un impiegato",
+  "en": "Method that modifies an employee"
+ },
+ {
+  "it": "La classe DbNucleoFamiliare si occupa di gestire le connessioni al db",
+  "en": "The class DbNucleoFamiliare (DbFamilyUnit) takes care of managing the connections to the db"
+ },
+ {
+  "it": "Metodo che inserisci un oggetto nucleoFamiliare nel db",
+  "en": "Method that inserts a nucleoFamiliare (family unit) object into the db"
+ },
+ {
+  "it": "Metodo che elimina un nucleoFamiliare dal db",
+  "en": "Method that deletes a nucleoFamiliare from the db"
+ },
+ {
+  "it": "Metodo che restituisce i componeneti di uno stato di famiglia",
+  "en": "Method that returns the members of a family status (household composition)"
+ },
+ {
+  "it": "Metodo che permette di controllare l�esistenza di un nucleo familiare",
+  "en": "Method that allows checking the existence of a family unit"
+ },
+ {
+  "it": "Metodo che permette la ricerca di un nucleo familiare per conoscere le eventuali note",
+  "en": "Method that allows searching for a family unit in order to know any notes"
+ },
+ {
+  "it": "Metodo che modifica un capo famiglia",
+  "en": "Method that modifies a head of household"
+ },
+ {
+  "it": "Metodo che restituisce un nucleo familiare",
+  "en": "Method that returns a family unit"
+ },
+ {
+  "it": "Metodo che modifica il numero di componenti del nucleo familiare",
+  "en": "Method that modifies the number of members of the family unit"
+ },
+ {
+  "it": "La classe DbRichiesta si occupa di gestire le connessioni al db",
+  "en": "The class DbRichiesta (DbRequest) takes care of managing the connections to the db"
+ },
+ {
+  "it": "Metodo che inserisce una richiesta all'interno del db",
+  "en": "Method that inserts a request into the db"
+ },
+ {
+  "it": "Metodo che elimina una richiesta dal db",
+  "en": "Method that deletes a request from the db"
+ },
+ {
+  "it": "Metodo che restituisce una richiesta",
+  "en": "Method that returns a request"
+ },
+ {
+  "it": "Metodo che restituisce un insieme di richieste",
+  "en": "Method that returns a set of requests"
+ },
+ {
+  "it": "Metodo che modifica lo stato di una richiesta",
+  "en": "Method that modifies the status of a request"
+ },
+ {
+  "it": "La classe Impiegato permette solo all'amministratore la gestione degli impiegati La classe Impiegato non ha dipendenze",
+  "en": "The class Impiegato (Employee) allows only the administrator to manage the employees. The class Impiegato has no dependencies"
+ },
+ {
+  "it": "Costruttore vuoto della classe Impiegato",
+  "en": "Empty constructor of the class Impiegato"
+ },
+ {
+  "it": "Costruttore della classe Impiegato",
+  "en": "Constructor of the class Impiegato"
+ },
+ {
+  "it": "La classe ImpiegatoManager interagisce con le classi di gestione del database La classe ImpiegatoManager non ha dipendenze",
+  "en": "The class ImpiegatoManager interacts with the database management classes. The class ImpiegatoManager has no dependencies"
+ },
+ {
+  "it": "Costruttore di default della classe ImpiegatoManager",
+  "en": "Default constructor of the class ImpiegatoManager"
+ },
+ {
+  "it": "Metodo che modifica un impiegato invocando il relativo metodo della classe db",
+  "en": "Method that modifies an employee by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce un impiegato invocando il relativo metodo della classe db",
+  "en": "Method that returns an employee by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che inserisce un impiegato all'interno del db invocando il relativo metodo della classe db",
+  "en": "Method that inserts an employee into the db by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che elimina un impiegato dal db invocando il relativo metodo della classe db",
+  "en": "Method that deletes an employee from the db by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce un insieme di impiegati invocando il relativo metodo della classe db",
+  "en": "Method that returns a set of employees by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce tutti gli impiegati memorizzati invocando il relativo metodo della classe db",
+  "en": "Method that returns all the stored employees by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Questa classe si occupa di gestire lo stato di famiglia del cittadino",
+  "en": "This class takes care of managing the family status (household) of the citizen"
+ },
+ {
+  "it": "Costruttore standard",
+  "en": "Standard constructor"
+ },
+ {
+  "it": "Restituisce l'id dello stato di famiglia",
+  "en": "Returns the id of the family status"
+ },
+ {
+  "it": "Setta l'id dello stato di famiglia",
+  "en": "Sets the id of the family status"
+ },
+ {
+  "it": "Restituisce l'id del capofamiglia",
+  "en": "Returns the id of the head of household"
+ },
+ {
+  "it": "Setta l'id del capofamiglia",
+  "en": "Sets the id of the head of household"
+ },
+ {
+  "it": "Restituisce le note rilasciate",
+  "en": "Returns the notes issued"
+ },
+ {
+  "it": "Inserisce una nota",
+  "en": "Inserts a note"
+ },
+ {
+  "it": "Restituisce il numero di componenti della famiglia",
+  "en": "Returns the number of members of the family"
+ },
+ {
+  "it": "Setta il numero di componenti del nucleo familiare",
+  "en": "Sets the number of members of the family unit"
+ },
+ {
+  "it": "La classe NucleoFamiliareManager interagisce con le classi di gestione del database La classe NucleoFamiliareManager non ha dipendenze",
+  "en": "The class NucleoFamiliareManager interacts with the database management classes. The class NucleoFamiliareManager has no dependencies"
+ },
+ {
+  "it": "Costruttore di default della classe NucleoFamiliareManager",
+  "en": "Default constructor of the class NucleoFamiliareManager"
+ },
+ {
+  "it": "Metodo che inserisci un oggetto nucleoFamiliare nel db invocando il relativo metodo della classe db",
+  "en": "Method that inserts a nucleoFamiliare object into the db by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che permette di controllare l�esistenza di un nucleo familiare invocando il relativo metodo della classe db",
+  "en": "Method that allows checking the existence of a family unit by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che restituisce il numero di componenti del nucleo familiare invocando il relativo metodo della classe db",
+  "en": "Method that returns the number of members of the family unit by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che modifica un capo famiglia invocando il relativo metodo della classe db",
+  "en": "Method that modifies a head of household by invoking the corresponding method of the db class"
+ },
+ {
+  "it": "Metodo che incrementa il numero di componenti del nucleo familiare invocando un metodo della classe db",
+  "en": "Method that increments the number of members of the family unit by invoking a method of the db class"
+ },
+ {
+  "it": "Metodo che decrementa il numero di componenti del nucleo familiare invocando un metodo della classe db",
+  "en": "Method that decrements the number of members of the family unit by invoking a method of the db class"
+ },
+ {
+  "it": "Classe che gestisce i metodi dell'oggetto Richiesta",
+  "en": "Class that manages the methods of the Richiesta (Request) object"
+ },
+ {
+  "it": "Costruttore paramentrico",
+  "en": "Parametric constructor"
+ },
+ {
+  "it": "Preleva l'id della richiesta",
+  "en": "Retrieves the id of the request"
+ },
+ {
+  "it": "Setta un nuovo id alla richiesta",
+  "en": "Sets a new id for the request"
+ },
+ {
+  "it": "Preleva il tipo di richiesta effettuata",
+  "en": "Retrieves the type of request made"
+ },
+ {
+  "it": "Setta il tipo della richiesta",
+  "en": "Sets the type of the request"
+ },
+ {
+  "it": "Preleva la data in cui � stata fatta la richiesta",
+  "en": "Retrieves the date on which the request was made"
+ },
+ {
+  "it": "Setta la data alla richiesta",
+  "en": "Sets the date of the request"
+ },
+ {
+  "it": "Preleva l'id del richiedente che ha effettuato la richiesta",
+  "en": "Retrieves the id of the applicant who made the request"
+ },
+ {
+  "it": "Setta il richiedente della richiesta",
+  "en": "Sets the applicant of the request"
+ },
+ {
+  "it": "Preleva lo stato della richiesta",
+  "en": "Retrieves the status of the request"
+ },
+ {
+  "it": "Setta lo stato della richiesta",
+  "en": "Sets the status of the request"
+ },
+ {
+  "it": "Preleva il link al documento richiesto",
+  "en": "Retrieves the link to the requested document"
+ },
+ {
+  "it": "Setta il link al documento",
+  "en": "Sets the link to the document"
+ },
+ {
+  "it": "Restituisce un valore booleano nel caso in cui la richiesta sia stata accettata",
+  "en": "Returns a boolean value in case the request has been accepted"
+ },
+ {
+  "it": "Restituisce un valore booleano nel caso in cui la richiesta sia stata rifiutata",
+  "en": "Returns a boolean value in case the request has been rejected"
+ },
+ {
+  "it": "La classe ServletAnnulla annulla l'operazione che l'utente stava eseguendo La classe ServletAnnulla non ha dipendenze",
+  "en": "The class ServletAnnulla (ServletCancel) cancels the operation the user was performing. The class ServletAnnulla has no dependencies"
+ },
+ {
+  "it": "La classe ServletCaricaPratica carica in una sessione gli oggetti Cittadino e CartaIdentita La classe dipende da DbCittadino e DbCartaIdentita",
+  "en": "The class ServletCaricaPratica (ServletLoadApplication) loads the Cittadino and CartaIdentita objects into a session. The class depends on DbCittadino and DbCartaIdentita"
+ },
+ {
+  "it": "La classe ServletCreaPdfCambioAbitazione un file PDF in base ai dati ricevuti da una pagina JSP La classe non ha nessuna dipendenza",
+  "en": "The class ServletCreaPdfCambioAbitazione creates a PDF file based on the data received from a JSP page (change of dwelling). The class has no dependencies"
+ },
+ {
+  "it": "String numb_document\t\t= request.getParameter(\"numberdocument\");",
+  "en": null
+ },
+ {
+  "it": "String interno\t\t\t\t= request.getParameter(\"interno\");",
+  "en": null
+ },
+ {
+  "it": "String interno_new\t\t\t= request.getParameter(\"interno1\");",
+  "en": null
+ },
+ {
+  "it": "String data_gg\t\t\t\t= request.getParameter(\"data_gg\");",
+  "en": null
+ },
+ {
+  "it": "String data_mm\t\t\t\t= request.getParameter(\"data_mm\");",
+  "en": null
+ },
+ {
+  "it": "String data_aa\t\t\t\t= request.getParameter(\"data_aa\");",
+  "en": null
+ },
+ {
+  "it": "String identita1\t\t\t= request.getParameter(\"identita1\").toUpperCase();",
+  "en": null
+ },
+ {
+  "it": "String identita2\t\t\t= request.getParameter(\"identita2\").toUpperCase();",
+  "en": null
+ },
+ {
+  "it": "String cod_doc\t\t\t\t= request.getParameter(\"cod_document\");",
+  "en": null
+ },
+ {
+  "it": "String interno1\t\t\t\t= request.getParameter(\"interno1\");",
+  "en": null
+ },
+ {
+  "it": "String cc_date\t\t\t\t= request.getParameter(\"cc_date\");",
+  "en": null
+ },
+ {
+  "it": "String cc_mese\t\t\t\t= request.getParameter(\"cc_mese\");",
+  "en": null
+ },
+ {
+  "it": "String cc_anno\t\t\t\t= request.getParameter(\"cc_anno\");",
+  "en": null
+ },
+ {
+  "it": "String nametab8\t\t\t\t= request.getParameter(\"nametab8\").toUpperCase();",
+  "en": null
+ },
+ {
+  "it": "String surnametab8\t\t\t= request.getParameter(\"surnametab8\").toUpperCase();",
+  "en": null
+ },
+ {
+  "it": "String qualifica_vigile \t= request.getParameter(\"qualifica_vigile\"); //maresciallo",
+  "en": "(sic) the police officer's rank: 'maresciallo' (marshal)"
+ },
+ {
+  "it": "indix",
+  "en": null
+ },
+ {
+  "it": "String ab_effettivamente\t= request.getParameter(\"check\");",
+  "en": null
+ },
+ {
+  "it": "String extra_possesso\t\t= request.getParameter(\"specification\");",
+  "en": null
+ },
+ {
+  "it": "myDoc//workers//pratiche_complete//\" + now +\"_2345_\" + inout +\".pdf\");",
+  "en": null
+ },
+ {
+  "it": "tabella stato di famiglia",
+  "en": "table of family status"
+ },
+ {
+  "it": "inserire le altri info in caso di abilitazione",
+  "en": "insert the other information in case of qualification"
+ },
+ {
+  "it": "inserire il tipo di alloggio",
+  "en": "insert the type of accommodation"
+ },
+ {
+  "it": "elimina il cittadino e l'accesso",
+  "en": "deletes the citizen and the access"
+ },
+ {
+  "it": "controllando che l'esito sia positivo",
+  "en": "checking that the outcome is positive"
+ },
+ {
+  "it": "La classe ServletCreaPdfCertificati crea un file PDF con i dati ricevuti da una pagina JSP La classe non ha nessuna dipendenza",
+  "en": "The class ServletCreaPdfCertificati creates a PDF file with the data received from a JSP page (certificates). The class has no dependencies"
+ },
+ {
+  "it": "PrintWriter out = response.getWriter();",
+  "en": null
+ },
+ {
+  "it": "La classe ServletCreaPdfCittadino un file PDF in base ai dati ricevuti da una pagina JSP La classe non ha nessuna dipendenza",
+  "en": "The class ServletCreaPdfCittadino creates a PDF file based on the data received from a JSP page (citizen). The class has no dependencies"
+ },
+ {
+  "it": "myDocs//docs//\" + now +\"_2345_\" + inout +\".pdf\");",
+  "en": null
+ },
+ {
+  "it": "La classe ServletEliminaAmministratore ricerca ed elimina un amministratore La classe ServletEliminaAmministratore non ha dipendenze",
+  "en": "The class ServletEliminaAmministratore (ServletDeleteAdministrator) searches for and deletes an administrator. The class has no dependencies"
+ },
+ {
+  "it": "Se la sessione � nulla effettua il redirect alla pagina di autenticazione",
+  "en": "If the session is null, performs a redirect to the authentication page"
+ },
+ {
+  "it": "Se gli attributi di sessione amm e acc sono nulli devo effettuare la ricerca",
+  "en": "If the session attributes amm and acc are null I have to perform the search"
+ },
+ {
+  "it": "Se gli attributi sono presenti procedo con la cancellazione",
+  "en": "If the attributes are present I proceed with the deletion"
+ },
+ {
+  "it": "provo ad effettuare la cancellazione",
+  "en": "I try to perform the deletion"
+ },
+ {
+  "it": "controllo che l'amministratore non � unico ed � stato cancellato",
+  "en": "I check that the administrator is not the only one and has been deleted"
+ },
+ {
+  "it": "elimina l'accesso corrspondente",
+  "en": "deletes the corresponding access"
+ },
+ {
+  "it": "se l'amministratore � unico non � stato cancellato",
+  "en": "if the administrator is the only one, he or she has not been deleted"
+ },
+ {
+  "it": "La classe ServletEliminaCittadino ricerca ed elimina un cittadino La classe ServletEliminaCittadino non ha dipendenze",
+  "en": "The class ServletEliminaCittadino (ServletDeleteCitizen) searches for and deletes a citizen. The class has no dependencies"
+ },
+ {
+  "it": "Se gli attributi di sessione c e acc sono nulli devo effettuare la ricerca",
+  "en": "If the session attributes c and acc are null I have to perform the search"
+ },
+ {
+  "it": "Se non c'� il codice della carta d'identit�",
+  "en": "If there is no identity card code"
+ },
+ {
+  "it": "il cittadino da cancellare � solo nel nucleo familiare",
+  "en": "the citizen to be deleted is alone in the family unit"
+ },
+ {
+  "it": "Se � presente un codice devo sostituire il capo famiglia",
+  "en": "If a code is present I have to replace the head of household"
+ },
+ {
+  "it": "Controllo che il nuovo capo famiglia esiste nel db",
+  "en": "I check that the new head of household exists in the db"
+ },
+ {
+  "it": "modifico il capo famiglia del nucleo",
+  "en": "I modify the head of household of the family unit"
+ },
+ {
+  "it": "Decremento il numero di componenti del nucleo",
+  "en": "I decrement the number of members of the family unit"
+ },
+ {
+  "it": "La classe ServletEliminaImpiegato ricerca ed elimina un impiegato La classe ServletEliminaImpiegato non ha dipendenze",
+  "en": "The class ServletEliminaImpiegato (ServletDeleteEmployee) searches for and deletes an employee. The class has no dependencies"
+ },
+ {
+  "it": "elimina l'impiegato e l'accesso",
+  "en": "deletes the employee and the access"
+ },
+ {
+  "it": "La classe ServletInserisciAmministratore inserisce un amministratore nel database La classe ServletInserisciAmministratore non ha dipendenze",
+  "en": "The class ServletInserisciAmministratore (ServletInsertAdministrator) inserts an administrator into the database. The class has no dependencies"
+ },
+ {
+  "it": "Se la sessione + nulla effettua il redirect alla pagina di autenticazione",
+  "en": "If the session is null, performs a redirect to the authentication page"
+ },
+ {
+  "it": "inserisco idati relativi all'accesso e all'amministratore",
+  "en": "I insert the data relating to the access and to the administrator"
+ },
+ {
+  "it": "controllando l'esito positivo",
+  "en": "checking the positive outcome"
+ },
+ {
+  "it": "La classe ServletInserisciCittadino inserisce un cittadino nel database La classe ServletInserisciCittadino non ha dipendenze",
+  "en": "The class ServletInserisciCittadino (ServletInsertCitizen) inserts a citizen into the database. The class has no dependencies"
+ },
+ {
+  "it": "Se l'id del nucleo familiare � zero, devo creare un nuovo nucleo",
+  "en": "If the id of the family unit is zero, I have to create a new family unit"
+ },
+ {
+  "it": "inserisco il cittadino nel db",
+  "en": "I insert the citizen into the db"
+ },
+ {
+  "it": "Salvo l'id del nuovo nucleo",
+  "en": "I save the id of the new family unit"
+ },
+ {
+  "it": "setto l'id del nucleo del cittadino",
+  "en": "I set the id of the family unit of the citizen"
+ },
+ {
+  "it": "Se gli id restituiti sono diversi da zero l'operazione � andata a buon fine",
+  "en": "If the returned ids are different from zero the operation was successful"
+ },
+ {
+  "it": "Se l'id del nucleo familiare non � zero, devo aggiungere il cittadino ad un nucleo esistente",
+  "en": "If the id of the family unit is not zero, I have to add the citizen to an existing family unit"
+ },
+ {
+  "it": "controllo l'esistenza del nucleo nel db",
+  "en": "I check the existence of the family unit in the db"
+ },
+ {
+  "it": "incremento i componenti del nucleo",
+  "en": "I increment the members of the family unit"
+ },
+ {
+  "it": "inserisco il cittadino nel db e controllo se l'esito � positivo",
+  "en": "I insert the citizen into the db and check whether the outcome is positive"
+ },
+ {
+  "it": "La classe ServletInserisciImpiegato inserisce un impiegato nel database La classe ServletInserisciImpiegato non ha dipendenze",
+  "en": "The class ServletInserisciImpiegato (ServletInsertEmployee) inserts an employee into the database. The class has no dependencies"
+ },
+ {
+  "it": "inserisco idati relativi all'accesso e all'impiegato",
+  "en": "I insert the data relating to the access and to the employee"
+ },
+ {
+  "it": "La classe ServletLogin effettua l'operazione di autenticazione di un utente nel sistema La classe ServletLogin non ha dipendenze",
+  "en": "The class ServletLogin performs the authentication of a user in the system. The class has no dependencies"
+ },
+ {
+  "it": "Se tipo � diverso da null la servlet � stata invocata dal lato cittadino",
+  "en": "If tipo (type) is different from null, the servlet was invoked from the citizen side"
+ },
+ {
+  "it": "Se tipo � null la servlet � stata invocata dal lato amministratore/impiegato",
+  "en": "If tipo (type) is null, the servlet was invoked from the administrator/employee side"
+ },
+ {
+  "it": "La classe ServletLogout effettua l'operazione di logout di un utente dal sistema La classe ServletLogout non ha dipendenze",
+  "en": "The class ServletLogout performs the logout of a user from the system. The class has no dependencies"
+ },
+ {
+  "it": "La classe ServletModificaAccesso che effettua l'operazione di modifica di un accesso La classe ServletModificaAccesso non ha dipendenze",
+  "en": "The class ServletModificaAccesso (ServletModifyAccess) performs the modification of an access. The class has no dependencies"
+ },
+ {
+  "it": "modifico i dati relativi all'accesso controllando che l'esito sia positivo",
+  "en": "I modify the data relating to the access, checking that the outcome is positive"
+ },
+ {
+  "it": "questa servlet viene invocata sia dal lato cittadino sia da amm/imp",
+  "en": "this servlet is invoked both from the citizen side and from admin/employee"
+ },
+ {
+  "it": "quindi effettuo un controllo da quale url proviene la richiesta",
+  "en": "so I check from which url the request comes"
+ },
+ {
+  "it": "cosi posso effettuare il redirect alla pagina corretta",
+  "en": "so that I can redirect to the correct page"
+ },
+ {
+  "it": "La classe ServletModificaAmministratore che effettua l'operazione di modifica di un amministratore La classe ServletModificaAmministratore non ha dipendenze",
+  "en": "The class ServletModificaAmministratore (ServletModifyAdministrator) performs the modification of an administrator. The class has no dependencies"
+ },
+ {
+  "it": "procedo con la modifica dei dati",
+  "en": "I proceed with the modification of the data"
+ },
+ {
+  "it": "controllando l'esito",
+  "en": "checking the outcome"
+ },
+ {
+  "it": "La classe ServletModificaCittadino che effettua l'operazione di modifica di un cittadino La classe ServletModificaCittadino non ha dipendenze",
+  "en": "The class ServletModificaCittadino (ServletModifyCitizen) performs the modification of a citizen. The class has no dependencies"
+ },
+ {
+  "it": "Se l'attributo di sessione citt� nullo devo effettuare la ricerca",
+  "en": "If the session attribute citizen is null I have to perform the search"
+ },
+ {
+  "it": "Se l'id del nucleo� zero devo creare un nuovo nucleo familiare per il cittadino",
+  "en": "If the id of the family unit is zero I have to create a new family unit for the citizen"
+ },
+ {
+  "it": "effettuo le modifiche dei dati controllando l'esito positivo",
+  "en": "I make the modifications of the data, checking the positive outcome"
+ },
+ {
+  "it": "Se l'id del nucleo familiare non� zero, devo aggiungere il cittadino ad un nucleo esistente",
+  "en": "If the id of the family unit is not zero, I have to add the citizen to an existing family unit"
+ },
+ {
+  "it": "La classe ServletModificaImpiegato che effettua l'operazione di modifica di un impiegato La classe ServletModificaImpiegato non ha dipendenze",
+  "en": "The class ServletModificaImpiegato (ServletModifyEmployee) performs the modification of an employee. The class has no dependencies"
+ },
+ {
+  "it": "Se la sessione� nulla effettua il redirect alla pagina di autenticazione",
+  "en": "If the session is null, performs a redirect to the authentication page"
+ },
+ {
+  "it": "metodo che cerca i file contenenti le richieste di cambio di residenza da parte dei cittadini.Tale cartella viene salvata sul server su cui l'impiegato pu� accedervi per reperire le informazioni utili alla compilazione del modulo che deve essere registrato all'interno dell'archivio comunale",
+  "en": "method that searches for the files containing the change-of-residence requests made by citizens. This folder is saved on the server, where the employee can access it to find the information useful for filling in the form that must be recorded in the municipal archive"
+ },
+ {
+  "it": "from � la cartella in cui cercare il file di nome \"nome\" e di tipo \".pdf\"",
+  "en": "from is the folder in which to search for the file named 'name' and of type '.pdf'"
+ },
+ {
+  "it": "se la sessione � stata creata correttamente all'accesso dell'impiegato, viene mandato in exe il metodo che controlla se sono presenti file pdf riguardanti il cambio di residenza interno o esterno richiesti dai cittadini",
+  "en": "if the session was created correctly when the employee logged in, the method that checks whether there are pdf files concerning the internal or external change of residence requested by citizens is executed"
+ },
+ {
+  "it": "(1) cosa deve fare la servlet: deve prendere l'id del cittadino di cui ha inserito il codice della carta di identit� dal form e lo passa al metodo main per cercare il file corrispondente",
+  "en": "(1) what the servlet must do: it must take from the form the id of the citizen whose identity card code was entered and pass it to the main method to search for the corresponding file"
+ },
+ {
+  "it": "(2) il codice della carta di identit� e la data della richiesta li prende con request.getParameter salvandoli nelle apposite variabili, dopodich� viene chiamato il metodo che restituisce l'id di un cittadino dopo avergli passato nome, cognome e codice_fiscale di quest'ultimo.",
+  "en": "(2) it takes the identity card code and the date of the request with request.getParameter, saving them in the appropriate variables; then the method that returns the id of a citizen is called after passing it the name, surname and tax code of the citizen."
+ },
+ {
+  "it": "una volta salvati i parametri, li passo al metodo che restituisce l'id di questo particolare cittadino che ha inviato la richiesta di cambio di residenza e di cui se ne vuole cercare il file",
+  "en": "once the parameters are saved, I pass them to the method that returns the id of this particular citizen who sent the change-of-residence request and whose file is to be searched"
+ },
+ {
+  "it": "una volta conosciuto l'id del cittadino lo passo al metodo di ricerca del file ad esso corrispondente",
+  "en": "once the id of the citizen is known I pass it to the method that searches for the file corresponding to him or her"
+ },
+ {
+  "it": "ora nella variabile idtrovato c'� l'esito della ricerca del file relativa ad un determinato cittadino che ha inviato la richiesta di cambio di residenza. tale valore andr� controllato, se � true si lancia all'impiegato il modulo da compilare per mantenere traccia della richiesta dopo aver effettuato i controlli necessari",
+  "en": "now the variable idtrovato (id found) contains the outcome of the search for the file of a given citizen who sent the change-of-residence request. This value must be checked; if it is true, the form to fill in is presented to the employee to keep track of the request after the necessary checks have been made"
+ },
+ {
+  "it": "contatore usato per numerare i file ottenuti",
+  "en": "counter used to number the files obtained"
+ },
+ {
+  "it": "costruttore di default",
+  "en": "default constructor"
+ },
+ {
+  "it": "nel caso dell'impiegato la path � c:\\\\RichiesteCambioResidenza",
+  "en": "in the case of the employee the path is c:\\\\RichiesteCambioResidenza (change-of-residence requests)"
+ },
+ {
+  "it": "directory dove cercare i file con determinate estensioni",
+  "en": "directory in which to search for the files with certain extensions"
+ },
+ {
+  "it": "nome del file da cercare. Ad esempio cerco un file di nome pippo inserir� pippo",
+  "en": "name of the file to search for. For example, if I search for a file named pippo I will enter pippo"
+ },
+ {
+  "it": "se non specificato cercher� tutti i file con qualsiasi nome",
+  "en": "if not specified it will search for all files with any name"
+ },
+ {
+  "it": "mi salvo come stringa l'id del cittadino per poi confrontarla con",
+  "en": "I save as a string the id of the citizen in order to compare it with"
+ },
+ {
+  "it": "l'id del cittadino che mi arriva dal database per cercare il",
+  "en": "the id of the citizen that arrives from the database to search for the"
+ },
+ {
+  "it": "file del cambio associato a quel cittadino",
+  "en": "change file associated with that citizen"
+ },
+ {
+  "it": "nome del file da cercare",
+  "en": "name of the file to search for"
+ },
+ {
+  "it": "estensione del file da cercare. Ad esempio *.mp3 inseriro .mp3",
+  "en": "extension of the file to search for. For example *.mp3 I will enter .mp3"
+ },
+ {
+  "it": "se non specificato cercher� tutti i files con qualsiasi estensione",
+  "en": "if not specified it will search for all files with any extension"
+ },
+ {
+  "it": "file esterno",
+  "en": "external file"
+ },
+ {
+  "it": "file non presente",
+  "en": "file not present"
+ },
+ {
+  "it": "utilizziamo per la ricerca un filtro",
+  "en": "we use a filter for the search"
+ },
+ {
+  "it": "ordiniamo i file nella lista secondo la data",
+  "en": "we sort the files in the list by date"
+ },
+ {
+  "it": "estensione del file",
+  "en": "extension of the file"
+ },
+ {
+  "it": "accettiamo tutti i file con estensione s e le directory che non siano",
+  "en": "we accept all the files with extension s and the directories that are not"
+ },
+ {
+  "it": "nascoste",
+  "en": "hidden"
+ },
+ {
+  "it": "controllo sul tipo.",
+  "en": "check on the type."
+ },
+ {
+  "it": "Ad esempio se cerco \\\"pippo.txt\\\" la indexOf(.txt) � uguale a 6 ed � uguale",
+  "en": "For example if I search for \"pippo.txt\", indexOf(.txt) is equal to 6 and is equal"
+ },
+ {
+  "it": "ed � uguale a 10(\\\"pippo.txt\\\".length()) - 4 (\\\".txt\\\".length)",
+  "en": "to 10 (\"pippo.txt\".length()) - 4 (\".txt\".length)"
+ },
+ {
+  "it": "controllo sul nome",
+  "en": "check on the name"
+ },
+ {
+  "it": "flag2 � true se il file contiene la parola cercata",
+  "en": "flag2 is true if the file contains the searched word"
+ },
+ {
+  "it": "ritorno i file che passano il controllo del tipo e del nome le directory",
+  "en": "I return the files that pass the check on type and name, and the directories"
+ },
+ {
+  "it": "innanzitutto mi recupero la sessione di lavoro del cittadino",
+  "en": "first of all I retrieve the working session of the citizen"
+ },
+ {
+  "it": "da modificare i collegamenti",
+  "en": "the links need to be modified"
+ },
+ {
+  "it": "La classe ServletMostraAccesso mostra i dati relativi all'accesso di un impieagto o amministratore La classe ServletMostraAccesso non ha dipendenze",
+  "en": "The class ServletMostraAccesso (ServletShowAccess) shows the data relating to the access of an employee or administrator. The class has no dependencies"
+ },
+ {
+  "it": "inviare i dati",
+  "en": "send the data"
+ },
+ {
+  "it": "La classe ServletMostraAccessoA mostra i dati relativi all'accesso di un cittadino La classe ServletMostraAccessoA non ha dipendenze",
+  "en": "The class ServletMostraAccessoA shows the data relating to the access of a citizen. The class has no dependencies"
+ },
+ {
+  "it": "La classe ServletRecuperoPassword gestisce l'operazione di recupero password per un cittadino La classe ServletRecuperoPassword non ha dipendenze",
+  "en": "The class ServletRecuperoPassword (ServletPasswordRecovery) manages the password recovery operation for a citizen. The class has no dependencies"
+ },
+ {
+  "it": "nuova password auto-generata",
+  "en": "new auto-generated password"
+ },
+ {
+  "it": "inviare l'email a c.getEmail();",
+  "en": "send the e-mail to c.getEmail();"
+ },
+ {
+  "it": "genera un intero tra 0 e 9",
+  "en": "generates an integer between 0 and 9"
+ },
+ {
+  "it": "genera un char tra 'A' e 'Z",
+  "en": "generates a char between 'A' and 'Z'"
+ },
+ {
+  "it": "La classe ServletRegistraCittadino gestisce l'operazione di registrazione di un cittadino nel sistema La classe ServletRegistraCittadino non ha dipendenze",
+  "en": "The class ServletRegistraCittadino (ServletRegisterCitizen) manages the registration operation of a citizen in the system. The class has no dependencies"
+ },
+ {
+  "it": "La classe ServletRicercaAmministratore ricerca e restituisce i dati di un amministratore La classe ServletRicercaAmministratore non ha dipendenze",
+  "en": "The class ServletRicercaAmministratore (ServletSearchAdministrator) searches for and returns the data of an administrator. The class has no dependencies"
+ },
+ {
+  "it": "La classe ServletRicercaCittadino ricerca e restituisce i dati di un cittadino La classe ServletRicercaCittadino non ha dipendenze",
+  "en": "The class ServletRicercaCittadino (ServletSearchCitizen) searches for and returns the data of a citizen. The class has no dependencies"
+ },
+ {
+  "it": "La classe ServletRicercaImpiegato ricerca e restituisce i dati di un impiegato La classe ServletRicercaImpiegato non ha dipendenze",
+  "en": "The class ServletRicercaImpiegato (ServletSearchEmployee) searches for and returns the data of an employee. The class has no dependencies"
+ },
+ {
+  "it": "La classe ServletRicercaPratica restituisce una pratica specificata nel motore di ricerca La classe dipende dalla classe DbRichieste",
+  "en": "The class ServletRicercaPratica (ServletSearchApplication) returns an application specified in the search engine. The class depends on the class DbRichieste"
+ },
+ {
+  "it": "e.getMessage().toString();",
+  "en": null
+ },
+ {
+  "it": "servlet di risposta lato server destinata al client",
+  "en": "server-side response servlet intended for the client"
+ },
+ {
+  "it": "myDoc//workers//docs_cittadino//\" + now + \"_\" + idCitt+ \"_\" + inout +\".pdf\");",
+  "en": null
+ },
+ {
+  "it": "La classe ServletStatoDiFamiglia restituisce una lista dei membri di una famiglia La classe dipende dalla classe DbNucleoFamiliare",
+  "en": "The class ServletStatoDiFamiglia (ServletFamilyStatus) returns a list of the members of a family. The class depends on the class DbNucleoFamiliare"
+ },
+ {
+  "it": "int id = 200101;",
+  "en": null
+ },
+ {
+  "it": "Richiesta ric = null;",
+  "en": null
+ },
+ {
+  "it": "La classe ServletVisualizzaPratiche restituisce una lista di richieste La classe dipende dalla classe DbRichieste",
+  "en": "The class ServletVisualizzaPratiche (ServletViewApplications) returns a list of requests. The class depends on the class DbRichieste"
+ }
+]

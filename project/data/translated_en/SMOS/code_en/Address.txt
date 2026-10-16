@@ -1,0 +1,48 @@
+package smos.bean;
+import java.io.Serializable;
+
+/** Class used to model an address (course of study). */
+public class Address implements Serializable{
+	
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9194626030239503689L;
+	
+	private int idAddress;
+	private String name;
+	
+	/** The constructor of the class. */
+		public Address(){
+		this.idAddress= 0;
+	}
+		
+	/**
+	 * @return Ritorna l' id dell' indirizzo.
+	 */
+		
+	public int getIdAddress() {
+		return idAddress;
+	}
+	
+	/** Sets the id of the address. */
+	public void setIdAddress(int pIdAddress) {
+		this.idAddress = pIdAddress;
+	}
+	
+	/**
+	 * @return Ritorna il nome dell' indirizzo.
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/** Sets the name of the address. */
+	public void setName(String pName) {
+		this.name = pName;
+	}
+	
+	
+}

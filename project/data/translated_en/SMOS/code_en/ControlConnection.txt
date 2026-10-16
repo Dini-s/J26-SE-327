@@ -1,0 +1,60 @@
+package smos.storage.connectionManagement;
+
+
+import java.sql.*;
+
+/** Implementation of the thread able to keep the connection to the MySQL database when there are no more active connections (solution to the problem of MySQL's autoreconnect). This class also takes care of calling the method that releases the active connections that have not performed operations within a certain interval of time. */
+
+public class ControlConnection extends Thread {
+    private static ConnectionPoolDataSource manager = null;
+
+    private static int waitTimeout;
+
+    /** Creates a new instance of the Thread. @author Di Giorgio Domenico, Cris Malinconico */
+
+    public ControlConnection(ConnectionPoolDataSource pManager) {
+        ControlConnection.manager = pManager;
+    }
+
+    /** Creates a new instance of the Thread. */
+
+    public ControlConnection(ConnectionPoolDataSource pManager, int pTime) {
+        ControlConnection.waitTimeout = pTime;
+        ControlConnection.manager = pManager;
+    }
+
+    /** The thread does nothing but sleep when there are active users, and otherwise keeps the connection to MySQL open. */
+
+    public void run() {
+        try {
+            while (true) {
+                if (manager.activeSize() > 0) {
+                    this.setPriority(Thread.MAX_PRIORITY);
+                    manager.clearActive();
+                    this.setPriority(Thread.NORM_PRIORITY);
+                }
+                if (manager.activeSize() == 0) {
+                    while (true) {
+                        try {
+                            manager.closeAllPooledConnections();
+                            Connection con = null;
+                            con = manager.getConnection();
+                            Statement st = con.createStatement();
+                            st.executeQuery("show tables");
+                            manager.release(con);
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Eccezione geneata "
+                                    + "nel Thread ControlConnection:" + e);
+                        }
+                    }
+                    Thread.sleep(waitTimeout);
+                } else {
+                    Thread.sleep(waitTimeout);
+                }
+            }
+        } catch (InterruptedException ex) {
+            System.out.println("Thread ControlConnection interrotto:" + ex);
+        }
+    }
+}

@@ -1,0 +1,62 @@
+package smos.bean;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class Delay implements Serializable {
+
+	/** Class that models a late arrival of a student @author Nicola Pisanti @version 1.0  */
+	private static final long serialVersionUID = 78680884161960621L;
+
+	private int idDelay;
+	private int idUser;
+	private Date dateDelay;
+	private String timeDelay;
+	private int academicYear;
+	
+	
+	/** Method that returns the id of the Delay (lateness) */
+	public int getIdDelay() {
+		return idDelay;
+	}
+	/** Method that sets the id of the Delay (lateness) */
+	public void setIdDelay(int pIdDelay) {
+		this.idDelay = pIdDelay;
+	}
+	/** Method that returns the id of the late student */
+	public int getIdUser() {
+		return idUser;
+	}
+	/** Method that sets the id of the student related to the lateness */
+	public void setIdUser(int pIdUser) {
+		this.idUser = pIdUser;
+	}
+	/** Method that returns the date of the lateness */
+	public Date getDateDelay() {
+		return dateDelay;
+	}
+	/** Method that sets the date of the lateness */
+	public void setDateDelay(Date pDateDelay) {
+		this.dateDelay = pDateDelay;
+	}
+	/** Method that returns the entry time of the student */
+	public String getTimeDelay() {
+		if (this.timeDelay.length() > 0){
+			return timeDelay.substring(0, 5);
+		} else {
+			return this.timeDelay;
+		}
+	}
+	/** Method that sets the entry time of the student */
+	public void setTimeDelay(String pTimeDelay) {
+		this.timeDelay = pTimeDelay;
+	}
+	/** Method that returns the academic year related to the absence */
+	public int getAcademicYear() {
+		return academicYear;
+	}
+	/** Method that sets the academic year related to the absence */
+	public void setAcademicYear(int pAcademicYear) {
+		this.academicYear = pAcademicYear;
+	}
+}

@@ -1,0 +1,40 @@
+package DB;
+import Bean.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import Bean.CartaIdentita;
+
+/** Class that takes care of managing the connections with the database and of shielding the servlets from the DBMS. @author Michelangelo Cianciulli */
+public class DbCambioResidenza 
+{
+	private Connection connection;
+	
+	public DbCambioResidenza() throws DbException
+	{	
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException exc)
+		{
+			throw new DbException("Errore : connessione non riuscita");
+		}
+	}
+	
+	/** Method that allows deleting the identity card of the citizen when he or she changes residence to an external municipality (db update) */
+	public boolean changeResidence (String cod) throws DbException
+	{		
+		return new DbCartaIdentita().cancellaCartaIdentita(cod);
+	}
+	
+	/** Method that allows updating the residence saved in the identity card of the citizen who has changed residence within the same municipality in which he or she currently lives. (db update) */
+
+	public CartaIdentita changeResidenceIn (String cod, String v,int nc) throws DbException
+	{
+		if (new DbCartaIdentita().modificaResidenzaCartaIdentita(cod, v, nc))
+			return new DbCartaIdentita().ricercaCartaIdentitaByNumero(cod);
+		else
+			return null;
+	}
+}

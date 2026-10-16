@@ -1,0 +1,44 @@
+package Manager;
+
+import java.util.Collection;
+
+import Bean.Accesso;
+import DB.DbAccesso;
+import DB.DbException;
+
+/** The class AccessManager interacts with the database management classes. The class AccessManager has no dependencies @author Federico Cinque */
+public class AccessManager {
+	private DbAccesso dbAccesso;
+	/** Default constructor of the class AccessManager */
+	public AccessManager(){
+		dbAccesso=new DbAccesso();
+	}
+	/** Method that checks the correctness of the login and password of an access by invoking the corresponding method of the db class */
+	public boolean controllaAccesso(String login, String password)throws DbException{
+		return dbAccesso.controllaAccesso(login, password);
+	}
+	/** Method that checks the existence of the login by invoking the corresponding method of the db class */
+	public boolean controllaLogin(String login)throws DbException{
+		return dbAccesso.controllaLogin(login);
+	}
+	/** Method that returns an access by invoking the corresponding method of the db class */
+	public Accesso getAccesso(String login)throws DbException{
+		return dbAccesso.getAccesso(login);
+	}
+
+	public boolean modificaAccesso(String login, Accesso newAccesso)throws DbException{
+		return dbAccesso.modificaAccesso(login, newAccesso);
+	}
+	/** Method that inserts an access into the db by invoking the corresponding method of the db class */
+	public boolean inserisciAccesso(Accesso ac)throws DbException{
+		return dbAccesso.inserisciAccesso(ac);
+	}
+	/** Method that deletes an access from the db by invoking the corresponding method of the db class */
+	public boolean eliminaAccesso(String login)throws DbException{
+		return dbAccesso.eliminaAccesso(login);
+	}
+	/** Method that returns all the stored accesses by invoking the corresponding method of the db class */
+	public Collection<Accesso> getAccessi()throws DbException{
+		return dbAccesso.getAccessi();
+	}
+}

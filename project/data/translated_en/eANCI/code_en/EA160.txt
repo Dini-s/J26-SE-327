@@ -1,0 +1,363 @@
+package DB;
+import Bean.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+
+/** The class DbRichiesta (DbRequest) takes care of managing the connections to the db @author Antonio Leone @version 1.0 */
+
+public class DbRichiesta {
+	
+private Connection connection;
+	
+	public DbRichiesta() throws DbException
+	{
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: Connessione non riuscita");
+		}
+	}
+	
+	/** Method that inserts a request into the db */
+	
+	public boolean inserisciRichiesta(Richiesta ric)throws DbException
+	{
+		int ret=0;
+		PreparedStatement statement=null;
+		String tipo=ric.getTipo();
+		String data=ric.getData();
+		int richiedente=ric.getRichiedente();
+		String stato=ric.getStato();
+		String documento=ric.getDocumento();
+		try
+		{
+			statement=connection.prepareStatement("INSERT INTO richiesta VALUES (?, ?, ?, ?, ?, ?)");
+			statement.setInt(1,0);
+			statement.setString(2, tipo);
+			statement.setString(3,data);
+			statement.setInt(4, richiedente);
+			statement.setString(5, stato);
+			statement.setString(6, documento);
+			ret= statement.executeUpdate();
+			return (ret==1);
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: inserimento richiesta non riuscito");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: inserimento richiesta non riuscito");
+			}
+		}
+	}
+	
+	/** Method that deletes a request from the db */
+	
+	public boolean eliminaRichiesta(int id) throws DbException
+	{	
+		PreparedStatement statement=null;
+		int ret=0;
+		try
+		{
+			statement=connection.prepareStatement("DELETE FROM richiesta WHERE idRichiesta =?");
+			statement.setInt(1,id);
+			ret= statement.executeUpdate();
+			return (ret==1);
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: cancellazione richiesta non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: cancellazione richiesta  non riuscita");
+			}
+		}
+	}
+	
+	/** Method that returns a request */
+	
+	public Richiesta getRichiestaById(int id)throws DbException
+	{
+		PreparedStatement statement=null;
+		ResultSet rs=null;
+		Richiesta ret=null;
+		try
+		{
+			statement=connection.prepareStatement("SELECT* FROM richiesta WHERE idRichiesta = ?");
+			statement.setInt(1,id);
+			rs= statement.executeQuery();
+			if(!rs.next())
+				return ret;
+			int idR=rs.getInt("idRichiesta");
+			String tipo=rs.getString("tipo");
+			String data=rs.getString("data");
+			int richiedente=rs.getInt("richiedente");
+			String stato=rs.getString("stato");
+			String documento=rs.getString("documento");
+			ret=new Richiesta(idR,tipo,data,richiedente,stato,documento);
+			return ret;
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: ricerca tramite l'id della richiesta non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+				if(rs!=null)
+					rs.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: ricerca tramite l'id della richiesta non riuscita");
+			}
+		}
+	}
+	
+	/** Method that returns a set of requests */
+	
+	public Collection<Richiesta> getRichiestaByRichiedente(int idR)throws DbException
+	{
+		ArrayList<Richiesta> ret = new ArrayList<Richiesta>(); 
+		PreparedStatement statement=null;
+		ResultSet rs=null;
+		try
+		{
+			statement=connection.prepareStatement("SELECT * FROM richiesta WHERE richiedente = ? ORDER BY  data desc");
+			statement.setInt(1,idR);
+			rs= statement.executeQuery();
+			while(rs.next())
+			{
+				int idRic=rs.getInt("idRichiesta");
+				String tipo=rs.getString("tipo");
+				String data=rs.getString("data");
+				int richiedente=rs.getInt("richiedente");
+				String statoR=rs.getString("stato");
+				String documento=rs.getString("documento");
+				ret.add(new Richiesta(idRic,tipo,data,richiedente,statoR,documento));
+			}
+			if(ret.isEmpty())
+				return null;
+			else
+				return ret;
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: ricerca richieste tramite l'id del richiedente non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+				if(rs!=null)
+					rs.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: ricerca richieste tramite l'id del richiedente non riuscita");
+			}
+		}
+	}
+	
+	/** Method that returns a set of requests */
+	
+	public Collection<Richiesta> getRichiestaByStato(int idR, String stato) throws DbException
+	{
+		ArrayList<Richiesta> ret = new ArrayList<Richiesta>(); 
+		PreparedStatement statement=null;
+		ResultSet rs=null;
+		try
+		{
+			statement=connection.prepareStatement("SELECT * FROM richiesta WHERE richiedente =? and stato =? ORDER BY  data desc");
+			statement.setInt(1,idR);
+			statement.setString(2,stato);
+			rs= statement.executeQuery();
+			while(rs.next())
+			{
+				int idRic=rs.getInt("idRichiesta");
+				String tipo=rs.getString("tipo");
+				String data=rs.getString("data");
+				int richiedente=rs.getInt("richiedente");
+				String statoR=rs.getString("stato");
+				String documento=rs.getString("documento");
+				ret.add(new Richiesta(idRic,tipo,data,richiedente,statoR,documento));
+			}
+			if(ret.isEmpty())
+				return null;
+			else
+				return ret;
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: ricerca richieste tramite l'id del richiedente e stato richiesta non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+				if(rs!=null)
+					rs.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: ricerca tramite l'id del richiedente e stato richiesta non riuscita ");
+			}
+		}
+	}
+	
+	/** Method that returns a set of requests */
+	
+	public Collection<Richiesta> getRichiestaByTipo(int idR, String tipo) throws DbException
+	{
+		ArrayList<Richiesta> ret = new ArrayList<Richiesta>(); 
+		PreparedStatement statement=null;
+		ResultSet rs=null;
+		try
+		{
+			statement=connection.prepareStatement("SELECT * FROM richiesta WHERE richiedente =? and tipo =? ORDER BY  data desc");
+			statement.setInt(1,idR);
+			statement.setString(2,tipo);
+			rs= statement.executeQuery();
+			while(rs.next())
+			{
+				int idRic=rs.getInt("idRichiesta");
+				String tipoR=rs.getString("tipo");
+				String data=rs.getString("data");
+				int richiedente=rs.getInt("richiedente");
+				String statoR=rs.getString("stato");
+				String documento=rs.getString("documento");
+				ret.add(new Richiesta(idRic,tipoR,data,richiedente,statoR,documento));
+			}
+			if(ret.isEmpty())
+				return null;
+			else
+				return ret;
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: ricerca richieste tramite l'id del richiedente e tipo richiesta non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+				if(rs!=null)
+					rs.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: ricerca tramite l'id del richiedente e tipo richiesta non riuscita ");
+			}
+		}
+	}
+		
+	/** Method that modifies the status of a request */
+	
+	public boolean setStatoRichiesta(int idR, String stato)throws DbException
+	{
+		PreparedStatement statement=null;
+		int ret=0;
+		try
+		{
+			statement=connection.prepareStatement("UPDATE richiesta SET stato = ? WHERE idRichiesta = ?");
+			statement.setString(1,stato);
+			statement.setInt(2,idR);
+			ret= statement.executeUpdate();
+			return (ret==1);
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: modifica stato richiesta non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: modifica stato richiesta non riuscita");
+			}
+		}
+	}
+	
+	/** Method that returns a set of requests */
+	
+	public Collection<Richiesta> getRichieste() throws DbException
+	{
+		ArrayList<Richiesta> ret = new ArrayList<Richiesta>(); 
+		PreparedStatement statement=null;
+		ResultSet rs=null;
+		try
+		{
+			statement=connection.prepareStatement("SELECT * FROM richiesta ORDER BY data desc");
+			rs= statement.executeQuery();
+			while(rs.next())
+			{
+				int idRic=rs.getInt("idRichiesta");
+				String tipo=rs.getString("tipo");
+				String data=rs.getString("data");
+				int richiedente=rs.getInt("richiedente");
+				String statoR=rs.getString("stato");
+				String documento=rs.getString("documento");
+				ret.add(new Richiesta(idRic,tipo,data,richiedente,statoR,documento));
+			}
+			if(ret.isEmpty())
+				return null;
+			else
+				return ret;
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: ricerca richieste non riuscita");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+				if(rs!=null)
+					rs.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: ricerca richieste tramite l'id del richiedente non riuscita");
+			}
+		}
+	}
+}

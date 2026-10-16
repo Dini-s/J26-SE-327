@@ -1,0 +1,44 @@
+package Manager;
+
+import Bean.NucleoFamiliare;
+import DB.DbException;
+import DB.DbNucleoFamiliare;
+/** The class NucleoFamiliareManager interacts with the database management classes. The class NucleoFamiliareManager has no dependencies @author Federico Cinque */
+public class NucleoFamiliareManager {
+
+	private DbNucleoFamiliare nucleoF;
+	/** Default constructor of the class NucleoFamiliareManager */
+	public NucleoFamiliareManager(){
+		nucleoF = new DbNucleoFamiliare();
+	}
+	/** Method that inserts a nucleoFamiliare object into the db by invoking the corresponding method of the db class */
+	public int inserisciNucleo(NucleoFamiliare nf){
+		return nucleoF.inserisciNucleoFamiliare(nf);
+	}
+	/** Method that allows checking the existence of a family unit by invoking the corresponding method of the db class */
+	public boolean controllaidFamiglia(int id){
+		return nucleoF.controllaIdFamiglia(id);
+	}
+	/** Method that returns the number of members of the family unit by invoking the corresponding method of the db class */
+	public int getNComponentiNucleo(int id){
+		return nucleoF.getNucleoFamiliareById(id).getNComponenti();
+	}
+	/** Method that modifies a head of household by invoking the corresponding method of the db class */
+	public boolean setCapoFamiglia(int id, int IdCitt){
+		return nucleoF.setCapoFamiglia(id, IdCitt);
+	}
+	/** Method that increments the number of members of the family unit by invoking a method of the db class */
+	public boolean incrementaComponenti(int id){
+		int n = getNComponentiNucleo(id)+1;
+		return nucleoF.setnComponenti(id,n);
+	}
+	/** Method that decrements the number of members of the family unit by invoking a method of the db class */
+	public boolean decrementaComponenti(int id){
+		int n = getNComponentiNucleo(id)-1;
+		return nucleoF.setnComponenti(id,n);
+	}
+	
+	public NucleoFamiliare getNucleo(int id) {
+		return nucleoF.getNucleoFamiliareById(id);
+	}
+}

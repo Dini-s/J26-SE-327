@@ -1,0 +1,21 @@
+package smos.exception;
+/** This class represents the exception raised when a user tries to delete the only Admin user in the database. */
+
+public class DeleteAdministratorException extends Exception {
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2081143475624381775L;
+
+	/** Raises the exception without an associated error message. */
+	public DeleteAdministratorException() {
+		super("Impossibile eliminare l'utente, l'utente selezionato e' l'unico Admin presente nel database! Creare un nuovo Manager e riprovare!");
+	}
+	
+	/** Raises the exception with an associated error message. */
+	public DeleteAdministratorException(String pMessage) {
+		super(pMessage);
+	}
+}

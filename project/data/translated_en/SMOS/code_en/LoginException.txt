@@ -1,0 +1,20 @@
+package smos.exception;
+
+import java.lang.Exception;
+
+/** This class represents the exception raised when a user enters a wrong password during authentication */
+public class LoginException extends Exception {
+	
+	private static final long serialVersionUID = -1213284697567763493L;
+
+	/** Raises the exception without an associated error message. */
+	public LoginException() {
+		super("Login or Password Incorrect or Invalid Session!");
+	}
+	
+	/** Raises the exception with an associated error message. */
+	public LoginException(String pMessage) {
+		super(pMessage);
+	}
+	
+}

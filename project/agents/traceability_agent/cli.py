@@ -53,11 +53,17 @@ def cmd_link(args: argparse.Namespace) -> int:
     from shared.embeddings.embedder import Embedder
     from shared.uskg.client import USKGClient
 
+    reranker = None
+    if args.reranker:  # optional stage 1.5: a cross-encoder re-orders the stage-1 pool before the LLM
+        from agents.traceability_agent.reranker.rerank import CrossEncoderReranker
+
+        reranker = CrossEncoderReranker(args.reranker, weight=args.rerank_weight)
     with USKGClient() as uskg:
-        logger = RunLogger.new(RUNS_DIR, f"link-{args.retrieval}-top{args.top_k}")
+        logger = RunLogger.new(RUNS_DIR, f"link-{args.retrieval}-top{args.top_k}{'-rerank' if reranker else ''}")
         agent = TraceabilityAgent(
             uskg=uskg, embedder=Embedder(), llm=_build_llm(args.prompt), retrieval=args.retrieval,
             top_k=args.top_k, run_logger=logger, project=args.project,
+            reranker=reranker, rerank_pool=args.rerank_pool,
         )
         sources, targets = agent.load_artifacts()
         if args.requirement:  # link only these requirements (e.g. a newly added one)
@@ -219,6 +225,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p.add_argument("--retrieval", choices=["hybrid", "embeddings", "tfidf"], default="hybrid")
     p.add_argument("--prompt", choices=["expert", "generic", "evidence"], default="expert")
     p.add_argument("--dry-run", action="store_true", help="verify but do not write")
+    p.add_argument("--reranker", help="optional cross-encoder (model folder or Hugging Face name, e.g. cross-encoder/ms-marco-MiniLM-L-6-v2) that re-orders the stage-1 pool before the LLM")
+    p.add_argument("--rerank-pool", type=int, default=20, help="candidates per requirement handed to the reranker (it keeps --top-k of them)")
+    p.add_argument("--rerank-weight", type=float, default=0.5, help="weight of the cross-encoder z-score against the stage-1 z-score")
     p.set_defaults(func=cmd_link)
 
     p = sub.add_parser("monitor", help="decay detection")

@@ -1,0 +1,24 @@
+package smos;
+
+/** Class used to hold the environment variables of GESA */
+public class Environment {
+
+    /** Default error message. */
+    public static String DEFAULT_ERROR_MESSAGE = "Un errore si e' verificato durante l'elaborazione della richiesta.<br><br>";
+
+    private static String poolPropertiesPath = "";
+
+    /**
+     * @return getPoolPropertiesPath()
+     */
+    public static String getPoolPropertiesPath() {
+        return poolPropertiesPath;
+    }
+    
+    /**
+     * @param poolPropertiesPath
+     */
+    public static void setPoolPropertiesPath(String poolPropertiesPath) {
+        Environment.poolPropertiesPath = poolPropertiesPath;
+    }
+}

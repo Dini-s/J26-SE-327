@@ -1,0 +1,55 @@
+{
+ "note": "Cross-encoder reranker (stage 1.5) results. Numbers copied from Colab output (held-out) and from a read-only PetClinic comparison run locally. Nothing here was written to the graph.",
+ "model": "cross-encoder/ms-marco-MiniLM-L-6-v2 (not fine-tuned for PetClinic; a fine-tuned variant on iTrust+SMOS+eANCI+eTour was not shown to be better)",
+ "fusion": "z(stage-1 score) + 0.5 * z(cross-encoder score), over a pool of 20 candidates per requirement",
+ "heldout_retrieval_level": {
+  "datasets": "LibEST, CM-1, EBT (115 requirements; never used in training)",
+  "untrained_minilm_vs_stage1_all": {
+   "hits@5_w0.5": "+0.115 [+0.026,+0.209]",
+   "hits@5_w1": "+0.088 [-0.017,+0.200]",
+   "MRR_w0.5": "+0.015 [-0.021,+0.053]",
+   "hits@3_w0.5": "+0.009 [-0.070,+0.087]"
+  },
+  "finetuned_minilm_vs_stage1_all": {
+   "hits@5_w0.5": "+0.157 [+0.070,+0.252]",
+   "hits@5_w1": "+0.138 [+0.017,+0.261]",
+   "MRR_w0.5": "+0.026 [-0.004,+0.058]",
+   "hits@3_w0.5": "+0.035 [-0.052,+0.122]"
+  },
+  "codebert_finetuned": "worse than stage 1 alone (CM-1 MRR 0.211 vs 0.876); fused results inconsistent; not used",
+  "caveats": [
+   "weights chosen after seeing test results",
+   "115 requirements only; LibEST has 14 code files",
+   "fine-tune benefit over untrained model not demonstrated"
+  ]
+ },
+ "petclinic_with_llm": {
+  "setup": "26 synthetic requirements, 37 code files, Llama 3.1 8B verdicts from earlier runs (expert prompt, kept = is_linked and confidence >= 0.5). All 142 candidate pairs of both methods had already been judged, so no new LLM calls were needed.",
+  "top3": {
+   "llm_calls": 78,
+   "stage1_confirmed": 38,
+   "reranked_confirmed": 39
+  },
+  "top5": {
+   "llm_calls": 130,
+   "stage1_confirmed": 47,
+   "reranked_confirmed": 51,
+   "pairs_dropped_by_reranker": 12,
+   "dropped_that_llm_had_confirmed": 0,
+   "pairs_added_by_reranker": 12,
+   "added_that_llm_confirmed": 4,
+   "added_confirmed_examples": [
+    "PC-REQ-003 findOwners.html",
+    "PC-REQ-012 createOrUpdateVisitForm.html",
+    "PC-REQ-013 ownerDetails.html",
+    "PC-REQ-016 welcome.html"
+   ]
+  },
+  "rerank_time": "about 4.2 s for 26 requirements x 20 pairs (520 pairs) on an Apple GPU (MPS); LLM call is 25-50 s each",
+  "caveats": [
+   "no human gold labels: 'confirmed' means the 8B LLM said yes, and it is known to make false positives",
+   "requirements are synthetic and were written from the code",
+   "one project, one run, no significance test"
+  ]
+ }
+}
