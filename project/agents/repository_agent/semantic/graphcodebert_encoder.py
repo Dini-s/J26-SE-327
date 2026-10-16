@@ -26,20 +26,39 @@ def find_java_files(repository_path: Path, production_only: bool = False):
     """Find Java files, optionally restricting analysis to production source."""
     files = []
 
-    for path in repository_path.rglob("*.java"):
-        if any(part in SKIP_DIRS for part in path.parts):
-            continue
+    skip_dirs = SKIP_DIRS | {"test", "tests"}
 
+    for path in repository_path.rglob("*.java"):
         if not path.is_file():
             continue
 
+        relative_parts = path.relative_to(repository_path).parts
+        lower_parts = tuple(part.lower() for part in relative_parts)
+
+        # Exclude build, test, and tool-specific directories.
+        if any(
+            part.lower() in {d.lower() for d in skip_dirs}
+            for part in relative_parts[:-1]
+        ):
+            continue
+
         if production_only:
-            relative_parts = path.relative_to(repository_path).parts
-            is_production = any(
-                relative_parts[i : i + 3] == ("src", "main", "java")
-                for i in range(len(relative_parts) - 2)
+            # Standard Maven/Gradle production source.
+            is_standard_production = any(
+                lower_parts[i : i + 3] == ("src", "main", "java")
+                for i in range(len(lower_parts) - 2)
             )
-            if not is_production:
+
+            is_legacy_production = (
+                len(lower_parts) >= 4
+                and lower_parts[0] == "src"
+                and lower_parts[1] not in {"main", "test", "tests"}
+                and "src" in lower_parts[2:-1]
+                and "test" not in lower_parts
+                and "tests" not in lower_parts
+            )
+
+            if not (is_standard_production or is_legacy_production):
                 continue
 
         files.append(path)
