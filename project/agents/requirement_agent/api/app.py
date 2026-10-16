@@ -5,13 +5,14 @@
 Storage: SQLite file and uploads under outputs/c1_workspace/ (C1_WORKSPACE overrides). Generation backend: C1_GENERATION_BACKEND = replay | ollama | mock
 (default replay). Contract: docs/c1_api_contract.md.
 """
+import hashlib
 import logging
 import time
 import uuid
 from contextlib import asynccontextmanager
 from typing import Optional
 
-from fastapi import Body, FastAPI, File, Query, Request, UploadFile
+from fastapi import Body, FastAPI, File, Form, Query, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
@@ -24,6 +25,8 @@ from . import engine as engine_mod
 from .engine import EngineStore
 from .errors import ApiError
 from .gen_worker import GenerationManager, make_backend
+from .neo4j_schema import DEFAULT_SOURCE_TYPE, SOURCE_TYPES
+from .neo4j_store import Neo4jStore
 
 log = logging.getLogger("c1.api")
 
@@ -32,7 +35,7 @@ def _error(status, code, message):
     return JSONResponse(status_code=status, content={"error": {"code": code, "message": message}})
 
 
-def create_app(workspace=None, backend=None, backend_name=None, model_name=None, replay_file=None, models_dir=None):
+def create_app(workspace=None, backend=None, backend_name=None, model_name=None, replay_file=None, models_dir=None, neo4j_store_=None):
     ws = settings.workspace_dir(workspace)
     (ws / "uploads").mkdir(parents=True, exist_ok=True)
     settings.configure_embedding_cache(ws)
@@ -61,8 +64,9 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         yield
         manager.stop()
 
+    neo4j_store = neo4j_store_ if neo4j_store_ is not None else Neo4jStore(db)
     app = FastAPI(title="Component 1 - Requirement Intelligence API", version="1.0.0", lifespan=lifespan)
-    app.state.db, app.state.manager, app.state.workspace, app.state.engine = db, manager, ws, engine
+    app.state.db, app.state.manager, app.state.workspace, app.state.engine, app.state.neo4j = db, manager, ws, engine, neo4j_store
     app.add_middleware(CORSMiddleware, allow_origins=settings.CORS_ORIGINS, allow_methods=["*"], allow_headers=["*"])
 
     # ------------------------------------------------------------------------------------------------ errors
@@ -148,8 +152,11 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
 
     @app.post("/api/projects/{pid}/sources", response_model=schemas.UploadResult, status_code=201,
               responses={400: {"model": schemas.ErrorResponse}, 413: {"model": schemas.ErrorResponse}})
-    def upload_sources(pid: int, files: list[UploadFile] = File(...)):
+    def upload_sources(pid: int, files: list[UploadFile] = File(...), source_type: str = Form(DEFAULT_SOURCE_TYPE)):
         service.project_or_404(db, pid)
+        source_type = (source_type or DEFAULT_SOURCE_TYPE).strip().lower()
+        if source_type not in SOURCE_TYPES:
+            raise ApiError(400, "invalid_parameter", f"source_type must be one of {list(SOURCE_TYPES)}.")
         root = (ws / "uploads").resolve()
         accepted, rejected, first_error = [], [], None
         for f in files:
@@ -175,9 +182,9 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
                 if folder not in stored.parents:
                     raise ApiError(400, "bad_filename", "The file name is not allowed.")
                 stored.write_bytes(raw)
-                sid = db.run("INSERT INTO sources (project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+                sid = db.run("INSERT INTO sources (project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
                              (pid, shown, str(stored), ext, size, extracted["pages"], dumps(extracted["warnings"]),
-                              dumps({"text": extracted["text"], "line_map": extracted["line_map"]}), now()))
+                              dumps({"text": extracted["text"], "line_map": extracted["line_map"]}), now(), source_type, hashlib.sha256(raw).hexdigest()))
                 accepted.append(service.source_out(db.one("SELECT * FROM sources WHERE id=?", (sid,))))
             except ApiError as exc:
                 first_error = first_error or exc
@@ -265,6 +272,16 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
     @app.post("/api/requirements/{rid}/decision", response_model=schemas.DecisionOut)
     def decide(rid: str, body: schemas.DecisionIn = Body(...)):
         return service.set_decision(db, rid, body.decision, body.edited_text, body.note)
+
+    @app.post("/api/projects/{pid}/publish/neo4j", response_model=schemas.PublishOut,
+              responses={503: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
+    def publish_neo4j(pid: int, body: Optional[schemas.PublishIn] = Body(None)):
+        body = body or schemas.PublishIn()
+        return neo4j_store.publish(pid, body.project_id, body.project_name)
+
+    @app.get("/api/projects/{pid}/publish/neo4j", response_model=schemas.PublishStatus)
+    def publish_neo4j_status(pid: int, project_id: Optional[str] = Query(None, pattern=r"^[A-Za-z0-9_.:-]{1,100}$")):
+        return neo4j_store.status(pid, project_id)
 
     @app.get("/api/projects/{pid}/export")
     def export(pid: int, format: str = "json"):

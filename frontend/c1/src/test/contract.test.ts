@@ -14,13 +14,13 @@ const spec = JSON.parse(readFileSync(resolve(process.cwd(), '../../docs/c1_opena
 afterEach(() => vi.unstubAllGlobals())
 
 describe('the typed client and fixtures match docs/c1_openapi.json', () => {
-  it('has the seventeen documented paths', () => {
+  it('has the eighteen documented paths', () => {
     expect(Object.keys(spec.paths).sort()).toEqual(
       [
         '/api/health', '/api/projects', '/api/projects/{pid}/sources', '/api/projects/{pid}/sources/{source_id}', '/api/projects/{pid}/analyze', '/api/jobs/{job_id}', '/api/projects/{pid}/summary',
         '/api/projects/{pid}/requirements', '/api/requirements/{rid}', '/api/requirements/{rid}/generate', '/api/requirements/{rid}/decision', '/api/projects/{pid}/export',
         '/api/projects/{pid}/generate', '/api/projects/{pid}/generation/pause', '/api/projects/{pid}/generation/resume',
-        '/api/engine', '/api/engine/test',
+        '/api/engine', '/api/engine/test', '/api/projects/{pid}/publish/neo4j',
       ].sort(),
     )
   })

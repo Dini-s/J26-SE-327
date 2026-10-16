@@ -25,7 +25,8 @@ The UI mockup `docs/ui/c1_mockup.png` was not in the repository when this was wr
   Conflicts are rule-based candidates (MiniLM cosine >= 0.80 plus a prohibition or different numeric limit) and always say "needs human decision". No accuracy is claimed for them.
   Drafts (story, task, criteria) are model output. Only `decision` is a human choice.
 - **Settings (environment).** `C1_GENERATION_BACKEND` = `replay` (default) | `ollama` | `mock`; `C1_REPLAY_FILE` (default `evaluation/component1/generation/ft_outputs.json`);
-  `LLM_BASE_URL` (default `http://localhost:11434/v1`), `LLM_MODEL`, `LLM_API_KEY`, `LLM_TIMEOUT` for Ollama; `C1_WORKSPACE` (default `outputs/c1_workspace`).
+  `LLM_BASE_URL` (default `http://localhost:11434/v1`), `LLM_MODEL`, `LLM_API_KEY`, `LLM_TIMEOUT` for Ollama; `C1_WORKSPACE` (default `outputs/c1_workspace`);
+  `C1_NEO4J_*` / `NEO4J_*`, `C1_PROJECT_ID`, `C1_PROJECT_NAME` for publishing to Neo4j (see `c1_neo4j_contract.md`).
   The workspace holds `c1.db`, `uploads/` and the API's own embedding cache; it is git-ignored.
 
 ## Live mode (local Ollama model `c1-req`)
@@ -94,10 +95,10 @@ Request `{"name": "Second project"}` (1-120 characters), response 201
 The project "Core Banking Platform" (id 1) is created on first start.
 
 ### POST /api/projects/{pid}/sources
-`multipart/form-data`, field `files` repeated. Allowed: `.txt .md .pdf .docx`, 20 MB each. File names are reduced to a safe base name; the file is stored under a generated name.
+`multipart/form-data`, field `files` repeated, optional field `source_type` = `srs` (default) | `brd` | `other` (applies to all files of the request; anything else is 400 `invalid_parameter`). Allowed: `.txt .md .pdf .docx`, 20 MB each. File names are reduced to a safe base name; the file is stored under a generated name.
 Response 201 (`rejected` lists files that were not accepted; if nothing was accepted the first error is returned instead with its status):
 ```json
-{"accepted": [{"id": 1, "filename": "sample_srs.txt", "ext": ".txt", "size_bytes": 255, "pages": null, "warnings": [], "created_at": "2026-10-13T06:46:50+00:00"}],
+{"accepted": [{"id": 1, "filename": "sample_srs.txt", "ext": ".txt", "size_bytes": 255, "pages": null, "warnings": [], "created_at": "2026-10-13T06:46:50+00:00", "source_type": "srs"}],
  "rejected": []}
 ```
 ### GET /api/projects/{pid}/sources
@@ -206,6 +207,25 @@ Response (the latest decision plus the history, oldest first):
              {"decision": "edited", "edited_text": "The system shall respond within 2 seconds.", "note": "made measurable", "created_at": "2026-10-13T07:01:02+00:00"}]}
 ```
 The original text is never changed.
+
+### POST /api/projects/{pid}/publish/neo4j, GET /api/projects/{pid}/publish/neo4j
+Publish the clarified requirements to the shared Neo4j graph (one-way, idempotent; schema and rules in `c1_neo4j_contract.md`, a proposal pending team agreement).
+`POST` takes an optional body `{"project_id": "demo-project", "project_name": "..."}` (default: `C1_PROJECT_ID` / `C1_PROJECT_NAME`, stub `demo-project` / `Core Banking Platform`) and answers
+```json
+{"project_id": "demo-project", "published_at": "2026-10-16T08:00:00+00:00", "seconds": 0.42,
+ "counts": {"Project": 1, "SourceDocument": 2, "Requirement": 44, "Issue": 61, "TaskDraft": 30, "DUPLICATE_OF": 3},
+ "deactivated": {"SourceDocument": 0, "Requirement": 0, "Issue": 0, "TaskDraft": 0, "DUPLICATE_OF": 0}, "content_hash": "..."}
+```
+`counts` are what was sent; `deactivated` counts items newly set to `active = false` because they are no longer in the workspace (nothing is deleted).
+`GET` (optional query `project_id`) is the status, always 200:
+```json
+{"configured": true, "reachable": true, "project_id": "demo-project", "host": "localhost", "database": "neo4j", "server_version": "2026.09.0",
+ "last_published_at": "2026-10-16T08:00:00+00:00", "last_counts": {"Requirement": 44}, "out_of_date": false, "error": null, "message": null}
+```
+`out_of_date` is true when nothing was published yet or when the content hash of everything a publish would send differs from the hash stored at the last successful publish.
+`host` is the host name only. When Neo4j cannot be used, `reachable` is false and `error`/`message` say why. Errors of `POST`: 503 `neo4j_unconfigured`, `neo4j_driver_missing`, `neo4j_unreachable`,
+`neo4j_auth_failed`, `neo4j_publish_failed` (plain messages; never the password or the address); 409 `publish_in_progress`; 404 `project_not_found`. Other endpoints are not affected.
+Settings: `C1_NEO4J_URI` / `C1_NEO4J_USER` / `C1_NEO4J_PASSWORD` / `C1_NEO4J_DATABASE`, then `NEO4J_URI` / `NEO4J_USERNAME` / `NEO4J_PASSWORD` / `NEO4J_DATABASE`, from the environment or the shared `.env` (only these keys).
 
 ### GET /api/projects/{pid}/export?format=csv|json
 `csv`: one row per requirement, UTF-8 with BOM, `Content-Disposition: attachment`. Columns: `id, uid, source_file, page, paragraph, original_text, final_text, decision, decision_note, type, nfr_probability, risk_level, risk_score, ambiguity_label, ambiguity_probability, weak_words, security_related, duplicate_of, conflict_candidates, generation_state, user_story, technical_task, acceptance_criteria, rationale, clarification_questions`.

@@ -42,6 +42,7 @@ class SourceOut(BaseModel):
     pages: Optional[int] = None
     warnings: List[str] = []
     created_at: str
+    source_type: str = "srs"  # srs | brd | other
 
 
 class RejectedFile(BaseModel):
@@ -240,6 +241,35 @@ class EngineOut(BaseModel):
     cloud_disabled_reason: Optional[str] = None
     device: DeviceEngine
     cloud: CloudEngine
+
+
+class PublishIn(BaseModel):
+    """Optional: the platform project to publish under (default: C1_PROJECT_ID / C1_PROJECT_NAME)."""
+    project_id: Optional[str] = Field(default=None, min_length=1, max_length=100, pattern=r"^[A-Za-z0-9_.:-]+$")
+    project_name: Optional[str] = Field(default=None, min_length=1, max_length=200)
+
+
+class PublishOut(BaseModel):
+    project_id: str
+    published_at: str
+    seconds: float
+    counts: Dict[str, int]  # nodes/links sent, per label or relationship type
+    deactivated: Dict[str, int]  # items set active=false because they are no longer in the workspace
+    content_hash: str
+
+
+class PublishStatus(BaseModel):
+    configured: bool
+    reachable: bool
+    project_id: str
+    host: Optional[str] = None  # host name only
+    database: Optional[str] = None
+    server_version: Optional[str] = None
+    last_published_at: Optional[str] = None
+    last_counts: Optional[Dict[str, int]] = None
+    out_of_date: bool  # true when nothing was published yet or the workspace changed since the last successful publish
+    error: Optional[str] = None  # neo4j_unconfigured | neo4j_driver_missing | neo4j_unreachable | neo4j_auth_failed
+    message: Optional[str] = None
 
 
 class GenerateAllOut(BaseModel):

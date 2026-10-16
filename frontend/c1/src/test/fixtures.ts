@@ -8,7 +8,8 @@ export const engine: Engine = {
   cloud: { configured: false, host: null, model: 'c1-req', concurrency: 4, consent: false, consent_at: null, reachable: null, last_tested_at: null },
 }
 export const project: Project = { id: 1, name: 'Core Banking Platform', created_at: '2026-10-13T06:00:00+00:00', sources: 1, requirements: 42 }
-export const source: Source = { id: 1, filename: 'CoreBanking_SRS_v2.pdf', ext: '.pdf', size_bytes: 1000, pages: 12, warnings: [], created_at: '2026-10-13T06:00:00+00:00' }
+// source_type is returned by the API but not read by the UI yet: spread in so the fixture has exactly the API's fields without widening the UI type
+export const source: Source = { id: 1, filename: 'CoreBanking_SRS_v2.pdf', ext: '.pdf', size_bytes: 1000, pages: 12, warnings: [], created_at: '2026-10-13T06:00:00+00:00', ...({ source_type: 'srs' } as object) }
 
 export const summary: Summary = {
   requirements: 42,

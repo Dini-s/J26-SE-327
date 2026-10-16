@@ -31,7 +31,7 @@ def project_out(db, p):
 
 def source_out(s):
     return {"id": s["id"], "filename": s["filename"], "ext": s["ext"], "size_bytes": s["size_bytes"], "pages": s["pages"],
-            "warnings": loads(s["warnings"], []), "created_at": s["created_at"]}
+            "warnings": loads(s["warnings"], []), "created_at": s["created_at"], "source_type": s.get("source_type") or "srs"}
 
 
 # ------------------------------------------------------------------------------------------------------------------- generation block

@@ -24,6 +24,9 @@ CREATE TABLE IF NOT EXISTS generation (
     manual_review INTEGER NOT NULL DEFAULT 0, cache_key TEXT, updated_at TEXT NOT NULL, priority INTEGER NOT NULL DEFAULT 1);
 CREATE TABLE IF NOT EXISTS gen_cache (key TEXT PRIMARY KEY, result TEXT NOT NULL, created_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS gen_latency (id INTEGER PRIMARY KEY AUTOINCREMENT, backend TEXT NOT NULL, model TEXT NOT NULL, seconds REAL NOT NULL, created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS publish_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, project_id INTEGER NOT NULL, graph_project_id TEXT NOT NULL, graph_project_name TEXT NOT NULL DEFAULT '', content_hash TEXT NOT NULL, published_at TEXT NOT NULL,
+    seconds REAL NOT NULL, counts TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS decisions (uid TEXT PRIMARY KEY, decision TEXT NOT NULL, edited_text TEXT, note TEXT, updated_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS decision_history (
@@ -39,6 +42,8 @@ MIGRATIONS = (
     ("jobs", "policy", "TEXT NOT NULL DEFAULT 'smart'"),
     ("gen_latency", "target", "TEXT NOT NULL DEFAULT 'device'"),
     ("gen_latency", "finished", "REAL"),
+    ("sources", "source_type", "TEXT NOT NULL DEFAULT 'srs'"),
+    ("sources", "sha256", "TEXT"),
 )
 
 
