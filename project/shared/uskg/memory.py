@@ -58,6 +58,15 @@ class InMemoryUSKG:
         )
         return True
 
+    def resolve_decay(self, link: TraceabilityLink) -> int:
+        """Mark the open flags of a link resolved; returns how many were closed."""
+        n = 0
+        for flag in self.decay_flags:
+            if flag["source_id"] == link.source_id and flag["target_id"] == link.target_id and not flag.get("resolved"):
+                flag["resolved"] = True
+                n += 1
+        return n
+
     def mark_decayed(self, link: TraceabilityLink, new_confidence: float, reason: str, text_hash: Optional[str] = None) -> bool:
         """Mark a stored link decayed and record a flag (the link is kept)."""
         key = (link.source_id, link.target_id)

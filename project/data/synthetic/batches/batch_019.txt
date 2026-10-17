@@ -1,0 +1,437 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0181 ===
+/** Servlet used to assign Teachings to a teacher @author Giulio D'Amora @version 1.0 */
+public class ServletAddRemoveTeachingsAsAddress extends HttpServlet {
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6692711286746163446L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "./showAddressList";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerTeaching managerTeaching = ManagerTeaching.getInstance();
+		ManagerAddress managerAddress = ManagerAddress.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage = "L'Utente collegato non ha accesso alla "
+					+ "funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			// I need the id of the address and the two lists of teachings!
+			Address address = (Address) session.getAttribute("address"); 
+			String[] idSelectedList = pRequest.getParameterValues("selectedTeachings");
+			String[] idUnselectedList = pRequest.getParameterValues("unselectedTeachings");
+			int nSelected =idSelectedList.length;
+			int nUnselected =idUnselectedList.length;
+			int temp;
+			// We add the selected teachings!!
+				for(int i=0;i<nSelected;i++){
+					temp = Integer.valueOf(
+
+=== F0182 ===
+/** Implementation of the thread able to keep the connection to the MySQL database when there are no more active connections (solution to the problem of MySQL's autoreconnect). This class also takes care of calling the method that releases the active connections that have not performed operations within a certain interval of time. */
+
+public class ControlConnection extends Thread {
+    private static ConnectionPoolDataSource manager = null;
+
+    private static int waitTimeout;
+
+    /** Creates a new instance of the Thread. @author Di Giorgio Domenico, Cris Malinconico */
+
+    public ControlConnection(ConnectionPoolDataSource pManager) {
+        ControlConnection.manager = pManager;
+    }
+
+    /** Creates a new instance of the Thread. */
+
+    public ControlConnection(ConnectionPoolDataSource pManager, int pTime) {
+        ControlConnection.waitTimeout = pTime;
+        ControlConnection.manager = pManager;
+    }
+
+    /** The thread does nothing but sleep when there are active users, and otherwise keeps the connection to MySQL open. */
+
+    public void run() {
+        try {
+            while (true) {
+                if (manager.activeSize() > 0) {
+                    this.setPriority(Thread.MAX_PRIORITY);
+                    manager.clearActive();
+                    this.setPriority(Thread.NORM_PRIORITY);
+                }
+                if (manager.activeSize() == 0) {
+                    while (true) {
+                        try {
+                            manager.closeAl
+
+=== F0183 ===
+/** The class ServletModificaAmministratore (ServletModifyAdministrator) performs the modification of an administrator. The class has no dependencies @author Federico Cinque */
+public class ServletModificaAmministratore extends HttpServlet{
+
+	private String nome;
+	private String cognome;
+	private String email;
+	private String matricola;
+	private String login;
+	private String password;
+	private String tipo;
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session = request.getSession();
+		if(session!=null){	// If the session is null, performs a redirect to the authentication page
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = null;
+			String ris;
+			try{
+				// If the session attributes amm and acc are null I have to perform the search
+				if(session.getAttribute("amm")==null && session.getAttribute("acc")==null){
+					String matricola = request.getParameter("matricola");
+					AdminManager AdM = new AdminManager();
+					Amministratore am = AdM.ricercaAdminByMatricola(matricola);
+					if(am != null){
+						session.setAttribute("amm", am);
+
+						AccessManager AM = new AccessManager();
+						Accesso ac = AM.getAccesso(am.getLogin());
+						session.setAttribute("acc", ac);
+
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=modifica&page=amministratore"); 
+						rd.forward(request,response);
+					}
+					else{
+						ris="La matricola non corrisponde ad un amministratore
+
+=== F0184 ===
+/** This class represents the exception raised when a user tries to perform an operation for which he or she does not have permission. */
+public class PermissionException extends Exception {
+	
+	private static final long serialVersionUID = 1881009447251825664L;
+
+	/** Raises the exception without an associated error message. */
+	public PermissionException() {
+		super("Permission Denied!");
+	}
+	
+	/** Raises the exception with an associated error message. */
+	public PermissionException(String pMessage) {
+		super(pMessage);
+	}
+	
+	
+}
+
+=== F0185 ===
+public class RegisterLine implements Serializable {
+
+	/** Class that models a line of the register @author Nicola Pisanti @version 1.0  */
+	private static final long serialVersionUID = -6010085925185873838L;
+	
+	private UserListItem student;
+	private Absence absence;
+	private Delay delay;
+	
+	public RegisterLine(){
+		absence=null;
+		delay=null;
+		
+	}
+	
+	/** Method that returns the student of this line of the register */
+	public UserListItem getStudent() {
+		return student;
+	}
+	/** Method that sets the student of this line of the register */
+	public void setStudent(UserListItem student) {
+		this.student = student;
+	}
+	/** Method that returns the absence of the student of this line of the register */
+	public Absence getAbsence() {
+		return absence;
+	}
+	/** Method that sets the absence of the student of this line of the register */
+	public void setAbsence(Absence absence) {
+		this.absence = absence;
+	}
+	/** Method that returns the lateness of the student of this line of the register */
+	public Delay getDelay() {
+		return delay;
+	}
+	/** Method that sets the lateness of the student of this line of the register */
+	public void setDelay(Delay delay) {
+		this.delay = delay;
+	}
+
+}
+
+=== F0186 ===
+/**
+ * A loader for HealthRecords.
+ *
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency.
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
+public class HealthRecordsBeanLoader implements BeanLoader<HealthRecord> {
+	public List<HealthRecord> loadList(ResultSet rs) throws SQLException {
+		ArrayList<HealthRecord> list = new ArrayList<HealthRecord>();
+		while (rs.next()) {
+			list.add(loadSingle(rs));
+		}
+		return list;
+	}
+
+	public PreparedStatement loadParameters(PreparedStatement ps, HealthRecord bean) throws SQLException {
+		int i = 1;
+		ps.setLong(i++, bean.getPatientID());
+		ps.setDouble(i++, bean.getHeight());
+		ps.setDouble(i++, bean.getWeight());
+		ps.setInt(i++, bean.isSmoker() ? 1 : 0);
+		ps.setInt(i++, bean.getBloodPressureN());
+		ps.setInt(i++, bean.getBloodPressureD());
+		ps.setInt(i++, bean.getCholesterolHDL());
+		ps.setInt(i++, bean.getCholesterolLDL());
+		ps.setInt(i++, bean.getCholesterolTri());
+		ps.setLong(i++, bean.getPersonnelID());
+		return ps;
+	}
+
+	public HealthRecord loadSingle(ResultSet rs) throws SQLException {
+		HealthRecord hr = new HealthRecord();
+		hr.setBloodPressureN(rs.getInt("BloodPressureN"));
+		hr.setBloodPressureD(rs.getInt("BloodPressureD"));
+		hr.setCholesterolHDL(rs.getInt("CholesterolHDL"));
+		hr.setCholesterolLDL(rs.getInt("CholesterolLDL"));
+		hr.setCholesterolTri(rs.getInt("CholesterolTri"));
+		hr.setDateRecorded(rs.get
+
+=== F0187 ===
+/** The class Impiegato (Employee) allows only the administrator to manage the employees. The class Impiegato has no dependencies @author Federico Cinque */
+public class Impiegato {
+	
+	private String Nome;
+	private String Cognome;
+	private String Matricola;
+	private String Email;
+	private String Login;
+	
+	/** Empty constructor of the class Impiegato */
+	public Impiegato(){
+		Nome=null;
+		Cognome=null;
+		Matricola=null;
+		Email=null;
+		Login=null;
+	}
+	/** Constructor of the class Impiegato */
+	public Impiegato(String Nome, String Cognome,String  Matricola, String Email, String Login){
+		this.Nome=Nome;
+		this.Cognome=Cognome;
+		this.Matricola=Matricola;
+		this.Email=Email;
+		this.Login=Login;
+	}
+	/** Method that returns the first name of the employee */
+	public String getNome() {
+		return Nome;
+	}
+	/** Method that sets the first name of the employee */
+	public void setNome(String nome) {
+		Nome = nome;
+	}
+	/** Method that returns the last name of the employee */
+	public String getCognome() {
+		return Cognome;
+	}
+	/** Method that sets the last name of the employee */
+	public void setCognome(String cognome) {
+		Cognome = cognome;
+	}
+	/** Method that returns the employee number (matricola) of the employee */
+	public String getMatricola() {
+		return Matricola;
+	}
+	/** Method that sets the employee number (matricola) of the employee */
+	public void setMatricola(String matricola) {
+		Matricola = matricola;
+	}
+	/** Method that returns the e-mail of the employee */
+	public String getE
+
+=== F0188 ===
+/** Manager class for the teachings (subjects). @author Giulio D'Amora @version 1.0 */
+
+public class ManagerTeaching {
+	private static ManagerTeaching instance;
+
+	/** The name of the teachings table. */
+	public static final String TABLE_TEACHING = "teaching";
+
+	/** The name of the table that models the many-to-many association between addresses and teachings. */
+	public static final String TABLE_ADDRESS_TEACHINGS = "address_has_teaching";
+
+	/** The name of the table that models the many-to-many association between users and teachings. */
+	public static final String TABLE_TEACHER_CLASSROOM = "teacher_has_classroom";
+
+	/** The constructor of the class. */
+	private ManagerTeaching() {
+		super();
+	}
+
+	/** Returns the only existing instance of the teaching. */
+	public static synchronized ManagerTeaching getInstance() {
+		if (instance == null) {
+			instance = new ManagerTeaching();
+		}
+		return instance;
+	}
+
+	/** Checks the existence of a teaching in the database. */
+	public synchronized boolean exists(Teaching pTeaching)
+			throws MandatoryFieldException, ConnectionException, SQLException {
+
+		boolean result = false;
+		Connection connect = null;
+
+		if (pTeaching.getName() == null)
+			throw new MandatoryFieldException("Specificare il nome.");
+		try {
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			String sql = "SELECT * FROM " + ManagerTeaching.TABLE_TEACHING
+					+ " WHERE name
+
+=== F0189 ===
+public class ServletAssignStudentClassroom extends HttpServlet {
+
+	/**
+	 * 
+	 */
+
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "./showUserList";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerClassroom managerClassroom = ManagerClassroom.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+
+		// Checks that the user has logged in
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if ((!managerUser.isAdministrator(loggedUser))) {
+				errorMessage = "L'Utente collegato non ha accesso alla "
+					+ "funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+
+			// Selected student
+			User user = (User) session.getAttribute("user");
+
+			// selected academic year
+			int academicYear = Integer.valueOf(pRequest
+					.getParameter("accademicYear"));
+			// id of the selected class, which is zero if we want to delete
+			// the association
+			int idClassroom = Integer.valueOf(pRequest.getParameter("classId"));
+			Classroom p = null;
+			p = managerClassroom.getClassroomByUserAcademicYear(user,academicYear);
+			if (p != null)
+				managerUser.removeStudentClassroom(user, p.getIdClassroom());
+			if(idClassroom>0) {
+				
+					managerUser.assignStudentClassroom(user, idClassroom);
+			}
+
+		} catch (NumberFormatException numberFormatException) {
+			errorMessage = Environment.DE
+
+=== F0190 ===
+/**
+ *
+ * Action class for ViewReport.jsp
+ *
+ */
+public class ViewReportAction {
+	private PatientDAO patientDAO;
+	private PersonnelDAO personnelDAO;
+
+	/**
+	 * Set up defaults
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID The MID of the person viewing the report.
+	 */
+	public ViewReportAction(DAOFactory factory, long loggedInMID) {
+		patientDAO = factory.getPatientDAO();
+		personnelDAO = factory.getPersonnelDAO();
+	}
+
+	/**
+	 *  Get diagnosis list for the given patient
+	 * @param pid the patient of interest
+	 * @return list of diagnoses
+	 * @throws iTrustException
+	 */
+	public List<DiagnosisBean> getDiagnoses(long pid) throws iTrustException {
+		return patientDAO.getDiagnoses(pid);
+	}
+
+	/**
+	 *  Get procedure list for the given patient
+	 * @param pid the patient of interest
+	 * @return list of procedures
+	 * @throws iTrustException
+	 */
+	public List<ProcedureBean> getProcedures(long pid) throws iTrustException {
+		return patientDAO.getProcedures(pid);
+	}
+
+	/**
+	 *  Get prescription list for the given patient
+	 * @param pid the patient of interest
+	 * @return list of prescriptions
+	 * @throws iTrustException
+	 */
+	public List<PrescriptionBean> getPrescriptions(long pid) throws iTrustException {
+		return patientDAO.getCurrentPrescriptions(pid);
+	}
+
+	/**
+	 *  Get declared HCPs list for the given patient
+	 * @param pid the patient of interest
+	 * @return list of declared HCPs
+	 * @throws iTrustException
+	 */
+	public List<Perso

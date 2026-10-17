@@ -1,0 +1,13 @@
+untrained emb@5 0.5842 emb@10 0.8455 hyb@5 0.5717 hyb@10 0.8531 (macro recall of true links over LibEST, CM-1, EBT; Colab T4, 3 seeds, 2 epochs, 2271 pairs, batch 16)
+fully synthetic pairs seed0 emb5 0.6005 emb10 0.8473 hyb5 0.5802 hyb10 0.8389
+fully synthetic pairs seed1 emb5 0.5880 emb10 0.8389 hyb5 0.5819 hyb10 0.8491
+fully synthetic pairs seed2 emb5 0.5824 emb10 0.8292 hyb5 0.5671 hyb10 0.8355
+fully synthetic pairs + hard negatives seed0 emb5 0.5873 emb10 0.8132 hyb5 0.5837 hyb10 0.8559
+fully synthetic pairs + hard negatives seed1 emb5 0.5719 emb10 0.8223 hyb5 0.5876 hyb10 0.8451
+fully synthetic pairs + hard negatives seed2 emb5 0.5895 emb10 0.8274 hyb5 0.5889 hyb10 0.8627
+real (same number) seed0 emb5 0.6169 emb10 0.8565 hyb5 0.5837 hyb10 0.8599
+real (same number) seed1 emb5 0.6263 emb10 0.8508 hyb5 0.5812 hyb10 0.8565
+real (same number) seed2 emb5 0.6120 emb10 0.8599 hyb5 0.5711 hyb10 0.8531
+real + synthetic + hard negatives seed0 emb5 0.6210 emb10 0.8423 hyb5 0.6052 hyb10 0.8531
+real + synthetic + hard negatives seed1 emb5 0.6012 emb10 0.8314 hyb5 0.5836 hyb10 0.8599
+real + synthetic + hard negatives seed2 emb5 0.6145 emb10 0.8280 hyb5 0.6000 hyb10 0.8599

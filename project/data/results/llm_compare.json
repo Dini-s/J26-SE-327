@@ -1,0 +1,1630 @@
+{
+ "models": {
+  "llama3.1-8k:latest": [
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "Tourist.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 101.7
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC16",
+    "target": "/auth/hcp-uap/chronicDiseaseRisks",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 25.1
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S4",
+    "target": "/auth/hcp-uap/editOfficeVisit",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 33.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC17.txt",
+    "target": "IAdvertisementManager.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 26.7
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC17S3",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 34.5
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.1",
+    "target": "DPUSDS5.12.1.1.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 23.0
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S2",
+    "target": "ICDCodesDAO",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 35.1
+   },
+   {
+    "dataset": "etour",
+    "source": "UC11.txt",
+    "target": "CardBC.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 32.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.1",
+    "target": "DPUSDS5.13.0.2",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 28.7
+   },
+   {
+    "dataset": "etour",
+    "source": "UC2.txt",
+    "target": "IDBCulturalHeritage.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 37.0
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.4",
+    "target": "DPUSDS5.12.1.5.4",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 19.4
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC33E2",
+    "target": "/auth/hcp/hcpConsultation",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 39.0
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.1.2",
+    "target": "DPUSDS5.13.1.1.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 17.0
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.3",
+    "target": "DPUSDS5.12.1.2.3",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 30.3
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC26E2",
+    "target": "LabProcHCPAction",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 33.1
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC11S2",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 43.6
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.1",
+    "target": "DPUSDS5.12.1.5.1",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 21.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.2",
+    "target": "DPUSDS5.13.1.6.4",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 16.6
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.4.1",
+    "target": "DPUSDS5.13.1.3.1",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 15.5
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC18S1",
+    "target": "UpdateHospitalListAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 28.6
+   },
+   {
+    "dataset": "etour",
+    "source": "UC22.txt",
+    "target": "IAdvertisementAgencyManager.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 21.4
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.2",
+    "target": "DPUSDS5.13.0.2",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 21.8
+   },
+   {
+    "dataset": "etour",
+    "source": "UC18.txt",
+    "target": "IAdvertisementManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 23.2
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC3S2",
+    "target": "ResetPasswordAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 41.8
+   },
+   {
+    "dataset": "etour",
+    "source": "UC22.txt",
+    "target": "ControllDataAdvertisement.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 28.4
+   },
+   {
+    "dataset": "etour",
+    "source": "UC14.txt",
+    "target": "DBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 31.4
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC35S2",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 44.8
+   },
+   {
+    "dataset": "etour",
+    "source": "UC20.txt",
+    "target": "ControlData.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 45.6
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.7",
+    "target": "DPUSDS5.12.1.3.3",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 26.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.4.1",
+    "target": "DPUSDS5.13.1.1.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 19.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.1",
+    "target": "DPUSDS5.13.1.3.2",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 26.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC15.txt",
+    "target": "ITouristAgencyManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 30.1
+   },
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "IDBRefreshmentPointOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 22.9
+   },
+   {
+    "dataset": "etour",
+    "source": "UC20.txt",
+    "target": "IDBBanner.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 21.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.1",
+    "target": "DPUSDS5.12.1.4.4",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 19.6
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC34S2",
+    "target": "RemoteMonitoringDAO",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 38.7
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.2",
+    "target": "DPUSDS5.13.2.3",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 23.3
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.7",
+    "target": "DPUSDS5.12.0.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 25.7
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S2",
+    "target": "UpdateICDCodeListAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 38.3
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.2",
+    "target": "DPUSDS5.12.1.5.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 20.2
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC40S4",
+    "target": "/auth/hcp/viewMyAppts",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 35.4
+   },
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "RefreshmentPointAgencyManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 33.6
+   },
+   {
+    "dataset": "etour",
+    "source": "UC16.txt",
+    "target": "IDBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 25.8
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC33S2",
+    "target": "ReferralManagementAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 83.3
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S3",
+    "target": "UpdateNDCodeListAction",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 112.8
+   },
+   {
+    "dataset": "etour",
+    "source": "UC14.txt",
+    "target": "ITouristClientManager.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 34.9
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC18E1",
+    "target": "HospitalBean",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 22.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC21.txt",
+    "target": "ControllDataAdvertisement.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 30.8
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.3",
+    "target": "DPUSDS5.12.1.2.1",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 30.9
+   },
+   {
+    "dataset": "etour",
+    "source": "UC12.txt",
+    "target": "Tourist.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 31.2
+   },
+   {
+    "dataset": "etour",
+    "source": "UC13.txt",
+    "target": "TouristAgencyManager.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 33.3
+   },
+   {
+    "dataset": "etour",
+    "source": "UC11.txt",
+    "target": "DBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 33.5
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC4S3",
+    "target": "/auth/hcp/menu",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 32.3
+   },
+   {
+    "dataset": "etour",
+    "source": "UC13.txt",
+    "target": "IDBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 31.2
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC3E1",
+    "target": "AuthDAO",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 46.7
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC34S3",
+    "target": "RemoteMonitoringDataBean",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 45.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.1",
+    "target": "DPUSDS5.13.2.9",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 20.7
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.1.2",
+    "target": "DPUSDS5.13.2.9",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 25.9
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC23S3",
+    "target": "/auth/patient/viewMyRecords",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 52.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.3",
+    "target": "DPUSDS5.13.1.4.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 18.7
+   }
+  ],
+  "qwen2.5-coder-8k:latest": [
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "Tourist.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 77.6
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC16",
+    "target": "/auth/hcp-uap/chronicDiseaseRisks",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 23.9
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S4",
+    "target": "/auth/hcp-uap/editOfficeVisit",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 33.8
+   },
+   {
+    "dataset": "etour",
+    "source": "UC17.txt",
+    "target": "IAdvertisementManager.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 25.7
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC17S3",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 36.7
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.1",
+    "target": "DPUSDS5.12.1.1.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 21.3
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S2",
+    "target": "ICDCodesDAO",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 37.1
+   },
+   {
+    "dataset": "etour",
+    "source": "UC11.txt",
+    "target": "CardBC.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 31.5
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.1",
+    "target": "DPUSDS5.13.0.2",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 20.4
+   },
+   {
+    "dataset": "etour",
+    "source": "UC2.txt",
+    "target": "IDBCulturalHeritage.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 42.5
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.4",
+    "target": "DPUSDS5.12.1.5.4",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 24.4
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC33E2",
+    "target": "/auth/hcp/hcpConsultation",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 36.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.1.2",
+    "target": "DPUSDS5.13.1.1.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 21.8
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.3",
+    "target": "DPUSDS5.12.1.2.3",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 33.5
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC26E2",
+    "target": "LabProcHCPAction",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 34.9
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC11S2",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 39.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.1",
+    "target": "DPUSDS5.12.1.5.1",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 15.8
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.2",
+    "target": "DPUSDS5.13.1.6.4",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 14.3
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.4.1",
+    "target": "DPUSDS5.13.1.3.1",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 18.8
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC18S1",
+    "target": "UpdateHospitalListAction",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 32.0
+   },
+   {
+    "dataset": "etour",
+    "source": "UC22.txt",
+    "target": "IAdvertisementAgencyManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 24.6
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.2",
+    "target": "DPUSDS5.13.0.2",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 26.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC18.txt",
+    "target": "IAdvertisementManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 23.1
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC3S2",
+    "target": "ResetPasswordAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 35.9
+   },
+   {
+    "dataset": "etour",
+    "source": "UC22.txt",
+    "target": "ControllDataAdvertisement.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 19.8
+   },
+   {
+    "dataset": "etour",
+    "source": "UC14.txt",
+    "target": "DBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 32.3
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC35S2",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 40.2
+   },
+   {
+    "dataset": "etour",
+    "source": "UC20.txt",
+    "target": "ControlData.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 31.0
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.7",
+    "target": "DPUSDS5.12.1.3.3",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 19.4
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.4.1",
+    "target": "DPUSDS5.13.1.1.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 20.5
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.1",
+    "target": "DPUSDS5.13.1.3.2",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 20.2
+   },
+   {
+    "dataset": "etour",
+    "source": "UC15.txt",
+    "target": "ITouristAgencyManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 31.2
+   },
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "IDBRefreshmentPointOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 19.6
+   },
+   {
+    "dataset": "etour",
+    "source": "UC20.txt",
+    "target": "IDBBanner.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 22.5
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.1",
+    "target": "DPUSDS5.12.1.4.4",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 22.4
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC34S2",
+    "target": "RemoteMonitoringDAO",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 41.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.2",
+    "target": "DPUSDS5.13.2.3",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 29.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.7",
+    "target": "DPUSDS5.12.0.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 20.4
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S2",
+    "target": "UpdateICDCodeListAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 40.0
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.2",
+    "target": "DPUSDS5.12.1.5.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 13.2
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC40S4",
+    "target": "/auth/hcp/viewMyAppts",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 34.1
+   },
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "RefreshmentPointAgencyManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 26.6
+   },
+   {
+    "dataset": "etour",
+    "source": "UC16.txt",
+    "target": "IDBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 49.6
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC33S2",
+    "target": "ReferralManagementAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 181.0
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S3",
+    "target": "UpdateNDCodeListAction",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 35.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC14.txt",
+    "target": "ITouristClientManager.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 31.4
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC18E1",
+    "target": "HospitalBean",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 17.8
+   },
+   {
+    "dataset": "etour",
+    "source": "UC21.txt",
+    "target": "ControllDataAdvertisement.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 32.3
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.3",
+    "target": "DPUSDS5.12.1.2.1",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 26.3
+   },
+   {
+    "dataset": "etour",
+    "source": "UC12.txt",
+    "target": "Tourist.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 31.9
+   },
+   {
+    "dataset": "etour",
+    "source": "UC13.txt",
+    "target": "TouristAgencyManager.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 27.8
+   },
+   {
+    "dataset": "etour",
+    "source": "UC11.txt",
+    "target": "DBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 29.9
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC4S3",
+    "target": "/auth/hcp/menu",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 12.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC13.txt",
+    "target": "IDBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 15.5
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC3E1",
+    "target": "AuthDAO",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 32.5
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC34S3",
+    "target": "RemoteMonitoringDataBean",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 30.9
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.1",
+    "target": "DPUSDS5.13.2.9",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 26.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.1.2",
+    "target": "DPUSDS5.13.2.9",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 24.3
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC23S3",
+    "target": "/auth/patient/viewMyRecords",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 53.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.3",
+    "target": "DPUSDS5.13.1.4.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 14.3
+   }
+  ],
+  "gemma2-8k:latest": [
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "Tourist.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 73.7
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC16",
+    "target": "/auth/hcp-uap/chronicDiseaseRisks",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 59.9
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S4",
+    "target": "/auth/hcp-uap/editOfficeVisit",
+    "label": 0,
+    "linked": null,
+    "error": "InternalServerError: <html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx/1.24.0 (Ubuntu)</center>\r\n</body>\r\n</html>",
+    "seconds": 61.4
+   },
+   {
+    "dataset": "etour",
+    "source": "UC17.txt",
+    "target": "IAdvertisementManager.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 66.1
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC17S3",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 67.3
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.1",
+    "target": "DPUSDS5.12.1.1.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 33.5
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S2",
+    "target": "ICDCodesDAO",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 62.4
+   },
+   {
+    "dataset": "etour",
+    "source": "UC11.txt",
+    "target": "CardBC.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 45.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.1",
+    "target": "DPUSDS5.13.0.2",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 47.1
+   },
+   {
+    "dataset": "etour",
+    "source": "UC2.txt",
+    "target": "IDBCulturalHeritage.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 60.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.4",
+    "target": "DPUSDS5.12.1.5.4",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 41.0
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC33E2",
+    "target": "/auth/hcp/hcpConsultation",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 66.7
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.1.2",
+    "target": "DPUSDS5.13.1.1.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 29.0
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.3",
+    "target": "DPUSDS5.12.1.2.3",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 39.3
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC26E2",
+    "target": "LabProcHCPAction",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 52.0
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC11S2",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 80.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.1",
+    "target": "DPUSDS5.12.1.5.1",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 32.5
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.2",
+    "target": "DPUSDS5.13.1.6.4",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 31.8
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.4.1",
+    "target": "DPUSDS5.13.1.3.1",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 31.2
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC18S1",
+    "target": "UpdateHospitalListAction",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 57.9
+   },
+   {
+    "dataset": "etour",
+    "source": "UC22.txt",
+    "target": "IAdvertisementAgencyManager.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 35.4
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.2",
+    "target": "DPUSDS5.13.0.2",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 42.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC18.txt",
+    "target": "IAdvertisementManager.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 46.7
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC3S2",
+    "target": "ResetPasswordAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 66.0
+   },
+   {
+    "dataset": "etour",
+    "source": "UC22.txt",
+    "target": "ControllDataAdvertisement.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 66.7
+   },
+   {
+    "dataset": "etour",
+    "source": "UC14.txt",
+    "target": "DBAgencyOperator.java",
+    "label": 0,
+    "linked": null,
+    "error": "InternalServerError: Error code: 500 - {'error': {'message': 'prediction aborted, token repeat limit reached', 'type': 'api_error', 'param': None, 'code': None}}",
+    "seconds": 142.1
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC35S2",
+    "target": "/util/blackbox/BlackBoxTestPlan",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 93.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC20.txt",
+    "target": "ControlData.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 70.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.7",
+    "target": "DPUSDS5.12.1.3.3",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 36.6
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.4.1",
+    "target": "DPUSDS5.13.1.1.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 24.5
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.1",
+    "target": "DPUSDS5.13.1.3.2",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 38.1
+   },
+   {
+    "dataset": "etour",
+    "source": "UC15.txt",
+    "target": "ITouristAgencyManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 43.7
+   },
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "IDBRefreshmentPointOperator.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 38.0
+   },
+   {
+    "dataset": "etour",
+    "source": "UC20.txt",
+    "target": "IDBBanner.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 43.9
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.1",
+    "target": "DPUSDS5.12.1.4.4",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 28.4
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC34S2",
+    "target": "RemoteMonitoringDAO",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 59.4
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.2",
+    "target": "DPUSDS5.13.2.3",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 37.4
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.7",
+    "target": "DPUSDS5.12.0.1",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 32.4
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S2",
+    "target": "UpdateICDCodeListAction",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 68.4
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.4.2",
+    "target": "DPUSDS5.12.1.5.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 23.8
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC40S4",
+    "target": "/auth/hcp/viewMyAppts",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 54.9
+   },
+   {
+    "dataset": "etour",
+    "source": "UC10.txt",
+    "target": "RefreshmentPointAgencyManager.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 49.2
+   },
+   {
+    "dataset": "etour",
+    "source": "UC16.txt",
+    "target": "IDBAgencyOperator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 27.2
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC33S2",
+    "target": "ReferralManagementAction",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 38.6
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC15S3",
+    "target": "UpdateNDCodeListAction",
+    "label": 1,
+    "linked": null,
+    "error": "InternalServerError: <html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx/1.24.0 (Ubuntu)</center>\r\n</body>\r\n</html>",
+    "seconds": 4.5
+   },
+   {
+    "dataset": "etour",
+    "source": "UC14.txt",
+    "target": "ITouristClientManager.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 68.8
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC18E1",
+    "target": "HospitalBean",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 40.2
+   },
+   {
+    "dataset": "etour",
+    "source": "UC21.txt",
+    "target": "ControllDataAdvertisement.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 43.3
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.12.3.3",
+    "target": "DPUSDS5.12.1.2.1",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 42.6
+   },
+   {
+    "dataset": "etour",
+    "source": "UC12.txt",
+    "target": "Tourist.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 50.2
+   },
+   {
+    "dataset": "etour",
+    "source": "UC13.txt",
+    "target": "TouristAgencyManager.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 48.6
+   },
+   {
+    "dataset": "etour",
+    "source": "UC11.txt",
+    "target": "DBAgencyOperator.java",
+    "label": 0,
+    "linked": null,
+    "error": "InternalServerError: Error code: 500 - {'error': {'message': 'prediction aborted, token repeat limit reached', 'type': 'api_error', 'param': None, 'code': None}}",
+    "seconds": 133.8
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC4S3",
+    "target": "/auth/hcp/menu",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 28.2
+   },
+   {
+    "dataset": "etour",
+    "source": "UC13.txt",
+    "target": "IDBAgencyOperator.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 32.3
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC3E1",
+    "target": "AuthDAO",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 59.7
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC34S3",
+    "target": "RemoteMonitoringDataBean",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 48.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.2.1",
+    "target": "DPUSDS5.13.2.9",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 34.2
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.1.2",
+    "target": "DPUSDS5.13.2.9",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 37.0
+   },
+   {
+    "dataset": "itrust",
+    "source": "UC23S3",
+    "target": "/auth/patient/viewMyRecords",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 69.1
+   },
+   {
+    "dataset": "cm1",
+    "source": "SRS5.13.3.3",
+    "target": "DPUSDS5.13.1.4.1",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.1,
+    "seconds": 31.6
+   }
+  ]
+ }
+}

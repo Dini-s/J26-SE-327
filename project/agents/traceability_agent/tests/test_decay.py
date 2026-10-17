@@ -182,3 +182,82 @@ def test_real_code_still_goes_to_the_llm():
     llm.verify_link.return_value = {"is_linked": True, "confidence": 0.8, "reasoning": "logs the ip"}
     DecayDetector(store, llm).check_link(link, req, code)
     llm.verify_link.assert_called_once()
+
+
+def test_small_confidence_noise_under_the_threshold_does_not_decay():
+    store = InMemoryUSKG([REQ, CODE.model_copy(update={"text": "TOKEN_TTL_SECONDS = 901"})], [link_for(confidence=0.55)])
+    results = DecayDetector(store, llm_returning(0.49)).run()  # still "linked", dropped only 0.06
+    assert len(results) == 1 and not results[0].decayed
+    assert store.get_traces()[0].status == "verified"
+
+
+def test_a_large_drop_under_the_threshold_still_decays():
+    store = InMemoryUSKG([REQ, CODE.model_copy(update={"text": "changed"})], [link_for(confidence=0.9)])
+    results = DecayDetector(store, llm_returning(0.4)).run()  # still "linked", but dropped 0.5
+    assert results[0].decayed
+
+
+def test_recovery_closes_the_open_decay_flag_and_keeps_it_as_history():
+    broken = CODE.model_copy(update={"text": "changed"})
+    store = InMemoryUSKG([REQ, broken], [link_for()])
+    DecayDetector(store, llm_returning(0.1, is_linked=False)).run()
+    assert len(store.decay_flags) == 1 and not store.decay_flags[0].get("resolved")
+    store.artifacts[CODE.id] = CODE
+    DecayDetector(store, llm_returning(0.9)).run()
+    assert len(store.decay_flags) == 1 and store.decay_flags[0]["resolved"]
+
+
+def test_resolve_query_is_allowed_by_the_write_guard():
+    from shared.uskg.client import _RESOLVE_DECAY_QUERY, _WRITE_QUERIES, validate_write_query
+
+    validate_write_query(_RESOLVE_DECAY_QUERY)
+    assert _RESOLVE_DECAY_QUERY in _WRITE_QUERIES
+
+
+def test_edited_requirement_rechecks_only_its_own_links():
+    edited = REQ.model_copy(update={"text": "Tokens never expire."})
+    other_req = Artifact(id="R2", type="requirement", text="Other.")
+    other = Artifact(id="C2", type="code", text="other code")
+    store = InMemoryUSKG([edited, CODE, other_req, other], [link_for(), link_for(other_req, other)])
+    store.artifacts["R2"] = other_req.model_copy(update={"text": "Other changed."})  # changed too, but not announced
+    results = DecayDetector(store, llm_returning(0.1, is_linked=False)).run(only_sources={"R1"})
+    assert [r.link.source_id for r in results] == ["R1"] and results[0].decayed
+
+
+def test_change_message_accepts_requirements_changed():
+    from agents.traceability_agent.changes import parse_change
+
+    change = parse_change({"project": "p", "requirementsChanged": ["R1", "R1", "R2"]})
+    assert change.requirements_changed == ("R1", "R2") and not change.is_empty()
+
+
+def test_changed_number_decays_without_asking_the_llm():
+    from agents.traceability_agent.semdiff import fingerprint_pair
+
+    verified = link_for(sem_fingerprint=fingerprint_pair(REQ, CODE))
+    edited = CODE.model_copy(update={"text": "TOKEN_TTL_SECONDS = 90000"})
+    store = InMemoryUSKG([REQ, edited], [verified])
+    llm = llm_returning(0.95)  # an LLM that would happily say "still linked"
+    results = DecayDetector(store, llm).run()
+    assert results[0].decayed and "numbers changed" in results[0].reason and "Needs review" in results[0].reason
+    llm.verify_link.assert_not_called()
+
+
+def test_reverting_the_change_recovers_because_the_fingerprint_is_the_verified_one():
+    from agents.traceability_agent.semdiff import fingerprint_pair
+
+    verified = link_for(sem_fingerprint=fingerprint_pair(REQ, CODE))
+    store = InMemoryUSKG([REQ, CODE.model_copy(update={"text": "TOKEN_TTL_SECONDS = 90000"})], [verified])
+    DecayDetector(store, llm_returning(0.95)).run()
+    assert store.get_traces()[0].status == "decayed"
+    store.artifacts[CODE.id] = CODE
+    results = DecayDetector(store, llm_returning(0.9)).run()
+    assert not results[0].decayed and store.get_traces()[0].status == "verified"
+
+
+def test_older_links_without_a_fingerprint_still_use_the_llm():
+    edited = CODE.model_copy(update={"text": "TOKEN_TTL_SECONDS = 90000"})
+    store = InMemoryUSKG([REQ, edited], [link_for()])  # no fingerprint stored
+    llm = llm_returning(0.9)
+    DecayDetector(store, llm).run()
+    llm.verify_link.assert_called_once()

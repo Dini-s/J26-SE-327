@@ -34,7 +34,7 @@ export function EvaluationPanel({ results }) {
           measured={decay ? `${(decay.decay_detection_accuracy * 100).toFixed(1)}%` : "-"}
           target=">= 85%"
           met={Boolean(decay) && decay.decay_detection_accuracy >= 0.85}
-          note={decay ? `${decay.sample_links} links only; false decay ${(decay.false_decay_rate * 100).toFixed(0)}%` : ""}
+          note={decay ? `${decay.links_used ?? decay.sample_links} links used${decay.baseline_skipped ? ` (${decay.baseline_skipped} skipped: the LLM rejected them anyway)` : ""}; false decay ${(decay.false_decay_rate * 100).toFixed(0)}%` : ""}
         />
         <Target label="Stage-1 recall (top-10)" measured="41.6%" target=">= 80%" met={false} note="iTrust; the LLM cannot recover a missed link" />
       </div>
@@ -96,7 +96,7 @@ export function EvaluationPanel({ results }) {
       {decay && (
         <div className="mt-6">
           <h3 className="mb-3 text-[13px] font-semibold text-slate-900">
-            Decay-injection test: known-good links, target code deliberately broken ({decay.sample_links} links, {decay.model})
+            Decay-injection test: known-good links, target code deliberately broken ({decay.links_used ?? decay.sample_links} links, {decay.model})
           </h3>
           <ul className="space-y-2">
             {Object.entries(decay.per_mutation).map(([name, v]) => {

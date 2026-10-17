@@ -4,6 +4,8 @@ import { Card, Chip, ConfBar, Disclosure, EmptyState, FileBadge, Segmented } fro
 import { shortName } from "./utils";
 
 const PAGE = 25;
+const TRUSTED = 0.85; // calibration: ~82% of 0.9 verdicts correct vs ~36% of 0.8, so below this a person should look
+const needsReview = (l) => l.status !== "decayed" && (l.confidence ?? 0) < TRUSTED;
 const timeOf = (value) => (value ? String(value).replace("T", " ").slice(0, 16) : "-");
 
 export default function LinksTable({ links }) {
@@ -15,7 +17,7 @@ export default function LinksTable({ links }) {
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
     return links
-      .filter((l) => status === "all" || (status === "trusted" ? l.status !== "decayed" && (l.confidence ?? 0) >= 0.85 : l.status === status))
+      .filter((l) => status === "all" || (status === "trusted" ? l.status !== "decayed" && (l.confidence ?? 0) >= TRUSTED : status === "review" ? needsReview(l) : l.status === status))
       .filter((l) => !q || `${l.requirement} ${l.code} ${l.requirementText}`.toLowerCase().includes(q))
       .sort((a, b) => (a.status === b.status ? (b.confidence ?? 0) - (a.confidence ?? 0) : a.status === "decayed" ? -1 : 1));
   }, [links, status, query]);
@@ -23,14 +25,14 @@ export default function LinksTable({ links }) {
   return (
     <Card
       title="Verified trace links"
-      description="Each link was checked by the AI model. Trusted = confidence 0.85 or more: in a hand check, about 9 in 10 of these were correct, versus fewer than half below 0.85."
+      description="Each link was checked by the AI model. Trusted = confidence 0.85 or more (about 8 in 10 correct on labelled data). Below that the model is often wrong (about 1 in 3 correct), so those links are marked Needs review for a person to decide."
       flush
       action={
         <div className="flex flex-wrap items-center gap-3">
           <Segmented
             value={status}
             onChange={(v) => { setStatus(v); setShown(PAGE); }}
-            items={[{ id: "all", label: "All" }, { id: "trusted", label: "Trusted" }, { id: "verified", label: "Verified" }, { id: "decayed", label: "Broken" }]}
+            items={[{ id: "all", label: "All" }, { id: "trusted", label: "Trusted" }, { id: "review", label: `Needs review (${links.filter(needsReview).length})` }, { id: "verified", label: "Verified" }, { id: "decayed", label: "Broken" }]}
           />
           <label className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-slate-400 focus-within:border-indigo-300">
             <Search size={14} />
@@ -73,7 +75,7 @@ export default function LinksTable({ links }) {
                         </div>
                       </td>
                       <td className="px-3 py-3"><ConfBar value={l.confidence} tone={decayed ? "red" : undefined} /></td>
-                      <td className="px-3 py-3"><Chip tone={decayed ? "red" : "green"} dot>{decayed ? "broken" : "verified"}</Chip></td>
+                      <td className="px-3 py-3"><Chip tone={decayed ? "red" : needsReview(l) ? "amber" : "green"} dot>{decayed ? "broken" : needsReview(l) ? "needs review" : "verified"}</Chip></td>
                       <td className="whitespace-nowrap px-3 py-3 tabular-nums text-slate-500">{timeOf(l.lastCheckedAt)}</td>
                       <td className="px-3 py-3"><Disclosure open={expanded} /></td>
                     </tr>

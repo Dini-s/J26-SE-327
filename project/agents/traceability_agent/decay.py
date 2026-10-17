@@ -11,10 +11,11 @@ import logging
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from agents.traceability_agent.config import PASS_THRESHOLD
+from agents.traceability_agent.config import DECAY_MIN_DROP, PASS_THRESHOLD
 from agents.traceability_agent.events import DecayEventPublisher
 from agents.traceability_agent.preprocess import llm_text
 from agents.traceability_agent.run_log import RunLogger
+from agents.traceability_agent.semdiff import fingerprint_pair, pair_changes
 from agents.traceability_agent.utils import content_hash
 from shared.llm.client import LLMClient
 from shared.schemas.traceability import Artifact, TraceabilityLink
@@ -87,6 +88,14 @@ class DecayDetector:
         if len("".join(target_text.split())) < MIN_TARGET_CHARS:
             # nothing left to check: the link cannot hold, and no LLM call is spent on it
             verdict = {"is_linked": False, "confidence": 0.0, "reasoning": EMPTY_TARGET_REASON}
+        elif semantic := pair_changes(link.sem_fingerprint, requirement, target, target_text):
+            # a number, a negation, a boolean or a comparison changed: an 8B model reading topics often misses
+            # this, so it is reported directly with the exact change and no LLM call is spent
+            verdict = {
+                "is_linked": False,
+                "confidence": 0.0,
+                "reasoning": "Meaning-bearing text changed since the link was verified: " + "; ".join(semantic) + ". Needs review.",
+            }
         else:
             try:
                 verdict = self.llm.verify_link(
@@ -98,13 +107,18 @@ class DecayDetector:
                 return DecayResult(link=link, rechecked=False, reason=f"malformed LLM response: {exc}")
         try:
             confidence = float(verdict["confidence"])
-            passed = bool(verdict["is_linked"]) and confidence >= self.pass_threshold
+            # Hysteresis: "linked" but just under the threshold is only a decay if confidence really dropped,
+            # so a link verified at 0.55 does not decay at 0.49 because of LLM noise.
+            dropped = (link.confidence - confidence) >= DECAY_MIN_DROP
+            passed = bool(verdict["is_linked"]) and (confidence >= self.pass_threshold or not dropped)
             reasoning = str(verdict["reasoning"])
         except (KeyError, TypeError, ValueError) as exc:
             logger.warning("Re-check of %s -> %s failed: %s", link.source_id, link.target_id, exc)
             return DecayResult(link=link, rechecked=False, reason=f"malformed LLM response: {exc}")
 
         if passed:
+            if link.status == "decayed":
+                self.uskg.resolve_decay(link)  # it holds again: close the open DecayFlag(s), keep them as history
             self.uskg.write_link(
                 link.model_copy(
                     update={
@@ -112,6 +126,7 @@ class DecayDetector:
                         "justification": reasoning,
                         "status": "verified",
                         "text_hash": content_hash(requirement, target),
+                        "sem_fingerprint": fingerprint_pair(requirement, target, target_text),
                     }
                 )
             )
@@ -161,7 +176,11 @@ class DecayDetector:
             )
 
     def run(
-        self, force: bool = False, project: Optional[str] = None, only_targets: Optional[set[str]] = None
+        self,
+        force: bool = False,
+        project: Optional[str] = None,
+        only_targets: Optional[set[str]] = None,
+        only_sources: Optional[set[str]] = None,
     ) -> list[DecayResult]:
         """Poll verified and decayed links and re-check those whose content changed.
 
@@ -170,6 +189,8 @@ class DecayDetector:
             project: Only links of this project / repository.
             only_targets: Only links to these code entity ids (what a commit touched); links to
                 other files are not even looked at, so a commit costs LLM calls only where needed.
+            only_sources: Only links from these requirement ids (requirements that were edited). With both
+                filters a link is looked at if it matches either.
 
         Returns:
             One result per link that was re-checked.
@@ -181,7 +202,10 @@ class DecayDetector:
         # decayed links are watched too: when their text changes again (a fix, a revert) they are re-checked
         # and, if they hold, become verified again. Their stored hash is that of the text last checked.
         for link in self.uskg.get_traces(**scope):
-            if only_targets is not None and link.target_id not in only_targets:
+            if (only_targets is not None or only_sources is not None) and not (
+                (only_targets is not None and link.target_id in only_targets)
+                or (only_sources is not None and link.source_id in only_sources)
+            ):
                 continue
             requirement, target = requirements.get(link.source_id), targets.get(link.target_id)
             if requirement is None or target is None:

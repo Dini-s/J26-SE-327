@@ -153,6 +153,7 @@ def build(payload: dict[str, Any], top: int = 10) -> dict[str, Any]:
         "decayEvents": len(flags),
         "trustedThreshold": TRUSTED_THRESHOLD,
         "trustedLinks": sum(1 for c in confs if c >= TRUSTED_THRESHOLD),
+        "reviewLinks": sum(1 for c in confs if c < TRUSTED_THRESHOLD),
         "meanConfidence": round(sum(confs) / len(confs), 3) if confs else 0.0,
         "confidenceHistogram": confidence,
         "linksPerRequirement": links_per_req,

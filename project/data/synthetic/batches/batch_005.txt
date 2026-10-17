@@ -1,0 +1,465 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0041 ===
+/**
+ * Class for managing the control of the correctness of the strings
+ *
+ */
+public class ControlData {
+
+    private static final String letter = "abcdefghijklmnopqrstuvxywz" + "ABCDEFGHIJKLMNOPQRSTUVXYWZ";
+    private final static String numbers = "0123456789";
+
+    public final static int max_length = 64;
+
+    /**
+     * Static method for verifying correctness of a String
+     *
+     * @Param String to check pString
+     * @Param lettersAllowed Boolean: True if it is allowed to be present Letters
+     *        in the String, False otherwise
+     * @Param numbersAllowed Boolean: True if it is allowed to be present Numbers in
+     *        the String, False otherwise
+     * @param String charactersAllowed containing all characters Allowed in the String
+     * @Param String charactersNecessary all  characters Must be present
+     *        in the String
+     * @Param minCharacterNumber integer representing the minimum number of
+     *        Characters allowed in String
+     * @Param maxCharacterNumber integer representing the maximum number of
+     *        Characters allowed in String
+     * @Return Boolean: True if the witch meets the conditions, False Otherwise
+     */
+    public static boolean checkString(String pString, boolean lettersAllowed, boolean numbersAllowed,
+            String charactersAllowed, String charactersNecessary, int minCharacterNumber, int maxCharacterNumber) {
+        // Chance pString = null: the function returns false
+        if (null == pString)
+
+
+=== F0042 ===
+public class ServletDeleteJustify extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7692034998093997864L;
+
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "./registerManagement/showRegister.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		String idClassroom=(String) session.getAttribute("idClassroom");
+		int id= Integer.parseInt(idClassroom);
+		gotoPage+="?idClassroom="+id;
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerRegister mR= ManagerRegister.getInstance();
+		// Checks that the user has logged in
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if ((!managerUser.isAdministrator(loggedUser)) &&
+					(!managerUser.isAdministrator(loggedUser))) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+		
+			Justify justify = (Justify) session.getAttribute("justify");
+			
+			if(mR.exists(justify)){
+				mR.deleteJustify(justify.getIdJustify());
+			}else{
+				errorMessage= "impossibile cancellare la giustifica, questa non esiste!";
+				gotoPage = "./error.jsp";
+			}
+			
+		} catch (EntityNotFoundException entityNotFoundException) {
+			errorMessage = Environment.DEFAULT_ERROR_MESSAGE
+					+ entityNotFoundException.getMessage();
+			gotoPage = "./error.jsp"
+
+=== F0043 ===
+/**
+ * Class that implements the common tasks for the operator of dining and For the
+ * Operator Agency
+ *
+ */
+public class RefreshmentPointCommonManager extends UnicastRemoteObject implements IRefreshmentPointCommonManager {
+
+// Instance for database connections
+    private static final long serialVersionUID = 1L;
+    protected IDBRefreshmentPoint refreshmentPoint;
+    protected IDBTag tag;
+    protected IDBVisitPR feed;
+    protected IDBTourist dbTourist;
+
+    public RefreshmentPointCommonManager() throws RemoteException {
+        super();
+// Connect to the Database
+        try {
+            refreshmentPoint = new DBRefreshmentPoint();
+            tag = new DBTag();
+            feed = new DBVisitPR();
+        }
+// Note: no longer 'cause SQLException thrown
+// Changes to the layer DB; changed Exception
+        catch (Exception e) {
+            System.out.println("Error:" + e.toString());
+            throw new RemoteException(ErrorMessage.ERROR_UNKNOWN);
+        }
+    }
+
+    /*
+     * Method which allows to obtain a BeanRefreshmentPoint through Connect to
+     * database
+     */
+    public BeanRefreshmentPoint getRefreshmentPoint(int pRefreshmentPointID) throws RemoteException {
+// Check identifier passed
+        if (pRefreshmentPointID < 0)
+            throw new RemoteException(ErrorMessage.ERROR_DATA);
+// Return Instance
+        BeanRefreshmentPoint toReturn = null;
+        try {
+// Revenue data through the instance of the database connection
+            toReturn = refreshm
+
+=== F0044 ===
+/** Servlet used to initialize the parameters of the system. @author Bavota Gabriele, Carnevale Filomena. */
+public class ServletInitialize extends HttpServlet {
+
+	private static final long serialVersionUID = -2542143445249797492L;
+	
+	@SuppressWarnings("unused")
+	private ServletConfig config;
+	
+	 /** Initializes the parameters */
+
+    public void init(ServletConfig config) throws ServletException 
+
+    {
+    	this.config = config;
+    	               
+        
+        // I set the smtp server specified in the xml configuration file
+        Utility.setServerSmtp(config.getInitParameter("serverSmtp"));
+        
+        // I set the parameters needed for the connection to the Database
+        Utility.setDriverMySql(config.getInitParameter("driverMySql"));
+        Utility.setFullPathDatabase(config.getInitParameter("fullPathDatabase"));
+        Utility.setUserName(config.getInitParameter("userName"));
+        Utility.setPassword(config.getInitParameter("password"));
+        Utility.setMaxPoolSize(Integer.valueOf(config.getInitParameter("maxPoolSize")));
+        Utility.setWaitTimeout(Integer.valueOf(config.getInitParameter("waitTimeout")));
+        Utility.setActiveTimeout(Integer.valueOf(config.getInitParameter("activeTimeout")));
+        Utility.setPoolTimeout(Integer.valueOf(config.getInitParameter("poolTimeout")));
+        Utility.setTextFooter(config.getInitParameter("textFooter"));
+        
+        
+	}
+
+}
+
+=== F0045 ===
+/**
+ * Edits the office visits of a patient Used by editOfficeVisit.jsp
+ *
+ * @author laurenhayward
+ *
+ */
+public class EditOfficeVisitAction extends OfficeVisitBaseAction {
+	private EditOfficeVisitValidator validator = new EditOfficeVisitValidator();
+	private PersonnelDAO personnelDAO;
+	private HospitalsDAO hospitalDAO;
+	private OfficeVisitDAO ovDAO;
+	private LabProcedureDAO lpDAO;
+	private TransactionDAO transDAO;
+	private DrugInteractionDAO drugDAO;
+	private AllergyDAO allergyDAO;
+	private PatientDAO patDAO;
+	private NDCodesDAO ndcDAO;
+	private long loggedInMID;
+	private long pid;
+
+	/**
+	 * Used to identify the subactions that can comprise an office visit action.
+	 * Subactions help direct the action's logic because sometimes multiple
+	 * office visit actions can occur within one transaction.
+	 */
+	private enum OVSubAction {
+		ADD_DIAGNOSIS,
+		REMOVE_DIAGNOSIS,
+		ADD_PROCEDURE,
+		REMOVE_PROCEDURE,
+		ADD_MEDICATION,
+		REMOVE_MEDICATION,
+		ADD_LAB_PROCEDURE,
+		REMOVE_LAB_PROCEDURE,
+		ADD_IMMUNIZATION,
+		REMOVE_IMMUNIZATION
+	};
+
+	/**
+	 * Patient id and office visit id validated by super class
+	 *
+	 * @param factory The DAOFactory to be used in creating the DAOs for this action.
+	 * @param loggedInMID The MID of the user who is authorizing this action.
+	 * @param pidString The patient who this action is performed on.
+	 * @param ovIDString The ID of the office visit in play.
+	 * @throws iTrustException
+	 */
+	public EditOfficeVisitAction(DAOFactory factory, long loggedInMID, Str
+
+=== F0046 ===
+/** It is a JavaBean that manages the methods for setting and returning the attributes of the identity card of a citizen @author Francesco */
+public class CartaIdentita {
+	/** represents the code of the identity card that is entered by the employee */
+	private String Numero;
+	private int idCittadino;
+	
+	private String Cittadinanza;
+	private String Residenza;
+	private String Via;
+	private String StatoCivile;
+	private String Professione;
+	private double Statura;
+	private String Capelli;
+	private String Occhi;
+	private String SegniParticolari; 
+	private Date DataRilascio;
+	private Date DataScadenza;
+	private boolean ValidaEspatrio;
+	private int num_civico;
+	/** Empty default constructor */
+
+	public CartaIdentita() {
+		this.num_civico=0;
+		this.Capelli=null;
+		this.Cittadinanza=null;
+		this.DataRilascio=null;
+		this.DataScadenza=null;
+		
+		this.Numero=null;
+		this.Occhi=null;
+		this.Professione=null;
+		this.Residenza=null;
+		this.SegniParticolari=null;
+		this.StatoCivile=null;
+		this.Statura=0.00;
+		this.ValidaEspatrio=false;
+		this.Via=null;
+	}
+	/** object that is returned by the database */
+	public CartaIdentita(String cod_carta,int idC,String cittadinanza,String res,String via,int num,
+			String stciv,String prof,double stat,String cap,String eyes,String sp,Date dr,Date ds,boolean validEsp){
+		this.Numero=cod_carta;
+		this.idCittadino=idC;
+		
+		this.Cittadinanza=cittadinanza;
+		this.Residenza=res;
+		this.Via=via;
+		this.num_civico=num;
+		this.StatoCivile=stciv;
+		this.Professi
+
+=== F0047 ===
+/** The class ServletRecuperoPassword (ServletPasswordRecovery) manages the password recovery operation for a citizen. The class has no dependencies @author Federico Cinque */
+public class ServletRecuperoPassword extends HttpServlet{
+
+	private String email;
+	private String ci;
+	private String login;
+	private String tipo;
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = null;
+		ServletContext sc = getServletContext();
+		String ris;
+
+		try{
+			ci = request.getParameter("ci").toUpperCase();
+			login = request.getParameter("login");
+			tipo = "Cittadino";
+
+			CittadinoManager CM = new CittadinoManager();
+			CIManager CIM = new CIManager();
+			AccessManager AM = new AccessManager();
+			CartaIdentita CI = CIM.getCartaByNumero(ci);
+
+			if(CI!=null){
+				if(AM.controllaLogin(login)){
+					Accesso ac = AM.getAccesso(login);
+					Cittadino c = CM.getCittadinoById(CI.id());
+					if(c.getLogin().equals(login)){
+						String p = generaPassword();	// new auto-generated password
+						ac.setPassword(p);
+						AM.modificaAccesso(login, ac);
+
+						// send the e-mail to c.getEmail();
+
+						ris="E' stata inviata un email al suo indirizzo di posta elettronica";
+						request.setAttribute("ris", ris);
+						rd = sc.getRequestDispatcher("/user/home.jsp?func=operazione&page=riuscita");
+					}
+					else{
+						ris="La login non corrisponde alla codice della carta";
+						request.setAttribute("ris", ris);
+	
+
+=== F0048 ===
+/** Servlet that modifies the record of the student with the id of the father. @author Napolitano Vincenzo. */
+public class ServletAssignParentStudent extends HttpServlet {
+
+	
+	private static final long serialVersionUID = -4507225018030147979L;
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "showUserList";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		
+
+		ManagerUser managerUser = ManagerUser.getInstance();
+
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		
+		// Checks that the user has logged in
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if ((!managerUser.isAdministrator(loggedUser))) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			
+			
+			User user = (User) session.getAttribute("user");
+			int idParent=user.getId();
+			
+			Collection<UserListItem> students = new Vector<UserListItem>();
+			Iterator<UserListItem> itStu = null;
+			
+			students = managerUser.getStudents();
+			
+			
+			String[] selectedStudent = pRequest.getParameterValues("selectedStudent");
+			String[] unselectedStudent = pRequest.getParameterValues("unselectedStudent");
+			
+			if (selectedStudent != null) {
+				int selectedlength = selectedStudent.length;
+				UserListItem tmp = null;
+				User stu=null;
+				int idStudent=0;
+				for (
+
+=== F0049 ===
+/** The class ServletEliminaAmministratore (ServletDeleteAdministrator) searches for and deletes an administrator. The class has no dependencies @author Federico Cinque */
+public class ServletEliminaAmministratore extends HttpServlet{
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session = request.getSession();
+		if(session!=null){ // If the session is null, performs a redirect to the authentication page
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = null;
+			String ris;
+			try{
+				// If the session attributes amm and acc are null I have to perform the search
+				if(session.getAttribute("amm")==null && session.getAttribute("acc")==null){
+					String matricola = request.getParameter("matricola");
+					AdminManager AdM = new AdminManager();
+					Amministratore am = AdM.ricercaAdminByMatricola(matricola);
+					if(am != null){
+						session.setAttribute("amm", am);
+
+						AccessManager AM = new AccessManager();
+						Accesso ac = AM.getAccesso(am.getLogin());
+						session.setAttribute("acc", ac);
+
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=cancella&page=amministratore"); 
+						rd.forward(request,response);
+					}
+					else{
+						ris="La matricola non corrisponde ad un amministratore";
+						request.setAttribute("ris", ris);
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita"); 
+						rd.forward(request,response);
+					}
+	
+
+=== F0050 ===
+/**
+Attribute_Definition
+*
+*/
+public class DBConvention implements IDBConvention {
+    private static int NUM_TEST = 1;
+
+    /*
+     * (Non-Javadoc)
+     *
+     * @See unisa.gps.etour.repository.IDBConvention # clearConvention (int)
+     */
+    public boolean clearConvention(int pIdConvention) throws SQLException {
+        return false;
+    }
+
+    /*
+     * (Non-Javadoc)
+     *
+     * @See unisa.gps.etour.repository.IDBConvention # getHistoricalConvention (int)
+     */
+    public ArrayList<BeanConvention> getHistoricalConvention(int idRefreshmentPoint) throws SQLException {
+        return null;
+    }
+
+    /*
+     * (Non-Javadoc)
+     *
+     * @See unisa.gps.etour.repository.IDBConvention # insertConvention
+     * (unisa.gps.etour.bean.BeanConvention)
+     */
+    public boolean insertConvention(BeanConvention pConvention) throws SQLException {
+        return false;
+    }
+
+    /*
+     * (Non-Javadoc)
+     *
+     * @See unisa.gps.etour.repository.IDBConvention # modifyConvention
+     * (unisa.gps.etour.bean.BeanConvention)
+     */
+    public boolean modifyConvention(BeanConvention pConvention) throws SQLException {
+        return false;
+    }
+
+    /*
+     * (Non-Javadoc)
+     *
+     * @See unisa.gps.etour.repository.IDBConvention # getConvezioneActive
+     * (int)
+     */
+    public BeanConvention getConventionActive(int pIdRefreshmentPoint) throws SQLException {
+        BeanConvention convention = new BeanConvention();
+        convention.setActive(true);
+        convention.setD

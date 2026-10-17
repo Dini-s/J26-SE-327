@@ -367,6 +367,89 @@ The evidence prompt makes the model quote code that satisfies the requirement, a
 
 Limits: 36 judged links, one project, one reviewer who is an AI; the 95% interval for 82% is roughly 59% to 94%. The 0.85 and 0.7-0.85 figures rest on 11 and 25 links.
 
+### 5.z Decay detection, second measurement (ground-truth links, requirement edits added)
+
+The first measurement (69.6%, 9 links) was too small. The harness now takes 10 ground-truth (CoEST) links from each of iTrust, eTour and CM-1 (seed 7, targets up to 3000 characters), first checks that the detector still accepts the unedited pair (a link the LLM rejects anyway cannot be "detected"), then edits the code or the requirement. Raw rows: `data/results/decay_injection_v2.json`.
+
+| Edit | Flagged as decayed |
+|---|---|
+| Code replaced by unrelated text | 11 / 11 |
+| Requirement replaced by unrelated text | 11 / 11 |
+| Code cut to its first sentence | 8 / 11 |
+| Requirement negated ("shall" to "shall not") | 5 / 8 |
+| Code negated (flags, comparisons) | 0 / 2 |
+| Numbers in the code changed | 0 / 3 |
+| **All breaking edits** | **35 / 46 = 76.1%, 95% interval 62% to 86%** |
+| Harmless edits (controls: code and requirement) | 0 / 22 flagged, interval 0% to 15% |
+
+What this says:
+* Gross breaks (unrelated text) are always caught and harmless edits are never flagged. That is the useful, solid part.
+* Subtle breaks are not reliably caught: a changed number or a negated condition is missed (0 of 3 and 0 of 2, tiny counts), and a negated requirement is missed 3 times in 8. The 8B model reads topic, not exact values.
+* The target of 85% is not reached; the interval (62% to 86%) only just reaches it.
+
+Limits to say out loud:
+* **Only 11 of the 30 links were usable.** The detector accepted 8 of 10 CM-1 links but only 3 of 20 iTrust and eTour links (17 skipped, 2 on CM-1). So the result is dominated by CM-1 (design text); code links are 3. This is the same weakness as in the linking results: the LLM rejects many true links.
+* The 46 edits come from 11 links, so they are not independent and the real uncertainty is wider than the interval shown.
+* Measured before the decay rule got its noise margin (a still-"linked" answer only decays a link if confidence fell by at least 0.2). Most edits here give "not linked", so the effect is expected to be small, but the run was not repeated.
+
+### 5.w Self-check and ground truth on all stored links (iTrust)
+
+`python -m agents.traceability_agent selfcheck --project iTrust` (no LLM) found no inconsistency: 9 of 9 checks passed (links point at existing requirements and files, no duplicates, scores agree with links, decayed links have flags). Against the ground truth of the 82 requirements processed so far (129 verified links, expert prompt): **precision 46%, recall 21%, F1 29%** (59 of 129 verified links are true; 59 of the 274 true links of those requirements were found). This is a larger sample than the earlier 10-requirement run (precision 37.5%, recall 17.1%) and points the same way: the shortlist misses most true links and the LLM accepts many wrong ones. Only the checks that need a code quote (evidence prompt) are not exercised on iTrust, because its links were written with the older prompt.
+
+### 5.v Full pipeline on eTour (second dataset)
+
+First 15 requirements of eTour, top-5 candidates each, 93 true links among them, evidence prompt (74 LLM calls, mean 34.8 s, p95 38.9 s). Log: `data/runs/20261017-113809-hybrid-top5-evidence/events.jsonl`.
+
+| Method | Precision | Recall | F1 |
+|---|---|---|---|
+| Stage 1 only (hybrid, no LLM) | 49.3% | 39.8% | 44.0% |
+| **Full pipeline (hybrid + Llama 3.1 8B, evidence prompt)** | **81.5%** | 23.7% | 36.7% |
+
+The LLM step removes most wrong candidates (precision 49% to 82%) but also rejects many true ones (recall 40% to 24%), so F1 goes down. The same pattern as on iTrust (precision up, recall down) and the same lesson: the verification is precise but too strict, and recall is limited first by the shortlist and then by the LLM. 15 requirements only; the expert-prompt run on the same requirements was not done.
+
+### 5.u Fine-tuning MiniLM on synthetic data (stage-1 embedding model)
+
+Question: does training the stage-1 embedding model (all-MiniLM-L6-v2) on synthetic requirement/code pairs raise stage-1 recall? Training data: 2,271 hand-made synthetic pairs in 4 languages (Java, JavaScript, C, SQL and JSP), 30+ domains, each with 2 hard negatives (similar-looking wrong code). Test data: LibEST, CM-1 and EBT, expert-labelled projects never used for training. Metric: recall of the true links in each requirement's top-k, averaged over the three test sets (macro). Colab T4, 3 seeds, 2 epochs, batch 16, in-batch negatives with the contrastive loss; the comparison arm trains on the same number of REAL expert-labelled pairs (iTrust, eTour, SMOS, eANCI). Raw numbers: `data/results/synthetic_minilm_colab_log.txt`.
+
+| Training data | Embeddings only, recall@5 | @10 | Hybrid (the pipeline's stage 1), @5 | @10 |
+|---|---|---|---|---|
+| None (untrained MiniLM) | 0.584 | 0.846 | 0.572 | 0.853 |
+| Synthetic pairs | 0.590 (+0.006) | 0.838 (-0.007) | 0.576 (+0.005) | 0.841 (-0.012) |
+| Synthetic + hard negatives | 0.583 (-0.001) | 0.821 (-0.025) | 0.587 (+0.015) | 0.855 (+0.001) |
+| **Real expert pairs (same number)** | **0.618 (+0.034)** | 0.856 (+0.010) | 0.579 (+0.007) | 0.857 (+0.003) |
+| Real + synthetic + hard negatives | 0.612 (+0.028) | 0.834 (-0.012) | 0.596 (+0.025) | 0.858 (+0.005) |
+
+Seed-to-seed spread is about 0.005 to 0.009, so differences under about 0.02 are noise.
+
+Reading:
+* **Synthetic data did not help** (changes between -0.025 and +0.015, inside the noise), with or without hard negatives. Doubling the data (1,000 to 2,271 pairs) did not change this.
+* **Real expert pairs give a small gain for the embedding alone** (+0.034 at recall@5) but almost nothing for the hybrid that C4 uses (+0.007 at recall@5, +0.003 at recall@10), because TF-IDF already supplies most of the signal.
+* Nothing here moves the pipeline's stage-1 recall materially. The shortlist bottleneck is not a lack of training data for MiniLM; further fine-tuning is not worth the effort. Larger gains would need a stronger retrieval model or a larger top-k.
+* Limits: three small test sets (LibEST has only 14 files, so recall@10 is nearly saturated there); one model; synthetic data written by LLMs in one style.
+
+### 5.t Decay detection with the meaning-change check
+
+Same 30 ground-truth links, same seed, same harness as 5.z, but the detector now also compares a fingerprint of each text (numbers, negations, true/false, comparison operators) with the fingerprint stored when the link was verified (`semdiff.py`). Raw rows: `data/results/decay_injection_v3.json` (the LLM-only run is `decay_injection_v2.json`).
+
+| Edit | LLM only (5.z) | With the meaning-change check |
+|---|---|---|
+| Code replaced by unrelated text | 11 / 11 | 11 / 11 |
+| Requirement replaced by unrelated text | 11 / 11 | 11 / 11 |
+| Code cut to its first sentence | 8 / 11 | 10 / 11 |
+| Requirement negated | 5 / 8 | 8 / 8 |
+| Numbers in the code changed | 0 / 3 | 3 / 3 |
+| Code negated | 0 / 2 | 1 / 2 |
+| **All breaking edits** | **35 / 46 = 76.1%** (62% to 86%) | **44 / 46 = 95.7%** (86% to 99%) |
+| Harmless edits (controls) | 0 / 22 | 0 / 22 (0% to 15%) |
+
+Why it helps: a changed number or a negation is exactly what a small LLM reading topics misses; the check reports it directly with the change ("numbers changed: [3] -> [300]") and spends no LLM call. Harmless edits (comments, whitespace, "no functional change") are not flagged, and reverting an edit lets the link recover.
+
+Limits to say out loud:
+* **The check was designed around these kinds of edits**, so this number is favourable. It catches numbers, negations, boolean flips and operator changes; it does not catch a rename, a changed method call or a logic change that keeps the same numbers and operators. Real edits are more varied than these test edits.
+* Still only 11 usable links (19 of 30 were skipped because the LLM rejected them before any edit), 46 related edits, so the interval is wide and the edits are not independent.
+* The check needs a fingerprint stored at verification time. Links made before it existed have none and still rely on the LLM alone.
+* A harmless edit that changes a number (a version number in code, say) would be flagged for review; that is the price of the check.
+
 ## 6. Limits of every result above
 
 * **Fusion weights were chosen after seeing the test results** (w = 0.5 and 1.0 both reported, same direction).
@@ -429,7 +512,7 @@ Changed: `agent.py` (optional `reranker`, `rerank_pool`), `cli.py` (`--reranker`
 | CodeBERT embeddings | all-MiniLM-L6-v2 + TF-IDF, fused by z-score | Fine-tuned CodeBERT did not generalise (CM-1 MRR 0.21 versus 0.88 for stage 1) and more data did not help it (learning curve, section 5.x). Code-specific embedding models (code-search, UniXcoder) did not beat MiniLM. |
 | ChromaDB vector store | in-memory matrices per run | The corpora are small (hundreds of files); a vector database adds nothing here. |
 | Fine-tuned model as the verifier | Llama 3.1 8B prompted yes/no with a reason | Honest limits: precision 37.5% on iTrust (target 90%), 52 s per call on a CPU-only server. |
-| Decay detection | text-hash change, then LLM re-check; decayed edges kept with a DecayFlag; a decayed link is watched and becomes verified again when its text changes and the check passes | Decay detection 69.6% on 9 injected links (small sample). |
+| Decay detection | text-hash change, then LLM re-check; decayed edges kept with a DecayFlag; a decayed link is watched and becomes verified again when its text changes and the check passes | Decay detection 95.7% on 46 edits of 11 links with the meaning-change check (95% interval 86% to 99%); 76.1% with the LLM alone; 69.6% on 9 links earlier (sections 5.z, 5.t). |
 
 The weakest point is stage-1 recall (iTrust top-10 about 42%): the LLM cannot recover a link the shortlist missed.
 
@@ -443,3 +526,26 @@ The weakest point is stage-1 recall (iTrust top-10 about 42%): the LLM cannot re
 * **Paired bootstrap:** resampling the requirements many times to see how much a difference could vary by chance.
 * **Hard negative:** a wrong candidate that the retrieval ranks high.
 * **Silver label:** a label from a model (here the LLM) instead of a human.
+
+### 5.s Learned Link Ranker (leave-one-project-out, no LLM)
+
+A gradient-boosting model (`ranker.py`, 16 features: TF-IDF, MiniLM, hybrid scores, ranks, gap to the top candidate, column z-score, file-name word overlap, rare-word overlap, lengths) re-ranks the top-50 hybrid candidates. Trained on 6 projects, tested on the 7th (never seen). Result `data/results/ranker.json`.
+
+| recall@10 | LibEST | CM-1 | EBT | eANCI | SMOS | eTour | iTrust | mean |
+|---|---|---|---|---|---|---|---|---|
+| fixed hybrid (current) | .96 | .96 | .64 | .23 | .31 | .53 | .42 | **.578** |
+| learned (gradient boosting, pre-chosen) | .53 | .93 | .59 | .22 | .30 | .47 | .41 | .494 |
+
+**Negative result:** the learned ranker does not beat the fixed hybrid formula. Post-hoc variants (logistic regression, fewer features; explored on the same test projects, so only indicative) gave mean .49–.55; the best (LR with rank-gap features) was better on the three large projects (eTour .61, iTrust .45, eANCI .25) and worse on the small ones (LibEST .82, EBT .47), still below the hybrid mean. Most important features: gap to the top candidate and hybrid rank, i.e. the model mostly re-learns the hybrid formula; the extra signals add little. Conclusion: with 7 small projects, learning the stage-1 ranking from these features is not worth it; the bottleneck is the information in the text, not the fusion formula.
+
+### 5.r Confidence calibration and abstain mode
+
+`calibration.py` pools the 525 Llama verdicts stored from earlier runs whose requirement has gold links (iTrust 393, eTour 74, CM-1 58; 143 true). Result in `data/results/calibration.json` (5-fold cross-validated isotonic regression).
+
+| Llama says | n | actually correct |
+|---|---|---|
+| not linked | 338 | 13% |
+| linked, confidence 0.8 | 119 | **36%** |
+| linked, confidence 0.9 | 67 | **82%** |
+
+Findings: (1) the confidence is badly calibrated: 0.8 is right only about a third of the time, so "kept if >= 0.5" gives precision 53% while "0.9 only" gives 82% (ECE 0.194 raw; isotonic calibration brings it to 0.008, but the LLM emits only three distinct levels, so this mostly re-labels them). (2) Abstain mode therefore has three outcomes: accept (0.9: 82% right), **needs review** (0.8: 36% right, a human decides) and reject (13% of these are actually true: missed links). Recall in the table is the share of the true links *that reached the LLM* that were accepted (38.5% at 0.9), not recall over the whole project. Caveats: verdicts come from several runs and prompts (expert prompt mostly), three datasets, small n.

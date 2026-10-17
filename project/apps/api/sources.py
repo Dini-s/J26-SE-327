@@ -142,7 +142,7 @@ def neo4j_links(project: str, max_links: int = 2000) -> dict[str, Any]:
         flags, _, _ = driver.execute_query(
             f"""MATCH (r:Requirement)-[:HAS_DECAY]->(d:DecayFlag) WHERE {where}
                 RETURN r.id AS requirement, d.codeEntityId AS code, d.previousConfidence AS previousConfidence,
-                       coalesce(d.reason, '') AS reason, toString(d.flaggedAt) AS flaggedAt ORDER BY d.flaggedAt DESC LIMIT 500""", project=project)
+                       coalesce(d.reason, '') AS reason, toString(d.flaggedAt) AS flaggedAt, toString(d.resolvedAt) AS resolvedAt ORDER BY d.flaggedAt DESC LIMIT 500""", project=project)
         orphans, _, _ = driver.execute_query(
             f"""MATCH (r:Requirement) WHERE NOT (r)-[:VERIFIED_TRACE]->() AND {where}
                 RETURN r.id AS requirement, coalesce(r.text, '') AS requirementText ORDER BY r.id""", project=project)

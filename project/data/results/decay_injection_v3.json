@@ -1,0 +1,335 @@
+{
+ "per_mutation": {
+  "unrelated_replacement": {
+   "injected": 11,
+   "detected": 11
+  },
+  "negate_behavior": {
+   "injected": 2,
+   "detected": 1
+  },
+  "change_numbers": {
+   "injected": 3,
+   "detected": 3
+  },
+  "strip_to_first_sentence": {
+   "injected": 11,
+   "detected": 10
+  },
+  "requirement_unrelated": {
+   "injected": 11,
+   "detected": 11
+  },
+  "requirement_negated": {
+   "injected": 8,
+   "detected": 8
+  },
+  "cosmetic_control": {
+   "injected": 11,
+   "detected": 0
+  },
+  "requirement_cosmetic_control": {
+   "injected": 11,
+   "detected": 0
+  }
+ },
+ "decay_detection_accuracy": 0.9565217391304348,
+ "decay_detection_ci95": [
+  0.855,
+  0.988
+ ],
+ "false_decay_rate": 0.0,
+ "false_decay_ci95": [
+  0.0,
+  0.149
+ ],
+ "baseline_skipped": 19,
+ "links_used": 11,
+ "per_link": [
+  {
+   "requirement": "UC30E2",
+   "target": "GetUserNameAction",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC4E1",
+   "target": "SecurityQAValidator",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC34S1",
+   "target": "EditMonitoringListAction",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "negate_behavior": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "UC37S1",
+   "target": "AllergyDAO",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC10E1",
+   "target": "GetUserNameAction",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC30S4",
+   "target": "/auth/hcp/reply",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "change_numbers": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "UC2S1",
+   "target": "/auth/admin/addHCP",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC2E2",
+   "target": "AddPersonnelValidator",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC19S1",
+   "target": "EmailUtil",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC36S3",
+   "target": "EmailUtil",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC41.txt",
+   "target": "IDBMenu.java",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "negate_behavior": false,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "UC4.txt",
+   "target": "AdvancedSearch.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC1.txt",
+   "target": "DBCulturalHeritage.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC56.txt",
+   "target": "ISearch.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC9.txt",
+   "target": "AdvancedSearch.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC17.txt",
+   "target": "IDBBanner.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC17.txt",
+   "target": "ControllDataAdvertisement.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC40.txt",
+   "target": "AdvertisementRefreshmentPointManager.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC20.txt",
+   "target": "ControllDataAdvertisement.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "UC42.txt",
+   "target": "IDBDish.java",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "SRS5.12.3.4",
+   "target": "DPUSDS5.12.2.2",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_negated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "SRS5.13.1.3",
+   "target": "DPUSDS5.13.2.1",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_negated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "SRS5.12.3.2",
+   "target": "DPUSDS5.12.1.5.1",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "strip_to_first_sentence": false,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_negated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "SRS5.12.3.2",
+   "target": "DPUSDS5.12.2.2",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_negated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "SRS5.12.3.1",
+   "target": "DPUSDS5.12.1.2.3",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_negated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "SRS5.13.3.2",
+   "target": "DPUSDS5.13.1.3.3",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_negated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "SRS5.12.3.1",
+   "target": "DPUSDS5.12.1.5.1",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  },
+  {
+   "requirement": "SRS5.12.3.3",
+   "target": "DPUSDS5.12.1.2.1",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "change_numbers": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_negated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "SRS5.12.3.7",
+   "target": "DPUSDS5.12.1.3.3",
+   "baseline_pass": true,
+   "outcome": {
+    "unrelated_replacement": true,
+    "change_numbers": true,
+    "strip_to_first_sentence": true,
+    "cosmetic_control": false,
+    "requirement_unrelated": true,
+    "requirement_negated": true,
+    "requirement_cosmetic_control": false
+   }
+  },
+  {
+   "requirement": "SRS5.13.3.2",
+   "target": "DPUSDS5.13.1.3.1",
+   "baseline_pass": false,
+   "outcome": {},
+   "skipped_baseline": true
+  }
+ ],
+ "sample_links": 30,
+ "source": "gold:itrust,etour,cm1",
+ "baseline": true,
+ "fingerprint": true,
+ "seed": 7,
+ "model": "llama3.1-8k",
+ "finished": "2026-10-17T09:22:26+00:00"
+}

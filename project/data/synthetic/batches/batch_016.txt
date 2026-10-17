@@ -1,0 +1,425 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0151 ===
+/**
+ * Bean that contains the coordinates of a point on the surface of the earth
+ * "and That it realizes the calculation of the distance from the system. The
+ * values of Coordinates must be represented in radians and must fall in Target
+ * range: 0 to greek-Pi / 4 for the latitude south of the equator 0 to + Pi
+ * greek / 4 for the latitude north of the equator from 0 to Pi-greek / 2 for
+ * the meridian of longitude west of Greenwitch greek from 0 to + Pi / 2 For the
+ * meridian of longitude east of Greenwitch
+ *
+ */
+
+public class Point3D {
+// Radius of the earth
+    final double EARTH_RADIUS = 6371.0;
+    private double latitude, longitude, altitude;
+
+    public Point3D() {
+        latitude = longitude = altitude = 0;
+    }
+
+    public Point3D(double pLatitude, double pLongitude, double pAltitude) {
+        latitude = pLatitude;
+        longitude = pLongitude;
+        altitude = pAltitude;
+    }
+
+    /**
+     * Returns the latitude
+     *
+     * @Return
+     */
+    public double getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * Sets the latitude
+     *
+     * @Param pLatitude
+     */
+    public void setLatitude(double pLatitude) {
+        this.latitude = pLatitude;
+    }
+
+    /**
+     * Returns the longitude
+     *
+     * @Return
+     */
+    public double getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * Sets the longitude
+     *
+     * @Param pLongitude
+     */
+    public void setLongitude(double pLongitude) {
+        this.longitude = pLongitud
+
+=== F0152 ===
+public class ServletRisposta extends HttpServlet{
+	/** server-side response servlet intended for the client */
+	public void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException,ServletException{
+		GregorianCalendar gc = new GregorianCalendar();
+		int gg = gc.get(GregorianCalendar.DATE);
+		int mm = gc.get(GregorianCalendar.MONTH) + 1;
+		int year = gc.get(GregorianCalendar.YEAR);
+		String now = "" + year + mm + gg;
+		String now2 = "" + year +"-" + mm + "-" + gg;
+		
+		HttpSession session = request.getSession();
+		int idCitt = ((Cittadino)session.getAttribute("c")).getIdCittadino();
+		String inout = "";
+		
+		try {
+			String nome_comune			= request.getParameter("comunename").toUpperCase();
+			String nome					= request.getParameter("name").toUpperCase();
+			String surname				= request.getParameter("surname").toUpperCase();
+			String name_citta			= request.getParameter("citta").toUpperCase();
+			String gg_date				= request.getParameter("gg");
+			String mm_date				= request.getParameter("mm");
+			String aa_date				= request.getParameter("aa");
+			String newcomune			= request.getParameter("newcomune").toUpperCase();
+			String indir				= request.getParameter("via").toUpperCase();
+			String numero_civico		= request.getParameter("civico");
+			String indirnew				= request.getParameter("newvia").toUpperCase();
+			String num_civnew			= request.getParameter("num");
+			String pref					= request.getParameter("pref");
+			String tel					= request.getParameter("tel")
+
+=== F0153 ===
+/** The class ServletLogin performs the authentication of a user in the system. The class has no dependencies @author Federico Cinque */
+public class ServletLogin extends HttpServlet {
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		int flag = -1;
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+		String tipo = request.getParameter("tipo");
+
+		HttpSession session = request.getSession(true);
+		try{
+			AccessManager AM = new AccessManager();
+			String url;
+
+			Accesso ac = AM.getAccesso(login);
+
+			if(tipo!=null){	// If tipo (type) is different from null, the servlet was invoked from the citizen side
+				flag=0;
+				if (AM.controllaAccesso(login, password) && ac.getTipo().equals("Cittadino")){
+
+					CittadinoManager CM = new CittadinoManager();
+					Cittadino c = CM.getCittadinoByLogin(login);
+					CIManager ciM=new CIManager();
+					CartaIdentita ci=ciM.getCartaByIdCStri(c.getIdCittadino());
+					session.setAttribute("c", c);
+					session.setAttribute("ci", ci);
+					url="/myDoc/user/home.jsp";
+				}
+				else
+					url="/myDoc/user/home.jsp?error=e";
+			}
+			else{	// If tipo (type) is null, the servlet was invoked from the administrator/employee side
+				flag = 1;
+				if (AM.controllaAccesso(login, password) && !ac.getTipo().equals("Cittadino")){
+					session.setAttribute("login", ac.getLogin());
+					session.setAttribute("tipo", ac.getTipo());
+					if(ac.
+
+=== F0154 ===
+/** Servlet used to modify an address. @author Vecchione Giuseppe. */
+public class ServletShowAddressDetails extends HttpServlet {
+
+	
+
+	
+
+	
+	private static final long serialVersionUID = 2136348837349051766L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./persistentDataManagement/addressManagement/showAddressDetails.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		int addressId = 0;
+		Address address= null;
+		ManagerAddress managerAddress = ManagerAddress.getInstance();
+		
+		
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			addressId = Integer.valueOf(pRequest.getParameter("idAddress"));
+			address = managerAddress.getAddressById(addressId);
+			session.setAttribute("address", address);
+		} catch (NumberFormatException numberFormatException) {
+			errorMessage =  Environment.DEFAULT_ERROR_MESSAGE + numberFormatException.getMessage();
+			gotoPage = "./error.jsp";
+			numberFormatException.printStackTrace();
+		} catch (EntityNotFoundException entityNotFoundException) {
+			errorMessage =  Environment.DEFAULT_ER
+
+=== F0155 ===
+pageTitle = "iTrust - Maintain CPT Codes";
+ 
+
+ 
+
+ 
+	String headerMessage = "Viewing Current CPT Procedure Codes";
+
+	UpdateCPTCodeListAction cptUpdater = new UpdateCPTCodeListAction(prodDAO, loggedInMID.longValue());
+	String attribute = null;
+	if (request.getParameter("add") != null || request.getParameter("update") != null) {
+		try {
+			if (null != request.getParameter("attribute")) {
+				attribute = new String("immunization");
+			}
+
+			ProcedureBean proc = new ProcedureBean(request.getParameter("code"), request.getParameter("description"), attribute );
+			headerMessage = (request.getParameter("add") != null) ? cptUpdater.addCPTCode(proc)	: cptUpdater.updateInformation(proc);
+		}
+		catch(FormValidationException e) {
+ 
+	 
+		  e.getMessage()   
+	 
+ 
+			headerMessage = "Validation Errors";
+		}
+
+	}
+	String headerColor = (headerMessage.indexOf("Error") > -1)
+			? "#ffcccc"
+			: "#00CCCC";
+ 
+ 
+
+function fillUpdate(code) {
+	document.getElementById("code").value = code;
+	document.getElementById("description").value = unescape(document.getElementById("UPD" + code).value);
+	document.getElementById("oldDescrip").value = unescape(document.getElementById("UPD" + code).value);
+	if ("immunization" == document.getElementById("CLASS"+code).value) {
+		document.getElementById("attribute").checked = "checked";
+	}
+	else {
+		document.getElementById("attribute").checked = "";
+	}
+}
+ 
+
+ 
+ 
+  headerMessage   
+ 
+ 
+
+ 
+	 
+	 
+ 
+	 
+		 Update CPT Procedure Code List 
+	 
+	 
+		 Code 
+		 Description 
+		 Immuni
+
+=== F0156 ===
+/**
+ * Class that models the interface for viewing the card, Modify the data and the
+ * insertion of a new cultural object.
+ *
+ *
+ */
+public class CardBC extends JInternalFrame implements ICard {
+
+    private static final String[] txts = { "Name", "Address", "City", "Location", "CAP", "Province",
+            "Geographical Location", "Phone", "Opening Hours", "Closing Time", "Closing Date", "Ticket price",
+            "Description" };
+    private static final String[] help = { "Enter the name of cultural property.",
+            "Enter the address where is located the cultural property.",
+            "Enter the city 'where is located the cultural property.",
+            "Enter the location 'of membership of a cultural object.",
+            "Enter your zip code, the area where the cultural object is located.",
+            "Select the province belonging to the cultural property.",
+            "Incorporating three dimensional coordinates for the location of" + "cultural heritage.",
+            "Enter the phone for delivery of the cultural management office.",
+            "Select the time of public opening of the cultural property.",
+            "Select the closing time for the public of cultural property.", "Select the weekly closing day.",
+            "Give the ticket price of admission to cultural property.",
+            "<html> Enter a full and comprehensive description for the cultural property. <br> Please note that this"
+                    + "description will be used as a s
+
+=== F0157 ===
+public class ServletShowJustifyList extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6666791203700528449L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		
+		String gotoPage = "./registerManagement/showJustifyList.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerRegister  managerRegister= ManagerRegister.getInstance();
+		
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		
+		
+		String student =pRequest.getParameter("student");
+		
+		int st = Integer.parseInt(student);
+		Classroom classroom=(Classroom)session.getAttribute("classroom");
+		
+		
+		
+		
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			} 
+			if ((!managerUser.isAdministrator(loggedUser)) && (!managerUser.isDirector(loggedUser))) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			} 
+			
+			User userStudent=managerUser.getUserById(st);
+			
+			Collection<Absence> absenceList =(Collection<Absence>)managerRegister.getAbsenceByIDUserAndAcademicYear(st, classroom.getAcademicYear());
+			session.setAttribute("absenceList", absenceList);
+			session.setAttribute("utente", userStudent);
+				
+		} catch (EntityNotFoundException entityNotFoundException) {
+			errorMessage =  Environment.DEFA
+
+=== F0158 ===
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+ 
+	 / 
+		 			+ Use "localhost" or "aramis.csc.ncsu.edu" depending on which server you're using
+		 			+ Change the database name to the correct name (depending on which server you're using)
+
+		Nothing else here needs to change during development.
+		Do NOT change the "name=jdbc/itrust"
+		-->
+
+=== F0159 ===
+/**
+ * A loader for SurveyResultBeans.
+ *
+ * Loads in information to/from beans using ResultSets and PreparedStatements. Use the superclass to enforce consistency.
+ * For details on the paradigm for a loader (and what its methods do), see {@link BeanLoader}
+ */
+public class SurveyResultBeanLoader implements BeanLoader<SurveyResultBean> {
+
+	public List<SurveyResultBean> loadList(ResultSet rs) throws SQLException {
+		ArrayList<SurveyResultBean> list = new ArrayList<SurveyResultBean>();
+		while (rs.next()) {
+			list.add(loadSingle(rs));
+		}
+		return list;
+	}
+
+	public PreparedStatement loadParameters(PreparedStatement ps, SurveyResultBean bean) throws SQLException {
+		throw new IllegalStateException("unimplemented!");
+	}
+
+	public SurveyResultBean loadSingle(ResultSet rs) throws SQLException {
+		SurveyResultBean surveyResult = new SurveyResultBean();
+		surveyResult.setHCPMID(rs.getLong("mid"));
+		surveyResult.setAvgExamRoomMinutes(rs.getFloat("AvgExamRoomMinutes"));
+		surveyResult.setAvgTreatmentSatisfaction(rs.getFloat("AvgTreatmentSatisfation"));
+		surveyResult.setAvgVisitSatisfaction(rs.getFloat("AvgVisitSatisfaction"));
+		surveyResult.setAvgWaitingRoomMinutes(rs.getFloat("AvgWaitingRoomMinutes"));
+		surveyResult.setHCPaddress1(rs.getString("address1"));
+		surveyResult.setHCPaddress2(rs.getString("address2"));
+		surveyResult.setHCPcity(rs.getString("city"));
+		surveyResult.setHCPstate(rs.getString("state"));
+		surveyResult.setHCPzip(rs.getString("zip"));
+		surveyResult.setHCPho
+
+=== F0160 ===
+/** Servlet used to insert a user into the Database. @author napolitano Vincenzo. */
+public class ServletInsertUser extends HttpServlet {
+
+	private static final long serialVersionUID = -3860569607870099419L;
+
+	/** Definition of the method doGet */
+	public void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./showUserList";
+		String errorMessage = "";
+		
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+		
+			User user = new User();
+			user.setFirstName(pRequest.getParameter("firstName"));
+			user.setLastName(pRequest.getParameter("lastName"));
+			user.setCell(pRequest.getParameter("cell"));
+			user.setEMail(pRequest.getParameter("eMail"));
+			
+			/** we check that the login is unique. */
+			String login = pRequest.getParameter("login");
+			user.setLogin(login);
+			
+			if (managerUser.existsLogin(user)) 
+				throw new InvalidValueException("La login inserita esiste gia'. Inserire una nuova login.");
+			
+			if (pRequest.getParameter("password").equals(pRequest.getParameter("password1"))){
+						user.setPassword((pRequest.getParameter("password")));

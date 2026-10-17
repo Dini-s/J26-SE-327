@@ -7,7 +7,8 @@ it re-verifies only the links that depend on them and looks for links only where
 The message shape is an ASSUMPTION until confirmed with C2::
 
     {"event": "code_changed", "project": "<repo>", "changed": ["<code id>", ...],
-     "added": ["<code id>", ...], "requirementsAdded": ["<requirement id>", ...]}
+     "added": ["<code id>", ...], "requirementsAdded": ["<requirement id>", ...],
+     "requirementsChanged": ["<requirement id>", ...]}
 
 A stand-in for C2 (the dashboard's "Make a commit" button, or ``cli changed``) produces the same call.
 """
@@ -37,9 +38,10 @@ class ChangeSet:
     changed: tuple[str, ...] = ()  # code entities whose text changed: re-check their links
     added: tuple[str, ...] = ()  # new code entities: look for requirements they implement
     requirements_added: tuple[str, ...] = ()  # new requirements: look for code that implements them
+    requirements_changed: tuple[str, ...] = ()  # edited requirements: re-check the links they already have
 
     def is_empty(self) -> bool:
-        return not (self.changed or self.added or self.requirements_added)
+        return not (self.changed or self.added or self.requirements_added or self.requirements_changed)
 
 
 def _ids(value: Any, name: str) -> tuple[str, ...]:
@@ -73,6 +75,7 @@ def parse_change(payload: Union[str, bytes, dict[str, Any]]) -> ChangeSet:
         changed=_ids(payload.get("changed"), "changed"),
         added=_ids(payload.get("added"), "added"),
         requirements_added=_ids(payload.get("requirementsAdded", payload.get("requirements_added")), "requirementsAdded"),
+        requirements_changed=_ids(payload.get("requirementsChanged", payload.get("requirements_changed")), "requirementsChanged"),
     )
     if change.is_empty():
         raise ChangeError("the change lists no files and no requirements")
@@ -97,12 +100,15 @@ def apply_change(
     from agents.traceability_agent.agent import TraceabilityAgent
 
     summary: dict[str, Any] = {"project": change.project, "rechecked": 0, "decayed": 0, "linked": 0, "candidates": 0}
-    if change.changed:
+    if change.changed or change.requirements_changed:
         logger = RunLogger.new(runs_dir, "change-monitor")
         logger.emit("run_start", method="monitor", force=False, redis=publisher is not None,
-                    project=change.project, trigger="code_changed", changed=list(change.changed))
+                    project=change.project, trigger="code_changed" if change.changed else "requirement_changed",
+                    changed=list(change.changed), requirements_changed=list(change.requirements_changed))
         results = DecayDetector(uskg, llm, publisher=publisher, run_logger=logger).run(
-            project=change.project, only_targets=set(change.changed))
+            project=change.project,
+            only_targets=set(change.changed) if change.changed else None,
+            only_sources=set(change.requirements_changed) if change.requirements_changed else None)
         summary["rechecked"] = len(results)
         summary["decayed"] = sum(1 for r in results if r.decayed)
         logger.emit("pass_end", rechecked=summary["rechecked"], decayed=summary["decayed"])

@@ -217,6 +217,58 @@ def post_label(body: dict) -> dict:
     return {"ok": True}
 
 
+def get_c3(q: dict) -> dict:
+    """What Component 3 stores about validation for this project's requirements (read-only): RVUs and tests."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+
+    def compute() -> dict:
+        from agents.traceability_agent.c3 import coverage_from_rows
+        from shared.uskg.client import USKGClient
+
+        with USKGClient() as uskg:
+            info = coverage_from_rows(uskg.get_c3_evidence(project))
+        return {"project": project, "available": bool(info), "requirements": info}
+
+    return _cached(f"c3:{project}", 3, compute)
+
+
+def get_selfcheck(q: dict) -> dict:
+    """C4's own consistency checks for the project (read-only, no LLM)."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+
+    def compute() -> dict:
+        from agents.traceability_agent.selfcheck import selfcheck_project
+        from shared.uskg.client import USKGClient
+
+        with USKGClient() as uskg:
+            return selfcheck_project(uskg, project)
+
+    return _cached(f"selfcheck:{project}", 3, compute)
+
+
+def get_pr_curve(q: dict) -> dict:
+    """Precision / recall of the stored links per confidence threshold, for projects that have ground truth."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+
+    def compute() -> dict:
+        from agents.traceability_agent.pr_curve import pr_curve_project
+        from shared.uskg.client import USKGClient
+
+        with USKGClient() as uskg:
+            return pr_curve_project(uskg, project) or {"project": project, "rows": [], "operating_point": None, "no_ground_truth": True}
+
+    return _cached(f"prcurve:{project}", 3, compute)
+
+
 def get_completeness(q: dict) -> dict:
     """Traceability completeness per requirement (0-100) and orphan requirements; no C3 evidence figure is available yet."""
     project = _project(q.get("project"))
@@ -229,11 +281,14 @@ def get_completeness(q: dict) -> dict:
         from shared.uskg.client import USKGClient
 
         with USKGClient() as uskg:
+            from agents.traceability_agent.c3 import evidence_coverage
+
             reqs = uskg.get_artifacts("requirement", project=project)
-            results = completeness_scores(reqs, uskg.get_traces(project=project))
+            evidence = evidence_coverage(uskg.get_c3_evidence(project))
+            results = completeness_scores(reqs, uskg.get_traces(project=project), evidence)
         rows = [r.model_dump() for r in sorted(results, key=lambda r: r.score)]
         mean = sum(r["score"] for r in rows) / len(rows) if rows else 0.0
-        return {"project": project, "mean": round(mean, 1), "orphans": sum(1 for r in rows if r["is_orphan"] and not r["is_broken"]), "broken": sum(1 for r in rows if r["is_broken"]), "requirements": rows}
+        return {"project": project, "mean": round(mean, 1), "c3Requirements": len(evidence), "orphans": sum(1 for r in rows if r["is_orphan"] and not r["is_broken"]), "broken": sum(1 for r in rows if r["is_broken"]), "requirements": rows}
 
     return _cached(f"completeness:{project}", 3, compute)
 
@@ -387,7 +442,7 @@ GET_ROUTES: dict[str, Callable[[dict], Any]] = {
     "/api/health": get_health, "/api/projects": get_projects, "/api/activity": get_activity,
     "/api/link-runs": get_link_runs, "/api/change-runs": get_change_runs, "/api/files": get_files,
     "/api/graph": get_graph, "/api/unlinked": get_unlinked, "/api/results": get_results,
-    "/api/links": get_links, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics, "/api/labeling": get_labeling, "/api/code-text": get_code_text,
+    "/api/links": get_links, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics, "/api/c3": get_c3, "/api/selfcheck": get_selfcheck, "/api/pr-curve": get_pr_curve, "/api/labeling": get_labeling, "/api/code-text": get_code_text,
 }
 POST_ROUTES: dict[str, Callable[[dict], Any]] = {
     "/api/link": post_link, "/api/link-existing": post_link_existing, "/api/scan": post_scan, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset, "/api/label": post_label,

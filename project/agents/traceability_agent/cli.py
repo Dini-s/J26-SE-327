@@ -5,6 +5,7 @@ Commands:
     link     find and verify trace links, writing VERIFIED_TRACE edges (use --dry-run to skip)
     monitor  re-verify changed links and flag decayed ones (loops; --once to run a single pass)
     score    traceability completeness per requirement, plus orphan requirements
+    selfcheck  check C4's own links and scores against the graph and ground truth (no LLM)
     report   write the traceability matrix, link list and orphan / broken-link report to a folder
     changed  react to one commit: re-check links of changed files, link new files / requirements
     listen   wait for change messages from C2 on Redis and handle each one
@@ -151,7 +152,8 @@ def cmd_changed(args: argparse.Namespace) -> int:
 
     try:
         change = parse_change({"project": args.project, "changed": args.code_changed, "added": args.code_added,
-                               "requirementsAdded": args.requirement_added})
+                               "requirementsAdded": args.requirement_added,
+                               "requirementsChanged": args.requirement_changed})
     except ChangeError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
@@ -199,6 +201,10 @@ def cmd_score(args: argparse.Namespace) -> int:
     evidence = json.loads(Path(args.evidence).read_text()) if args.evidence else None
     with USKGClient() as uskg:
         scope = {"project": args.project} if args.project else {}
+        if evidence is None:  # use C3's validation coverage straight from the graph when C3 has written any
+            from agents.traceability_agent.c3 import evidence_coverage
+
+            evidence = evidence_coverage(uskg.get_c3_evidence(args.project)) or None
         results = completeness_scores(uskg.get_artifacts("requirement", **scope), uskg.get_traces(**scope), evidence)
     if args.json:
         print(json.dumps([r.model_dump() for r in results], indent=1))
@@ -229,6 +235,30 @@ def cmd_report(args: argparse.Namespace) -> int:
     print(f"{summary['requirements']} requirements: {len(summary['orphans'])} orphan, {len(summary['broken'])} broken, "
           f"{len(summary['weak'])} weak, {len(summary['decayed_links'])} decayed link(s). Files written to {out}/")
     return 0
+
+
+def cmd_selfcheck(args: argparse.Namespace) -> int:
+    """Check C4's own output against the graph and (where the dataset has it) against ground truth."""
+    from agents.traceability_agent.selfcheck import selfcheck_project
+    from shared.uskg.client import USKGClient
+
+    with USKGClient() as uskg:
+        report = selfcheck_project(uskg, args.project)
+    if args.json:
+        print(json.dumps(report, indent=1))
+        return 0
+    icon = {"pass": "ok  ", "warn": "WARN", "fail": "FAIL"}
+    for c in report["checks"]:
+        print(f"[{icon[c['status']]}] {c['name']}: {c['detail']}")
+        for item in c["items"][:3]:
+            print(f"        {item}")
+    s = report["summary"]
+    print(f"\n{s['pass']} passed, {s['warn']} warning(s), {s['fail']} failed.")
+    g = report["gold"]
+    if g:
+        print(f"Against ground truth ({report['gold_source']}): precision {g['precision']:.2f}, recall {g['recall']:.2f} "
+              f"(of the {g['gold_links_of_processed_requirements']} true links of the {g['requirements_processed']} requirements processed), F1 {g['f1']:.2f}")
+    return 1 if s["fail"] else 0
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -264,6 +294,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p.add_argument("--project", help="the repository / project the change belongs to")
     p.add_argument("--code-changed", action="append", default=[], metavar="ID", help="a code entity whose text changed (repeatable)")
     p.add_argument("--code-added", action="append", default=[], metavar="ID", help="a new code entity (repeatable)")
+    p.add_argument("--requirement-changed", action="append", default=[], metavar="ID", help="a requirement whose text was edited: re-check its links (repeatable)")
     p.add_argument("--requirement-added", action="append", default=[], metavar="ID", help="a new requirement (repeatable)")
     p.add_argument("--top-k", type=int, default=3)
     p.add_argument("--no-redis", action="store_true")
@@ -275,13 +306,18 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p.add_argument("--once", action="store_true", help="handle one message, then exit")
     p.set_defaults(func=cmd_listen)
 
+    p = sub.add_parser("selfcheck", help="check C4's own output against the graph and ground truth")
+    p.add_argument("--project", help="only this project / repository")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_selfcheck)
+
     p = sub.add_parser("report", help="export matrix CSV, link list CSV and orphan/broken report JSON")
     p.add_argument("--project", help="only this project / repository")
     p.add_argument("--out", default="data/results/trace_report", help="output folder")
     p.set_defaults(func=cmd_report)
 
     p = sub.add_parser("score", help="completeness score + orphans")
-    p.add_argument("--evidence", help="JSON {requirement_id: coverage 0..1} from C3")
+    p.add_argument("--evidence", help="JSON {requirement_id: coverage 0..1}; default: read C3's RVUs and evidence from the graph")
     p.add_argument("--json", action="store_true")
     p.add_argument("--project", help="only this project / repository")
     p.set_defaults(func=cmd_score)

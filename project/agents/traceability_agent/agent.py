@@ -31,6 +31,7 @@ from agents.traceability_agent.config import (
 from agents.traceability_agent.prompts import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
 from agents.traceability_agent.preprocess import llm_text, retrieval_text
 from agents.traceability_agent.run_log import RunLogger
+from agents.traceability_agent.semdiff import fingerprint_pair
 from agents.traceability_agent.retrieval import (
     Candidate,
     embedding_matrix,
@@ -238,6 +239,7 @@ class TraceabilityAgent:
                     confidence=confidence,
                     justification=str(result["reasoning"]),
                     text_hash=content_hash(candidate.source, candidate.target),
+                    sem_fingerprint=fingerprint_pair(candidate.source, candidate.target, llm_text(candidate.target)),
                 )
                 links.append(link)
                 if on_link is not None:

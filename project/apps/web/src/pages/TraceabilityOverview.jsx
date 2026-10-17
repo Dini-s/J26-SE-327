@@ -3,7 +3,7 @@ import { Activity, Download, FileText, FolderGit2, GitBranch, ShieldAlert, Trian
 import { useApi, useProject } from "../api/c4";
 import { PageHeader, Ring, Metric, Tabs, Callout } from "../component/traceability/ui";
 import LinksTable from "../component/traceability/LinksTable";
-import { CompletenessPanel, DecayPanel, PipelineStrip } from "../component/traceability/Panels";
+import { CompletenessPanel, DecayPanel, PipelineStrip, SelfCheckPanel } from "../component/traceability/Panels";
 import { EvaluationPanel, RerankerPanel } from "../component/traceability/EvaluationPanel";
 
 const TraceabilityOverview = () => {
@@ -13,6 +13,7 @@ const TraceabilityOverview = () => {
   const completeness = useApi(enc ? `/api/completeness?project=${enc}` : null);
   const results = useApi("/api/results");
   const analysis = useApi("/api/analysis");
+  const selfcheck = useApi(enc ? `/api/selfcheck?project=${enc}` : null);
   const [tab, setTab] = useState("links");
 
   const data = links.data;
@@ -76,6 +77,7 @@ const TraceabilityOverview = () => {
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
               <DecayPanel flags={data?.decayFlags ?? []} />
               <CompletenessPanel completeness={completeness.data} />
+              <div className="xl:col-span-2"><SelfCheckPanel report={selfcheck.data} /></div>
             </div>
           )}
           {tab === "pipeline" && <PipelineStrip />}

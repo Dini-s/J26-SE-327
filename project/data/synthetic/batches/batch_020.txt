@@ -1,0 +1,551 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0191 ===
+public class ManagerRegister {
+
+	
+	/** Class that manages the Digital Register @author Nicola Pisanti @version 1.0 */
+	
+	private static ManagerRegister instance;
+	
+	public final static String TABLE_ABSENCE="absence";
+	public final static String TABLE_DELAY="delay";
+	public final static String TABLE_JUSTIFY="justify";
+	public final static String TABLE_NOTE="note";
+	
+	
+	private ManagerRegister(){
+		super();
+	}
+	
+	
+	/** Returns the only existing instance of the class. */
+	public static synchronized ManagerRegister getInstance(){
+		if(instance==null){
+			instance = new ManagerRegister();
+		}
+		return instance;
+	}
+	
+	/** Checks whether the class given as input is in the database */
+	public synchronized boolean exists(Absence pAbsence) throws ConnectionException, SQLException {
+		
+		boolean result = false;
+		Connection connect = null;
+
+		try {
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == null)
+				throw new ConnectionException();
+
+			String sql = "SELECT * FROM " 
+				+ ManagerRegister.TABLE_ABSENCE
+				+ " WHERE id_absence = "
+				+ Utility.isNull(pAbsence.getIdAbsence());
+
+			// We send the query to the database
+			ResultSet tRs = Utility.queryOperation(connect, sql);
+
+			if (tRs.next()){
+				result = true;
+			}
+			
+			return result;
+			
+		} finally {
+			DBConnection.releaseConnection(connect);
+		}
+	}
+	
+	/** Checks whether the class given as input is in the database */
+	public synchronized boolean exists(Delay pDelay) t
+
+=== F0192 ===
+/** Class that models a note on the register @author Nicola Pisanti @version 1.0 */
+
+public class Note implements Serializable{
+
+	private static final long serialVersionUID = 5953926210895315436L;
+	
+	private int idNote;
+	private int idUser;
+	private Date dateNote;
+	private String description;
+	private String teacher;
+	private int academicYear;
+	
+	
+	public Note(){
+		
+	}
+	
+	
+	
+	/** Method that returns the id of the note */
+	public int getIdNote() {
+		return idNote;
+	}
+	/** Method to set the id of the note */
+	public void setIdNote(int pIdNote) {
+		this.idNote = pIdNote;
+	}
+	/** Method that returns the id of the student who received the note */
+	public int getIdUser() {
+		return idUser;
+	}
+	/** Method to set the id of the student who received the note */
+	public void setIdUser(int pIdUser) {
+		this.idUser = pIdUser;
+	}
+	/** Method that returns a string representing the date on which the note was given */
+	public Date getDateNote() {
+		return dateNote;
+	}
+	/** Method that sets a string representing the date on which the note was given */
+	public void setDateNote(Date pDateNote) {
+		this.dateNote = pDateNote;
+	}
+	/** Method that returns the text of the note */
+	public String getDescription() {
+		return description;
+	}
+	/** Method that sets the description of the note */
+	public void setDescription(String pDescription) {
+		this.description = pDescription;
+	}
+	/** Method that returns the id of the teacher who gave the note */
+	public String getTeacher() {
+		return teacher;
+	}
+	/** M
+
+=== F0193 ===
+/**
+ * Class management of cultural heritage unique to Agency
+ *
+ */
+public class CulturalHeritageAgencyManager extends CulturalHeritageCommonManager implements ICulturalHeritageAgencyManager {
+    /**
+     * Constructor of class, richicama and initializes the class of common
+     * management
+     */
+    public CulturalHeritageAgencyManager() throws RemoteException {
+        super();
+    }
+
+    /**
+     * Implements the method for the elimination of a cultural system.
+     *
+     * @See unisa.gps.etour.control.ManagerCulturalHeritage.IManagerCulturalHeritageAgency
+     *      # clearCulturalHeritage (int)
+     */
+    public boolean clearCulturalHeritage(int pCulturalHeritageID) throws RemoteException {
+        if (!CulturalHeritageChecker.checkIdCulturalHeritage(pCulturalHeritageID))
+            throw new RemoteException(ErrorMessage.ERROR_DATA);
+
+        try {
+            return (dbbc.clearCulturalHeritage(pCulturalHeritageID));
+        } catch (SQLException e) {
+            throw new RemoteException(ErrorMessage.ERROR_DBMS);
+        } catch (Exception e) {
+            throw new RemoteException(ErrorMessage.ERROR_UNKNOWN);
+        }
+    }
+
+    /**
+     * Implement the method for the insertion of a new cultural object.
+     *
+     * @See unisa.gps.etour.control.ManagerCulturalHeritage.IManagerCulturalHeritageAgency
+     *      # insertCulturalHeritage (unisa.gps.etour.bean.BeanCulturalHeritage)
+     */
+    public boolean insertCulturalHeritage(BeanCulturalHeritage pCulturalH
+
+=== F0194 ===
+/**
+ * Interface for managing search preferences in database
+ *
+ */
+public interface IDBSearchPreference {
+    /**
+     * Add a preference of Search
+     *
+     * @Param pPreference Search Preferences
+     */
+    public boolean insertSearchPreference(BeanSearchPreference pPreference) throws SQLException;
+
+    /**
+     * Delete a preference for research
+     *
+     * @Param pPreference preference to eliminate
+     * @Return True if and 'have been deleted false otherwise
+     */
+    public boolean clearSearchPreference(int pIdPreference) throws SQLException;
+
+    /**
+     * Returns the list of preferences to find a tourist
+     *
+     * @Param Id pIdTourist tourists
+     * @Return List Search Preferences
+     */
+    public ArrayList<BeanSearchPreference> getSearchPreferenceDelTourist(int pIdTourist) throws SQLException;
+
+    /**
+     * Returns the list of preferences for research of a cultural
+     *
+     * @Param pIdCulturalHeritage ID of the cultural
+     * @Return list search preferences.
+     */
+    public ArrayList<BeanSearchPreference> getSearchPreferenceDelBC(int pIdCulturalHeritage) throws SQLException;
+
+    /**
+     * Returns the list of preferences to find a resting spot
+     *
+     * @Param identifier pIdRefreshmentPoint a refreshment
+     * @Return list search preferences.
+     */
+    public ArrayList<BeanSearchPreference> getSearchPreferenceDelPR(int pIdRefreshmentPoint)
+            throws SQLException;
+
+    /**
+     * Add a preference for a cultural
+     *
+     * 
+
+=== F0195 ===
+/** The class ServletCreaPdfCittadino creates a PDF file based on the data received from a JSP page (citizen). The class has no dependencies @author Christian Ronca */
+
+public class ServletCreaPdfCittadino extends HttpServlet {
+	private static final long serialVersionUID = -168526506138896791L;
+	private HttpSession session;
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) 
+		throws ServletException, IOException {
+		session = request.getSession();
+		
+		try {
+			GregorianCalendar gc = new GregorianCalendar();
+			int gg = gc.get(GregorianCalendar.DATE);
+			int mm = gc.get(GregorianCalendar.MONTH) + 1;
+			int year = gc.get(GregorianCalendar.YEAR);
+			String now = "" + year + mm + gg;
+			String inout = "";
+			
+			String nome_comune			= request.getParameter("comunename").toUpperCase();
+			String nome					= request.getParameter("name").toUpperCase();
+			String surname				= request.getParameter("surname").toUpperCase();
+			String name_citta			= request.getParameter("citta").toUpperCase();
+			String gg_date				= request.getParameter("gg");
+			String mm_date				= request.getParameter("mm");
+			String aa_date				= request.getParameter("aa");
+			String newcomune			= request.getParameter("newcomune").toUpperCase();
+			String indir				= request.getParameter("via").toUpperCase();
+			String numero_civico		= request.getParameter("civico");
+			String indirnew				= request.getParameter("newvia").toUpperCase();
+			String num_civnew			= request.getParameter("num");
+
+
+=== F0196 ===
+/**
+ * Bean which contains data on the Banner
+ */
+public class BeanBanner implements Serializable {
+    private static final long serialVersionUID = -872783211721655763L;
+    private int id;
+    private int idRefreshmentPoint;
+    private String filepath;
+
+    /**
+     * Parameterized constructor
+     *
+     */
+
+    public BeanBanner(int pId, String pPathFile, int pidRefreshmentPoint) {
+        setId(pId);
+        setPathFile(pPathFile);
+        setIdRefreshmentPoint(pidRefreshmentPoint);
+    }
+
+    public BeanBanner() {
+
+    }
+
+    /**
+     * Returns the value of FilePath
+     *
+     * @Return value of FilePath.
+     */
+
+    public String getPathFile() {
+        return filepath;
+    }
+
+    /**
+     * Sets the new value of filepath
+     *
+     * @Param pPathFile New value filepath.
+     */
+    public void setPathFile(String pPathFile) {
+        filepath = pPathFile;
+    }
+
+    /**
+     * Returns the value of id
+     *
+     * @Return value id.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Returns the value of idRefreshmentPoint
+     *
+     * @Return value idRefreshmentPoint.
+     */
+    public int getIdRefreshmentPoint() {
+        return idRefreshmentPoint;
+    }
+
+    /**
+     * Sets the new value of id
+     *
+     * @Param pId New value for id.
+     */
+    public void setId(int pId) {
+        id = pId;
+    }
+
+    /**
+     * Sets the new value of idRefreshmentPoint
+     *
+     * @Param value pIdRefreshmentPoint New idRefreshmentPoint.
+     */
+    pu
+
+=== F0197 ===
+public class ServletUpdateRegister extends HttpServlet {
+
+	private static final long serialVersionUID = 5966298318913522686L;
+	
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "./registerManagement/showClassroomList.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		
+		// Boolean variable used to check whether the student has an absence or not
+		boolean flag = false;
+		
+		// Collection used to store the register of a particular date
+		Collection<RegisterLine> register = null;
+		// Iterator needed to scroll through the collection
+		Iterator itRegister = null;
+		// Temporary variable needed to read the information from the collection
+		RegisterLine tmpRegisterLine = null;
+		// Temporary variable needed to read the information from the collection
+		UserListItem student = null;
+		
+		// Temporary variable needed to insert the new absences
+		Absence tmpAbsence = null;
+		
+		// Temporary variable needed to insert new lateness records
+		Delay tmpDelay = null;
+		
+		// Manager classes needed for the processing
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerRegister managerRegister = ManagerRegister.getInstance();
+		
+		// Variables needed to store the data coming from the request
+		String[] absences = null; // Stores the absent pupils
+		String[] delays = null; // Stores the late pupils
+		
+		// I retrieve the logged-in user from the session
+		User loggedUser = (User) session.getAttr
+
+=== F0198 ===
+pageTitle = "iTrust - HCP - send Email Notification";
+ 
+
+ 
+
+ 
+PersonnelBean self = new PersonnelDAO(prodDAO).getPersonnel(loggedInMID);
+
+boolean flag;
+long mid;
+if (request.getParameter("mid") != null && !request.getParameter("mid").equalsIgnoreCase("")) {
+	mid = Long.parseLong(request.getParameter("mid"));
+	flag = true;
+} else {
+	flag = false;
+	mid = 0;
+}
+
+ 
+
+ 
+if (flag) {
+	PatientDAO patients = new PatientDAO(prodDAO);
+	PatientBean myPatient = patients.getPatient(mid);
+ 
+ 
+ 
+  
+
+	 
+	 Send Email Form: 
+
+	 
+	 
+		 From:  
+		  self.getFullName()    
+	 
+	 
+		 To:  
+		 
+			 "> ( myPatient.getFullName()  )
+		 
+	 
+	 
+		 Subject: 
+		 
+			 
+		 
+	 
+	 
+		 
+			 Dear  myPatient.getFirstName()  , 
+		 
+	 
+	 
+	 
+
+	 ">
+	 
+	 
+
+	 
+
+  
+ 
+ 
+ 
+} else {
+	if (request.getParameter("email") == null || request.getParameter("email").equals("")) {
+		response.sendRedirect("/iTrust/auth/hcp/home.jsp");
+	}
+
+	String email = request.getParameter("email");
+	String subject = request.getParameter("subject");
+	String message = request.getParameter("thetext");
+	long id = Long.parseLong(request.getParameter("id"));
+
+	Email myEmail = new Email();
+
+	List  toList = new ArrayList ();
+	toList.add(email);
+	myEmail.setToList(toList);
+
+	myEmail.setFrom(self.getEmail());
+	myEmail.setBody(message);
+	myEmail.setSubject(subject);
+
+	EmailUtil emailer = new EmailUtil(prodDAO);
+	emailer.sendEmail(myEmail);
+
+	PatientDAO patients = new PatientDAO(prodDAO);
+	PatientBean myPatient = patients.getPatient(id);
+ 
+ 
+ 
+  
+
+	  Your Email w
+
+=== F0199 ===
+/**
+ * Interface for handling general preferences in database
+ *
+ */
+public interface IDBGenericPreference {
+    /**
+     * Add a preference General
+     *
+     * @Param pPreference preference to be added
+     */
+    public boolean insertGenericPreference(BeanGenericPreference pPreference) throws SQLException;
+
+    /**
+     * Edit a general preference
+     *
+     * @Param pPreference preference to change
+     * @Return True if and 'been changed otherwise false
+     */
+    public boolean modifyGenericPreference(BeanGenericPreference pPreference) throws SQLException;
+
+    /**
+     * Delete a general preference
+     *
+     * @Param ID pIdPreference preference to delete
+     * @Return True if and 'have been deleted false otherwise
+     */
+    public boolean clearGenericPreference(int pIdPreference) throws SQLException;
+
+    /**
+     * Returns the generic preference for tourists
+     *
+     * @Param Id pIdTourist tourists
+     * @Return generic preference
+     */
+    public BeanGenericPreference getGenericPreference(int pIdTourist) throws SQLException;
+}
+
+=== F0200 ===
+/** Class that takes care of managing the connections with the database and of shielding the servlets from the DBMS. @author Michelangelo Cianciulli */
+public class DbCambioResidenza 
+{
+	private Connection connection;
+	
+	public DbCambioResidenza() throws DbException
+	{	
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException exc)
+		{
+			throw new DbException("Errore : connessione non riuscita");
+		}
+	}
+	
+	/** Method that allows deleting the identity card of the citizen when he or she changes residence to an external municipality (db update) */
+	public boolean changeResidence (String cod) throws DbException
+	{		
+		return new DbCartaIdentita().cancellaCartaIdentita(cod);
+	}
+	
+	/** Method that allows updating the residence saved in the identity card of the citizen who has changed residence within the same municipality in which he or she currently lives. (db update) */
+
+	public CartaIdentita changeResidenceIn (String cod, String v,int nc) throws DbException
+	{
+		if (new DbCartaIdentita().modificaResidenzaCartaIdentita(cod, v, nc))
+			return new DbCartaIdentita().ricercaCartaIdentitaByNumero(cod);
+		else
+			return null;
+	}
+}

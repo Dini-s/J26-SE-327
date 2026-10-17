@@ -1,0 +1,1182 @@
+{
+ "F0001": {
+  "dataset": "smos",
+  "code_id": "ServletUpdateUser"
+ },
+ "F0002": {
+  "dataset": "etour",
+  "code_id": "DBTag.java"
+ },
+ "F0003": {
+  "dataset": "etour",
+  "code_id": "StandardSearch.java"
+ },
+ "F0004": {
+  "dataset": "smos",
+  "code_id": "ServletInsertClassroom"
+ },
+ "F0005": {
+  "dataset": "etour",
+  "code_id": "IDBRefreshmentPoint.java"
+ },
+ "F0006": {
+  "dataset": "etour",
+  "code_id": "BeanNews.java"
+ },
+ "F0007": {
+  "dataset": "itrust",
+  "code_id": "Ethnicity"
+ },
+ "F0008": {
+  "dataset": "smos",
+  "code_id": "Absence"
+ },
+ "F0009": {
+  "dataset": "eanci",
+  "code_id": "EA141"
+ },
+ "F0010": {
+  "dataset": "etour",
+  "code_id": "AdvertisementRefreshmentPointManager.java"
+ },
+ "F0011": {
+  "dataset": "smos",
+  "code_id": "ServletLoadReport"
+ },
+ "F0012": {
+  "dataset": "etour",
+  "code_id": "DBNews.java"
+ },
+ "F0013": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp/UpdateLabProc"
+ },
+ "F0014": {
+  "dataset": "etour",
+  "code_id": "BeanOperatorAgency.java"
+ },
+ "F0015": {
+  "dataset": "eanci",
+  "code_id": "EA194"
+ },
+ "F0016": {
+  "dataset": "etour",
+  "code_id": "Category.java"
+ },
+ "F0017": {
+  "dataset": "etour",
+  "code_id": "BannerNode.java"
+ },
+ "F0018": {
+  "dataset": "etour",
+  "code_id": "CardPR.java"
+ },
+ "F0019": {
+  "dataset": "eanci",
+  "code_id": "EA158"
+ },
+ "F0020": {
+  "dataset": "etour",
+  "code_id": "ScrollableTable.java"
+ },
+ "F0021": {
+  "dataset": "itrust",
+  "code_id": "AdverseEventDAO"
+ },
+ "F0022": {
+  "dataset": "itrust",
+  "code_id": "NDCodesDAO"
+ },
+ "F0023": {
+  "dataset": "itrust",
+  "code_id": "/auth/uap/menu"
+ },
+ "F0024": {
+  "dataset": "etour",
+  "code_id": "IDBCulturalHeritage.java"
+ },
+ "F0025": {
+  "dataset": "eanci",
+  "code_id": "EA140"
+ },
+ "F0026": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp/LabProcHCP"
+ },
+ "F0027": {
+  "dataset": "etour",
+  "code_id": "DBSearchPreference.java"
+ },
+ "F0028": {
+  "dataset": "smos",
+  "code_id": "ServletInsertTeaching"
+ },
+ "F0029": {
+  "dataset": "etour",
+  "code_id": "CulturalHeritageChecker.java"
+ },
+ "F0030": {
+  "dataset": "smos",
+  "code_id": "Role"
+ },
+ "F0031": {
+  "dataset": "etour",
+  "code_id": "IDBAgencyOperator.java"
+ },
+ "F0032": {
+  "dataset": "etour",
+  "code_id": "Search.java"
+ },
+ "F0033": {
+  "dataset": "etour",
+  "code_id": "DBAgencyOperator.java"
+ },
+ "F0034": {
+  "dataset": "smos",
+  "code_id": "ServletShowRegister"
+ },
+ "F0035": {
+  "dataset": "itrust",
+  "code_id": "/auth/admin/sendAppointmentReminders"
+ },
+ "F0036": {
+  "dataset": "smos",
+  "code_id": "Report"
+ },
+ "F0037": {
+  "dataset": "itrust",
+  "code_id": "MessageValidator"
+ },
+ "F0038": {
+  "dataset": "etour",
+  "code_id": "BeanDish.java"
+ },
+ "F0039": {
+  "dataset": "etour",
+  "code_id": "CulturalHeritage.java"
+ },
+ "F0040": {
+  "dataset": "itrust",
+  "code_id": "ParameterUtil"
+ },
+ "F0041": {
+  "dataset": "etour",
+  "code_id": "ControlData.java"
+ },
+ "F0042": {
+  "dataset": "smos",
+  "code_id": "ServletDeleteJustify"
+ },
+ "F0043": {
+  "dataset": "etour",
+  "code_id": "RefreshmentPointCommonManager.java"
+ },
+ "F0044": {
+  "dataset": "smos",
+  "code_id": "ServletInitialize"
+ },
+ "F0045": {
+  "dataset": "itrust",
+  "code_id": "EditOfficeVisitAction"
+ },
+ "F0046": {
+  "dataset": "eanci",
+  "code_id": "EA144"
+ },
+ "F0047": {
+  "dataset": "eanci",
+  "code_id": "EA186"
+ },
+ "F0048": {
+  "dataset": "smos",
+  "code_id": "ServletAssignParentStudent"
+ },
+ "F0049": {
+  "dataset": "eanci",
+  "code_id": "EA171"
+ },
+ "F0050": {
+  "dataset": "etour",
+  "code_id": "DBConvention.java"
+ },
+ "F0051": {
+  "dataset": "smos",
+  "code_id": "ServletLoadTeachingList"
+ },
+ "F0052": {
+  "dataset": "eanci",
+  "code_id": "EA160"
+ },
+ "F0053": {
+  "dataset": "smos",
+  "code_id": "ServletUpdateReport"
+ },
+ "F0054": {
+  "dataset": "itrust",
+  "code_id": "HealthRecord"
+ },
+ "F0055": {
+  "dataset": "eanci",
+  "code_id": "EA187"
+ },
+ "F0056": {
+  "dataset": "itrust",
+  "code_id": "TransactionDAO"
+ },
+ "F0057": {
+  "dataset": "itrust",
+  "code_id": "AgeFactor"
+ },
+ "F0058": {
+  "dataset": "etour",
+  "code_id": "LimitedDocument.java"
+ },
+ "F0059": {
+  "dataset": "etour",
+  "code_id": "DBGenericPreference.java"
+ },
+ "F0060": {
+  "dataset": "etour",
+  "code_id": "Banner.java"
+ },
+ "F0061": {
+  "dataset": "etour",
+  "code_id": "BannerDialog.java"
+ },
+ "F0062": {
+  "dataset": "etour",
+  "code_id": "ICulturalHeritageCommonManager.java"
+ },
+ "F0063": {
+  "dataset": "itrust",
+  "code_id": "ViewExpiredPrescriptionsAction"
+ },
+ "F0064": {
+  "dataset": "itrust",
+  "code_id": "GetVisitRemindersAction"
+ },
+ "F0065": {
+  "dataset": "itrust",
+  "code_id": "/auth/patient/addTelemedicineData"
+ },
+ "F0066": {
+  "dataset": "eanci",
+  "code_id": "EA163"
+ },
+ "F0067": {
+  "dataset": "etour",
+  "code_id": "CulturalHeritageVisitChecker.java"
+ },
+ "F0068": {
+  "dataset": "etour",
+  "code_id": "BeanTourist.java"
+ },
+ "F0069": {
+  "dataset": "etour",
+  "code_id": "NewsTableModelTest.java"
+ },
+ "F0070": {
+  "dataset": "etour",
+  "code_id": "AdvertisementManager.java"
+ },
+ "F0071": {
+  "dataset": "etour",
+  "code_id": "TagCommonManager.java"
+ },
+ "F0072": {
+  "dataset": "eanci",
+  "code_id": "EA145"
+ },
+ "F0073": {
+  "dataset": "smos",
+  "code_id": "Address"
+ },
+ "F0074": {
+  "dataset": "smos",
+  "code_id": "NotImplementedYetException"
+ },
+ "F0075": {
+  "dataset": "smos",
+  "code_id": "ServletAssignRole"
+ },
+ "F0076": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp-uap/getPrescriptionReport"
+ },
+ "F0077": {
+  "dataset": "eanci",
+  "code_id": "EA167"
+ },
+ "F0078": {
+  "dataset": "smos",
+  "code_id": "AdaptorException"
+ },
+ "F0079": {
+  "dataset": "smos",
+  "code_id": "ServletAddressTeachings"
+ },
+ "F0080": {
+  "dataset": "smos",
+  "code_id": "DefaultException"
+ },
+ "F0081": {
+  "dataset": "smos",
+  "code_id": "ServletInsertNewNote"
+ },
+ "F0082": {
+  "dataset": "eanci",
+  "code_id": "EA184"
+ },
+ "F0083": {
+  "dataset": "itrust",
+  "code_id": "ApptBeanLoader"
+ },
+ "F0084": {
+  "dataset": "smos",
+  "code_id": "Votes"
+ },
+ "F0085": {
+  "dataset": "smos",
+  "code_id": "ManagerClassroom"
+ },
+ "F0086": {
+  "dataset": "smos",
+  "code_id": "ServletUpdateJustify"
+ },
+ "F0087": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp-uap/editPatientList"
+ },
+ "F0088": {
+  "dataset": "etour",
+  "code_id": "DBMenu.java"
+ },
+ "F0089": {
+  "dataset": "eanci",
+  "code_id": "EA181"
+ },
+ "F0090": {
+  "dataset": "itrust",
+  "code_id": "/errors/nodb"
+ },
+ "F0091": {
+  "dataset": "smos",
+  "code_id": "DBConnection"
+ },
+ "F0092": {
+  "dataset": "itrust",
+  "code_id": "ApptTypeDAO"
+ },
+ "F0093": {
+  "dataset": "eanci",
+  "code_id": "EA173"
+ },
+ "F0094": {
+  "dataset": "smos",
+  "code_id": "ServletInsertJustify"
+ },
+ "F0095": {
+  "dataset": "eanci",
+  "code_id": "EA175"
+ },
+ "F0096": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp-uap/chronicDiseaseRisks"
+ },
+ "F0097": {
+  "dataset": "itrust",
+  "code_id": "ViewMyApptsAction"
+ },
+ "F0098": {
+  "dataset": "itrust",
+  "code_id": "UpdateNDCodeListAction"
+ },
+ "F0099": {
+  "dataset": "etour",
+  "code_id": "DBBanner.java"
+ },
+ "F0100": {
+  "dataset": "smos",
+  "code_id": "ServletDeleteReport"
+ },
+ "F0101": {
+  "dataset": "eanci",
+  "code_id": "EA155"
+ },
+ "F0102": {
+  "dataset": "smos",
+  "code_id": "DuplicatedEntityException"
+ },
+ "F0103": {
+  "dataset": "eanci",
+  "code_id": "EA148"
+ },
+ "F0104": {
+  "dataset": "smos",
+  "code_id": "display"
+ },
+ "F0105": {
+  "dataset": "itrust",
+  "code_id": "EditRepresentativesAction"
+ },
+ "F0106": {
+  "dataset": "etour",
+  "code_id": "PriorityRenderer.java"
+ },
+ "F0107": {
+  "dataset": "etour",
+  "code_id": "ITagAgencyOperatorManager.java"
+ },
+ "F0108": {
+  "dataset": "itrust",
+  "code_id": "AuthDAO"
+ },
+ "F0109": {
+  "dataset": "etour",
+  "code_id": "IDBMenu.java"
+ },
+ "F0110": {
+  "dataset": "itrust",
+  "code_id": "ChronicDiseaseMediator"
+ },
+ "F0111": {
+  "dataset": "etour",
+  "code_id": "PRNode.java"
+ },
+ "F0112": {
+  "dataset": "smos",
+  "code_id": "ServletAlterPersonalDate"
+ },
+ "F0113": {
+  "dataset": "itrust",
+  "code_id": "/auth/patient/reply"
+ },
+ "F0114": {
+  "dataset": "itrust",
+  "code_id": "AddPatientAction"
+ },
+ "F0115": {
+  "dataset": "etour",
+  "code_id": "BeanRefreshmentPoint.java"
+ },
+ "F0116": {
+  "dataset": "smos",
+  "code_id": "ServletDeleteNote"
+ },
+ "F0117": {
+  "dataset": "smos",
+  "code_id": "ServletShowUserDetails"
+ },
+ "F0118": {
+  "dataset": "smos",
+  "code_id": "ServletLogin"
+ },
+ "F0119": {
+  "dataset": "smos",
+  "code_id": "ServletLoadClassByAccademicYear"
+ },
+ "F0120": {
+  "dataset": "itrust",
+  "code_id": "RemoteMonitoringDataBean"
+ },
+ "F0121": {
+  "dataset": "etour",
+  "code_id": "IDBRefreshmentPointOperator.java"
+ },
+ "F0122": {
+  "dataset": "etour",
+  "code_id": "BeanTag.java"
+ },
+ "F0123": {
+  "dataset": "smos",
+  "code_id": "ManagerAddress"
+ },
+ "F0124": {
+  "dataset": "eanci",
+  "code_id": "EA179"
+ },
+ "F0125": {
+  "dataset": "etour",
+  "code_id": "DeskManager.java"
+ },
+ "F0126": {
+  "dataset": "etour",
+  "code_id": "BeanMenu.java"
+ },
+ "F0127": {
+  "dataset": "etour",
+  "code_id": "TouristCard.java"
+ },
+ "F0128": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp-uap/editPatient"
+ },
+ "F0129": {
+  "dataset": "eanci",
+  "code_id": "EA164"
+ },
+ "F0130": {
+  "dataset": "itrust",
+  "code_id": "HCPVisitBean"
+ },
+ "F0131": {
+  "dataset": "eanci",
+  "code_id": "EA193"
+ },
+ "F0132": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp/hcpConsultation"
+ },
+ "F0133": {
+  "dataset": "itrust",
+  "code_id": "ChildhoodInfectionFactor"
+ },
+ "F0134": {
+  "dataset": "smos",
+  "code_id": "ServletDeleteAddress"
+ },
+ "F0135": {
+  "dataset": "itrust",
+  "code_id": "/auth/admin/editNDCInteractions"
+ },
+ "F0136": {
+  "dataset": "etour",
+  "code_id": "IDBConvention.java"
+ },
+ "F0137": {
+  "dataset": "etour",
+  "code_id": "RefreshmentPoint.java"
+ },
+ "F0138": {
+  "dataset": "smos",
+  "code_id": "EntityNotFoundException"
+ },
+ "F0139": {
+  "dataset": "itrust",
+  "code_id": "PersonnelValidator"
+ },
+ "F0140": {
+  "dataset": "smos",
+  "code_id": "ServletShowUserRoleForm"
+ },
+ "F0141": {
+  "dataset": "smos",
+  "code_id": "Justify"
+ },
+ "F0142": {
+  "dataset": "eanci",
+  "code_id": "EA143"
+ },
+ "F0143": {
+  "dataset": "smos",
+  "code_id": "ServletShowTeachingDetails"
+ },
+ "F0144": {
+  "dataset": "itrust",
+  "code_id": "PatientNavigation"
+ },
+ "F0145": {
+  "dataset": "eanci",
+  "code_id": "EA146"
+ },
+ "F0146": {
+  "dataset": "smos",
+  "code_id": "ServletShowJustifyDetails"
+ },
+ "F0147": {
+  "dataset": "smos",
+  "code_id": "ServletInsertReport"
+ },
+ "F0148": {
+  "dataset": "smos",
+  "code_id": "ServletInsertAddress"
+ },
+ "F0149": {
+  "dataset": "eanci",
+  "code_id": "EA166"
+ },
+ "F0150": {
+  "dataset": "eanci",
+  "code_id": "EA182"
+ },
+ "F0151": {
+  "dataset": "etour",
+  "code_id": "Point3D.java"
+ },
+ "F0152": {
+  "dataset": "eanci",
+  "code_id": "EA192"
+ },
+ "F0153": {
+  "dataset": "eanci",
+  "code_id": "EA177"
+ },
+ "F0154": {
+  "dataset": "smos",
+  "code_id": "ServletShowAddressDetails"
+ },
+ "F0155": {
+  "dataset": "itrust",
+  "code_id": "/auth/admin/editCPTProcedureCodes"
+ },
+ "F0156": {
+  "dataset": "etour",
+  "code_id": "CardBC.java"
+ },
+ "F0157": {
+  "dataset": "smos",
+  "code_id": "ServletShowJustifyList"
+ },
+ "F0158": {
+  "dataset": "itrust",
+  "code_id": "/META-INF/context"
+ },
+ "F0159": {
+  "dataset": "itrust",
+  "code_id": "SurveyResultBeanLoader"
+ },
+ "F0160": {
+  "dataset": "smos",
+  "code_id": "ServletInsertUser"
+ },
+ "F0161": {
+  "dataset": "smos",
+  "code_id": "UserListItem"
+ },
+ "F0162": {
+  "dataset": "itrust",
+  "code_id": "/WEB-INF/fmt"
+ },
+ "F0163": {
+  "dataset": "etour",
+  "code_id": "ICulturalHeritageAgencyManager.java"
+ },
+ "F0164": {
+  "dataset": "etour",
+  "code_id": "Authentication.java"
+ },
+ "F0165": {
+  "dataset": "smos",
+  "code_id": "ServletAddTeachingAsTeacher"
+ },
+ "F0166": {
+  "dataset": "itrust",
+  "code_id": "/auth/patient/viewLHCP"
+ },
+ "F0167": {
+  "dataset": "etour",
+  "code_id": "IAuthentication.java"
+ },
+ "F0168": {
+  "dataset": "smos",
+  "code_id": "Environment"
+ },
+ "F0169": {
+  "dataset": "itrust",
+  "code_id": "/loginMenu"
+ },
+ "F0170": {
+  "dataset": "itrust",
+  "code_id": "/js/getUser"
+ },
+ "F0171": {
+  "dataset": "eanci",
+  "code_id": "EA149"
+ },
+ "F0172": {
+  "dataset": "etour",
+  "code_id": "ControlServerLauncher.java"
+ },
+ "F0173": {
+  "dataset": "smos",
+  "code_id": "ServletShowClassroomDetails"
+ },
+ "F0174": {
+  "dataset": "etour",
+  "code_id": "ControllDataAdvertisement.java"
+ },
+ "F0175": {
+  "dataset": "eanci",
+  "code_id": "EA183"
+ },
+ "F0176": {
+  "dataset": "itrust",
+  "code_id": "StateSelect"
+ },
+ "F0177": {
+  "dataset": "smos",
+  "code_id": "User"
+ },
+ "F0178": {
+  "dataset": "itrust",
+  "code_id": "Gender"
+ },
+ "F0179": {
+  "dataset": "itrust",
+  "code_id": "SurveyResultBean"
+ },
+ "F0180": {
+  "dataset": "etour",
+  "code_id": "DBDish.java"
+ },
+ "F0181": {
+  "dataset": "smos",
+  "code_id": "ServletAddRemoveTeachingsAsAddress"
+ },
+ "F0182": {
+  "dataset": "smos",
+  "code_id": "ControlConnection"
+ },
+ "F0183": {
+  "dataset": "eanci",
+  "code_id": "EA180"
+ },
+ "F0184": {
+  "dataset": "smos",
+  "code_id": "PermissionException"
+ },
+ "F0185": {
+  "dataset": "smos",
+  "code_id": "RegisterLine"
+ },
+ "F0186": {
+  "dataset": "itrust",
+  "code_id": "HealthRecordsBeanLoader"
+ },
+ "F0187": {
+  "dataset": "eanci",
+  "code_id": "EA161"
+ },
+ "F0188": {
+  "dataset": "smos",
+  "code_id": "ManagerTeaching"
+ },
+ "F0189": {
+  "dataset": "smos",
+  "code_id": "ServletAssignStudentClassroom"
+ },
+ "F0190": {
+  "dataset": "itrust",
+  "code_id": "ViewReportAction"
+ },
+ "F0191": {
+  "dataset": "smos",
+  "code_id": "ManagerRegister"
+ },
+ "F0192": {
+  "dataset": "smos",
+  "code_id": "Note"
+ },
+ "F0193": {
+  "dataset": "etour",
+  "code_id": "CulturalHeritageAgencyManager.java"
+ },
+ "F0194": {
+  "dataset": "etour",
+  "code_id": "IDBSearchPreference.java"
+ },
+ "F0195": {
+  "dataset": "eanci",
+  "code_id": "EA170"
+ },
+ "F0196": {
+  "dataset": "etour",
+  "code_id": "BeanBanner.java"
+ },
+ "F0197": {
+  "dataset": "smos",
+  "code_id": "ServletUpdateRegister"
+ },
+ "F0198": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp/sendEmailNotification"
+ },
+ "F0199": {
+  "dataset": "etour",
+  "code_id": "IDBGenericPreference.java"
+ },
+ "F0200": {
+  "dataset": "eanci",
+  "code_id": "EA152"
+ },
+ "F0201": {
+  "dataset": "eanci",
+  "code_id": "EA156"
+ },
+ "F0202": {
+  "dataset": "eanci",
+  "code_id": "EA154"
+ },
+ "F0203": {
+  "dataset": "itrust",
+  "code_id": "/auth/getPersonnelID"
+ },
+ "F0204": {
+  "dataset": "smos",
+  "code_id": "ServletReportTeachings"
+ },
+ "F0205": {
+  "dataset": "itrust",
+  "code_id": "/header"
+ },
+ "F0206": {
+  "dataset": "itrust",
+  "code_id": "HCPDiagnosisBean"
+ },
+ "F0207": {
+  "dataset": "eanci",
+  "code_id": "EA150"
+ },
+ "F0208": {
+  "dataset": "eanci",
+  "code_id": "EA153"
+ },
+ "F0209": {
+  "dataset": "etour",
+  "code_id": "ITouristAgencyManager.java"
+ },
+ "F0210": {
+  "dataset": "itrust",
+  "code_id": "PatientBean"
+ },
+ "F0211": {
+  "dataset": "etour",
+  "code_id": "ErrorMessage.java"
+ },
+ "F0212": {
+  "dataset": "itrust",
+  "code_id": "/privacyPolicy"
+ },
+ "F0213": {
+  "dataset": "itrust",
+  "code_id": "SurveyBean"
+ },
+ "F0214": {
+  "dataset": "etour",
+  "code_id": "ListCategory.java"
+ },
+ "F0215": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp-uap/updateLabProc"
+ },
+ "F0216": {
+  "dataset": "smos",
+  "code_id": "ServletDeleteUser"
+ },
+ "F0217": {
+  "dataset": "smos",
+  "code_id": "ServletShowNoteList"
+ },
+ "F0218": {
+  "dataset": "itrust",
+  "code_id": "ApptDAO"
+ },
+ "F0219": {
+  "dataset": "smos",
+  "code_id": "ServletDeleteTeaching"
+ },
+ "F0220": {
+  "dataset": "eanci",
+  "code_id": "EA176"
+ },
+ "F0221": {
+  "dataset": "eanci",
+  "code_id": "EA165"
+ },
+ "F0222": {
+  "dataset": "etour",
+  "code_id": "DBLocationStatistic.java"
+ },
+ "F0223": {
+  "dataset": "etour",
+  "code_id": "BannerRenderer.java"
+ },
+ "F0224": {
+  "dataset": "eanci",
+  "code_id": "EA157"
+ },
+ "F0225": {
+  "dataset": "etour",
+  "code_id": "DBCulturalHeritage.java"
+ },
+ "F0226": {
+  "dataset": "etour",
+  "code_id": "DBRefreshmentPointOperator.java"
+ },
+ "F0227": {
+  "dataset": "itrust",
+  "code_id": "ReportRequestBeanLoader"
+ },
+ "F0228": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp-uap/LabProcUAP"
+ },
+ "F0229": {
+  "dataset": "itrust",
+  "code_id": "/auth/patient/viewOfficeVisit"
+ },
+ "F0230": {
+  "dataset": "itrust",
+  "code_id": "SecurityQAValidator"
+ },
+ "F0231": {
+  "dataset": "smos",
+  "code_id": "Delay"
+ },
+ "F0232": {
+  "dataset": "smos",
+  "code_id": "ServletShowTeacherTeachingFormByClass"
+ },
+ "F0233": {
+  "dataset": "itrust",
+  "code_id": "OfficeVisitDAO"
+ },
+ "F0234": {
+  "dataset": "eanci",
+  "code_id": "EA188"
+ },
+ "F0235": {
+  "dataset": "etour",
+  "code_id": "DBRefreshmentPoint.java"
+ },
+ "F0236": {
+  "dataset": "itrust",
+  "code_id": "UpdateLOINCListAction"
+ },
+ "F0237": {
+  "dataset": "smos",
+  "code_id": "ServletDeleteClassroom"
+ },
+ "F0238": {
+  "dataset": "smos",
+  "code_id": "DeleteAdministratorException"
+ },
+ "F0239": {
+  "dataset": "etour",
+  "code_id": "CulturalHeritageCommonManager.java"
+ },
+ "F0240": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp-uap/editPHR"
+ },
+ "F0241": {
+  "dataset": "smos",
+  "code_id": "ConnectionWrapper"
+ },
+ "F0242": {
+  "dataset": "etour",
+  "code_id": "AdvancedSearch.java"
+ },
+ "F0243": {
+  "dataset": "itrust",
+  "code_id": "RemoteMonitoringDataBeanValidator"
+ },
+ "F0244": {
+  "dataset": "eanci",
+  "code_id": "EA142"
+ },
+ "F0245": {
+  "dataset": "itrust",
+  "code_id": "LabProcedureBean"
+ },
+ "F0246": {
+  "dataset": "etour",
+  "code_id": "BeanGenericPreference.java"
+ },
+ "F0247": {
+  "dataset": "itrust",
+  "code_id": "Type1DiabetesRisks"
+ },
+ "F0248": {
+  "dataset": "smos",
+  "code_id": "ServletRemoveTeachingAsTeacher"
+ },
+ "F0249": {
+  "dataset": "eanci",
+  "code_id": "EA190"
+ },
+ "F0250": {
+  "dataset": "itrust",
+  "code_id": "/auth/hcp-uap/showEmailHistory"
+ },
+ "F0251": {
+  "dataset": "smos",
+  "code_id": "ServletShowAddressList"
+ },
+ "F0252": {
+  "dataset": "eanci",
+  "code_id": "EA159"
+ },
+ "F0253": {
+  "dataset": "smos",
+  "code_id": "ServletUpdateTeaching"
+ },
+ "F0254": {
+  "dataset": "eanci",
+  "code_id": "EA189"
+ },
+ "F0255": {
+  "dataset": "etour",
+  "code_id": "TouristClientManager.java"
+ },
+ "F0256": {
+  "dataset": "smos",
+  "code_id": "LoginException"
+ },
+ "F0257": {
+  "dataset": "etour",
+  "code_id": "OperatorAgency.java"
+ },
+ "F0258": {
+  "dataset": "smos",
+  "code_id": "ServletShowUserTeachingForm"
+ },
+ "F0259": {
+  "dataset": "itrust",
+  "code_id": "BeanLoader"
+ },
+ "F0260": {
+  "dataset": "itrust",
+  "code_id": "PatientVisitBean"
+ },
+ "F0261": {
+  "dataset": "eanci",
+  "code_id": "EA162"
+ },
+ "F0262": {
+  "dataset": "etour",
+  "code_id": "Fuzzy.java"
+ },
+ "F0263": {
+  "dataset": "etour",
+  "code_id": "DBVisitPR.java"
+ },
+ "F0264": {
+  "dataset": "etour",
+  "code_id": "ReportStatistic.java"
+ },
+ "F0265": {
+  "dataset": "smos",
+  "code_id": "Classroom"
+ },
+ "F0266": {
+  "dataset": "smos",
+  "code_id": "Teaching"
+ },
+ "F0267": {
+  "dataset": "smos",
+  "code_id": "ConnectionPoolDataSource"
+ },
+ "F0268": {
+  "dataset": "itrust",
+  "code_id": "LabProcHCPAction"
+ },
+ "F0269": {
+  "dataset": "etour",
+  "code_id": "FeedBackTableModel.java"
+ },
+ "F0270": {
+  "dataset": "eanci",
+  "code_id": "EA172"
+ },
+ "F0271": {
+  "dataset": "itrust",
+  "code_id": "VisitFlag"
+ },
+ "F0272": {
+  "dataset": "itrust",
+  "code_id": "ReferralBean"
+ },
+ "F0273": {
+  "dataset": "itrust",
+  "code_id": "TransactionType"
+ },
+ "F0274": {
+  "dataset": "eanci",
+  "code_id": "EA178"
+ },
+ "F0275": {
+  "dataset": "itrust",
+  "code_id": "ViewSurveyResultAction"
+ },
+ "F0276": {
+  "dataset": "etour",
+  "code_id": "DBVisitBC.java"
+ },
+ "F0277": {
+  "dataset": "eanci",
+  "code_id": "EA169"
+ },
+ "F0278": {
+  "dataset": "smos",
+  "code_id": "ServletShowReports"
+ },
+ "F0279": {
+  "dataset": "itrust",
+  "code_id": "DBException"
+ },
+ "F0280": {
+  "dataset": "eanci",
+  "code_id": "EA174"
+ },
+ "F0281": {
+  "dataset": "itrust",
+  "code_id": "ReportRequestDAO"
+ },
+ "F0282": {
+  "dataset": "itrust",
+  "code_id": "DiagnosisBeanValidator"
+ },
+ "F0283": {
+  "dataset": "etour",
+  "code_id": "TagAgencyOperatorManager.java"
+ },
+ "F0284": {
+  "dataset": "smos",
+  "code_id": "ConnectionException"
+ },
+ "F0285": {
+  "dataset": "itrust",
+  "code_id": "/auth/admin/hospitalAssignments"
+ },
+ "F0286": {
+  "dataset": "etour",
+  "code_id": "IDBVisitBC.java"
+ },
+ "F0287": {
+  "dataset": "eanci",
+  "code_id": "EA185"
+ },
+ "F0288": {
+  "dataset": "eanci",
+  "code_id": "EA147"
+ },
+ "F0289": {
+  "dataset": "etour",
+  "code_id": "Point3DRenderer.java"
+ },
+ "F0290": {
+  "dataset": "etour",
+  "code_id": "HelpManager.java"
+ },
+ "F0291": {
+  "dataset": "eanci",
+  "code_id": "EA191"
+ },
+ "F0292": {
+  "dataset": "eanci",
+  "code_id": "EA168"
+ },
+ "F0293": {
+  "dataset": "smos",
+  "code_id": "ServletShowClassroomManagement"
+ },
+ "F0294": {
+  "dataset": "eanci",
+  "code_id": "EA151"
+ },
+ "F0295": {
+  "dataset": "smos",
+  "code_id": "ServletShowClassroomList"
+ }
+}

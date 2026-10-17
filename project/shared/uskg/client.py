@@ -69,6 +69,19 @@ WHERE ($status IS NULL OR v.status = $status)
 RETURN r.id AS source_id, c.id AS target_id, properties(v) AS props
 """
 
+# C3 (Quality & Testing) writes RVUs, evidence and adequacy summaries. C4 only READS them, to count how well each
+# requirement is validated. Relationship names follow C3's schema diagram; confirm property names with C3.
+_C3_EVIDENCE_QUERY = """
+MATCH (r:Requirement)
+WHERE ($project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project)
+OPTIONAL MATCH (r)-[:HAS_RVU]->(v:RVU)
+OPTIONAL MATCH (v)-[:MATCHED_BY]->(e:ValidationEvidence)
+OPTIONAL MATCH (r)-[:SUMMARIZED_AS]-(s:AdequacySummary)
+WITH r, v, collect(DISTINCT properties(e)) AS evidence, head(collect(DISTINCT properties(s))) AS summary
+WHERE v IS NOT NULL
+RETURN r.id AS requirement, v.id AS rvu, coalesce(v.description, v.text, '') AS description, evidence, summary
+"""
+
 # MERGE on the (requirement, code entity) pair makes the write idempotent: re-running
 # updates the existing edge, never duplicates it. verifiedAt is only set on creation.
 _WRITE_LINK_QUERY = """
@@ -76,7 +89,7 @@ MATCH (r:Requirement {id: $source_id}), (c:CodeEntity {id: $target_id})
 MERGE (r)-[v:VERIFIED_TRACE]->(c)
 ON CREATE SET v.verifiedAt = datetime()
 SET v.confidence = $confidence, v.justification = $justification, v.status = $status,
-    v.linkType = $link_type, v.textHash = $text_hash, v.lastCheckedAt = datetime()
+    v.linkType = $link_type, v.textHash = $text_hash, v.semFp = coalesce($sem_fp, v.semFp), v.lastCheckedAt = datetime()
 RETURN count(v) AS written
 """
 
@@ -89,13 +102,21 @@ WITH r, v, v.confidence AS previous
 SET v.status = 'decayed', v.confidence = $new_confidence, v.lastCheckedAt = datetime(),
     v.textHash = coalesce($text_hash, v.textHash)
 CREATE (r)-[:HAS_DECAY]->(d:DecayFlag {
-    codeEntityId: $target_id, flaggedAt: datetime(),
-    previousConfidence: previous, reason: $reason})
+    requirementId: $source_id, codeEntityId: $target_id, flagKey: $source_id + '||' + $target_id,
+    flaggedAt: datetime(), previousConfidence: previous, reason: $reason})
 RETURN count(d) AS flagged
 """
 
+# A decayed link that holds again (text fixed or reverted) closes its open flags; they stay as history.
+_RESOLVE_DECAY_QUERY = """
+MATCH (r:Requirement {id: $source_id})-[:HAS_DECAY]->(d:DecayFlag {codeEntityId: $target_id})
+WHERE d.resolvedAt IS NULL
+SET d.resolvedAt = datetime()
+RETURN count(d) AS resolved
+"""
 
-_WRITE_QUERIES = frozenset({_WRITE_LINK_QUERY, _MARK_DECAYED_QUERY})
+
+_WRITE_QUERIES = frozenset({_WRITE_LINK_QUERY, _MARK_DECAYED_QUERY, _RESOLVE_DECAY_QUERY})
 
 # --- write ownership -------------------------------------------------------------------
 # C4 may only create/modify VERIFIED_TRACE edges, DecayFlag nodes and HAS_DECAY edges.
@@ -189,6 +210,24 @@ class USKGClient:
         with self._driver.session() as session:
             return session.execute_read(work)
 
+    def get_decay_flag_pairs(self, project: Optional[str] = None) -> list[tuple[str, str]]:
+        """(requirement id, code id) of every DecayFlag (read-only)."""
+        rows = self._read(
+            """MATCH (r:Requirement)-[:HAS_DECAY]->(d:DecayFlag)
+               WHERE ($project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project)
+               RETURN r.id AS requirement, d.codeEntityId AS code""",
+            project=project,
+        )
+        return [(r["requirement"], r["code"]) for r in rows]
+
+    def resolve_decay(self, link: TraceabilityLink) -> int:
+        """Mark the open DecayFlags of a link resolved (it passes again); returns how many were closed."""
+        return self._write_count(_RESOLVE_DECAY_QUERY, "resolved", source_id=link.source_id, target_id=link.target_id)
+
+    def get_c3_evidence(self, project: Optional[str] = None) -> list[dict[str, Any]]:
+        """Read C3's validation units and their evidence, one row per RVU (empty until C3 has written any)."""
+        return self._read(_C3_EVIDENCE_QUERY, project=project)
+
     def _write_count(self, query: str, key: str, **params: Any) -> int:
         if query not in _WRITE_QUERIES:
             raise PermissionError("C4 write layer: only the vetted write statements may run")
@@ -263,6 +302,7 @@ class USKGClient:
                     justification=p.get("justification", ""),
                     status=p.get("status", "verified"),
                     text_hash=p.get("textHash"),
+                    sem_fingerprint=p.get("semFp"),
                     verified_at=_to_datetime(p.get("verifiedAt")),
                     last_checked_at=_to_datetime(p.get("lastCheckedAt")),
                 )
@@ -286,6 +326,7 @@ class USKGClient:
                 status=link.status,
                 link_type=link.link_type,
                 text_hash=link.text_hash,
+                sem_fp=link.sem_fingerprint,
             )
             > 0
         )

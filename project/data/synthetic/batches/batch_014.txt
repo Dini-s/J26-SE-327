@@ -1,0 +1,481 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0131 ===
+/** The class ServletStatoDiFamiglia (ServletFamilyStatus) returns a list of the members of a family. The class depends on the class DbNucleoFamiliare @author Christian Ronca */
+
+public class ServletStatoDiFamiglia extends HttpServlet {
+	private static final long serialVersionUID = -6835425792119775069L;
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		//int id = 200101;
+		
+		HttpSession session = request.getSession(true);
+	    ArrayList<Cittadino> arrayList = null;
+	    //Richiesta ric = null;
+	    
+	    
+	    try {
+	    	DbNucleoFamiliare dbnc =new DbNucleoFamiliare();
+	    	arrayList = (ArrayList<Cittadino>)dbnc.getStatoFamiglia(id);
+	    	for(int i=0; i<arrayList.size();i++) {
+	    		System.out.println(arrayList.get(i).getNome());
+	    	}
+	    	session.setAttribute("array", arrayList);
+	    } catch(Exception e) {
+	    	//e.getMessage().toString();
+	    	e.printStackTrace();
+	    }
+	    
+	    ServletContext sc = getServletContext();
+		RequestDispatcher rd = sc.getRequestDispatcher("/user/home.jsp?func=serv&page=stato_famiglia"); 
+		rd.forward(request,response);
+	}
+}
+
+=== F0132 ===
+pageTitle = "iTrust - HCP Consultations"; 
+ 
+
+ 
+String task = request.getParameter("task");
+ 
+
+ if (task == null || task.equalsIgnoreCase("")) { 
+	 
+		 HCP Consultations 
+		 
+			 
+			 
+		 
+	 
+	 
+
+ } else if (task.equalsIgnoreCase("Send a Consultation")) { 
+	 
+	// Find all patients associated with this hcp
+	PatientDAO patDAO = new PatientDAO(prodDAO);
+	List  allPatients = patDAO.getAllPatients();
+	List  myPatients = new ArrayList ();
+	for (PatientBean pat : allPatients) {
+		if (patDAO.checkDeclaredHCP(pat.getMID(), loggedInMID)) {
+			myPatients.add(pat);
+		}
+	}
+
+	// Find all hcps who are not this hcp
+	PersonnelDAO personnel = new PersonnelDAO(prodDAO);
+	List  allPersonnel = personnel.getAllPersonnel();
+	List  allHCPs = new ArrayList ();
+	for (PersonnelBean per : allPersonnel) {
+		if (per.getRole() == Role.HCP && per.getMID() != loggedInMID) {
+			allHCPs.add(per);
+		}
+	}
+	 
+	 
+		 Send a Consultation 
+		 
+		 
+		 
+			 
+				 Select Patient: 
+				 
+					 
+					 for (PatientBean pat : myPatients) { 
+						 '> pat.getFullName()   
+					 } 
+					 
+				 
+			 
+			 
+				 Select HCP 
+				 
+					 
+					 for (PersonnelBean per : allHCPs) {  
+						 '> per.getFullName()   
+					 }  
+					 
+				 
+			 
+			 
+				  
+				   
+			 
+		 
+		 
+	 
+
+ } else if (task.equalsIgnoreCase("View Pending Consultations")) { 
+	 
+	ReferralManagementAction refAction = new ReferralManagementAction(prodDAO, loggedInMID);
+	List  refsFromMe = refAction.getReferralsSentFromMe();
+	List  refsToMe = refAction.getReferralsSe
+
+=== F0133 ===
+/**
+ * Checks if the patient had the given diagnoses during childhood.
+ * See {@link PatientRiskFactor} for details on what each method typically does.
+ *
+ * @author Andy
+ *
+ */
+public class ChildhoodInfectionFactor extends PatientRiskFactor {
+	private final double[] icdCodes;
+	private final long patientID;
+	private final DAOFactory factory;
+
+	public ChildhoodInfectionFactor(DAOFactory factory, long mid, double... icdCodes) {
+		this.factory = factory;
+		this.patientID = mid;
+		this.icdCodes = icdCodes.clone();
+	}
+
+	public String getDescription() {
+		return "This patient had a viral infection during their childhood that would increase the risk for this diesease";
+	}
+
+	public boolean hasFactor() {
+		try {
+			return factory.getRiskDAO().hadChildhoodInfection(patientID, icdCodes);
+		} catch (DBException e) {
+			System.err.println("DBException on Childhood Infection Risk, giving no risk");
+			return false;
+		}
+	}
+}
+
+=== F0134 ===
+/** Servlet used to delete an address from the database @author Vecchione Giuseppe */
+public class ServletDeleteAddress extends HttpServlet {
+
+	private static final long serialVersionUID = -7383336226678925533L;
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, HttpServletResponse pResponse){
+		String errorMessage="";
+		String gotoPage="./showAddressList";
+		ManagerUser managerUser= ManagerUser.getInstance();
+		ManagerAddress managerAddress= ManagerAddress.getInstance();
+		HttpSession session= pRequest.getSession();
+		User loggedUser= (User)session.getAttribute("loggedUser");
+		Address address= null;
+		try {
+				if(loggedUser==null){		
+					pResponse.sendRedirect("./index.htm");
+					return;
+				}
+				if(!managerUser.isAdministrator(loggedUser)){
+					errorMessage= "L' utente collegato non ha accesso alla funzionalita'!";
+					gotoPage="./error.jsp";
+				}
+				
+				address= (Address)session.getAttribute("address");
+				managerAddress.delete(address);
+				
+		} 	  catch (IOException ioException) {
+				errorMessage = Environment.DEFAULT_ERROR_MESSAGE + ioException.getMessage();
+				gotoPage = "./error.jsp";
+				ioException.printStackTrace();
+			} catch (SQLException SQLException) {
+				errorMessage = Environment.DEFAULT_ERROR_MESSAGE + SQLException.getMessage();
+				gotoPage = "./error.jsp";
+				SQLException.printStackTrace();
+			} catch (EntityNotFoundException entityNotFoundException) {
+				errorMessage = Environment.DEFAULT_ERROR_MESSAG
+
+=== F0135 ===
+pageTitle = "iTrust - Edit ND Code Interactions";
+ 
+
+ 
+
+ 
+
+	String headerMessage = "Select ND Codes with Interaction";
+	String drug1 = "";
+	String drug2 = "";
+	if(request.getParameter("drug1") != null && request.getParameter("drug2") != null) {
+		drug1 = request.getParameter("drug1").split(" ")[0];
+		drug1 = drug1.replace("-", "");
+		drug2 = request.getParameter("drug2").split(" ")[0];
+		drug2 = drug2.replace("-", "");
+	}
+
+	if (request.getParameter("add") != null) {
+		try {
+			DrugInteractionAction interaction = new DrugInteractionAction(prodDAO, loggedInMID.longValue());
+			headerMessage = interaction.reportInteraction(drug1, drug2, request.getParameter("description"));
+		} catch(iTrustException e) {
+ 
+			 
+				  e.getMessage()   
+			 
+ 
+		} catch(FormValidationException e) {
+ 
+			 
+				  e.getMessage()   
+			 
+ 
+		}
+
+	}
+
+	String headerColor = (headerMessage.indexOf("Error") > -1)
+			? "#ffcccc"
+			: "#00CCCC";
+ 
+
+ 
+ 
+ 
+  headerMessage   
+
+ 
+ 
+
+ 
+  
+ 
+	 
+		List  medList = prodDAO.getNDCodesDAO().getAllNDCodes();
+		String tempCode = "";
+		String tempDescrip = "";
+		String escapedDescrip = "";
+		for (MedicationBean medEntry : medList) {
+			tempCode = medEntry.getNDCode();
+			tempDescrip = medEntry.getDescription();
+			escapedDescrip = URLEncoder.encode(tempDescrip, "UTF-8").replaceAll("\\+", "%20");
+	 
+
+			  5 > tempCode.length() ? tempCode : tempCode.substring(0, 5)
+				 - 5 > tempCode.length() ? "" : tempCode.substring(5)  
+				 tempDescrip  
+			 
+
+	  }  
+
+   
+ 
+	 
+		for (Me
+
+=== F0136 ===
+/**
+ * Interface for managing the database Business
+ *
+ */
+public interface IDBConvention {
+
+    /**
+     * Add a convention in the database
+     *
+     * @Param pConvention Convention by adding
+     */
+    public boolean insertConvention(BeanConvention pConvention) throws SQLException;
+
+    /**
+     * Modify a convention in the database
+     *
+     * @Param data pConvention Convention of the Convention to be updated
+     * @Return True if there 'was a modified false otherwise
+     */
+    public boolean modifyConvention(BeanConvention pConvention) throws SQLException;
+
+    /**
+     * Delete an agreement by the database
+     *
+     * @Param pIdConvention ID of the Convention by removing
+     * @Return True if been deleted false otherwise
+     */
+    public boolean clearConvention(int pIdConvention) throws SQLException;
+
+    /**
+     * Returns the historical conventions of a refreshment
+     *
+     * @Param idRefreshmentPoint point identification Refreshments
+     * @Return List of conventions of Refreshment given as argument
+     */
+    public ArrayList<BeanConvention> getHistoricalConvention(int idRefreshmentPoint) throws SQLException;
+
+    /**
+     * Returns the Convention active a refreshment
+     *
+     * @Param pIdRefreshmentPoint point identification Refreshments
+     * @Return Convention Turns
+     * @Throws SQLException
+     */
+    public BeanConvention getConventionActive(int pIdRefreshmentPoint) throws SQLException;
+
+    /**
+     * Returns a list of all the PR that h
+
+=== F0137 ===
+public class RefreshmentPoint extends JInternalFrame {
+
+    private Dimension size;
+    private JPanel jContentPane = null;
+    private JPanel rightPanel = null;
+    private JToolBar toolbarPR = null;
+    private JLabel status = null;
+    private JPanel CentrePanel = null;
+    private JButton btnSkeda = null;
+    private JButton btnModify = null;
+    private JButton btnDelete = null;
+    private JScrollPane jScrollPane = null;
+    private JPanel HelpPanel = null;
+    private JTextPane jTextPane = null;
+    private TagPanel panelTag = null;
+    private JButton btnSearch2 = null;
+    private JButton btnActive2 = null;
+    private JPanel SearchPanel = null;
+    private JLabel LabelPr = null;
+    private JTextField namePR = null;
+    private JLabel LabelTag = null;
+    private JTable TablePr = null;
+    private JDesktopPane JDesktopPane;
+    private RefreshmentPoint internalFrame;
+    private JButton btnActive = null;
+    private JButton btnHistorical = null;
+
+    /**
+     * This is the default constructor xxx
+     */
+    public RefreshmentPoint() {
+        super();
+        initialize();
+    }
+
+    /**
+     * This method initializes this
+     *
+     * @Return void
+     */
+    private void initialize() {
+        size = new Dimension();
+        setPreferredSize(size);
+        this.setSize(new Dimension(700, 480));
+        this.setResizable(true);
+        this.setClosable(true);
+        this.setTitle("Refreshments");
+        this.setFrameIcon(new ImageIcon(getClass().getResource("/ 
+
+=== F0138 ===
+/** This class represents the exception raised when an entity is not found in the database. */
+public class EntityNotFoundException extends Exception {
+	
+	private static final long serialVersionUID = -1236105333523133721L;
+
+	/** Raises the exception without an associated error message. */
+	public EntityNotFoundException() {
+		super("Object Not Found in Repository!");
+	}
+	
+	/** Raises the exception with an associated error message. */
+	public EntityNotFoundException(String pMessage) {
+		super(pMessage);
+	}
+	
+	
+}
+
+=== F0139 ===
+/**
+ * Validates a personnel bean, from {@link EditPersonnelAction}
+ *
+ * @author Andy
+ *
+ */
+public class PersonnelValidator extends BeanValidator<PersonnelBean> {
+	/**
+	 * The default constructor.
+	 */
+	public PersonnelValidator() {
+	}
+
+	/**
+	 * Performs the act of validating the bean in question, which varies depending on the
+	 * type of validator.  If the validation does not succeed, a {@link FormValidationException} is thrown.
+	 *
+	 * @param p A bean of the type to be validated.
+	 */
+	@Override
+	public void validate(PersonnelBean p) throws FormValidationException {
+		ErrorList errorList = new ErrorList();
+		errorList.addIfNotNull(checkFormat("First name", p.getFirstName(), ValidationFormat.NAME, false));
+		errorList.addIfNotNull(checkFormat("Last name", p.getLastName(), ValidationFormat.NAME, false));
+		errorList.addIfNotNull(checkFormat("Street Address 1", p.getStreetAddress1(),
+				ValidationFormat.ADDRESS, false));
+		errorList.addIfNotNull(checkFormat("Street Address 2", p.getStreetAddress2(),
+				ValidationFormat.ADDRESS, true));
+		errorList.addIfNotNull(checkFormat("City", p.getCity(), ValidationFormat.CITY, false));
+		errorList.addIfNotNull(checkFormat("State", p.getState(), ValidationFormat.STATE, false));
+		errorList.addIfNotNull(checkFormat("Zip Code", p.getZip(), ValidationFormat.ZIPCODE, false));
+		errorList
+				.addIfNotNull(checkFormat("Phone Number", p.getPhone(), ValidationFormat.PHONE_NUMBER, false));
+		errorList
+		.addIfNotNull(checkFormat("Email", p.get
+
+=== F0140 ===
+/** Servlet used to display the form for managing the roles of the users. @author Napolitano Vincenzo. */
+public class ServletShowUserRoleForm extends HttpServlet {
+
+	private static final long serialVersionUID = -2210761175435137331L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./persistentDataManagement/userManagement/userRolez.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		
+		
+		
+		boolean isTeacherBoolean = false;
+		boolean isAdministratorBoolean = false;
+		boolean isParentBoolean = false;
+		boolean isStudentBoolean = false;
+		boolean isAtaBoolean = false;
+		boolean isDirectorBoolean = false;
+		
+		int isTeacher = 0;
+		int isAdministrator = 0;
+		int isDirector = 0;
+		int isParent = 0;
+		int isStudent = 0;
+		int isAta = 0;
+		
+		User user = null;
+		ManagerUser managerUser = ManagerUser.getInstance();
+		
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+		
+			if ((!managerUser.isAdministrator(loggedUser))) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			user = (User) session.getAttribute("user");
+			// we prepare the values to pass to the jsp
+			isTeacherBoolean = managerUser.isTeacher(user);
+			isAdministratorBoolean = managerUser.isAdministrator(u

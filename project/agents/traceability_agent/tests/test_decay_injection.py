@@ -33,7 +33,10 @@ class FakeLLM:
     """Says 'linked' only while the target still looks like the original (retry + 3 times)."""
 
     def verify_link(self, source, target):
-        ok = "3 times" in target.text and "UNRELATED" not in target.text and "cafeteria" not in target.text
+        ok = (
+            "3 times" in target.text and "UNRELATED" not in target.text and "cafeteria" not in target.text
+            and "cafeteria" not in source.text and "shall not" not in source.text
+        )
         return {"is_linked": ok, "confidence": 0.9 if ok else 0.1, "reasoning": "fake"}
 
 
@@ -44,8 +47,26 @@ def test_run_injection_counts_detections_and_false_decays():
     assert per["change_numbers"] == {"injected": 1, "detected": 1}  # "3 times" gone
     assert per["negate_behavior"]["injected"] == 0  # nothing to negate in this text -> skipped
     assert per["strip_to_first_sentence"] == {"injected": 1, "detected": 0}  # still says 3 times
-    assert report["decay_detection_accuracy"] == 2 / 3
-    assert report["false_decay_rate"] == 0.0  # cosmetic change was not flagged
+    assert per["requirement_unrelated"] == {"injected": 1, "detected": 1}
+    assert per["requirement_negated"] == {"injected": 1, "detected": 1}
+    assert report["decay_detection_accuracy"] == 4 / 5
+    assert report["false_decay_rate"] == 0.0  # cosmetic changes (code and requirement) were not flagged
+    assert report["links_used"] == 1 and report["decay_detection_ci95"][0] < 0.8 < report["decay_detection_ci95"][1]
+
+
+class RejectingLLM:
+    def verify_link(self, source, target):
+        return {"is_linked": False, "confidence": 0.1, "reasoning": "never"}
+
+
+def test_baseline_skips_links_the_llm_already_rejects():
+    report = run_injection([LINK], [REQ, TARGET], RejectingLLM(), baseline=True)
+    assert report["baseline_skipped"] == 1 and report["links_used"] == 0
+    assert report["decay_detection_accuracy"] == 0.0 and all(v["injected"] == 0 for v in report["per_mutation"].values())
+
+
+def test_code_negation_flips_booleans_and_comparisons():
+    assert negate_behavior("if (a && b) return true;") == "if (a || b) return false;"
 
 
 def test_llm_client_truncates_long_artifacts():

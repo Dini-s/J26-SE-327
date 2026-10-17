@@ -41,6 +41,7 @@ class TraceabilityLink(BaseModel):
         justification: Plain-language explanation of the verdict.
         status: ``verified`` or ``decayed``.
         text_hash: Hash of both texts at verification time (for change detection).
+        sem_fingerprint: JSON fingerprint (numbers, negations, flags, operators) of both texts at verification time.
         verified_at: When the link was first verified.
         last_checked_at: When it was last (re-)verified.
     """
@@ -52,6 +53,7 @@ class TraceabilityLink(BaseModel):
     justification: str
     status: LinkStatus = "verified"
     text_hash: Optional[str] = None
+    sem_fingerprint: Optional[str] = None
     verified_at: Optional[datetime] = None
     last_checked_at: Optional[datetime] = None
 

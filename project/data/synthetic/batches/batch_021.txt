@@ -1,0 +1,615 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0201 ===
+/** This class provides a connection pool @author Antonio Leone */
+
+public class DbConnection  {
+	
+	private static Properties dbProperties;
+	private static ComboPooledDataSource cpds=null;
+	
+	/** This portion of code creates a connection pool and defines the db properties */
+	static 
+	{
+            try 
+            {
+				DbConnection.loadDbProperties();
+				DbConnection.createPool();
+			} 
+            catch (IOException e) 
+            {
+				throw new DbException("Errore nella definizione dei DB properties");
+			}
+			catch (SQLException e) 
+			{
+				throw new DbException("Errore nella creazione del Poll di Connessioni");
+			} 
+			catch (PropertyVetoException e) 
+			{
+				throw new DbException("Errore nella creazione del Poll di Connessioni");
+			} 
+    }
+	
+	private static void createPool() throws SQLException, PropertyVetoException
+	{
+    	cpds = new ComboPooledDataSource(); 
+		cpds.setJdbcUrl( DbConnection.dbProperties.getProperty("url")); 
+		cpds.setDriverClass(DbConnection.dbProperties.getProperty("driver")); 
+		cpds.setUser(DbConnection.dbProperties.getProperty("username")); 
+		cpds.setPassword(DbConnection.dbProperties.getProperty("password"));
+	}
+	
+	/** Returns a connection to the db; if one is not already available, a new one is created */
+	
+	public static synchronized Connection getConnection() throws SQLException  
+	{
+		return cpds.getConnection();
+	}
+	
+	/** Loads the db properties */
+	
+	private static void loadDbProperties() throws IOException
+	{
+		 InputStream file
+
+=== F0202 ===
+/** Class that takes care of managing the connections with the database and of shielding the servlets from the DBMS. @author Michelangelo Cianciulli */
+
+public class DbCittadino 
+{
+	private Connection connection;
+	
+	public DbCittadino() throws DbException
+	{
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException exc)
+		{
+			throw new DbException("Errore : connessione non riuscita");
+		}
+	}
+	
+	/** Method that allows registering a new citizen. (db update) */
+	public int registraCittadino(Cittadino citt) throws DbException
+	{
+		PreparedStatement stmt = null;
+		int a;
+		String login=citt.getLogin();
+		String cognome=citt.getCognome();
+		String nome=citt.getNome();
+		java.util.Date d=citt.getDataNascita();
+		String luogoN = citt.getLuogoNascita();
+		String codF=citt.getCodiceFiscale();
+		String email=citt.getEmail();
+		boolean adv=citt.isAdvertise();
+		int nuclF=citt.getNucleoFamiliare();
+		if(adv==true)
+			a=1;
+		else a=0;
+		try
+		{
+			
+				stmt = connection.prepareStatement("INSERT INTO cittadino VALUES (?,?,?,?,?,?,?,?,?,?)");
+				stmt.setInt(1, 0);
+				stmt.setString(2, codF);
+				stmt.setString(3, cognome);
+				stmt.setString(4, nome);
+				stmt.setDate(5, new java.sql.Date(d.getYear()-1900,d.getMonth()-1,d.getDate()));
+				stmt.setString(6, luogoN);
+				stmt.setString(7, email);
+				stmt.setInt(8, a);
+				if(nuclF!=0)
+					stmt.setInt(9, nuclF);
+				else
+					stmt.setNull(9, java.sql.Types.NULL);
+				stmt.setString(10, login);
+				stmt.executeUpdate();
+
+=== F0203 ===
+pageTitle = "iTrust - Please Select a Personnel";
+ 
+
+ 
+
+ Please Select a Personnel 
+
+ 
+String mid = request.getParameter("UID_PERSONNELID");
+session.setAttribute("mid", mid);
+if (null != mid && !"".equals(mid)) {
+	response.sendRedirect(request.getParameter("forward"));
+}
+
+String firstName = request.getParameter("FIRST_NAME");
+String lastName = request.getParameter("LAST_NAME");
+if(firstName == null)
+	firstName = "";
+if(lastName == null)
+	lastName = "";
+ 
+ 
+ 
+ ">
+	 
+		  Personnel:  
+		 
+			 
+			 
+		 
+		 
+			 
+			 
+		 
+	 
+	 
+		   
+	 
+ 
+
+	   
+	 " method="post">
+		 
+				  First Name:  
+				 
+					 " />
+				 
+		 
+		 
+				  Last Name:  
+				 
+					 " />
+				 
+		 
+		 
+				 
+					 
+				 
+		 
+	 
+ 
+
+ 
+	if( (!"".equals(firstName)) || (!"".equals(lastName))){
+		SearchUsersAction searchAction = new SearchUsersAction(prodDAO,loggedInMID.longValue());
+		out.println("Searching for users named " + firstName + " " + lastName + " ");
+		List  personnel = searchAction.searchForPersonnelWithName(firstName,lastName);
+		out.println("Found " + personnel.size() + " Records  ");
+		out.println("   MID  First Name  Last Name  ");
+		for(PersonnelBean p : personnel){
+ 
+ " method="post">
+ " />
+
+ 
+			out.println("      " + p.getFirstName() + "  " + p.getLastName() + "  ");
+
+		}
+		out.println(" ");
+
+	}
+
+=== F0204 ===
+/** Servlet used to display a report of the teachings of a teacher @author Giulio D'Amora @version 1.0 */
+public class ServletReportTeachings extends HttpServlet {
+
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9020697390947529914L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "./persistentDataManagement/userManagement/showTeacherDetails.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		Collection<Teaching> teachingList = null;
+		ManagerUser managerUser = ManagerUser.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		User teacher = (User) session.getAttribute("user");
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage = "L'Utente collegato non ha accesso alla "
+						+ "funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			// we retrieve the selected academic year
+			int academicYear = Integer.valueOf(pRequest.getParameter("accademicYear"));
+			ManagerTeaching managerTeaching = ManagerTeaching.getInstance();
+			ManagerClassroom managerClassroom = ManagerClassroom.getInstance();
+			// We compute the list of the classes in which the teacher teaches, based on the selected year
+			Collection<Classroom> classroomList = null;
+			classroomList = managerClassroom.getClassroomsByTeacherAcademi
+
+=== F0205 ===
+if(validSession) {
+		errorMessage = (String) session.getAttribute("errorMessage");
+		session.removeAttribute("errorMessage");
+	}
+
+ 
+ 
+ 
+	 
+		  pageTitle   
+		 
+		 
+		  
+	 	  
+	 	  
+	  	 
+		  
+		 
+		  
+
+		 
+			jQuery(document).ready(function($) {
+				$('a[rel*=facebox]').facebox()
+			});
+			$.facebox.settings.loading_image = '/iTrust/image/facebox/loading.gif';
+			$.facebox.settings.close_image   = '/iTrust/image/facebox/closelabel.gif';
+		 
+		 
+			 
+		 
+	 
+	 
+		 
+			 
+			 
+				 
+						 Home 
+						&nbsp;&nbsp;&nbsp;
+	 
+				if( validSession ) {
+
+					if(    (loggedInMID != null)
+						&& (loggedInMID.longValue() != 0L) ) //if no one is logged in
+					{
+						if(userRole != "tester") { //if it's a tester
+	 
+							 /information.jsp"
+							   rel="facebox">Information 
+	 
+						} //end tester section
+
+	 
+				 
+				 
+					  out.println(userName);  
+					|  Logout 
+	 				} //no one is logged in
+				}	  //valid session
+	 
+				 
+				 
+				 
+			 
+		 
+
+		 
+			 
+				 
+				 
+				 
+ 						if (  validSession ) {
+						if (    (loggedInMID != null)
+						     && (loggedInMID.longValue() != 0L)) //someone is logged in
+						{
+							if (userRole.equals("patient")) {
+								   
+							}
+							else if (userRole.equals("uap")) {
+								   
+							}
+							else if (userRole.equals("hcp")) {
+								   
+							}
+							else if (userRole.equals("er")) {
+								   
+							}
+							else if (userRole.equals("pha")) {
+								   
+							}
+							else if (userRole.equals("admin")) {
+								   
+	
+
+=== F0206 ===
+/**
+ * A bean for storing data about the diagnosis given by an HCP.
+ *
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean
+ * (with the exception of minor formatting such as concatenating phone numbers together).
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters…
+ * to create these easily)
+ */
+public class HCPDiagnosisBean {
+
+	private long HCPID;
+	private String HCPname;
+	private long numPatients;
+	private List<MedicationBean> medList;
+	private List<LabProcedureBean> labList;
+	private int visitSat;
+	private int treatmentSat;
+	private int surveyCount;
+
+	public HCPDiagnosisBean() {
+		numPatients = 0;
+		visitSat = 0;
+		treatmentSat = 0;
+		surveyCount = 0;
+	}
+
+	public long getHCP() {
+		return HCPID;
+	}
+
+	public void setHCP(long hcp) {
+		HCPID = hcp;
+	}
+
+	public String getHCPName() {
+		return HCPname;
+	}
+
+	public void setHCPName(String name) {
+		HCPname = name;
+	}
+
+	public long getNumPatients() {
+		return numPatients;
+	}
+
+	public void incNumPatients() {
+		numPatients++;
+	}
+
+	public List<MedicationBean> getMedList() {
+		return medList;
+	}
+
+	public void setMedList(List<MedicationBean> medlist) {
+		medList = medlist;
+	}
+
+	public List<LabProcedureBean> getLabList() {
+		return labList;
+	}
+
+	public void setLabList(List<LabProcedureBean> lablist) {
+		labList = lablist;
+	}
+
+	public String getVisitSatisfaction() {
+		return (visitSat != 0 && surveyCount != 0)?Double.toString(((double)visitSat/(
+
+=== F0207 ===
+/** The class DbAccesso (DbAccess) takes care of managing the connections to the db to allow the accesses. @author Antonio Leone @version 1.0 */
+
+public class DbAccesso {
+
+	private Connection connection;
+	
+	public DbAccesso() throws DbException 
+	{
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: Connessione non riuscita");
+		}
+	}
+	
+	/** Method that inserts an access into the db */
+	
+	public boolean inserisciAccesso(Accesso a) throws DbException
+	{	
+		int ret=0;
+		PreparedStatement statement=null;
+		String login=a.getLogin();
+		String password=a.getPassword();
+		String tipo=a.getTipo();
+		try
+		{
+			statement=connection.prepareStatement("INSERT INTO accesso VALUES (? ,? ,?)");
+			statement.setString(1,login);
+			statement.setString(2, password);
+			statement.setString(3, tipo);
+			ret= statement.executeUpdate();
+			return (ret==1);
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: inserimento accesso non riuscito");
+		}
+		finally
+		{
+			try 
+			{
+				if(statement!=null)
+					statement.close();
+			} 
+			catch (SQLException e) 
+			{
+				throw new DbException("Errore: inserimento accesso non riuscito");
+			}
+		}
+	}
+	
+	/** Method that deletes an access from the db */
+	
+	public boolean eliminaAccesso(String log) throws DbException
+	{	
+		PreparedStatement statement=null;
+		int ret=0;
+		try
+		{
+			statement=connection.prepareStatement("DELETE FROM accesso WHERE login =?");
+			statement.setString(1
+
+=== F0208 ===
+/** Class that takes care of managing the connections with the database and of shielding the servlets from the DBMS. @author Michelangelo Cianciulli */
+
+public class DbCartaIdentita 
+{
+	private Connection connection;
+	
+	public DbCartaIdentita() throws DbException
+	{	
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException exc)
+		{
+			throw new DbException("Errore : connessione non riuscita");
+		}
+	}
+	/** Method that allows searching for an identity card by its number. */
+	public CartaIdentita ricercaCartaIdentitaByNumero (String cod) throws DbException
+	{	
+		CartaIdentita res = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		boolean e;
+		try
+		{
+			stmt = connection.prepareStatement("SELECT * FROM cartaidentita WHERE numero = ?");
+			stmt.setString(1, cod);
+			rs = stmt.executeQuery();
+		if(rs.next()==true)
+			{
+				String num = rs.getString("numero");
+				int citt = rs.getInt("cittadino");
+				String cittadinanza = rs.getString("cittadinanza");
+				String residenza =rs.getString("residenza");
+				String via = rs.getString("via");
+				int numciv = rs.getInt("numeroCivico");
+				String statoCivile = rs.getString("statoCivile");
+				String professione = rs.getString("professione");
+				double statura = rs.getDouble("statura");
+				String capelli = rs.getString("capelli");
+				String occhi = rs.getString("occhi");
+				String segniParticolari = rs.getString("segniParticolari");
+				java.util.Date dataRilascio = rs.getDate("dataRilascio");
+		
+
+=== F0209 ===
+/**
+ * Interface for handling tourists from the side of the transaction Agency
+ *
+ */
+public interface ITouristAgencyManager extends ITouristCommonManager {
+
+    /**
+     * Method for the clearing of a tourist from the Database
+     *
+     * @Param pIdTourist Identifier Tourist delete
+     * @Return Boolean: true if the operation is successful, false otherwise
+     */
+    public boolean delete(int pIdTourist) throws RemoteException;
+
+    /**
+     * Method to activate a registered tourists
+     *
+     * @Param pIdTourist ID to activate the Tourist
+     * @Return Boolean: true if the operation is successful, false otherwise
+     */
+    public boolean activeTourist(int pIdTourist) throws RemoteException;
+
+    /**
+     * Method to disable an active tourists
+     *
+     * @Param to disable pIdTourist Identifier Tourist
+     * @Return Boolean: true if the operation is successful, false otherwise
+     */
+    public boolean disactiveTourist(int pIdTourist) throws RemoteException;
+
+    /**
+     * Method to obtain a collection of Tourists
+     *
+     * @Return ArrayList of BeanTourist
+     */
+    public ArrayList<BeanTourist> getTourist() throws RemoteException;
+
+    /**
+     * Method to obtain a collection of active tourists or not
+     *
+     * @Param boolean statusAccount Tourists can choose On whether
+     * @Return ArrayList of BeanTourist
+     */
+    public ArrayList<BeanTourist> getTourist(boolean statusAccount) throws RemoteException;
+
+    /**
+     * Method to get all the feedb
+
+=== F0210 ===
+/**
+ * A bean for storing data about a patient.
+ *
+ * A bean's purpose is to store data. Period. Little or no functionality is to be added to a bean
+ * (with the exception of minor formatting such as concatenating phone numbers together).
+ * A bean must only have Getters and Setters (Eclipse Hint: Use Source > Generate Getters and Setters…
+ * to create these easily)
+ */
+public class PatientBean implements Serializable {
+	private static final long serialVersionUID = -6474182977342257877L;
+
+	private long MID = 0;
+	private String firstName = "";
+	private String lastName = "";
+	private String email = "";
+	private String securityQuestion = "";
+	private String securityAnswer = "";
+	private String password = "";
+	private String confirmPassword = "";
+	private String streetAddress1 = "";
+	private String streetAddress2 = "";
+	private String city = "";
+	private String state = "AK";
+	private String zip1 = "";
+	private String zip2 = "";
+	private String phone1 = "";
+	private String phone2 = "";
+	private String phone3 = "";
+	private String emergencyName = "";
+	private String emergencyPhone1 = "";
+	private String emergencyPhone2 = "";
+	private String emergencyPhone3 = "";
+	private String icName = "";
+	private String icAddress1 = "";
+	private String icAddress2 = "";
+	private String icCity = "";
+	private String icState = "AK";
+	private String icZip1 = "";
+	private String icZip2 = "";
+	private String icPhone1 = "";
+	private String icPhone2 = "";
+	private String icPhone3 = "";
+	private String ic

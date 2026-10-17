@@ -42,8 +42,9 @@ Every time, in this order:
    ```
    To check it is up, open another terminal and run `redis-cli ping`. It answers `PONG`.
 3. Start the web app:
-   ```bash
-   source .venv/bin/activate
+   ```bash  
+
+   cd /Users/habbglobal/Desktop/J26-SE-327/project && source .venv/bin/activate
    python -m apps.api.server
    ```
 4. Open **http://127.0.0.1:8000**
@@ -168,3 +169,22 @@ Writes `trace_matrix.csv` (requirement x code; `x0.30` = decayed link), `trace_l
 ## Which prompt is used
 
 `link` uses `--prompt evidence` by default: the model must quote code that satisfies the requirement and the quote is checked, which gave 82% precision against 58% for `--prompt expert` on 36 hand-checked PetClinic links, at the cost of missing about a third of the correct links (see `docs/c4_reranker_and_stage1_analysis.md`, section 5.y). Re-checking existing links (`monitor`, `changed`) keeps the more lenient expert prompt so older links do not decay by accident.
+
+## Connection with Component 3 (RVUs and evidence)
+
+C3 stores, per requirement: `(Requirement)-[:HAS_RVU]->(RVU)`, `(RVU)-[:MATCHED_BY]->(ValidationEvidence)`, an `AdequacySummary` (RVC, RVES, adequate / validated RVUs), `QAGap`, `Recommendation`, and `RevalidationCase` linked with `IMPACTED_BY`. C4 does not link code to RVUs directly: the chain is **code file -> (C4 VERIFIED_TRACE) -> requirement -> (C3 HAS_RVU) -> RVU -> evidence**. C4 only **reads** C3's nodes (`USKGClient.get_c3_evidence`, `agents/traceability_agent/c3.py`) and uses them in two places:
+
+* **Completeness score:** a requirement's validation coverage (C3's RVC from its AdequacySummary, else validated RVUs divided by all RVUs, where "validated" = at least one evidence with execution PASS) enters the score as `evidence_coverage` (40%, link confidence 60%). Without C3 data the score is link confidence only. `python -m agents.traceability_agent score` does this automatically.
+* **Impact analysis (dashboard, Analytics page):** for a code file, the affected requirements show their RVUs validated and the tests C3 holds for them, i.e. what to re-run after a change.
+
+C4 tells C3 about broken links through the Redis event `trace_decayed`; C3 decides on a `RevalidationCase`.
+
+Assumptions to confirm with C3 (taken from their diagram, not from data, because the graph has no C3 nodes yet): the property name of RVC in `AdequacySummary` (read case-insensitively as `RVC`, either 0.67 or 66.67), that `execution` holds `PASS` for a passing test, that `SUMMARIZED_AS` joins the requirement and its summary (read in either direction), and that RVUs hang off the same `Requirement` nodes that C1 wrote.
+
+## Self-check
+
+```bash
+python -m agents.traceability_agent selfcheck --project iTrust      # add --json for the full report
+```
+
+No LLM. Checks that both ends of every link exist, no pair is linked twice, confidences are valid, verified links pass the threshold, linked files still contain code, a code quote a link relies on is still in its file, a method named in a reason still exists, every decayed link has its DecayFlag, and that orphans and scores agree with the links. For a ground-truth dataset (iTrust, eTour, CM-1, ...) it also prints precision and recall of the stored links against `data/processed/<name>/traces.json`; recall counts only the true links of requirements C4 has already processed. The same report is on the dashboard (Overview, Health tab). The exit code is 1 if any check fails.

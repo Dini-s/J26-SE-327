@@ -1,0 +1,438 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0031 ===
+/**
+  * Interface for managing the database OperatorAgency
+  *
+*/
+public interface IDBAgencyOperator
+{
+/**
+* Returns the data Operator Agency with ID equal to that given in
+* Input
+*
+* @Param pUsername Username dell'OperatorAgency to find
+* @Return OperatorAGenzia with id equal to the input, null if there is
+*/
+public BeanOperatorAgency getOperatorAgency (String pUsername) throws SQLException;
+
+/**
+* Returns the data Operator Agency with ID equal to that given in
+* Input
+*
+* @Param pUsername Username dell'OperatorAgency to find
+* @Return OperatorAGenzia with id equal to the input, null if there is
+*/
+public boolean modifyPassword (BeanOperatorAgency poa) throws SQLException;
+
+}
+
+=== F0032 ===
+public class Search extends UnicastRemoteObject implements ISearch {
+
+    private static final long serialVersionUID = -6009809097302884655L;
+
+    public Search() throws RemoteException {
+        super();
+    }
+
+// Search Parameters
+    private int pIdTourist = -1;
+    protected String pKeyword;
+    protected double pMaxRadius;
+    protected Point3D pUserPosition;
+    private int pElementsPerPage = -1;
+    protected byte pSiteType = -1;
+
+// Objects for the database connection
+    protected IDBCulturalHeritage CulturalHeritage = new DBCulturalHeritage();
+    protected IDBRefreshmentPoint RefreshmentPoint = new DBRefreshmentPoint();
+    private IDBTag Tag = new DBTag();
+
+// List of tags obtained
+    protected ArrayList<BeanTag> pTags;
+
+// Search Results pages for partitioned
+    private Hashtable<Integer, ArrayList<BeanCulturalHeritage>> resultSearchCulturalHeritage = new Hashtable<Integer, ArrayList<BeanCulturalHeritage>>();
+    private Hashtable<Integer, ArrayList<BeanRefreshmentPoint>> resultSearchRefreshmentPoint = new Hashtable<Integer, ArrayList<BeanRefreshmentPoint>>();
+
+// Quantity of items and pages results in the research phase
+    protected int numberPageResult = -1;
+    private int numberElementsSearch = -1;
+
+    /*
+     * (Non-Javadoc) Unisa.gps.etour.control.ManagerRicerche.ISearch * @see #
+     * search (int, java.lang.String, int [], double, int,
+     * unisa.gps.etour.util.Punto3D, byte)
+     */
+    public int search(int pIdTourist, String pKeyword, int[] pTags
+
+=== F0033 ===
+/**
+ * Class that implements the Agency's Operator
+ */
+public class DBAgencyOperator implements IDBAgencyOperator {
+
+    /*
+     * (Non-Javadoc)
+     *
+     * @See unisa.gps.etour.repository.IDBOperatorAgency # getOperatorAgency
+     * (int)
+     */
+    public BeanOperatorAgency getOperatorAgency(String pUsername) throws SQLException {
+// Connect to database
+        Connection conn = null;
+// Statement for running queries
+        Statement stat = null;
+// Resut set where the output of the query is inserted
+        ResultSet result = null;
+// Try block which performs the query and the database connection
+        try {
+// You get the database connection from the pool
+            conn = DBConnectionPool.getConnection();
+// Create the statement
+            stat = conn.createStatement();
+// Query
+            String query = "SELECT * FROM operatoreagenzia WHERE Username = '" + pUsername + " '";
+            result = stat.executeQuery(query);
+            BeanOperatorAgency oa = null;
+            if (result.next()) {
+// Build the bean when the query returns a
+// Value
+// Otherwise will return null
+                oa = new BeanOperatorAgency();
+                oa.setId(result.getInt("Id"));
+                oa.setUsername(result.getString("Username"));
+                oa.setName(result.getString("Name"));
+                oa.setSurname(result.getString("Name"));
+                oa.setPassword(result.getString("Password"));
+            }
+            return oa;
+        }
+// Finally block t
+
+=== F0034 ===
+public class ServletShowRegister extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4054623648928396283L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./registerManagement/showRegister.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		ManagerClassroom managerClassroom = ManagerClassroom.getInstance();
+		ManagerRegister  managerRegister= ManagerRegister.getInstance();
+		Collection<RegisterLine> register = null;
+		int year;
+		int month;
+		int day;
+		
+		String date=pRequest.getParameter("date");
+		int idClass = Integer.valueOf(pRequest.getParameter("idClassroom"));
+		
+		String [] datevalues;
+		datevalues = date.split("/");
+		year = Integer.valueOf(datevalues[2]);
+		month = Integer.valueOf(datevalues[1]);
+		day = Integer.valueOf(datevalues[0]);
+		
+		try {
+			register= managerRegister.getRegisterByClassIDAndDate(idClass, Utility.String2Date(date));
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			} 
+			if ((!managerUser.isAdministrator(loggedUser)) && (!managerUser.isDirector(loggedUser))) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			} 
+			// set the things to pass to the session, us
+
+=== F0035 ===
+pageTitle = "iTrust - Send Appointment Reminders";
+ 
+
+ 
+
+ 
+	String headerMessage = "";
+	int messagesSent = -1;
+	boolean error = false;
+	if(request.getParameter("submit") != null) {
+		if(request.getParameter("threshold") != null) {
+			int days = 0;
+			try {
+				days = Integer.parseInt(request.getParameter("threshold"));
+			} catch(NumberFormatException e) {
+				headerMessage = "Please enter a number into the threshold field.";
+				error = true;
+			}
+
+			SendMessageAction action = new SendMessageAction(prodDAO, 9000000009L);
+			MessageBean toSend = new MessageBean();
+			DateFormat format = new SimpleDateFormat("hh:mm a, MM-dd-yyyy");
+
+			Calendar current = Calendar.getInstance();
+
+			Calendar end = Calendar.getInstance();
+			end.add(Calendar.DAY_OF_MONTH, days);
+			end.set(Calendar.HOUR_OF_DAY, 23);
+			end.set(Calendar.MINUTE, 59);
+			end.set(Calendar.SECOND, 59);
+
+			Calendar subject = Calendar.getInstance();
+
+			ViewMyApptsAction apptAction = new ViewMyApptsAction(prodDAO, loggedInMID.longValue());
+
+			List  apList = apptAction.getAllAppts();
+
+			messagesSent = 0;
+
+			for(ApptBean a : apList) {
+				if(a.getDate().after(current.getTime()) && a.getDate().before(end.getTime())) {
+					toSend.setFrom(9000000009L);
+					subject.setTimeInMillis(a.getDate().getTime());
+					int difference = subject.get(Calendar.DAY_OF_MONTH)-current.get(Calendar.DAY_OF_MONTH);
+					if(subject.get(Calendar.MONTH)>current.get(Calendar.MONTH)) {
+						difference = current.getActualMaximum(Calendar.DAY_
+
+=== F0036 ===
+/** Class used to model a report card. @author Luigi Colangelo  @version 1.0 */
+public class Report {
+	public ArrayList<Votes> pagella; 
+	
+	/** The constructor of the class */
+	public Report(){
+		pagella=new ArrayList<Votes>();
+	}
+	
+	/** Method that returns the grade from the index in the array given as input */
+	public Votes getVotes(int pInd) throws InvalidValueException{
+		if(pInd<0 || pInd>=pagella.size())throw new InvalidValueException("indice non valido!");
+		return (pagella.get(pInd));
+	}
+	
+	/** Method that adds a grade to the array. */
+	public void addVotes(Votes pVotes) throws InvalidValueException{
+		if(pVotes==null)throw new InvalidValueException("voto non valido!");
+		else pagella.add(pVotes);
+	}
+	
+	/** Method that removes a grade from the array */
+	public void remove(int pId) throws InvalidValueException{
+		if(pId<0 || pId>=pagella.size())throw new InvalidValueException("indice non valido!");
+		pagella.remove(pId);
+	}
+	
+	
+	public String ToString(){
+		String pag="";
+		for(Votes e: pagella){
+			pag=pag+"\n"+e.toString();
+		}
+	return pag;
+	}
+    
+}
+
+=== F0037 ===
+/**
+ * Used to validate updating an office visit, by {@link EditOfficeVisitAction}
+ *
+ * @author Andy
+ *
+ */
+public class MessageValidator extends BeanValidator<MessageBean> {
+
+	public MessageValidator() {
+	}
+
+	public void validate(MessageBean mBean) throws FormValidationException {
+		ErrorList errorList = new ErrorList();
+		errorList.addIfNotNull(checkFormat("body", mBean.getBody(), ValidationFormat.MESSAGES_BODY, false));
+		errorList.addIfNotNull(checkFormat("subject", mBean.getSubject(), ValidationFormat.MESSAGES_SUBJECT, false));
+
+		if (errorList.hasErrors())
+			throw new FormValidationException(errorList);
+	}
+
+}
+
+=== F0038 ===
+/**
+ * Bean containing information relating to food
+ *
+ */
+
+public class BeanDish implements Serializable {
+    private int id;
+    private String name;
+    private double price;
+    private int idMenu;
+    private static final long serialVersionUID = -3775462843748984482L;
+
+    /**
+     * Parameterized constructor
+     *
+     * @Param pId
+     * @Param pName
+     * @Param pPrice
+     * @Param pIdMenu
+     */
+    public BeanDish(int pId, String pName, double pPrice, int pIdMenu) {
+        setId(pId);
+        setName(pName);
+        setPrice(pPrice);
+        setIdMenu(pIdMenu);
+    }
+
+    /**
+     * Empty Constructor
+     */
+    public BeanDish() {
+
+    }
+
+    /**
+     * Returns the value of name
+     *
+     * @Return value of name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the new name value
+     *
+     * @Param name New value pName.
+     */
+    public void setName(String pName) {
+        name = pName;
+    }
+
+    /**
+     * Returns the value of money
+     *
+     * @Return value price.
+     */
+    public double getPrice() {
+        return price;
+    }
+
+    /**
+     * Sets the new value of money
+     *
+     * @Param pPrice New value for money.
+     */
+    public void setPrice(double pPrice) {
+        price = pPrice;
+    }
+
+    /**
+     * Returns the value of id
+     *
+     * @Return value id.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Returns the value of idMenu
+     *
+     * @Return value idMenu.
+     *
+
+=== F0039 ===
+/**
+ * Class that implements the interface for the management of cultural side
+ * Operator Agency.
+ *
+ */
+public class CulturalHeritage extends JInternalFrame {
+    private JDesktopPane JDesktopPane;
+    private JPanel jContentPane = null;
+    private JToolBar BCToolbar = null;
+    private JButton btnNewBC = null;
+    private JButton btnCardBC = null;
+    private JButton btnDeleteBC = null;
+    private JButton btnModifyBC = null;
+    private JPanel rightPanel = null;
+    private JPanel searchPanel = null;
+    private JPanel helpPanel = null;
+    private JScrollPane JScrollPane = null;
+    private JTable tableBC = null;
+    private TagPanel panelTag = null;
+    private JTextPane textGuide = null;
+    private JTextField nameBC = null;
+    private JButton btnSearch = null;
+    private JButton btnActive = null;
+    private DeskManager desktopManager;
+    private ArrayList<CardBC> children;
+    private SiteTableModel TableModel;
+    private HelpManager bcHelp;
+    private ICulturalHeritageAgencyManager managerBC;
+    private ITagCommonManager tags;
+    protected ICulturalHeritageCommonManager searchBC;
+
+    /**
+     * This is the default constructor.
+     */
+    public CulturalHeritage() {
+        super("Cultural Heritage");
+        setPreferredSize(Home.CHILD_SIZE);
+        frameIcon = new ImageIcon(getClass().getResource(Home.URL_IMAGES + "BC.png"));
+        setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+        closable = true;
+        resizable = true;
+        i
+
+=== F0040 ===
+/**
+ * Provides a utility method that converts the "Map" from the JSP container to a type-checked hashmap
+ *
+ * @author Andy
+ *
+ */
+public class ParameterUtil {
+	/**
+	 * Provides a utility method that converts the "Map" from the JSP container to a type-checked hashmap
+	 * @param params Map to convert
+	 * @return converted Map
+	 */
+	@SuppressWarnings("unchecked")
+	public static HashMap<String, String> convertMap(Map params) {
+		HashMap<String, String> myMap = new HashMap<String, String>();
+		for (Object key : params.keySet()) {
+			String[] value = ((String[]) params.get(key));
+			if (value != null)
+				myMap.put(key.toString(), value[0]);
+			else
+				myMap.put(key.toString(), null);
+		}
+		return myMap;
+	}
+}

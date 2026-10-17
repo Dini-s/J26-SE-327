@@ -1,0 +1,483 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0081 ===
+public class ServletInsertNewNote extends HttpServlet {
+
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6496360730201101300L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		
+		// instantiate the objects here
+		
+		ManagerRegister managerRegister = ManagerRegister.getInstance(); 
+		
+		
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			} 
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			} 
+			// set the things to pass to the session, use session.setAttribute(String, attribute)
+			
+			
+			if(pRequest.getParameter("insert")==null){
+				User student =(User) session.getAttribute("student"); 
+					//managerUser.getUserById(Integer.valueOf((String)pRequest.getAttribute("student")));
+				session.setAttribute("student", student);
+				session.setAttribute("idStudent", student.getId());
+				gotoPage="./registerManagement/insertNewNote.jsp";
+			}else{
+				
+				
+				Note nNote= new Note();
+				nNote.setAcademicYear(((Classroom) session.getAttribute("classroom")).getAcademicYear());
+				nNote.setDateNote(Uti
+
+=== F0082 ===
+/** The class ServletMostraAccesso (ServletShowAccess) shows the data relating to the access of an employee or administrator. The class has no dependencies @author Federico Cinque */
+public class ServletMostraAccesso extends HttpServlet{
+	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+
+		if(session!=null){
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = null;
+			String ris;
+			try{
+			Accesso ac = null;
+			AccessManager AM = new AccessManager();
+			String login;
+
+			login = (String) session.getAttribute("login");
+			ac = AM.getAccesso(login);
+
+			// send the data
+			rd = sc.getRequestDispatcher("/workers/index.jsp?func=mostra&page=accesso");
+
+			request.setAttribute("accesso", ac);
+			rd.forward(request,response);
+			}
+			catch(DbException e){
+				ris=e.getMessage();
+				request.setAttribute("ris", ris);
+				rd=sc.getRequestDispatcher("/workers/index.jsp?func=operazione&page=fallita");
+				rd.forward(request,response);
+			}
+		}
+		else{
+			String url;
+			url="/myDoc/workers/Accesso.jsp";
+			response.sendRedirect(url);
+		}
+	}
+}
+
+=== F0083 ===
+public class ApptBeanLoader implements BeanLoader<ApptBean> {
+
+	public List<ApptBean> loadList(ResultSet rs) throws SQLException {
+		List<ApptBean> list = new ArrayList<ApptBean>();
+		while (rs.next())
+			list.add(loadSingle(rs));
+		return list;
+	}
+
+	public PreparedStatement loadParameters(PreparedStatement ps, ApptBean bean) throws SQLException {
+		ps.setString(1, bean.getApptType());
+		ps.setLong(2, bean.getPatient());
+		ps.setLong(3, bean.getHcp());
+		ps.setTimestamp(4, bean.getDate());
+		ps.setString(5, bean.getComment());
+		return ps;
+	}
+
+	public ApptBean loadSingle(ResultSet rs) throws SQLException {
+		ApptBean bean = new ApptBean();
+		bean.setApptType(rs.getString("appt_type"));
+		bean.setPatient(rs.getLong("patient_id"));
+		bean.setHcp(rs.getLong("doctor_id"));
+		bean.setDate(rs.getTimestamp("sched_date"));
+		bean.setComment(rs.getString("comment"));
+		return bean;
+	}
+
+}
+
+=== F0084 ===
+/** Class used to model a grade. @author Luigi Colangelo  @version 1.0 */
+public class Votes implements Serializable {
+
+	/** Class used to model a grade */
+	private static final long serialVersionUID = 3014235634635608576L;
+    private int id_votes;
+    private int id_user;
+    private int teaching;
+    private int written;
+    private int oral;
+    private int laboratory;
+    private int accademicYear;
+    private int turn;
+    
+    /** The constructor of the class */
+    public Votes(){
+    	id_votes=0;
+    }
+    
+    /** Method that returns the id of the grade. */
+	public int getId_votes() {
+		return id_votes;
+	}
+	
+	/** Method that sets the id of the grade */
+	public void setId_votes(int pId_votes) {
+		this.id_votes = pId_votes;
+	}
+	
+	/** Method that returns the id of the user linked to the grade */
+	public int getId_user() {
+		return id_user;
+	}
+	
+	/** Method that sets the id of the user related to the grade */
+	public void setId_user(int pId_user) {
+		this.id_user = pId_user;
+	}
+	
+	/** method that returns the code of the teaching of the grade */
+	public int getTeaching() {
+		return teaching;
+	}
+	
+	/** Method that sets the code of the teaching related to the grade */
+	public void setTeaching(int pTeaching) {
+		this.teaching = pTeaching;
+	}
+	
+	/** Method that returns the grade of the written test */
+	public int getWritten() {
+		return written;
+	}
+	
+	/** Method that sets the grade of the written test, checking that it is between 0 and 10 */
+	public void setWritten(int pWrit
+
+=== F0085 ===
+public class ManagerClassroom  {
+
+	/** Class that manages the classes (school classes) of the institute @author Nicola Pisanti @version 1.0 */
+	
+	private static ManagerClassroom instance;
+	
+	public static final String TABLE_CLASSROOM = "classroom";
+	public static final String TABLE_ADDRESS ="address";
+	public static final String TABLE_TEACHER_HAS_CLASSROOM = "teacher_has_classroom";
+	public static final String TABLE_STUDENT_HAS_CLASSROOM = "student_has_classroom";
+	
+	private ManagerClassroom(){
+		super();
+	}
+	
+	
+	
+	/** Returns the only existing instance of the class. */
+	public static synchronized ManagerClassroom getInstance(){
+		if(instance==null){
+			instance = new ManagerClassroom();
+		}
+		return instance;
+	}
+	
+	
+	
+	
+	
+	/** Checks whether the class given as input is in the database */
+	public synchronized boolean exists (Classroom pClassroom) throws MandatoryFieldException, ConnectionException, SQLException {
+		
+		boolean result = false;
+		Connection connect = null;
+
+		if (pClassroom.getName() == null)
+			throw new MandatoryFieldException("Specificare il nome della classe.");
+		if (pClassroom.getAcademicYear() <=1970)
+			throw new MandatoryFieldException("Specificare l'anno accademico");
+		if (pClassroom.getIdAddress()<=0){
+			throw new MandatoryFieldException("Specificare l'indirizzo");
+			// the user enters the address, it is converted into idAddress
+		}
+		
+		try {
+			// We obtain a connection to the database
+			connect = DBConnection.getConnection();
+			if (connect == 
+
+=== F0086 ===
+public class ServletUpdateJustify extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8405877983387271542L;
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./registerManagement/showRegister.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerRegister mR= ManagerRegister.getInstance();
+		Justify justify = (Justify) session.getAttribute("justify");
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		String idClassroom=(String) session.getAttribute("idClassroom");
+		int id= Integer.parseInt(idClassroom);
+		gotoPage+="?idClassroom="+id;
+		
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			
+			
+			justify.setAcademicYear(Integer.parseInt((pRequest.getParameter("academicYear"))));
+			justify.setDateJustify(Utility.String2Date(pRequest.getParameter("date")));
+			
+			
+			/** we check that the justification exists. */
+		
+			if (!mR.exists(justify)){
+				errorMessage="la giustifica non esiste!!";
+				gotoPage = "./error.jsp";
+				
+			}else {// we update
+				mR.updateJustify(justify);
+			}
+			
+		} catch (SQLException SQLException) {
+
+
+=== F0087 ===
+pageTitle = "iTrust - Edit Patient List";
+ 
+
+ 
+
+ 
+/* Require a Patient ID first */
+String pidString = (String)session.getAttribute("pid");
+String addOrRemove = "Add";
+if (pidString == null || 1 > pidString.length() || "false".equals(request.getParameter("confirmAction"))) {
+	session.removeAttribute("pid");
+	response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp-uap/editPatientList.jsp");
+   	return;
+}
+//else {
+//	session.removeAttribute("pid");
+//}
+
+EditMonitoringListAction action = new EditMonitoringListAction(prodDAO,loggedInMID.longValue());
+long pid = Long.parseLong(pidString);
+String patientName = action.getPatientName(pid);
+if (action.isPatientInList(pid)) {
+	addOrRemove = "Remove";
+}
+String confirm = "";
+boolean conf_bool = false;
+
+if ("true".equals(request.getParameter("confirmAction"))) {
+	if(addOrRemove.equals("Add")) {
+		conf_bool = action.addToList(pid);
+		if(conf_bool)
+			confirm = "Patient " + patientName + " Added";
+	} else {
+		conf_bool = action.removeFromList(pid);
+		if(conf_bool)
+			confirm = "Patient " + patientName + " Removed";
+	}
+
+	session.removeAttribute("pid");
+
+}
+
+if (!"".equals(confirm)) {
+ 
+	 
+		  confirm  
+	 
+ 
+} else {
+ 
+
+ 
+
+ 
+	  
+	   patientName  ">
+	 
+ 
+
+ 
+
+function differentPatient() {
+	document.getElementsByName("confirmAction")[0].value="false";
+	document.forms[0].submit();
+}
+
+ 
+
+ 
+}
+
+=== F0088 ===
+/**
+ * Class that implements the interface Menu
+ *
+ */
+public class DBMenu implements IDBMenu {
+// Empty constructor
+    public DBMenu() {
+
+    }
+
+    public boolean clearMenu(int pIdMenu) throws SQLException {
+// Variables for database connection
+        Connection conn = null;
+// Variable for the query
+        Statement stat = null;
+        try {
+// Get the connection
+            conn = DBConnectionPool.getConnection();
+// Create the Statement
+            stat = conn.createStatement();
+// Query clearing
+            String query = "DELETE FROM menu WHERE id =" + pIdMenu;
+// You run the query Cancellation
+            int i = stat.executeUpdate(query);
+// This returns the backup
+            return (i == 1);
+        }
+// Is always done and takes care of closing the Statement and the
+// Connect
+        finally {
+            if (stat != null) {
+                stat.close();
+            }
+            if (conn != null) {
+                DBConnectionPool.releaseConnections(conn);
+            }
+        }
+
+    }
+
+    public boolean insertMenu(BeanMenu pMenu) throws SQLException {
+// Variables for database connection
+        Connection conn = null;
+// Variable for the query
+        Statement stat = null;
+        try {
+// Get the connection
+            conn = DBConnectionPool.getConnection();
+// Create the Statement
+            stat = conn.createStatement();
+// Query for the insertion
+            String query = "INSERT INTO menu (Day, IdRefreshmentPoint) VALUES ( '" + pMenu.getDay() + "
+
+=== F0089 ===
+/** The class ServletModificaCittadino (ServletModifyCitizen) performs the modification of a citizen. The class has no dependencies @author Federico Cinque */
+public class ServletModificaCittadino extends HttpServlet{
+
+	private String nome;
+	private String cognome;
+	private String email;
+	private int idNF;
+	private Cittadino cittadino;
+	private NucleoFamiliareManager NFM;
+	private CittadinoManager CM;
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session = request.getSession();
+		if(session!=null){	// If the session is null, performs a redirect to the authentication page
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = null;
+			String ris;
+			try{
+				// If the session attribute citizen is null I have to perform the search
+				if(session.getAttribute("citt")==null){
+					CittadinoManager CM = new CittadinoManager();
+					Cittadino c = null;
+					String cod = request.getParameter("ci").toUpperCase();
+					CIManager CIM = new CIManager();
+					CM = new CittadinoManager();
+					CartaIdentita CI = CIM.getCartaByNumero(cod);
+
+					if(CI!=null){
+						c = CM.getCittadinoById(CI.id());
+
+						NucleoFamiliareManager NFM = new NucleoFamiliareManager();
+						int componenti = NFM.getNComponentiNucleo(c.getNucleoFamiliare());
+						NucleoFamiliare nf = NFM.getNucleo(c.getNucleoFamiliare());
+						if(componenti>1 && nf.getCapoFamiglia()== c.getIdCittadino()){
+							String nc = "si"; 
+
+=== F0090 ===
+session.invalidate();
+ 
+
+ 
+	 
+		 
+		 Authorization Error 
+	 
+	 
+		 
+			 iTrust is Down 
+			The iTrust system is not available at this time. 
+			 
+			 
+			 
+				If you are developing on iTrust, you are
+				not connecting to the database properly. Check your
+				iTrust/WebRoot/META-INF/context.xml, and restart Tomcat to fix this.
+			 
+			 
+			 
+			 Log back in.
