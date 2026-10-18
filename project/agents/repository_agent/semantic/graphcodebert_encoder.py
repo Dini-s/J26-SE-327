@@ -23,10 +23,34 @@ SKIP_DIRS = {
 
 
 def find_java_files(repository_path: Path, production_only: bool = False):
-    """Find Java files, optionally restricting analysis to production source."""
+    """
+    Discover Java files using common and legacy source layouts.
+
+    Supported production layouts:
+      - **/src/main/java/**
+      - **/src/java/**
+      - src/<module>/src/**
+      - modules/<module>/src/**
+
+    Test, fixture, build, and generated directories are excluded.
+    """
     files = []
 
-    skip_dirs = SKIP_DIRS | {"test", "tests"}
+    skip_dirs = {part.lower() for part in SKIP_DIRS | {"test", "tests"}}
+
+    excluded_source_parts = {
+        "test",
+        "tests",
+        "test-framework",
+        "test-fixtures",
+        "spatial-test-fixtures",
+        "target",
+        "build",
+        "generated",
+        "benchmark",
+        "benchmarks",
+        "jmh",
+    }
 
     for path in repository_path.rglob("*.java"):
         if not path.is_file():
@@ -34,39 +58,65 @@ def find_java_files(repository_path: Path, production_only: bool = False):
 
         relative_parts = path.relative_to(repository_path).parts
         lower_parts = tuple(part.lower() for part in relative_parts)
+        directory_parts = lower_parts[:-1]
 
-        # Exclude build, test, and tool-specific directories.
-        if any(
-            part.lower() in {d.lower() for d in skip_dirs}
-            for part in relative_parts[:-1]
-        ):
+        # Exclude known non-source and tool directories.
+        if any(part in skip_dirs for part in directory_parts):
             continue
 
         if production_only:
-            # Standard Maven/Gradle production source.
+            # Maven/Gradle: module/src/main/java/package/Class.java
             is_standard_production = any(
                 lower_parts[i : i + 3] == ("src", "main", "java")
                 for i in range(len(lower_parts) - 2)
             )
 
-            is_legacy_production = (
-                (
-                    len(lower_parts) >= 5
-                    and lower_parts[0] == "src"
-                    and lower_parts[1] not in {"main", "test", "tests"}
-                    and lower_parts[2] == "src"
-                )
-                or (
-                    len(lower_parts) >= 5
-                    and lower_parts[0] == "modules"
-                    and lower_parts[2] == "src"
-                )
-            ) and not any(
-                part in {"test", "tests", "target", "build", "generated"}
-                for part in lower_parts[:-1]
+            # Lucene-style: module/src/java/package/Class.java
+            is_src_java = any(
+                lower_parts[i : i + 2] == ("src", "java")
+                for i in range(len(lower_parts) - 1)
             )
 
-            if not (is_standard_production or is_legacy_production):
+            # Legacy: src/<module>/src/package/Class.java
+            is_legacy_src = (
+                len(lower_parts) >= 5
+                and lower_parts[0] == "src"
+                and lower_parts[1] not in {"main", "test", "tests"}
+                and lower_parts[2] == "src"
+            )
+
+            # Legacy: modules/<module>/src/package/Class.java
+            is_legacy_modules = (
+                len(lower_parts) >= 5
+                and lower_parts[0] == "modules"
+                and lower_parts[2] == "src"
+            )
+
+            is_supported_layout = (
+                is_standard_production
+                or is_src_java
+                or is_legacy_src
+                or is_legacy_modules
+            )
+
+            # Exclude test modules, fixtures, generated code and benchmarks.
+            is_excluded_source = any(
+                part in excluded_source_parts
+                or part.startswith("test-")
+                or part.endswith("-test")
+                or part.endswith("-tests")
+                or part.endswith("-test-framework")
+                or part.endswith("-test-fixtures")
+                or ".test" in part
+                or part.startswith("benchmark-")
+                or part.endswith("-benchmark")
+                or part.endswith("-benchmarks")
+                or part.startswith("jmh-")
+                or part.endswith("-jmh")
+                for part in directory_parts
+            )
+
+            if not is_supported_layout or is_excluded_source:
                 continue
 
         files.append(path)
@@ -155,7 +205,7 @@ def main():
     parser.add_argument(
         "--production-only",
         action="store_true",
-        help="Process only Java files under src/main/java",
+        help="Process Java files from recognized production source layouts",
     )
 
     parser.add_argument(
