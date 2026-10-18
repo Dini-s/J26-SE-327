@@ -95,7 +95,7 @@ export const navigation = [
 
           {
             label: "Dependencies",
-            path: "/repository/dependencies",
+            path: "/repository-agent/dependencies",
             icon: GitBranch,
           },
         ],
