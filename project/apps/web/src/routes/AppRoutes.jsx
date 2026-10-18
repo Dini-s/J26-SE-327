@@ -12,6 +12,7 @@ import DashboardOverview from "../pages/DashboardOverview";
 import RepositoryAgentOverView from "../pages/RepositoryAgent/RepositoryAgentOverView";
 import ArchitectureVisualization from "../pages/RepositoryAgent/ArchitectureVisualization";
 import ArchitectureIssues from "../pages/RepositoryAgent/ArchitectureIssues";
+import Dependencies from "../pages/Dependencies";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
           <Route path="repository" element={<RepositoryAgentOverView/>}/>
           <Route path="repository-agent/architecture" element={<ArchitectureVisualization/>}/>
           <Route path="repository-agent/architecture/issues" element={<ArchitectureIssues/>}/>
+          <Route path="repository-agent/dependencies" element={<Dependencies/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
