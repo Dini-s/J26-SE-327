@@ -1,0 +1,3 @@
+﻿file_path,error
+lucene\analysis\common\src\java\org\apache\lucene\analysis\charfilter\HTMLStripCharFilter.java,[enforce fail at alloc_cpu.cpp:117] data. DefaultCPUAllocator: not enough memory: you tried to allocate 4510973952 bytes.
+lucene\analysis\common\src\java\org\apache\lucene\analysis\email\UAX29URLEmailTokenizerImpl.java,[enforce fail at alloc_cpu.cpp:117] data. DefaultCPUAllocator: not enough memory: you tried to allocate 5121245184 bytes.
