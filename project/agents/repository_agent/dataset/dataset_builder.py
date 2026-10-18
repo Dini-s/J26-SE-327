@@ -12,8 +12,10 @@ OUTPUT_DIR = DATA_DIR / "processed"
 
 AMBIGUOUS_PACKAGES = {
     "",
-    "(path-unresolved)",
     "(default)",
+    "(default package)",
+    "(path-unresolved)",
+    "(package-unresolved)",
     "pending",
 }
 
