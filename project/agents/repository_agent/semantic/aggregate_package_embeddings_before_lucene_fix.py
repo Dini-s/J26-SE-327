@@ -1,0 +1,194 @@
+import argparse
+import csv
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+
+def package_from_file_path(file_path: str) -> str:
+    """Derive Java packages from standard and legacy source layouts."""
+    normalized = file_path.replace("\\", "/")
+    parts = normalized.split("/")
+
+    for i in range(len(parts) - 2):
+        if parts[i : i + 3] == ["src", "main", "java"]:
+            package_parts = parts[i + 3 : -1]
+            return ".".join(package_parts) if package_parts else "(default package)"
+
+    for i in range(len(parts) - 1):
+        if parts[i : i + 2] == ["src", "java"]:
+            package_parts = parts[i + 2 : -1]
+            return ".".join(package_parts) if package_parts else "(default package)"
+
+    for i in range(len(parts) - 1):
+        if parts[i] == "src" and i >= 2:
+            if parts[0] == "modules" and i == 2:
+                package_parts = parts[i + 1 : -1]
+                return ".".join(package_parts) if package_parts else "(default package)"
+
+            if parts[0] == "src" and i == 2:
+                package_parts = parts[i + 1 : -1]
+                return ".".join(package_parts) if package_parts else "(default package)"
+
+    return ""
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Aggregate GraphCodeBERT file embeddings into package embeddings."
+    )
+    parser.add_argument("--repo-id", required=True)
+    parser.add_argument("--metadata", required=True)
+    parser.add_argument("--embeddings", required=True)
+    parser.add_argument("--output-dir", default="data/processed/semantic")
+    args = parser.parse_args()
+
+    metadata_path = Path(args.metadata)
+    embeddings_path = Path(args.embeddings)
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    metadata = pd.read_csv(metadata_path)
+    embeddings = np.load(embeddings_path)
+
+    required_columns = {
+        "embedding_index",
+        "repository_id",
+        "file_path",
+    }
+    missing_columns = required_columns - set(metadata.columns)
+    if missing_columns:
+        raise ValueError(f"Missing metadata columns: {sorted(missing_columns)}")
+
+    if len(metadata) != len(embeddings):
+        raise ValueError(
+            f"Metadata rows ({len(metadata)}) do not match "
+            f"embedding rows ({len(embeddings)})."
+        )
+
+    if metadata["embedding_index"].duplicated().any():
+        raise ValueError("Duplicate embedding_index values found.")
+
+    if not np.isfinite(embeddings).all():
+        raise ValueError("Embedding matrix contains non-finite values.")
+
+    if embeddings.ndim != 2 or embeddings.shape[1] != 768:
+        raise ValueError(
+            f"Expected a 2D matrix with 768 dimensions; got {embeddings.shape}."
+        )
+
+    repo_rows = metadata[metadata["repository_id"].astype(str) == args.repo_id].copy()
+
+    normalized_paths = (
+        repo_rows["file_path"].astype(str).str.replace("\\", "/", regex=False)
+    )
+
+    # Standard Maven/Gradle layout.
+    standard_mask = normalized_paths.str.contains("src/main/java/", regex=False)
+
+    legacy_mask = normalized_paths.str.match(
+        r"^(?:src/[^/]+/src|modules/[^/]+/src)/.+\.java$"
+    )
+
+    lucene_mask = normalized_paths.str.contains(
+        r"(?:^|/)src/java/.+\.java$", case=False, regex=True
+    )
+
+    # Exclude test directories from legacy source paths.
+    legacy_mask = normalized_paths.str.match(
+        r"^(?:src/[^/]+/src|modules/[^/]+/src)/.+\.java$"
+    )
+
+    excluded_pattern = (
+        r"(?:^|/)(?:"
+        r"test|tests|test-[^/]*|[^/]*-test|[^/]*-tests|"
+        r"[^/]*-test-framework|[^/]*-test-fixtures|[^/]*\.tests?|"
+        r"benchmark|benchmarks|benchmark-[^/]*|[^/]*-benchmark|"
+        r"[^/]*-benchmarks|jmh|jmh-[^/]*|[^/]*-jmh|"
+        r"target|build|generated"
+        r")(?:/|$)"
+    )
+
+    excluded_mask = normalized_paths.str.contains(
+        excluded_pattern, case=False, regex=True
+    )
+
+    standard_mask &= ~excluded_mask
+    lucene_mask &= ~excluded_mask
+    legacy_mask &= ~excluded_mask
+
+    production_mask = standard_mask | lucene_mask | legacy_mask
+    production = repo_rows.loc[production_mask].copy()
+
+    print("Standard source files:", int(standard_mask.sum()))
+    print("Lucene src/java files:", int(lucene_mask.sum()))
+    print("Legacy source files:", int(legacy_mask.sum()))
+    print("Selected source files:", len(production))
+
+    production["package_path"] = production["file_path"].apply(package_from_file_path)
+    production = production[production["package_path"] != ""].copy()
+
+    if production.empty:
+        raise ValueError(
+            f"No production Java files found for repository {args.repo_id}."
+        )
+
+    # Use embedding_index to align metadata rows with embedding vectors.
+    indices = production["embedding_index"].astype(int).to_numpy()
+    if (indices < 0).any() or (indices >= len(embeddings)).any():
+        raise ValueError("An embedding_index is outside the embedding matrix.")
+
+    production["embedding_index"] = indices
+
+    package_vectors = []
+    package_records = []
+
+    for package_path, group in production.groupby("package_path", sort=True):
+        group_indices = group["embedding_index"].to_numpy()
+        package_vector = embeddings[group_indices].mean(axis=0)
+
+        # Normalize the mean vector for consistent downstream similarity use.
+        norm = np.linalg.norm(package_vector)
+        if norm > 0:
+            package_vector = package_vector / norm
+
+        package_vectors.append(package_vector.astype(np.float32))
+        package_records.append(
+            {
+                "repository_id": args.repo_id,
+                "package_path": package_path,
+                "java_file_count": len(group),
+                "semantic_embedding_index": len(package_records),
+                "model_name": (
+                    str(group["model_name"].iloc[0])
+                    if "model_name" in group.columns
+                    else ""
+                ),
+            }
+        )
+
+    vectors = np.vstack(package_vectors).astype(np.float32)
+    package_metadata = pd.DataFrame(package_records)
+
+    output_prefix = output_dir / args.repo_id
+    vector_file = output_prefix.with_name(
+        output_prefix.name + "_package_embeddings.npy"
+    )
+    metadata_file = output_prefix.with_name(
+        output_prefix.name + "_package_metadata.csv"
+    )
+
+    np.save(vector_file, vectors)
+    package_metadata.to_csv(metadata_file, index=False)
+
+    print(f"Repository: {args.repo_id}")
+    print(f"Production Java files: {len(production)}")
+    print(f"Packages represented: {len(package_metadata)}")
+    print(f"Package embedding matrix shape: {vectors.shape}")
+    print(f"Saved vectors: {vector_file}")
+    print(f"Saved metadata: {metadata_file}")
+
+
+if __name__ == "__main__":
+    main()
