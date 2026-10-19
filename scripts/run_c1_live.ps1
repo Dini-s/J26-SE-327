@@ -1,8 +1,11 @@
 <#
 Starts the Component 1 API in LIVE mode against the local Ollama model "c1-req" (no replay, no mock).
-Run from anywhere:  powershell -ExecutionPolicy Bypass -File scripts\run_c1_live.ps1
+Run from anywhere:  powershell -ExecutionPolicy Bypass -File scripts\run_c1_live.ps1 [-Port 8000]
+Another port is only needed if something else uses 8000; then set VITE_C1_API_BASE=http://127.0.0.1:<port> for the web app (project/apps/web/.env.example).
+More browser origins than http://localhost:5173 and http://127.0.0.1:5173: set C1_CORS_ORIGINS (comma separated) before starting.
 Stop with Ctrl+C. Changing the backend mode needs a restart of this script.
 #>
+param([int]$Port = 8000)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $project = Join-Path $root 'project'
@@ -28,9 +31,9 @@ if (-not ($names -contains $model -or $names -contains "${model}:latest")) {
     Write-Host "Fix: cd project\models\component1\part_b ; ollama create $model -f Modelfile"
     exit 1
 }
-Write-Host "Ollama OK, model '$model' found. Starting the API in LIVE mode on http://127.0.0.1:8000 ..." -ForegroundColor Green
+Write-Host "Ollama OK, model '$model' found. Starting the API in LIVE mode on http://127.0.0.1:$Port ..." -ForegroundColor Green
 
 $py = Join-Path $root '.venv\Scripts\python.exe'
 if (-not (Test-Path $py)) { $py = 'python' }
 Set-Location $project   # the package 'agents' lives in project\
-& $py -m uvicorn agents.requirement_agent.api.app:app --port 8000
+& $py -m uvicorn agents.requirement_agent.api.app:app --port $Port

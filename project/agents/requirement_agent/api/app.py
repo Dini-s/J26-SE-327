@@ -7,6 +7,7 @@ Storage: SQLite file and uploads under outputs/c1_workspace/ (C1_WORKSPACE overr
 """
 import hashlib
 import logging
+import os
 import time
 import uuid
 from contextlib import asynccontextmanager
@@ -15,17 +16,17 @@ from typing import Optional
 from fastapi import Body, FastAPI, File, Form, Query, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse, RedirectResponse, Response
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from ..generation import BackendError
-from . import analysis, cleanup, ingest, priority, schemas, service, settings
-from .db import Database, dumps, now
+from . import analysis, autosync, cleanup, ingest, jira, planning, priority, schemas, service, settings
+from .db import DEFAULT_PROJECT_KEY, Database, dumps, now
 from . import engine as engine_mod
 from .engine import EngineStore
 from .errors import ApiError
 from .gen_worker import GenerationManager, make_backend
-from .neo4j_schema import DEFAULT_SOURCE_TYPE, SOURCE_TYPES
+from .neo4j_schema import DEFAULT_SOURCE_TYPE, UPLOAD_SOURCE_TYPES
 from .neo4j_store import Neo4jStore
 
 log = logging.getLogger("c1.api")
@@ -35,13 +36,13 @@ def _error(status, code, message):
     return JSONResponse(status_code=status, content={"error": {"code": code, "message": message}})
 
 
-def create_app(workspace=None, backend=None, backend_name=None, model_name=None, replay_file=None, models_dir=None, neo4j_store_=None):
+def create_app(workspace=None, backend=None, backend_name=None, model_name=None, replay_file=None, models_dir=None, neo4j_store_=None, jira_http=None, jira_config=None):
     ws = settings.workspace_dir(workspace)
     (ws / "uploads").mkdir(parents=True, exist_ok=True)
     settings.configure_embedding_cache(ws)
     db = Database(ws / "c1.db")
     if not db.one("SELECT id FROM projects LIMIT 1"):
-        db.run("INSERT INTO projects (name, created_at) VALUES (?,?)", (settings.DEFAULT_PROJECT_NAME, now()))
+        db.ensure_planning(db.run("INSERT INTO projects (name, created_at, project_key, archived) VALUES (?,?,?,0)", (settings.DEFAULT_PROJECT_NAME, now(), DEFAULT_PROJECT_KEY)))
 
     name = settings.generation_backend_name(backend_name)
     init_error = None
@@ -59,15 +60,22 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
     manager.resume_pending()  # queued/running drafts of the last run go back in the queue (the queue itself is only in memory)
     manager.start()
 
+    neo4j_store = neo4j_store_ if neo4j_store_ is not None else Neo4jStore(db)
+    sync = autosync.AutoSync(db, neo4j_store, enabled=autosync.enabled_from_env(os.environ))  # C1_AUTO_SYNC=0 switches it off
+    manager.on_draft = sync.notify_uid
+    jira_svc = jira.JiraService(db, http=jira_http, config_loader=jira_config)  # tests pass a fake HTTP client; nothing else ever reaches Atlassian
+
     @asynccontextmanager
     async def lifespan(app):
+        sync.start()
         yield
+        sync.stop()
         manager.stop()
 
-    neo4j_store = neo4j_store_ if neo4j_store_ is not None else Neo4jStore(db)
     app = FastAPI(title="Component 1 - Requirement Intelligence API", version="1.0.0", lifespan=lifespan)
-    app.state.db, app.state.manager, app.state.workspace, app.state.engine, app.state.neo4j = db, manager, ws, engine, neo4j_store
-    app.add_middleware(CORSMiddleware, allow_origins=settings.CORS_ORIGINS, allow_methods=["*"], allow_headers=["*"])
+    app.state.db, app.state.manager, app.state.workspace, app.state.engine, app.state.neo4j, app.state.sync = db, manager, ws, engine, neo4j_store, sync
+    app.state.jira = jira_svc
+    app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins(), allow_methods=["*"], allow_headers=["*"])
 
     # ------------------------------------------------------------------------------------------------ errors
     @app.exception_handler(ApiError)
@@ -130,8 +138,7 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         if body.target == engine_mod.DEVICE:
             started = time.monotonic()
             ok = manager.device_reachable()
-            detail = (f"Connected; model '{model}' is served." if name == "ollama" else f"The {name} backend is ready.") if ok else \
-                (f"The local model server does not answer or does not serve '{model}'." if name == "ollama" else f"The {name} backend is not ready.")
+            detail = "Connected; the on-device writing model is ready." if ok else "The on-device writing model does not answer. Check that it is running."
             return {"ok": ok, "detail": detail, "latency_ms": int(round((time.monotonic() - started) * 1000))}
         if engine.disabled_reason:
             raise ApiError(409, "cloud_disabled", engine.disabled_reason)
@@ -141,24 +148,52 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         engine.record_test(result)
         return result
 
-    @app.get("/api/projects", response_model=list[schemas.ProjectOut])
-    def list_projects():
-        return [service.project_out(db, p) for p in db.all("SELECT * FROM projects ORDER BY id")]
+    def project_view(p):
+        try:
+            publish = neo4j_store.publish_info(p["id"])
+        except Exception:  # noqa: BLE001 - counts must load even if the publish check cannot
+            publish = None
+        return service.project_out(db, p, publish)
 
-    @app.post("/api/projects", response_model=schemas.ProjectOut, status_code=201)
+    @app.get("/api/projects", response_model=list[schemas.ProjectOut])
+    def list_projects(include_archived: bool = Query(False, description="also list archived projects")):
+        where = "" if include_archived else "WHERE archived=0"
+        return [project_view(service.with_key(db, p)) for p in db.all(f"SELECT * FROM projects {where} ORDER BY id")]
+
+    @app.post("/api/projects", response_model=schemas.ProjectOut, status_code=201, responses={409: {"model": schemas.ErrorResponse}})
     def create_project(body: schemas.ProjectCreate):
-        pid = db.run("INSERT INTO projects (name, created_at) VALUES (?,?)", (body.name.strip(), now()))
-        return service.project_out(db, service.project_or_404(db, pid))
+        return project_view(service.create_project(db, body.name))
+
+    @app.patch("/api/projects/{pid}", response_model=schemas.ProjectOut, responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
+    def rename_project(pid: int, body: schemas.ProjectRename):
+        out = project_view(service.with_key(db, service.rename_project(db, pid, body.name)))
+        sync.notify(pid)  # the new name reaches the graph
+        return out
+
+    @app.post("/api/projects/{pid}/archive", response_model=schemas.ProjectOut, responses={404: {"model": schemas.ErrorResponse}})
+    def archive_project(pid: int):
+        return project_view(service.with_key(db, service.set_archived(db, pid, True)))
+
+    @app.post("/api/projects/{pid}/unarchive", response_model=schemas.ProjectOut, responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
+    def unarchive_project(pid: int):
+        return project_view(service.with_key(db, service.set_archived(db, pid, False)))
+
+    @app.get("/api/projects/{pid}/overview", response_model=schemas.Overview, responses={404: {"model": schemas.ErrorResponse}})
+    def project_overview(pid: int):
+        return service.overview(db, pid, manager, engine, neo4j_store, sync.status(pid))
 
     @app.post("/api/projects/{pid}/sources", response_model=schemas.UploadResult, status_code=201,
               responses={400: {"model": schemas.ErrorResponse}, 413: {"model": schemas.ErrorResponse}})
-    def upload_sources(pid: int, files: list[UploadFile] = File(...), source_type: str = Form(DEFAULT_SOURCE_TYPE)):
+    def upload_sources(pid: int, files: list[UploadFile] = File(...), source_type: str = Form(DEFAULT_SOURCE_TYPE),
+                       phase_id: Optional[int] = Form(None), sprint_id: Optional[int] = Form(None)):
         service.project_or_404(db, pid)
+        target = planning.upload_target(db, pid, phase_id, sprint_id)  # a bad phase or sprint is refused before anything is stored
+        chosen = phase_id is not None or sprint_id is not None
         source_type = (source_type or DEFAULT_SOURCE_TYPE).strip().lower()
-        if source_type not in SOURCE_TYPES:
-            raise ApiError(400, "invalid_parameter", f"source_type must be one of {list(SOURCE_TYPES)}.")
+        if source_type not in UPLOAD_SOURCE_TYPES:
+            raise ApiError(400, "invalid_parameter", f"source_type must be one of {list(UPLOAD_SOURCE_TYPES)}.")
         root = (ws / "uploads").resolve()
-        accepted, rejected, first_error = [], [], None
+        accepted, rejected, detected, first_error = [], [], [], None
         for f in files:
             shown = ingest.safe_filename(f.filename)
             try:
@@ -182,36 +217,44 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
                 if folder not in stored.parents:
                     raise ApiError(400, "bad_filename", "The file name is not allowed.")
                 stored.write_bytes(raw)
-                sid = db.run("INSERT INTO sources (project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                sprint_for = target
+                name = None if chosen else planning.detect_sprint(shown, extracted["text"])
+                if name:  # the file names a sprint: use it (proposed, not confirmed, when it did not exist yet)
+                    found, _ = planning.find_or_propose(db, pid, name)
+                    sprint_for = found["id"]
+                    detected.append({"filename": shown, "sprint_id": found["id"], "name": found["name"], "confirmed": bool(found["confirmed"])})
+                sid = db.run("INSERT INTO sources (project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256, default_sprint_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
                              (pid, shown, str(stored), ext, size, extracted["pages"], dumps(extracted["warnings"]),
-                              dumps({"text": extracted["text"], "line_map": extracted["line_map"]}), now(), source_type, hashlib.sha256(raw).hexdigest()))
+                              dumps({"text": extracted["text"], "line_map": extracted["line_map"]}), now(), source_type, hashlib.sha256(raw).hexdigest(), sprint_for))
                 accepted.append(service.source_out(db.one("SELECT * FROM sources WHERE id=?", (sid,))))
             except ApiError as exc:
                 first_error = first_error or exc
                 rejected.append({"filename": shown, "code": exc.code, "message": exc.message})
         if not accepted and first_error:
             raise first_error
-        return {"accepted": accepted, "rejected": rejected}
+        return {"accepted": accepted, "rejected": rejected, "sprint_detected": bool(detected), "detected": detected}
 
     @app.get("/api/projects/{pid}/sources", response_model=list[schemas.SourceOut])
     def list_sources(pid: int):
         service.project_or_404(db, pid)
-        return [service.source_out(s) for s in db.all("SELECT * FROM sources WHERE project_id=? ORDER BY id", (pid,))]
+        return service.sources_out(db, pid)
 
     @app.delete("/api/projects/{pid}/sources/{source_id}", status_code=204, response_class=Response,
                 responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
     def delete_source(pid: int, source_id: int):
         cleanup.delete_sources(db, ws, pid, source_id)
+        sync.notify(pid)
         return Response(status_code=204)
 
     @app.delete("/api/projects/{pid}/sources", status_code=204, response_class=Response,
                 responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
     def clear_sources(pid: int):
         cleanup.delete_sources(db, ws, pid, None)
+        sync.notify(pid)
         return Response(status_code=204)
 
-    @app.post("/api/projects/{pid}/analyze", response_model=schemas.Job, status_code=202)
-    def analyze(pid: int, policy: str = Query(priority.DEFAULT_POLICY, description="smart | all | manual: which drafts are queued automatically")):
+    def run_analysis(pid, policy, only=None, force=False):
+        """The analysis of the documents that need it (all of them with `force`, only `only` otherwise). Returns (job id, result, drafts queued)."""
         service.project_or_404(db, pid)
         policy = policy.strip().lower()
         if policy not in priority.POLICIES:
@@ -219,7 +262,7 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         job_id = uuid.uuid4().hex[:12]
         db.run("INSERT INTO jobs (id, project_id, stage, part_a_done, created_at, updated_at, policy) VALUES (?,?,?,?,?,?,?)", (job_id, pid, "collect", 0, now(), now(), policy))
         try:
-            result = analysis.run_part_a(db, pid, models_dir, on_stage=lambda s: set_job(job_id, stage=s))
+            result = analysis.run_part_a(db, pid, models_dir, on_stage=lambda s: set_job(job_id, stage=s), only=only, force=force)
         except ApiError as exc:
             set_job(job_id, error=exc.message)
             raise
@@ -227,8 +270,29 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
             set_job(job_id, error=f"{exc.__class__.__name__}: {exc}")
             raise
         set_job(job_id, stage="improve", part_a_done=1)
-        manager.plan(pid, policy)
+        queued = manager.plan(pid, policy, only=set(result["new_uids"]))  # drafts only for requirements that are new in this run
+        if result["processed_sources"]:
+            sync.notify(pid)
+        return job_id, result, queued
+
+    @app.post("/api/projects/{pid}/analyze", response_model=schemas.Job, status_code=202)
+    def analyze(pid: int, policy: str = Query(priority.DEFAULT_POLICY, description="smart | all | manual: which drafts are queued automatically")):
+        """Analyses only the documents that are not analysed yet (or failed, or changed); analysed documents are skipped completely."""
+        job_id, _, _ = run_analysis(pid, policy)
         return job_out(job_id)
+
+    @app.post("/api/projects/{pid}/sources/{source_id}/reanalyze", response_model=schemas.ReanalyzeOut, status_code=202,
+              responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
+    def reanalyze_source(pid: int, source_id: int, policy: str = Query(priority.DEFAULT_POLICY)):
+        """Analyse one document again. Requirements whose text is unchanged keep their decision and draft; changed or removed ones go to the audit trail."""
+        service.project_or_404(db, pid)
+        if not db.one("SELECT id FROM sources WHERE id=? AND project_id=?", (source_id, pid)):
+            raise ApiError(404, "source_not_found", f"Source {source_id} does not exist in project {pid}.")
+        if cleanup.project_busy(db, pid):
+            raise ApiError(409, "project_busy", cleanup.BUSY_MESSAGE)
+        job_id, result, queued = run_analysis(pid, policy, only={source_id}, force=True)
+        return {"source_id": source_id, "kept": result["kept"], "changed": result["changed"], "removed": result["removed"], "added": result["added"],
+                "queued": queued, "job": job_out(job_id)}
 
     @app.get("/api/jobs/{job_id}", response_model=schemas.Job)
     def get_job(job_id: str):
@@ -240,8 +304,8 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
 
     @app.get("/api/projects/{pid}/requirements", response_model=schemas.RequirementList)
     def project_requirements(pid: int, risk: Optional[str] = None, type: str = "all", q: Optional[str] = None,
-                             limit: int = Query(50), offset: int = Query(0)):
-        return service.list_requirements(db, pid, risk, type, q, limit, offset)
+                             limit: int = Query(50), offset: int = Query(0), sprint_id: Optional[int] = Query(None, description="only requirements of this (effective) sprint")):
+        return service.list_requirements(db, pid, risk, type, q, limit, offset, sprint_id)
 
     @app.get("/api/requirements/{rid}", response_model=schemas.RequirementDetail)
     def requirement_detail(rid: str):
@@ -257,6 +321,74 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         service.project_or_404(db, pid)
         return {"queued": manager.enqueue_remaining(pid)}
 
+    # ------------------------------------------------------------------------------------------------ jira (read-only)
+    JIRA = "/api/projects/{pid}/integrations/jira"
+    JIRA_ERRORS = {404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}, 502: {"model": schemas.ErrorResponse}}
+
+    @app.get(JIRA, response_model=schemas.JiraStatus, responses={404: {"model": schemas.ErrorResponse}})
+    def jira_status(pid: int):
+        service.project_or_404(db, pid)
+        return jira_svc.status(pid)
+
+    @app.post(JIRA + "/connect", response_model=schemas.JiraConnectOut, responses=JIRA_ERRORS)
+    def jira_connect(pid: int):
+        service.project_or_404(db, pid)
+        return jira_svc.connect(pid)
+
+    @app.delete(JIRA, status_code=204, response_class=Response, responses={404: {"model": schemas.ErrorResponse}})
+    def jira_disconnect(pid: int):
+        service.project_or_404(db, pid)
+        jira_svc.disconnect(pid)
+        return Response(status_code=204)
+
+    @app.get(JIRA + "/projects", response_model=list[schemas.JiraProject], responses=JIRA_ERRORS)
+    def jira_projects(pid: int):
+        service.project_or_404(db, pid)
+        return jira_svc.projects(pid)
+
+    @app.get(JIRA + "/boards", response_model=list[schemas.JiraBoard], responses=JIRA_ERRORS)
+    def jira_boards(pid: int, project_key: str = Query(..., description="the Jira project key")):
+        service.project_or_404(db, pid)
+        return jira_svc.boards(pid, project_key)
+
+    @app.get(JIRA + "/sprints", response_model=list[schemas.JiraSprintOut], responses=JIRA_ERRORS)
+    def jira_sprints(pid: int, board_id: int = Query(...), states: str = Query("active,future", description="active, future and/or closed, comma separated")):
+        service.project_or_404(db, pid)
+        return jira_svc.sprints(pid, board_id, [s for s in states.split(",") if s.strip()])
+
+    @app.post(JIRA + "/import", response_model=schemas.JiraImportOut, responses=JIRA_ERRORS)
+    def jira_import(pid: int, body: schemas.JiraImportIn):
+        service.project_or_404(db, pid)
+        policy = body.policy.strip().lower()
+        if policy not in priority.POLICIES:
+            raise ApiError(400, "invalid_parameter", f"policy must be one of {list(priority.POLICIES)}.")
+        if cleanup.project_busy(db, pid):
+            raise ApiError(409, "project_busy", cleanup.BUSY_MESSAGE)
+        result = jira_svc.import_issues(pid, body.project_key, body.board_id, body.sprint_states, body.issue_types, body.set_current, body.target_sprint_id)
+        source_ids = result.pop("source_ids")
+        queued, job_id, analysis_error = 0, None, None
+        if body.analyze and source_ids:  # the normal analysis of the new or changed documents, then the drafts the policy asks for
+            try:
+                job_id, _, queued = run_analysis(pid, policy, only=set(source_ids))
+            except ApiError as exc:
+                analysis_error = exc.code
+            except Exception as exc:  # noqa: BLE001 - the import itself worked and stays
+                log.warning("analysis after a Jira import failed: %s", exc.__class__.__name__)
+                analysis_error = "analysis_failed"
+        sync.notify(pid)
+        return dict(result, queued=queued, job_id=job_id, analysis_error=analysis_error)
+
+    @app.get("/api/integrations/jira/callback", status_code=302, response_class=Response, summary="OAuth redirect target: finishes the connection and sends the browser back to the module")
+    def jira_callback(code: Optional[str] = None, state: Optional[str] = None, error: Optional[str] = None):
+        return RedirectResponse(jira_svc.callback(code, state, error), status_code=302)
+
+    @app.post("/api/projects/{pid}/drafts/retry-failed", response_model=schemas.GenerateAllOut, status_code=202, responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
+    def retry_failed_drafts(pid: int):
+        service.project_or_404(db, pid)
+        if service.generation_counts(db, pid)["queued"] > 0:
+            raise ApiError(409, "generation_running", "Drafts are being written right now. Retry the failed ones when it has finished.")
+        return {"queued": manager.retry_failed(pid)}
+
     @app.post("/api/projects/{pid}/generation/pause", response_model=schemas.PausedOut)
     def pause_generation(pid: int):
         service.project_or_404(db, pid)
@@ -269,15 +401,131 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         manager.set_paused(False)
         return {"paused": False}
 
-    @app.post("/api/requirements/{rid}/decision", response_model=schemas.DecisionOut)
+    def sync_draft(uid, before):
+        """The draft follows the effective text (the edited text while the decision is `edited`, else the original). Never fails the decision itself."""
+        try:
+            manager.sync_draft(uid, before)
+        except Exception:  # noqa: BLE001
+            log.exception("draft could not follow the decision")
+
+    def decided(rid, body):
+        before = manager.source_text(service.resolve_uid(db, rid))[0]
+        out = service.set_decision(db, rid, body.decision, body.edited_text, body.note)
+        sync_draft(out["uid"], before)
+        sync.notify_uid(out["uid"])
+        return out
+
+    @app.get("/api/requirements/{rid}/decision", response_model=schemas.DecisionState)
+    def get_decision(rid: str):
+        return service.get_decision(db, rid)
+
+    @app.put("/api/requirements/{rid}/decision", response_model=schemas.DecisionOut, responses={400: {"model": schemas.ErrorResponse}})
+    def put_decision(rid: str, body: schemas.DecisionIn = Body(...)):
+        """The one current decision of the requirement: creates it or replaces the earlier one."""
+        return decided(rid, body)
+
+    @app.delete("/api/requirements/{rid}/decision", status_code=204, response_class=Response)
+    def delete_decision(rid: str):
+        """Back to pending."""
+        uid = service.resolve_uid(db, rid)
+        before = manager.source_text(uid)[0]
+        service.clear_decision(db, rid)
+        sync_draft(uid, before)
+        sync.notify_uid(uid)
+        return Response(status_code=204)
+
+    @app.post("/api/requirements/{rid}/decision", response_model=schemas.DecisionOut, deprecated=True, responses={400: {"model": schemas.ErrorResponse}})
     def decide(rid: str, body: schemas.DecisionIn = Body(...)):
-        return service.set_decision(db, rid, body.decision, body.edited_text, body.note)
+        """Deprecated alias of PUT: it also replaces the current decision instead of adding one."""
+        return decided(rid, body)
 
     @app.post("/api/projects/{pid}/publish/neo4j", response_model=schemas.PublishOut,
               responses={503: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
     def publish_neo4j(pid: int, body: Optional[schemas.PublishIn] = Body(None)):
+        """"Sync now": the same idempotent publish the background sync uses."""
         body = body or schemas.PublishIn()
-        return neo4j_store.publish(pid, body.project_id, body.project_name)
+        out = neo4j_store.publish(pid, body.project_id, body.project_name)
+        sync.record_manual(pid, out)
+        return out
+
+    @app.get("/api/projects/{pid}/sync", response_model=schemas.SyncStatus, responses={404: {"model": schemas.ErrorResponse}})
+    def sync_status(pid: int):
+        """State of the background sync (reads the workspace only; the graph database is not contacted)."""
+        service.project_or_404(db, pid)
+        return sync.status(pid)
+
+    # ------------------------------------------------------------------------------------------------ phases and sprints
+    @app.get("/api/projects/{pid}/phases", response_model=list[schemas.PhaseOut], responses={404: {"model": schemas.ErrorResponse}})
+    def list_phases(pid: int):
+        return planning.list_phases(db, pid)
+
+    @app.post("/api/projects/{pid}/phases", response_model=schemas.PhaseOut, status_code=201, responses={409: {"model": schemas.ErrorResponse}})
+    def create_phase(pid: int, body: schemas.PhaseIn):
+        out = planning.create_phase(db, pid, body.name)
+        sync.notify(pid)
+        return out
+
+    @app.patch("/api/projects/{pid}/phases/{phase_id}", response_model=schemas.PhaseOut, responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
+    def update_phase(pid: int, phase_id: int, body: schemas.PhaseUpdate):
+        out = planning.update_phase(db, pid, phase_id, body.model_dump(exclude_unset=True))
+        sync.notify(pid)
+        return out
+
+    @app.delete("/api/projects/{pid}/phases/{phase_id}", status_code=204, response_class=Response, responses={404: {"model": schemas.ErrorResponse}})
+    def delete_phase(pid: int, phase_id: int):
+        """Its sprints stay and lose the phase."""
+        planning.delete_phase(db, pid, phase_id)
+        sync.notify(pid)
+        return Response(status_code=204)
+
+    @app.get("/api/projects/{pid}/sprints", response_model=list[schemas.SprintOut], responses={404: {"model": schemas.ErrorResponse}})
+    def list_sprints(pid: int):
+        return planning.list_sprints(db, pid)
+
+    @app.post("/api/projects/{pid}/sprints", response_model=schemas.SprintOut, status_code=201, responses={409: {"model": schemas.ErrorResponse}})
+    def create_sprint(pid: int, body: schemas.SprintIn):
+        out = planning.create_sprint(db, pid, body.model_dump())
+        sync.notify(pid)
+        return out
+
+    @app.patch("/api/projects/{pid}/sprints/{sprint_id}", response_model=schemas.SprintOut, responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
+    def update_sprint(pid: int, sprint_id: int, body: schemas.SprintUpdate):
+        out = planning.update_sprint(db, pid, sprint_id, body.model_dump(exclude_unset=True))
+        sync.notify(pid)
+        return out
+
+    @app.delete("/api/projects/{pid}/sprints/{sprint_id}", response_model=schemas.SprintDeleted, responses={404: {"model": schemas.ErrorResponse}, 409: {"model": schemas.ErrorResponse}})
+    def delete_sprint(pid: int, sprint_id: int, reassign_to: Optional[int] = Query(None, description="required when the sprint holds requirements or documents or is the current one")):
+        out = planning.delete_sprint(db, pid, sprint_id, reassign_to)
+        sync.notify(pid)
+        return out
+
+    @app.put("/api/projects/{pid}/current-sprint", response_model=schemas.SprintOut, responses={404: {"model": schemas.ErrorResponse}})
+    def put_current_sprint(pid: int, body: schemas.CurrentSprintIn):
+        out = planning.set_current(db, pid, body.sprint_id)
+        sync.notify(pid)
+        return out
+
+    @app.put("/api/projects/{pid}/sources/{source_id}/sprint", response_model=schemas.SourceOut, responses={404: {"model": schemas.ErrorResponse}})
+    def put_source_sprint(pid: int, source_id: int, body: schemas.SourceSprintIn):
+        """The document's default sprint. Never starts an analysis."""
+        planning.set_source_sprint(db, pid, source_id, body.sprint_id)
+        sync.notify(pid)
+        return next(s for s in service.sources_out(db, pid) if s["id"] == source_id)
+
+    @app.post("/api/projects/{pid}/sources/{source_id}/assign-ranges", response_model=schemas.AssignRangesOut, responses={404: {"model": schemas.ErrorResponse}})
+    def assign_ranges(pid: int, source_id: int, body: schemas.AssignRangesIn):
+        """Sets the sprint of the requirements of this document by page range (each requirement gets its own sprint; later ranges win)."""
+        out = planning.assign_ranges(db, pid, source_id, [r.model_dump() for r in body.ranges])
+        sync.notify(pid)
+        return out
+
+    @app.post("/api/projects/{pid}/requirements/assign", response_model=schemas.AssignOut, responses={404: {"model": schemas.ErrorResponse}})
+    def assign_requirements(pid: int, body: schemas.AssignIn):
+        """Bulk assign requirements to a sprint (null = follow the document's default again)."""
+        out = planning.assign_requirements(db, pid, body.requirement_ids, body.sprint_id)
+        sync.notify(pid)
+        return out
 
     @app.get("/api/projects/{pid}/publish/neo4j", response_model=schemas.PublishStatus)
     def publish_neo4j_status(pid: int, project_id: Optional[str] = Query(None, pattern=r"^[A-Za-z0-9_.:-]{1,100}$")):

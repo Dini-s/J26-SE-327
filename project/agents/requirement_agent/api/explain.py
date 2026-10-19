@@ -1,4 +1,4 @@
-"""Findings and explanation text, built only from the detector output of a requirement (weak words, probabilities, duplicate and conflict partners)."""
+"""Findings and explanation text, built only from the automatic check results of a requirement (weak words, probabilities, duplicate and conflict partners)."""
 from . import conflicts
 
 
@@ -26,7 +26,7 @@ def build_explanation(rec):
     parts = [f"Classified as {rec['fr_nfr']} (probability of NFR {rec['nfr_probability']:.2f}, embeddings + logistic regression baseline)."]
     parts += [f["message"] for f in rec["findings"]]
     if not rec["findings"]:
-        parts.append("No ambiguity, weak word, security, duplicate or conflict finding from the Part A detectors.")
+        parts.append("No ambiguity, weak word, security, duplicate or conflict finding from the automatic checks.")
     if rec["risk_level"] != "NONE":
         parts.append(f"Risk {rec['risk_level']} (score {rec['risk_score']}; unvalidated heuristic, not a trained model).")
     if rec["conflict_matches"]:

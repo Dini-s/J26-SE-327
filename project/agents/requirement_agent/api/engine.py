@@ -53,7 +53,7 @@ def normalize_url(raw):
     if parts.scheme not in ("https", "http") or not host:
         raise ApiError(400, "invalid_cloud_url", "cloud_url must be an https:// address with a host name.")
     if parts.scheme == "http" and not insecure_allowed():
-        raise ApiError(400, "invalid_cloud_url", "cloud_url must use https. (Plain http is only allowed when the API is started with C1_ALLOW_INSECURE_CLOUD=1.)")
+        raise ApiError(400, "invalid_cloud_url", "cloud_url must use https. (Plain http is only allowed when the service is started with C1_ALLOW_INSECURE_CLOUD=1.)")
     if parts.username is not None or parts.password is not None:
         raise ApiError(400, "invalid_cloud_url", "cloud_url must not contain a user name or password; use the API key field.")
     if parts.query or parts.fragment:
@@ -149,7 +149,7 @@ class EngineStore:
     @property
     def disabled_reason(self):
         if self.backend_name != "ollama":
-            return f"The cloud target needs the Ollama backend; this API runs in {self.backend_name} mode."
+            return f"Cloud writing needs the on-device model to be set up; this service runs in {self.backend_name} mode."
         return None
 
     def target(self):

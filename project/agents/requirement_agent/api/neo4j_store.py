@@ -54,12 +54,16 @@ class Bundle:
     project_props: dict
     sources: list
     duplicates: list  # {"id", "a", "b", "score"}
+    sprints: list = field(default_factory=list)  # {"id", "props"}
+    planned: list = field(default_factory=list)  # {"req_id", "sprint_id"}: the effective sprint of every requirement (null = none)
+    includes: list = field(default_factory=list)  # {"sprint_id", "source_id", "requirements"}: derived from `planned`, one per sprint and document with at least one requirement
+    held: list = field(default_factory=list)  # graph ids of the documents that are not analysed (yet): not published, and what the graph already holds about them is left as it is
 
     def as_dict(self):
         return {
             "schema": S.SCHEMA_VERSION, "project_id": self.project_id, "project": self.project_props,
             "sources": [{"source_id": s.source_id, "props": s.props, "requirements": s.requirements, "issues": s.issues, "drafts": s.drafts} for s in self.sources],
-            "duplicates": self.duplicates,
+            "duplicates": self.duplicates, "sprints": self.sprints, "planned": self.planned, "includes": self.includes,
         }
 
     def digest(self):
@@ -69,7 +73,8 @@ class Bundle:
     def counts(self):
         return {S.Label.PROJECT: 1, S.Label.SOURCE: len(self.sources), S.Label.REQUIREMENT: sum(len(s.requirements) for s in self.sources),
                 S.Label.ISSUE: sum(len(s.issues) for s in self.sources), S.Label.DRAFT: sum(len(s.drafts) for s in self.sources),
-                S.Rel.DUPLICATE_OF: len(self.duplicates)}
+                S.Rel.DUPLICATE_OF: len(self.duplicates), S.Label.SPRINT: len(self.sprints),
+                S.Rel.PLANNED_IN: sum(1 for p in self.planned if p["sprint_id"]), S.Rel.INCLUDES_SOURCE: len(self.includes)}
 
 
 def source_graph_id(project_id, source_id):
@@ -79,6 +84,10 @@ def source_graph_id(project_id, source_id):
 def requirement_graph_id(project_id, source_id, rid):
     """req_id = <project_id>:src<workspace source id>:<workspace requirement id>, e.g. demo-project:src3:REQ-012 (docs/c1_neo4j_contract.md)."""
     return f"{source_graph_id(project_id, source_id)}:{rid}"
+
+
+def sprint_graph_id(project_id, sprint_id):
+    return f"{project_id}:sprint{sprint_id}"
 
 
 def _common(project_id):
@@ -109,7 +118,7 @@ def _issues(req_id, project_id, r, block, text):
     if r["ambiguity_label"] == "defect":
         weak = loads(r["weak_words"], [])
         p = r["ambiguity_probability"]
-        detail = "Part A ambiguity model: defect" + (f" (probability {p:.2f})" if p is not None else "") + (f"; weak words: {', '.join(weak)}" if weak else "")
+        detail = "Ambiguity model: defect" + (f" (probability {p:.2f})" if p is not None else "") + (f"; weak words: {', '.join(weak)}" if weak else "")
         out.append(issue("ambiguity", "part_a", detail))
     for term in sorted({t["term"].lower() for t in vague.vague_term_spans(text)}):
         out.append(issue("vague", "rule", f"Vague term (rule-based word list): {term}", key=term))
@@ -124,8 +133,10 @@ def _issues(req_id, project_id, r, block, text):
     return out
 
 
-def build_bundle(db, pid, project_id, project_name):
-    """Everything a publish sends, read from the workspace. Needs no Neo4j."""
+def build_bundle(db, pid, project_id, project_name, all_documents=False):
+    """Everything a publish sends, read from the workspace. Needs no Neo4j.
+    Only documents in the state `analyzed` are included; the others are listed in `held` (their previously published nodes stay as they are). `all_documents`
+    includes every document (used by scripts/c1_graph_counts.py to count what each document would publish)."""
     service.project_or_404(db, pid)
     export = {rec["uid"]: rec for rec in service.export_json(db, pid)["requirements"]}
     decisions = {d["uid"]: d for d in db.all("SELECT * FROM decisions WHERE uid IN (SELECT uid FROM requirements WHERE project_id=?)", (pid,))}
@@ -133,22 +144,32 @@ def build_bundle(db, pid, project_id, project_name):
     reqs = db.all("SELECT * FROM requirements WHERE project_id=? ORDER BY seq", (pid,))
     req_by_uid = {r["uid"]: r for r in reqs}
     common = _common(project_id)
+    current_sprint = service.planning.current_sprint_id(db, pid)
 
     by_source = {}
     sources = []
+    held = []
     for s in db.all("SELECT * FROM sources WHERE project_id=? ORDER BY id", (pid,)):
+        if not all_documents and (s.get("analysis_state") or "not_analyzed") != "analyzed":  # still being analysed (or not analysed): published once it is finished
+            held.append(source_graph_id(project_id, s["id"]))
+            continue
         sb = SourceBundle(source_graph_id(project_id, s["id"]), dict(common, **{
             S.SourceP.FILENAME: s["filename"], S.SourceP.SOURCE_TYPE: s.get("source_type") or S.DEFAULT_SOURCE_TYPE, S.SourceP.SHA256: _file_sha256(db, s),
             S.SourceP.UPLOADED_AT: s["created_at"], S.SourceP.ACTIVE: True}))
         by_source[s["id"]] = (sb, s)
         sources.append(sb)
 
-    duplicates = {}
+    duplicates, planned, included = {}, [], {}
     for r in reqs:
         if r["source_id"] not in by_source:
             continue  # cannot happen in a consistent workspace (deleting a source deletes its requirements)
         sb, s = by_source[r["source_id"]]
         req_id = requirement_graph_id(project_id, r["source_id"], r["rid"])
+        sprint = r.get("sprint_id") or s.get("default_sprint_id")  # the requirement's own sprint, else its document's
+        sprint_gid = sprint_graph_id(project_id, sprint) if sprint else None
+        planned.append({"req_id": req_id, "sprint_id": sprint_gid})
+        if sprint_gid:
+            included[(sprint_gid, sb.source_id)] = included.get((sprint_gid, sb.source_id), 0) + 1
         dec = decisions.get(r["uid"])
         status = dec["decision"] if dec else "pending"
         final = dec["edited_text"] if dec and dec["decision"] == "edited" else r["text"]
@@ -163,7 +184,7 @@ def build_bundle(db, pid, project_id, project_name):
 
         sb.requirements.append({"id": req_id, "props": dict(common, **{
             S.RequirementP.TEXT: r["text"], S.RequirementP.KIND: (r["fr_nfr"] or "").upper() or None, S.RequirementP.STATUS: status, S.RequirementP.FINAL_TEXT: final,
-            S.RequirementP.SECURITY_FLAG: bool(r["is_security"]), S.RequirementP.ACTIVE: True,
+            S.RequirementP.SECURITY_FLAG: bool(r["is_security"]), S.RequirementP.SPRINT_ID: sprint_gid, S.RequirementP.ACTIVE: True,
             S.RequirementP.PAYLOAD_JSON: json.dumps(payload, sort_keys=True, ensure_ascii=False)})})
         sb.issues.extend(_issues(req_id, project_id, r, block, r["text"]))
         if block["state"] in ("done", "needs_clarification"):
@@ -180,14 +201,18 @@ def build_bundle(db, pid, project_id, project_name):
                 continue
             a, b = req_id, requirement_graph_id(project_id, other["source_id"], other["rid"])
             duplicates[f"{a}|{b}"] = {"id": f"{a}|{b}", "a": a, "b": b, "score": m.get("similarity")}
-    return Bundle(project_id, dict(common, **{S.ProjectP.NAME: project_name}), sources, [duplicates[k] for k in sorted(duplicates)])
+    sprints = [{"id": sprint_graph_id(project_id, sp["id"]),
+                "props": dict(common, **{S.SprintP.NAME: sp["name"], S.SprintP.START: sp["start_date"], S.SprintP.END: sp["end_date"], S.SprintP.GOAL: sp["goal"],
+                                         S.SprintP.ORIGIN: sp["origin"], S.SprintP.IS_CURRENT: sp["id"] == current_sprint, S.SprintP.ACTIVE: True})}
+               for sp in db.all("SELECT * FROM sprints WHERE project_id=? ORDER BY position, id", (pid,))]
+    includes = [{"sprint_id": a, "source_id": b, "requirements": n} for (a, b), n in sorted(included.items())]
+    return Bundle(project_id, dict(common, **{S.ProjectP.NAME: project_name}), sources, [duplicates[k] for k in sorted(duplicates)], sprints, planned, includes, held)
 
 
 # ------------------------------------------------------------------------------------------------------------------- (3) Cypher
 L, R, C = S.Label, S.Rel, S.Common
 
-Q_PROJECT = (f"MERGE (p:{L.PROJECT} {{{S.ProjectP.ID}: $project_id}}) ON CREATE SET p += $props "
-             f"ON MATCH SET p.{S.ProjectP.NAME} = coalesce(p.{S.ProjectP.NAME}, $name)")
+Q_PROJECT = f"MERGE (p:{L.PROJECT} {{{S.ProjectP.ID}: $project_id}}) SET p += $props"  # the name follows the workspace on every sync, so a rename reaches the graph
 Q_SOURCE = (f"MATCH (p:{L.PROJECT} {{{S.ProjectP.ID}: $project_id}}) MERGE (s:{L.SOURCE} {{{S.SourceP.ID}: $source_id}}) SET s += $props "
             f"MERGE (p)-[:{R.HAS_SOURCE}]->(s)")
 Q_REQUIREMENTS = (f"UNWIND $rows AS row MATCH (s:{L.SOURCE} {{{S.SourceP.ID}: $source_id}}) MERGE (r:{L.REQUIREMENT} {{{S.RequirementP.ID}: row.id}}) "
@@ -200,16 +225,50 @@ Q_DUPLICATES = (f"UNWIND $rows AS row MATCH (a:{L.REQUIREMENT} {{{S.RequirementP
                 f"MERGE (a)-[d:{R.DUPLICATE_OF} {{{S.DuplicateP.ID}: row.id}}]->(b) SET d.{S.DuplicateP.SCORE} = row.score, d.{S.DuplicateP.ACTIVE} = true, d.{C.PROJECT_ID} = $project_id")
 
 
+Q_SPRINTS = (f"UNWIND $rows AS row MATCH (p:{L.PROJECT} {{{S.ProjectP.ID}: $project_id}}) MERGE (s:{L.SPRINT} {{{S.SprintP.ID}: row.id}}) SET s += row.props "
+             f"MERGE (p)-[:{R.HAS_SPRINT}]->(s)")
+# links are never deleted either: a link that no longer holds gets active = false, the current one active = true
+Q_PLANNED_CLEAR = (f"UNWIND $rows AS row MATCH (r:{L.REQUIREMENT} {{{S.RequirementP.ID}: row.req_id}})-[old:{R.PLANNED_IN}]->(x:{L.SPRINT}) "
+                   f"WHERE row.sprint_id IS NULL OR x.{S.SprintP.ID} <> row.sprint_id SET old.active = false")
+Q_PLANNED = (f"UNWIND $rows AS row WITH row WHERE row.sprint_id IS NOT NULL MATCH (r:{L.REQUIREMENT} {{{S.RequirementP.ID}: row.req_id}}) "
+             f"MATCH (s:{L.SPRINT} {{{S.SprintP.ID}: row.sprint_id}}) MERGE (r)-[e:{R.PLANNED_IN}]->(s) SET e.active = true")
+
+
+Q_INCLUDES = (f"UNWIND $rows AS row MATCH (s:{L.SPRINT} {{{S.SprintP.ID}: row.sprint_id}}) MATCH (d:{L.SOURCE} {{{S.SourceP.ID}: row.source_id}}) "
+              f"MERGE (s)-[e:{R.INCLUDES_SOURCE}]->(d) SET e.{S.IncludesP.REQUIREMENTS} = row.requirements, e.{S.IncludesP.ACTIVE} = true, e.{C.PROJECT_ID} = $project_id")
+# a pair without a requirement any more is switched off with a count of 0; documents that are not analysed (held) are left alone
+Q_INCLUDES_DEACTIVATE = (f"MATCH (s:{L.SPRINT} {{{C.PROJECT_ID}: $project_id}})-[e:{R.INCLUDES_SOURCE}]->(d:{L.SOURCE}) "
+                         f"WHERE NOT (s.{S.SprintP.ID} + '|' + d.{S.SourceP.ID}) IN $ids AND NOT d.{S.SourceP.ID} IN $held AND coalesce(e.{S.IncludesP.ACTIVE}, true) = true "
+                         f"SET e.{S.IncludesP.ACTIVE} = false, e.{S.IncludesP.REQUIREMENTS} = 0 RETURN count(e) AS n")
+
+
+# read-only counts per document of what is active in the graph (scripts/c1_graph_counts.py)
+def _per_doc(path):
+    return (f"MATCH (s:{L.SOURCE} {{{C.PROJECT_ID}: $project_id}}){path} WHERE coalesce(s.{S.SourceP.ACTIVE}, true) = true AND coalesce(x.active, true) = true "
+            f"RETURN s.{S.SourceP.ID} AS source_id, count(x) AS n")
+
+
+Q_COUNT = {
+    "requirements": _per_doc(f"-[:{R.CONTAINS}]->(x:{L.REQUIREMENT})"),
+    "issues": _per_doc(f"-[:{R.CONTAINS}]->(:{L.REQUIREMENT})-[:{R.HAS_ISSUE}]->(x:{L.ISSUE})"),
+    "drafts": _per_doc(f"-[:{R.CONTAINS}]->(:{L.REQUIREMENT})-[:{R.HAS_DRAFT}]->(x:{L.DRAFT})"),
+}
+
+
 def _deactivate(label, id_prop):
+    """Soft-deactivate what is no longer in the workspace; what belongs to a held document (its own id, or an id starting with it + ':') is left as it is."""
     return (f"MATCH (n:{label} {{{C.PROJECT_ID}: $project_id}}) WHERE NOT n.{id_prop} IN $ids AND coalesce(n.active, true) = true "
-            f"SET n.active = false RETURN count(n) AS n")
+            f"AND NOT any(h IN $held WHERE n.{id_prop} = h OR n.{id_prop} STARTS WITH h + ':') SET n.active = false RETURN count(n) AS n")
 
 
 Q_DEACTIVATE = {
     L.SOURCE: _deactivate(L.SOURCE, S.SourceP.ID), L.REQUIREMENT: _deactivate(L.REQUIREMENT, S.RequirementP.ID),
     L.ISSUE: _deactivate(L.ISSUE, S.IssueP.ID), L.DRAFT: _deactivate(L.DRAFT, S.DraftP.ID),
+    L.SPRINT: _deactivate(L.SPRINT, S.SprintP.ID).replace("SET n.active = false", "SET n.active = false, n.is_current = false"),
     R.DUPLICATE_OF: (f"MATCH (:{L.REQUIREMENT} {{{C.PROJECT_ID}: $project_id}})-[d:{R.DUPLICATE_OF}]->() WHERE NOT d.{S.DuplicateP.ID} IN $ids "
-                     f"AND coalesce(d.active, true) = true SET d.active = false RETURN count(d) AS n"),
+                     f"AND coalesce(d.active, true) = true AND NOT any(h IN $held WHERE d.{S.DuplicateP.ID} STARTS WITH h + ':' OR d.{S.DuplicateP.ID} CONTAINS '|' + h + ':') "
+                     f"SET d.active = false RETURN count(d) AS n"),
+    R.INCLUDES_SOURCE: Q_INCLUDES_DEACTIVATE,
 }
 
 
@@ -237,7 +296,7 @@ def _with_stamp(rows, stamp):
 def write_source(tx, bundle, src, stamp):
     """One transaction per source: the project node, the source, then its requirements, issues and drafts in UNWIND batches."""
     pid = bundle.project_id
-    tx.run(Q_PROJECT, project_id=pid, props=bundle.project_props, name=bundle.project_props[S.ProjectP.NAME])
+    tx.run(Q_PROJECT, project_id=pid, props=bundle.project_props)
     tx.run(Q_SOURCE, project_id=pid, source_id=src.source_id, props=src.props)
     for rows in _chunks(src.requirements):
         tx.run(Q_REQUIREMENTS, source_id=src.source_id, rows=_with_stamp(rows, stamp))
@@ -250,10 +309,19 @@ def write_source(tx, bundle, src, stamp):
 def finish(tx, bundle):
     """Duplicate links (they can join two sources), then soft-deactivate everything of this project that is no longer in the workspace."""
     pid = bundle.project_id
-    tx.run(Q_PROJECT, project_id=pid, props=bundle.project_props, name=bundle.project_props[S.ProjectP.NAME])
+    tx.run(Q_PROJECT, project_id=pid, props=bundle.project_props)
     for rows in _chunks(bundle.duplicates):
         tx.run(Q_DUPLICATES, project_id=pid, rows=rows)
+    for rows in _chunks(bundle.sprints):
+        tx.run(Q_SPRINTS, project_id=pid, rows=rows)
+    for rows in _chunks(bundle.planned):
+        tx.run(Q_PLANNED_CLEAR, rows=rows)
+        tx.run(Q_PLANNED, rows=rows)
+    for rows in _chunks(bundle.includes):
+        tx.run(Q_INCLUDES, project_id=pid, rows=rows)
     current = {
+        R.INCLUDES_SOURCE: [f"{i['sprint_id']}|{i['source_id']}" for i in bundle.includes],
+        L.SPRINT: [s["id"] for s in bundle.sprints],
         L.SOURCE: [s.source_id for s in bundle.sources],
         L.REQUIREMENT: [r["id"] for s in bundle.sources for r in s.requirements],
         L.ISSUE: [i["id"] for s in bundle.sources for i in s.issues],
@@ -262,7 +330,7 @@ def finish(tx, bundle):
     }
     out = {}
     for key, query in Q_DEACTIVATE.items():
-        record = tx.run(query, project_id=pid, ids=current[key]).single()
+        record = tx.run(query, project_id=pid, ids=current[key], held=bundle.held).single()
         out[key] = int(record["n"]) if record is not None else 0
     return out
 
@@ -290,10 +358,9 @@ def server_version(driver):
 
 
 class Neo4jStore:
-    def __init__(self, db, config_loader=None, project_loader=None, driver_factory=None):
+    def __init__(self, db, config_loader=None, driver_factory=None):
         self.db = db
         self._load_config = config_loader or neo4j_config.load_config
-        self._load_project = project_loader or neo4j_config.project_stub
         self._driver_factory = driver_factory
         self._publishing = threading.Lock()
 
@@ -302,15 +369,22 @@ class Neo4jStore:
         return self._load_config()
 
     def project(self, pid, project_id=None, name=None):
-        """(platform project id, name). The stub id uses the stub name; another id keeps the name it was last published with (or an explicit one)."""
-        stub_id, stub_name = self._load_project()
-        gp = project_id or stub_id
-        if name:
-            return gp, name
-        if gp == stub_id:
-            return gp, stub_name
+        """(graph project id, name) = the project's own key and name. A project id or name in the request may only repeat them: an id that is not the
+        project's key is refused (422), so nothing can be published under a made-up project."""
+        p = service.project_or_404(self.db, pid)
+        key = service.project_key(self.db, p)
+        if project_id is not None and project_id != key:
+            raise ApiError(422, "project_key_mismatch", f"project_id must be omitted or equal this project's key '{key}'; a project is always published under its own key.")
+        if name is not None and " ".join(name.split()) != p["name"]:
+            raise ApiError(422, "project_name_mismatch", "project_name must be omitted or equal this project's name; rename the project instead.")
+        return key, p["name"]
+
+    def publish_info(self, pid):
+        """{"last_published_at", "out_of_date"} of the project, from the workspace only (no connection to Neo4j)."""
+        gp, gname = self.project(pid)
         last = self.last_publish(pid, gp)
-        return gp, (last["graph_project_name"] if last and last["graph_project_name"] else gp)
+        digest = build_bundle(self.db, pid, gp, gname).digest()
+        return {"last_published_at": last["published_at"] if last else None, "out_of_date": last is None or last["content_hash"] != digest}
 
     def open(self, cfg):
         """A verified driver, or an ApiError (503) with a plain message."""

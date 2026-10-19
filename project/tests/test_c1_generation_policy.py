@@ -381,10 +381,9 @@ def test_clarified_text_has_its_own_cache_entry(make_client):
     c.post("/api/projects/1/analyze", params={"policy": "all"})
     assert c.app.state.manager.wait_idle(60)
     n = len(calls)
-    c.post("/api/requirements/REQ-001/decision", json={"decision": "edited", "edited_text": "The system shall return search results within 2 seconds."})
-    c.post("/api/requirements/REQ-001/generate")
+    c.put("/api/requirements/REQ-001/decision", json={"decision": "edited", "edited_text": "The system shall return search results within 2 seconds."})
     assert c.app.state.manager.wait_idle(60)
-    assert len(calls) == n + 1  # the clarified wording is a new text: one real call
+    assert len(calls) == n + 1  # the clarified wording is a new text: saving the edit makes one real call
     c.post("/api/projects/1/analyze", params={"policy": "all"})  # analysing again: both wordings are cached, nothing runs
     assert c.app.state.manager.wait_idle(60)
     assert len(calls) == n + 1 and c.get("/api/requirements/REQ-001").json()["generation"]["generated_from"] == "clarified"

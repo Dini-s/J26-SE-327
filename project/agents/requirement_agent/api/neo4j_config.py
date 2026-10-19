@@ -1,4 +1,4 @@
-"""Neo4j and project-stub settings from the environment, with a small, strict reader for the shared .env file.
+"""Neo4j settings from the environment, with a small, strict reader for the shared .env file.
 
 The shared .env also holds values that belong to other people (LLM_*, REDIS_*, ...). It is therefore NOT loaded into os.environ: `read_env_file`
 looks at one line at a time and keeps a value only when the key is on ALLOWED_KEYS; every other line is dropped on the spot, so no LLM_* (or any other)
@@ -16,15 +16,12 @@ REPO_ROOT = PROJECT_ROOT.parent
 ALLOWED_KEYS = frozenset({
     "C1_NEO4J_URI", "C1_NEO4J_USER", "C1_NEO4J_PASSWORD", "C1_NEO4J_DATABASE",
     "NEO4J_URI", "NEO4J_USERNAME", "NEO4J_USER", "NEO4J_PASSWORD", "NEO4J_DATABASE",
-    "C1_PROJECT_ID", "C1_PROJECT_NAME",
 })
 
 # files searched in this order; the first one that exists is used (tests replace this list)
 ENV_FILES = [REPO_ROOT / ".env", PROJECT_ROOT / ".env"]
 
 DEFAULT_DATABASE = "neo4j"
-DEFAULT_PROJECT_ID = "demo-project"
-DEFAULT_PROJECT_NAME = "Core Banking Platform"
 
 
 def read_env_file(path, allowed=ALLOWED_KEYS):
@@ -107,9 +104,3 @@ def load_config(environ=None, env_files=None):
         password=_first(v, "C1_NEO4J_PASSWORD", "NEO4J_PASSWORD"),
         database=_first(v, "C1_NEO4J_DATABASE", "NEO4J_DATABASE") or DEFAULT_DATABASE,
     )
-
-
-def project_stub(environ=None, env_files=None):
-    """(project_id, project_name) of the platform project. The platform owns login and projects; until it is connected C1 uses a stub."""
-    v = _merged(environ, env_files)
-    return v.get("C1_PROJECT_ID") or DEFAULT_PROJECT_ID, v.get("C1_PROJECT_NAME") or DEFAULT_PROJECT_NAME

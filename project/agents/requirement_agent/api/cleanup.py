@@ -1,7 +1,7 @@
 """Deleting uploaded sources and everything derived from them.
 
 Cascade for one source (all in one database transaction, then the file is removed):
-    requirements of that source -> their generation results, decisions, decision history and candidate conflicts.
+    requirements of that source -> their generation results, decisions, decision audit rows and candidate conflicts.
 The shared generation cache (keyed by text, backend and model) is kept: it holds no project data and only saves work.
 Requirements of the other sources stay with their ids and decisions. Partner links that pointed at a deleted requirement (duplicates, conflicts,
 and the findings that mention them) are removed from the remaining requirements and their risk level is recomputed from what is left; the other
@@ -90,15 +90,17 @@ def delete_sources(db, workspace, pid, source_id=None):
             reqs = con.execute("SELECT uid, rid FROM requirements WHERE project_id=? AND source_id=?", (pid, source_id)).fetchall()
         gone_uids, gone_rids = {r["uid"] for r in reqs}, {r["rid"] for r in reqs}
         for uid in gone_uids:
-            for table in ("generation", "decisions", "decision_history"):
+            for table in ("generation", "decisions", "decision_audit"):
                 con.execute(f"DELETE FROM {table} WHERE uid=?", (uid,))
             con.execute("DELETE FROM conflicts WHERE a_uid=? OR b_uid=?", (uid, uid))
             con.execute("DELETE FROM requirements WHERE uid=?", (uid,))
         if source_id is None:
             con.execute("DELETE FROM sources WHERE project_id=?", (pid,))
+            con.execute("DELETE FROM jira_issues WHERE project_id=?", (pid,))  # the issue map goes with its documents (the connection stays)
             con.execute("DELETE FROM jobs WHERE project_id=?", (pid,))
         else:
             con.execute("DELETE FROM sources WHERE id=?", (source_id,))
+            con.execute("DELETE FROM jira_issues WHERE source_id=?", (source_id,))
             _prune_partners(con, pid, gone_uids, gone_rids)
     for s in sources:
         remove_upload(workspace, s["stored_path"])

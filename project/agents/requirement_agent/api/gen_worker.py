@@ -43,6 +43,25 @@ ETA_MIN_SAMPLES = 3
 ORIGINAL, CLARIFIED = "original", "clarified"
 
 
+def failure_reason(message):
+    """A short code for why a draft failed, from the stored message: never the message itself (it can name a host or an error text). Codes:
+    engine_unavailable | engine_skipped | cloud_unreachable | cloud_rejected | not_in_replay | engine_not_ready | unexpected | unknown."""
+    m = message or ""
+    if m.startswith(ENGINE_UNAVAILABLE):
+        if "Cloud rejected" in m:
+            return "cloud_rejected"
+        if "Cloud unreachable" in m:
+            return "cloud_unreachable"
+        if "skipped after repeated failures" in m:
+            return "engine_skipped"
+        return "engine_unavailable"
+    if m == NOT_IN_REPLAY:
+        return "not_in_replay"
+    if m.startswith("unexpected error"):
+        return "unexpected"
+    return "engine_not_ready" if m else "unknown"
+
+
 def _norm(text):
     return " ".join(str(text or "").split())
 
@@ -80,6 +99,7 @@ class GenerationManager:
     def __init__(self, db, backend, backend_name, model_name, init_error=None, engine=None):
         self.db, self.backend, self.backend_name, self.model_name = db, backend, backend_name, model_name
         self.engine = engine or EngineStore(db, backend_name, model_name, backend)
+        self.on_draft = None  # called with the uid when a draft was written or replaced (the auto-sync listens)
         self.init_error = init_error  # for example "replay file not found"; every job then fails with this message
         self.queue = queue.PriorityQueue()
         self._work = queue.Queue()  # items handed to the pool; never longer than the free slots
@@ -135,6 +155,11 @@ class GenerationManager:
             "ON CONFLICT(uid) DO UPDATE SET state=excluded.state, message=excluded.message, result=excluded.result, attempts=excluded.attempts, "
             "manual_review=excluded.manual_review, cache_key=excluded.cache_key, updated_at=excluded.updated_at",
             (uid, state, message, dumps(result) if result is not None else None, attempts, int(manual_review), key, now()))
+        if self.on_draft is not None and state in ("done", "needs_clarification", "manual_review"):
+            try:
+                self.on_draft(uid)
+            except Exception:  # noqa: BLE001 - a listener never breaks the queue
+                pass
 
     def enqueue(self, items):
         """items = [(uid, priority class 1-3)]; lower classes are taken first, then first come first served."""
@@ -174,11 +199,14 @@ class GenerationManager:
         self._set(uid, "done" if res["status"] == "ok" else "needs_clarification", "from cache", res, res.get("attempts", 1), False, key)
         return True
 
-    def plan(self, pid, policy):
-        """After Part A: show cached replies, then queue what the policy selects (P1, P2, P3 order). Returns the number queued."""
+    def plan(self, pid, policy, only=None):
+        """After Part A: show cached replies, then queue what the policy selects (P1, P2, P3 order). `only` = the requirements that are new in this
+        analysis (the others are left alone). Returns the number queued."""
         items = []
         ranked = sorted(priority.classes(self.db, pid).items(), key=lambda kv: kv[1])  # stable: document order inside a class
         for uid, cls in ranked:
+            if only is not None and uid not in only:
+                continue
             existing = self.db.one("SELECT state FROM generation WHERE uid=?", (uid,))
             if existing and existing["state"] in ("queued", "running"):
                 continue
@@ -199,6 +227,20 @@ class GenerationManager:
             if self._apply_cache(uid):
                 continue
             items.append((uid, cls))
+        self.enqueue(items)
+        return len(items)
+
+    def retry_failed(self, pid):
+        """Queue again only the drafts of the project that failed (best class first); nothing else is touched. A failed reply is never cached, so each one really
+        runs again. The counters of repeated failures start over, so the queue does not skip them at once. Returns how many were queued."""
+        items = []
+        for uid, cls in sorted(priority.classes(self.db, pid).items(), key=lambda kv: kv[1]):
+            row = self.db.one("SELECT state FROM generation WHERE uid=?", (uid,))
+            if row and row["state"] == "failed":
+                items.append((uid, cls))
+        with self._lock:
+            self._fails = 0
+            self._cloud_fails = 0
         self.enqueue(items)
         return len(items)
 
@@ -267,6 +309,31 @@ class GenerationManager:
         self._set(uid, "queued")
         self.db.run("UPDATE generation SET priority=0 WHERE uid=?", (uid,))
         self.queue.put((0, ticket, uid, -ticket))
+
+    def sync_draft(self, uid, before_text):
+        """The draft follows the effective text (the edited text while the decision is `edited`, else the original). Called after a decision was set or
+        removed; `before_text` = the effective text before it. Nothing happens when the text did not change (a comment, accept <-> reject).
+        Edited text: a cached reply is shown at once, otherwise the requirement is queued ahead of everything else for the current target, whatever the
+        policy. Back to the original: the cached reply, else queued in its priority class; a rejected requirement is never queued. Returns the new state."""
+        text, origin = self.source_text(uid)
+        if text is None or text == before_text:
+            return None
+        row = self.db.one("SELECT state, priority FROM generation WHERE uid=?", (uid,))
+        if origin == CLARIFIED:
+            if not (row and row["state"] in ("queued", "running")) and self._apply_cache(uid):
+                return self.db.one("SELECT state FROM generation WHERE uid=?", (uid,))["state"]
+            self.run_now(uid)
+            return "queued"
+        if not row:
+            return None  # no draft yet: "Generate draft" will use the original text
+        if row["state"] == "queued":
+            return "queued"  # it reads the effective text when its turn comes
+        if self._apply_cache(uid):
+            return self.db.one("SELECT state FROM generation WHERE uid=?", (uid,))["state"]
+        if (self.db.one("SELECT decision FROM decisions WHERE uid=?", (uid,)) or {}).get("decision") == "rejected":
+            return row["state"]
+        self.enqueue([(uid, max(1, row["priority"] or 1))])
+        return "queued"
 
     def request(self, uid):
         """The "Generate draft" / "Regenerate" button. A requirement with no draft yet takes a cached reply if there is one; otherwise (and for any

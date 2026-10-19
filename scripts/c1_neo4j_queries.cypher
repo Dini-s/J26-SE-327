@@ -1,5 +1,5 @@
 // READ-ONLY queries for Neo4j Query / Browser, to look at what Component 1 published.
-// Proposal schema: docs/c1_neo4j_contract.md. Replace 'demo-project' with your C1_PROJECT_ID. Run one query at a time.
+// Proposal schema: docs/c1_neo4j_contract.md. Replace 'demo-project' with the project_key of your C1 project. Run one query at a time.
 
 // 1. How many nodes of each label does C1 own?
 MATCH (n {produced_by: 'c1'})

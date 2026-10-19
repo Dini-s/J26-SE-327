@@ -1,0 +1,56 @@
+/* Component 1 module styles. Only a few small helpers, built from the shell's tokens (src/index.css); nothing global and no theme of its own.
+   Plain classes in the components layer (a utility in the markup, such as !px-3, still wins over them). */
+@reference "../../index.css";
+
+@layer components {
+  .c1-card {
+    @apply rounded-xl border border-border bg-white shadow-sm;
+  }
+
+  .c1-label {
+    @apply text-[10.5px] font-semibold uppercase tracking-wider text-secondary-text;
+  }
+
+  .c1-btn,
+  .c1-btn-primary,
+  .c1-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .c1-btn-primary {
+    @apply bg-primary text-white shadow-sm hover:bg-primary-dark;
+  }
+
+  .c1-btn-secondary {
+    @apply border border-border bg-secondary-bg text-heading hover:bg-slate-200;
+  }
+
+  .c1-skeleton {
+    @apply rounded-md bg-slate-200;
+    background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 50%, #e2e8f0 100%);
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+    animation: c1-shimmer 1.2s infinite linear;
+  }
+
+  .c1-root :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes c1-shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c1-root .c1-skeleton,
+  .c1-root .animate-spin {
+    animation: none;
+  }
+}

@@ -119,17 +119,41 @@
       "get": {
         "summary": "List Projects",
         "operationId": "list_projects_api_projects_get",
+        "parameters": [
+          {
+            "name": "include_archived",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "also list archived projects",
+              "default": false,
+              "title": "Include Archived"
+            },
+            "description": "also list archived projects"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
                 "schema": {
+                  "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ProjectOut"
                   },
-                  "type": "array",
                   "title": "Response List Projects Api Projects Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -140,14 +164,14 @@
         "summary": "Create Project",
         "operationId": "create_project_api_projects_post",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ProjectCreate"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "201": {
@@ -159,6 +183,242 @@
                 }
               }
             }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}": {
+      "patch": {
+        "summary": "Rename Project",
+        "operationId": "rename_project_api_projects__pid__patch",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectRename"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/archive": {
+      "post": {
+        "summary": "Archive Project",
+        "operationId": "archive_project_api_projects__pid__archive_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/unarchive": {
+      "post": {
+        "summary": "Unarchive Project",
+        "operationId": "unarchive_project_api_projects__pid__unarchive_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/overview": {
+      "get": {
+        "summary": "Project Overview",
+        "operationId": "project_overview_api_projects__pid__overview_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Overview"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
           },
           "422": {
             "description": "Validation Error",
@@ -397,6 +657,7 @@
     "/api/projects/{pid}/analyze": {
       "post": {
         "summary": "Analyze",
+        "description": "Analyses only the documents that are not analysed yet (or failed, or changed); analysed documents are skipped completely.",
         "operationId": "analyze_api_projects__pid__analyze_post",
         "parameters": [
           {
@@ -431,6 +692,85 @@
                 }
               }
             }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/sources/{source_id}/reanalyze": {
+      "post": {
+        "summary": "Reanalyze Source",
+        "description": "Analyse one document again. Requirements whose text is unchanged keep their decision and draft; changed or removed ones go to the audit trail.",
+        "operationId": "reanalyze_source_api_projects__pid__sources__source_id__reanalyze_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Source Id"
+            }
+          },
+          {
+            "name": "policy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "smart",
+              "title": "Policy"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReanalyzeOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
           },
           "422": {
             "description": "Validation Error",
@@ -598,6 +938,24 @@
               "default": 0,
               "title": "Offset"
             }
+          },
+          {
+            "name": "sprint_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "only requirements of this (effective) sprint",
+              "title": "Sprint Id"
+            },
+            "description": "only requirements of this (effective) sprint"
           }
         ],
         "responses": {
@@ -741,6 +1099,624 @@
         }
       }
     },
+    "/api/projects/{pid}/integrations/jira": {
+      "get": {
+        "summary": "Jira Status",
+        "operationId": "jira_status_api_projects__pid__integrations_jira_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JiraStatus"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Jira Disconnect",
+        "operationId": "jira_disconnect_api_projects__pid__integrations_jira_delete",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/integrations/jira/connect": {
+      "post": {
+        "summary": "Jira Connect",
+        "operationId": "jira_connect_api_projects__pid__integrations_jira_connect_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JiraConnectOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/integrations/jira/projects": {
+      "get": {
+        "summary": "Jira Projects",
+        "operationId": "jira_projects_api_projects__pid__integrations_jira_projects_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JiraProject"
+                  },
+                  "title": "Response Jira Projects Api Projects  Pid  Integrations Jira Projects Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/integrations/jira/boards": {
+      "get": {
+        "summary": "Jira Boards",
+        "operationId": "jira_boards_api_projects__pid__integrations_jira_boards_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "project_key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "the Jira project key",
+              "title": "Project Key"
+            },
+            "description": "the Jira project key"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JiraBoard"
+                  },
+                  "title": "Response Jira Boards Api Projects  Pid  Integrations Jira Boards Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/integrations/jira/sprints": {
+      "get": {
+        "summary": "Jira Sprints",
+        "operationId": "jira_sprints_api_projects__pid__integrations_jira_sprints_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "board_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Board Id"
+            }
+          },
+          {
+            "name": "states",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "active, future and/or closed, comma separated",
+              "default": "active,future",
+              "title": "States"
+            },
+            "description": "active, future and/or closed, comma separated"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JiraSprintOut"
+                  },
+                  "title": "Response Jira Sprints Api Projects  Pid  Integrations Jira Sprints Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/integrations/jira/import": {
+      "post": {
+        "summary": "Jira Import",
+        "operationId": "jira_import_api_projects__pid__integrations_jira_import_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JiraImportIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JiraImportOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/integrations/jira/callback": {
+      "get": {
+        "summary": "OAuth redirect target: finishes the connection and sends the browser back to the module",
+        "operationId": "jira_callback_api_integrations_jira_callback_get",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Code"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "State"
+            }
+          },
+          {
+            "name": "error",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/drafts/retry-failed": {
+      "post": {
+        "summary": "Retry Failed Drafts",
+        "operationId": "retry_failed_drafts_api_projects__pid__drafts_retry_failed_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateAllOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/projects/{pid}/generation/pause": {
       "post": {
         "summary": "Pause Generation",
@@ -820,9 +1796,47 @@
       }
     },
     "/api/requirements/{rid}/decision": {
-      "post": {
-        "summary": "Decide",
-        "operationId": "decide_api_requirements__rid__decision_post",
+      "get": {
+        "summary": "Get Decision",
+        "operationId": "get_decision_api_requirements__rid__decision_get",
+        "parameters": [
+          {
+            "name": "rid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Rid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionState"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Put Decision",
+        "description": "The one current decision of the requirement: creates it or replaces the earlier one.",
+        "operationId": "put_decision_api_requirements__rid__decision_put",
         "parameters": [
           {
             "name": "rid",
@@ -855,6 +1869,106 @@
               }
             }
           },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Decision",
+        "description": "Back to pending.",
+        "operationId": "delete_decision_api_requirements__rid__decision_delete",
+        "parameters": [
+          {
+            "name": "rid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Rid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Decide",
+        "description": "Deprecated alias of PUT: it also replaces the current decision instead of adding one.",
+        "operationId": "decide_api_requirements__rid__decision_post",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "rid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Rid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -871,6 +1985,7 @@
     "/api/projects/{pid}/publish/neo4j": {
       "post": {
         "summary": "Publish Neo4J",
+        "description": "\"Sync now\": the same idempotent publish the background sync uses.",
         "operationId": "publish_neo4j_api_projects__pid__publish_neo4j_post",
         "parameters": [
           {
@@ -998,6 +2113,823 @@
         }
       }
     },
+    "/api/projects/{pid}/sync": {
+      "get": {
+        "summary": "Sync Status",
+        "description": "State of the background sync (reads the workspace only; the graph database is not contacted).",
+        "operationId": "sync_status_api_projects__pid__sync_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncStatus"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/phases": {
+      "get": {
+        "summary": "List Phases",
+        "operationId": "list_phases_api_projects__pid__phases_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PhaseOut"
+                  },
+                  "title": "Response List Phases Api Projects  Pid  Phases Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Phase",
+        "operationId": "create_phase_api_projects__pid__phases_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhaseIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhaseOut"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/phases/{phase_id}": {
+      "patch": {
+        "summary": "Update Phase",
+        "operationId": "update_phase_api_projects__pid__phases__phase_id__patch",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "phase_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Phase Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhaseUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhaseOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Phase",
+        "description": "Its sprints stay and lose the phase.",
+        "operationId": "delete_phase_api_projects__pid__phases__phase_id__delete",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "phase_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Phase Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/sprints": {
+      "get": {
+        "summary": "List Sprints",
+        "operationId": "list_sprints_api_projects__pid__sprints_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SprintOut"
+                  },
+                  "title": "Response List Sprints Api Projects  Pid  Sprints Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Sprint",
+        "operationId": "create_sprint_api_projects__pid__sprints_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SprintIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SprintOut"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/sprints/{sprint_id}": {
+      "patch": {
+        "summary": "Update Sprint",
+        "operationId": "update_sprint_api_projects__pid__sprints__sprint_id__patch",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "sprint_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Sprint Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SprintUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SprintOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Sprint",
+        "operationId": "delete_sprint_api_projects__pid__sprints__sprint_id__delete",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "sprint_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Sprint Id"
+            }
+          },
+          {
+            "name": "reassign_to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "required when the sprint holds requirements or documents or is the current one",
+              "title": "Reassign To"
+            },
+            "description": "required when the sprint holds requirements or documents or is the current one"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SprintDeleted"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/current-sprint": {
+      "put": {
+        "summary": "Put Current Sprint",
+        "operationId": "put_current_sprint_api_projects__pid__current_sprint_put",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CurrentSprintIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SprintOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/sources/{source_id}/sprint": {
+      "put": {
+        "summary": "Put Source Sprint",
+        "description": "The document's default sprint. Never starts an analysis.",
+        "operationId": "put_source_sprint_api_projects__pid__sources__source_id__sprint_put",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceSprintIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/sources/{source_id}/assign-ranges": {
+      "post": {
+        "summary": "Assign Ranges",
+        "description": "Sets the sprint of the requirements of this document by page range (each requirement gets its own sprint; later ranges win).",
+        "operationId": "assign_ranges_api_projects__pid__sources__source_id__assign_ranges_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "source_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Source Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRangesIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignRangesOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/requirements/assign": {
+      "post": {
+        "summary": "Assign Requirements",
+        "description": "Bulk assign requirements to a sprint (null = follow the document's default again).",
+        "operationId": "assign_requirements_api_projects__pid__requirements_assign_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/projects/{pid}/export": {
       "get": {
         "summary": "Export",
@@ -1048,6 +2980,29 @@
   },
   "components": {
     "schemas": {
+      "AmbiguityOverview": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "detected": {
+            "type": "integer",
+            "title": "Detected"
+          },
+          "asked_by_ai": {
+            "type": "integer",
+            "title": "Asked By Ai"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "detected",
+          "asked_by_ai"
+        ],
+        "title": "AmbiguityOverview"
+      },
       "AmbiguitySummary": {
         "properties": {
           "count": {
@@ -1071,6 +3026,114 @@
         ],
         "title": "AmbiguitySummary"
       },
+      "AnalysisOverview": {
+        "properties": {
+          "ready": {
+            "type": "integer",
+            "title": "Ready"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ready",
+          "total"
+        ],
+        "title": "AnalysisOverview"
+      },
+      "AssignIn": {
+        "properties": {
+          "requirement_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Requirement Ids"
+          },
+          "sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sprint Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "requirement_ids"
+        ],
+        "title": "AssignIn"
+      },
+      "AssignOut": {
+        "properties": {
+          "assigned": {
+            "type": "integer",
+            "title": "Assigned"
+          },
+          "sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sprint Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "assigned"
+        ],
+        "title": "AssignOut"
+      },
+      "AssignRangesIn": {
+        "properties": {
+          "ranges": {
+            "items": {
+              "$ref": "#/components/schemas/PageRange"
+            },
+            "type": "array",
+            "title": "Ranges"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ranges"
+        ],
+        "title": "AssignRangesIn"
+      },
+      "AssignRangesOut": {
+        "properties": {
+          "assigned": {
+            "type": "integer",
+            "title": "Assigned"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "without_page": {
+            "type": "integer",
+            "title": "Without Page"
+          }
+        },
+        "type": "object",
+        "required": [
+          "assigned",
+          "requirements",
+          "without_page"
+        ],
+        "title": "AssignRangesOut"
+      },
       "Body_upload_sources_api_projects__pid__sources_post": {
         "properties": {
           "files": {
@@ -1085,6 +3148,28 @@
             "type": "string",
             "title": "Source Type",
             "default": "srs"
+          },
+          "phase_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase Id"
+          },
+          "sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sprint Id"
           }
         },
         "type": "object",
@@ -1164,6 +3249,172 @@
           "consent"
         ],
         "title": "CloudEngine"
+      },
+      "CurrentPhase": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "sprints": {
+            "type": "integer",
+            "title": "Sprints"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          },
+          "decided": {
+            "type": "integer",
+            "title": "Decided"
+          },
+          "percent_decided": {
+            "type": "number",
+            "title": "Percent Decided"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "sprints",
+          "requirements",
+          "pending",
+          "decided",
+          "percent_decided"
+        ],
+        "title": "CurrentPhase"
+      },
+      "CurrentSprint": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "phase_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase Id"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "goal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          },
+          "decided": {
+            "type": "integer",
+            "title": "Decided"
+          },
+          "percent_decided": {
+            "type": "number",
+            "title": "Percent Decided"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "requirements",
+          "pending",
+          "decided",
+          "percent_decided"
+        ],
+        "title": "CurrentSprint"
+      },
+      "CurrentSprintIn": {
+        "properties": {
+          "sprint_id": {
+            "type": "integer",
+            "title": "Sprint Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sprint_id"
+        ],
+        "title": "CurrentSprintIn"
+      },
+      "DecisionCounts": {
+        "properties": {
+          "accepted": {
+            "type": "integer",
+            "title": "Accepted"
+          },
+          "edited": {
+            "type": "integer",
+            "title": "Edited"
+          },
+          "rejected": {
+            "type": "integer",
+            "title": "Rejected"
+          },
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accepted",
+          "edited",
+          "rejected",
+          "pending"
+        ],
+        "title": "DecisionCounts"
       },
       "DecisionIn": {
         "properties": {
@@ -1249,17 +3500,142 @@
               "type": "object"
             },
             "type": "array",
-            "title": "History"
+            "title": "History",
+            "default": [],
+            "deprecated": true
           }
         },
         "type": "object",
         "required": [
           "uid",
           "decision",
-          "updated_at",
-          "history"
+          "updated_at"
         ],
         "title": "DecisionOut"
+      },
+      "DecisionOverview": {
+        "properties": {
+          "accepted": {
+            "type": "integer",
+            "title": "Accepted"
+          },
+          "edited": {
+            "type": "integer",
+            "title": "Edited"
+          },
+          "rejected": {
+            "type": "integer",
+            "title": "Rejected"
+          },
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          },
+          "decided": {
+            "type": "integer",
+            "title": "Decided"
+          },
+          "percent_decided": {
+            "type": "number",
+            "title": "Percent Decided"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accepted",
+          "edited",
+          "rejected",
+          "pending",
+          "decided",
+          "percent_decided"
+        ],
+        "title": "DecisionOverview"
+      },
+      "DecisionState": {
+        "properties": {
+          "uid": {
+            "type": "string",
+            "title": "Uid"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "edited",
+              "rejected",
+              "pending"
+            ],
+            "title": "Decision"
+          },
+          "edited_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Edited Text"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "uid",
+          "decision"
+        ],
+        "title": "DecisionState",
+        "description": "GET of the one current decision; `decision` is \"pending\" (and the rest null) while nothing is decided."
+      },
+      "DetectedSprint": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "sprint_id": {
+            "type": "integer",
+            "title": "Sprint Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "title": "Confirmed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filename",
+          "sprint_id",
+          "name",
+          "confirmed"
+        ],
+        "title": "DetectedSprint"
       },
       "DeviceEngine": {
         "properties": {
@@ -1288,6 +3664,54 @@
           "concurrency"
         ],
         "title": "DeviceEngine"
+      },
+      "DraftOverview": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "done": {
+            "type": "integer",
+            "title": "Done"
+          },
+          "ready": {
+            "type": "integer",
+            "title": "Ready"
+          },
+          "needs_clarification": {
+            "type": "integer",
+            "title": "Needs Clarification"
+          },
+          "waiting": {
+            "type": "integer",
+            "title": "Waiting"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          },
+          "not_generated": {
+            "type": "integer",
+            "title": "Not Generated"
+          },
+          "manual_review": {
+            "type": "integer",
+            "title": "Manual Review"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "done",
+          "ready",
+          "needs_clarification",
+          "waiting",
+          "failed",
+          "not_generated",
+          "manual_review"
+        ],
+        "title": "DraftOverview"
       },
       "EngineOut": {
         "properties": {
@@ -1487,6 +3911,34 @@
           "error"
         ],
         "title": "ErrorResponse"
+      },
+      "FindingsByType": {
+        "properties": {
+          "ambiguity": {
+            "type": "integer",
+            "title": "Ambiguity"
+          },
+          "conflict": {
+            "type": "integer",
+            "title": "Conflict"
+          },
+          "duplicate": {
+            "type": "integer",
+            "title": "Duplicate"
+          },
+          "security": {
+            "type": "integer",
+            "title": "Security"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ambiguity",
+          "conflict",
+          "duplicate",
+          "security"
+        ],
+        "title": "FindingsByType"
       },
       "Flags": {
         "properties": {
@@ -1688,6 +4140,17 @@
               }
             ],
             "title": "Endpoint Host"
+          },
+          "failure_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Reason"
           }
         },
         "type": "object",
@@ -1704,6 +4167,118 @@
           "raw_output"
         ],
         "title": "GenerationOut"
+      },
+      "GenerationOverview": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "idle",
+              "running",
+              "paused"
+            ],
+            "title": "State"
+          },
+          "target": {
+            "type": "string",
+            "title": "Target"
+          },
+          "in_progress": {
+            "type": "integer",
+            "title": "In Progress"
+          },
+          "paused_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paused Reason"
+          },
+          "eta_seconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eta Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "target",
+          "in_progress"
+        ],
+        "title": "GenerationOverview"
+      },
+      "GraphOverview": {
+        "properties": {
+          "configured": {
+            "type": "boolean",
+            "title": "Configured"
+          },
+          "reachable": {
+            "type": "boolean",
+            "title": "Reachable"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "last_published_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Published At"
+          },
+          "out_of_date": {
+            "type": "boolean",
+            "title": "Out Of Date"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "configured",
+          "reachable",
+          "project_id",
+          "out_of_date"
+        ],
+        "title": "GraphOverview",
+        "description": "Publish status as in PublishStatus; when the graph cannot be reached `reachable` is false and `error` says why (the call itself does not fail)."
       },
       "HTTPValidationError": {
         "properties": {
@@ -1755,6 +4330,418 @@
           "model"
         ],
         "title": "Health"
+      },
+      "JiraBoard": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "type"
+        ],
+        "title": "JiraBoard"
+      },
+      "JiraConnectOut": {
+        "properties": {
+          "authorize_url": {
+            "type": "string",
+            "title": "Authorize Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "authorize_url"
+        ],
+        "title": "JiraConnectOut"
+      },
+      "JiraImportIn": {
+        "properties": {
+          "project_key": {
+            "type": "string",
+            "maxLength": 20,
+            "title": "Project Key"
+          },
+          "board_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Board Id"
+          },
+          "sprint_states": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sprint States"
+          },
+          "issue_types": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Issue Types"
+          },
+          "set_current": {
+            "type": "boolean",
+            "title": "Set Current",
+            "default": false
+          },
+          "target_sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string",
+                "const": "match"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Sprint Id"
+          },
+          "policy": {
+            "type": "string",
+            "title": "Policy",
+            "default": "smart"
+          },
+          "analyze": {
+            "type": "boolean",
+            "title": "Analyze",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "project_key"
+        ],
+        "title": "JiraImportIn"
+      },
+      "JiraImportInfo": {
+        "properties": {
+          "at": {
+            "type": "string",
+            "title": "At"
+          },
+          "counts": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Counts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "at",
+          "counts"
+        ],
+        "title": "JiraImportInfo"
+      },
+      "JiraImportOut": {
+        "properties": {
+          "sprints_created": {
+            "type": "integer",
+            "title": "Sprints Created"
+          },
+          "sprints_updated": {
+            "type": "integer",
+            "title": "Sprints Updated"
+          },
+          "issues_new": {
+            "type": "integer",
+            "title": "Issues New"
+          },
+          "issues_updated": {
+            "type": "integer",
+            "title": "Issues Updated"
+          },
+          "issues_unchanged": {
+            "type": "integer",
+            "title": "Issues Unchanged"
+          },
+          "skipped": {
+            "type": "integer",
+            "title": "Skipped"
+          },
+          "target_sprint": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Sprint"
+          },
+          "matched": {
+            "type": "boolean",
+            "title": "Matched",
+            "default": false
+          },
+          "missing": {
+            "type": "integer",
+            "title": "Missing"
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated"
+          },
+          "queued": {
+            "type": "integer",
+            "title": "Queued"
+          },
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id"
+          },
+          "analysis_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analysis Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sprints_created",
+          "sprints_updated",
+          "issues_new",
+          "issues_updated",
+          "issues_unchanged",
+          "skipped",
+          "missing",
+          "truncated",
+          "queued"
+        ],
+        "title": "JiraImportOut"
+      },
+      "JiraProject": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "name"
+        ],
+        "title": "JiraProject"
+      },
+      "JiraRef": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "type",
+          "status",
+          "url"
+        ],
+        "title": "JiraRef",
+        "description": "Where an imported requirement comes from. `url` is the issue in the Jira site (empty when the site is not known)."
+      },
+      "JiraSite": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "url"
+        ],
+        "title": "JiraSite"
+      },
+      "JiraSprintOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "active",
+              "future",
+              "closed"
+            ],
+            "title": "State"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "goal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "state"
+        ],
+        "title": "JiraSprintOut"
+      },
+      "JiraStatus": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "not_configured",
+              "not_connected",
+              "connected",
+              "expired"
+            ],
+            "title": "State"
+          },
+          "needs_reconnect": {
+            "type": "boolean",
+            "title": "Needs Reconnect",
+            "default": false
+          },
+          "site": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JiraSite"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "connected_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Connected At"
+          },
+          "last_import": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JiraImportInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "state"
+        ],
+        "title": "JiraStatus",
+        "description": "`not_configured` (the server has no Jira app settings), `not_connected`, `connected`, `expired` (connect again). Tokens are never part of any response."
       },
       "Job": {
         "properties": {
@@ -1816,6 +4803,191 @@
         ],
         "title": "Job"
       },
+      "Overview": {
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/OverviewProject"
+          },
+          "counts": {
+            "$ref": "#/components/schemas/OverviewCounts"
+          },
+          "decisions": {
+            "$ref": "#/components/schemas/DecisionOverview"
+          },
+          "sources": {
+            "$ref": "#/components/schemas/SourcesOverview"
+          },
+          "last_analysis_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Analysis At"
+          },
+          "generation": {
+            "$ref": "#/components/schemas/GenerationOverview"
+          },
+          "neo4j": {
+            "$ref": "#/components/schemas/GraphOverview"
+          },
+          "current_sprint": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CurrentSprint"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "current_phase": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CurrentPhase"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "by_sprint": {
+            "items": {
+              "$ref": "#/components/schemas/SprintDecisions"
+            },
+            "type": "array",
+            "title": "By Sprint",
+            "default": []
+          },
+          "by_phase": {
+            "items": {
+              "$ref": "#/components/schemas/PhaseDecisions"
+            },
+            "type": "array",
+            "title": "By Phase",
+            "default": []
+          },
+          "findings_by_type": {
+            "$ref": "#/components/schemas/FindingsByType"
+          },
+          "latest_uploads": {
+            "items": {
+              "$ref": "#/components/schemas/SourceOut"
+            },
+            "type": "array",
+            "title": "Latest Uploads",
+            "default": []
+          },
+          "analysis": {
+            "$ref": "#/components/schemas/AnalysisOverview"
+          },
+          "sync": {
+            "$ref": "#/components/schemas/SyncStatus"
+          },
+          "pipeline": {
+            "$ref": "#/components/schemas/Pipeline"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project",
+          "counts",
+          "decisions",
+          "sources",
+          "generation",
+          "neo4j",
+          "findings_by_type",
+          "analysis",
+          "sync",
+          "pipeline"
+        ],
+        "title": "Overview"
+      },
+      "OverviewCounts": {
+        "properties": {
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "ambiguities": {
+            "$ref": "#/components/schemas/AmbiguityOverview"
+          },
+          "conflicts": {
+            "type": "integer",
+            "title": "Conflicts"
+          },
+          "duplicates": {
+            "type": "integer",
+            "title": "Duplicates"
+          },
+          "drafts": {
+            "$ref": "#/components/schemas/DraftOverview"
+          }
+        },
+        "type": "object",
+        "required": [
+          "requirements",
+          "ambiguities",
+          "conflicts",
+          "duplicates",
+          "drafts"
+        ],
+        "title": "OverviewCounts"
+      },
+      "OverviewProject": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "project_key": {
+            "type": "string",
+            "title": "Project Key"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Archived"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_key",
+          "name",
+          "archived"
+        ],
+        "title": "OverviewProject"
+      },
+      "PageRange": {
+        "properties": {
+          "from_page": {
+            "type": "integer",
+            "title": "From Page"
+          },
+          "to_page": {
+            "type": "integer",
+            "title": "To Page"
+          },
+          "sprint_id": {
+            "type": "integer",
+            "title": "Sprint Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_page",
+          "to_page",
+          "sprint_id"
+        ],
+        "title": "PageRange"
+      },
       "PausedOut": {
         "properties": {
           "paused": {
@@ -1829,12 +5001,374 @@
         ],
         "title": "PausedOut"
       },
+      "PhaseDecisions": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "accepted": {
+            "type": "integer",
+            "title": "Accepted"
+          },
+          "edited": {
+            "type": "integer",
+            "title": "Edited"
+          },
+          "rejected": {
+            "type": "integer",
+            "title": "Rejected"
+          },
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          },
+          "phase_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "sprints": {
+            "type": "integer",
+            "title": "Sprints"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "accepted",
+          "edited",
+          "rejected",
+          "pending",
+          "sprints"
+        ],
+        "title": "PhaseDecisions"
+      },
+      "PhaseIn": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "PhaseIn"
+      },
+      "PhaseOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "integer",
+            "title": "Project Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "position": {
+            "type": "integer",
+            "title": "Position"
+          },
+          "sprints": {
+            "type": "integer",
+            "title": "Sprints"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "name",
+          "position",
+          "sprints"
+        ],
+        "title": "PhaseOut"
+      },
+      "PhaseUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position"
+          }
+        },
+        "type": "object",
+        "title": "PhaseUpdate"
+      },
+      "Pipeline": {
+        "properties": {
+          "collect": {
+            "$ref": "#/components/schemas/PipelineCollect"
+          },
+          "identify": {
+            "$ref": "#/components/schemas/PipelineIdentify"
+          },
+          "analyse": {
+            "$ref": "#/components/schemas/PipelineAnalyse"
+          },
+          "improve": {
+            "$ref": "#/components/schemas/PipelineImprove"
+          },
+          "share": {
+            "$ref": "#/components/schemas/PipelineShare"
+          }
+        },
+        "type": "object",
+        "required": [
+          "collect",
+          "identify",
+          "analyse",
+          "improve",
+          "share"
+        ],
+        "title": "Pipeline",
+        "description": "Where the project stands, in five stages; each has a state and the numbers behind it."
+      },
+      "PipelineAnalyse": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "done",
+              "active",
+              "waiting",
+              "failed"
+            ],
+            "title": "State"
+          },
+          "analysed": {
+            "type": "integer",
+            "title": "Analysed"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "analysed",
+          "total",
+          "failed"
+        ],
+        "title": "PipelineAnalyse"
+      },
+      "PipelineCollect": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "done",
+              "active",
+              "waiting",
+              "failed"
+            ],
+            "title": "State"
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "documents"
+        ],
+        "title": "PipelineCollect"
+      },
+      "PipelineDrafts": {
+        "properties": {
+          "ready": {
+            "type": "integer",
+            "title": "Ready"
+          },
+          "needs_clarification": {
+            "type": "integer",
+            "title": "Needs Clarification"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          },
+          "waiting": {
+            "type": "integer",
+            "title": "Waiting"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ready",
+          "needs_clarification",
+          "failed",
+          "waiting"
+        ],
+        "title": "PipelineDrafts"
+      },
+      "PipelineIdentify": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "done",
+              "active",
+              "waiting",
+              "failed"
+            ],
+            "title": "State"
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "documents",
+          "requirements"
+        ],
+        "title": "PipelineIdentify"
+      },
+      "PipelineImprove": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "done",
+              "active",
+              "waiting",
+              "attention",
+              "failed"
+            ],
+            "title": "State"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "decided": {
+            "type": "integer",
+            "title": "Decided"
+          },
+          "drafts_written": {
+            "type": "integer",
+            "title": "Drafts Written"
+          },
+          "drafts": {
+            "$ref": "#/components/schemas/PipelineDrafts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "requirements",
+          "decided",
+          "drafts_written",
+          "drafts"
+        ],
+        "title": "PipelineImprove"
+      },
+      "PipelineShare": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "done",
+              "active",
+              "waiting",
+              "failed"
+            ],
+            "title": "State"
+          },
+          "sync_state": {
+            "type": "string",
+            "enum": [
+              "synced",
+              "syncing",
+              "pending",
+              "retrying",
+              "not_configured",
+              "unreachable"
+            ],
+            "title": "Sync State"
+          },
+          "last_synced_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Synced At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "sync_state"
+        ],
+        "title": "PipelineShare"
+      },
       "ProjectCreate": {
         "properties": {
           "name": {
             "type": "string",
-            "maxLength": 120,
-            "minLength": 1,
+            "maxLength": 80,
+            "minLength": 2,
             "title": "Name"
           }
         },
@@ -1850,9 +5384,17 @@
             "type": "integer",
             "title": "Id"
           },
+          "project_key": {
+            "type": "string",
+            "title": "Project Key"
+          },
           "name": {
             "type": "string",
             "title": "Name"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Archived"
           },
           "created_at": {
             "type": "string",
@@ -1865,17 +5407,65 @@
           "requirements": {
             "type": "integer",
             "title": "Requirements"
+          },
+          "decisions": {
+            "$ref": "#/components/schemas/DecisionCounts"
+          },
+          "last_analysis_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Analysis At"
+          },
+          "last_published_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Published At"
+          },
+          "out_of_date": {
+            "type": "boolean",
+            "title": "Out Of Date"
           }
         },
         "type": "object",
         "required": [
           "id",
+          "project_key",
           "name",
+          "archived",
           "created_at",
           "sources",
-          "requirements"
+          "requirements",
+          "decisions",
+          "out_of_date"
         ],
         "title": "ProjectOut"
+      },
+      "ProjectRename": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ProjectRename"
       },
       "PublishIn": {
         "properties": {
@@ -1909,7 +5499,7 @@
         },
         "type": "object",
         "title": "PublishIn",
-        "description": "Optional: the platform project to publish under (default: C1_PROJECT_ID / C1_PROJECT_NAME)."
+        "description": "Optional and only a check: a project is always published under its own key and name, so these may be omitted or must equal them (else 422)."
       },
       "PublishOut": {
         "properties": {
@@ -2063,6 +5653,54 @@
         ],
         "title": "PublishStatus"
       },
+      "ReanalyzeOut": {
+        "properties": {
+          "source_id": {
+            "type": "integer",
+            "title": "Source Id"
+          },
+          "kept": {
+            "type": "integer",
+            "title": "Kept"
+          },
+          "changed": {
+            "type": "integer",
+            "title": "Changed"
+          },
+          "removed": {
+            "type": "integer",
+            "title": "Removed"
+          },
+          "added": {
+            "type": "integer",
+            "title": "Added"
+          },
+          "queued": {
+            "type": "integer",
+            "title": "Queued"
+          },
+          "job": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Job"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_id",
+          "kept",
+          "changed",
+          "removed",
+          "added",
+          "queued"
+        ],
+        "title": "ReanalyzeOut"
+      },
       "RejectedFile": {
         "properties": {
           "filename": {
@@ -2088,6 +5726,27 @@
       },
       "RequirementDetail": {
         "properties": {
+          "jira": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JiraRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sprint Id"
+          },
           "uid": {
             "type": "string",
             "title": "Uid"
@@ -2176,6 +5835,9 @@
           "generation": {
             "$ref": "#/components/schemas/GenerationOut"
           },
+          "suggestion": {
+            "$ref": "#/components/schemas/Suggestion"
+          },
           "decision": {
             "anyOf": [
               {
@@ -2194,7 +5856,9 @@
               "type": "object"
             },
             "type": "array",
-            "title": "Decision History"
+            "title": "Decision History",
+            "default": [],
+            "deprecated": true
           }
         },
         "type": "object",
@@ -2216,7 +5880,7 @@
           "explanation",
           "vague_terms",
           "generation",
-          "decision_history"
+          "suggestion"
         ],
         "title": "RequirementDetail"
       },
@@ -2253,6 +5917,17 @@
       },
       "RequirementRow": {
         "properties": {
+          "sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sprint Id"
+          },
           "uid": {
             "type": "string",
             "title": "Uid"
@@ -2310,6 +5985,17 @@
             "type": "string",
             "title": "Generation State"
           },
+          "failure_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Reason"
+          },
           "decision": {
             "anyOf": [
               {
@@ -2320,6 +6006,19 @@
               }
             ],
             "title": "Decision"
+          },
+          "suggestion": {
+            "$ref": "#/components/schemas/Suggestion"
+          },
+          "jira": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JiraRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -2332,9 +6031,33 @@
           "risk_level",
           "risk_score",
           "flags",
-          "generation_state"
+          "generation_state",
+          "suggestion"
         ],
         "title": "RequirementRow"
+      },
+      "SourceDrafts": {
+        "properties": {
+          "ready": {
+            "type": "integer",
+            "title": "Ready"
+          },
+          "needs_clarification": {
+            "type": "integer",
+            "title": "Needs Clarification"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ready",
+          "needs_clarification",
+          "failed"
+        ],
+        "title": "SourceDrafts"
       },
       "SourceOut": {
         "properties": {
@@ -2377,10 +6100,68 @@
             "type": "string",
             "title": "Created At"
           },
+          "uploaded_at": {
+            "type": "string",
+            "title": "Uploaded At"
+          },
           "source_type": {
             "type": "string",
             "title": "Source Type",
             "default": "srs"
+          },
+          "default_sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Default Sprint Id"
+          },
+          "analysis_state": {
+            "type": "string",
+            "enum": [
+              "not_analyzed",
+              "analyzing",
+              "analyzed",
+              "failed"
+            ],
+            "title": "Analysis State",
+            "default": "not_analyzed"
+          },
+          "analyzed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Analyzed At"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements",
+            "default": 0
+          },
+          "ambiguities": {
+            "type": "integer",
+            "title": "Ambiguities",
+            "default": 0
+          },
+          "drafts": {
+            "$ref": "#/components/schemas/SourceDrafts"
+          },
+          "sprints": {
+            "items": {
+              "$ref": "#/components/schemas/SourceSprintCount"
+            },
+            "type": "array",
+            "title": "Sprints",
+            "default": []
           }
         },
         "type": "object",
@@ -2389,9 +6170,485 @@
           "filename",
           "ext",
           "size_bytes",
-          "created_at"
+          "created_at",
+          "uploaded_at",
+          "drafts"
         ],
         "title": "SourceOut"
+      },
+      "SourceSprintCount": {
+        "properties": {
+          "sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sprint Id"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "count"
+        ],
+        "title": "SourceSprintCount"
+      },
+      "SourceSprintIn": {
+        "properties": {
+          "sprint_id": {
+            "type": "integer",
+            "title": "Sprint Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sprint_id"
+        ],
+        "title": "SourceSprintIn"
+      },
+      "SourcesOverview": {
+        "properties": {
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "by_type": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "By Type"
+          },
+          "total_size_bytes": {
+            "type": "integer",
+            "title": "Total Size Bytes"
+          },
+          "latest_upload_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Upload At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "count",
+          "by_type",
+          "total_size_bytes"
+        ],
+        "title": "SourcesOverview"
+      },
+      "SprintDecisions": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "accepted": {
+            "type": "integer",
+            "title": "Accepted"
+          },
+          "edited": {
+            "type": "integer",
+            "title": "Edited"
+          },
+          "rejected": {
+            "type": "integer",
+            "title": "Rejected"
+          },
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          },
+          "sprint_id": {
+            "type": "integer",
+            "title": "Sprint Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "phase_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase Id"
+          },
+          "is_current": {
+            "type": "boolean",
+            "title": "Is Current"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "accepted",
+          "edited",
+          "rejected",
+          "pending",
+          "sprint_id",
+          "name",
+          "is_current"
+        ],
+        "title": "SprintDecisions"
+      },
+      "SprintDeleted": {
+        "properties": {
+          "deleted": {
+            "type": "integer",
+            "title": "Deleted"
+          },
+          "reassigned_to": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reassigned To"
+          },
+          "requirements_moved": {
+            "type": "integer",
+            "title": "Requirements Moved"
+          }
+        },
+        "type": "object",
+        "required": [
+          "deleted",
+          "requirements_moved"
+        ],
+        "title": "SprintDeleted"
+      },
+      "SprintIn": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "title": "Name"
+          },
+          "phase_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase Id"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "goal": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal"
+          },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "manual",
+              "detected",
+              "jira"
+            ],
+            "title": "Origin",
+            "default": "manual"
+          },
+          "external_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "SprintIn"
+      },
+      "SprintOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "integer",
+            "title": "Project Id"
+          },
+          "phase_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "goal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal"
+          },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "manual",
+              "detected",
+              "jira"
+            ],
+            "title": "Origin"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "title": "Confirmed"
+          },
+          "external_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Id"
+          },
+          "position": {
+            "type": "integer",
+            "title": "Position"
+          },
+          "is_current": {
+            "type": "boolean",
+            "title": "Is Current"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "name",
+          "origin",
+          "confirmed",
+          "position",
+          "is_current",
+          "requirements",
+          "pending",
+          "documents"
+        ],
+        "title": "SprintOut"
+      },
+      "SprintUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "phase_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase Id"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "goal": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position"
+          },
+          "confirmed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed"
+          }
+        },
+        "type": "object",
+        "title": "SprintUpdate",
+        "description": "Send only what changes; `phase_id: null` takes the sprint out of its phase."
+      },
+      "Suggestion": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "edit",
+              "reject"
+            ],
+            "title": "Action"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action",
+          "reasons"
+        ],
+        "title": "Suggestion",
+        "description": "Rule-based hint, computed on every request and never stored: accept | edit | reject, with the reasons in plain words."
       },
       "Summary": {
         "properties": {
@@ -2451,6 +6708,80 @@
           "decided"
         ],
         "title": "Summary"
+      },
+      "SyncStatus": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "synced",
+              "syncing",
+              "pending",
+              "retrying",
+              "not_configured",
+              "unreachable"
+            ],
+            "title": "State"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "last_synced_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Synced At"
+          },
+          "counts": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Counts"
+          },
+          "next_attempt_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Attempt At"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "enabled"
+        ],
+        "title": "SyncStatus",
+        "description": "Background sync of the project to the graph database. `pending` and `retrying` come with `next_attempt_at`."
       },
       "TaskDrafts": {
         "properties": {
@@ -2552,12 +6883,25 @@
             },
             "type": "array",
             "title": "Rejected"
+          },
+          "sprint_detected": {
+            "type": "boolean",
+            "title": "Sprint Detected"
+          },
+          "detected": {
+            "items": {
+              "$ref": "#/components/schemas/DetectedSprint"
+            },
+            "type": "array",
+            "title": "Detected",
+            "default": []
           }
         },
         "type": "object",
         "required": [
           "accepted",
-          "rejected"
+          "rejected",
+          "sprint_detected"
         ],
         "title": "UploadResult"
       },

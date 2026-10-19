@@ -6,8 +6,9 @@
 ## What this is
 - C1 keeps its working data in sqlite (`outputs/c1_workspace/c1.db`) and keeps doing so. Neo4j is a second, **shared "published" store** for the clarified requirements.
   C1 only writes to it (one way); C1 never reads Neo4j back to run its own pipeline.
-- The platform's login and project creation belong to other components. C1 receives a **project id**; until that exists it uses a stub: `C1_PROJECT_ID`
-  (default `demo-project`) and `C1_PROJECT_NAME` (default `Core Banking Platform`). `POST` publish may carry an optional `project_id`.
+- The platform's login and project creation belong to other components. Until they are connected, C1 projects are its own (soft, never deleted): each has an
+  immutable **`project_key`** (a slug; the first project's is `demo-project`) and a name. A project is published under its own key and name; a `project_id` or
+  `project_name` in the request may only repeat them (else 422), so nothing is published under a made-up id.
 - Same graph for the local Neo4j Desktop and for an online database later: only the URI and credentials change.
 
 ## Settings (environment, then the shared `.env`)
@@ -17,7 +18,7 @@
 | user | `C1_NEO4J_USER` | `NEO4J_USERNAME` (also `NEO4J_USER`) | none |
 | password | `C1_NEO4J_PASSWORD` | `NEO4J_PASSWORD` | none |
 | database | `C1_NEO4J_DATABASE` | `NEO4J_DATABASE` | `neo4j` |
-| platform project | `C1_PROJECT_ID`, `C1_PROJECT_NAME` | | `demo-project`, `Core Banking Platform` |
+| project id and name | the project's `project_key` and `name` (no setting) | | `demo-project`, `Core Banking Platform` |
 
 The shared `.env` (repo root or `project/`, git-ignored) is **not** loaded into the process environment. A small reader takes only the keys above from it, and only
 when they are not already in the environment; every other line (`LLM_*`, `REDIS_*`, ...) is skipped and its value is never kept, logged or returned. The password is
@@ -29,16 +30,20 @@ Check the connection (publishes nothing): `.venv\Scripts\python.exe scripts\chec
 (Project)-[:HAS_SOURCE]->(SourceDocument)-[:CONTAINS]->(Requirement)-[:HAS_ISSUE]->(Issue)
                                                         (Requirement)-[:HAS_DRAFT]->(TaskDraft)
                                                         (Requirement)-[:DUPLICATE_OF {score}]->(Requirement)
-(Project)-[:HAS_SPRINT]->(Sprint) , (Requirement)-[:PLANNED_IN]->(Sprint)     <- constants and constraint only, not written by C1 yet
+(Project)-[:HAS_SPRINT]->(Sprint)
+(Requirement)-[:PLANNED_IN]->(Sprint)                                          <- from the requirement's effective sprint
+(Sprint)-[:INCLUDES_SOURCE {requirements}]->(SourceDocument)                   <- derived on every sync
 ```
 | Label | Properties |
 |---|---|
 | `Project` | `project_id`, `name` |
-| `SourceDocument` | `source_id`, `project_id`, `filename`, `source_type` (`srs` \| `brd` \| `other`), `sha256` (of the uploaded file; the file itself is never sent), `uploaded_at`, `active` |
-| `Requirement` | `req_id`, `project_id`, `text` (original), `kind` (`FR` \| `NFR`), `status` (`pending` \| `accepted` \| `edited` \| `rejected`), `final_text` (the edited text for `edited`, otherwise the original), `security_flag`, `active`, `published_at`, `payload_json` |
+| `SourceDocument` | `source_id`, `project_id`, `filename`, `source_type` (`srs` | `brd` | `other` | `jira`; a Jira document is named `Jira · KEY` and holds the issues imported from that Jira project), `sha256` (of the uploaded file, for a Jira document of the imported issue texts; the file itself is never sent)\| `brd` \| `other`), `sha256` (of the uploaded file; the file itself is never sent), `uploaded_at`, `active` |
+| `Requirement` | `req_id`, `project_id`, `text` (original), `kind` (`FR` \| `NFR`), `status` (`pending` \| `accepted` \| `edited` \| `rejected`), `final_text` (the edited text for `edited`, otherwise the original), `security_flag`, `sprint_id` (graph id of its effective sprint, or null), `active`, `published_at`, `payload_json` |
 | `Issue` | `issue_id`, `project_id`, `type` (`ambiguity` \| `vague` \| `security` \| `risk`), `detail`, `raised_by` (`part_a` \| `rule` \| `ai`), `active` |
 | `TaskDraft` | `draft_id`, `project_id`, `user_story`, `technical_task`, `acceptance_criteria` (list of strings), `rationale`, `needs_clarification`, `clarification_questions` (list of strings), `generated_by` (model), `generated_on` (`device` \| `cloud`), `endpoint_host` (host name only), `active` |
-| `Sprint` | `sprint_id`, `project_id`, `name`, `goal`, `start`, `end`, `origin` (not written yet) |
+| `Sprint` | `sprint_id`, `project_id`, `name`, `goal`, `start`, `end`, `origin` (`manual` \| `detected` \| `jira`), `is_current`, `active` |
+| `HAS_SPRINT`, `PLANNED_IN` | `active` on `PLANNED_IN` (see below) |
+| `INCLUDES_SOURCE` | `requirements` (how many requirements of that document are planned in that sprint), `project_id`, `active` |
 | `DUPLICATE_OF` | `dup_id`, `score`, `project_id`, `active` |
 
 There are **no RVU nodes** (Component 3 owns those). Conflicts (rule-based candidates) are not published in this proposal.
@@ -55,23 +60,31 @@ the Part A security keyword flag. `risk`/`rule`: the unvalidated risk heuristic 
 ## Ids
 | Id | Rule | Example |
 |---|---|---|
-| `Project.project_id` | the platform project id (`C1_PROJECT_ID`) | `demo-project` |
+| `Project.project_id` | the project's `project_key` (unique, never changes) | `demo-project` |
 | `SourceDocument.source_id` | `<project_id>:src<workspace source id>` | `demo-project:src3` |
 | `Requirement.req_id` | `<source_id>:<workspace requirement id>` = `<project_id>:src<source id>:<REQ-nnn>` | `demo-project:src3:REQ-012` |
 | `Issue.issue_id` | `<req_id>:<type>:<raised_by>` (vague: `<req_id>:vague:<term>`) | `demo-project:src3:REQ-012:risk:rule` |
 | `TaskDraft.draft_id` | `<req_id>:draft` | `demo-project:src3:REQ-012:draft` |
 | `DUPLICATE_OF.dup_id` | `<later req_id>\|<earlier req_id>` | |
+| `Sprint.sprint_id` | `<project_id>:sprint<workspace sprint id>` | `demo-project:sprint4` |
+| `Phase.phase_id` | `<project_id>:phase<workspace phase id>` | `demo-project:phase2` |
 
 The workspace requirement id (`REQ-nnn`) is kept when a requirement's text and source are unchanged across re-analysis, so ids stay stable while the workspace lives. If a source
 is removed and uploaded again it gets a new workspace id, so its requirements get new `req_id`s and the old nodes become `active = false`.
 
 ## Constraints and indexes (created on the first publish and by `check_c1_neo4j.py`, all `IF NOT EXISTS`)
-Uniqueness on `Project.project_id`, `SourceDocument.source_id`, `Requirement.req_id`, `Issue.issue_id`, `TaskDraft.draft_id`, `Sprint.sprint_id`; indexes on `Requirement.project_id` and `Requirement.status`.
+Uniqueness on `Project.project_id`, `SourceDocument.source_id`, `Requirement.req_id`, `Issue.issue_id`, `TaskDraft.draft_id` and `Sprint.sprint_id`; indexes on `Requirement.project_id`, `Requirement.status` and `Sprint.project_id`.
 
 ## Publish semantics
-- **API.** `POST /api/projects/{pid}/publish/neo4j` (optional body `{"project_id", "project_name"}`) and `GET /api/projects/{pid}/publish/neo4j` (status), see `c1_api_contract.md`.
+- **API.** `POST /api/projects/{pid}/publish/neo4j` (optional body `{"project_id", "project_name"}` that must equal the project's key and name) and `GET /api/projects/{pid}/publish/neo4j` (status), see `c1_api_contract.md`.
 - **Idempotent.** Every node is `MERGE`d by its id and its properties are set again; publishing twice creates no duplicates.
-- **What is sent.** Source metadata (no bytes), requirements with the human decision and `final_text`, issues, task drafts with provenance, duplicate links.
+- **What is sent.** Source metadata (no bytes), requirements with the one current human decision and `final_text` (replaced or removed decisions stay in C1's internal audit table and are never sent), issues, task drafts with provenance, duplicate links.
+- **Sprints.** The project's sprints are sent with every publish. The effective sprint of a requirement (its own, else its document's) becomes one `PLANNED_IN` link; `Sprint.is_current` marks the project's current sprint. A sprint that was deleted gets `active = false` (and `is_current = false`). A link that no longer holds (a requirement moved to another sprint) is not deleted: it gets `active = false`, and the current link `active = true`. Readers take the `PLANNED_IN` link with `coalesce(active, true) = true`.
+- **Sprint to document.** `(Sprint)-[:INCLUDES_SOURCE {requirements}]->(SourceDocument)` is derived from the `PLANNED_IN` data on every sync: `requirements` is the number of requirements of that document whose effective sprint is that sprint. When the number drops to 0 the link gets `active = false` and `requirements = 0` (it is not deleted); when requirements come back it is `active = true` again. Only documents that are in the graph appear.
+- **No phases.** Phases stay in the C1 workspace only: no `Phase` node and no `IN_PHASE` link are published (the older proposal had them; nodes already written by it are left alone, nothing is deleted).
+- **Only finished documents.** A document is published once its analysis is finished (state `analyzed`). A sync that runs while other documents are still being analysed sends the finished ones only; a document that is being analysed again keeps what the graph already holds about it (nothing is switched off) until the new result is published. Every analysed document is sent in full: all its requirements, issues and task drafts (`scripts/c1_graph_counts.py` compares the numbers per document).
+- **Project name.** `Project.name` is set from the workspace on every sync, so a rename reaches the graph (the project id, its key, never changes).
+- **Automatic.** The API publishes in the background after changes (`GET /api/projects/{pid}/sync`, `C1_AUTO_SYNC=0` switches it off); the publish is the same idempotent one, so syncing often is harmless.
 - **Removed items.** What is no longer in the workspace (a deleted source, a requirement dropped by re-analysis, a draft that no longer exists, a duplicate link that is gone) gets `active = false`. Nothing is ever deleted.
   Readers must filter on `active`.
 - **Transactions.** One transaction per source (its project node, source, requirements, issues, drafts in `UNWIND` batches of 500), then one transaction for the duplicate links and the deactivation sweep.
@@ -105,5 +118,5 @@ WHERE d.active AND a.active AND b.active RETURN a.req_id, b.req_id, d.score;
 ```
 
 ## Open points for the team
-Names of labels, relationships and properties; whether `Project` is owned by the platform (C1 only `MERGE`s it and does not overwrite an existing name); `req_id` stability across a removed and re-uploaded source;
+Names of labels, relationships and properties; whether `Project` is owned by the platform (C1 sets `Project.name` from the workspace on every sync); `req_id` stability across a removed and re-uploaded source;
 whether conflicts, risk and Part A probabilities should be flat properties (today they are in `payload_json` only); who sets `Sprint` data; the `active` filter convention.

@@ -38,6 +38,29 @@ export const navigation = [
     numberColor: "green",
     path: "/requirement",
     icon: FileText,
+    expandable: true,
+
+    children: [
+      {
+        label: "Overview",
+        path: "/requirement",
+      },
+
+      {
+        label: "Sources & Findings",
+        path: "/requirement/sources",
+      },
+
+      {
+        label: "Review Queue",
+        path: "/requirement/review",
+      },
+
+      {
+        label: "Task Drafts",
+        path: "/requirement/drafts",
+      },
+    ],
   },
 
   // =========================================================

@@ -69,13 +69,14 @@ def test_cascade_removes_results_decisions_and_conflicts_of_that_source_only(cli
     theirs = ids["b.txtREQ-003"]
     for uid in (mine, theirs):
         assert client.post(f"/api/requirements/{uid}/decision", json={"decision": "accepted"}).status_code == 200
+        assert client.put(f"/api/requirements/{uid}/decision", json={"decision": "accepted", "note": "again"}).status_code == 200  # the first one goes to the audit table
     assert table(client, "conflicts"), "the two files should produce a conflict candidate"
 
     assert client.delete(f"/api/projects/1/sources/{b}").status_code == 204
     assert [r["uid"] for r in table(client, "requirements")] == [mine, ids["a.txtREQ-002"]]
     assert [r["uid"] for r in table(client, "generation")] == [mine, ids["a.txtREQ-002"]]
     assert [r["uid"] for r in table(client, "decisions")] == [mine]
-    assert {r["uid"] for r in table(client, "decision_history")} == {mine}
+    assert {r["uid"] for r in table(client, "decision_audit")} == {mine}
     assert table(client, "conflicts") == []
     assert client.get("/api/requirements/REQ-001").json()["decision"]["decision"] == "accepted"
 
@@ -121,7 +122,7 @@ def test_delete_all_sources_clears_everything_of_the_project(client):
     s = client.get("/api/projects/1/summary").json()
     assert s["requirements"] == 0 and s["conflicts"] == 0 and s["duplicates"] == 0 and (s["task_drafts"]["generated"], s["task_drafts"]["total"]) == (0, 0) and s["open_findings"] == 0
     db = client.app.state.db
-    for name in ("requirements", "generation", "decisions", "decision_history"):
+    for name in ("requirements", "generation", "decisions", "decision_audit"):
         assert db.one(f"SELECT COUNT(*) n FROM {name} WHERE uid LIKE 'p1-%'")["n"] == 0, name
     assert db.one("SELECT COUNT(*) n FROM conflicts WHERE project_id=1")["n"] == 0
     assert not [p for p in files_on_disk(client) if "/1/" in str(p).replace("\\", "/")]

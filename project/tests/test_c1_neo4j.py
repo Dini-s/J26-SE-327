@@ -45,6 +45,7 @@ class Graph:
 
     def __init__(self):
         self.nodes, self.rels, self.dups, self.statements = {}, set(), {}, []
+        self.includes = {}  # (sprint id, source id) -> {"requirements", "active"}
 
     def upsert(self, label, key, props, replace=True):
         node = self.nodes.setdefault((label, key), {})
@@ -55,11 +56,7 @@ class Graph:
         L, R = S.Label, S.Rel
         self.statements.append(q)
         if q == neo4j_store.Q_PROJECT:
-            node = self.nodes.get((L.PROJECT, p["project_id"]))
-            if node is None:
-                self.upsert(L.PROJECT, p["project_id"], p["props"])
-            else:
-                node[S.ProjectP.NAME] = node.get(S.ProjectP.NAME) or p["name"]
+            self.upsert(L.PROJECT, p["project_id"], p["props"])  # SET p += props: the name follows the workspace
         elif q == neo4j_store.Q_SOURCE:
             self.upsert(L.SOURCE, p["source_id"], p["props"])
             self.rels.add((R.HAS_SOURCE, p["project_id"], p["source_id"]))
@@ -78,17 +75,26 @@ class Graph:
         elif q == neo4j_store.Q_DUPLICATES:
             for row in p["rows"]:
                 self.dups[row["id"]] = {"a": row["a"], "b": row["b"], S.DuplicateP.SCORE: row["score"], "active": True, "project_id": p["project_id"]}
+        elif q == neo4j_store.Q_INCLUDES:
+            for row in p["rows"]:
+                self.includes[(row["sprint_id"], row["source_id"])] = {"requirements": row["requirements"], "active": True}
         else:
+            held = lambda key: any(key == h or key.startswith(h + ":") for h in p.get("held", []))  # noqa: E731
             for label, query in neo4j_store.Q_DEACTIVATE.items():
                 if q == query:
                     n = 0
-                    if label == R.DUPLICATE_OF:
+                    if label == R.INCLUDES_SOURCE:
+                        for (sprint, source), e in self.includes.items():
+                            if f"{sprint}|{source}" not in p["ids"] and source not in p["held"] and e["active"]:
+                                e.update(active=False, requirements=0)
+                                n += 1
+                    elif label == R.DUPLICATE_OF:
                         for key, d in self.dups.items():
-                            if key not in p["ids"] and d.get("active", True):
+                            if key not in p["ids"] and d.get("active", True) and not any(key.startswith(h + ":") or ("|" + h + ":") in key for h in p["held"]):
                                 d["active"], n = False, n + 1
                     else:
                         for (lab, key), props in self.nodes.items():
-                            if lab == label and props.get("project_id") == p["project_id"] and key not in p["ids"] and props.get("active", True):
+                            if lab == label and props.get("project_id") == p["project_id"] and key not in p["ids"] and props.get("active", True) and not held(key):
                                 props["active"], n = False, n + 1
                     return Result({"n": n})
         return Result(None)
@@ -161,9 +167,10 @@ class AuthError(Exception):
     pass
 
 
-def store_for(db, graph=None, cfg=CFG, project=("demo-project", "Core Banking Platform"), **kw):
+def store_for(db, graph=None, cfg=CFG, **kw):
+    """The project (key "demo-project", name "Core Banking Platform") is the one seeded in the workspace: a store has no other source for it."""
     driver = Driver(graph, **kw)
-    store = Neo4jStore(db, config_loader=lambda: cfg, project_loader=lambda: project, driver_factory=lambda c: driver)
+    store = Neo4jStore(db, config_loader=lambda: cfg, driver_factory=lambda c: driver)
     return store, driver
 
 
@@ -173,8 +180,8 @@ def seed(db, project=True):
     if project:
         db.run("INSERT INTO projects (name, created_at) VALUES ('Core Banking Platform', ?)", (now(),))
     for sid, fn, st in ((1, "srs.txt", "srs"), (2, "brd.txt", "brd")):
-        db.run("INSERT INTO sources (id, project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-               (sid, 1, fn, f"/nowhere/{fn}", ".txt", 10, None, "[]", "{}", "2026-10-01T00:00:00+00:00", st, hashlib.sha256(fn.encode()).hexdigest()))
+        db.run("INSERT INTO sources (id, project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256, analysis_state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+               (sid, 1, fn, f"/nowhere/{fn}", ".txt", 10, None, "[]", "{}", "2026-10-01T00:00:00+00:00", st, hashlib.sha256(fn.encode()).hexdigest(), "analyzed"))
 
     def req(seq, source, text, fr="FR", defect=False, weak=(), security=False, cues=(), risk=("NONE", 0), dups=()):
         db.run("INSERT INTO requirements (uid, project_id, rid, seq, source_id, source_file, text, text_hash, occurrence, fr_nfr, nfr_probability, is_security, security_cue_words,"
@@ -226,11 +233,6 @@ def test_c1_names_win_over_the_shared_names_and_database_defaults_to_neo4j():
     assert not neo4j_config.load_config({}, []).configured
 
 
-def test_project_stub_defaults_and_overrides():
-    assert neo4j_config.project_stub({}, []) == ("demo-project", "Core Banking Platform")
-    assert neo4j_config.project_stub({"C1_PROJECT_ID": "p9", "C1_PROJECT_NAME": "Nine"}, []) == ("p9", "Nine")
-
-
 def test_env_file_is_used_only_for_missing_keys_and_only_for_allowed_keys(tmp_path):
     f = tmp_path / ".env"
     f.write_text('# comment\nNEO4J_URI="neo4j://file-host:7687"\nexport NEO4J_USERNAME=fileuser\nNEO4J_PASSWORD=pass#with-hash\nNEO4J_DATABASE=filedb # trailing\n', encoding="utf-8")
@@ -246,13 +248,12 @@ def test_env_file_never_yields_llm_or_other_values(tmp_path, monkeypatch):
                  f"NEO4J_URI=neo4j://h:7687\nNEO4J_USERNAME=u\nNEO4J_PASSWORD={PASSWORD}\nC1_PROJECT_ID=pp\n", encoding="utf-8")
     before = dict(os.environ)
     read = neo4j_config.read_env_file(f)
-    assert set(read) == {"NEO4J_URI", "NEO4J_USERNAME", "NEO4J_PASSWORD", "C1_PROJECT_ID"}
+    assert set(read) == {"NEO4J_URI", "NEO4J_USERNAME", "NEO4J_PASSWORD"}  # the old project-stub keys are no longer read either
     assert set(read) <= neo4j_config.ALLOWED_KEYS
     # the environment may hold them too: they are not looked at either
     env = {"LLM_API_KEY": llm, "LLM_BASE_URL": "http://llm", "REDIS_URL": "redis://x", "NEO4J_URI": "neo4j://h:7687"}
     cfg = neo4j_config.load_config(env, [f])
-    stub = neo4j_config.project_stub(env, [f])
-    everything = repr((read, cfg, stub, neo4j_config._merged(env, [f])))
+    everything = repr((read, cfg, neo4j_config._merged(env, [f])))
     for secret in (llm, "secret-model-777", "redis-pass-555", "emb-888", "http://llm", "redis://x"):
         assert secret not in everything
     assert not any(k.startswith(("LLM_", "REDIS_", "EMBEDDING_")) for k in neo4j_config._merged(env, [f]))
@@ -361,7 +362,7 @@ def test_legacy_source_rows_get_their_hash_from_the_file(tmp_path):
     d.run("INSERT INTO projects (name, created_at) VALUES ('P', ?)", (now(),))
     f = tmp_path / "up.txt"
     f.write_bytes(b"hello")
-    d.run("INSERT INTO sources (project_id, filename, stored_path, ext, size_bytes, warnings, extracted, created_at) VALUES (1,'up.txt',?, '.txt', 5, '[]', '{}', 't')", (str(f),))
+    d.run("INSERT INTO sources (project_id, filename, stored_path, ext, size_bytes, warnings, extracted, created_at, analysis_state) VALUES (1,'up.txt',?, '.txt', 5, '[]', '{}', 't', 'analyzed')", (str(f),))
     b = neo4j_store.build_bundle(d, 1, "p", "P")
     assert b.sources[0].props[S.SourceP.SHA256] == hashlib.sha256(b"hello").hexdigest() and b.sources[0].props[S.SourceP.SOURCE_TYPE] == "srs"
     assert d.one("SELECT sha256 FROM sources")["sha256"] == hashlib.sha256(b"hello").hexdigest()  # stored once
@@ -384,12 +385,12 @@ def test_publish_sends_one_transaction_per_source_then_a_final_one_and_returns_c
     store, driver = store_for(db)
     out = store.publish(1)
     assert driver.transactions == 3  # two sources + duplicates/deactivation
-    assert out["counts"] == {"Project": 1, "SourceDocument": 2, "Requirement": 4, "Issue": 8, "TaskDraft": 2, "DUPLICATE_OF": 1}
-    assert out["deactivated"] == {"SourceDocument": 0, "Requirement": 0, "Issue": 0, "TaskDraft": 0, "DUPLICATE_OF": 0}
+    assert out["counts"] == {"Project": 1, "SourceDocument": 2, "Requirement": 4, "Issue": 8, "TaskDraft": 2, "DUPLICATE_OF": 1, "Sprint": 1, "PLANNED_IN": 4, "INCLUDES_SOURCE": 2}
+    assert out["deactivated"] == {"SourceDocument": 0, "Requirement": 0, "Issue": 0, "TaskDraft": 0, "DUPLICATE_OF": 0, "Sprint": 0, "INCLUDES_SOURCE": 0}
     assert out["project_id"] == "demo-project" and out["seconds"] >= 0 and len(out["content_hash"]) == 64
     assert driver.closed == 1
     auto = [q for kind, q, _ in driver.log if kind == "auto"]
-    assert auto[0].startswith("CREATE CONSTRAINT") and sum(q.startswith("CREATE CONSTRAINT") for q in auto) == 6 and sum(q.startswith("CREATE INDEX") for q in auto) == 2
+    assert auto[0].startswith("CREATE CONSTRAINT") and sum(q.startswith("CREATE CONSTRAINT") for q in auto) == 6 and sum(q.startswith("CREATE INDEX") for q in auto) == 3
     assert all("IF NOT EXISTS" in q for q in auto)
     assert all(q.count("UNWIND") == 1 for q in driver.graph.statements if q in (neo4j_store.Q_REQUIREMENTS, neo4j_store.Q_ISSUES, neo4j_store.Q_DRAFTS))
     g = driver.graph
@@ -439,7 +440,7 @@ def test_removed_requirements_and_sources_become_inactive_but_stay_in_the_graph(
     assert node(graph, "TaskDraft", "demo-project:src1:REQ-003:draft")["active"] is False and node(graph, "TaskDraft", "demo-project:src1:REQ-001:draft")["active"] is True
     assert out["deactivated"]["SourceDocument"] == 1 and out["deactivated"]["Requirement"] == 2 and out["deactivated"]["TaskDraft"] == 1 and out["deactivated"]["Issue"] >= 3
     again = store.publish(1)
-    assert again["deactivated"] == {"SourceDocument": 0, "Requirement": 0, "Issue": 0, "TaskDraft": 0, "DUPLICATE_OF": 0}  # already inactive: not counted twice
+    assert again["deactivated"] == {"SourceDocument": 0, "Requirement": 0, "Issue": 0, "TaskDraft": 0, "DUPLICATE_OF": 0, "Sprint": 0, "INCLUDES_SOURCE": 0}  # already inactive: not counted twice
 
 
 def test_a_removed_duplicate_link_is_deactivated_and_a_returning_item_is_active_again(db):
@@ -483,7 +484,9 @@ def test_the_hash_ignores_publish_time_but_not_the_project(db):
     assert a != neo4j_store.build_bundle(db, 1, "other-project", "Core Banking Platform").digest()
     store, _ = store_for(db)
     store.publish(1)
-    assert store.status(1, "other-project")["out_of_date"] is True  # never published under that id
+    with pytest.raises(ApiError) as e:
+        store.status(1, "other-project")  # a project is only ever published under its own key
+    assert (e.value.status, e.value.code) == (422, "project_key_mismatch")
 
 
 def test_failed_publish_leaves_no_log_entry(db):
@@ -528,7 +531,7 @@ def raising(exc):
     (RuntimeError(f"surprise {PASSWORD}"), "neo4j_publish_failed"),
 ])
 def test_each_driver_error_becomes_one_calm_code(db, exc, code, caplog):
-    store = Neo4jStore(db, config_loader=lambda: CFG, project_loader=lambda: ("demo-project", "X"), driver_factory=raising(exc))
+    store = Neo4jStore(db, config_loader=lambda: CFG, driver_factory=raising(exc))
     with caplog.at_level(logging.DEBUG):
         with pytest.raises(ApiError) as e:
             store.publish(1)
@@ -547,14 +550,14 @@ def test_error_during_the_write_is_translated_too(db, caplog):
 
 
 def test_unconfigured_and_driver_missing(db, monkeypatch):
-    store = Neo4jStore(db, config_loader=lambda: Neo4jConfig(), project_loader=lambda: ("p", "P"))
+    store = Neo4jStore(db, config_loader=lambda: Neo4jConfig())
     with pytest.raises(ApiError) as e:
         store.publish(1)
     assert (e.value.status, e.value.code) == (503, "neo4j_unconfigured")
     st = store.status(1)
     assert (st["configured"], st["reachable"], st["error"]) == (False, False, "neo4j_unconfigured") and st["out_of_date"] is True
     monkeypatch.setitem(sys.modules, "neo4j", None)  # import neo4j -> ImportError
-    store = Neo4jStore(db, config_loader=lambda: CFG, project_loader=lambda: ("p", "P"))
+    store = Neo4jStore(db, config_loader=lambda: CFG)
     with pytest.raises(ApiError) as e:
         store.publish(1)
     assert (e.value.status, e.value.code) == (503, "neo4j_driver_missing") and "pip install neo4j" in e.value.message
@@ -574,7 +577,6 @@ def wire(c, cfg=CFG, graph=None, **kw):
     store = c.app.state.neo4j
     driver = Driver(graph, **kw)
     store._load_config = lambda: cfg
-    store._load_project = lambda: ("demo-project", "Core Banking Platform")
     store._driver_factory = lambda cf: driver
     return driver
 
@@ -598,10 +600,11 @@ def test_endpoints_publish_and_status(make_client, caplog):
     assert s["configured"] and s["reachable"] and s["out_of_date"] is False and s["host"] == "db.internal.example" and s["server_version"] == "2026.09.0"
     assert s["last_counts"]["TaskDraft"] == 2
     assert PASSWORD not in r.text and PASSWORD not in st.text and PASSWORD not in caplog.text and URI not in r.text + st.text
-    # an optional project id in the body and in the query
-    r2 = c.post("/api/projects/1/publish/neo4j", json={"project_id": "p-2", "project_name": "Second"})
-    assert r2.status_code == 200 and r2.json()["project_id"] == "p-2" and node(driver.graph, "Project", "p-2")[S.ProjectP.NAME] == "Second"
-    assert c.get("/api/projects/1/publish/neo4j", params={"project_id": "p-2"}).json()["out_of_date"] is False
+    # an id or name in the body may only repeat the project's own key and name
+    again = c.post("/api/projects/1/publish/neo4j", json={"project_id": "demo-project", "project_name": "Core Banking Platform"})
+    assert again.status_code == 200 and again.json()["project_id"] == "demo-project"
+    assert node(driver.graph, "Project", "demo-project")[S.ProjectP.NAME] == "Core Banking Platform"
+    assert c.get("/api/projects/1/publish/neo4j", params={"project_id": "demo-project"}).json()["out_of_date"] is False
     assert c.get("/api/projects/1/publish/neo4j", params={"project_id": "bad id!"}).status_code == 422
     assert c.post("/api/projects/99/publish/neo4j").status_code == 404
 
@@ -654,7 +657,8 @@ def test_integration_publish_twice_against_a_real_neo4j(tmp_path, monkeypatch):
     db = Database(tmp_path / "it.db")
     seed(db)
     project = ("c1-test-project", "C1 test project")
-    store = Neo4jStore(db, project_loader=lambda: project)
+    db.run("UPDATE projects SET project_key=?, name=? WHERE id=1", project)  # the test publishes under its own key, so it never touches real data
+    store = Neo4jStore(db)
     cfg = store.config()
     assert cfg.configured, "set the Neo4j password in the environment or the shared .env"
     driver = store.open(cfg)

@@ -8,7 +8,14 @@ DEFAULT_REPLAY_FILE = PROJECT_ROOT / "evaluation" / "component1" / "generation" 
 
 MAX_UPLOAD_BYTES = 20 * 1024 * 1024
 ALLOWED_EXTENSIONS = (".txt", ".md", ".pdf", ".docx")
-CORS_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]
+CORS_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]  # the web app's dev server (apps/web) and the old standalone UI use port 5173
+
+
+def cors_origins(environ=None):
+    """The default origins plus the comma-separated list in C1_CORS_ORIGINS (for another dev port or host); '*' is not accepted."""
+    raw = (os.environ if environ is None else environ).get("C1_CORS_ORIGINS", "")
+    extra = [o.strip().rstrip("/") for o in raw.split(",") if o.strip() and o.strip() != "*"]
+    return CORS_ORIGINS + [o for o in extra if o not in CORS_ORIGINS]
 DEFAULT_PROJECT_NAME = "Core Banking Platform"
 BACKENDS = ("replay", "ollama", "mock")
 

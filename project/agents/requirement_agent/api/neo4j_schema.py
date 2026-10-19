@@ -15,7 +15,7 @@ class Label:
     REQUIREMENT = "Requirement"
     ISSUE = "Issue"
     DRAFT = "TaskDraft"
-    SPRINT = "Sprint"  # constants and constraint only; the sprint logic is a later step
+    SPRINT = "Sprint"
 
 
 class Rel:
@@ -24,8 +24,9 @@ class Rel:
     HAS_ISSUE = "HAS_ISSUE"
     HAS_DRAFT = "HAS_DRAFT"
     DUPLICATE_OF = "DUPLICATE_OF"
-    HAS_SPRINT = "HAS_SPRINT"  # not written yet
-    PLANNED_IN = "PLANNED_IN"  # not written yet
+    HAS_SPRINT = "HAS_SPRINT"  # (Project)-[:HAS_SPRINT]->(Sprint)
+    PLANNED_IN = "PLANNED_IN"  # (Requirement)-[:PLANNED_IN]->(Sprint), from the requirement's effective sprint
+    INCLUDES_SOURCE = "INCLUDES_SOURCE"  # (Sprint)-[:INCLUDES_SOURCE {requirements}]->(SourceDocument), derived on every sync
 
 
 class Common:
@@ -56,6 +57,7 @@ class RequirementP:
     STATUS = "status"
     FINAL_TEXT = "final_text"
     SECURITY_FLAG = "security_flag"
+    SPRINT_ID = "sprint_id"  # the graph id of its effective sprint, or null
     ACTIVE = "active"
     PUBLISHED_AT = "published_at"
     PAYLOAD_JSON = "payload_json"
@@ -89,19 +91,27 @@ class DuplicateP:
     ACTIVE = "active"
 
 
+class IncludesP:
+    REQUIREMENTS = "requirements"  # how many requirements of that document are planned in that sprint
+    ACTIVE = "active"
+
+
 class SprintP:
     ID = "sprint_id"
     NAME = "name"
     GOAL = "goal"
     START = "start"
     END = "end"
-    ORIGIN = "origin"
+    ORIGIN = "origin"  # manual | detected | jira
+    IS_CURRENT = "is_current"
+    ACTIVE = "active"
 
 
 # values
 STATUSES = ("pending", "accepted", "edited", "rejected")
 APPROVED_STATUSES = ("accepted", "edited")  # what C2-C4 read as "approved" (together with active = true)
-SOURCE_TYPES = ("srs", "brd", "other")
+SOURCE_TYPES = ("srs", "brd", "other", "jira")
+UPLOAD_SOURCE_TYPES = ("srs", "brd", "other")  # what a file upload may say; `jira` documents only come from the Jira import
 DEFAULT_SOURCE_TYPE = "srs"
 ISSUE_TYPES = ("ambiguity", "vague", "security", "risk")
 RAISED_BY = ("part_a", "rule", "ai")
@@ -118,4 +128,5 @@ UNIQUE_IDS = (
 INDEXES = (
     (Label.REQUIREMENT, Common.PROJECT_ID),
     (Label.REQUIREMENT, RequirementP.STATUS),
+    (Label.SPRINT, Common.PROJECT_ID),
 )

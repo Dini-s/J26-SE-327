@@ -256,9 +256,9 @@ def test_single_generate_and_cache(make_client):
     c = make_client(backend=backend)
     analyze(c)
     assert len(backend.calls) == 3
-    analyze(c, files=())  # analyse again with the same sources: ids stay, results come from the cache
+    analyze(c, files=())  # analysed documents are skipped completely: nothing runs, ids and drafts stay
     assert len(backend.calls) == 3
-    assert c.get("/api/requirements/REQ-001").json()["generation"]["message"] == "from cache"
+    assert c.get("/api/requirements/REQ-001").json()["generation"]["state"] == "done"
     r = c.post("/api/requirements/REQ-001/generate")
     assert r.status_code == 202 and r.json() == {"uid": "p1-REQ-001", "generation_state": "queued"}
     assert c.app.state.manager.wait_idle(60)
@@ -331,9 +331,9 @@ def test_each_draft_says_which_backend_and_model_wrote_it(make_client):
     analyze(c)
     g = c.get("/api/requirements/REQ-001").json()["generation"]
     assert g["state"] == "done" and g["backend"] == "mock" and g["model"] == "demo-model"
-    analyze(c, files=())  # second run is served from the cache and still says where the text came from
+    analyze(c, files=())  # a second run skips the analysed documents; the draft still says where its text came from
     g = c.get("/api/requirements/REQ-001").json()["generation"]
-    assert g["message"] == "from cache" and g["backend"] == "mock" and g["model"] == "demo-model"
+    assert g["state"] == "done" and g["backend"] == "mock" and g["model"] == "demo-model"
     assert c.get("/api/requirements/REQ-001").json()["generation"]["raw_output"] == ""
 
 
@@ -384,7 +384,7 @@ def test_a_failed_draft_can_be_retried_once_the_engine_is_back(make_client):
 
 
 # ------------------------------------------------------------------------------------------------------------------------ decisions
-def test_decisions_history_and_summary(client):
+def test_one_current_decision_per_requirement_and_summary(client):
     analyze(client)
     before = client.get("/api/projects/1/summary").json()["open_findings"]
     r = client.post("/api/requirements/REQ-003/decision", json={"decision": "accepted", "note": "ok for now"})
@@ -392,9 +392,9 @@ def test_decisions_history_and_summary(client):
     assert error_of(client.post("/api/requirements/REQ-003/decision", json={"decision": "edited"}))["code"] == "edited_text_required"
     assert client.post("/api/requirements/REQ-003/decision", json={"decision": "maybe"}).status_code == 422
     r = client.post("/api/requirements/REQ-003/decision", json={"decision": "edited", "edited_text": "The system shall respond within 2 seconds.", "note": "made measurable"})
-    assert r.json()["decision"] == "edited" and [h["decision"] for h in r.json()["history"]] == ["accepted", "edited"]
+    assert r.json()["decision"] == "edited" and [h["decision"] for h in r.json()["history"]] == ["edited"]  # deprecated field: the current decision only
     d = client.get("/api/requirements/REQ-003").json()
-    assert d["decision"]["edited_text"] == "The system shall respond within 2 seconds." and len(d["decision_history"]) == 2
+    assert d["decision"]["edited_text"] == "The system shall respond within 2 seconds." and len(d["decision_history"]) == 1
     assert d["text"].startswith("The system shall be easy to use")  # the original text is kept
     assert reqs(client)["items"][2]["decision"] == "edited"
     after = client.get("/api/projects/1/summary").json()
@@ -449,3 +449,16 @@ def test_cors_allows_the_dev_ui_origin_only(client):
     assert ok.headers.get("access-control-allow-origin") == "http://localhost:5173"
     assert client.get("/api/health", headers={"Origin": "http://127.0.0.1:5173"}).headers.get("access-control-allow-origin") == "http://127.0.0.1:5173"
     assert "access-control-allow-origin" not in client.get("/api/health", headers={"Origin": "http://evil.example"}).headers
+
+
+def test_cors_origins_default_and_configurable(make_client, monkeypatch):
+    from agents.requirement_agent.api import settings
+    assert settings.cors_origins({}) == ["http://localhost:5173", "http://127.0.0.1:5173"]
+    got = settings.cors_origins({"C1_CORS_ORIGINS": "http://localhost:4000/, http://dev.example:3000 ,*, http://localhost:5173"})
+    assert got == ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:4000", "http://dev.example:3000"]  # no '*', no duplicates, no trailing slash
+    monkeypatch.setenv("C1_CORS_ORIGINS", "http://localhost:4000")
+    c = make_client()
+    ok = c.options("/api/health", headers={"Origin": "http://localhost:4000", "Access-Control-Request-Method": "GET"})
+    assert ok.headers.get("access-control-allow-origin") == "http://localhost:4000"
+    other = c.options("/api/health", headers={"Origin": "http://evil.example", "Access-Control-Request-Method": "GET"})
+    assert other.headers.get("access-control-allow-origin") is None

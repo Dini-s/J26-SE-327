@@ -353,7 +353,7 @@ def test_device_test_endpoint(app):
     app.build()
     r = app.call("post", "/api/engine/test", json={"target": "device"})
     assert r.status_code == 200 and r.json()["ok"] is False  # the local model server (port 9 here) does not answer
-    assert "local model server" in r.json()["detail"] and isinstance(r.json()["latency_ms"], int)
+    assert "writing model does not answer" in r.json()["detail"] and isinstance(r.json()["latency_ms"], int)
 
 
 # ------------------------------------------------------------------------------------------------------------------ switching rules

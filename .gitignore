@@ -219,6 +219,6 @@ __marimo__/
 
 # Frontend (Component 1 UI)
 node_modules/
-frontend/c1/dist/
-frontend/c1/.env
-frontend/c1/.env.local
+project/apps/web/dist/
+project/apps/web/.env
+project/apps/web/.env.local
