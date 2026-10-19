@@ -1,0 +1,16 @@
+{
+ "frozen_at": "2026-10-20T00:25:51",
+ "seed": 42,
+ "method": "random.Random(42).sample over projects with code gold (sorted list)",
+ "test_projects": [
+  "eanci",
+  "smos"
+ ],
+ "train_projects": [
+  "ebt",
+  "etour",
+  "itrust",
+  "libest"
+ ],
+ "rule": "Do not look at test-project results before the final run. Do not change this file."
+}

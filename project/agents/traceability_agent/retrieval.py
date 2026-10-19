@@ -133,12 +133,18 @@ def hybrid_matrix(
     embedder: Any,
     text_fn: TextFn = retrieval_text,
     chunk_size: Optional[int] = None,
+    extra_embedders: Sequence[Any] = (),
 ) -> np.ndarray:
-    """TF-IDF + embedding similarities fused by z-score (rank by top-k, not a threshold)."""
+    """TF-IDF + embedding similarities fused by z-score (rank by top-k, not a threshold).
+
+    ``extra_embedders`` are further embedding models (for example the fine-tuned CodeBERT); each adds one more
+    signal with the same weight as the others.
+    """
     return zscore_fuse(
         [
             tfidf_matrix(sources, targets, text_fn, chunk_size),
             embedding_matrix(sources, targets, embedder, text_fn, chunk_size),
+            *[embedding_matrix(sources, targets, extra, text_fn, chunk_size) for extra in extra_embedders],
         ]
     )
 

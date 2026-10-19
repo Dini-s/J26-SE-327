@@ -1,0 +1,53 @@
+{
+ "train": [
+  "ebt",
+  "etour",
+  "itrust",
+  "libest"
+ ],
+ "test": [
+  "eanci",
+  "smos"
+ ],
+ "per_test_project": {
+  "eanci": {
+   "true_links": 567,
+   "hybrid": {
+    "5": 0.115,
+    "10": 0.228,
+    "20": 0.414
+   },
+   "learned": {
+    "5": 0.12,
+    "10": 0.228,
+    "20": 0.446
+   }
+  },
+  "smos": {
+   "true_links": 1044,
+   "hybrid": {
+    "5": 0.189,
+    "10": 0.313,
+    "20": 0.452
+   },
+   "learned": {
+    "5": 0.18,
+    "10": 0.305,
+    "20": 0.471
+   }
+  }
+ },
+ "macro": {
+  "hybrid": {
+   "5": 0.152,
+   "10": 0.271,
+   "20": 0.433
+  },
+  "learned": {
+   "5": 0.15,
+   "10": 0.267,
+   "20": 0.459
+  }
+ },
+ "caveat": "Model settings were chosen while looking at leave-one-project-out results that included these test projects."
+}

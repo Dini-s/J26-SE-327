@@ -89,7 +89,7 @@ def test_link_only_unlinked_skips_requirements_that_already_have_a_link(monkeypa
         def write_link(self, link): pass
 
     class FakeAgent:
-        def __init__(self, **kw): pass
+        def __init__(self, **kw): self.embedder, self.extra_embedders = SimpleNamespace(model_name="m"), kw.get("extra_embedders", [])
         def load_artifacts(self): return [SimpleNamespace(id=i) for i in ("R1", "R2", "R3")], [SimpleNamespace(id="C1")]
         def find_candidates(self, sources, targets): seen["sources"] = [s.id for s in sources]; return []
         def verify_candidates(self, candidates, on_link=None): return []
@@ -97,6 +97,7 @@ def test_link_only_unlinked_skips_requirements_that_already_have_a_link(monkeypa
     monkeypatch.setattr(client_mod, "USKGClient", FakeUSKG)
     monkeypatch.setattr(agent_mod, "TraceabilityAgent", FakeAgent)
     monkeypatch.setattr(embedder_mod, "Embedder", lambda *a, **k: object())
+    monkeypatch.setattr(embedder_mod, "configured_extra_embedders", lambda: [])
     monkeypatch.setattr(cli, "_build_llm", lambda prompt: object())
     monkeypatch.setattr(cli, "RUNS_DIR", tmp_path)
     assert cli.main(["link", "--project", "p", "--only-unlinked"]) == 0

@@ -1,8 +1,15 @@
 {
- "rows_read": 70869,
- "code_lines_removed_total": 819622,
+ "rows_read": 69048,
+ "code_lines_removed_total": 815168,
+ "rows_dropped_not_code_target": 1821,
+ "dropped_not_code_gold_1": 45,
+ "dropped_not_code_gold_0": 1776,
+ "dropped_not_code_by_project": {
+  "cm1": 1166,
+  "itrust": 655
+ },
  "rows_dropped_code_empty": 131,
  "dropped_gold_0": 131,
  "dropped_gold_1": 0,
- "rows_written": 70738
+ "rows_written": 68917
 }

@@ -130,9 +130,9 @@ Sidebar: repo switcher + service dots (Neo4j/Redis/Llama). Top bar: Refresh. C4 
 **Link quality:**
 | Dataset / நிலை | Precision | Recall | F1 |
 |---|---|---|---|
-| iTrust (gold), முழு pipeline | 46% | 21% | 29% |
-| iTrust, confidence ≥0.9 | **92.3%** | 8.8% | — |
-| CM-1, ≥0.9 | 60.9% | — | — |
+| iTrust (gold), முழு pipeline | 47% | 15% | — (recomputed on current runs) |
+| iTrust, confidence ≥0.9 | **92.3%** (24/26) | 6.0% (24/399) | — |
+| CM-1, ≥0.9 | 66.7% (10/15) | — | — |
 | eTour, முழு pipeline | 81.5% | 23.7% | 36.7% |
 | eTour, Stage 1 மட்டும் | 49.3% | 39.8% | 44.0% |
 
@@ -143,7 +143,7 @@ Sidebar: repo switcher + service dots (Neo4j/Redis/Llama). Top bar: Refresh. C4 
 
 ## 10. நேர்மையான வரம்புகள் (Limitations) – கேட்கும் முன்பே சொல்லுங்க
 
-1. **Recall 21–24%** – 85% இல்ல. காரணம்: shortlist-ல உண்மையான file வராதது + 8B CPU LLM.
+1. **Recall 15–24%** – 85% இல்ல. காரணம்: shortlist-ல உண்மையான file வராதது + 8B CPU LLM.
 2. Llama மெதுவு (35–50 வினாடி/call); remote CPU server.
 3. Ground-truth datasets-ல dependency graph இல்ல.
 4. Decay test பகுதி செயற்கை; 11 gold links.
@@ -162,7 +162,7 @@ Sidebar: repo switcher + service dots (Neo4j/Redis/Llama). Top bar: Refresh. C4 
 
 ## 12. மனப்பாடம் செய்ய வேண்டிய எண்கள்
 
-**76% → 96%** decay · **0/22** false decay · **58% → 82%** evidence prompt · **92%** high-precision (iTrust) · **21–24%** recall · **42% / 53%** stage-1 recall@10 · **36% vs 82%** calibration (0.8 vs 0.9) · **0.6/0.4** completeness · **0.2** hysteresis · **60 words** chunk · **0.85** trusted · **0.494 vs 0.578** learned ranker · **0.8%** iTrust base rate.
+**76% → 96%** decay · **0/22** false decay · **58% → 82%** evidence prompt · **92%** high-precision (iTrust) · **15–24%** recall (iTrust 15%, முந்தைய அளவு 21–24%) · **42% / 53%** stage-1 recall@10 · **36% vs 82%** calibration (0.8 vs 0.9) · **0.6/0.4** completeness · **0.2** hysteresis · **60 words** chunk · **0.85** trusted · **0.494 vs 0.578** learned ranker (LOPO); frozen test: @10 0.267 vs 0.271, @20 0.459 vs 0.433 · **0.8%** iTrust base rate.
 
 ## 13. கேள்வி–பதில்
 
@@ -176,7 +176,7 @@ Models pre-trained தான். என் பங்களிப்பு: (ப�
 Llama சரிபார்க்கும் முன்பே shortlist-ல உண்மையான file இல்ல (top-10: 42–53%). Fine-tuning, synthetic data, learned ranker, reranker எல்லாம் முயற்சித்து அளந்தேன்; எதுவும் உதவல. Precision-ஐ முன்னுரிமையா வச்சேன்.
 
 **Q4. Precision எப்படி 92% ஆனது?**
-Confidence ≥0.9 மட்டும் எடுக்கும் "High-precision mode". விலை: recall 8.8%. இது operating-point தேர்வு, சூழலுக்கேற்ப மாற்றலாம்.
+Confidence ≥0.9 மட்டும் எடுக்கும் "High-precision mode". விலை: recall 6.0%. இது operating-point தேர்வு, சூழலுக்கேற்ப மாற்றலாம்.
 
 **Q5. Decay 96% நம்பலாமா?**
 46 ஊசி மாற்றங்கள், 95% CI 85.5–98.8%, false decay 0/22. வரம்பு: செயற்கை மாற்றங்கள், 11 gold links. Fingerprint "test-க்காக வடிவமைக்கப்பட்டது" என்ற விமர்சனம் வரலாம் – அதனால LLM-only baseline (76%)-ஐயும் காட்டுறேன்.

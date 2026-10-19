@@ -1,5 +1,6 @@
 """Thin wrapper around sentence-transformers, shared by all agents."""
 
+import json
 import os
 from pathlib import Path
 from typing import Any, Optional, Sequence
@@ -8,6 +9,33 @@ from dotenv import load_dotenv
 
 
 LOCAL_MODELS_DIR = Path(__file__).resolve().parents[2] / "models"  # git-ignored copies of the models, so runs work offline
+
+
+def read_settings(folder: Path) -> dict:
+    """Optional ``c4_embedder.json`` next to a model in ``models/`` (written when a model is trained for C4).
+
+    ``{"max_seq_length": 256}`` limits how many tokens are read, as during training. A plain HuggingFace folder
+    (for example a fine-tuned CodeBERT) is loaded by sentence-transformers with mean pooling, which is how it was trained.
+    """
+    try:
+        return json.loads((folder / "c4_embedder.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+DEFAULT_EXTRA_MODEL = "c4-codebert"
+
+
+def configured_extra_embedders() -> list["Embedder"]:
+    """The additional embedding models stage 1 fuses with the main one (TF-IDF + MiniLM + these).
+
+    ``EXTRA_EMBEDDING_MODEL_NAMES`` is a comma-separated list; an empty value switches them off. When it is not set,
+    the fine-tuned CodeBERT is used if ``models/c4-codebert`` exists on this computer, otherwise there are none.
+    """
+    raw = os.getenv("EXTRA_EMBEDDING_MODEL_NAMES")
+    if raw is None:
+        raw = DEFAULT_EXTRA_MODEL if (LOCAL_MODELS_DIR / DEFAULT_EXTRA_MODEL).is_dir() else ""
+    return [Embedder(name.strip()) for name in raw.split(",") if name.strip()]
 
 
 class Embedder:
@@ -45,6 +73,9 @@ class Embedder:
             from sentence_transformers import SentenceTransformer
 
             self._model = SentenceTransformer(self.model_name)
+            limit = read_settings(Path(self.model_name)).get("max_seq_length")
+            if limit:
+                self._model.max_seq_length = int(limit)
         return self._model
 
     def embed_text(self, text: str) -> list[float]:

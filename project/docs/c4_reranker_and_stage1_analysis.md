@@ -465,6 +465,8 @@ Limits to say out loud:
 
 ## 7. Reproducing the results
 
+> **Note (archived code).** The experiment code and bundles behind sections 5.3 to 5.u (the cross-encoder reranker, the learned ranker, the MiniLM fine-tuning on synthetic pairs, the Colab notebooks, and the training bundles in `data/reranker`, `data/codebert_run`, `data/synthetic`) were moved out of the project into `J26-SE-327-removed-files/c4-experiments-*/` (same relative paths) and are no longer part of the pipeline. The result files in `data/results/` and the numbers in this document were not changed. The commands below that name those files only work after the archive is put back.
+
 Open `scripts/reproduce_reranker_analysis.ipynb` with the project's `.venv` kernel (Python 3.9). It prints every table in this document that can be recomputed.
 
 | Notebook section | Reproduced exactly here? | Needs |
@@ -549,3 +551,31 @@ A gradient-boosting model (`ranker.py`, 16 features: TF-IDF, MiniLM, hybrid scor
 | linked, confidence 0.9 | 67 | **82%** |
 
 Findings: (1) the confidence is badly calibrated: 0.8 is right only about a third of the time, so "kept if >= 0.5" gives precision 53% while "0.9 only" gives 82% (ECE 0.194 raw; isotonic calibration brings it to 0.008, but the LLM emits only three distinct levels, so this mostly re-labels them). (2) Abstain mode therefore has three outcomes: accept (0.9: 82% right), **needs review** (0.8: 36% right, a human decides) and reject (13% of these are actually true: missed links). Recall in the table is the share of the true links *that reached the LLM* that were accepted (38.5% at 0.9), not recall over the whole project. Caveats: verdicts come from several runs and prompts (expert prompt mostly), three datasets, small n.
+
+
+### 5.q Frozen hold-out test (learned ranker, one run)
+
+Split fixed before any result was read (`data/results/test_projects_frozen.json`, seed 42): train = eTour, EBT, iTrust, LibEST; test = eANCI, SMOS. The model is trained on the train projects and measured once on the test projects (`scripts/ranker_frozen_test.py`, output `data/results/ranker_frozen_test.json`).
+
+| recall | @5 | @10 | @20 |
+|---|---|---|---|
+| hybrid (current stage 1), macro over eANCI and SMOS | 0.152 | 0.271 | 0.433 |
+| learned ranker, same candidates | 0.150 | 0.267 | 0.459 |
+
+No meaningful gain at @5 or @10; a small gain at @20 from two projects only. Caveat: the ranker's features and settings were chosen earlier while looking at leave-one-project-out results that included these two projects, so this is not a clean hold-out. Conclusion: stage 1 recall is limited by the information in the text, not by the fusion formula.
+
+
+### 5.p Frozen test of the other stage-1 and reranker ideas (one run each, validation chosen first)
+
+Split (fixed before any result was read, `data/results/test_projects_frozen.json`): validation = libest, test = eANCI and SMOS. Each idea was chosen only on libest; eANCI and SMOS were read once, after the choice was written. Baseline = current stage 1 (TF-IDF + MiniLM z-score fusion).
+
+| Idea | What was chosen on libest | Test (eANCI / SMOS), recall@5 / @10 | Verdict |
+|---|---|---|---|
+| Learned ranker (gradient boosting, 16 features) | trained on eTour, EBT, iTrust, LibEST | 0.150 / 0.267 macro vs hybrid 0.152 / 0.271 | no gain |
+| CodeBERT (fine-tuned on eTour, EBT, iTrust; validation libest) | epoch 1 (valid AUC 0.556) | AUC 0.43 (eANCI), 0.55 (SMOS); recall@10 0.16 / 0.10 | worse; overfits after epoch 1 |
+| Pre-trained cross-encoder MiniLM fused with hybrid (pool 20) | w = 0.5 (libest recall@5 0.578 → 0.618) | @5 0.127 / 0.197, @10 0.236 / 0.309 vs hybrid 0.115 / 0.189, 0.228 / 0.313 | gain under 0.01; not material |
+| BM25 (60-word chunks, best chunk) and BM25 fused with MiniLM / TF-IDF | none beat hybrid on libest (recall@10: hybrid 0.961, BM25 0.838, BM25+MiniLM 0.931, BM25+hybrid 0.961) | not measured (hybrid kept as the tie-break winner) | no gain |
+
+Reading: every stage-1 or reranker idea stayed within about one point of the current hybrid on held-out projects, or lost. The ceiling is the shortlist (recall@10 about 0.23 on eANCI and 0.31 on SMOS). Only a larger candidate pool (top-20 gives 0.41 and 0.45) moves recall, and that costs about twice the LLM calls. The pipeline therefore keeps the current hybrid and TOP_K = 10 unless a larger pool is accepted.
+
+Scripts: `scripts/ranker_frozen_test.py`, `scripts/codebert_stage1.py` (leave-one-out run on iTrust, eTour, CM-1), `scripts/crossencoder_frozen_test.py`, `scripts/bm25_frozen_test.py`. Outputs in `data/results/`.

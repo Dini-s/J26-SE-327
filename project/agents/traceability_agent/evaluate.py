@@ -96,6 +96,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument("--threshold", type=float, help="similarity cutoff (default: none for full/hybrid, 0.5 embeddings, 0.1 tfidf)")
     parser.add_argument("--limit-sources", type=int, help="only use the first N requirements (cheaper LLM runs); gold is filtered to match")
     parser.add_argument("--embedding-model", help="sentence-transformers model name (default: EMBEDDING_MODEL_NAME)")
+    parser.add_argument("--extra-embedding-model", action="append", default=[], help="a further embedding model fused into hybrid retrieval (repeatable; none by default, so documented results stay reproducible)")
     parser.add_argument("--chunk-size", type=int, default=CHUNK_WORDS, help="words per chunk; 0 = whole text (default: config.CHUNK_WORDS)")
     parser.add_argument("--prompt", choices=["expert", "generic", "evidence"], default="expert", help="LLM prompt: the traceability-expert persona, a plain generic one (ablation), or evidence-first (quote + coverage)")
     parser.add_argument("--raw-text", action="store_true", help="skip code cleaning (imports/identifier splitting) to compare")
@@ -167,7 +168,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     agent = TraceabilityAgent(
         uskg=store, embedder=Embedder(args.embedding_model), retrieval=args.retrieval, top_k=args.top_k,
-        chunk_size=chunk, llm=_build_llm(args.prompt),
+        chunk_size=chunk, llm=_build_llm(args.prompt), extra_embedders=[Embedder(n) for n in args.extra_embedding_model],
     )
     th = args.threshold  # None = agent default (no cutoff, rank by top-k)
     if args.method == "hybrid":

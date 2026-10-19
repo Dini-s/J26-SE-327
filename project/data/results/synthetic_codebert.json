@@ -1,0 +1,131 @@
+{
+ "config": {
+  "epochs": "3",
+  "batch": "16",
+  "lr": "2e-05",
+  "tau": "0.05",
+  "base": "microsoft/codebert-base",
+  "limit_train": "None",
+  "data": "/content/c4/data/synthetic_clean",
+  "out": "/content/c4/out",
+  "download": "False",
+  "split_seed": 33,
+  "test_groups": 6,
+  "train_items": 1760,
+  "test_items": 228
+ },
+ "results": {
+  "TF-IDF": {
+   "group pool": {
+    "R@1": 0.451,
+    "R@3": 0.616,
+    "R@5": 0.667,
+    "R@10": 0.79,
+    "MRR": 0.569
+   },
+   "mixed pool": {
+    "R@1": 0.272,
+    "R@3": 0.425,
+    "R@5": 0.461,
+    "R@10": 0.496,
+    "MRR": 0.379
+   }
+  },
+  "MiniLM (no training)": {
+   "group pool": {
+    "R@1": 0.633,
+    "R@3": 0.896,
+    "R@5": 0.964,
+    "R@10": 0.985,
+    "MRR": 0.765
+   },
+   "mixed pool": {
+    "R@1": 0.548,
+    "R@3": 0.864,
+    "R@5": 0.921,
+    "R@10": 0.969,
+    "MRR": 0.709
+   }
+  },
+  "TF-IDF + MiniLM": {
+   "group pool": {
+    "R@1": 0.635,
+    "R@3": 0.818,
+    "R@5": 0.851,
+    "R@10": 0.946,
+    "MRR": 0.739
+   },
+   "mixed pool": {
+    "R@1": 0.548,
+    "R@3": 0.759,
+    "R@5": 0.807,
+    "R@10": 0.833,
+    "MRR": 0.66
+   }
+  },
+  "CodeBERT (no training)": {
+   "group pool": {
+    "R@1": 0.01,
+    "R@3": 0.041,
+    "R@5": 0.059,
+    "R@10": 0.137,
+    "MRR": 0.067
+   },
+   "mixed pool": {
+    "R@1": 0.009,
+    "R@3": 0.018,
+    "R@5": 0.026,
+    "R@10": 0.048,
+    "MRR": 0.028
+   }
+  },
+  "TF-IDF + CodeBERT (no training)": {
+   "group pool": {
+    "R@1": 0.416,
+    "R@3": 0.599,
+    "R@5": 0.63,
+    "R@10": 0.801,
+    "MRR": 0.534
+   },
+   "mixed pool": {
+    "R@1": 0.298,
+    "R@3": 0.487,
+    "R@5": 0.522,
+    "R@10": 0.618,
+    "MRR": 0.418
+   }
+  },
+  "CodeBERT (trained on synthetic)": {
+   "group pool": {
+    "R@1": 0.803,
+    "R@3": 0.97,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 0.887
+   },
+   "mixed pool": {
+    "R@1": 0.943,
+    "R@3": 0.987,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 0.967
+   }
+  },
+  "TF-IDF + CodeBERT (trained)": {
+   "group pool": {
+    "R@1": 0.873,
+    "R@3": 0.982,
+    "R@5": 0.998,
+    "R@10": 1.0,
+    "MRR": 0.928
+   },
+   "mixed pool": {
+    "R@1": 0.912,
+    "R@3": 0.987,
+    "R@5": 1.0,
+    "R@10": 1.0,
+    "MRR": 0.951
+   }
+  }
+ }
+}

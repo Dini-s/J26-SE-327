@@ -91,6 +91,7 @@ def apply_change(
     publisher: Optional[Any] = None,
     top_k: int = 3,
     retrieval: str = "hybrid",
+    extra_embedders: Optional[Any] = None,
 ) -> dict[str, Any]:
     """Handle one change: re-check affected links, then link anything new.
 
@@ -117,7 +118,7 @@ def apply_change(
     if change.added or change.requirements_added:
         logger = RunLogger.new(runs_dir, f"link-{retrieval}-top{top_k}")
         agent = TraceabilityAgent(uskg=uskg, embedder=embedder, llm=llm, retrieval=retrieval, top_k=top_k,
-                                  run_logger=logger, project=change.project)
+                                  run_logger=logger, project=change.project, extra_embedders=extra_embedders)
         sources, targets = agent.load_artifacts()
         new_reqs, new_code = set(change.requirements_added), set(change.added)
         if not new_code:  # only new requirements: nothing else needs ranking

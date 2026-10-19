@@ -1,0 +1,25 @@
+{
+ "validation_libest_recall10": {
+  "hybrid": 0.961,
+  "bm25": 0.838,
+  "bm25+minilm": 0.931,
+  "bm25+hybrid": 0.961
+ },
+ "chosen": "hybrid",
+ "test": {
+  "eanci": {
+   "hybrid": {
+    "5": 0.115,
+    "10": 0.228,
+    "20": 0.414
+   }
+  },
+  "smos": {
+   "hybrid": {
+    "5": 0.189,
+    "10": 0.313,
+    "20": 0.452
+   }
+  }
+ }
+}

@@ -52,20 +52,16 @@ def cmd_link(args: argparse.Namespace) -> int:
     """Run the pipeline against the USKG and (unless --dry-run) write VERIFIED_TRACE edges."""
     from agents.traceability_agent.agent import TraceabilityAgent
     from agents.traceability_agent.run_log import RunLogger
-    from shared.embeddings.embedder import Embedder
+    from shared.embeddings.embedder import Embedder, configured_extra_embedders
     from shared.uskg.client import USKGClient
 
-    reranker = None
-    if args.reranker:  # optional stage 1.5: a cross-encoder re-orders the stage-1 pool before the LLM
-        from agents.traceability_agent.reranker.rerank import CrossEncoderReranker
-
-        reranker = CrossEncoderReranker(args.reranker, weight=args.rerank_weight)
     with USKGClient() as uskg:
-        logger = RunLogger.new(RUNS_DIR, f"link-{args.retrieval}-top{args.top_k}{'-rerank' if reranker else ''}")
+        logger = RunLogger.new(RUNS_DIR, f"link-{args.retrieval}-top{args.top_k}")
         agent = TraceabilityAgent(
             uskg=uskg, embedder=Embedder(), llm=_build_llm(args.prompt), retrieval=args.retrieval,
             top_k=args.top_k, run_logger=logger, project=args.project,
-            reranker=reranker, rerank_pool=args.rerank_pool,
+            # TF-IDF + MiniLM + the fine-tuned CodeBERT (when present), see configured_extra_embedders
+            extra_embedders=configured_extra_embedders() if args.retrieval == "hybrid" else [],
         )
         sources, targets = agent.load_artifacts()
         if args.requirement:  # link only these requirements (e.g. a newly added one)
@@ -84,7 +80,8 @@ def cmd_link(args: argparse.Namespace) -> int:
             sources = sources[: args.limit_sources]
         logger.emit("run_start", dataset="neo4j", method="link", retrieval=args.retrieval, prompt=args.prompt,
                     top_k=args.top_k, sources=[a.id for a in sources], n_targets=len(targets),
-                    gold_pairs=0, true_links=0, project=args.project)
+                    gold_pairs=0, true_links=0, project=args.project,
+                    embedders=[agent.embedder.model_name, *[e.model_name for e in agent.extra_embedders]])
         candidates = agent.find_candidates(sources, targets)
         existing = {(t.source_id, t.target_id) for t in uskg.get_traces()}
         candidates = [c for c in candidates if (c.source.id, c.target.id) not in existing]
@@ -138,12 +135,13 @@ def cmd_monitor(args: argparse.Namespace) -> int:
 
 def _apply(change, no_redis: bool, top_k: int) -> dict:  # noqa: ANN001
     from agents.traceability_agent.changes import apply_change
-    from shared.embeddings.embedder import Embedder
+    from shared.embeddings.embedder import Embedder, configured_extra_embedders
     from shared.uskg.client import USKGClient
 
     with USKGClient() as uskg:
         return apply_change(change, uskg, _build_llm("expert"), Embedder(), RUNS_DIR,
-                            publisher=_make_publisher(no_redis), top_k=top_k)
+                            publisher=_make_publisher(no_redis), top_k=top_k,
+                            extra_embedders=configured_extra_embedders())
 
 
 def cmd_changed(args: argparse.Namespace) -> int:
@@ -277,9 +275,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p.add_argument("--prompt", choices=["expert", "generic", "evidence"], default="evidence",
                    help="evidence (default): the model must quote code that satisfies the requirement; expert: persona prompt, more lenient; generic: ablation")
     p.add_argument("--dry-run", action="store_true", help="verify but do not write")
-    p.add_argument("--reranker", help="optional cross-encoder (model folder or Hugging Face name, e.g. cross-encoder/ms-marco-MiniLM-L-6-v2) that re-orders the stage-1 pool before the LLM")
-    p.add_argument("--rerank-pool", type=int, default=20, help="candidates per requirement handed to the reranker (it keeps --top-k of them)")
-    p.add_argument("--rerank-weight", type=float, default=0.5, help="weight of the cross-encoder z-score against the stage-1 z-score")
     p.set_defaults(func=cmd_link)
 
     p = sub.add_parser("monitor", help="decay detection")

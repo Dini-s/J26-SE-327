@@ -29,6 +29,8 @@ python -m agents.traceability_agent setup   # creates the Neo4j indexes
 
 `.env` holds your secrets. Keep it private; it is git-ignored.
 
+**Stage 1 uses three signals** (TF-IDF, MiniLM and the fine-tuned CodeBERT), fused with equal weight. The CodeBERT folder `models/c4-codebert/` is not in git (475 MB): unzip it into `models/` once. If the folder is missing, stage 1 uses TF-IDF + MiniLM only and nothing else changes. `EXTRA_EMBEDDING_MODEL_NAMES` in `.env` overrides this (a comma-separated list of folder names; an empty value switches the extra model off). Linking takes a little longer because of the extra model. For evaluations that must match the documented results, `evaluate.py` uses only the main model unless `--extra-embedding-model c4-codebert` is given.
+
 Then save the embedding model once (needs internet): open `scripts/download_model.ipynb` in VS Code, choose the Python kernel of `.venv`, and run all cells. It saves the model to `models/` (git-ignored), and the project then runs offline.
 
 ## 3. Run
@@ -109,6 +111,11 @@ These steps are notebooks, not scripts. Each notebook explains its own steps in 
 | `scripts/load_dataset.ipynb` | Turns a raw dataset into `data/processed/` (artifacts, traces, gold labels) | Only when the processed files must be rebuilt from the raw downloads |
 | `scripts/load_to_neo4j.ipynb` | Loads a processed dataset into Neo4j as a project | After setup, and for each dataset you want in the graph |
 | `scripts/replay_repo.ipynb` | Replays a real repository's commits (the jbehave demo) | Optional demo |
+| `scripts/codebert_training.ipynb` | Fine-tunes CodeBERT for stage 1 and tests it on unseen domains: baselines, loss curve, graphs, a control test, saves the model | To rebuild or improve `models/c4-codebert` (best on a Colab GPU) |
+| `scripts/codebert_cross_validation.ipynb` | Leave-one-project-out cross-validation on the seven real labelled projects: trains one CodeBERT per fold, graphs, bootstrap check, verdict | Evidence about CodeBERT on real data (Colab GPU, 1 to 1.5 h; `QUICK = True` for a check) |
+| `scripts/codebert_stage1_test.ipynb` | Tests the CodeBERT in `models/` on the seven real projects and PetClinic: tables, recall curves, bootstrap graphs, verdict | Minutes, on the Mac; shows the three-signal pipeline against the old one |
+
+The three CodeBERT notebooks run both on the Mac and on Colab (on Colab they ask for `data/colab_bundle.zip`) and need `matplotlib` (`pip install -r requirements.txt`). Each cell has a short explanation above it.
 
 (The PetClinic seed above is a Python module, `apps/seed/petclinic.py`, not a notebook.)
 
