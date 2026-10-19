@@ -16,3 +16,5 @@ data/generated_pairs_clean_check/
 # Generated merged dataset (keep local copies out of Git).
 data/final/all_projects_clean.csv
 data/final/all_projects_clean.csv.gz
+data/final/all_projects.csv
+data/final/all_projects.csv.gz
