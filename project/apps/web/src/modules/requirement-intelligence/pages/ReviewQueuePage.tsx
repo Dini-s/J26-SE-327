@@ -60,7 +60,7 @@ export function ReviewQueuePage() {
   const [params, setParams] = useSearchParams()
   const selected = params.get('uid')
   const [status, setStatus] = useState<Status>('all')
-  const [f, setF] = useState<ReviewFilters>(NO_FILTERS)
+  const [f, setF] = useState<ReviewFilters>(() => ({ ...NO_FILTERS, document: params.get('document') ?? 'all' })) // the Publish page opens one document
   const [text, setText] = useState('')
   const [q, setQ] = useState('')
   const [confirmBulk, setConfirmBulk] = useState(false)

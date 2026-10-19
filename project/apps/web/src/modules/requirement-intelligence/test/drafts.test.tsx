@@ -1,7 +1,7 @@
 import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { Generation, TaskDrafts } from '../api/types'
+import type { TaskDrafts } from '../api/types'
 import { DraftCard } from '../components/DraftCard'
 import { DraftProgress } from '../components/DraftProgress'
 import { copy } from '../copy'
@@ -88,10 +88,10 @@ describe('Analysis: which task drafts to write', () => {
     return c.method === 'POST' && c.url.pathname === '/api/projects/1/analyze' ? json({ ...fx.job, policy: 'all' }, 202) : undefined
   }
 
-  it('Task Drafts no longer has the “How drafts are written” section', async () => {
+  it('the Publish page has no “How drafts are written” section', async () => {
     mockApi()
     renderApp('/requirement/drafts')
-    await screen.findAllByTestId('finding-row')
+    await screen.findByTestId('publish-table')
     expect(screen.queryByTestId('policy-select')).toBeNull()
     expect(screen.queryByText('How drafts are written')).toBeNull()
   })
@@ -162,7 +162,7 @@ describe('Analysis: which task drafts to write', () => {
   })
 })
 
-describe('Sources & Findings: draft progress and controls (Task Drafts keeps the list)', () => {
+describe('Sources & Findings: draft progress and controls', () => {
   const partial = { ...fx.summary, task_drafts: drafts({ in_progress: 2, queued: 2 }) }
   const post = (calls: { method: string; url: URL }[], path: string) => calls.some((c) => c.method === 'POST' && c.url.pathname === path)
 
@@ -192,41 +192,7 @@ describe('Sources & Findings: draft progress and controls (Task Drafts keeps the
     await waitFor(() => expect(post(calls, '/api/projects/1/generation/resume')).toBe(true))
   })
 
-  it('lists every requirement with its draft state and filters by it, with counts', async () => {
-    mockApi()
-    renderApp('/requirement/drafts')
-    const rows = await screen.findAllByTestId('finding-row')
-    expect(rows).toHaveLength(3)
-    expect(screen.getByTestId('draft-filter-all')).toHaveTextContent('All (3)')
-    expect(screen.getByTestId('draft-filter-ready')).toHaveTextContent('Ready (2)')
-    expect(screen.getByTestId('draft-filter-failed')).toHaveTextContent('Failed (1)')
-    await userEvent.click(screen.getByTestId('draft-filter-failed'))
-    expect(screen.getAllByTestId('finding-row')).toHaveLength(1)
-    expect(screen.getByTestId('finding-row')).toHaveTextContent('REQ-003')
-    await userEvent.click(screen.getByTestId('draft-filter-none'))
-    expect(screen.getByTestId('empty-list')).toHaveTextContent('No requirements match this draft status.')
-  })
-
-  it('a requirement without a draft offers Generate draft in the list and in the detail, each asking for that one', async () => {
-    const none: Generation = { ...fx.generationDone, state: 'not_requested', message: '', status: null, user_story: '', technical_task: '', acceptance_criteria: [], rationale: '', attempts: 0, backend: '', model: '', generated_from: '' }
-    const items = fx.rows.map((r, i) => (i === 0 ? { ...r, generation_state: 'not_requested' as const } : r))
-    const { calls } = mockApi((c) => {
-      if (c.url.pathname === '/api/projects/1/requirements') return json({ total: 3, limit: 500, offset: 0, items })
-      if (c.url.pathname === '/api/requirements/p1-REQ-001' && c.method === 'GET') return json({ ...fx.detail, generation: none })
-      if (c.method === 'POST' && c.url.pathname === '/api/requirements/p1-REQ-001/generate') return json({ uid: 'p1-REQ-001', generation_state: 'queued' }, 202)
-      return undefined
-    })
-    renderApp('/requirement/drafts')
-    const card = await screen.findByTestId('draft-card')
-    await waitFor(() => expect(card).toHaveAttribute('data-state', 'not_requested'))
-    expect(card).toHaveTextContent('Not written yet. Click Generate draft to write one.')
-    await userEvent.click(screen.getByRole('button', { name: 'Generate draft for REQ-001' }))
-    await waitFor(() => expect(post(calls, '/api/requirements/p1-REQ-001/generate')).toBe(true))
-    await userEvent.click(within(card).getByRole('button', { name: /Generate draft/ }))
-    expect(calls.filter((c) => c.method === 'POST' && c.url.pathname === '/api/requirements/p1-REQ-001/generate').length).toBeGreaterThanOrEqual(1)
-  })
-
-  it('the progress shows no engine wording and the Task Drafts page no longer has it', async () => {
+  it('the progress shows no engine wording and the Publish page has no progress bar', async () => {
     mockApi((c) => (c.url.pathname === '/api/projects/1/summary' ? json(partial) : undefined))
     const first = renderApp('/requirement/sources')
     expect(await screen.findByTestId('draft-progress')).toBeInTheDocument()
@@ -237,7 +203,7 @@ describe('Sources & Findings: draft progress and controls (Task Drafts keeps the
     vi.unstubAllGlobals()
     mockApi((c) => (c.url.pathname === '/api/projects/1/summary' ? json(partial) : undefined))
     renderApp('/requirement/drafts')
-    await screen.findAllByTestId('finding-row')
+    await screen.findByTestId('publish-table')
     expect(screen.queryByTestId('draft-progress')).toBeNull()
   })
 })

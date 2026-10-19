@@ -1,4 +1,4 @@
-import type { Engine, Generation, GraphStatus, Health, Job, JiraBoard, JiraImportResult, JiraProject, JiraSprint, JiraStatus, Overview, Phase, Project, RequirementDetail, RequirementRow, Source, Sprint, Summary, SyncStatus } from '../api/types'
+import type { Engine, Generation, GraphStatus, Health, Job, JiraBoard, JiraImportResult, JiraProject, JiraSprint, JiraStatus, Overview, Phase, Project, RequirementDetail, RequirementRow, Source, Sprint, SprintSummary, Summary, SyncStatus } from '../api/types'
 
 export const health: Health = { status: 'ok', part_a_loaded: true, generation_backend: 'replay', generation_reachable: true, model: 'replay', generation_target: 'device' }
 /** GET /api/engine on a fresh install: the device is ready, the cloud is not set up. */
@@ -13,13 +13,13 @@ export const project: Project = {
 }
 export const source: Source = {
   id: 1, filename: 'CoreBanking_SRS_v2.pdf', ext: '.pdf', size_bytes: 1000, pages: 12, warnings: [], created_at: '2026-10-13T06:00:00+00:00', uploaded_at: '2026-10-13T06:00:00+00:00', source_type: 'srs',
-  default_sprint_id: 1, analysis_state: 'analyzed', analyzed_at: '2026-10-13T06:05:00+00:00', requirements: 42, ambiguities: 8, drafts: { ready: 29, needs_clarification: 2, failed: 1 },
+  default_sprint_id: 1, analysis_state: 'analyzed', analyzed_at: '2026-10-13T06:05:00+00:00', published: false, published_at: null, requirements: 42, ambiguities: 8, drafts: { ready: 29, needs_clarification: 2, failed: 1 },
   sprints: [{ sprint_id: 1, count: 30 }, { sprint_id: 2, count: 12 }],
 }
 /** A second document that nobody has analysed yet. */
 export const source2: Source = {
   id: 2, filename: 'Billing_BRD.docx', ext: '.docx', size_bytes: 52000, pages: null, warnings: [], created_at: '2026-10-14T06:00:00+00:00', uploaded_at: '2026-10-14T06:00:00+00:00', source_type: 'brd',
-  default_sprint_id: 3, analysis_state: 'not_analyzed', analyzed_at: null, requirements: 0, ambiguities: 0, drafts: { ready: 0, needs_clarification: 0, failed: 0 }, sprints: [],
+  default_sprint_id: 3, analysis_state: 'not_analyzed', analyzed_at: null, published: false, published_at: null, requirements: 0, ambiguities: 0, drafts: { ready: 0, needs_clarification: 0, failed: 0 }, sprints: [],
 }
 
 export const phases: Phase[] = [{ id: 1, project_id: 1, name: 'Discovery', position: 1, sprints: 2 }]
@@ -84,7 +84,7 @@ export const overview: Overview = {
     identify: { state: 'done', documents: 2, requirements: 42 },
     analyse: { state: 'waiting', analysed: 1, total: 2, failed: 0 },
     improve: { state: 'active', requirements: 42, decided: 15, drafts_written: 31, drafts: { ready: 29, needs_clarification: 2, failed: 1, waiting: 0 } },
-    share: { state: 'done', sync_state: 'synced', last_synced_at: sync.last_synced_at },
+    share: { state: 'done', published: 1, documents: 2, sync_state: 'synced', last_synced_at: sync.last_synced_at },
   },
 }
 
@@ -152,4 +152,25 @@ export const jiraBoards: JiraBoard[] = [{ id: 7, name: 'ABC board', type: 'scrum
 export const jiraSprints: JiraSprint[] = [{ id: 10, name: 'Sprint 1', state: 'active', start_date: '2026-10-05', end_date: '2026-10-16', goal: 'Login' }]
 export const jiraImported: JiraImportResult = {
   sprints_created: 2, sprints_updated: 1, issues_new: 12, issues_updated: 3, issues_unchanged: 30, skipped: 1, missing: 2, truncated: false, queued: 9, job_id: 'abc123', analysis_error: null, target_sprint: { id: 1, name: 'Sprint 1' }, matched: false,
+}
+
+const noFindings = { ambiguity: 0, conflict: 0, duplicate: 0, security: 0 }
+/** Sprint 1 on the Publish page: an analysed file, an analysed Jira import that is already published, and a file that still needs its analysis. */
+export const sprintSummary: SprintSummary = {
+  sprint_id: 1, name: 'Sprint 1', is_current: true, documents: 3, published: 1, requirements: 34, fr: 23, nfr: 10, ready: 26, needs_clarification: 2, failed: 1, not_written: 5,
+  decided: { accepted: 10, edited: 3, rejected: 1, pending: 20 },
+  rows: [
+    {
+      document_id: 1, name: 'CoreBanking_SRS_v2.pdf', source: 'file', requirements: 30, fr: 20, nfr: 9, unclassified: 1, ready: 22, needs_clarification: 2, failed: 1, not_written: 5,
+      decided: { accepted: 8, edited: 3, rejected: 1, pending: 18 }, findings: { ambiguity: 6, conflict: 1, duplicate: 2, security: 3 }, analysis_state: 'analyzed', publish_state: 'not_published', published_at: null,
+    },
+    {
+      document_id: 3, name: 'ABC stories', source: 'jira', requirements: 4, fr: 3, nfr: 1, unclassified: 0, ready: 4, needs_clarification: 0, failed: 0, not_written: 0,
+      decided: { accepted: 2, edited: 0, rejected: 0, pending: 2 }, findings: { ...noFindings, security: 1 }, analysis_state: 'analyzed', publish_state: 'published', published_at: '2026-10-15T06:00:00+00:00',
+    },
+    {
+      document_id: 2, name: 'Billing_BRD.docx', source: 'file', requirements: 0, fr: 0, nfr: 0, unclassified: 0, ready: 0, needs_clarification: 0, failed: 0, not_written: 0,
+      decided: { accepted: 0, edited: 0, rejected: 0, pending: 0 }, findings: noFindings, analysis_state: 'not_analyzed', publish_state: 'not_published', published_at: null,
+    },
+  ],
 }

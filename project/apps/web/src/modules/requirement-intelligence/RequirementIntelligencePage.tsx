@@ -15,14 +15,14 @@ import { copy } from './copy'
 import { OverviewPage } from './pages/OverviewPage'
 import { ReviewQueuePage } from './pages/ReviewQueuePage'
 import { SourcesFindingsPage } from './pages/SourcesFindingsPage'
-import { TaskDraftsPage } from './pages/TaskDraftsPage'
+import { PublishPage } from './pages/PublishPage'
 import './c1.css'
 
 const isNetwork = (e: unknown) => e instanceof ApiClientError && e.status === 0
 
 function pageFor(pathname: string) {
   const last = pathname.replace(/\/+$/, '').split('/').pop()
-  return last === 'sources' ? copy.pages.sources : last === 'review' ? copy.pages.review : last === 'drafts' ? copy.pages.drafts : copy.pages.overview
+  return last === 'sources' ? copy.pages.sources : last === 'review' ? copy.pages.review : last === 'drafts' ? copy.pages.publish : copy.pages.overview
 }
 
 /** Header of all four pages (title, project dropdown, AI engine pill) and the banners that matter on every page. */
@@ -86,7 +86,7 @@ export function RequirementRoutes() {
         <Route index element={<OverviewPage />} />
         <Route path="sources" element={<SourcesFindingsPage />} />
         <Route path="review" element={<ReviewQueuePage />} />
-        <Route path="drafts" element={<TaskDraftsPage />} />
+        <Route path="drafts" element={<PublishPage />} />
         <Route path="*" element={<Navigate to="/requirement" replace />} />
       </Route>
     </Routes>

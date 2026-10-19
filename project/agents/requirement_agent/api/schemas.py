@@ -64,6 +64,8 @@ class SourceOut(BaseModel):
     default_sprint_id: Optional[int] = None  # the sprint the document's requirements follow unless one is assigned directly
     analysis_state: Literal["not_analyzed", "analyzing", "analyzed", "failed"] = "not_analyzed"
     analyzed_at: Optional[str] = None
+    published: bool = False  # shared with the other components (the user publishes documents; analysing or importing never does)
+    published_at: Optional[str] = None
     requirements: int = 0
     ambiguities: int = 0
     drafts: "SourceDrafts"
@@ -334,6 +336,89 @@ class PublishOut(BaseModel):
     content_hash: str
 
 
+class PublishDocsIn(BaseModel):
+    """Publish or unpublish documents: the listed ones, every analysed document of a sprint, or both."""
+    document_ids: Optional[List[int]] = Field(default=None, max_length=1000)
+    sprint_id: Optional[int] = None
+
+
+class DocChanged(BaseModel):
+    document_id: int
+    name: str
+
+
+class DocSkipped(BaseModel):
+    document_id: int
+    name: str
+    reason: Literal["not_found", "not_analyzed", "analyzing", "failed", "no_requirements", "already_published", "not_published"]
+    message: str
+
+
+class PublishSync(BaseModel):
+    """What happened to the sync that runs right after: `synced`, `not_configured` (nothing to sync with) or `retrying` (it will be tried again by itself)."""
+    state: Literal["synced", "not_configured", "retrying"]
+    error: Optional[str] = None
+
+
+class PublishDocsOut(BaseModel):
+    action: Literal["publish", "unpublish"]
+    changed: List[DocChanged]
+    skipped: List[DocSkipped]
+    published_documents: int
+    total_documents: int
+    sync: PublishSync
+
+
+class DocDecided(BaseModel):
+    accepted: int
+    edited: int
+    rejected: int
+    pending: int
+
+
+class DocFindings(BaseModel):
+    ambiguity: int
+    conflict: int
+    duplicate: int
+    security: int
+
+
+class SprintDocRow(BaseModel):
+    document_id: int
+    name: str
+    source: Literal["file", "jira"]
+    requirements: int  # the ones that are in this sprint
+    fr: int
+    nfr: int
+    unclassified: int
+    ready: int
+    needs_clarification: int
+    failed: int
+    not_written: int
+    decided: DocDecided
+    findings: DocFindings
+    analysis_state: Literal["not_analyzed", "analyzing", "analyzed", "failed"]
+    publish_state: Literal["not_published", "published", "syncing", "sync_error"]
+    published_at: Optional[str] = None
+
+
+class SprintSummary(BaseModel):
+    sprint_id: int
+    name: str
+    is_current: bool
+    documents: int
+    published: int
+    requirements: int
+    fr: int
+    nfr: int
+    ready: int
+    needs_clarification: int
+    failed: int
+    not_written: int
+    decided: DocDecided
+    rows: List[SprintDocRow]
+
+
 class PublishStatus(BaseModel):
     configured: bool
     reachable: bool
@@ -528,6 +613,8 @@ class PipelineImprove(BaseModel):
 
 class PipelineShare(BaseModel):
     state: StageState
+    published: int = 0  # documents the user has published
+    documents: int = 0
     sync_state: Literal["synced", "syncing", "pending", "retrying", "not_configured", "unreachable"]
     last_synced_at: Optional[str] = None
 

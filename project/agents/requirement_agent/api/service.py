@@ -116,6 +116,7 @@ def source_out(s, stats=None):
     reqs, drafts, sprints = stats or ({}, {}, {})
     n, d = reqs.get(s["id"]) or {"n": 0, "amb": 0}, drafts.get(s["id"], {})
     return {"id": s["id"], "filename": s["filename"], "ext": s["ext"], "size_bytes": s["size_bytes"], "pages": s["pages"],
+            "published": bool(s.get("published")), "published_at": s.get("published_at") if s.get("published") else None,
             "warnings": loads(s["warnings"], []), "created_at": s["created_at"], "uploaded_at": s["created_at"], "source_type": s.get("source_type") or "srs",
             "default_sprint_id": s.get("default_sprint_id"), "analysis_state": s.get("analysis_state") or "not_analyzed", "analyzed_at": s.get("analyzed_at"),
             "requirements": n["n"], "ambiguities": int(n["amb"] or 0),
@@ -230,7 +231,7 @@ def planning_overview(db, pid):
     return cur_sprint, cur_phase, by_sprint, by_phase
 
 
-def pipeline(docs, total, decided, td, sync):
+def pipeline(docs, total, decided, td, sync, published=0):
     """The five stages of the project and the numbers behind each. `docs` = the analysis state of every document, `total` = requirements, `decided` = requirements with a
     decision, `td` = the task-draft counts, `sync` = the auto-sync status."""
     n = len(docs)
@@ -253,11 +254,13 @@ def pipeline(docs, total, decided, td, sync):
     share = {"synced": "done", "syncing": "active", "unreachable": "failed"}.get(sync["state"], "waiting")
     if not total and share == "done":
         share = "waiting"
+    if not published:
+        share = "waiting"  # nothing is shared until the user publishes a document
     return {"collect": {"state": "done" if n else "waiting", "documents": n},
             "identify": {"state": identify, "documents": n, "requirements": total},
             "analyse": {"state": analyse, "analysed": analysed, "total": n, "failed": failed},
             "improve": {"state": improve, "requirements": total, "decided": decided, "drafts_written": written, "drafts": drafts},
-            "share": {"state": share, "sync_state": sync["state"], "last_synced_at": sync["last_synced_at"]}}
+            "share": {"state": share, "published": published, "documents": n, "sync_state": sync["state"], "last_synced_at": sync["last_synced_at"]}}
 
 
 def overview(db, pid, manager, engine, graph, sync=None):
@@ -301,7 +304,7 @@ def overview(db, pid, manager, engine, graph, sync=None):
         "latest_uploads": sources_out(db, pid, db.all("SELECT * FROM sources WHERE project_id=? ORDER BY created_at DESC, id DESC LIMIT 5", (pid,))),
         "analysis": {"ready": sum(1 for a in docs if a == "analyzed"), "total": len(srcs)},
         "sync": sync,
-        "pipeline": pipeline(docs, total, decided, td, sync),
+        "pipeline": pipeline(docs, total, decided, td, sync, published=sum(1 for x in db.all("SELECT published FROM sources WHERE project_id=?", (pid,)) if x["published"])),
     }
 
 

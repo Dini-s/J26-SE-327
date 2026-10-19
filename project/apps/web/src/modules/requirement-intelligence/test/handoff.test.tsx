@@ -38,7 +38,7 @@ describe('Knowledge graph card: the sync state in plain words', () => {
     const line = await screen.findByTestId('sync-state')
     expect(line).toHaveAttribute('data-state', state)
     expect(line).toHaveTextContent(text())
-    expect(document.body).not.toHaveTextContent(/Neo4j|publish/i)
+    expect(document.body).not.toHaveTextContent(/Neo4j/i)
   })
 
   it('says what to do when it cannot be reached, and when it is not set up', async () => {

@@ -24,8 +24,6 @@ const LOOK: Record<State, { ring: string; text: string; icon: typeof Check }> = 
   failed: { ring: 'border-red-500 bg-red-50 text-red-600', text: 'text-red-700', icon: AlertTriangle },
 }
 
-const time = (iso: string) => new Date(iso).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
-
 /** Where a stage opens: the failed drafts when some failed, otherwise its usual page. */
 export function stageLink(stage: Stage, p: Pipeline): string {
   if (stage === 'improve' && p.improve.drafts.failed > 0 && p.improve.drafts.waiting === 0) return '/requirement/drafts?filter=failed'
@@ -45,9 +43,8 @@ export function stageDetail(stage: Stage, p: Pipeline): string {
     case 'improve':
       return t.improve(p.improve.decided, p.improve.requirements, p.improve.drafts_written, p.improve.drafts.waiting, p.improve.drafts.failed)
     case 'share': {
-      const label = t.share[p.share.sync_state]
-      if (typeof label === 'function') return p.share.last_synced_at ? label(time(p.share.last_synced_at)) : t.syncedNever
-      return label ?? p.share.sync_state
+      const note = p.share.published > 0 ? t.shareNote[p.share.sync_state] : undefined
+      return t.share(p.share.published, p.share.documents) + (note ? ` · ${note}` : '')
     }
   }
 }

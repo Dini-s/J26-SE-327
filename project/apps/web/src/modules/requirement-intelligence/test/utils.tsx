@@ -37,6 +37,7 @@ export function mockApi(handler?: Handler) {
       if (p === '/api/projects/1/summary') return json(fx.summary)
       if (p === '/api/projects/1/sprints') return json(fx.sprints)
       if (p === '/api/projects/1/phases') return json(fx.phases)
+      if (/^\/api\/projects\/1\/sprints\/\d+\/summary$/.test(p)) return json(fx.sprintSummary)
       if (p === '/api/projects/1/sync') return json(fx.sync)
       if (p === '/api/projects/1/integrations/jira') return call.method === 'GET' ? json(fx.jiraNotConnected) : new Response(null, { status: 204 })
       if (p === '/api/projects/1/overview') return json(fx.overview)

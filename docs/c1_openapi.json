@@ -2113,6 +2113,205 @@
         }
       }
     },
+    "/api/projects/{pid}/publish": {
+      "post": {
+        "summary": "Publish Documents",
+        "description": "Publish documents (a list, or every analysed document of a sprint) and sync now. Documents that cannot be published are skipped with a reason.",
+        "operationId": "publish_documents_api_projects__pid__publish_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishDocsIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublishDocsOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/unpublish": {
+      "post": {
+        "summary": "Unpublish Documents",
+        "description": "Take documents back: they become inactive for the other components (nothing is deleted) and can be published again.",
+        "operationId": "unpublish_documents_api_projects__pid__unpublish_post",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishDocsIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublishDocsOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects/{pid}/sprints/{sprint_id}/summary": {
+      "get": {
+        "summary": "Sprint Summary",
+        "description": "Totals of one sprint and one row per document (numbers, decisions, findings, publish state).",
+        "operationId": "sprint_summary_api_projects__pid__sprints__sprint_id__summary_get",
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Pid"
+            }
+          },
+          {
+            "name": "sprint_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Sprint Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SprintSummary"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/projects/{pid}/sync": {
       "get": {
         "summary": "Sync Status",
@@ -3664,6 +3863,117 @@
           "concurrency"
         ],
         "title": "DeviceEngine"
+      },
+      "DocChanged": {
+        "properties": {
+          "document_id": {
+            "type": "integer",
+            "title": "Document Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "name"
+        ],
+        "title": "DocChanged"
+      },
+      "DocDecided": {
+        "properties": {
+          "accepted": {
+            "type": "integer",
+            "title": "Accepted"
+          },
+          "edited": {
+            "type": "integer",
+            "title": "Edited"
+          },
+          "rejected": {
+            "type": "integer",
+            "title": "Rejected"
+          },
+          "pending": {
+            "type": "integer",
+            "title": "Pending"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accepted",
+          "edited",
+          "rejected",
+          "pending"
+        ],
+        "title": "DocDecided"
+      },
+      "DocFindings": {
+        "properties": {
+          "ambiguity": {
+            "type": "integer",
+            "title": "Ambiguity"
+          },
+          "conflict": {
+            "type": "integer",
+            "title": "Conflict"
+          },
+          "duplicate": {
+            "type": "integer",
+            "title": "Duplicate"
+          },
+          "security": {
+            "type": "integer",
+            "title": "Security"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ambiguity",
+          "conflict",
+          "duplicate",
+          "security"
+        ],
+        "title": "DocFindings"
+      },
+      "DocSkipped": {
+        "properties": {
+          "document_id": {
+            "type": "integer",
+            "title": "Document Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "not_found",
+              "not_analyzed",
+              "analyzing",
+              "failed",
+              "no_requirements",
+              "already_published",
+              "not_published"
+            ],
+            "title": "Reason"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "name",
+          "reason",
+          "message"
+        ],
+        "title": "DocSkipped"
       },
       "DraftOverview": {
         "properties": {
@@ -5332,6 +5642,16 @@
             ],
             "title": "State"
           },
+          "published": {
+            "type": "integer",
+            "title": "Published",
+            "default": 0
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents",
+            "default": 0
+          },
           "sync_state": {
             "type": "string",
             "enum": [
@@ -5466,6 +5786,86 @@
           "name"
         ],
         "title": "ProjectRename"
+      },
+      "PublishDocsIn": {
+        "properties": {
+          "document_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array",
+                "maxItems": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Document Ids"
+          },
+          "sprint_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sprint Id"
+          }
+        },
+        "type": "object",
+        "title": "PublishDocsIn",
+        "description": "Publish or unpublish documents: the listed ones, every analysed document of a sprint, or both."
+      },
+      "PublishDocsOut": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "publish",
+              "unpublish"
+            ],
+            "title": "Action"
+          },
+          "changed": {
+            "items": {
+              "$ref": "#/components/schemas/DocChanged"
+            },
+            "type": "array",
+            "title": "Changed"
+          },
+          "skipped": {
+            "items": {
+              "$ref": "#/components/schemas/DocSkipped"
+            },
+            "type": "array",
+            "title": "Skipped"
+          },
+          "published_documents": {
+            "type": "integer",
+            "title": "Published Documents"
+          },
+          "total_documents": {
+            "type": "integer",
+            "title": "Total Documents"
+          },
+          "sync": {
+            "$ref": "#/components/schemas/PublishSync"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action",
+          "changed",
+          "skipped",
+          "published_documents",
+          "total_documents",
+          "sync"
+        ],
+        "title": "PublishDocsOut"
       },
       "PublishIn": {
         "properties": {
@@ -5652,6 +6052,36 @@
           "out_of_date"
         ],
         "title": "PublishStatus"
+      },
+      "PublishSync": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "synced",
+              "not_configured",
+              "retrying"
+            ],
+            "title": "State"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state"
+        ],
+        "title": "PublishSync",
+        "description": "What happened to the sync that runs right after: `synced`, `not_configured` (nothing to sync with) or `retrying` (it will be tried again by itself)."
       },
       "ReanalyzeOut": {
         "properties": {
@@ -6142,6 +6572,22 @@
             ],
             "title": "Analyzed At"
           },
+          "published": {
+            "type": "boolean",
+            "title": "Published",
+            "default": false
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
           "requirements": {
             "type": "integer",
             "title": "Requirements",
@@ -6337,6 +6783,114 @@
           "requirements_moved"
         ],
         "title": "SprintDeleted"
+      },
+      "SprintDocRow": {
+        "properties": {
+          "document_id": {
+            "type": "integer",
+            "title": "Document Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "file",
+              "jira"
+            ],
+            "title": "Source"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "fr": {
+            "type": "integer",
+            "title": "Fr"
+          },
+          "nfr": {
+            "type": "integer",
+            "title": "Nfr"
+          },
+          "unclassified": {
+            "type": "integer",
+            "title": "Unclassified"
+          },
+          "ready": {
+            "type": "integer",
+            "title": "Ready"
+          },
+          "needs_clarification": {
+            "type": "integer",
+            "title": "Needs Clarification"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          },
+          "not_written": {
+            "type": "integer",
+            "title": "Not Written"
+          },
+          "decided": {
+            "$ref": "#/components/schemas/DocDecided"
+          },
+          "findings": {
+            "$ref": "#/components/schemas/DocFindings"
+          },
+          "analysis_state": {
+            "type": "string",
+            "enum": [
+              "not_analyzed",
+              "analyzing",
+              "analyzed",
+              "failed"
+            ],
+            "title": "Analysis State"
+          },
+          "publish_state": {
+            "type": "string",
+            "enum": [
+              "not_published",
+              "published",
+              "syncing",
+              "sync_error"
+            ],
+            "title": "Publish State"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "name",
+          "source",
+          "requirements",
+          "fr",
+          "nfr",
+          "unclassified",
+          "ready",
+          "needs_clarification",
+          "failed",
+          "not_written",
+          "decided",
+          "findings",
+          "analysis_state",
+          "publish_state"
+        ],
+        "title": "SprintDocRow"
       },
       "SprintIn": {
         "properties": {
@@ -6536,6 +7090,86 @@
           "documents"
         ],
         "title": "SprintOut"
+      },
+      "SprintSummary": {
+        "properties": {
+          "sprint_id": {
+            "type": "integer",
+            "title": "Sprint Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "is_current": {
+            "type": "boolean",
+            "title": "Is Current"
+          },
+          "documents": {
+            "type": "integer",
+            "title": "Documents"
+          },
+          "published": {
+            "type": "integer",
+            "title": "Published"
+          },
+          "requirements": {
+            "type": "integer",
+            "title": "Requirements"
+          },
+          "fr": {
+            "type": "integer",
+            "title": "Fr"
+          },
+          "nfr": {
+            "type": "integer",
+            "title": "Nfr"
+          },
+          "ready": {
+            "type": "integer",
+            "title": "Ready"
+          },
+          "needs_clarification": {
+            "type": "integer",
+            "title": "Needs Clarification"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          },
+          "not_written": {
+            "type": "integer",
+            "title": "Not Written"
+          },
+          "decided": {
+            "$ref": "#/components/schemas/DocDecided"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/SprintDocRow"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sprint_id",
+          "name",
+          "is_current",
+          "documents",
+          "published",
+          "requirements",
+          "fr",
+          "nfr",
+          "ready",
+          "needs_clarification",
+          "failed",
+          "not_written",
+          "decided",
+          "rows"
+        ],
+        "title": "SprintSummary"
       },
       "SprintUpdate": {
         "properties": {

@@ -20,7 +20,7 @@ from fastapi.responses import JSONResponse, RedirectResponse, Response
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from ..generation import BackendError
-from . import analysis, autosync, cleanup, ingest, jira, planning, priority, schemas, service, settings
+from . import analysis, autosync, cleanup, ingest, jira, planning, priority, publishing, schemas, service, settings
 from .db import DEFAULT_PROJECT_KEY, Database, dumps, now
 from . import engine as engine_mod
 from .engine import EngineStore
@@ -447,6 +447,34 @@ def create_app(workspace=None, backend=None, backend_name=None, model_name=None,
         out = neo4j_store.publish(pid, body.project_id, body.project_name)
         sync.record_manual(pid, out)
         return out
+
+    def publish_change(pid, body, publishing_on):
+        out = publishing.change(db, pid, body.document_ids, body.sprint_id, publishing_on)
+        state, error = "synced", None
+        if out["changed"]:
+            sync.notify(pid)  # the background sync keeps trying if the first attempt below does not work
+            try:
+                sync.record_manual(pid, neo4j_store.publish(pid))
+            except ApiError as exc:
+                state, error = ("not_configured" if exc.code == "neo4j_unconfigured" else "retrying"), exc.code
+        published, total = publishing.counts(db, pid)
+        return dict(out, published_documents=published, total_documents=total, sync={"state": state, "error": error})
+
+    @app.post("/api/projects/{pid}/publish", response_model=schemas.PublishDocsOut, responses={400: {"model": schemas.ErrorResponse}, 404: {"model": schemas.ErrorResponse}})
+    def publish_documents(pid: int, body: schemas.PublishDocsIn):
+        """Publish documents (a list, or every analysed document of a sprint) and sync now. Documents that cannot be published are skipped with a reason."""
+        return publish_change(pid, body, True)
+
+    @app.post("/api/projects/{pid}/unpublish", response_model=schemas.PublishDocsOut, responses={400: {"model": schemas.ErrorResponse}, 404: {"model": schemas.ErrorResponse}})
+    def unpublish_documents(pid: int, body: schemas.PublishDocsIn):
+        """Take documents back: they become inactive for the other components (nothing is deleted) and can be published again."""
+        return publish_change(pid, body, False)
+
+    @app.get("/api/projects/{pid}/sprints/{sprint_id}/summary", response_model=schemas.SprintSummary, responses={404: {"model": schemas.ErrorResponse}})
+    def sprint_summary(pid: int, sprint_id: int):
+        """Totals of one sprint and one row per document (numbers, decisions, findings, publish state)."""
+        service.project_or_404(db, pid)
+        return publishing.sprint_summary(db, pid, sprint_id, sync.status(pid)["state"])
 
     @app.get("/api/projects/{pid}/sync", response_model=schemas.SyncStatus, responses={404: {"model": schemas.ErrorResponse}})
     def sync_status(pid: int):

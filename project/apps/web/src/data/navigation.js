@@ -57,7 +57,7 @@ export const navigation = [
       },
 
       {
-        label: "Task Drafts",
+        label: "Publish",
         path: "/requirement/drafts",
       },
     ],

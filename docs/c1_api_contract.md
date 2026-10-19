@@ -304,14 +304,28 @@ Response:
 Progress counts (`summary.decided`, `open_findings`, the overview), exports and the Neo4j publish all read this single decision.
 
 ### GET /api/projects/{pid}/sync (automatic sync to the graph database)
-A background worker keeps the graph database in step with the project; nobody has to publish. It reads the workspace only (the graph database is not contacted by this call):
+A background worker keeps the graph database in step with the project (the published documents; see `POST .../publish`). It reads the workspace only (the graph database is not contacted by this call):
 ```json
 {"state": "pending", "enabled": true, "last_synced_at": "2026-10-20T08:00:00+00:00", "counts": {"Requirement": 44}, "next_attempt_at": "2026-10-20T08:05:10+00:00", "error": null}
 ```
 `state`: `synced`, `syncing`, `pending` (changed, waiting for the quiet period), `retrying` (the last attempt failed, `next_attempt_at` says when the next one is), `unreachable` (5 failures in a row, still retried every 5 minutes) or `not_configured` (the graph database is not set up: nothing is tried and no error is raised). `error` is a code without secrets: `neo4j_unreachable`, `neo4j_auth_failed`, `neo4j_publish_failed`, `neo4j_driver_missing`.
 Triggers: analysis finished, a decision set or removed, a draft written or replaced, a change of sprint, phase or assignment, a document deleted, the project renamed. The worker waits 10 s after the last change, syncs a project at most once per 30 s, may sync while other documents are still being analysed (only documents whose analysis is finished are sent; an unfinished one follows in the next sync after it finishes), and after a failure tries again after 30 s, 60 s, 120 s, 240 s, then every 300 s. It never blocks a request. It uses the same idempotent, single-flight publish as `POST .../publish/neo4j`, which stays as "sync now" (and updates this state). When the service starts, a project that is out of date is synced. `C1_AUTO_SYNC=0` switches the worker off (`enabled: false`). The same object is `sync` in the overview.
 
-### POST /api/projects/{pid}/publish/neo4j, GET /api/projects/{pid}/publish/neo4j
+### POST /api/projects/{pid}/publish, POST /api/projects/{pid}/unpublish
+
+Publishing is manual and per document. The body is `{"document_ids": [1, 2], "sprint_id": 3}`; give either or both (a sprint means every document of that sprint: the ones that follow it by default and the ones with a requirement in it); neither is 400 `invalid_parameter`, an unknown sprint is 404 `sprint_not_found`. Only analysed documents can be published; the others are **skipped** and come back with a reason (`not_analyzed`, `analyzing`, `failed`, `no_requirements`, `not_found`, `already_published`; unpublish: `not_published`). The call sets `published` / `published_at` on the documents (also in `SourceOut`), writes an internal audit row, and syncs now. Analysing or importing never publishes. Workspaces from before this existed keep their analysed documents published when the project had already been synced.
+```json
+{"action": "publish", "changed": [{"document_id": 1, "name": "srs.txt"}],
+ "skipped": [{"document_id": 3, "name": "new.txt", "reason": "not_analyzed", "message": "Analyse the document first."}],
+ "published_documents": 1, "total_documents": 3, "sync": {"state": "synced", "error": null}}
+```
+`sync.state` is `synced`, `not_configured` (nothing to sync with; the flag is still set) or `retrying` (the sync failed with `error`; the background sync tries again by itself). The call does not fail because of the graph database. Unpublishing makes the documents inactive for the other components; nothing is deleted.
+
+### GET /api/projects/{pid}/sprints/{sid}/summary
+
+Totals of the sprint and one row per document, counting the requirements that are in this sprint: `{"sprint_id", "name", "is_current", "documents", "published", "requirements", "fr", "nfr", "ready", "needs_clarification", "failed", "not_written", "decided": {"accepted","edited","rejected","pending"}, "rows": [...]}`. A row is `{"document_id", "name", "source": "file"|"jira", "requirements", "fr", "nfr", "unclassified", "ready", "needs_clarification", "failed", "not_written", "decided", "findings": {"ambiguity","conflict","duplicate","security"}, "analysis_state", "publish_state": "not_published"|"published"|"syncing"|"sync_error", "published_at"}`. 404 `sprint_not_found`. The overview's `pipeline.share` now also has `published` and `documents` ("Published X of Y documents") and is `waiting` until a document is published.
+
+### POST /api/projects/{pid}/publish/neo4j ("sync now"), GET /api/projects/{pid}/publish/neo4j
 "Sync now". Publish the clarified requirements to the shared Neo4j graph (one-way, idempotent; schema and rules in `c1_neo4j_contract.md`, a proposal pending team agreement).
 A project is always published under **its own `project_key` and `name`**. `POST` takes an optional body `{"project_id": "demo-project", "project_name": "Core Banking Platform"}` that may only repeat them: any other `project_id` is refused with 422 `project_key_mismatch`, any other `project_name` with 422 `project_name_mismatch` (nothing is sent), so nothing can be published under a made-up id. Renaming a project changes the published name, never the key. It answers
 ```json

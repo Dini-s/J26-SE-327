@@ -11,7 +11,7 @@ afterEach(() => {
 })
 
 const DRAFTS = '/requirement/drafts'
-const SOURCES = '/requirement/sources' // the progress and Retry failed drafts live here; Task Drafts keeps the list
+const SOURCES = '/requirement/sources' // the progress and Retry failed drafts live here; the Publish page has the banner and Retry too
 const RETRY = '/api/projects/1/drafts/retry-failed'
 const summaryWith = (td: Partial<Summary['task_drafts']>) => (c: { url: URL }) => (c.url.pathname === '/api/projects/1/summary' ? json({ ...fx.summary, task_drafts: { ...fx.summary.task_drafts, ...td } }) : undefined)
 const withPipeline = (improve: Partial<Overview['pipeline']['improve']>) => (c: { url: URL }) => (c.url.pathname === '/api/projects/1/overview' ? json({ ...fx.overview, pipeline: { ...fx.overview.pipeline, improve: { ...fx.overview.pipeline.improve, ...improve } } }) : undefined)
@@ -57,12 +57,12 @@ describe('process strip: Needs attention', () => {
     expect(within((await screen.findAllByTestId('process-stage'))[3]!).getByRole('link')).toHaveAttribute('href', '/requirement/review')
   })
 
-  it('the link lands on Task Drafts with the Failed filter on', async () => {
+  it('the link lands on the Publish page, which has the failed-draft banner', async () => {
     mockApi((c) => withPipeline({ state: 'attention' })(c) ?? summaryWith(failedDrafts)(c))
     renderApp()
     await userEvent.click(within((await screen.findAllByTestId('process-stage'))[3]!).getByRole('link'))
-    expect(await screen.findByTestId('draft-filter-failed')).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.getByTestId('draft-filter-all')).toHaveAttribute('aria-pressed', 'false')
+    expect(await screen.findByTestId('publish-table')).toBeInTheDocument()
+    expect(await screen.findByTestId('failed-banner-title')).toHaveTextContent('7 drafts could not be written')
   })
 })
 
@@ -89,13 +89,15 @@ describe('Sources & Findings: failed drafts', () => {
     expect(screen.queryByTestId('failed-banner')).toBeNull()
   })
 
-  it('Task Drafts keeps the list and its filters, without the progress bar and the retry banner', async () => {
-    mockApi(summaryWith(failedDrafts))
+  it('the Publish page keeps the failed-draft banner and its retry, without the progress bar', async () => {
+    const { calls } = mockApi((c) => (c.method === 'POST' && c.url.pathname === RETRY ? json({ queued: 7 }, 202) : summaryWith(failedDrafts)(c)))
     renderApp(DRAFTS)
-    await screen.findAllByTestId('finding-row')
-    expect(screen.getByTestId('draft-filter-failed')).toBeInTheDocument()
-    expect(screen.queryByTestId('failed-banner')).toBeNull()
+    await screen.findByTestId('publish-table')
+    expect(await screen.findByTestId('failed-banner-title')).toHaveTextContent('7 drafts could not be written')
     expect(screen.queryByTestId('draft-progress')).toBeNull()
+    await userEvent.click(screen.getByTestId('retry-failed'))
+    expect(await screen.findByText('7 failed drafts queued again.')).toBeInTheDocument()
+    expect(retries(calls)).toHaveLength(1)
   })
 
   it('Retry failed drafts calls the service once and says how many were queued', async () => {
@@ -151,19 +153,12 @@ describe('Sources & Findings: failed drafts', () => {
     expect(await screen.findByTestId('retry-failed')).toBeEnabled()
   })
 
-  it('failed rows and the failed card show the short reason', async () => {
-    const rows = fx.rows.map((r, i) => (i === 2 ? { ...r, failure_reason: 'cloud_unreachable' as const } : r))
+  it('the failed card shows the short reason', async () => {
     mockApi((c) => {
-      if (c.url.pathname === '/api/projects/1/requirements') return json({ total: 3, limit: 500, offset: 0, items: rows })
       if (c.url.pathname === '/api/requirements/p1-REQ-003') return json({ ...fx.detail, uid: 'p1-REQ-003', id: 'REQ-003', generation: { ...fx.generationDone, state: 'failed', failure_reason: 'cloud_rejected', message: 'AI engine unavailable: Cloud rejected the request (HTTP 401); check the key and the model' } })
       return summaryWith(failedDrafts)(c)
     })
-    renderApp(DRAFTS)
-    const reasons = await screen.findAllByTestId('row-reason')
-    expect(reasons).toHaveLength(1)
-    expect(reasons[0]).toHaveTextContent('The AI engine could not be reached.')
-    await userEvent.click(screen.getByTestId('draft-filter-failed'))
-    await userEvent.click(screen.getAllByTestId('finding-row')[0]!)
+    renderApp('/requirement/review?uid=p1-REQ-003')
     expect(await screen.findByTestId('failure-reason')).toHaveTextContent('Reason: The AI engine refused the request.')
   })
 

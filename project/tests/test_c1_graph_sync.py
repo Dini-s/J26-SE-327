@@ -47,8 +47,8 @@ class CountGraph(Graph):
 
 def add_third_document(db):
     """A third analysed document with two requirements (one with a finished draft, one vague and risky)."""
-    db.run("INSERT INTO sources (id, project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256, analysis_state)"
-           " VALUES (3,1,'third.txt','/nowhere/third.txt','.txt',10,NULL,'[]','{}','2026-10-03T00:00:00+00:00','srs','c3','analyzed')")
+    db.run("INSERT INTO sources (id, project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256, analysis_state, published)"
+           " VALUES (3,1,'third.txt','/nowhere/third.txt','.txt',10,NULL,'[]','{}','2026-10-03T00:00:00+00:00','srs','c3','analyzed',1)")
     for seq, text, defect in ((5, "The system shall be fast.", True), (6, "The portal shall show the balance.", False)):
         db.run("INSERT INTO requirements (uid, project_id, rid, seq, source_id, source_file, text, text_hash, occurrence, fr_nfr, nfr_probability, is_security, security_cue_words,"
                " ambiguity_label, ambiguity_probability, weak_words, duplicate_group, duplicate_matches, conflict_matches, risk_score, risk_level, findings, created_at)"
@@ -260,7 +260,7 @@ def test_the_overview_has_draft_totals_and_the_pipeline(c):
     assert p["analyse"] == {"state": "done", "analysed": 2, "total": 2, "failed": 0}
     assert p["improve"]["requirements"] == 4 and p["improve"]["decided"] == 3 and p["improve"]["drafts_written"] == 2
     assert p["improve"]["drafts"] == {"ready": 1, "needs_clarification": 1, "failed": 1, "waiting": 0} and p["improve"]["state"] == "attention"
-    assert p["share"] == {"state": "waiting", "sync_state": "not_configured", "last_synced_at": None}
+    assert p["share"] == {"state": "waiting", "published": 2, "documents": 2, "sync_state": "not_configured", "last_synced_at": None}
     assert set(p["improve"]) == {"state", "requirements", "decided", "drafts_written", "drafts"}
 
 
@@ -271,7 +271,7 @@ def test_pipeline_states_follow_the_documents_and_the_sync(c):
         docs = [r["a"] for r in db.all("SELECT analysis_state a FROM sources")]
         td = dict(generated=1, needs_clarification=1, failed=0, in_progress=0)
         base = {"state": "synced", "last_synced_at": "2026-10-20T00:00:00+00:00"}
-        return service.pipeline(docs, 4, 4, td, dict(base, **sync))
+        return service.pipeline(docs, 4, 4, td, dict(base, **sync), published=len(docs))
 
     p = pipeline()
     assert [p[k]["state"] for k in ("collect", "identify", "analyse", "improve", "share")] == ["done"] * 5
@@ -284,7 +284,7 @@ def test_pipeline_states_follow_the_documents_and_the_sync(c):
     db.run("UPDATE sources SET analysis_state='not_analyzed' WHERE id=2")
     assert pipeline()["analyse"]["state"] == "waiting"
     for state, expect in (("syncing", "active"), ("pending", "waiting"), ("retrying", "waiting"), ("unreachable", "failed"), ("not_configured", "waiting"), ("synced", "done")):
-        assert pipeline(state=state)["share"] == {"state": expect, "sync_state": state, "last_synced_at": "2026-10-20T00:00:00+00:00"}
+        assert pipeline(state=state)["share"] == {"state": expect, "published": 2, "documents": 2, "sync_state": state, "last_synced_at": "2026-10-20T00:00:00+00:00"}
     empty = service.pipeline([], 0, 0, dict(generated=0, needs_clarification=0, failed=0, in_progress=0), {"state": "synced", "last_synced_at": None})
     assert [empty[k]["state"] for k in ("collect", "identify", "analyse", "improve", "share")] == ["waiting"] * 5
     waiting = service.pipeline(["analyzed"], 4, 1, dict(generated=0, needs_clarification=0, failed=0, in_progress=3), {"state": "synced", "last_synced_at": None})

@@ -256,21 +256,6 @@ describe('Review Queue: select and move to a sprint', () => {
   })
 })
 
-describe('Task Drafts: sprint filter', () => {
-  it('offers only the sprint filter and sends it to the service', async () => {
-    const { calls } = mockApi()
-    renderApp('/requirement/drafts')
-    await screen.findAllByTestId('finding-row')
-    await userEvent.click(screen.getByTestId('filters-button'))
-    const panel = screen.getByTestId('filters-panel')
-    expect(within(panel).getByLabelText('Sprint')).toBeInTheDocument()
-    for (const label of ['Risk level', 'Finding type', 'Suggested action', 'Phase', 'Document']) expect(within(panel).queryByLabelText(label)).toBeNull()
-    await userEvent.selectOptions(within(panel).getByLabelText('Sprint'), '1')
-    await waitFor(() => expect(listCalls(calls).some((c) => c.url.searchParams.get('sprint_id') === '1')).toBe(true))
-    expect(screen.getByTestId('filter-chip')).toHaveTextContent('Sprint: Sprint 1')
-  })
-})
-
 describe('header pill', () => {
   it('shows only “AI engine” with a status dot: no device or cloud wording, no model or host', async () => {
     mockApi()
@@ -287,7 +272,6 @@ describe('header pill', () => {
 describe('Overview: process strip', () => {
   const stages = () => screen.getAllByTestId('process-stage')
   const withPipeline = (p: Partial<Overview['pipeline']>) => overviewWith({ pipeline: { ...fx.overview.pipeline, ...p } })
-  const clock = (iso: string) => new Date(iso).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
 
   it('shows the five stages in order with a state and a live detail from the service', async () => {
     mockApi()
@@ -299,7 +283,7 @@ describe('Overview: process strip', () => {
       'IdentifyDone42 requirements',
       'AnalyseWaiting1 of 2 analysed',
       'ImproveIn progress15 of 42 decided · 31 drafts · 1 failed',
-      `ShareDoneSynced ${clock(fx.sync.last_synced_at!)}`,
+      'ShareDonePublished 1 of 2 documents',
     ])
   })
 
@@ -309,7 +293,7 @@ describe('Overview: process strip', () => {
     await screen.findByTestId('process-strip')
     expect(stages().map((s) => within(s).getByRole('link').getAttribute('href'))).toEqual(['/requirement/sources', '/requirement/sources', '/requirement/sources', '/requirement/drafts?filter=failed', '/requirement#knowledge-graph'])
     await userEvent.click(within(stages()[3]!).getByRole('link'))
-    expect(await screen.findByTestId('workspace')).toBeInTheDocument()
+    expect(await screen.findByTestId('publish-table')).toBeInTheDocument()
   })
 
   it('shows each state: done, in progress, waiting and failed', async () => {
@@ -319,21 +303,21 @@ describe('Overview: process strip', () => {
         identify: { state: 'active', documents: 3, requirements: 0 },
         analyse: { state: 'failed', analysed: 1, total: 3, failed: 1 },
         improve: { state: 'done', requirements: 42, decided: 42, drafts_written: 42, drafts: { ready: 40, needs_clarification: 2, failed: 0, waiting: 0 } },
-        share: { state: 'active', sync_state: 'syncing', last_synced_at: null },
+        share: { state: 'active', published: 1, documents: 3, sync_state: 'syncing', last_synced_at: null },
       }),
     )
     renderApp()
     await screen.findByTestId('process-strip')
     expect(stages().map((s) => within(s).getByTestId('stage-state').textContent)).toEqual(['Waiting', 'In progress', 'Failed', 'Done', 'In progress'])
-    expect(stages().map((s) => within(s).getByTestId('stage-detail').textContent)).toEqual(['0 documents', '0 requirements', '1 of 3 analysed · 1 failed', '42 of 42 decided · 42 drafts', 'Syncing'])
+    expect(stages().map((s) => within(s).getByTestId('stage-detail').textContent)).toEqual(['0 documents', '0 requirements', '1 of 3 analysed · 1 failed', '42 of 42 decided · 42 drafts', 'Published 1 of 3 documents · Syncing'])
   })
 
   it('names drafts that are still being written or failed, and the other sync states', async () => {
-    mockApi(withPipeline({ improve: { state: 'active', requirements: 334, decided: 5, drafts_written: 173, drafts: { ready: 170, needs_clarification: 3, failed: 2, waiting: 4 } }, share: { state: 'waiting', sync_state: 'not_configured', last_synced_at: null } }))
+    mockApi(withPipeline({ improve: { state: 'active', requirements: 334, decided: 5, drafts_written: 173, drafts: { ready: 170, needs_clarification: 3, failed: 2, waiting: 4 } }, share: { state: 'waiting', published: 0, documents: 2, sync_state: 'not_configured', last_synced_at: null } }))
     renderApp()
     await screen.findByTestId('process-strip')
     expect(within(stages()[3]!).getByTestId('stage-detail')).toHaveTextContent('5 of 334 decided · 173 drafts · 4 in progress · 2 failed')
-    expect(within(stages()[4]!).getByTestId('stage-detail')).toHaveTextContent('Not connected')
+    expect(within(stages()[4]!).getByTestId('stage-detail')).toHaveTextContent('Published 0 of 2 documents')
   })
 
   it('each stage has one accessible name with its state and detail', async () => {

@@ -7,7 +7,7 @@ const TITLES = [
   ['Overview', '/requirement'],
   ['Sources & Findings', '/requirement/sources'],
   ['Review Queue', '/requirement/review'],
-  ['Task Drafts', '/requirement/drafts'],
+  ['Publish', '/requirement/drafts'],
 ] as const
 
 interface Seen {
@@ -33,6 +33,7 @@ async function mockApi(page: Page, seen: Seen = { puts: [], decisions: [] }) {
       if (p === '/api/projects/1/summary') return route.fulfill(json(fx.summary))
       if (p === '/api/projects/1/sprints') return route.fulfill(json(fx.sprints))
       if (p === '/api/projects/1/phases') return route.fulfill(json(fx.phases))
+      if (p === '/api/projects/1/sprints/1/summary') return route.fulfill(json(fx.sprintSummary))
       if (p === '/api/projects/1/sync') return route.fulfill(json(fx.sync))
       if (p === '/api/projects/1/integrations/jira') return route.fulfill(json(fx.jiraNotConnected))
       if (p === '/api/projects/1/requirements') return route.fulfill(json({ total: fx.rows.length, limit: 500, offset: 0, items: fx.rows.map((r, i) => (i === 0 && decision ? { ...r, decision: decision.decision } : r)) }))
@@ -147,7 +148,7 @@ test('Review Queue: a decision becomes a status card with only Change and Remove
   expect(seen.decisions.map((d) => d.method)).toEqual(['PUT', 'DELETE'])
 })
 
-test('Improve needs attention when drafts failed: the strip opens the failed drafts, and “Retry failed drafts” (on Sources & Findings) queues only those', async ({ page }) => {
+test('Improve needs attention when drafts failed: the strip opens the failed drafts, and “Retry failed drafts” queues only those', async ({ page }) => {
   await mockApi(page)
   const improve = { ...fx.overview.pipeline.improve, state: 'attention', requirements: 334, decided: 5, drafts_written: 327, drafts: { ready: 320, needs_clarification: 7, failed: 7, waiting: 0 } }
   await page.route((url) => url.port === '8000' && url.pathname === '/api/projects/1/overview', (route) => route.fulfill(json({ ...fx.overview, pipeline: { ...fx.overview.pipeline, improve } })))
@@ -162,10 +163,8 @@ test('Improve needs attention when drafts failed: the strip opens the failed dra
   await expect(stage.getByTestId('stage-state')).toHaveText('Needs attention')
   await stage.getByRole('link').click()
   await expect(page).toHaveURL(/\/requirement\/drafts\?filter=failed$/)
-  await expect(page.getByTestId('draft-filter-failed')).toHaveAttribute('aria-pressed', 'true')
-  await expect(page.getByTestId('failed-banner')).toHaveCount(0) // the progress and Retry moved to Sources & Findings
-  await page.getByRole('link', { name: 'Sources & Findings' }).first().click()
-  await expect(page.getByTestId('failed-banner-title')).toHaveText('7 drafts could not be written')
+  await expect(page.getByTestId('publish-table')).toBeVisible()
+  await expect(page.getByTestId('failed-banner-title')).toHaveText('7 drafts could not be written') // the Publish page keeps the banner and the retry
   await page.getByTestId('retry-failed').click()
   await expect(page.getByText('7 failed drafts queued again.')).toBeVisible()
   expect(retried).toBe(1)
@@ -309,4 +308,47 @@ test('Sources & Findings: Analyse asks which task drafts to write first, and Ana
   await page.getByTestId('policy-all').check()
   await page.getByTestId('analyse-confirm').click()
   await expect.poll(() => sent).toEqual(['all'])
+})
+
+test('Publish: a sprint table, publish one document after the question, take it back, and publish the whole sprint', async ({ page }) => {
+  await mockApi(page)
+  const sent: { path: string; body: unknown }[] = []
+  for (const path of ['publish', 'unpublish']) {
+    await page.route((url) => url.port === '8000' && url.pathname === `/api/projects/1/${path}`, (route) => {
+      sent.push({ path, body: JSON.parse(route.request().postData() ?? '{}') })
+      return route.fulfill(json({ action: path, changed: [{ document_id: 1, name: 'CoreBanking_SRS_v2.pdf' }], skipped: [], published_documents: 2, total_documents: 3, sync: { state: 'synced', error: null } }))
+    })
+  }
+  await page.goto('/requirement/drafts')
+  await expect(page.getByRole('heading', { level: 1, name: 'Publish' })).toBeVisible()
+  await expect(page.getByTestId('publish-table')).toBeVisible()
+  await expect(page.getByTestId('publish-row')).toHaveCount(3)
+  await expect(page.getByTestId('summary-documents')).toContainText('Published 1 of 3 documents')
+
+  const srs = page.locator('[data-testid="publish-row"][data-doc="CoreBanking_SRS_v2.pdf"]')
+  await srs.getByTestId('row-publish').click()
+  await expect(page.getByTestId('plan-documents')).toContainText('1 document with 30 requirements')
+  await expect(page.getByTestId('plan-pending')).toContainText('18 requirements without a decision')
+  expect(sent).toHaveLength(0) // asked first
+  await page.getByTestId('publish-confirm').click()
+  await expect(page.getByText('1 document published.')).toBeVisible()
+  expect(sent).toEqual([{ path: 'publish', body: { document_ids: [1] } }])
+
+  await page.locator('[data-testid="publish-row"][data-doc="ABC stories"]').getByTestId('row-unpublish').click()
+  await expect.poll(() => sent.map((s) => s.path)).toEqual(['publish', 'unpublish'])
+  expect(sent[1]!.body).toEqual({ document_ids: [3] })
+
+  await page.getByRole('checkbox', { name: 'Select Billing_BRD.docx' }).check()
+  await page.getByTestId('publish-selected').click()
+  await expect(page.getByTestId('plan-skipped')).toContainText('Billing_BRD.docx: Analyse the document first.')
+  await page.getByRole('button', { name: 'Cancel' }).click()
+
+  await page.getByTestId('publish-whole-sprint').click()
+  await page.getByTestId('publish-confirm').click()
+  await expect.poll(() => sent.at(-1)).toEqual({ path: 'publish', body: { sprint_id: 1 } })
+
+  await srs.getByRole('button', { name: 'Details of CoreBanking_SRS_v2.pdf' }).click()
+  await page.getByTestId('open-in-review').click()
+  await expect(page).toHaveURL(/\/requirement\/review\?document=CoreBanking_SRS_v2\.pdf$/)
+  await expect(page.getByTestId('filter-chip')).toContainText('Document: CoreBanking_SRS_v2.pdf')
 })

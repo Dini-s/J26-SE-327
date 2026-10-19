@@ -16,7 +16,7 @@ const CHILDREN = [
   ['Overview', '/requirement'],
   ['Sources & Findings', '/requirement/sources'],
   ['Review Queue', '/requirement/review'],
-  ['Task Drafts', '/requirement/drafts'],
+  ['Publish', '/requirement/drafts'],
 ] as const
 
 describe('sidebar registration', () => {
@@ -71,7 +71,7 @@ describe('routes in the shell', () => {
     ['/requirement', 'Overview'],
     ['/requirement/sources', 'Sources & Findings'],
     ['/requirement/review', 'Review Queue'],
-    ['/requirement/drafts', 'Task Drafts'],
+    ['/requirement/drafts', 'Publish'],
   ])('%s opens the page "%s" with its own active state in the sidebar', async (path, title) => {
     mockApi()
     open(path)

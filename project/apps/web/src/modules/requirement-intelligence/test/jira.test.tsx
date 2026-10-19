@@ -431,13 +431,6 @@ describe('Jira: imported items', () => {
     expect(link.getAttribute('rel')).toContain('noopener')
   })
 
-  it('the Task Drafts list shows the badge too', async () => {
-    mockApi(rowsWith(ref))
-    renderApp('/requirement/drafts')
-    const rows = await screen.findAllByTestId('finding-row')
-    expect(within(rows[0]!).getByTestId('row-jira')).toHaveTextContent('ABC-12')
-  })
-
   it('without an address there is no link, and ordinary requirements have no badge at all', async () => {
     mockApi(rowsWith({ ...ref, url: '' }))
     const first = renderApp('/requirement/review')

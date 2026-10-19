@@ -28,6 +28,10 @@ CREATE TABLE IF NOT EXISTS gen_latency (id INTEGER PRIMARY KEY AUTOINCREMENT, ba
 CREATE TABLE IF NOT EXISTS publish_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT, project_id INTEGER NOT NULL, graph_project_id TEXT NOT NULL, graph_project_name TEXT NOT NULL DEFAULT '', content_hash TEXT NOT NULL, published_at TEXT NOT NULL,
     seconds REAL NOT NULL, counts TEXT NOT NULL);
+-- who published or unpublished which documents, and when (internal; no endpoint returns it)
+CREATE TABLE IF NOT EXISTS publish_audit (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, project_id INTEGER NOT NULL, action TEXT NOT NULL, scope TEXT NOT NULL, sprint_id INTEGER,
+    document_ids TEXT NOT NULL, skipped TEXT NOT NULL DEFAULT '[]', at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS decisions (uid TEXT PRIMARY KEY, decision TEXT NOT NULL, edited_text TEXT, note TEXT, updated_at TEXT NOT NULL);
 -- internal and append-only: a decision that was replaced or removed is copied here. No endpoint returns it and it is never published.
@@ -76,6 +80,8 @@ MIGRATIONS = (
     ("sources", "analyzed_at", "TEXT"),
     ("sources", "analyzed_hash", "TEXT"),
     ("requirements", "sprint_id", "INTEGER"),  # override of the document's default sprint; null = follow the document
+    ("sources", "published", "INTEGER NOT NULL DEFAULT 0"),  # shared with the other components only when the user publishes the document
+    ("sources", "published_at", "TEXT"),
     ("jira_connections", "scope", "TEXT NOT NULL DEFAULT ''"),  # the permissions the connection was made with; empty = made before they were recorded
 )
 
@@ -123,7 +129,8 @@ class Database:
         with self.connect() as con:
             con.execute("PRAGMA journal_mode=WAL")  # the worker pool and the request threads write at the same time: readers never block the writer
             con.executescript(SCHEMA)
-            had_state = "analysis_state" in [r["name"] for r in con.execute("PRAGMA table_info(sources)").fetchall()]
+            columns = [r["name"] for r in con.execute("PRAGMA table_info(sources)").fetchall()]
+            had_state, had_published = "analysis_state" in columns, "published" in columns
             for table, column, ddl in MIGRATIONS:
                 if column not in [r["name"] for r in con.execute(f"PRAGMA table_info({table})").fetchall()]:
                     con.execute(f"ALTER TABLE {table} ADD COLUMN {column} {ddl}")
@@ -132,6 +139,8 @@ class Database:
             self._migrate_decision_history(con)
             if not had_state:
                 self._backfill_analysis_state(con)
+            if not had_published:
+                self._backfill_published(con)
             con.execute("UPDATE sources SET analysis_state='failed' WHERE analysis_state='analyzing'")  # the process stopped in the middle of an analysis
             for p in con.execute("SELECT id FROM projects").fetchall():
                 ensure_planning(con, p["id"])
@@ -145,6 +154,13 @@ class Database:
             "(SELECT MAX(j.updated_at) FROM jobs j WHERE j.project_id=sources.project_id AND j.part_a_done=1)) "
             "WHERE id IN (SELECT DISTINCT source_id FROM requirements) OR EXISTS "
             "(SELECT 1 FROM jobs j WHERE j.project_id=sources.project_id AND j.part_a_done=1 AND j.updated_at>=sources.created_at)")
+
+    @staticmethod
+    def _backfill_published(con):
+        """Files from before publishing was manual: the analysed documents of a project that was already synced to the graph stay published, so nothing disappears."""
+        con.execute(
+            "UPDATE sources SET published=1, published_at=(SELECT MAX(l.published_at) FROM publish_log l WHERE l.project_id=sources.project_id) "
+            "WHERE analysis_state='analyzed' AND project_id IN (SELECT DISTINCT project_id FROM publish_log)")
 
     @staticmethod
     def _backfill_project_keys(con):

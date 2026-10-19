@@ -185,7 +185,7 @@ describe('no internal wording on any page', () => {
     }
   })
 
-  it('Sources & Findings and Task Drafts: idle, running, paused by the user and paused on an unreachable cloud, with the failure banner', async () => {
+  it('Sources & Findings and Publish: idle, running, paused by the user and paused on an unreachable cloud, with the failure banner', async () => {
     const base = fx.summary.task_drafts
     const variants = [
       { ...base, not_generated: 10 },
@@ -206,9 +206,9 @@ describe('no internal wording on any page', () => {
       expectNoEngineWording(`sources variant ${i}`)
       sources.unmount()
       const { unmount } = renderApp('/requirement/drafts')
-      await screen.findAllByTestId('finding-row')
-      expectClean(`task drafts variant ${i}`)
-      expectNoEngineWording(`task drafts variant ${i}`)
+      await screen.findByTestId('publish-table')
+      expectClean(`publish variant ${i}`)
+      expectNoEngineWording(`publish variant ${i}`)
       unmount()
       vi.unstubAllGlobals()
     }

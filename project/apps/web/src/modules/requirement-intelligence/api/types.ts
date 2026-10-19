@@ -57,6 +57,9 @@ export interface Source {
   default_sprint_id: number | null
   analysis_state: AnalysisState
   analyzed_at: string | null
+  /** Shared with the other components. Only the user publishes: analysing or importing never does. */
+  published: boolean
+  published_at: string | null
   requirements: number
   ambiguities: number
   drafts: { ready: number; needs_clarification: number; failed: number }
@@ -456,7 +459,65 @@ export interface Pipeline {
     drafts_written: number
     drafts: { ready: number; needs_clarification: number; failed: number; waiting: number }
   }
-  share: { state: StageState; sync_state: SyncStatus['state']; last_synced_at: string | null }
+  share: { state: StageState; published: number; documents: number; sync_state: SyncStatus['state']; last_synced_at: string | null }
+}
+
+/** Publish or unpublish: the listed documents, every analysed document of a sprint, or both. */
+export interface PublishDocsInput {
+  document_ids?: number[]
+  sprint_id?: number
+}
+export type SkipReason = 'not_found' | 'not_analyzed' | 'analyzing' | 'failed' | 'no_requirements' | 'already_published' | 'not_published'
+export interface PublishDocsResult {
+  action: 'publish' | 'unpublish'
+  changed: { document_id: number; name: string }[]
+  skipped: { document_id: number; name: string; reason: SkipReason; message: string }[]
+  published_documents: number
+  total_documents: number
+  /** `not_configured`: nothing to sync with yet (the flag is still set). `retrying`: the sync failed and is tried again by itself. */
+  sync: { state: 'synced' | 'not_configured' | 'retrying'; error: string | null }
+}
+export type PublishState = 'not_published' | 'published' | 'syncing' | 'sync_error'
+export interface DocDecided {
+  accepted: number
+  edited: number
+  rejected: number
+  pending: number
+}
+export interface SprintDocRow {
+  document_id: number
+  name: string
+  source: 'file' | 'jira'
+  /** The ones that are in this sprint. */
+  requirements: number
+  fr: number
+  nfr: number
+  unclassified: number
+  ready: number
+  needs_clarification: number
+  failed: number
+  not_written: number
+  decided: DocDecided
+  findings: { ambiguity: number; conflict: number; duplicate: number; security: number }
+  analysis_state: AnalysisState
+  publish_state: PublishState
+  published_at: string | null
+}
+export interface SprintSummary {
+  sprint_id: number
+  name: string
+  is_current: boolean
+  documents: number
+  published: number
+  requirements: number
+  fr: number
+  nfr: number
+  ready: number
+  needs_clarification: number
+  failed: number
+  not_written: number
+  decided: DocDecided
+  rows: SprintDocRow[]
 }
 
 export interface PlanDecisions {

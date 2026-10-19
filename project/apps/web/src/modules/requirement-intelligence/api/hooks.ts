@@ -2,7 +2,7 @@ import { keepPreviousData, useInfiniteQuery, useMutation, useQuery, useQueryClie
 import { DRAFT_POLL_MS, HEALTH_POLL_MS, JOB_POLL_MS, PAGE_SIZE, SYNC_POLL_MS, limits } from '../config'
 import { isGenerating } from '../lib/format'
 import { ApiClientError, api } from './client'
-import type { AssignRangesResult, JiraImportInput, JiraImportResult, DecisionIn, DecisionOut, Engine, EngineTarget, EngineTestResult, EngineUpdate, GenerateOut, Job, ListFilters, PageRange, Phase, Policy, Project, PublishResult, ReanalyzeResult, RequirementDetail, RequirementList, SourceType, Sprint, SprintDeleted, SprintInput, UploadResult } from './types'
+import type { AssignRangesResult, JiraImportInput, JiraImportResult, DecisionIn, DecisionOut, Engine, EngineTarget, EngineTestResult, EngineUpdate, GenerateOut, Job, ListFilters, PageRange, Phase, Policy, Project, PublishDocsInput, PublishDocsResult, PublishResult, ReanalyzeResult, RequirementDetail, RequirementList, SourceType, Sprint, SprintDeleted, SprintInput, SprintSummary, UploadResult } from './types'
 
 export const keys = {
   health: ['health'] as const,
@@ -18,12 +18,14 @@ export const keys = {
   phases: (pid: number) => ['phases', pid] as const,
   sprints: (pid: number) => ['sprints', pid] as const,
   jira: (pid: number) => ['jira', pid] as const,
+  sprintSummary: (pid: number, sid: number) => ['sprintSummary', pid, sid] as const,
 }
 
 type Client = ReturnType<typeof useQueryClient>
 
 /** Everything that shows counts of a project: the numbers on the overview, the project list and the summary. */
 function refreshCounts(qc: Client, pid?: number) {
+  void qc.invalidateQueries({ queryKey: ['sprintSummary'] })
   void qc.invalidateQueries({ queryKey: pid === undefined ? ['summary'] : keys.summary(pid) })
   void qc.invalidateQueries({ queryKey: pid === undefined ? ['overview'] : keys.overview(pid) })
   void qc.invalidateQueries({ queryKey: keys.projects })
@@ -114,6 +116,30 @@ export function usePublish(pid: number | undefined) {
     },
   })
 }
+
+/** One sprint with a row per document (numbers, decisions, findings, publish state); refreshed every 2 s while a publish is syncing. */
+export const useSprintSummary = (pid: number | undefined, sprintId: number | undefined) =>
+  useQuery<SprintSummary>({
+    queryKey: keys.sprintSummary(pid ?? 0, sprintId ?? 0),
+    queryFn: () => api.sprintSummary(pid!, sprintId!),
+    enabled: pid !== undefined && sprintId !== undefined,
+    retry: false,
+    refetchInterval: (q) => (q.state.data?.rows.some((r) => r.publish_state === 'syncing') ? JOB_POLL_MS : false),
+  })
+
+/** Publish (or take back) documents: a list, or a whole sprint. The documents, the sprint numbers and the overview follow. */
+function usePublishChange(pid: number | undefined, action: 'publish' | 'unpublish') {
+  const qc = useQueryClient()
+  return useMutation<PublishDocsResult, Error, PublishDocsInput>({
+    mutationFn: (body) => (action === 'publish' ? api.publishDocuments(pid!, body) : api.unpublishDocuments(pid!, body)),
+    onSettled: () => {
+      void qc.invalidateQueries({ queryKey: keys.sources(pid ?? 0) })
+      refreshCounts(qc, pid)
+    },
+  })
+}
+export const usePublishDocuments = (pid: number | undefined) => usePublishChange(pid, 'publish')
+export const useUnpublishDocuments = (pid: number | undefined) => usePublishChange(pid, 'unpublish')
 
 export const useSources = (pid: number | undefined) =>
   useQuery({ queryKey: keys.sources(pid ?? 0), queryFn: () => api.sources(pid!), enabled: pid !== undefined, retry: false })

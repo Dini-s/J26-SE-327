@@ -57,7 +57,7 @@ class Bundle:
     sprints: list = field(default_factory=list)  # {"id", "props"}
     planned: list = field(default_factory=list)  # {"req_id", "sprint_id"}: the effective sprint of every requirement (null = none)
     includes: list = field(default_factory=list)  # {"sprint_id", "source_id", "requirements"}: derived from `planned`, one per sprint and document with at least one requirement
-    held: list = field(default_factory=list)  # graph ids of the documents that are not analysed (yet): not published, and what the graph already holds about them is left as it is
+    held: list = field(default_factory=list)  # graph ids of published documents that are being analysed again: what the graph already holds about them is left as it is
 
     def as_dict(self):
         return {
@@ -135,8 +135,9 @@ def _issues(req_id, project_id, r, block, text):
 
 def build_bundle(db, pid, project_id, project_name, all_documents=False):
     """Everything a publish sends, read from the workspace. Needs no Neo4j.
-    Only documents in the state `analyzed` are included; the others are listed in `held` (their previously published nodes stay as they are). `all_documents`
-    includes every document (used by scripts/c1_graph_counts.py to count what each document would publish)."""
+    Only documents the user has published are sent, and only once they are analysed (a published document that is being analysed again is listed in `held`:
+    what the graph holds about it stays as it is). Documents that are not published are left out, so everything of theirs in the graph becomes inactive (never deleted).
+    `all_documents` includes every document (used by scripts/c1_graph_counts.py to count what each document would publish)."""
     service.project_or_404(db, pid)
     export = {rec["uid"]: rec for rec in service.export_json(db, pid)["requirements"]}
     decisions = {d["uid"]: d for d in db.all("SELECT * FROM decisions WHERE uid IN (SELECT uid FROM requirements WHERE project_id=?)", (pid,))}
@@ -149,8 +150,12 @@ def build_bundle(db, pid, project_id, project_name, all_documents=False):
     by_source = {}
     sources = []
     held = []
+    unpublished = set()
     for s in db.all("SELECT * FROM sources WHERE project_id=? ORDER BY id", (pid,)):
-        if not all_documents and (s.get("analysis_state") or "not_analyzed") != "analyzed":  # still being analysed (or not analysed): published once it is finished
+        if not all_documents and not s.get("published"):
+            unpublished.add(s["id"])
+            continue
+        if not all_documents and (s.get("analysis_state") or "not_analyzed") != "analyzed":  # published, but being analysed again: it follows once it is finished
             held.append(source_graph_id(project_id, s["id"]))
             continue
         sb = SourceBundle(source_graph_id(project_id, s["id"]), dict(common, **{
@@ -161,6 +166,9 @@ def build_bundle(db, pid, project_id, project_name, all_documents=False):
 
     duplicates, planned, included = {}, [], {}
     for r in reqs:
+        if r["source_id"] in unpublished:  # the link to its sprint is switched off together with the requirement
+            planned.append({"req_id": requirement_graph_id(project_id, r["source_id"], r["rid"]), "sprint_id": None})
+            continue
         if r["source_id"] not in by_source:
             continue  # cannot happen in a consistent workspace (deleting a source deletes its requirements)
         sb, s = by_source[r["source_id"]]

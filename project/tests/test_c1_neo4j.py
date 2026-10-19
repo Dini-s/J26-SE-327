@@ -180,7 +180,7 @@ def seed(db, project=True):
     if project:
         db.run("INSERT INTO projects (name, created_at) VALUES ('Core Banking Platform', ?)", (now(),))
     for sid, fn, st in ((1, "srs.txt", "srs"), (2, "brd.txt", "brd")):
-        db.run("INSERT INTO sources (id, project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256, analysis_state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        db.run("INSERT INTO sources (id, project_id, filename, stored_path, ext, size_bytes, pages, warnings, extracted, created_at, source_type, sha256, analysis_state, published) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,1)",
                (sid, 1, fn, f"/nowhere/{fn}", ".txt", 10, None, "[]", "{}", "2026-10-01T00:00:00+00:00", st, hashlib.sha256(fn.encode()).hexdigest(), "analyzed"))
 
     def req(seq, source, text, fr="FR", defect=False, weak=(), security=False, cues=(), risk=("NONE", 0), dups=()):
@@ -362,7 +362,7 @@ def test_legacy_source_rows_get_their_hash_from_the_file(tmp_path):
     d.run("INSERT INTO projects (name, created_at) VALUES ('P', ?)", (now(),))
     f = tmp_path / "up.txt"
     f.write_bytes(b"hello")
-    d.run("INSERT INTO sources (project_id, filename, stored_path, ext, size_bytes, warnings, extracted, created_at, analysis_state) VALUES (1,'up.txt',?, '.txt', 5, '[]', '{}', 't', 'analyzed')", (str(f),))
+    d.run("INSERT INTO sources (project_id, filename, stored_path, ext, size_bytes, warnings, extracted, created_at, analysis_state, published) VALUES (1,'up.txt',?, '.txt', 5, '[]', '{}', 't', 'analyzed', 1)", (str(f),))
     b = neo4j_store.build_bundle(d, 1, "p", "P")
     assert b.sources[0].props[S.SourceP.SHA256] == hashlib.sha256(b"hello").hexdigest() and b.sources[0].props[S.SourceP.SOURCE_TYPE] == "srs"
     assert d.one("SELECT sha256 FROM sources")["sha256"] == hashlib.sha256(b"hello").hexdigest()  # stored once

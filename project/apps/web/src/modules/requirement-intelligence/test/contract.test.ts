@@ -27,6 +27,7 @@ describe('the typed client and fixtures match docs/c1_openapi.json', () => {
         '/api/projects/{pid}/sources/{source_id}/reanalyze', '/api/projects/{pid}/requirements/assign', '/api/projects/{pid}/drafts/retry-failed',
         '/api/projects/{pid}/integrations/jira', '/api/projects/{pid}/integrations/jira/connect', '/api/projects/{pid}/integrations/jira/projects', '/api/projects/{pid}/integrations/jira/boards',
         '/api/projects/{pid}/integrations/jira/sprints', '/api/projects/{pid}/integrations/jira/import', '/api/integrations/jira/callback',
+        '/api/projects/{pid}/publish', '/api/projects/{pid}/unpublish', '/api/projects/{pid}/sprints/{sprint_id}/summary',
       ].sort(),
     )
   })
@@ -47,8 +48,9 @@ describe('the typed client and fixtures match docs/c1_openapi.json', () => {
       api.retryFailed(1),
       api.jiraStatus(1), api.jiraConnect(1), api.jiraDisconnect(1), api.jiraProjects(1), api.jiraBoards(1, 'ABC'), api.jiraSprints(1, 7), api.jiraSprints(1, 7, ['closed']),
       api.jiraImport(1, { project_key: 'ABC', board_id: 7, set_current: true }),
+      api.publishDocuments(1, { document_ids: [1] }), api.unpublishDocuments(1, { sprint_id: 1 }), api.sprintSummary(1, 1),
     ])
-    expect(calls).toHaveLength(52)
+    expect(calls).toHaveLength(55)
     for (const c of calls) expect(templates.some((t) => t.method === c.method && t.re.test(c.url.pathname)), `${c.method} ${c.url.pathname}`).toBe(true)
     expect(api.exportUrl(1, 'csv')).toContain('/api/projects/1/export?format=csv')
   })

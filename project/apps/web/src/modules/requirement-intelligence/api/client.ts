@@ -1,7 +1,7 @@
 import { API_BASE } from '../config'
 import type {
-  ApiErrorBody, AssignRangesResult, JiraBoard, JiraConnect, JiraImportInput, JiraImportResult, JiraProject, JiraSprint, JiraSprintState, JiraStatus, DecisionIn, DecisionOut, Engine, EngineTarget, EngineTestResult, EngineUpdate, GenerateAllOut, GenerateOut, Health, Job, ListFilters, Overview, PageRange, PausedOut, Phase, Policy, Project, PublishResult,
-  ReanalyzeResult, RequirementDetail, RequirementList, Source, SourceType, Sprint, SprintDeleted, SprintInput, Summary, SyncStatus, UploadResult,
+  ApiErrorBody, AssignRangesResult, JiraBoard, JiraConnect, JiraImportInput, JiraImportResult, JiraProject, JiraSprint, JiraSprintState, JiraStatus, DecisionIn, DecisionOut, Engine, EngineTarget, EngineTestResult, EngineUpdate, GenerateAllOut, GenerateOut, Health, Job, ListFilters, Overview, PageRange, PausedOut, Phase, Policy, Project, PublishDocsInput, PublishDocsResult, PublishResult,
+  ReanalyzeResult, RequirementDetail, RequirementList, Source, SourceType, Sprint, SprintDeleted, SprintInput, SprintSummary, Summary, SyncStatus, UploadResult,
 } from './types'
 
 /** Error with the code and message from the API error shape {error: {code, message}}. status 0 = the API could not be reached. */
@@ -66,6 +66,9 @@ export const api = {
   unarchiveProject: (pid: number) => request<Project>(`/api/projects/${pid}/unarchive`, { method: 'POST' }),
   overview: (pid: number) => request<Overview>(`/api/projects/${pid}/overview`),
   publish: (pid: number) => request<PublishResult>(`/api/projects/${pid}/publish/neo4j`, { method: 'POST' }),
+  publishDocuments: (pid: number, body: PublishDocsInput) => request<PublishDocsResult>(`/api/projects/${pid}/publish`, postJson(body)),
+  unpublishDocuments: (pid: number, body: PublishDocsInput) => request<PublishDocsResult>(`/api/projects/${pid}/unpublish`, postJson(body)),
+  sprintSummary: (pid: number, sprintId: number) => request<SprintSummary>(`/api/projects/${pid}/sprints/${sprintId}/summary`),
   sources: (pid: number) => request<Source[]>(`/api/projects/${pid}/sources`),
   upload: (pid: number, files: File[], sourceType: SourceType = 'srs', target: { sprintId?: number; phaseId?: number } = {}) => {
     const form = new FormData()

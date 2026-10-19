@@ -10,7 +10,7 @@ const SHOTS = resolve(process.cwd(), '../../outputs/c1_live_check')
 
 test.skip(process.env.C1_E2E_LIVE !== '1', 'opt-in live test: set C1_E2E_LIVE=1 with the live service on :8000 (scripts/run_c1_live.ps1) and the writing model running')
 
-test('live stack: add a document, run the analysis, a real draft appears on the Task Drafts page', async ({ page, request }) => {
+test('live stack: add a document, run the analysis, a real draft appears in the Review Queue', async ({ page, request }) => {
   test.setTimeout(15 * 60_000)
   const health = await (await request.get('http://127.0.0.1:8000/api/health')).json()
   expect(health.generation_backend, 'start the service with scripts/run_c1_live.ps1').toBe('ollama')
@@ -28,7 +28,7 @@ test('live stack: add a document, run the analysis, a real draft appears on the 
   await expect(page.getByTestId('analysis-badge')).not.toContainText('Analysing', { timeout: 5 * 60_000 })
 
   // wait until at least one requirement has a draft written by the live model (tens of seconds per draft on a 4 GB GPU)
-  await page.getByRole('link', { name: 'Task Drafts' }).click()
+  await page.getByRole('link', { name: 'Review Queue' }).click() // the drafts are read in the Review Queue now
   const prov = page.getByTestId('provenance').first()
   // the default "smart" policy writes drafts for P1 requirements only: open rows until one has a finished draft
   await expect(async () => {
