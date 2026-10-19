@@ -1,0 +1,436 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0141 ===
+public class Justify implements Serializable {
+
+	/** Class that models a justification for an absence @author Nicola Pisanti @version 1.0 */
+	private static final long serialVersionUID = -4726381877687167661L;
+
+	private int idJustify;
+	private int idUser;
+	private Date dateJustify;
+	private int academicYear;
+	
+	/** Method that returns the id of the justification */
+	public int getIdJustify() {
+		return idJustify;
+	}
+	/** Method that sets the id of the justification */
+	public void setIdJustify(int pIdJustify) {
+		this.idJustify = pIdJustify;
+	}
+	/** Method that returns the id of the student related to the justification */
+	public int getIdUser() {
+		return idUser;
+	}
+	/** Method that sets the id of the student related to the justification */
+	public void setIdUser(int pIdUser) {
+		this.idUser = pIdUser;
+	}
+	/** Method that returns the date on which the absence was justified */
+	public Date getDateJustify() {
+		return dateJustify;
+	}
+	/** Method that sets the date on which the absence was justified */
+	public void setDateJustify(Date pDateJustify) {
+		this.dateJustify = pDateJustify;
+	}
+	/** Method that returns the academic year related to the justification */
+	public int getAcademicYear() {
+		return academicYear;
+	}
+	/** Method that sets the academic year related to the justification */
+	public void setAcademicYear(int pAcademicYear) {
+		this.academicYear = pAcademicYear;
+	}
+	
+	
+	
+}
+
+=== F0142 ===
+/** The class Amministratore (Administrator) allows the management of the administrators. The class Amministratore has no dependencies @author Federico Cinque */
+public class Amministratore {
+
+	private String Nome;
+	private String Cognome;
+	private String Matricola;
+	private String Email;
+	private String Login;
+	
+	/** Empty constructor of the class Amministratore */
+	public Amministratore(){
+		Nome=null;
+		Cognome=null;
+		Matricola=null;
+		Email=null;
+		Login=null;
+	}
+	/** Constructor of the class Amministratore */
+	public Amministratore(String Nome, String Cognome, String Matricola, String Email, String Login){
+		this.Nome=Nome;
+		this.Cognome=Cognome;
+		this.Matricola=Matricola;
+		this.Email=Email;
+		this.Login=Login;
+	}
+	/** Method that returns the first name of the employee */
+	public String getNome() {
+		return Nome;
+	}
+	/** Method that sets the first name of the employee */
+	public void setNome(String nome) {
+		Nome = nome;
+	}
+	/** Method that returns the last name of the employee */
+	public String getCognome() {
+		return Cognome;
+	}
+	/** Method that sets the last name of the employee */
+	public void setCognome(String cognome) {
+		Cognome = cognome;
+	}
+	/** Method that returns the employee number (matricola) of the employee */
+	public String getMatricola() {
+		return Matricola;
+	}
+	/** Method that sets the employee number (matricola) of the employee */
+	public void setMatricola(String matricola) {
+		Matricola = matricola;
+	}
+	/** Method that returns the e-mail of the em
+
+=== F0143 ===
+/** Servlet used to modify a teaching. @author Giulio D'Amora. @version 1.0 */
+public class ServletShowTeachingDetails extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7882088509329309672L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "./persistentDataManagement/teachingManagement/showTeachingDetails.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		int teachingId = 0;
+		Teaching teaching = null;
+		ManagerTeaching managerTeaching = ManagerTeaching.getInstance();
+
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage = "L'Utente collegato non ha accesso alla "
+						+ "funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			teachingId = Integer.valueOf(pRequest.getParameter("idTeaching"));
+			teaching = managerTeaching.getTeachingById(teachingId);
+			session.setAttribute("teaching", teaching);
+		} catch (NumberFormatException numberFormatException) {
+			errorMessage = Environment.DEFAULT_ERROR_MESSAGE
+					+ numberFormatException.getMessage();
+			gotoPage = "./error.jsp";
+			numberFormatException.printStackTrace();
+		} catch (EntityNotFoundException entityNotFoundException) {
+			errorMe
+
+=== F0144 ===
+/**
+ * JSP tag that is used as the patient navigation bar at the bottom of the screen.
+ *
+ * To add a new page, add to the two arrays, and make sure that the page accepts PID
+ *
+ * @author Andy
+ *
+ */
+public class PatientNavigation implements Tag {
+	private PageContext pageContext;
+	private Tag parent;
+	// A more elegant solution here would be to use enums and have a displayName, a name, and url
+	private String pageTitles[] = { "Health Records", "Basic Health History", "Demographics",
+			"Document Office Visit", "Risk Factors", "Prescriptions" };
+	private String pageURLs[] = { "editPHR.jsp", "editBasicHealth.jsp", "editPatient.jsp",
+			"documentOfficeVisit.jsp", "chronicDiseaseRisks.jsp", "getPrescriptionReport.jsp" };
+	private String thisTitle;
+
+	public PatientNavigation() {
+		super();
+	}
+
+	public int doStartTag() throws JspException {
+		try {
+			JspWriter out = pageContext.getOut();
+			out.write("<span class=\"navigation\">");
+			for (int i = 0; i < pageTitles.length; i++) {
+				if (pageTitles[i].equals(thisTitle)) {
+					out.write(pageTitles[i]);
+				} else
+					out.write("<a href=\"/iTrust/auth/hcp-uap/" + pageURLs[i] + "\">"
+							+ pageTitles[i] + "</a>");
+				out.write(" | ");
+			}
+			out.write("<a href=\"/iTrust/auth/hcp-uap/editPHR.jsp?switch=true\">Switch Patient</a>");
+			out.write("<br /></span>");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return SKIP_BODY;
+	}
+
+	public int doEndTag() throws JspException {
+		return SKIP_BODY;
+	}
+
+	public void relea
+
+=== F0145 ===
+/** It is a JavaBean that manages the get and set methods of the attributes of a Citizen @author Francesco */
+public class Cittadino {
+	private CartaIdentita ci;
+    private int idCittadino;
+    private String CodiceFiscale;
+    private String Cognome;
+    private String Nome;
+    private Date DataNascita;
+    private String LuogoNascita;
+    private String Email;
+    private boolean Advertise;
+    private int nucleoFamiliare;
+    private String Login;
+    
+	/** empty default constructor */
+	public Cittadino() {
+		this.Advertise=false;
+		this.CodiceFiscale="";
+		this.Cognome="";
+		this.DataNascita=null;
+		this.LuogoNascita="";
+		this.Email="";
+		
+		this.Login="";
+		this.Nome="";
+		
+	}
+	public Cittadino(String code,String cog,String nome,String res,String via){
+		ci.setNumero(code);
+		this.Cognome=cog;
+		this.Nome=nome;
+		ci.setResidenza(res);
+		ci.setVia(via);
+	}
+	public Cittadino(int nf,String codfis,String cog,String name,Date data,String luogo){
+		this.nucleoFamiliare=nf;
+		this.CodiceFiscale=codfis;
+		this.Cognome=cog;
+		this.Nome=name;
+		this.DataNascita=data;
+		this.LuogoNascita=luogo;
+		
+	}
+		// TODO Auto-generated constructor stub
+	/** parametric constructor that creates the citizen object with the data entered by the citizen at registration in the municipal system */
+	public Cittadino(int id,String cod_fis,String surname,String name,Date data,String luogo,String mail,boolean adv,int nf,String l){
+		this.idCittadino=id;
+		this.CodiceFiscale=cod_fis;
+		this.Cognome=sur
+
+=== F0146 ===
+public class ServletShowJustifyDetails extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6445257206429581384L;
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./registerManagement/showJustifyDetails.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		
+		
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			ManagerRegister mR= ManagerRegister.getInstance();
+			int idJustify = Integer.valueOf(pRequest.getParameter("idJustify"));
+			String idClassroom = pRequest.getParameter("idClassroom");
+			gotoPage+="?idClassroom="+idClassroom;
+			Justify justify=mR.getJustifyByIdJustify(idJustify);
+			
+			
+			session.setAttribute("justify",justify);
+			session.setAttribute("idClassroom",idClassroom);
+		} catch (NumberFormatException numberFormatException) {
+			errorMessage =  Environment.DEFAULT_ERROR_MESSAGE + numberFormatException.getMessage();
+			gotoPage = "./error.jsp";
+			numberFormatException.printStackTrace();
+		} catch (InvalidValueException invalidValueException) {
+			errorMessage =  E
+
+=== F0147 ===
+/** Servlet used to insert a report card of a student. @author Giulio D'Amora. @version 1.0 */
+public class ServletInsertReport extends HttpServlet {
+
+	private static final long serialVersionUID = 8121220088758892213L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "./showReports";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		Collection<Teaching> teachingList = null;
+		ManagerVotes managerVotes = ManagerVotes.getInstance();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerTeaching managerTeaching = ManagerTeaching.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage = "L'Utente collegato non ha accesso alla funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			Classroom classroom = (Classroom) session.getAttribute("classroom");
+			// Teaching list
+			teachingList = managerTeaching.getTeachingsByClassroomId(classroom
+					.getIdAddress());
+			Iterator<Teaching> itTeaching = teachingList.iterator();
+			Integer year = (Integer) session.getAttribute("selectedYear");
+			UserListItem student = (UserListItem) session
+					.getAttribute("student");
+			// Term (quarter)
+			int turn = (Integer) session.getAttribute("q");
+			Teaching teachingTemp = null;
+
+=== F0148 ===
+/** Servlet used to insert an address into the database @author Vecchione Giuseppe */
+public class ServletInsertAddress extends HttpServlet {
+
+	private static final long serialVersionUID = 8318905833953187814L;
+	
+	/** Definition of the method doGet */
+	
+	public void doGet(HttpServletRequest pRequest, HttpServletResponse pResponse){
+		String gotoPage="./showAddressList";
+		String errorMessage="";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser= ManagerUser.getInstance();
+		ManagerAddress managerAddress= ManagerAddress.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		try {
+				if(loggedUser==null){
+					pResponse.sendRedirect("./index.htm");
+					return;
+				}
+				if(!managerUser.isAdministrator(loggedUser)){
+					errorMessage= "L' utente collegato non ha accesso alla funzionalita'!";
+					gotoPage="./error.jsp";
+				}
+				
+				Address address= new Address();
+				address.setName(pRequest.getParameter("name"));
+				
+				/** We check that the address is not present in the database and we insert it */
+				if(!managerAddress.exists(address)){
+					managerAddress.insert(address);
+				}else{
+					throw new DuplicatedEntityException("Indirizzo gia' esistente");
+				}
+				
+			} catch (IOException ioException) {
+				errorMessage = Environment.DEFAULT_ERROR_MESSAGE + ioException.getMessage();
+				gotoPage = "./error.jsp";
+				ioException.printStackTrace();
+			} catch (SQLException sqlException) {
+				errorMessage =  Environment.DEFA
+
+=== F0149 ===
+/** The class ServletAnnulla (ServletCancel) cancels the operation the user was performing. The class ServletAnnulla has no dependencies @author Federico Cinque */
+public class ServletAnnulla extends HttpServlet{
+	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("amm");
+		session.removeAttribute("acc");
+		session.removeAttribute("c");
+		session.removeAttribute("newCapo");
+		session.removeAttribute("citt");
+		
+		String url="/myDoc/workers/index.jsp";
+		response.sendRedirect(url);
+	}
+}
+
+=== F0150 ===
+/** The class ServletModificaImpiegato (ServletModifyEmployee) performs the modification of an employee. The class has no dependencies @author Federico Cinque */
+public class ServletModificaImpiegato extends HttpServlet{
+
+	private String nome;
+	private String cognome;
+	private String email;
+	private String matricola;
+	private String login;
+	private String password;
+	private String tipo;
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		if(session!=null){	// If the session is null, performs a redirect to the authentication page
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = null;
+			String ris;
+			try{
+				// If the session attributes amm and acc are null I have to perform the search
+				if(session.getAttribute("amm")==null && session.getAttribute("acc")==null){
+					matricola = request.getParameter("matricola");
+					ImpiegatoManager IM = new ImpiegatoManager();
+					Impiegato imp = IM.ricercaImpiegatoByMatricola(matricola);
+					if(imp != null){
+						session.setAttribute("amm", imp);
+
+						AccessManager AM = new AccessManager();
+						Accesso ac = AM.getAccesso(imp.getLogin());
+						session.setAttribute("acc", ac);
+
+						rd = sc.getRequestDispatcher("/workers/index.jsp?func=modifica&page=impiegato"); 
+						rd.forward(request,response);
+					}
+					else{
+						ris="La matricola non corrisponde ad un impiegato";
+						request.setAttribu

@@ -1,0 +1,243 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 5 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0291 ===
+/** The class ServletRicercaPratica (ServletSearchApplication) returns an application specified in the search engine. The class depends on the class DbRichieste @author Christian Ronca */
+
+public class ServletRicercaPratica extends HttpServlet {
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int cod = Integer.parseInt(request.getParameter("codice"));
+		String value = request.getParameter("valore");
+		
+		int idp = 0, idr = 0;
+		String idr_attesa="", idr_lavorazione="", idr_completato="";
+		
+	    ArrayList<Richiesta> arrayList;
+	    Richiesta ric = null;
+	    DbRichiesta dbric = null;
+	    
+	    try {
+	    	dbric = new DbRichiesta();
+	    	System.out.println("ok");
+		
+			if(value.equals("idp")) {
+				ric = dbric.getRichiestaById(cod);
+		    	request.setAttribute("ris", ric);
+			} else if(value.equals("idr")) {
+				arrayList = (ArrayList<Richiesta>)dbric.getRichiestaByRichiedente(cod);
+		    	request.setAttribute("ris", arrayList);
+			} else if((value.equals("accettata")) || value.equals("rifiutata")) {
+				arrayList = (ArrayList<Richiesta>)dbric.getRichiestaByStato(cod, value);
+		    	request.setAttribute("ris", arrayList);
+			} else {
+				arrayList = null;
+			}
+
+	    } catch(Exception e) {
+	    	//e.getMessage().toString();
+	    	e.printStackTrace();
+	    }
+	    
+	    ServletContext sc = getServletContext(); 
+		RequestDispatcher rd = sc.getRequestDispatcher("/workers/index.jsp?func=visualizza&page=Dat
+
+=== F0292 ===
+/** The class ServletCreaPdfCambioAbitazione creates a PDF file based on the data received from a JSP page (change of dwelling). The class has no dependencies @author Christian Ronca */
+
+public class ServletCreaPdfCambioAbitazione extends HttpServlet {
+	private static final long serialVersionUID = -168526506138896791L;
+	private HttpSession session;
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) 
+		throws ServletException, IOException {
+		session = request.getSession();
+		
+		try {
+			GregorianCalendar gc = new GregorianCalendar();
+			int gg = gc.get(GregorianCalendar.DATE);
+			int mm = gc.get(GregorianCalendar.MONTH) + 1;
+			int year = gc.get(GregorianCalendar.YEAR);
+			String now = "" + year + mm + gg;
+			String inout = "";
+			
+			String nome_comune			= request.getParameter("comunename").toUpperCase();
+			//String numb_document		= request.getParameter("numberdocument");
+			String nome					= request.getParameter("name").toUpperCase();
+			String surname				= request.getParameter("surname").toUpperCase();
+			String name_citta			= request.getParameter("citta").toUpperCase();
+			String gg_date				= request.getParameter("gg");
+			String mm_date				= request.getParameter("mm");
+			String aa_date				= request.getParameter("aa");
+			String newcomune			= request.getParameter("newcomune").toUpperCase();
+			String indir				= request.getParameter("via").toUpperCase();
+			String numero_civico		= request.getParameter("civico");
+			//String interno				= reque
+
+=== F0293 ===
+public class ServletShowClassroomManagement extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3100959843623661377L;
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./registerManagement/showClassroomList.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		Collection<Classroom> classroomList = null;
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerClassroom managerClassroom= ManagerClassroom.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+			
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			} 
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			} 
+			
+			// take the academic year from the session
+			
+			classroomList = managerClassroom.getClassroomsByAcademicYear(Integer.valueOf(pRequest.getParameter("academicYear")));
+			
+					
+			session.setAttribute("classroomList", classroomList);
+			pResponse.sendRedirect(gotoPage);
+			return; 
+			
+		} catch (SQLException sqlException) {
+			errorMessage =  Environment.DEFAULT_ERROR_MESSAGE + sqlException.getMessage();
+			gotoPage = "./error.jsp";
+			sqlException.printStackTrace();
+		} catch (EntityNotFoundException entityNotFoundException) {
+			errorMessage =  Environme
+
+=== F0294 ===
+/** The class DbAmministratore (DbAdministrator) takes care of managing the connections to the db @author Antonio Leone @version 1.0 */
+
+public class DbAmministratore {
+
+	private Connection connection;
+	
+	public DbAmministratore() throws DbException
+	{
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: connessione non riuscita");
+		}
+	}
+	
+	/** Method that inserts an administrator into the db */
+	
+	public boolean inserisciAmministratore(Amministratore a)throws DbException
+	{
+		String matr=a.getMatricola();
+		String nome=a.getNome();
+		String cogn=a.getCognome();
+		String email=a.getEmail();
+		String login=a.getLogin();
+		int ret=0;
+		PreparedStatement statement=null;
+		try
+		{
+			statement=connection.prepareStatement("INSERT INTO amministratore VALUES (? ,? ,?,?,?)");
+			statement.setString(1, matr);
+			statement.setString(2,nome);
+			statement.setString(3,cogn);
+			statement.setString(4, email);
+			statement.setString(5, login);
+			ret= statement.executeUpdate();
+			return (ret==1);
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: inserimento amministratore non riuscito");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: inserimento amministratore non riuscito");
+			}
+		}
+	}
+	
+	/** Method that deletes an Administrator from the db */
+	
+	public boolean eliminaAmministratore(String  matr) throws D
+
+=== F0295 ===
+public class ServletShowClassroomList extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8468821050771730936L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./persistentDataManagement/classroomManagement/showClassroomList.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		Collection<Classroom> classroomList = null;
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerClassroom managerClassroom= ManagerClassroom.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+			
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			} 
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			} 
+			
+			// take the academic year from the session
+			
+			classroomList = managerClassroom.getClassroomsByAcademicYear(Integer.valueOf(pRequest.getParameter("academicYear")));
+			
+					
+			session.setAttribute("classroomList", classroomList);
+			pResponse.sendRedirect(gotoPage);
+			return; 
+			
+		} catch (SQLException sqlException) {
+			errorMessage =  Environment.DEFAULT_ERROR_MESSAGE + sqlException.getMessage();
+			gotoPage = "./error.jsp";
+			sqlException.printStackTrace();
+		} catch (EntityNotFoundException entityNotFoundException) {
+			error

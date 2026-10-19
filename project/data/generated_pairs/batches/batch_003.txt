@@ -1,0 +1,450 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0021 ===
+/**
+ * Used for the logging mechanism.
+ *
+ * DAO stands for Database Access Object. All DAOs are intended to be reflections of the database, that is,
+ * one DAO per table in the database (most of the time). For more complex sets of queries, extra DAOs are
+ * added. DAOs can assume that all data has been validated and is correct.
+ *
+ * DAOs should never have setters or any other parameter to the constructor than a factory. All DAOs should be
+ * accessed by DAOFactory (@see {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
+ * connections and/or accessing other DAOs.
+ *
+ * @author Andy
+ *
+ */
+public class AdverseEventDAO {
+	private DAOFactory factory;
+	private AdverseEventBeanLoader aeLoader;
+
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
+	public AdverseEventDAO(DAOFactory factory) {
+		this.factory = factory;
+		this.aeLoader = new AdverseEventBeanLoader();
+	}
+
+	/**
+	 * Gets all the adverse event reports for a certain user MID.
+	 * @param mid The MID of the user to be looked up.
+	 * @return A java.util.List of AdverseEventBeans.
+	 * @throws SQLException
+	 * @throws DBException
+	 */
+public List<AdverseEventBean> getReportsFor(long mid) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM AdverseEvents WHERE PatientMID = ?");
+			ps.set
+
+=== F0022 ===
+/**
+ * Used for managing the ND Codes.
+ *
+ * DAO stands for Database Access Object. All DAOs are intended to be reflections of the database, that is,
+ * one DAO per table in the database (most of the time). For more complex sets of queries, extra DAOs are
+ * added. DAOs can assume that all data has been validated and is correct.
+ *
+ * DAOs should never have setters or any other parameter to the constructor than a factory. All DAOs should be
+ * accessed by DAOFactory (@see {@link DAOFactory}) and every DAO should have a factory - for obtaining JDBC
+ * connections and/or accessing other DAOs.
+ *
+ * The National Drug Code (NDC) is a universal product identifier used in the
+ * United States for drugs intended for human use.
+ *
+ * @see http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm
+ * @author Andy
+ *
+ */
+public class NDCodesDAO {
+	private DAOFactory factory;
+	private MedicationBeanLoader medicationLoader = new MedicationBeanLoader();
+
+	/**
+	 * The typical constructor.
+	 * @param factory The {@link DAOFactory} associated with this DAO, which is used for obtaining SQL connections, etc.
+	 */
+	public NDCodesDAO(DAOFactory factory) {
+		this.factory = factory;
+	}
+
+	/**
+	 * Returns a list of all ND codes
+	 *
+	 * @return A java.util.List of MedicationBeans.
+	 * @throws DBException
+	 */
+	public List<MedicationBean> getAllNDCodes() throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement
+
+=== F0023 ===
+Add  
+	 Add Patient 
+ 
+ 
+	 Edit  
+	 Edit PHR  
+	 Edit Basic Health Information  
+	 Edit Patient  
+	 Edit My Demographics 
+ 
+ 
+	 View  
+	 View My Report Requests  
+	 View Laboratory Procedures  
+ 
+ 
+	 Telemedicine  
+	 Edit Patient List  
+	 Report Status  
+ 
+ 
+	 Other  
+	 Document Office Visit  
+	 Chronic Disease Risks  
+	 Email History  
+	 Satisfaction Survey Results
+
+=== F0024 ===
+/**
+ * Interface for the management of cultural heritage database
+ *
+ */
+
+public interface IDBCulturalHeritage {
+    /**
+     * Add a cultural heritage, given input
+     *
+     * @Param pBene Cultural Heritage for inclusion in database
+     */
+    public boolean insertCulturalHeritage(BeanCulturalHeritage pBene) throws SQLException;
+
+    /**
+     * Modify the information in the cultural
+     *
+     * @Param pBene contains the information to modify the database
+     * @Return True if there 'was a modified false otherwise
+     */
+    public boolean modifyCulturalHeritage(BeanCulturalHeritage pBene) throws SQLException;
+
+    /**
+     * Delete a cultural object from the database
+     *
+     * @Param ID pIdBene cultural property to delete
+     * @Return True if and 'was deleted false otherwise
+     */
+    public boolean clearCulturalHeritage(int pIdBene) throws SQLException;
+
+    /**
+     * Returns the cultural object with id as input
+     *
+     * @Param pId cultural property to be extracted from the database
+     * @Return cultural property obtained from the database
+     */
+    public BeanCulturalHeritage getCulturalHeritage(int pId) throws SQLException;
+
+    /**
+     * Research. Returns the list of cultural property in their name or Description
+     * given String as input, filtered according to tags and Maximum distance. The
+     * returned list contains the number of goods given as input. To browse the real
+     * list, which may contain more 'of Ten elements, you use the pa
+
+=== F0025 ===
+/** The class AccessManager interacts with the database management classes. The class AccessManager has no dependencies @author Federico Cinque */
+public class AccessManager {
+	private DbAccesso dbAccesso;
+	/** Default constructor of the class AccessManager */
+	public AccessManager(){
+		dbAccesso=new DbAccesso();
+	}
+	/** Method that checks the correctness of the login and password of an access by invoking the corresponding method of the db class */
+	public boolean controllaAccesso(String login, String password)throws DbException{
+		return dbAccesso.controllaAccesso(login, password);
+	}
+	/** Method that checks the existence of the login by invoking the corresponding method of the db class */
+	public boolean controllaLogin(String login)throws DbException{
+		return dbAccesso.controllaLogin(login);
+	}
+	/** Method that returns an access by invoking the corresponding method of the db class */
+	public Accesso getAccesso(String login)throws DbException{
+		return dbAccesso.getAccesso(login);
+	}
+
+	public boolean modificaAccesso(String login, Accesso newAccesso)throws DbException{
+		return dbAccesso.modificaAccesso(login, newAccesso);
+	}
+	/** Method that inserts an access into the db by invoking the corresponding method of the db class */
+	public boolean inserisciAccesso(Accesso ac)throws DbException{
+		return dbAccesso.inserisciAccesso(ac);
+	}
+	/** Method that deletes an access from the db by invoking the corresponding method of the db class */
+	public boolean eliminaAccesso(String log
+
+=== F0026 ===
+pageTitle = "iTrust - View Laboratory Procedures";
+ 
+
+ 
+
+ 
+LabProcHCPAction action2 = new LabProcHCPAction(prodDAO, loggedInMID.longValue());
+if(request.getParameter("priv")!=null && request.getParameter("priv").equals("yes")){
+	action2.changePrivacy(Long.parseLong(request.getParameter("ID")));
+}
+
+/* Require a Patient ID first */
+String pidString = (String)session.getAttribute("pid");
+if (pidString == null || 1 > pidString.length()) {
+	response.sendRedirect("/iTrust/auth/getPatientID.jsp?forward=hcp/LabProcHCP.jsp");
+   	return;
+}
+else {
+	session.removeAttribute("pid");
+}
+
+/* If the patient id doesn't check out, then kick 'em out to the exception handler */
+EditPatientAction action = new EditPatientAction(prodDAO,loggedInMID.longValue(),pidString);
+long pid = action.getPid();
+
+List  proc = action2.viewProcedures(pid);
+ 
+
+ 
+ 
+	 
+		 Lab Procedures 
+	 
+
+	 
+  		 Patient 
+  		 Lab Code 
+  		 Rights 
+		 Status 
+		 Commentary 
+		 Results 
+		 OfficeVisitID 
+		 Updated Date 
+		 Edit Office Visit 
+		 Change Privacy 
+		 Action 
+  	 
+ 
+	if(proc.size() > 0) {
+		for(LabProcedureBean bean : proc){
+			PatientBean patient = new PatientDAO(prodDAO).getPatient(bean.getPid());
+ 
+			 
+				  patient.getFullName()  
+				  bean.getLoinc()  
+				  bean.getRights()  
+				  bean.getStatus()  
+				  bean.getCommentary()  
+				  bean.getResults()  
+				  bean.getOvID()  
+				  bean.getTimestamp()  
+				    if(action2.checkAccess(bean.getProcedureID())){ 
+					 ">Edit Office Visit  
+				 }   
+				    if(a
+
+=== F0027 ===
+/**
+ * Class that implements the interface SearchPreference
+ *
+ */
+public class DBSearchPreference implements IDBSearchPreference {
+// Empty constructor
+    public DBSearchPreference() {
+    }
+
+    public boolean clearSearchPreference(int pIdPreference) throws SQLException {
+// Variables for database connection
+        Connection conn = null;
+// Variable for the query
+        Statement stat = null;
+        try {
+// Get the connection
+            conn = DBConnectionPool.getConnection();
+            ;
+// Create the Statement
+            stat = conn.createStatement();
+// Query clearing
+            String query = "DELETE FROM preferenzedisearch WHERE Id =" + pIdPreference;
+// You run the query Cancellation
+            int i = stat.executeUpdate(query);
+// This returns the backup
+            return (i == 1);
+        }
+// Always runs and takes care of closing the Statement and the
+// Connect
+        finally {
+            if (stat != null) {
+                stat.close();
+            }
+            if (conn != null) {
+                DBConnectionPool.releaseConnections(conn);
+            }
+        }
+    }
+
+    public boolean clearSearchPreferenceBC(int pIdCulturalHeritage, int pIdSearchPreference) throws SQLException {
+// Variables for database connection
+        Connection conn = null;
+// Variable for the query
+        Statement stat = null;
+        try {
+// Get the connection
+            conn = DBConnectionPool.getConnection();
+            ;
+// Create the Statement
+            stat 
+
+=== F0028 ===
+/** Servlet used to insert a teaching into the Database. @author Giulio D'Amora. @version 1.0 */
+public class ServletInsertTeaching extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4519458598257606331L;
+
+	/**
+	 * 
+	 */
+
+	/** Definition of the method doGet */
+	public void doGet(HttpServletRequest pRequest, HttpServletResponse pResponse) {
+		String gotoPage = "./teachingList";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerTeaching managerTeaching = ManagerTeaching.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		// String isWizard = "yes";
+
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage = "L'Utente collegato non ha accesso alla "
+						+ "funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+
+			Teaching teaching = new Teaching();
+			teaching.setName(pRequest.getParameter("name"));
+
+			if (!managerTeaching.exists(teaching)) {
+				managerTeaching.insert(teaching);
+				session.setAttribute("teaching", teaching);
+				// session.setAttribute("isWizard", isWizard);
+
+			} else
+				throw new DuplicatedEntityException(
+						"Insegnamento gia' esistente");
+
+		} catch (SQLException SQLException) {
+			errorMessage = Environment.DEFAULT_ERROR_MESSAGE
+					+ SQLException.getMessage();
+			gotoPage = "./error.jsp";
+			SQL
+
+=== F0029 ===
+/**
+ * This class has the task of checking the data of a cultural object. Various
+ * consistency checks are performed, such as length of strings, Null reference,
+ * dynamic types incorrect.
+ *
+ */
+public class CulturalHeritageChecker {
+    /**
+     *
+     * Please consistency check by calling the appropriate methods. This method
+     * wrappa "all other methods of control with a single call. At the first false
+     * value the flow is interrupted.
+     *
+     * @Param bean The PBC of the cultural object to be inspected @Return boolean
+     * The result of the check: true if OK, false otherwise
+     */
+    public static boolean checkDataCulturalHeritage(BeanCulturalHeritage pBC) {
+// This method checks the input parameter in the cases
+// Null reference or dynamic Wrong
+        if (pBC == null || !(pBC instanceof BeanCulturalHeritage))
+            return false;
+
+// This method checks if the ID passed as a parameter BeanCulturalHeritage
+// Is valid or not
+        if (!checkIdCulturalHeritage(pBC.getId()))
+            return false;
+
+// This method checks the objects contained in BeanCulturalHeritage Date
+// As such, a check is made null and reference checks
+// On the dynamic.
+        if (!checkDateCulturalHeritage(pBC))
+            return false;
+
+// This method checks all the fields in BeanCulturalHeritage, research
+// Any null references
+        if (!checkDataNull(pBC))
+            return false;
+
+// Check the correct length of string, in this case the CAP must
+// To force of cir
+
+=== F0030 ===
+/** Class used to model the role of a user. @author Bavota Gabriele, Carnevale Filomena. */
+public class Role implements Serializable {
+	
+	private static final long serialVersionUID = 8833734317107515203L;
+	
+	
+	
+	/** The id of the administrator role */
+	public static final int ADMIN = 1;
+	
+	/** The id of the teacher role */
+	public static final int TEACHER = 2;
+	
+	/** The id of the student role */
+	
+	public static final int STUDENT	 = 3;
+	
+	/** The id of the parent role */
+	
+	public static final int PARENT = 4;
+	
+	/** The id of the ata (administrative, technical and auxiliary staff) role */
+	
+	public static final int ATA = 5;
+	
+	/** The id of the management role */
+	
+	public static final int DIRECTOR = 6;
+
+}

@@ -1,0 +1,446 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0261 ===
+/** The class ImpiegatoManager interacts with the database management classes. The class ImpiegatoManager has no dependencies @author Federico Cinque */
+public class ImpiegatoManager {
+	private DbImpiegato dbImpiegato;
+	/** Default constructor of the class ImpiegatoManager */
+	public ImpiegatoManager(){
+		dbImpiegato = new DbImpiegato();
+	}
+	/** Method that modifies an employee by invoking the corresponding method of the db class */
+	public boolean modificaImpiegato(String matricola, Impiegato newImpiegato)throws DbException{
+		return dbImpiegato.modificaImpiegato(matricola, newImpiegato);
+	}
+	/** Method that returns an employee by invoking the corresponding method of the db class */
+	public Impiegato ricercaImpiegatoByMatricola(String matricola) throws DbException{
+		return dbImpiegato.getImpiegatoByMatricola(matricola);
+	}
+	/** Method that inserts an employee into the db by invoking the corresponding method of the db class */
+	public boolean inserisciImpiegato(Impiegato newImpiegato)throws DbException{
+		return dbImpiegato.inserisciImpiegato(newImpiegato);
+	}
+	/** Method that deletes an employee from the db by invoking the corresponding method of the db class */
+	public boolean eliminaImpiegato(String matricola)throws DbException{
+		return dbImpiegato.eliminaImpiegato(matricola);
+	}
+	/** Method that returns an employee by invoking the corresponding method of the db class */
+	public Impiegato getImpiegatoByLogin(String login) throws DbException{
+		return dbImpiegato.getImpie
+
+=== F0262 ===
+/**
+ * Class that implements the methods used to calculate the Fuzzy Category of
+ * membership of a refreshment or a cultural property.
+ */
+public class Fuzzy {
+
+    /**
+     * Method for calculating the relevance of a term.
+     *
+     * @Param distance: Contains the distance of the term from category analyzed
+     * @Param pMaxDist: Contains  maximum distance of all terms in all categories.
+     * @Return Returns the relevance of the term in the category.
+     */
+    private static float relevance(float distance, float pMaxDist) {
+        return (distance / pMaxDist);
+
+    }
+
+    /**
+     * Method for calculating the distance between a term and a category
+     *
+     * @Param pTerms: Contains the period analyzed
+     * @Param pTotTerms: Tables of the total frequency of terms.
+     * @Param textFrequency: Table of the terms of the text analyzed.
+     * @Param pCategory: Category analyzed.
+     * @Return Returns
+     * the distance of the term pTerms by category PCategoria
+     */
+    private static float distance(String pTerms, Hashtable<String, float[]> pTotTerms, float textFrequency,
+            Category pCategory) {
+
+// The first variable tracks the frequency of a term
+// Relating to a category
+// The second keeps track of fraquenza a deadline for all
+// Categories
+        float[] categoryFrequency = new float[3];
+        float[] totalFrequency = new float[3];
+
+        if (pCategory.termExists(pTerms)) // if the term is In category
+        {
+// Its frequency in this categ
+
+=== F0263 ===
+/**
+ * Class that implements the interface IDBVisitPR
+ *
+ */
+public class DBVisitPR implements IDBVisitPR {
+// Empty constructor
+    public DBVisitPR() {
+
+    }
+
+    public boolean insertVisitPR(BeanVisitPR pVisit) throws SQLException {
+// Variable for the connection
+        Connection conn = null;
+// Variable for the query
+        Statement stat = null;
+// Variable for the query results
+        ResultSet result = null;
+        try {
+// Create the date of visit
+            java.sql.Date dataVisit = new Date(pVisit.getDataVisit().getTime());
+// Get the connection
+            conn = DBConnectionPool.getConnection();
+// Create the Statement
+            stat = conn.createStatement();
+// Query to get the average rating of a property
+            String queryAverageRating = "SELECT AverageRating, RatingNumber FROM puntodiristoro WHERE Id ="
+                    + pVisit.getIdRefreshmentPoint();
+            result = stat.executeQuery(queryAverageRating);
+// Variable for the average rating
+            double average = 0;
+// Variable for the number of votes
+            int ratingNumber = 0;
+            if (result.next()) {
+                average = result.getDouble("AverageRating");
+                ratingNumber = result.getInt("RatingNumber ");
+                average = ((average * ratingNumber) + pVisit.getRating()) / ratingNumber;
+            }
+// Query for the insertion
+            String query = "INSERT INTO visitapr (IdTourist, IdRefreshmentPoint, DataVisit, Vote, Comment) VALUES (
+
+=== F0264 ===
+public class ReportStatistic extends JInternalFrame {
+    private static final long serialVersionUID = 1L;
+    private Vector<String> data;
+    private JPanel jContentPane = null;
+    private JToolBar JToolBar = null;
+    private JComboBox JComboBox = null;
+    private JPanel centralPanel = null;
+    private JScrollPane JScrollPane = null;
+    private JTable tables = null;
+    private JPanel southPanel = null;
+    private JTabbedPane JTabbedPane = null;
+    private JPanel guideline = null;
+    private JTextPane jTextPane = null;
+    private JPanel genStat = null;
+    private JPanel evdStat = null;
+    private JPanel stat = null;
+    private JPanel JPanel = null;
+    private JButton JButton = null;
+    private JButton jButton1 = null;
+    private JButton jButton2 = null;
+    private JLabel jLabel1 = null;
+    private JLabel jLabel2 = null;
+    private JLabel jLabel3 = null;
+    private JLabel jLabel4 = null;
+    private JLabel jLabel5 = null;
+    private JLabel jLabel6 = null;
+    private JLabel jLabel7 = null;
+    private JLabel jLabel8 = null;
+    private JLabel jLabel9 = null;
+    private JPanel JPanel1 = null;
+    private JLabel jLabel10 = null;
+    private JLabel jLabel11 = null;
+    private JLabel jLabel12 = null;
+    private JLabel jLabel13 = null;
+    private JLabel jLabel14 = null;
+    private JLabel jLabel15 = null;
+    private JLabel jLabel16 = null;
+    private JLabel jLabel17 = null;
+    private JLabel jLabel18 = null;
+    private JLabel jLabel19 = null;
+    priva
+
+=== F0265 ===
+public class Classroom implements Serializable{
+
+	/** Class used to model a class (school class) @author Nicola Pisanti @version 1.0 */
+	
+	private static final long serialVersionUID = -8295647317972301446L; 
+
+	private int idClassroom; // Id of the class
+	private int idAddress;	// Id of the address
+	private String name;	// Name of the class
+	private int academicYear; // Academic year of the class; enter the year of the first semester.
+	
+	
+	public Classroom(){
+		this.idAddress=0;
+		this.idClassroom=0;
+		
+	}
+	
+	
+	/** Method that returns the academic year */
+	public int getAcademicYear() {
+		return academicYear;
+	}
+	
+	
+	
+	/** Method that sets the academic year */
+	public void setAcademicYear(int pAcademicYear) {
+		this.academicYear = pAcademicYear;
+	}
+	
+	
+	/** Method to get the ID of the address of the class */
+	public int getIdAddress() {
+		return idAddress;
+	}
+	
+	
+	/** Method that sets the ID of the address of the class */
+	public void setIdAddress(int pIdAddress) {
+		this.idAddress = pIdAddress;
+	}
+	
+	
+	/** Method that returns the ID of the class */
+	public int getIdClassroom() {
+		return idClassroom;
+	}
+	
+	
+	/** Method that sets the ID of the class */
+	public void setIdClassroom(int pIdClassroom) {
+		this.idClassroom = pIdClassroom;
+	}
+	
+	
+	/** Method that returns the name of the class */
+	public String getName() {
+		return name;
+	}
+	
+	
+	/** Method that sets the name of the class */
+	public void setName(String pName) {
+		this.name = pName;
+	}
+	
+	
+	
+	public String toString(){
+
+
+=== F0266 ===
+/** Class used to model a teaching. @author Giulio D'Amora @version 1.0 */
+
+public class Teaching implements Serializable {
+
+	private static final long serialVersionUID = 2523612738702790957L;
+	private int id_teaching;
+	private String name;
+
+	/** The constructor of the class. */
+	public Teaching() {
+		this.id_teaching = 0;
+	}
+
+	/** Returns the name of the teaching */
+	public String getName() {
+		return this.name;
+	}
+
+	/** Sets the name of the teaching. */
+	public void setName(String pName) throws InvalidValueException {
+		if (pName.length() <= 4)// the test is to be verified
+			throw new InvalidValueException();
+		else
+			this.name = pName;
+	}
+
+	/** Returns the id of the teaching. */
+	public int getId() {
+		return this.id_teaching;
+	}
+
+	/** Sets the id of the teaching. */
+	public void setId(int pId) {
+		this.id_teaching = pId;
+	}
+
+}
+
+=== F0267 ===
+/*
+ * ConnectionPoolDataSource
+ *
+ */
+
+/** Implementation of the connection pool through the implementation of the interface java.sql.DataSource. The pool periodically checks the active connections and those that are pooled, i.e. released but still usable (kept in memory). The release time of the active connections and of the pooled ones is represented by two parameters inside the class, connectionPoolCloseTimeout and inactiveMaxTimeout; these values, like all the others concerning the pool, have a default value that can be configured through the properties file connection.properties */
+
+public class ConnectionPoolDataSource implements DataSource {
+
+    /** Thread inside the class ConnectionPoolDataSource that, every connectionPoolCloseTimeout milliseconds, releases the pooled connections. */
+    private class ConnectionCloser extends Thread {
+
+        private long connectionActionTimestamp = 0;
+
+        private int connectionPoolCloseTimeout = 300000;
+
+        private long timeStamp = 0;
+
+        /** Constructor that sets the release time of the pooled connections @author Di Giorgio Domenico, Cris Malinconico */
+		private ConnectionCloser(int pTime) {
+            setDaemon(true);
+            setName("ConnectionPoolCloser");
+            if (pTime > 0)
+            	this.connectionPoolCloseTimeout = pTime;
+        }
+
+        /** Every time a connection generates an event with an invocation of getConnection() or release(), the timestamp is set to the current time value through t
+
+=== F0268 ===
+/**
+ * Action class for LabProcHCP.jsp.
+ *
+ * @extends LabProcUAPAction
+ */
+public class LabProcHCPAction extends LabProcUAPAction {
+	private TransactionDAO transDAO;
+	private LabProcedureDAO lpDAO;
+	private OfficeVisitDAO ovDAO;
+	long loggedInMID;
+	private LabProcedureValidator validator;
+
+	/**
+	 * Sets up defaults
+	 *
+	 * @param factory The DAOFactory used to create the DAOs used in this action.
+	 * @param loggedInMID  MID for the logged in HCP
+	 */
+
+	public LabProcHCPAction(DAOFactory factory, long loggedInMID) {
+		super(factory, loggedInMID);
+		transDAO = factory.getTransactionDAO();
+		lpDAO = factory.getLabProcedureDAO();
+		ovDAO = factory.getOfficeVisitDAO();
+		this.loggedInMID = loggedInMID;
+		validator = new LabProcedureValidator();
+
+	}
+
+	/**
+	 * This method sorts by LOINC and returns the list
+	 *
+	 * @param id the ID to sort the list by
+	 * @return List sorted by LOINC
+	 */
+	public List<LabProcedureBean> sortByLOINC(long id) throws DBException {
+		return lpDAO.getAllLabProceduresLOINC(id);
+	}
+
+	/**
+	 * Returns a list of all the lab procedures for the next month
+	 *
+	 * @return all the lab procedures for the next month
+	 */
+	public List<LabProcedureBean> getLabProcForNextMonth() throws DBException {
+		List<LabProcedureBean> listLabProc = new ArrayList<LabProcedureBean>(0);
+		List<OfficeVisitBean> listOV = ovDAO.getAllOfficeVisitsForLHCP(loggedInMID);
+		for (OfficeVisitBean ov : listOV) {
+			if (listLabProc.isEmpty() == true) {
+				listLabProc = lpDAO.getLabProceduresF
+
+=== F0269 ===
+/**
+  * FeedbackTableModel.java
+  *
+  * 1.0
+  *
+  * 21/05/2007
+  *
+  * 2007 eTour Project - Copyright by SE @SA Lab - DMI University of Salerno
+*/
+
+/**
+ * Container model of data for feedback received To be a cultural or a
+ * refreshment.
+ *
+ *
+ */
+public class FeedBackTableModel extends AbstractTableModel {
+
+    private static final long serialVersionUID = 1L;
+    private static final String[] headers = { "rating", "Comment", "Release Date", "Issued by" };
+    private static final Class[] columnClasses = { Integer.class, String.class, Date.class, String.class };
+    private ArrayList<Object[]> data;
+
+    /**
+     * Default Constructor. We only provide the model but not Loads no data in it.
+     *
+     */
+    public FeedBackTableModel() {
+        data = new ArrayList<Object[]>();
+    }
+
+    /**
+     * Constructor that takes as input an ArrayList of BeanVisitBC or BeanVisitPR
+     * and copies of the data within the model Preparing for display.
+     *
+     */
+    public FeedBackTableModel(HashMap<?, String> pDataFeedback) {
+        this();
+        if (pDataFeedback == null || pDataFeedback.size() == 0) {
+            return;
+        }
+        Iterator<?> iter = pDataFeedback.keySet().iterator();
+        while (iter.hasNext()) {
+            Object current = iter.next();
+            if (current instanceof BeanVisitBC) {
+                insertVisitBC((BeanVisitBC) current, pDataFeedback.get(current));
+            } else if (current instanceof BeanVisitPR) {
+                insertV
+
+=== F0270 ===
+/** The class ServletEliminaCittadino (ServletDeleteCitizen) searches for and deletes a citizen. The class has no dependencies @author Federico Cinque */
+public class ServletEliminaCittadino extends HttpServlet{
+
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session = request.getSession();
+		if(session!=null){	// If the session is null, performs a redirect to the authentication page
+			ServletContext sc = getServletContext();
+			RequestDispatcher rd = null;
+			String ris;
+			try{
+				// If the session attributes c and acc are null I have to perform the search
+				if(session.getAttribute("c")==null && session.getAttribute("acc")==null){
+					String cod = request.getParameter("ci").toUpperCase();
+					CIManager CIM = new CIManager();
+					CittadinoManager CM = new CittadinoManager();
+					CartaIdentita CI = CIM.getCartaByNumero(cod);
+
+					if(CI!=null){
+						Cittadino c = CM.getCittadinoById(CI.id());
+						session.setAttribute("c", c);
+
+						AccessManager AM = new AccessManager();
+						Accesso ac = AM.getAccesso(c.getLogin());
+						session.setAttribute("acc", ac);
+
+						NucleoFamiliareManager NFM = new NucleoFamiliareManager();
+						int componenti = NFM.getNComponentiNucleo(c.getNucleoFamiliare());
+						NucleoFamiliare nf = NFM.getNucleo(c.getNucleoFamiliare());
+						if(componenti>1 && nf.getCapoFamiglia()== c.getIdCittadino()){
+							String nc = "si"; 
+							session.setAttribute("newC

@@ -1,0 +1,570 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0011 ===
+/** Servlet used to load the Report card of a student. @author Giulio D'Amora. @version 1.0 */
+public class ServletLoadReport extends HttpServlet {
+
+	private static final long serialVersionUID = -1045906657573424217L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest,
+			HttpServletResponse pResponse) {
+		String gotoPage = "./reportsManagement/updateReport.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		Collection<Votes> votesList = null;
+		Collection<Teaching> teachingList = null;
+		ManagerVotes managerVotes = ManagerVotes.getInstance();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		ManagerTeaching managerTeaching = ManagerTeaching.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage = "L'Utente collegato non ha accesso alla funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			Classroom classroom = (Classroom) session.getAttribute("classroom");
+			// Teaching list
+			teachingList = managerTeaching.getTeachingsByClassroomId(classroom
+					.getIdAddress());
+			Integer year = (Integer) session.getAttribute("selectedYear");
+			// Term (quarter)
+			int turn = (Integer) session.getAttribute("q");
+
+			UserListItem student = (UserListItem) session
+					.getAttribute("student");
+			// List of grades
+			votesLi
+
+=== F0012 ===
+public class DBNews implements IDBNews {
+    /** Static field that stores the number of test */
+    private static int NUM_TEST = 0;
+
+    public boolean clearNews(int pIdNews) throws SQLException {
+        if (NUM_TEST == 1) {
+            return true;
+        } else if (NUM_TEST == 2) {
+            throw new SQLException();
+        }
+        return true;
+
+    }
+
+    public boolean insertNews(BeanNews pNews) throws SQLException {
+        if (NUM_TEST == 7) {
+            return false;
+        } else {
+            return true;
+
+        }
+    }
+
+    public boolean modifyNews(BeanNews pNews) throws SQLException {
+        return true;
+    }
+
+    public ArrayList<BeanNews> getNews() throws SQLException {
+        ArrayList<BeanNews> toReturn = new ArrayList<BeanNews>();
+
+        if (NUM_TEST == 5) {
+            for (int i = 1; i <= GlobalConstants.MAX_NEWS_ACTIVE; i++) {
+                toReturn.add(new BeanNews());
+            }
+            return toReturn;
+
+        } else {
+            toReturn.add(new BeanNews());
+            return toReturn;
+        }
+    }
+
+    /**
+     * Set the number of tests in progress
+     *
+     */
+    public static void setNUM_TEST(int num_test) {
+        NUM_TEST = num_test;
+    }
+
+}
+
+=== F0013 ===
+pageTitle = "iTrust - Update Lab Procedure";
+ 
+
+ 
+
+ 
+	String headerMessage = "";
+
+LabProcedureBean lbean = null;
+long requestID = 0L;
+String lpid = request.getParameter("ID");
+
+if (lpid != null && !lpid.equals("")) {
+	try {
+
+		requestID = Long.parseLong(lpid);
+		lbean = prodDAO.getLabProcedureDAO().getLabProcedure(requestID);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
+
+	LabProcHCPAction action2 = new LabProcHCPAction(prodDAO, loggedInMID.longValue());
+	boolean formIsFilled = request.getParameter("formIsFilled") != null
+	&& request.getParameter("formIsFilled").equals("true");
+
+	if (formIsFilled) {
+		//This page is not actually a "page", it just adds a user and forwards.
+		lbean.setStatus(request.getParameter("Status"));
+		lbean.setResults(request.getParameter("Results"));
+		lbean.setCommentary(request.getParameter("Commentary"));
+
+		try{
+		action2.updateProcedure(lbean); 
+		 Information Updated Successfully 
+		  } catch(FormValidationException e){
+			e.printHTML(out);
+		}
+	}
+
+ 
+
+ 
+	 
+		 Lab Procedures 
+	 
+
+	 
+
+    		 Patient 
+  			 Lab Code 
+   			 Rights 
+	 		 Status 
+  			 Commentary 
+   			 Results 
+ 			 OfficeVisitID 
+   			 Updated Date 
+
+  	 
+		 LabProcedureBean bean = prodDAO.getLabProcedureDAO().getLabProcedure(requestID);
+		PatientBean patient = new PatientDAO(prodDAO).getPatient(bean.getPid()); 
+			 
+				  patient.getFullName()  
+				  bean.getLoinc()  
+				  bean.getRights()  
+				  bean.getStatus()  
+				  bean.getCommentary()  
+				  bean.getResults()  
+
+
+=== F0014 ===
+/**
+ * Bean containing information relating to an Agency Operator
+ *
+ */
+public class BeanOperatorAgency implements Serializable {
+
+    /**
+    *
+    */
+    private static final long serialVersionUID = -3489147679484477440L;
+    private int id;
+    private String username;
+    private String name;
+    private String lastName;
+    private String password;
+
+    /**
+     * Parameterized constructor
+     *
+     * @Param pId @Param pUsername @Param pName @Param pSurname @Param pPassword
+     */
+    public BeanOperatorAgency(int pId, String pUsername, String pName, String pSurname, String pPassword) {
+        setId(pId);
+        setUsername(pUsername);
+        setName(pName);
+        setSurname(pSurname);
+        setPassword(pPassword);
+    }
+
+    /**
+     * Empty Constructor
+     */
+    public BeanOperatorAgency() {
+
+    }
+
+    /**
+     * Returns the value of name
+     *
+     * @Return value of name.
+     */
+    public String getSurname() {
+        return name;
+    }
+
+    /**
+     * Sets the new value of name
+     *
+     * @Param value New pSurname surname.
+     */
+    public void setSurname(String pSurname) {
+        lastName = pSurname;
+    }
+
+    /**
+     * Returns the value of name
+     *
+     * @Return value of name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the new name value
+     *
+     * @Param name New value pName.
+     */
+    public void setName(String pName) {
+        name = pName;
+    }
+
+    /**
+     * Returns the value of pa
+
+=== F0015 ===
+/** The class ServletVisualizzaPratiche (ServletViewApplications) returns a list of requests. The class depends on the class DbRichieste @author Christian Ronca */
+
+public class ServletVisualizzaPratiche extends HttpServlet {
+	private static final long serialVersionUID = -6835425792119775069L;
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession(true);
+	    ArrayList<Richiesta> arrayList = null;
+	    
+	    try {
+	    	DbRichiesta dbnc =new DbRichiesta();
+	    	arrayList = (ArrayList<Richiesta>)dbnc.getRichieste();
+	    	session.setAttribute("array", arrayList);
+	    } catch(Exception e) {
+	    	//e.getMessage().toString();
+	    	e.printStackTrace();
+	    }
+	    
+	    session.setAttribute("array", arrayList);
+	    ServletContext sc = getServletContext();
+		RequestDispatcher rd = sc.getRequestDispatcher("/workers/index.jsp?func=pra&page=visualizza"); 
+		rd.forward(request,response);
+	}
+}
+
+=== F0016 ===
+public class Category implements Serializable {
+
+    /**
+     * Class that describes the characteristics of a Category Contains a Hashtable
+     * that represents the dictionary on The category that contains and for each
+     * term associated In the category values of frequency, distance and relevance.
+     * Provides methods to access, modify and auxiliary methods.
+     */
+    private static final long serialVersionUID = -8652232946927756089L;
+
+    private String name; // name of the category
+    private Hashtable<String, float[]> terms; // list of terms and their frequencies and distance rilavanza
+
+    /**
+     * Manufacturer: Get the category name as a parameter to create
+     */
+    public Category(String pName) {
+        name = pName;
+        terms = new Hashtable<String, float[]>();
+    }
+
+    /**
+     * Returns the output Hashtable containing the terms With the respective values
+     * of frequency, relevance and distance
+     */
+
+    public Hashtable<String, float[]> getTerms() {
+        return terms;
+    }
+
+    /**
+     * Returns the name of the output category
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Get the String as a parameter representing the term Of which you want to pick
+     * the values of frequency, range and bearing
+     */
+    public float[] getVal(String pTerms) throws NullPointerException {
+        if (termExists(pTerms))
+            return terms.get(pTerms);
+
+        return null;
+    }
+
+    /**
+     * Adds an en
+
+=== F0017 ===
+/**
+ * This class creates a node in a JTree to store Information about a banner.
+ *
+ */
+public class BannerNode extends DefaultMutableTreeNode {
+    private int id;
+
+    /**
+     * This is the default constructor.
+     *
+     */
+    public BannerNode() {
+        super();
+    }
+
+    /**
+     * Create a node with the image of the banner and Your id supplied as
+     * parameters.
+     *
+     * @Param pBanner Imagelcon - the image of the banner. pId * @param int - the id
+     *        of the banner.
+     * @Throws IllegalArgumentException - if the image provided as input is invalid.
+     *
+     */
+    public BannerNode(ImageIcon pBanner, int pId) throws IllegalArgumentException {
+        super();
+        if (null == pBanner) {
+            throw new IllegalArgumentException("Image is invalid.");
+        }
+        setUserObject(pBanner);
+        id = pId;
+    }
+
+    /**
+     *
+     * Returns the node type PRNode father.
+     *
+     * @Return PRNode - the parent node.
+     *
+     */
+    public PRNode getParent() {
+        return (PRNode) super.getParent();
+    }
+
+    /**
+     *
+     * Returns the id of the banner for which information Are stored in this node.
+     *
+     * @Return int - the id of the banner.
+     *
+     */
+    public int getID() {
+        return id;
+    }
+
+    /**
+     *
+     * Stores the id of the banner supplied input.
+     *
+     * @Param int pId - an ID of a banner.
+     *
+     */
+    public void setID(int pId) {
+        id = pId;
+    }
+
+    /**
+     *
+     * Re
+
+=== F0018 ===
+/**
+ * Class that models the interface for viewing the card, Modify the data and the
+ * insertion of a new resting spot.
+ *
+ *
+ */
+public class CardPR extends JInternalFrame {
+
+    private JPanel jContentPane = null;
+    private JToolBar toolbarCardBC = null;
+    private JToggleButton btnModify = null;
+    private JButton btnSave = null;
+    private JButton btnCancel = null;
+    private JButton btnModifyComment = null;
+    private JTabbedPane jTabbedPane = null;
+    private JPanel statistics = null;
+    private JPanel feedback = null;
+    private JLabel txtName = null;
+    private JLabel txtAddress = null;
+    private JLabel txtCAP = null;
+    private JLabel txtCity = null;
+    private JLabel txtLocation = null;
+    private JLabel txtProvince = null;
+    private JLabel txtPos = null;
+    private JLabel txtPhone = null;
+    private JLabel txtOraAp = null;
+    private JLabel txtOraCh = null;
+
+    private JLabel jLabel = null;
+    private JTextField addressPR = null;
+    private JComboBox addressPR1 = null;
+    private JTextField cityPR = null;
+    private JComboBox locationPR = null;
+    private JTextField capPR = null;
+    private JScrollPane jScrollPane = null;
+    private JTextArea descriptionPR = null;
+    private JTextField phonePR = null;
+    private JComboBox scheduleAPOrePR = null;
+    private JLabel jLabel1 = null;
+    private JComboBox scheduleApMinPR = null;
+    private TagTableModel panelTag;
+    private JTextField costBC = null;
+
+    private JLabel jLabel3 = null;
+
+
+=== F0019 ===
+/** The class DbImpiegato (DbEmployee) takes care of managing the connections to the db @author Antonio Leone @version 1.0 */
+
+public class DbImpiegato {
+	
+	private Connection connection;
+	
+	public DbImpiegato() throws DbException
+	{
+		try
+		{
+			connection=DbConnection.getConnection();
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: connessione non riuscita");
+		}
+	}
+	
+	/** Method that inserts an employee into the db */
+	
+	public boolean inserisciImpiegato(Impiegato i)throws DbException
+	{
+		String matr=i.getMatricola();
+		String nome=i.getNome();
+		String cogn=i.getCognome();
+		String email=i.getEmail();
+		String login=i.getLogin();
+		int ret=0;
+		PreparedStatement statement=null;
+		try
+		{
+			statement=connection.prepareStatement("INSERT INTO impiegato VALUES (? ,? ,?,?,?)");
+			statement.setString(1, matr);
+			statement.setString(2,nome);
+			statement.setString(3,cogn);
+			statement.setString(4, email);
+			statement.setString(5, login);
+			ret= statement.executeUpdate();
+			return (ret==1);
+		}
+		catch(SQLException e)
+		{
+			throw new DbException("Errore: inserimento impiegato non riuscito");
+		}
+		finally
+		{
+			try
+			{
+				if(statement!=null)
+					statement.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DbException("Errore: inserimento impiegato non riuscito");
+			}
+		}
+	}
+	
+	/** Method that deletes an employee from the db */
+	
+	public boolean eliminaImpiegato(String matr) throws DbException
+	{
+		PreparedStatement statement=null;
+		int ret=
+
+=== F0020 ===
+/**
+ * Create a custom JTable that can be displayed through Components that enable
+ * scrolling.
+ *
+ */
+public class ScrollableTable extends JTable implements Scrollable {
+
+    private static final int maxUnitIncrement = 20;
+
+    public ScrollableTable() {
+        super();
+    }
+
+    public ScrollableTable(TableModel tm) {
+        super(tm);
+        setGridColor(Color.LIGHT_GRAY);
+        setIntercellSpacing(new Dimension(5, 0));
+    }
+
+    public Dimension getPreferredScrollableViewportSize() {
+        return getPreferredSize();
+    }
+
+    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
+
+        int posCurrent = 0;
+        if (orientation == SwingConstants.HORIZONTAL) {
+            posCurrent = visibleRect.x;
+        } else {
+            posCurrent = visibleRect.y;
+        }
+
+        if (direction < 0) {
+            int newPos = posCurrent - (posCurrent / maxUnitIncrement) * maxUnitIncrement;
+            return (newPos == 0) ? maxUnitIncrement : newPos;
+        } else {
+            return ((posCurrent / maxUnitIncrement) + 1) * maxUnitIncrement - posCurrent;
+        }
+    }
+
+    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
+        if (orientation == SwingConstants.HORIZONTAL) {
+            return visibleRect.width - maxUnitIncrement;
+        } else {
+            return visibleRect.height - maxUnitIncrement;
+        }
+    }
+
+    public boolean getScrollableTracksViewportWidth() {

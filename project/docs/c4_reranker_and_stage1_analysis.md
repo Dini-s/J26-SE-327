@@ -465,7 +465,7 @@ Limits to say out loud:
 
 ## 7. Reproducing the results
 
-> **Note (archived code).** The experiment code and bundles behind sections 5.3 to 5.u (the cross-encoder reranker, the learned ranker, the MiniLM fine-tuning on synthetic pairs, the Colab notebooks, and the training bundles in `data/reranker`, `data/codebert_run`, `data/synthetic`) were moved out of the project into `J26-SE-327-removed-files/c4-experiments-*/` (same relative paths) and are no longer part of the pipeline. The result files in `data/results/` and the numbers in this document were not changed. The commands below that name those files only work after the archive is put back.
+> **Note (archived code).** The experiment code and bundles behind sections 5.3 to 5.u (the cross-encoder reranker, the learned ranker, the MiniLM fine-tuning on synthetic pairs, the Colab notebooks, and the training bundles in `data/reranker`, `data/codebert_run`, `data/generated_pairs` (earlier `data/synthetic`)) were moved out of the project into `J26-SE-327-removed-files/c4-experiments-*/` (same relative paths) and are no longer part of the pipeline. The result files in `data/results/` and the numbers in this document were not changed. The commands below that name those files only work after the archive is put back.
 
 Open `scripts/reproduce_reranker_analysis.ipynb` with the project's `.venv` kernel (Python 3.9). It prints every table in this document that can be recomputed.
 

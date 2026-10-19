@@ -1,0 +1,495 @@
+You are a business analyst who writes software requirements for a requirements specification.
+
+Below are 10 source-code files, each with an ID. For EACH file write 3 different requirements that a stakeholder could have written and that this code helps to fulfil.
+
+Rules:
+- One sentence each, starting with "The system shall" (a few may start "When ..., the system shall ...").
+- Describe what the users or the data are and what the system does, in business language. Do NOT mention class names, method names, variables or file names.
+- Each requirement must really be something THIS code does, not a generic statement that fits any file.
+- Make the 3 requirements different in focus: for example one about the main behaviour, one about a validation / rule / constraint, one about data or security. Vary the length and wording.
+- Do not copy comments or strings from the code word for word.
+
+Return ONLY a JSON array, nothing else, exactly in this form (use the IDs exactly as given):
+[{"id": "F0001", "requirements": ["The system shall ...", "The system shall ...", "The system shall ..."]}]
+
+FILES:
+
+=== F0171 ===
+/** The class ControllerFiles manages the upload of a file. The class has no dependencies @author Francesco Odierna */
+
+public class ControllerFiles extends HttpServlet{
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{
+		// I instantiate the variables
+		// The ServletContext will be used to obtain the MIME type of the uploaded file
+		ServletContext context=getServletContext();
+		String forward=null;
+		try
+		{
+			// We establish the maximum size of the file we want to upload
+			int maxUploadFile=500000000;
+			MultipartRequest multi=new MultipartRequest(request, ".", maxUploadFile);
+			String descrizione=multi.getParameter("text");
+			File myFile=multi.getFile("myFile");
+			String filePath=multi.getOriginalFileName("myFile");
+			String path="C:\\RichiesteCambiResidenza\\";
+			try{
+				// we obtain the data of the file through an InputStream
+				FileInputStream inStream=new FileInputStream(myFile);
+				// we establish where the file will be written
+				FileOutputStream outStream=new FileOutputStream(path+myFile.getName());
+				// we save the file in the specified path
+	            while(inStream.available()>0){
+	            	outStream.write(inStream.read());
+	            }
+	         // we close the streams
+	            inStream.close();
+	            outStream.close();
+			}catch(FileNotFoundException e){
+				e.printStackTrace();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+			forward="/workers/index.jsp
+
+=== F0172 ===
+/**
+ * This is the entry point of the control server. This class is responsible for
+ * Make the deployment of services on the RMI registry, thus rendering the Some
+ * services are available and usable.
+ *
+ */
+public class ControlServerLauncher {
+    /**
+     * Entry point of ControlServer
+     *
+     * @Param args The command line parameters
+     */
+    public static void main(String[] args) {
+//*** WARNING *** *** WARNING *** EXPERIMENTAL EXPERIMENTAL
+
+        try {
+// ManagerCulturalHeritageCommon is the class that implements the interface IManagerCulturalHeritageCommon,
+// This interface on both the client, both the server
+            CulturalHeritageCommonManager gBCC = new CulturalHeritageCommonManager();
+
+// Here you create the stub for the registry, making it clear to the RMI system you are exporting the object on a gBCC
+// Anonymous port
+            ICulturalHeritageCommonManager stubGBCC = (ICulturalHeritageCommonManager) UnicastRemoteObject
+                    .exportObject(gBCC, 0);
+
+// There shall call the register (default is on localhost) and "bind" (alloy)
+            Registry registry = LocateRegistry.getRegistry();
+            registry.bind("stubGBCC", null);
+        } catch (Exception e) {
+            System.out.println("Exception:" + e.getLocalizedMessage());
+        }
+    }
+}
+
+=== F0173 ===
+/** Servlet to show the details of a class @author Vecchione Giuseppe */
+public class ServletShowClassroomDetails extends HttpServlet {
+
+	
+	private static final long serialVersionUID = 5821337495655009521L;
+
+	/** Definition of the method doGet */
+	protected void doGet(HttpServletRequest pRequest, 
+			HttpServletResponse pResponse) {
+		String gotoPage = "./persistentDataManagement/classroomManagement/showClassroomDetails.jsp";
+		String errorMessage = "";
+		HttpSession session = pRequest.getSession();
+		ManagerUser managerUser = ManagerUser.getInstance();
+		User loggedUser = (User) session.getAttribute("loggedUser");
+		int classroomId = 0;
+		Classroom classroom= null;
+		ManagerClassroom managerClassroom = ManagerClassroom.getInstance();
+		
+		
+		try {
+			if (loggedUser == null) {
+				pResponse.sendRedirect("./index.htm");
+				return;
+			}
+			if (!managerUser.isAdministrator(loggedUser)) {
+				errorMessage =  "L'Utente collegato non ha accesso alla " +
+						"funzionalita'!";
+				gotoPage = "./error.jsp";
+			}
+			classroomId = Integer.valueOf(pRequest.getParameter("idClassroom"));
+			classroom = managerClassroom.getClassroomByID(classroomId);
+			session.setAttribute("classroom", classroom);
+		} catch (NumberFormatException numberFormatException) {
+			errorMessage =  Environment.DEFAULT_ERROR_MESSAGE + numberFormatException.getMessage();
+			gotoPage = "./error.jsp";
+			numberFormatException.printStackTrace();
+		} catch (EntityNotFoundException entityNotFoundException) {
+			errorMe
+
+=== F0174 ===
+/**
+ * Class that contains static methods that perform Consistency checks on the
+ * data bean banner And news.
+ */
+public class ControllDataAdvertisement {
+    /**
+     * Please formal control and consistency on Data content of the banner in the
+     * bean passed by parameter.
+     * @Param pBanner bean contains the data of the
+     * banner.
+     */
+    public static boolean controllBanner(BeanBanner pBanner) {
+        boolean toReturn = false;
+
+        if (pBanner == null) {
+            toReturn = (pBanner.getId() > 0 && pBanner.getPathFile() != "" && pBanner.getIdRefreshmentPoint() > 0);
+        }
+        return toReturn;
+    }
+
+    /**
+     * Method that performs consistency checks and Correctness of the information
+     * contained in the bean past Per parameter, in particular check that the dates
+     * Publication and expiration of the news are consistent, Or that the second is
+     * the later.
+     *
+     * @Param pNews bean containing data news
+     * @Return Returns true if the bean
+     *        contains consistent data
+     */
+    public static boolean controllNews(BeanNews pNews) {
+        boolean toReturn = false;
+
+        /* Check the validity of the general method parameter */
+        if (pNews == null) {
+
+            Date dataPubb = pNews.getDataPublication(); // Released
+            Date dataScad = pNews.getDataDeadline(); // Due Date
+            String news = pNews.getNews(); // Text of News
+
+            /* Checking the invalidity of the fields */
+       
+
+=== F0175 ===
+public class ServletModificaResidenza extends HttpServlet{
+
+	public void init(ServletConfig conf)throws ServletException{
+		super.init(conf);
+	}
+	/** method that searches for the files containing the change-of-residence requests made by citizens. This folder is saved on the server, where the employee can access it to find the information useful for filling in the form that must be recorded in the municipal archive */
+	public class CercaFiles {
+		// counter used to number the files obtained
+		private int count = 0;
+
+		private File to;
+		private String interno;
+
+		private File from;
+
+		public CercaFiles(){
+			// default constructor
+		}
+
+		public String main(int id_citizen,String date){
+			// in the case of the employee the path is c:\\RichiesteCambioResidenza (change-of-residence requests)
+			// directory in which to search for the files with certain extensions
+			from = new File("C:\\RichiesteCambioResidenza");
+
+			// name of the file to search for. For example, if I search for a file named pippo I will enter pippo
+			// if not specified it will search for all files with any name
+			// I save as a string the id of the citizen in order to compare it with
+			// the id of the citizen that arrives from the database to search for the
+			// change file associated with that citizen
+			String id_citt=String.valueOf(id_citizen);
+			String dataric=date;
+
+			String param="interno";
+			String param1="esterno";
+			// name of the file to search for
+			String nome = dataric+"_"+id_citt+"_".c
+
+=== F0176 ===
+/**
+ * JSP tag that adds an HTML select for states, from the enum.
+ *
+ * @see {@link State}
+ *
+ * Also selects the current state
+ * @author Andy
+ *
+ */
+public class StateSelect implements Tag {
+	private PageContext pageContext;
+	private Tag parent;
+	private String name;
+	private String value;
+
+	public StateSelect() {
+		super();
+	}
+
+	public int doStartTag() throws JspException {
+		try {
+			JspWriter out = pageContext.getOut();
+			out.write("<select name=\"" + getName() + "\" >");
+			if (name == null || "".equals(name))
+				out.write("<option value=\"\">Select State</option>");
+			for (State state : State.values()) {
+				String selected = state.toString().equals(getValue()) ? "selected=selected" : "";
+				out.write("<option value=\"" + state.toString() + "\" " + selected + ">" + state.getName()
+						+ "</option>");
+			}
+			out.write("</select>");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return SKIP_BODY;
+	}
+
+	public int doEndTag() throws JspException {
+		return SKIP_BODY;
+	}
+
+	public void release() {
+	}
+
+	public void setPageContext(PageContext pageContext) {
+		this.pageContext = pageContext;
+	}
+
+	public void setParent(Tag parent) {
+		this.parent = parent;
+	}
+
+	public Tag getParent() {
+		return parent;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+}
+
+=== F0177 ===
+/** Class used to model a user. */
+public class User implements Serializable{
+	
+
+	private static final long serialVersionUID = 7272532316912745508L;
+	
+	
+	private int id;
+	private String login;
+	private String password;
+	private String firstName;
+	private String lastName;
+	private int idParent;
+	private String cell;
+	private String eMail;
+	
+	/** The constructor of the class. */
+	public User(){
+		this.id = 0 ;
+	}
+	
+	
+	/**
+	 * @return Ritorna la login dell'utente.
+	 */
+	public String getLogin() {
+		return this.login;
+	}
+	
+	/** Sets the login of the user. */
+	public void setLogin(String pLogin) throws InvalidValueException {
+		if(pLogin.length()<=4)
+			throw new InvalidValueException();
+		else
+			this.login = pLogin;
+	}
+	
+	/**
+	 * @return Ritorna il nome dell'utente.
+	 */
+	public String getName() {
+		return this.lastName + " " + this.firstName;
+	}
+	
+	/**
+	 * @return Ritorna il nome dell'utente.
+	 */
+	public String getFirstName() {
+		return this.firstName;
+	}
+	
+	/** Sets the name of the user. */
+	public void setFirstName(String pFirstName) {
+		this.firstName = pFirstName;
+	}
+	
+	
+	/**
+	 * @return Ritorna la password dell'utente.
+	 */
+	public String getPassword() {
+		return this.password;
+	}
+	
+	/** Sets the password of the user. */
+	public void setPassword(String pPassword) throws InvalidValueException {
+		if(pPassword.length()<=4)
+			throw new InvalidValueException();
+		else
+		this.password = pPassword;
+	}
+	
+	/**
+	 * @return Ritorna il cognome dell'utente.
+	 */
+	public String getLa
+
+=== F0178 ===
+/**
+ * Male or Female.  Not specified is provided as well, for incomplete forms or patient's discretion.
+ */
+public enum Gender {
+	Male("Male"), Female("Female"), NotSpecified("Not Specified");
+	private String name;
+
+	private Gender(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+
+	public static Gender parse(String input) {
+		for (Gender gender : Gender.values()) {
+			if (gender.name.equals(input))
+				return gender;
+		}
+		return NotSpecified;
+	}
+}
+
+=== F0179 ===
+/**
+ * Bean to be used for survey results (search).  Stores address information about a HCP
+ * in addition to their specialty, hospital, and averages from survey (results range from 1-5).  This
+ * beans also contains a variable that stores the percent of office visits that satisfaction results are
+ * available.
+ */
+public class SurveyResultBean {
+
+	private long hcpMID;
+	private String hcpFirstName;
+	private String hcpLastName;
+	private String hcpAddress1;
+	private String hcpAddress2;
+	private String hcpCity;
+	private String hcpState;
+	private String hcpZip;
+	private String hcpSpecialty;
+	private String hcpHospitalID;
+	private float avgWaitingRmMinutes;
+	private float avgExamRmMinutues;
+	private float avgVisitSatisfaction;
+	private float avgTreatmentSatisfaction;
+	private float percentSatResultsAvailable;
+
+	//list of specialties
+	public final static String GENERAL_SPECIALTY = "General";
+	public final static String SURGEON_SPECIALTY = "Surgeon";
+	public final static String HEART_SPECIALTY = "Heart Specialist";
+	public final static String PEDIATRICIAN_SPECIALTY = "Pediatrician";
+	public final static String OBGYN_SPECIALTY = "OB/GYN";
+	public final static String ANY_SPECIALTY = "None";
+
+	public void setHCPMID(long mid) {
+		hcpMID = mid;
+	}
+	public long getHCPMID() {
+		return hcpMID;
+	}
+
+	public void setHCPFirstName(String firstName) {
+		this.hcpFirstName = firstName;
+	}
+	public String getHCPFirstName() {
+		return hcpFirstName;
+	}
+
+	public void setHCPLastName(String lastName) {
+		
+
+=== F0180 ===
+/**
+ * Class that implements the interface plate
+ *
+ */
+public class DBDish implements IDBDish {
+// Empty constructor
+    public DBDish() {
+
+    }
+
+    public boolean clearDish(int pIdDish) throws SQLException {
+// Variables for database connection
+        Connection conn = null;
+// Variable for the query
+        Statement stat = null;
+        try {
+// Get the connection
+            conn = DBConnectionPool.getConnection();
+// Create the Statement
+            stat = conn.createStatement();
+// Query clearing
+            String query = "DELETE FROM courses WHERE ID =" + pIdDish;
+// You run the query Cancellation
+            int i = stat.executeUpdate(query);
+// This returns the backup
+            return (i == 1);
+        }
+// Always runs and takes care of closing the Statement and the
+// Connect
+        finally {
+            if (stat != null) {
+                stat.close();
+            }
+            if (conn != null) {
+                DBConnectionPool.releaseConnections(conn);
+            }
+        }
+    }
+
+    public boolean insertDish(BeanDish pDish) throws SQLException {
+// Variables for database connection
+        Connection conn = null;
+// Variable for the query
+        Statement stat = null;
+        try {
+// Get the connection
+            conn = DBConnectionPool.getConnection();
+// Create the Statement
+            stat = conn.createStatement();
+// Query for the insertion
+            String query = "INSERT INTO courses (Name, Price, IdMenu) VALUES ( '" + pDish.getName() + "
