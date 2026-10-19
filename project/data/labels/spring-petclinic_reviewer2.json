@@ -1,0 +1,166 @@
+{
+ "labeller": "AI (code reading, second reviewer) - NOT a human label",
+ "project": "spring-petclinic",
+ "labels": {
+  "PC-REQ-016||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/resources/templates/welcome.html": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-002||spring-petclinic:src/main/resources/templates/owners/findOwners.html": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-013||spring-petclinic:src/main/resources/templates/owners/ownerDetails.html": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-010||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "label": "unsure",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-019||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-012||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-004||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-007||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicRuntimeHints.java": {
+   "label": "unsure",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-011||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-016||spring-petclinic:src/main/resources/templates/fragments/layout.html": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-020||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "label": "unsure",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-022||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-014||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-021||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-008||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/resources/templates/owners/findOwners.html": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-023||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/resources/templates/vets/vetList.html": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-003||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-001||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "label": "unsure",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-026||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-009||spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java": {
+   "label": "unsure",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-015||spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-018||spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java": {
+   "label": "correct",
+   "source": "ai-code-reading"
+  },
+  "PC-REQ-006||spring-petclinic:src/main/resources/templates/owners/ownersList.html": {
+   "label": "wrong",
+   "source": "ai-code-reading"
+  }
+ }
+}
