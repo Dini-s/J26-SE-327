@@ -1,31 +1,23 @@
-import { HelpCircle, Info, Sparkles } from 'lucide-react'
+import { HelpCircle, Sparkles } from 'lucide-react'
 import { useRef, type Ref } from 'react'
-import { useGenerate, useRemoveDecision, useRequirement, useSetDecision, useSprints } from '../api/hooks'
+import { useGenerate, useRemoveDecision, useRequirement, useSetDecision } from '../api/hooks'
 import type { DecisionIn } from '../api/types'
 import { copy } from '../copy'
 import { useToasts } from '../context/Toasts'
-import { classifierConfidence, levelLabel, sourceLabel } from '../lib/format'
+import { sourceLabel } from '../lib/format'
 import { DecisionCard } from './DecisionCard'
 import { DraftCard } from './DraftCard'
-import { ExplanationCard } from './ExplanationCard'
+import { IssueIndicator, RelatedRequirements } from './ExplanationCard'
 import { JiraOrigin } from './JiraBadge'
 import { HighlightLegend, HighlightedText } from './HighlightedText'
 import { AiClarifyBadge, RiskBadge, Skeleton } from './ui'
 
-/** "Model confidence": the classifier's probability for the label it chose, with an explanation tooltip. */
-export function ConfidenceChip({ fr_nfr, probability }: { fr_nfr: string; probability: number }) {
-  const value = levelLabel(classifierConfidence({ fr_nfr, nfr_probability: probability }))
+/** Whether the requirement is functional or non-functional, and nothing more (no score is shown). */
+export function KindChip({ fr_nfr }: { fr_nfr: string }) {
   return (
-    <span className="group relative inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-ai-primary" tabIndex={0} aria-describedby="confidence-help" data-testid="confidence">
-      <Sparkles size={16} aria-hidden="true" />
-      <span>
-        {copy.analysis.confidence(value)}
-        <span className="ml-1 font-normal text-secondary-text">({fr_nfr})</span>
-      </span>
-      <Info size={13} className="text-muted" aria-hidden="true" />
-      <span id="confidence-help" role="tooltip" className="pointer-events-none absolute right-0 top-full z-30 mt-2 hidden w-64 rounded-md bg-heading p-2.5 text-[11.5px] font-normal leading-snug text-white shadow-lg group-hover:block group-focus-visible:block">
-        {copy.analysis.confidenceHelp}
-      </span>
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-ai-border bg-white px-2.5 py-0.5 text-[11px] font-semibold text-ai-primary" data-testid="requirement-kind">
+      <Sparkles size={13} aria-hidden="true" />
+      {copy.analysis.kind[fr_nfr] ?? fr_nfr}
     </span>
   )
 }
@@ -45,7 +37,6 @@ export function RequirementView({ uid, projectId, mode, headingRef, waiting = fa
   const setDecision = useSetDecision(projectId)
   const removeDecision = useRemoveDecision(projectId)
   const generate = useGenerate()
-  const sprints = useSprints(projectId)
   const toasts = useToasts()
   const draftRef = useRef<HTMLDivElement>(null)
 
@@ -93,7 +84,11 @@ export function RequirementView({ uid, projectId, mode, headingRef, waiting = fa
     try {
       await setDecision.mutateAsync({ uid: d.uid, body })
       toasts.push(copy.decision.saved(d.id, copy.decision.word[body.decision].toLowerCase()), 'success')
-      if (body.decision === 'edited') draftRef.current?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' })
+      if (body.decision === 'edited')
+        draftRef.current?.scrollIntoView?.({
+          block: 'nearest',
+          behavior: 'smooth',
+        })
       return true
     } catch (e) {
       toasts.push(copy.decision.saveFailed((e as Error).message), 'error')
@@ -110,8 +105,13 @@ export function RequirementView({ uid, projectId, mode, headingRef, waiting = fa
       return false
     }
   }
-  const onGenerate = () => generate.mutate(d.uid, { onError: (e) => toasts.push(copy.drafts.startFailed(e.message), 'error') })
+  const onGenerate = () =>
+    generate.mutate(d.uid, {
+      onError: (e) => toasts.push(copy.drafts.startFailed(e.message), 'error'),
+    })
   const questions = d.generation.clarification_questions
+  // the follow-up card appears only for a requirement the AI could not turn into a draft without asking something
+  const needsFollowUp = questions.length > 0 || d.generation.state === 'needs_clarification'
 
   return (
     <section className="flex min-w-0 flex-col gap-3 p-4 xl:p-5" aria-label={copy.review.detailLabel} data-testid="detail-panel">
@@ -122,47 +122,25 @@ export function RequirementView({ uid, projectId, mode, headingRef, waiting = fa
           </span>
           <RiskBadge level={d.risk.level} long />
           {d.generation.state === 'needs_clarification' && <AiClarifyBadge />}
-          {d.sprint_id !== null && sprints.data?.some((s) => s.id === d.sprint_id) && (
-            <span data-testid="detail-sprint" className="rounded-full border border-border bg-secondary-bg px-2 py-px text-[10.5px] text-heading">
-              {sprints.data.find((s) => s.id === d.sprint_id)!.name}
-            </span>
-          )}
           {d.jira && <JiraOrigin jira={d.jira} />}
         </div>
-        <ConfidenceChip fr_nfr={d.classification.fr_nfr} probability={d.classification.nfr_probability} />
+        <KindChip fr_nfr={d.classification.fr_nfr} />
       </div>
       <h2 ref={headingRef} tabIndex={-1} className="sr-only">
         {copy.review.detailLabel}
       </h2>
 
-      <section className="rounded-xl border border-border bg-[#fafbfe] p-4" aria-label={copy.review.original}>
+      <section className="relative rounded-xl border border-border bg-[#fafbfe] p-4" aria-label={copy.review.original}>
+        {mode === 'review' && d.decision === null && <IssueIndicator detail={d} />} {/* only until the requirement is marked or edited */}
         <div className="c1-label">{copy.review.original}</div>
-        <p className="mt-2 text-sm leading-relaxed text-heading" data-testid="original-text">
+        <p className="mt-2 pr-10 text-sm leading-relaxed text-heading" data-testid="original-text">
           <HighlightedText text={d.original_text} spans={d.ambiguity.weak_word_spans} vague={d.vague_terms} />
         </p>
         <HighlightLegend text={d.original_text} spans={d.ambiguity.weak_word_spans} vague={d.vague_terms} />
         <p className="mt-2 text-[10.5px] text-muted">{sourceLabel(d.source.file, d.source.page, d.source.paragraph)}</p>
       </section>
 
-      {mode === 'review' && <ExplanationCard detail={d} />}
-
-      <section className="rounded-xl border border-border bg-white p-4" aria-label={copy.review.questions} data-testid="followup-card">
-        <div className="flex items-center gap-2">
-          <HelpCircle size={16} className="text-primary" aria-hidden="true" />
-          <span className="c1-label">{copy.review.questions}</span>
-          {questions.length > 0 && <span className="rounded-full border border-ai-border px-2 py-0.5 text-[10.5px] font-semibold text-ai-primary">{copy.review.aiWritten}</span>}
-        </div>
-        {questions.length > 0 ? (
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] text-heading">
-            {questions.map((x, i) => (
-              <li key={i}>{x}</li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-2 text-xs text-secondary-text">{d.generation.state === 'done' ? copy.review.noQuestions : copy.review.questionsLater}</p>
-        )}
-        {mode === 'review' && <p className="mt-2 text-[11px] text-muted">{copy.review.noRewrite}</p>}
-      </section>
+      {mode === 'review' && <RelatedRequirements detail={d} />}
 
       <div ref={draftRef}>
         <DraftCard
@@ -173,6 +151,26 @@ export function RequirementView({ uid, projectId, mode, headingRef, waiting = fa
           sameText={mode === 'review' && d.generation.state === 'needs_clarification' && d.decision?.decision !== 'edited'}
         />
       </div>
+
+      {needsFollowUp && (
+        <section className="rounded-xl border border-border bg-white p-4" aria-label={copy.review.questions} data-testid="followup-card">
+          <div className="flex items-center gap-2">
+            <HelpCircle size={16} className="text-primary" aria-hidden="true" />
+            <span className="c1-label">{copy.review.questions}</span>
+            {questions.length > 0 && <span className="rounded-full border border-ai-border px-2 py-0.5 text-[10.5px] font-semibold text-ai-primary">{copy.review.aiWritten}</span>}
+          </div>
+          {questions.length > 0 ? (
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-[13px] text-heading">
+              {questions.map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-2 text-xs text-secondary-text">{d.generation.state === 'done' ? copy.review.noQuestions : copy.review.questionsLater}</p>
+          )}
+          {mode === 'review' && <p className="mt-2 text-[11px] text-muted">{copy.review.noRewrite}</p>}
+        </section>
+      )}
 
       {mode === 'review' && <DecisionCard key={d.uid} detail={d} busy={setDecision.isPending || removeDecision.isPending} onDecide={onDecide} onRemove={onRemove} />}
     </section>

@@ -183,12 +183,13 @@ describe('Review Queue: Filters panel', () => {
     expect(screen.getAllByTestId('filter-chip').map((c) => c.textContent)).toEqual(['Document: CoreBanking_SRS_v2.pdf'])
   })
 
-  it('shows the sprint on rows and in the detail', async () => {
+  it('shows the sprint on the rows, and no sprint chip in the detail header', async () => {
     mockApi()
     renderApp(REVIEW)
     const rows = await screen.findAllByTestId('finding-row')
     expect(rows.map((r) => within(r).getByTestId('row-sprint').textContent)).toEqual(['Sprint 1', 'Sprint 1', 'Sprint 2'])
-    expect(await screen.findByTestId('detail-sprint')).toHaveTextContent('Sprint 1')
+    await screen.findByTestId('detail-id')
+    expect(screen.queryByTestId('detail-sprint')).toBeNull()
   })
 
   it('Escape closes the panel', async () => {

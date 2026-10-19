@@ -623,9 +623,9 @@ export const copy = {
     thisRequirement: (id: string) => `${id} (this requirement)`,
     weakWord: 'Weak word',
     vagueTerm: 'Vague term (rule-based)',
-    confidence: (level: string) => `Confidence: ${level}`,
-    confidenceHelp:
-      'How sure the automatic check is that this is a functional or a non-functional requirement. It is an estimate, not a verified result.',
+    kind: { FR: 'Functional requirement', NFR: 'Non-functional requirement' } as Record<string, string>,
+    related: 'Related requirements',
+    relatedBelow: 'The related requirements are listed below.',
     level: { high: 'High', medium: 'Medium', low: 'Low' } as Record<string, string>,
     flaggedUnclear: (level: string) => `Flagged as unclear · ${level}`,
     vagueWords: (words: string) => `Vague words: ${words}`,

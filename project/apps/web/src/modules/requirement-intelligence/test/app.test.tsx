@@ -278,34 +278,105 @@ describe('Review Queue list', () => {
 describe('Review Queue detail', () => {
   const REVIEW = '/requirement/review'
 
-  it('shows the display id, risk, model confidence and highlights the weak word', async () => {
+  it('shows the display id, risk, only whether it is functional or not, and highlights the weak word', async () => {
     mockApi()
     renderApp(REVIEW)
     const id = await screen.findByTestId('detail-id')
     expect(id).toHaveTextContent('REQ-001')
     expect(id).not.toHaveTextContent('p1-')
     expect(screen.getByTestId('detail-panel')).toHaveTextContent('HIGH RISK')
-    expect(screen.getByTestId('confidence')).toHaveTextContent('Confidence: High')
-    expect(document.getElementById('confidence-help')).toHaveTextContent('not a verified result')
+    expect(screen.getByTestId('requirement-kind')).toHaveTextContent(/^(Functional|Non-functional) requirement$/)
+    expect(screen.queryByTestId('confidence')).toBeNull() // no confidence text any more
+    expect(document.body).not.toHaveTextContent(/confidence/i)
     const marks = screen.getByTestId('original-text').querySelectorAll('mark')
     expect([...marks].map((m) => m.textContent)).toEqual(['quickly'])
     expect(screen.getByTestId('explanation-card')).toHaveTextContent('Ambiguity detected')
     expect(screen.getByTestId('flagged-unclear')).toHaveTextContent('Flagged as unclear · High')
     expect(screen.getByTestId('explanation-card')).toHaveTextContent('Vague words: quickly')
     // plain levels instead of numbers: no percentage, no "probability", no "model" in the analysis part
-    for (const part of [screen.getByTestId('confidence'), screen.getByTestId('explanation-card')]) {
+    for (const part of [screen.getByTestId('requirement-kind'), screen.getByTestId('explanation-card')]) {
       expect(part.textContent).not.toMatch(/%|probabilit|model/i)
       expect(part.textContent).not.toMatch(/\d\.\d/)
     }
   })
 
+  const asking = () => mockApi((c) => (c.url.pathname === '/api/requirements/p1-REQ-001' ? json({ ...fx.detail, generation: { ...fx.generationDone, state: 'needs_clarification', clarification_questions: ['What does quickly mean?'] } }) : undefined))
+
   it('shows original text, issues, follow-up questions, the task draft and the decision card, and no history or boundary card', async () => {
+    asking()
+    renderApp(REVIEW)
+    await screen.findByTestId('detail-panel')
+    for (const label of ['Original requirement', 'Follow-up questions', 'Task draft', 'Your decision']) expect(screen.getByRole('region', { name: label })).toBeInTheDocument()
+    expect(screen.queryByRole('region', { name: 'Issues found' })).toBeNull() // the card is gone: a round icon on the requirement shows it
+    expect(screen.getByTestId('issue-indicator')).toBeInTheDocument()
+    expect(screen.queryByTestId('decision-history')).toBeNull()
+    expect(screen.queryByText(/Component boundary/i)).toBeNull()
+  })
+
+  it('the follow-up questions appear only for a requirement that needs them', async () => {
     mockApi()
     renderApp(REVIEW)
     await screen.findByTestId('detail-panel')
-    for (const label of ['Original requirement', 'Issues found', 'Follow-up questions', 'Task draft', 'Your decision']) expect(screen.getByRole('region', { name: label })).toBeInTheDocument()
-    expect(screen.queryByTestId('decision-history')).toBeNull()
-    expect(screen.queryByText(/Component boundary/i)).toBeNull()
+    expect(screen.queryByTestId('followup-card')).toBeNull()
+    expect(screen.queryByRole('region', { name: 'Follow-up questions' })).toBeNull()
+  })
+
+  it('the issue icon is shown only until the requirement is marked or edited', async () => {
+    const decided = (decision: string) => mockApi((c) => (c.url.pathname === '/api/requirements/p1-REQ-001' ? json({ ...fx.detail, decision: { decision, edited_text: decision === 'edited' ? 'New text.' : null, note: null, decided_at: '2026-10-20T08:00:00+00:00' } }) : undefined))
+    mockApi()
+    const open = renderApp(REVIEW)
+    expect(await screen.findByTestId('issue-indicator')).toBeInTheDocument()
+    open.unmount()
+    vi.unstubAllGlobals()
+    for (const decision of ['accepted', 'rejected', 'edited']) {
+      decided(decision)
+      const view = renderApp(REVIEW)
+      await screen.findByTestId('detail-panel')
+      await waitFor(() => expect(screen.getByTestId('decision-card')).toHaveAttribute('data-status', decision))
+      expect(screen.queryByTestId('issue-indicator'), decision).toBeNull()
+      view.unmount()
+      vi.unstubAllGlobals()
+    }
+  })
+
+  it('the order is the requirement, the task draft, the follow-up questions, then the decision', async () => {
+    asking()
+    renderApp(REVIEW)
+    await screen.findByTestId('detail-panel')
+    const order = ['Original requirement', 'Task draft', 'Follow-up questions', 'Your decision'].map((name) => screen.getByRole('region', { name }))
+    for (let i = 1; i < order.length; i++) expect(order[i - 1]!.compareDocumentPosition(order[i]!) & Node.DOCUMENT_POSITION_FOLLOWING, `${i}`).toBeTruthy()
+  })
+
+  describe('the round issue icon on the requirement', () => {
+    const withDetail = (over: Record<string, unknown>) => mockApi((c) => (c.url.pathname === '/api/requirements/p1-REQ-001' ? json({ ...fx.detail, ...over }) : undefined))
+    const noIssues = { findings: [], conflicts: [], duplicates: [], security: { ...fx.detail.security, is_security: false, cue_words: [] }, ambiguity: { ...fx.detail.ambiguity, label: 'ok', weak_words: [], weak_word_spans: [], probability_defect: 0.01 }, risk: { ...fx.detail.risk, level: 'NONE' } }
+
+    it('is green when nothing was found', async () => {
+      withDetail(noIssues)
+      renderApp(REVIEW)
+      const icon = await screen.findByTestId('issue-indicator')
+      expect(icon).toHaveAttribute('data-level', 'ok')
+      expect(within(icon).getByRole('button')).toHaveAccessibleName('Issues found: No finding')
+      expect(screen.getByTestId('original-text').closest('section')).toContainElement(icon) // inside the requirement card
+    })
+
+    it('is yellow for something to look at (unclear wording) and red for a conflict or a high risk', async () => {
+      withDetail({ ...noIssues, ambiguity: { ...fx.detail.ambiguity, label: 'defect' }, findings: [{ type: 'ambiguity', message: 'x' }] })
+      const first = renderApp(REVIEW)
+      expect(await screen.findByTestId('issue-indicator')).toHaveAttribute('data-level', 'warning')
+      first.unmount()
+      vi.unstubAllGlobals()
+      withDetail({ ...noIssues, risk: { ...fx.detail.risk, level: 'HIGH' } })
+      renderApp(REVIEW)
+      await waitFor(() => expect(screen.getByTestId('issue-indicator')).toHaveAttribute('data-level', 'danger'))
+    })
+
+    it('a candidate conflict is red', async () => {
+      const partner = { id: 'REQ-005', uid: 'p1-REQ-005', similarity: 0.91, text: 'Other text.', source_file: 'b.txt', page: null, paragraph: 2, reason: 'Contradicts.' }
+      withDetail({ ...noIssues, conflicts: [partner] })
+      renderApp(REVIEW)
+      expect(await screen.findByTestId('issue-indicator')).toHaveAttribute('data-level', 'danger')
+    })
   })
 
   it('shows both texts and the reason for a conflict candidate, and a duplicate partner with its similarity', async () => {

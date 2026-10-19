@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { AlertTriangle, CheckCircle2, Clock, Code2, HelpCircle, RefreshCw, XCircle } from 'lucide-react'
+import { AlertTriangle, CheckCircle2, Clock, Code2, HelpCircle, Lightbulb, ListChecks, RefreshCw, User, Wrench, XCircle, type LucideIcon } from 'lucide-react'
 import type { Generation } from '../api/types'
 import { copy } from '../copy'
 import { GENERATION_LABEL, isGenerating } from '../lib/format'
@@ -15,11 +15,25 @@ export function provenance(g: Generation): string {
   return g.generated_on === 'cloud' ? copy.drafts.provCloud : g.generated_on === 'device' ? copy.drafts.provDevice : copy.drafts.provAi
 }
 
-function Block({ title, children }: { title: string; children: ReactNode }) {
+type Tone = 'story' | 'task' | 'criteria' | 'why'
+
+const TONE: Record<Tone, { label: string; icon: LucideIcon }> = {
+  story: { label: 'text-indigo-700', icon: User },
+  task: { label: 'text-sky-700', icon: Wrench },
+  criteria: { label: 'text-emerald-700', icon: ListChecks },
+  why: { label: 'text-amber-700', icon: Lightbulb },
+}
+
+/** One part of the draft: a white panel, a bold heading with an icon on a light bar, then the text in a readable size. */
+function Block({ title, tone, children }: { title: string; tone: Tone; children: ReactNode }) {
+  const { label, icon: Icon } = TONE[tone]
   return (
-    <div className="mt-3">
-      <div className="c1-label">{title}</div>
-      <div className="mt-1 text-[13px] leading-relaxed text-heading">{children}</div>
+    <div className="mt-2.5 overflow-hidden rounded-lg border border-border bg-white">
+      <div className={`flex items-center gap-1.5 border-b border-border bg-[#fafbfe] px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide ${label}`}>
+        <Icon size={13} aria-hidden="true" />
+        <span className="font-bold">{title}</span>
+      </div>
+      <div className="px-3 py-2 text-[13px] leading-relaxed text-heading">{children}</div>
     </div>
   )
 }
@@ -43,10 +57,17 @@ export function DraftCard({ generation: g, onGenerate, busy, updating = false, s
   const unavailable = g.state === 'failed' && g.message.startsWith(ENGINE_UNAVAILABLE)
   const label = g.state === 'not_requested' ? copy.drafts.generate : unavailable ? copy.common.retry : copy.drafts.regenerate
   return (
-    <section className="rounded-xl border border-info-border bg-info-bg/60 p-4" aria-label={copy.drafts.cardLabel} data-testid="draft-card" data-state={g.state}>
-      <div className="flex flex-wrap items-center justify-between gap-2">
+    <section
+      className="rounded-xl border border-info-border bg-info-bg/50 p-3"
+      aria-label={copy.drafts.cardLabel}
+      data-testid="draft-card"
+      data-state={g.state}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-info-border/70 pb-2">
         <div className="flex flex-wrap items-center gap-2">
-          <Code2 size={16} className="text-blue-800" aria-hidden="true" />
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-info-border bg-white text-blue-800">
+            <Code2 size={15} aria-hidden="true" />
+          </span>
           <span className="c1-label !text-blue-800">{copy.drafts.cardLabel}</span>
           <Tag tone="ai">{GENERATION_LABEL[g.state]}</Tag>
           {fromClarified && (
@@ -95,18 +116,25 @@ export function DraftCard({ generation: g, onGenerate, busy, updating = false, s
 
       {hasDraft && (
         <>
-          <Block title={copy.drafts.userStory}>{g.user_story}</Block>
-          <Block title={copy.drafts.task}>{g.technical_task}</Block>
-          <Block title={copy.drafts.criteria}>
-            <ol className="list-decimal space-y-1 pl-5">
+          <Block title={copy.drafts.userStory} tone="story">
+            {g.user_story}
+          </Block>
+          <Block title={copy.drafts.task} tone="task">{g.technical_task}</Block>
+          <Block title={copy.drafts.criteria} tone="criteria">
+            <ol className="space-y-2">
               {g.acceptance_criteria.map((c, i) => (
-                <li key={i}>{c}</li>
+                <li key={i} className="flex gap-2.5">
+                  <span className="mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[11px] font-bold text-emerald-800" aria-hidden="true">
+                    {i + 1}
+                  </span>
+                  <span className="min-w-0 flex-1 border-b border-border/60 pb-2 last:border-b-0 last:pb-0">{c}</span>
+                </li>
               ))}
             </ol>
           </Block>
-          <Block title={copy.drafts.rationale}>{g.rationale}</Block>
-          <p className="mt-3 flex items-center gap-1.5 text-[11px] text-secondary-text">
-            <CheckCircle2 size={13} aria-hidden="true" /> <span data-testid="provenance">{provenance(g)}</span> · {copy.drafts.checkIt}
+          <Block title={copy.drafts.rationale} tone="why">{g.rationale}</Block>
+          <p className="mt-3 flex items-center gap-1.5 border-t border-info-border/70 pt-2.5 text-[11px] text-secondary-text">
+            <CheckCircle2 size={13} className="text-success-text" aria-hidden="true" /> <span data-testid="provenance">{provenance(g)}</span> · {copy.drafts.checkIt}
           </p>
         </>
       )}
