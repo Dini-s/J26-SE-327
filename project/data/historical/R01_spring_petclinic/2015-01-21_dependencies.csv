@@ -1,0 +1,14 @@
+repository,snapshot_date,commit_hash,source_package,target_package
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.repository,org.springframework.samples.petclinic.model
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.repository.jdbc,org.springframework.samples.petclinic.model
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.repository.jdbc,org.springframework.samples.petclinic.repository
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.repository.jdbc,org.springframework.samples.petclinic.util
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.repository.jpa,org.springframework.samples.petclinic.model
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.repository.jpa,org.springframework.samples.petclinic.repository
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.repository.springdatajpa,org.springframework.samples.petclinic.model
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.repository.springdatajpa,org.springframework.samples.petclinic.repository
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.service,org.springframework.samples.petclinic.model
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.service,org.springframework.samples.petclinic.repository
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.util,org.springframework.samples.petclinic.model
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.web,org.springframework.samples.petclinic.model
+R01_spring_petclinic,2015-01-21,cc4ae966c63610344313e6c7bf81ae7219ab8370,org.springframework.samples.petclinic.web,org.springframework.samples.petclinic.service

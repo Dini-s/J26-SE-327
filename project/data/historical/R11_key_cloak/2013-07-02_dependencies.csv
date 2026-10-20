@@ -1,0 +1,14 @@
+repository,snapshot_date,commit_hash,source_package,target_package
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak,org.keycloak.representations
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.jaxrs,org.keycloak
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.jaxrs,org.keycloak.representations
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.representations.idm,org.keycloak
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.services,org.keycloak.services.model.data
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.services.model,org.keycloak.representations.idm
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.services.service,org.keycloak
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.services.service,org.keycloak.representations
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.services.service,org.keycloak.representations.idm
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.services.service,org.keycloak.services
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.services.service,org.keycloak.services.model
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.services.service,org.keycloak.services.model.data
+R11_key_cloak,2013-07-02,a19453c961dfbdcb2238fa2d1f98be1e29132f3c,org.keycloak.servlet,org.keycloak

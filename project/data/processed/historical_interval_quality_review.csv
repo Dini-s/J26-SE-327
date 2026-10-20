@@ -1,0 +1,34 @@
+repository,previous_snapshot,current_snapshot,package_transition_rows,retained,added,removed,quality,low_coverage,retention_rate,review_reason
+R01_spring_petclinic,2013-01-09,2015-01-21,11,1,7,3,flagged_for_review,True,0.25,low_retention; small_snapshot; coverage_flag
+R01_spring_petclinic,2015-01-21,2021-05-12,13,1,5,7,no_initial_flag,False,0.125,low_retention; small_snapshot
+R01_spring_petclinic,2021-05-12,2026-09-29,6,5,0,1,no_initial_flag,False,0.8333333333333334,small_snapshot
+R02_common_lang,2002-07-19,2011-08-16,15,0,13,2,flagged_for_review,True,0.0,low_retention; small_snapshot; coverage_flag
+R02_common_lang,2011-08-16,2022-05-04,18,13,5,0,no_initial_flag,False,1.0,small_snapshot
+R02_common_lang,2022-05-04,2026-10-07,18,18,0,0,no_initial_flag,False,1.0,small_snapshot
+R03_jabref,2013-03-24,2020-01-08,190,0,142,48,no_initial_flag,False,0.0,low_retention
+R03_jabref,2020-01-08,2024-09-16,269,119,127,23,no_initial_flag,False,0.8380281690140845,no_initial_flag_only
+R03_jabref,2024-09-16,2026-10-08,392,210,146,36,no_initial_flag,False,0.8536585365853658,no_initial_flag_only
+R04_argouml,1998-01-26,2004-10-13,102,0,97,5,no_initial_flag,False,0.0,low_retention
+R04_argouml,2004-10-13,2007-07-10,116,68,19,29,no_initial_flag,False,0.7010309278350515,no_initial_flag_only
+R04_argouml,2007-07-10,2022-08-21,109,75,22,12,no_initial_flag,False,0.8620689655172413,no_initial_flag_only
+R05_lucene,2001-09-18,2012-08-13,269,8,259,2,no_initial_flag,False,0.8,no_initial_flag_only
+R05_lucene,2012-08-13,2017-05-05,377,219,110,48,no_initial_flag,False,0.8202247191011236,no_initial_flag_only
+R05_lucene,2017-05-05,2026-10-09,462,182,133,147,no_initial_flag,False,0.5531914893617021,no_initial_flag_only
+R06_hadoop,2009-05-19,2015-02-02,409,31,373,5,no_initial_flag,False,0.8611111111111112,no_initial_flag_only
+R06_hadoop,2015-02-02,2018-08-22,708,395,304,9,no_initial_flag,False,0.9777227722772277,no_initial_flag_only
+R06_hadoop,2018-08-22,2026-10-08,871,580,172,119,no_initial_flag,False,0.8297567954220315,no_initial_flag_only
+R07_junit,2015-06-04,2017-12-25,42,0,41,1,flagged_for_review,True,0.0,low_retention; coverage_flag
+R07_junit,2017-12-25,2023-04-22,72,40,31,1,no_initial_flag,False,0.975609756097561,no_initial_flag_only
+R07_junit,2023-04-22,2026-10-09,87,66,16,5,no_initial_flag,False,0.9295774647887324,no_initial_flag_only
+R08_apache_maven,2004-03-15,2006-01-11,108,1,107,0,flagged_for_review,True,1.0,coverage_flag
+R08_apache_maven,2006-01-11,2011-06-12,154,38,46,70,no_initial_flag,False,0.35185185185185186,low_retention
+R08_apache_maven,2011-06-12,2026-10-08,212,84,128,0,no_initial_flag,False,1.0,no_initial_flag_only
+R09_kafca,2011-08-01,2019-08-21,126,1,114,11,no_initial_flag,False,0.08333333333333333,low_retention
+R09_kafca,2019-08-21,2024-03-08,223,114,108,1,no_initial_flag,False,0.991304347826087,no_initial_flag_only
+R09_kafca,2024-03-08,2026-10-09,282,213,60,9,no_initial_flag,False,0.9594594594594594,no_initial_flag_only
+R10_teammates,2011-10-07,2015-04-06,18,0,15,3,flagged_for_review,True,0.0,low_retention; small_snapshot; coverage_flag
+R10_teammates,2015-04-06,2019-01-31,32,11,17,4,no_initial_flag,False,0.7333333333333333,no_initial_flag_only
+R10_teammates,2019-01-31,2026-07-29,51,11,23,17,no_initial_flag,False,0.39285714285714285,low_retention
+R11_key_cloak,2013-07-02,2021-01-12,515,5,506,4,no_initial_flag,False,0.5555555555555556,no_initial_flag_only
+R11_key_cloak,2021-01-12,2024-08-11,681,371,170,140,no_initial_flag,False,0.726027397260274,no_initial_flag_only
+R11_key_cloak,2024-08-11,2026-10-09,751,499,210,42,no_initial_flag,False,0.922365988909427,no_initial_flag_only

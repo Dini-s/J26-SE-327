@@ -1,9 +1,0 @@
-repository,snapshot_date,commit_hash,package_path,java_files,nonempty_lines,fan_in,fan_out,total_coupling,instability
-R01_spring_petclinic,2015-12-22,a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d,org.springframework.samples.petclinic.model,11,619,7,0,7,0.0
-R01_spring_petclinic,2015-12-22,a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d,org.springframework.samples.petclinic.repository,4,183,4,1,5,0.2
-R01_spring_petclinic,2015-12-22,a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d,org.springframework.samples.petclinic.repository.jdbc,9,577,0,3,3,1.0
-R01_spring_petclinic,2015-12-22,a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d,org.springframework.samples.petclinic.repository.jpa,5,225,0,2,2,1.0
-R01_spring_petclinic,2015-12-22,a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d,org.springframework.samples.petclinic.repository.springdatajpa,4,124,0,2,2,1.0
-R01_spring_petclinic,2015-12-22,a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d,org.springframework.samples.petclinic.service,2,130,1,2,3,0.6666666666666666
-R01_spring_petclinic,2015-12-22,a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d,org.springframework.samples.petclinic.util,2,131,1,1,2,0.5
-R01_spring_petclinic,2015-12-22,a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d,org.springframework.samples.petclinic.web,8,508,0,2,2,1.0

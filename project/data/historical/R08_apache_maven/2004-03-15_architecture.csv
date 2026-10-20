@@ -1,0 +1,2 @@
+repository,snapshot_date,commit_hash,package_path,java_files,nonempty_lines,fan_in,fan_out,total_coupling,instability
+R08_apache_maven,2004-03-15,ee951b16093bdbfc264108732cd894e83097d3ab,org.apache.maven.plugin,3,396,0,0,0,0.0

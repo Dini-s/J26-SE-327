@@ -1,0 +1,5 @@
+repository,snapshot_date,commit_hash,package_path,java_files,nonempty_lines,fan_in,fan_out,total_coupling,instability
+R01_spring_petclinic,2013-01-09,f09d67cc1c216b445d01f1893f37ff391bb3b4b7,org.springframework.samples.petclinic,1,10,0,0,0,0.0
+R01_spring_petclinic,2013-01-09,f09d67cc1c216b445d01f1893f37ff391bb3b4b7,org.springframework.samples.petclinic.owner,4,80,0,1,1,1.0
+R01_spring_petclinic,2013-01-09,f09d67cc1c216b445d01f1893f37ff391bb3b4b7,org.springframework.samples.petclinic.pet,4,55,0,1,1,1.0
+R01_spring_petclinic,2013-01-09,f09d67cc1c216b445d01f1893f37ff391bb3b4b7,org.springframework.samples.petclinic.util,3,15,2,0,2,0.0

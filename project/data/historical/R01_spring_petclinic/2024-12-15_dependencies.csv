@@ -1,5 +1,0 @@
-repository,snapshot_date,commit_hash,source_package,target_package
-R01_spring_petclinic,2024-12-15,6148ddd9671ccab86a3f0ae2dfa77d833b713ee8,org.springframework.samples.petclinic,org.springframework.samples.petclinic.model
-R01_spring_petclinic,2024-12-15,6148ddd9671ccab86a3f0ae2dfa77d833b713ee8,org.springframework.samples.petclinic,org.springframework.samples.petclinic.vet
-R01_spring_petclinic,2024-12-15,6148ddd9671ccab86a3f0ae2dfa77d833b713ee8,org.springframework.samples.petclinic.owner,org.springframework.samples.petclinic.model
-R01_spring_petclinic,2024-12-15,6148ddd9671ccab86a3f0ae2dfa77d833b713ee8,org.springframework.samples.petclinic.vet,org.springframework.samples.petclinic.model

@@ -1,0 +1,14 @@
+repository,snapshot_date,commit_hash,package_path,java_files,nonempty_lines,fan_in,fan_out,total_coupling,instability
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3,23,21215,10,5,15,0.3333333333333333
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.builder,9,7095,2,2,4,0.5
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.compare,6,1135,0,0,0,0.0
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.concurrent,13,2444,0,1,1,1.0
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.event,2,407,0,2,2,1.0
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.exception,6,1409,1,2,3,0.6666666666666666
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.math,3,2478,1,1,2,0.5
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.mutable,9,1896,1,0,1,0.0
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.reflect,5,2464,1,1,2,0.5
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.text,10,6387,0,1,1,1.0
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.text.translate,10,1172,1,1,2,0.5
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.time,6,4563,0,1,1,1.0
+R02_common_lang,2011-08-16,76416c0ad837f2874ba7999aadacb236aebb79bd,org.apache.commons.lang3.tuple,3,366,2,2,4,0.5

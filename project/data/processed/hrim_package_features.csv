@@ -22,7 +22,6 @@ R02_common_lang,org.apache.commons.lang3.text.translate,structural,13,1645,1,1,2
 R02_common_lang,org.apache.commons.lang3.time,structural,18,9364,1,5,6,0.8333333333333334,586,59,36,39714,18549,58263,exact_package_match,unknown
 R02_common_lang,org.apache.commons.lang3.tuple,structural,7,1254,3,2,5,0.4,102,16,14,3076,997,4073,exact_package_match,unknown
 R02_common_lang,org.apache.commons.lang3.util,structural,3,776,1,1,2,0.5,22,7,4,1053,280,1333,exact_package_match,unknown
-R03_jabref,(default package),structural,11,1074,0,0,0,0.0,,,,,,,missing_evolution_record,unknown
 R03_jabref,org.jabref,structural,1,217,0,14,14,1.0,191,51,11,2962,2745,5707,exact_package_match,unknown
 R03_jabref,org.jabref.architecture,structural,6,55,27,0,27,0.0,11,3,13,145,96,241,exact_package_match,unknown
 R03_jabref,org.jabref.benchmarks,structural,1,205,0,22,22,1.0,27,11,2,445,241,686,exact_package_match,unknown
@@ -476,7 +475,6 @@ R04_argouml,org.argouml.uml.util.namespace,structural,4,584,1,0,1,0.0,0,0,0,0,0,
 R04_argouml,org.argouml.util,structural,25,3757,29,3,32,0.09375,0,0,0,0,0,0,exact_package_match,no_qualifying_changes_detected_in_period
 R04_argouml,org.argouml.util.logging,structural,2,222,1,0,1,0.0,0,0,0,0,0,0,exact_package_match,no_qualifying_changes_detected_in_period
 R04_argouml,org.argouml.util.osdep,structural,3,504,4,0,4,0.0,0,0,0,0,0,0,exact_package_match,no_qualifying_changes_detected_in_period
-R05_lucene,(default package),structural,35,1579,0,0,0,0.0,,,,,,,missing_evolution_record,unknown
 R05_lucene,org.apache.lucene,structural,1,20,0,0,0,0.0,14,6,4,107,221,328,exact_package_match,changes_detected_in_period
 R05_lucene,org.apache.lucene.analysis,structural,27,5924,127,7,134,0.05223880597014925,194,43,101,19907,32171,52078,exact_package_match,changes_detected_in_period
 R05_lucene,org.apache.lucene.analysis.ar,structural,8,656,1,6,7,0.8571428571428571,41,16,16,1025,2242,3267,exact_package_match,changes_detected_in_period
@@ -792,7 +790,6 @@ R05_lucene,org.apache.lucene.util.quantization,structural,8,1768,7,6,13,0.461538
 R05_lucene,org.egothor.stemmer,structural,14,2667,2,2,4,0.5,41,16,28,4766,10150,14916,exact_package_match,changes_detected_in_period
 R05_lucene,org.tartarus.snowball,structural,5,666,2,0,2,0.0,21,9,8,1498,2556,4054,exact_package_match,changes_detected_in_period
 R05_lucene,org.tartarus.snowball.ext,structural,34,27413,17,1,18,0.05555555555555555,25,10,62,101023,155009,256032,exact_package_match,changes_detected_in_period
-R06_hadoop,(default package),structural,2,36,0,0,0,0.0,,,,,,,missing_evolution_record,unknown
 R06_hadoop,org.apache.hadoop,structural,2,127,37,3,40,0.075,1,1,2,0,125,125,exact_package_match,changes_detected_in_period
 R06_hadoop,org.apache.hadoop.benchmark,structural,2,269,0,3,3,1.0,9,2,2,810,9,819,exact_package_match,changes_detected_in_period
 R06_hadoop,org.apache.hadoop.classification,structural,3,184,522,0,522,0.0,12,5,3,194,144,338,exact_package_match,changes_detected_in_period
@@ -1471,7 +1468,6 @@ R06_hadoop,org.apache.hadoop.yarn.webapp.hamlet2,structural,5,34523,11,3,14,0.21
 R06_hadoop,org.apache.hadoop.yarn.webapp.log,structural,4,265,2,9,11,0.8181818181818182,20,9,4,228,872,1100,exact_package_match,changes_detected_in_period
 R06_hadoop,org.apache.hadoop.yarn.webapp.util,structural,3,892,24,12,36,0.3333333333333333,89,32,3,1821,1045,2866,exact_package_match,changes_detected_in_period
 R06_hadoop,org.apache.hadoop.yarn.webapp.view,structural,17,1264,13,5,18,0.2777777777777778,61,18,17,469,1489,1958,exact_package_match,changes_detected_in_period
-R07_junit,(default package),structural,19,669,0,0,0,0.0,,,,,,,missing_evolution_record,unknown
 R07_junit,com.example.project,structural,2,40,0,0,0,0.0,18,5,5,152,95,247,exact_package_match,unknown
 R07_junit,example.domain,structural,2,115,0,0,0,0.0,16,4,2,146,22,168,exact_package_match,unknown
 R07_junit,example.registration,structural,4,105,0,1,1,1.0,16,4,4,153,41,194,exact_package_match,unknown
@@ -1553,7 +1549,6 @@ R07_junit,org.junit.vintage.engine.support,structural,3,139,2,1,3,0.333333333333
 R07_junit,other,structural,1,15,0,0,0,0.0,4,2,1,17,3,20,exact_package_match,unknown
 R07_junit,platform.tooling.support,structural,8,517,0,3,3,1.0,84,7,19,2242,1565,3807,exact_package_match,unknown
 R07_junit,standalone,structural,4,135,0,4,4,1.0,16,5,4,176,45,221,exact_package_match,unknown
-R08_apache_maven,(default package),structural,24,2570,0,0,0,0.0,,,,,,,missing_evolution_record,unknown
 R08_apache_maven,org.apache.maven,structural,19,2695,22,25,47,0.5319148936170213,172,41,47,7291,7653,14944,exact_package_match,changes_detected_in_period
 R08_apache_maven,org.apache.maven.api,structural,51,8029,46,3,49,0.061224489795918366,159,13,59,10906,1810,12716,exact_package_match,changes_detected_in_period
 R08_apache_maven,org.apache.maven.api.annotations,structural,11,492,48,0,48,0.0,14,2,22,1021,522,1543,exact_package_match,changes_detected_in_period
@@ -1766,7 +1761,6 @@ R08_apache_maven,org.apache.maven.wagon.providers.coreit,structural,2,344,0,0,0,
 R08_apache_maven,org.apache.maven.wagon.providers.ssh.external,structural,1,161,0,0,0,0.0,5,5,1,106,120,226,exact_package_match,changes_detected_in_period
 R08_apache_maven,org.eclipse.sisu.plexus,structural,1,397,0,1,1,1.0,12,6,2,1043,647,1690,exact_package_match,changes_detected_in_period
 R08_apache_maven,org.fusesource.jansi,structural,1,958,0,0,0,0.0,9,5,3,2874,960,3834,exact_package_match,changes_detected_in_period
-R09_kafca,(default package),structural,3,223,0,0,0,0.0,,,,,,,missing_evolution_record,unknown
 R09_kafca,kafka.docker,structural,1,221,0,0,0,0.0,3,2,1,443,2,445,exact_package_match,changes_detected_in_period
 R09_kafca,kafka.examples,structural,8,1179,0,6,6,1.0,47,26,9,2576,1318,3894,exact_package_match,changes_detected_in_period
 R09_kafca,kafka.server,structural,2,376,0,13,13,1.0,71,30,16,3522,3139,6661,exact_package_match,changes_detected_in_period
@@ -2075,7 +2069,6 @@ R10_teammates,teammates.ui.output,structural,66,3737,9,9,18,0.5,210,46,99,8596,4
 R10_teammates,teammates.ui.request,structural,36,1644,3,7,10,0.7,74,27,50,3179,1525,4704,exact_package_match,unknown
 R10_teammates,teammates.ui.servlets,structural,14,997,1,10,11,0.9090909090909091,61,20,16,2114,1124,3238,exact_package_match,unknown
 R10_teammates,teammates.ui.webapi,structural,113,5983,3,12,15,0.8,560,84,208,32332,26226,58558,exact_package_match,unknown
-R11_key_cloak,(default package),structural,3,190,0,0,0,0.0,,,,,,,missing_evolution_record,unknown
 R11_key_cloak,org.freedesktop.sssd.infopipe,structural,1,46,2,0,2,0.0,6,3,3,121,75,196,exact_package_match,unknown
 R11_key_cloak,org.jvnet.libpam,structural,3,398,2,0,2,0.0,6,5,3,405,10,415,exact_package_match,unknown
 R11_key_cloak,org.jvnet.libpam.impl,structural,10,822,0,1,1,1.0,4,4,10,830,18,848,exact_package_match,unknown

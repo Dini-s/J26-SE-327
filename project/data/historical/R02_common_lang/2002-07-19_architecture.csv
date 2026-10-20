@@ -1,0 +1,3 @@
+repository,snapshot_date,commit_hash,package_path,java_files,nonempty_lines,fan_in,fan_out,total_coupling,instability
+R02_common_lang,2002-07-19,6627f7ad8fb08d6c23b83d6c9f0a6830e9e7085a,org.apache.commons.lang,10,3367,0,1,1,1.0
+R02_common_lang,2002-07-19,6627f7ad8fb08d6c23b83d6c9f0a6830e9e7085a,org.apache.commons.lang.exception,4,1085,1,0,1,0.0
