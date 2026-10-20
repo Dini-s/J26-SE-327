@@ -160,8 +160,10 @@ function layoutForce(nodes, edges, aspect) {
       n.vx = 0;
       n.vy = 0;
     });
-    for (let iteration = 0; iteration < 180; iteration++) {
-      const alpha = 1 - iteration / 200;
+    const iterations = group.length > 400 ? 120 : 260;
+    const linkLength = 190 + Math.min(90, group.length * 2);
+    for (let iteration = 0; iteration < iterations; iteration++) {
+      const alpha = 1 - iteration / (iterations + 20);
       for (let i = 0; i < group.length; i++) {
         for (let j = i + 1; j < group.length; j++) {
           const a = group[i];
@@ -169,7 +171,7 @@ function layoutForce(nodes, edges, aspect) {
           const dx = a.x - b.x;
           const dy = a.y - b.y;
           const dist = Math.hypot(dx, dy) || 1;
-          const force = Math.min(12, 3200 / (dist * dist)) * alpha;
+          const force = Math.min(16, 9000 / (dist * dist)) * alpha;
           a.vx += (dx / dist) * force;
           a.vy += (dy / dist) * force;
           b.vx -= (dx / dist) * force;
@@ -180,17 +182,46 @@ function layoutForce(nodes, edges, aspect) {
         const dx = b.x - a.x;
         const dy = b.y - a.y;
         const dist = Math.hypot(dx, dy) || 1;
-        const force = (dist - 170) * 0.045 * alpha;
+        const force = (dist - linkLength) * 0.04 * alpha;
         a.vx += (dx / dist) * force;
         a.vy += (dy / dist) * force;
         b.vx -= (dx / dist) * force;
         b.vy -= (dy / dist) * force;
       }
       for (const n of group) {
-        n.x += Math.max(-12, Math.min(12, n.vx));
-        n.y += Math.max(-12, Math.min(12, n.vy));
+        n.x += Math.max(-14, Math.min(14, n.vx));
+        n.y += Math.max(-14, Math.min(14, n.vy));
         n.vx *= 0.5;
         n.vy *= 0.5;
+      }
+    }
+    if (group.length <= 400) {
+      // final relaxation: no two nodes (with room for their labels) may overlap
+      for (let pass = 0; pass < 60; pass++) {
+        let moved = false;
+        for (let i = 0; i < group.length; i++) {
+          for (let j = i + 1; j < group.length; j++) {
+            const a = group[i];
+            const b = group[j];
+            const need = radiusOf(a) + radiusOf(b) + 34;
+            let dx = a.x - b.x;
+            let dy = a.y - b.y;
+            let dist = Math.hypot(dx, dy);
+            if (dist >= need) continue;
+            if (dist < 0.01) {
+              dx = Math.cos(i + j);
+              dy = Math.sin(i + j);
+              dist = 1;
+            }
+            const push = (need - dist) / 2;
+            a.x += (dx / dist) * push;
+            a.y += (dy / dist) * push;
+            b.x -= (dx / dist) * push;
+            b.y -= (dy / dist) * push;
+            moved = true;
+          }
+        }
+        if (!moved) break;
       }
     }
     const minX = Math.min(...group.map((n) => n.x));

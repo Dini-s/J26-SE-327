@@ -1,8 +1,9 @@
 import { useMemo, useRef, useState } from "react";
+import { AlertTriangle, Database, Search } from "lucide-react";
 import { useApi, useProject } from "../api/c4";
 import Inspector from "../component/knowledge/Inspector";
 import UskgGraph from "../component/knowledge/UskgGraph";
-import { Card, TraceHeader } from "../component/traceability/common";
+import "../component/knowledge/knowledge.css";
 
 const MODES = [
   ["links", "Trace links"],
@@ -16,6 +17,15 @@ const LEGEND = [
   ["Evolution / Criterion", "#f2c14e"], ["User story", "#f5a15a"], ["Technical task", "#a58be8"], ["Finding", "#f08187"], ["Risk", "#7fd0c8"],
 ];
 
+const LINK_CATEGORIES = ["verified", "decayed", "pending_review", "deferred", "rejected"];
+const STAT_CHIPS = [
+  ["verified", "Approved", "#10b981"],
+  ["pending_review", "Need review", "#f59e0b"],
+  ["deferred", "Deferred", "#0ea5e9"],
+  ["rejected", "Rejected", "#94a3b8"],
+  ["decayed", "Broken", "#ef4444"],
+];
+
 const KnowledgeGraph = () => {
   const { project, error: projectsError } = useProject();
   const [mode, setMode] = useState("links");
@@ -27,20 +37,19 @@ const KnowledgeGraph = () => {
 
   const graph = useApi(project ? `/api/graph?project=${encodeURIComponent(project)}&mode=${mode}` : null);
   const data = graph.data;
+  const apiError = projectsError || graph.error;
 
-  const { nodes, edges, stats } = useMemo(() => {
-    if (!data) return { nodes: [], edges: [], stats: "-" };
-    const links = data.edges.filter((e) => ["verified", "decayed", "pending_review", "deferred", "rejected"].includes(e.category));
+  const { nodes, edges, counts } = useMemo(() => {
+    if (!data) return { nodes: [], edges: [], counts: null };
+    const links = data.edges.filter((e) => LINK_CATEGORIES.includes(e.category));
     const linked = new Set(links.filter((e) => e.category === "verified").flatMap((e) => [e.from, e.to]));
     const kept = data.nodes
       .filter((n) => n.kind !== "decayflag" || flags)
       .map((n) => ({ ...n, orphan: n.kind === "requirement" && data.mode !== "requirements" && !linked.has(n.id) }));
     const ids = new Set(kept.map((n) => n.id));
-    return {
-      nodes: kept,
-      edges: data.edges.filter((e) => ids.has(e.from) && ids.has(e.to)),
-      stats: `${links.filter((e) => e.category === "verified").length} approved · ${links.filter((e) => e.category === "pending_review").length} need review · ${links.filter((e) => e.category === "deferred").length} deferred · ${links.filter((e) => e.category === "rejected").length} rejected · ${links.filter((e) => e.category === "decayed").length} broken`,
-    };
+    const shownEdges = data.edges.filter((e) => ids.has(e.from) && ids.has(e.to));
+    const byCategory = Object.fromEntries(LINK_CATEGORIES.map((c) => [c, links.filter((e) => e.category === c).length]));
+    return { nodes: kept, edges: shownEdges, counts: { ...byCategory, nodes: kept.length, edges: shownEdges.length } };
   }, [data, flags]);
 
   const focusFirstMatch = () => {
@@ -53,56 +62,90 @@ const KnowledgeGraph = () => {
     }
   };
 
-  const selectEdgeOrNode = (value) => setSelected(value);
-
   return (
-    <div className="mx-auto w-full max-w-[1500px]">
-      <TraceHeader
-        title="Unified Software Knowledge Graph"
-        subtitle="The shared graph the four components write to. Trace candidates (C4) show approved, pending, rejected and broken connections between requirements (C1) and code (C2). Select a node or an edge to inspect it."
-        apiError={projectsError || graph.error}
-      />
+    <div className="kg-page mx-auto w-full max-w-[1500px] pb-8">
+      <div className="kg-crumb">
+        <span className="kg-crumb-mark">Shared layer</span>
+        <span className="kg-crumb-sep">/</span>
+        <span className="kg-crumb-current">Knowledge graph</span>
+      </div>
 
-      <Card
-        title="Graph"
-        subtitle={stats}
-        action={
-          <div className="flex flex-wrap items-center gap-2 text-[12px]">
+      <header className="kg-hero">
+        <div className="min-w-0">
+          <h1>Unified Software Knowledge Graph</h1>
+          <p>One shared graph that all four components write to: requirements, code structure and the traced connections between them. Select a node or an edge to inspect it.</p>
+        </div>
+        <div className="kg-project" title={project || undefined}>
+          <Database size={15} className="shrink-0 text-indigo-500" />
+          <span>{project || "No repository selected"}</span>
+        </div>
+      </header>
+
+      {apiError && (
+        <div className="kg-alert" role="alert">
+          <AlertTriangle size={17} className="mt-0.5 shrink-0" />
+          <div>
+            <p className="font-semibold">The API is not reachable ({apiError}).</p>
+            <p className="mt-0.5">Start it from the project folder with <code className="rounded bg-amber-100 px-1">python -m apps.api.server</code> and make sure Neo4j is running.</p>
+          </div>
+        </div>
+      )}
+
+      <section className="kg-stats" aria-label="Graph summary">
+        {counts ? (
+          <>
+            {STAT_CHIPS.map(([key, label, dot]) => (
+              <span key={key} className="kg-stat" style={{ "--dot": dot }}><i /><b>{counts[key]}</b>{label}</span>
+            ))}
+            <span className="kg-stat"><b>{counts.nodes}</b>nodes</span>
+            <span className="kg-stat"><b>{counts.edges}</b>relationships</span>
+          </>
+        ) : (
+          <span className="kg-stat">{project ? (graph.loading ? "Loading graph…" : "No graph data") : "Choose a repository to see its graph"}</span>
+        )}
+      </section>
+
+      <section className="kg-board" aria-label="Knowledge graph">
+        <div className="kg-toolbar">
+          <label className="kg-search">
+            <Search size={15} />
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               onKeyDown={(event) => event.key === "Enter" && focusFirstMatch()}
-              placeholder="Search graph, Enter to focus"
-              className="w-52 rounded-lg border border-slate-200 px-2.5 py-1.5 outline-none focus:border-indigo-400"
+              placeholder="Search the graph, Enter to focus"
+              aria-label="Search the graph"
             />
-            <select value={mode} onChange={(event) => { setMode(event.target.value); setSelected(null); }} className="rounded-lg border border-slate-200 bg-white px-2 py-1.5 outline-none" aria-label="What to show">
-              {MODES.map(([value, label]) => (
-                <option key={value} value={value}>{label}</option>
-              ))}
-            </select>
-            <label className="flex items-center gap-1.5 text-slate-600">
-              <input type="checkbox" checked={flags} onChange={(event) => setFlags(event.target.checked)} className="accent-indigo-600" />
-              Decay records
-            </label>
-            <button type="button" onClick={() => setArrange((value) => value + 1)} className="rounded-lg border border-slate-200 px-3 py-1.5 font-medium text-slate-700 hover:border-indigo-200 hover:text-indigo-600">Arrange</button>
+          </label>
+          <div className="kg-seg" role="group" aria-label="What to show">
+            {MODES.map(([value, label]) => (
+              <button key={value} type="button" aria-pressed={mode === value} onClick={() => { setMode(value); setSelected(null); }}>{label}</button>
+            ))}
           </div>
-        }
-      >
-        <div className="-m-5 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px]">
-          <UskgGraph className="h-[640px]" nodes={nodes} edges={edges} selected={selected} onSelect={selectEdgeOrNode} search={search} arrangeToken={arrange} focusRef={focusRef} />
-          <div className="max-h-[640px] overflow-auto border-t border-slate-100 p-4 xl:border-l xl:border-t-0">
+          <label className="kg-check">
+            <input type="checkbox" checked={flags} onChange={(event) => setFlags(event.target.checked)} />
+            Decay records
+          </label>
+          <button type="button" className="kg-btn" onClick={() => setArrange((value) => value + 1)}>Arrange</button>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px]">
+          <UskgGraph className="kg-canvas h-[68vh] max-h-[720px] min-h-[480px]" nodes={nodes} edges={edges} selected={selected} onSelect={setSelected} search={search} arrangeToken={arrange} focusRef={focusRef} />
+          <aside className="kg-inspector max-h-[720px] overflow-auto border-t border-slate-100 p-4 xl:border-l xl:border-t-0">
             <Inspector selected={selected} nodes={nodes} edges={edges} />
-          </div>
+          </aside>
         </div>
-        <div className="-mx-5 -mb-5 mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-slate-100 px-5 py-3 text-[12px] text-slate-600">
+
+        <footer className="kg-legend">
+          <p className="kg-legend-title">Legend</p>
           {LEGEND.map(([label, color]) => (
-            <span key={label} className="flex items-center gap-2"><i className="inline-block h-3 w-3 rounded-full" style={{ background: color }} />{label}</span>
+            <span key={label}><i className="inline-block h-3 w-3 shrink-0 rounded-full" style={{ background: color }} />{label}</span>
           ))}
-          <span className="flex items-center gap-2"><i className="inline-block h-3 w-3 rounded-full border border-dashed border-slate-400" />Unlinked requirement</span>
-          <span className="flex items-center gap-2"><i className="inline-block h-0.5 w-6 bg-slate-400" />Verified link</span>
-          <span className="flex items-center gap-2"><i className="inline-block w-6 border-t-2 border-dashed border-red-500" />Broken link</span>
-        </div>
-      </Card>
+          <span><i className="inline-block h-3 w-3 shrink-0 rounded-full border border-dashed border-slate-400" />Unlinked requirement</span>
+          <span><i className="inline-block h-0.5 w-6 shrink-0 bg-slate-400" />Verified link</span>
+          <span><i className="inline-block w-6 shrink-0 border-t-2 border-dashed border-red-500" />Broken link</span>
+        </footer>
+      </section>
     </div>
   );
 };

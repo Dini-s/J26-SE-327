@@ -5,9 +5,19 @@ import { Card, TraceHeader } from "../component/traceability/common";
 import { GraphView, MatrixView, NodeDetails } from "../component/traceability/GraphView";
 import { useVisible } from "../component/traceability/useVisible";
 
-const Toggle = ({ checked, onChange, children }) => (
-  <label className="flex cursor-pointer items-center gap-1.5 text-[12px] text-slate-600">
-    <input type="checkbox" checked={checked} onChange={(event) => onChange(event.target.checked)} className="accent-indigo-600" />
+const STATUS_FILTERS = [
+  ["verified", "Approved", "#10b981"],
+  ["pending_review", "Needs review", "#f59e0b"],
+  ["deferred", "Deferred", "#0ea5e9"],
+  ["rejected", "Rejected", "#94a3b8"],
+  ["decayed", "Broken", "#ef4444"],
+  ["orphans", "Orphan requirements", "#6366f1"],
+];
+
+const FilterChip = ({ checked, onChange, color, children }) => (
+  <label className="c4-filter-chip" style={{ "--chip": color }}>
+    <input type="checkbox" className="sr-only" checked={checked} onChange={(event) => onChange(event.target.checked)} />
+    <span className="c4-filter-dot" />
     {children}
   </label>
 );
@@ -59,20 +69,21 @@ const TraceabilityGraph = () => {
             </div>
           }
         >
-          <div className="mb-4 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg bg-slate-50 px-3 py-2.5">
-            <Toggle checked={filters.verified} onChange={(v) => set({ verified: v })}>Approved</Toggle>
-            <Toggle checked={filters.pending_review} onChange={(v) => set({ pending_review: v })}>Needs review</Toggle>
-            <Toggle checked={filters.deferred} onChange={(v) => set({ deferred: v })}>Deferred</Toggle>
-            <Toggle checked={filters.rejected} onChange={(v) => set({ rejected: v })}>Rejected</Toggle>
-            <Toggle checked={filters.decayed} onChange={(v) => set({ decayed: v })}>Broken</Toggle>
-            <Toggle checked={filters.orphans} onChange={(v) => set({ orphans: v })}>orphan requirements</Toggle>
-            <label className="flex items-center gap-2 text-[12px] text-slate-600">
-              min confidence {filters.minConfidence.toFixed(2)}
-              <input type="range" min="0" max="1" step="0.05" value={filters.minConfidence} onChange={(event) => set({ minConfidence: Number(event.target.value) })} className="w-28 accent-indigo-600" />
-            </label>
-            <div className="ml-auto flex h-8 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 text-[12px] text-slate-500">
-              <Search size={13} />
-              <input value={filters.search} onChange={(event) => set({ search: event.target.value })} placeholder="find a node" className="w-32 bg-transparent outline-none placeholder:text-slate-400" />
+          <div className="c4-filters">
+            <div className="c4-filter-group" role="group" aria-label="Show links by status">
+              {STATUS_FILTERS.map(([key, label, color]) => (
+                <FilterChip key={key} color={color} checked={filters[key]} onChange={(value) => set({ [key]: value })}>{label}</FilterChip>
+              ))}
+            </div>
+            <div className="c4-filter-tools">
+              <label className="c4-slider">
+                <span>Min confidence <b>{filters.minConfidence.toFixed(2)}</b></span>
+                <input type="range" min="0" max="1" step="0.05" value={filters.minConfidence} onChange={(event) => set({ minConfidence: Number(event.target.value) })} aria-label="Minimum confidence" />
+              </label>
+              <label className="c4-find">
+                <Search size={14} />
+                <input value={filters.search} onChange={(event) => set({ search: event.target.value })} placeholder="Find a node" aria-label="Find a node" />
+              </label>
             </div>
           </div>
 

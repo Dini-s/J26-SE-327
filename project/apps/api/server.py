@@ -162,7 +162,10 @@ def get_unlinked(q: dict) -> dict:
     if not project:
         raise ApiError(400, "Choose a project first.")
     _need_neo4j()
-    return sources.neo4j_unlinked(project)
+    info = sources.neo4j_unlinked(project)
+    ids = info.get("ids") or []
+    info["texts"] = {rid: text[:200] for rid, text in _texts(ids[:400]).items()}
+    return info
 
 
 def _texts(ids: list[str]) -> dict[str, str]:

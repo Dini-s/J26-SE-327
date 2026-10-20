@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import TopHeader from "./TopHeader";
 import Sidebar from "./Sidebar";
 import ProjectProvider from "../api/ProjectProvider";
+import { GlobalActivity } from "../component/traceability/Activity";
 
 const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -29,6 +30,7 @@ const DashboardLayout = () => {
         </main>
       </div>
     </div>
+    <GlobalActivity />
     </ProjectProvider>
   );
 };

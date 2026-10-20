@@ -1,0 +1,206 @@
+/* Styles for the shared Knowledge Graph page. Independent of the component-specific (C4) pages. */
+.kg-page {
+  --kg-ink: #0f172a;
+  --kg-body: #475467;
+  --kg-muted: #8793a8;
+  --kg-line: #e3e8f4;
+  --kg-accent: #4f46e5;
+  --kg-accent-deep: #4338ca;
+  --kg-shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 10px 28px -14px rgba(67, 56, 202, .16);
+  color: var(--kg-body);
+}
+
+/* ---------------------------------------------------------------- header */
+.kg-crumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--kg-muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.kg-crumb-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 7px;
+  color: #fff;
+  background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+  box-shadow: 0 4px 10px -4px rgba(79, 70, 229, .65);
+  font-size: 10px;
+  letter-spacing: .06em;
+}
+.kg-crumb-sep { color: #c3cbdc; }
+.kg-crumb-current { color: var(--kg-accent); }
+
+.kg-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 26px 22px 30px;
+  overflow: hidden;
+  border: 1px solid #dbe5f7;
+  border-radius: 18px;
+  background: linear-gradient(115deg, #ffffff 0%, #eff3ff 52%, #e3f4ff 100%);
+  box-shadow: var(--kg-shadow);
+}
+.kg-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, #4f46e5, #0ea5e9);
+}
+.kg-hero h1 {
+  color: var(--kg-ink);
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.2;
+}
+.kg-hero p { max-width: 720px; margin-top: 6px; color: #5b6b86; font-size: 13.5px; line-height: 1.6; }
+.kg-project {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  max-width: 280px;
+  padding: 9px 14px;
+  border: 1px solid #d3dcf3;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .85);
+  color: var(--kg-ink);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
+}
+.kg-project span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kg-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px solid #f4d6a2;
+  border-radius: 12px;
+  background: #fffaf0;
+  color: #7a4b00;
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------------- stat chips */
+.kg-stats { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 14px; }
+.kg-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--kg-line);
+  border-radius: 999px;
+  background: #fff;
+  color: #5b6b86;
+  font-size: 12.5px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+}
+.kg-stat b { color: var(--kg-ink); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.kg-stat i { width: 8px; height: 8px; border-radius: 50%; background: var(--dot, #94a3b8); }
+
+/* ---------------------------------------------------------------- board */
+.kg-board {
+  overflow: hidden;
+  border: 1px solid var(--kg-line);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--kg-shadow);
+}
+.kg-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #eef1f8;
+  background: linear-gradient(180deg, #fbfcff, #f6f8ff);
+}
+.kg-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  width: 260px;
+  max-width: 100%;
+  padding: 0 12px;
+  border: 1px solid #d8dfee;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--kg-muted);
+  transition: border-color .15s, box-shadow .15s;
+}
+.kg-search:focus-within { border-color: #818cf8; box-shadow: 0 0 0 3px rgba(99, 102, 241, .16); }
+.kg-search input { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; color: var(--kg-ink); font-size: 13px; }
+.kg-search input::placeholder { color: #98a2b3; }
+.kg-seg { display: inline-flex; gap: 4px; padding: 4px; border-radius: 12px; background: #e9edfa; overflow-x: auto; max-width: 100%; }
+.kg-seg button {
+  padding: 7px 14px;
+  border-radius: 9px;
+  color: #5b6b86;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background .15s, color .15s, box-shadow .15s;
+}
+.kg-seg button:hover { color: var(--kg-accent-deep); }
+.kg-seg button[aria-pressed="true"] {
+  color: var(--kg-accent-deep);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, .12), 0 0 0 1px rgba(99, 102, 241, .1);
+}
+.kg-check { display: inline-flex; align-items: center; gap: 8px; color: #52627e; font-size: 13px; cursor: pointer; }
+.kg-check input { width: 16px; height: 16px; accent-color: var(--kg-accent); }
+.kg-btn {
+  margin-left: auto;
+  padding: 8px 16px;
+  border: 1px solid #d3dcf3;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--kg-accent-deep);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
+  transition: background .15s;
+}
+.kg-btn:hover { background: #eef0ff; }
+.kg-toolbar :focus-visible, .kg-hero :focus-visible { outline: 2px solid #818cf8; outline-offset: 2px; }
+
+.kg-canvas {
+  background-color: #fbfcff;
+  background-image: radial-gradient(#d6def0 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.kg-inspector { background: #fbfcff; }
+
+.kg-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px 18px;
+  padding: 16px 20px;
+  border-top: 1px solid #eef1f8;
+  background: #fafbff;
+  color: #52627e;
+  font-size: 12.5px;
+}
+.kg-legend-title { grid-column: 1 / -1; color: var(--kg-muted); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.kg-legend span { display: flex; align-items: center; gap: 9px; }
+
+@media (max-width: 720px) {
+  .kg-hero { flex-direction: column; align-items: flex-start; padding: 18px 20px 18px 24px; }
+  .kg-hero h1 { font-size: 23px; }
+  .kg-btn { margin-left: 0; }
+}

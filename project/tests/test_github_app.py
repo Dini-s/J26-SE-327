@@ -144,3 +144,36 @@ def test_receiver_accepts_signed_push_but_does_not_expose_dashboard_routes(setup
     finally:
         server.shutdown()
         server.server_close()
+
+
+def test_api_retries_a_dropped_connection_once_and_then_reports_it_plainly(monkeypatch):
+    from http.client import RemoteDisconnected
+
+    calls = []
+
+    class Reply:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self, *args):
+            return b'{"ok": true}'
+
+    def flaky(request, timeout):
+        calls.append(1)
+        if len(calls) == 1:
+            raise RemoteDisconnected('Remote end closed connection without response')
+        return Reply()
+
+    monkeypatch.setattr(app, 'urlopen', flaky)
+    assert app.api('/zen', token='t') == {'ok': True}
+    assert len(calls) == 2
+
+    def always_dropped(request, timeout):
+        raise RemoteDisconnected('Remote end closed connection without response')
+
+    monkeypatch.setattr(app, 'urlopen', always_dropped)
+    with pytest.raises(app.GitHubError, match='Cannot reach GitHub'):
+        app.api('/zen', token='t')

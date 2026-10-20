@@ -8,6 +8,7 @@ import hmac
 import json
 import os
 from contextlib import contextmanager
+from http.client import HTTPException
 from pathlib import Path
 import re
 import sqlite3
@@ -46,13 +47,18 @@ def api(path, token=None, body=None):
         data=json.dumps(body).encode() if body is not None else None,
         headers={'Authorization': 'Bearer ' + (token or jwt()), 'Accept': 'application/vnd.github+json',
                  'X-GitHub-Api-Version': '2026-03-10', 'User-Agent': 'Aspire-C4', 'Content-Type': 'application/json'})
-    try:
-        with urlopen(request, timeout=20) as response:
-            return json.load(response)
-    except HTTPError as exc:
-        raise GitHubError(f'GitHub returned {exc.code}. Check App installation and repository permissions.') from None
-    except (URLError, TimeoutError):
-        raise GitHubError('Cannot reach GitHub. Check your connection.') from None
+    for attempt in (1, 2):
+        try:
+            with urlopen(request, timeout=20) as response:
+                return json.load(response)
+        except HTTPError as exc:
+            raise GitHubError(f'GitHub returned {exc.code}. Check App installation and repository permissions.') from None
+        except (ConnectionError, HTTPException):
+            # the server closed the connection before replying (a transient drop): retry once
+            if attempt == 2:
+                raise GitHubError('Cannot reach GitHub. Check your connection.') from None
+        except (URLError, TimeoutError):
+            raise GitHubError('Cannot reach GitHub. Check your connection.') from None
 
 
 def installation_token(installation_id):

@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import { postJson, useApi, useProject } from "../api/c4";
 import StatusBadge from "../component/common/StatusBadge";
-import { ActivityIndicator } from "../component/traceability/Activity";
 import { useActivity } from "../component/traceability/useActivity";
+import { announceActivity } from "../component/traceability/activityBus";
+import RequirementPicker from "../component/traceability/RequirementPicker";
 import { Card, Empty, TraceHeader } from "../component/traceability/common";
 import RequirementText from "../component/traceability/RequirementText";
 import { codeLocation } from "../component/traceability/utils";
@@ -64,7 +65,7 @@ function LinkingWorkspace({ project, projectsError }) {
   const { reload: reloadUnlinked } = unlinked;
   const { reload: reloadRuns } = runsApi;
   const refresh = useCallback(() => { reloadUnlinked(); reloadRuns(); }, [reloadUnlinked, reloadRuns]);
-  const { activity, busy } = useActivity(refresh);
+  const { busy, reload: reloadActivity } = useActivity(refresh);
   const [mode, setMode] = useState("existing");
   const [topK, setTopK] = useState(3);
   const [chosen, setChosen] = useState([]);
@@ -73,6 +74,7 @@ function LinkingWorkspace({ project, projectsError }) {
   const [selection, setSelection] = useState(null);
   const [hint, setHint] = useState("");
   const [starting, setStarting] = useState(false);
+  const [launchedAt, setLaunchedAt] = useState(null);
   const mounted = useRef(false);
   const submitting = useRef(false);
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
@@ -84,7 +86,13 @@ function LinkingWorkspace({ project, projectsError }) {
   const pending = pendingId && !selected;
   const complete = data?.requirements > 0 && data.unlinked === 0;
   const canLink = !!project && data?.unlinked > 0 && data.codeFiles > 0;
-  const locked = busy || starting;
+  const launching = launchedAt != null && !runs.some((run) => Date.parse(run.started) >= launchedAt - 3000);
+  useEffect(() => {
+    if (launchedAt == null) return undefined;
+    const timer = setTimeout(() => setLaunchedAt(null), 30000);
+    return () => clearTimeout(timer);
+  }, [launchedAt]);
+  const locked = busy || starting || launching;
   const start = async (event) => {
     event.preventDefault();
     if (submitting.current || busy || !project) return;
@@ -92,6 +100,8 @@ function LinkingWorkspace({ project, projectsError }) {
     if (mode === "existing" && !canLink) return;
     submitting.current = true; setStarting(true); setHint("");
     const existing = mode === "existing";
+    announceActivity({ kind: "link", project });
+    setLaunchedAt(Date.now());
     try {
       const result = await postJson(existing ? "/api/link-existing" : "/api/link", existing ? { project, top_k: topK, ...(chosen.length ? { requirement_ids: chosen } : {}) } : { project, text: text.trim(), id: requirementId.trim(), top_k: topK });
       if (!mounted.current) return;
@@ -99,13 +109,13 @@ function LinkingWorkspace({ project, projectsError }) {
       setSelection(existing ? null : `pending:${result.id}`);
       if (!existing) { setText(""); setRequirementId(""); }
       setHint(existing ? `Started linking ${result.requirements} requirements.` : `${result.id} added. Finding trace links.`);
-      refresh();
-    } catch (error) { if (mounted.current) setHint(`Error: ${error.message}`); }
+      refresh(); reloadActivity();
+      [1200, 3000].forEach((delay) => setTimeout(() => { if (mounted.current) refresh(); }, delay));
+    } catch (error) { announceActivity(null); if (mounted.current) { setLaunchedAt(null); setHint(`Error: ${error.message}`); } }
     finally { if (mounted.current) { submitting.current = false; setStarting(false); } }
   };
   return <div>
     <TraceHeader title="Link requirements" subtitle="Find and save AI-verified connections to code." apiError={projectsError || unlinked.error || runsApi.error} />
-    <ActivityIndicator activity={activity} />
     <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_280px]">
       <div className="min-w-0 space-y-5">
         <Card>
@@ -115,7 +125,7 @@ function LinkingWorkspace({ project, projectsError }) {
           <form onSubmit={start}>
             {mode === "existing" ? <>
               <p className="text-xs leading-6 text-slate-500">{!project ? "Select a project first." : unlinked.error ? "Unable to load requirements." : !data ? "Loading requirements…" : !data.requirements ? "No requirements yet. Add one or import them into the graph." : complete && data.pendingReview ? `${data.pendingReview} candidates need human review.` : complete && data.awaitingApproval ? `${data.awaitingApproval} requirements have no approved link. Review their candidates.` : complete ? `${data.requirements} ${data.requirements === 1 ? "requirement" : "requirements"} already linked.` : !data.codeFiles ? "Add code files before creating links." : `${data.unlinked} of ${data.requirements} requirements need links.`}</p>
-              {canLink && data.ids?.length > 0 && <fieldset className="mt-3 max-h-40 overflow-auto rounded-lg border border-slate-100 p-3"><legend className="px-1 text-xs text-slate-500">Choose requirements (leave empty to scan all)</legend>{data.ids.map((id) => <label key={id} className="flex items-center gap-2 py-1.5 text-xs text-slate-600"><input type="checkbox" checked={chosen.includes(id)} disabled={locked || (!chosen.includes(id) && chosen.length >= 20)} onChange={(e) => setChosen((current) => e.target.checked ? [...current, id] : current.filter((rid) => rid !== id))} />{id}</label>)}</fieldset>}
+              {canLink && data.ids?.length > 0 && <RequirementPicker ids={data.ids} texts={data.texts} chosen={chosen} onChange={setChosen} disabled={locked} />}
               {(data?.pendingReview > 0 || (complete && data?.awaitingApproval > 0)) && <Link className="mt-3 mr-4 inline-block text-xs font-medium text-indigo-600" to="/traceability/labeling">Review candidates →</Link>}
               {complete && <Link className="mt-3 inline-block text-xs font-medium text-indigo-600" to="/traceability">View saved links →</Link>}
             </> : <>
@@ -125,12 +135,12 @@ function LinkingWorkspace({ project, projectsError }) {
             </>}
             {(mode === "new" || canLink) && <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
               <label className="text-xs text-slate-500">Candidates per requirement<select value={topK} disabled={locked} onChange={(event) => setTopK(Number(event.target.value))} className="ml-2 rounded-md border border-slate-200 px-2 py-1.5">{[3, 5, 10].map((count) => <option key={count}>{count}</option>)}</select></label>
-              <button type="submit" disabled={locked || !project || (mode === "new" && text.trim().length < 15)} className="rounded-lg bg-indigo-600 px-4 py-2.5 text-xs font-medium text-white disabled:opacity-40">{starting ? "Starting…" : mode === "new" ? "Find trace links" : chosen.length ? `Link ${chosen.length} selected` : "Create trace links"}</button>
+              <button type="submit" disabled={locked || !project || (mode === "new" && text.trim().length < 15)} className="rounded-lg bg-indigo-600 px-4 py-2.5 text-xs font-medium text-white disabled:opacity-40">{starting || launching ? "Starting…" : mode === "new" ? "Find trace links" : chosen.length ? `Link ${chosen.length} selected` : "Create trace links"}</button>
             </div>}
             {hint && <p role="status" className={`mt-3 text-xs ${hint.startsWith("Error:") ? "text-red-600" : "text-slate-500"}`}>{hint}</p>}
           </form>
         </Card>
-        {pending ? <Card><p role="status" className="text-xs text-slate-500">Preparing candidates for {pendingId}…</p></Card> : selected ? <RunResult run={selected} texts={texts} /> : <Card><Empty>No run results yet.</Empty></Card>}
+        {launching ? <Card><div role="status" className="flex items-start gap-3"><Loader2 size={18} className="mt-0.5 shrink-0 animate-spin text-indigo-500" /><div><p className="text-sm font-semibold text-slate-800">Starting the AI check…</p><p className="mt-1 text-xs leading-5 text-slate-500">Your request was sent. Results appear here by themselves, and progress also shows at the bottom right on every page, so you can open another page meanwhile.</p></div></div></Card> : pending ? <Card><p role="status" className="text-xs text-slate-500">Preparing candidates for {pendingId}…</p></Card> : selected ? <RunResult run={selected} texts={texts} /> : <Card><Empty>No run results yet.</Empty></Card>}
       </div>
       <aside className="min-w-0"><Card title="Run history" action={<span className="text-xs text-slate-400">{runs.length}</span>}>
         {!runs.length && <p className="py-4 text-xs text-slate-400">Your runs will appear here.</p>}

@@ -10,5 +10,5 @@ export function useActivity(onFinished) {
     if (was.current && !busy && onFinished) onFinished();
     was.current = busy;
   }, [busy, onFinished]);
-  return { activity: api.data, busy, error: api.error };
+  return { activity: api.data, busy, error: api.error, reload: api.reload };
 }

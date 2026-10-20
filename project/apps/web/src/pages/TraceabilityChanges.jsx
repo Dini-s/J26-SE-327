@@ -2,7 +2,6 @@ import { linkLabel } from "../component/traceability/linkStatus";
 import { useCallback, useMemo, useState } from "react";
 import { postJson, useApi, useProject } from "../api/c4";
 import StatusBadge from "../component/common/StatusBadge";
-import { ActivityIndicator } from "../component/traceability/Activity";
 import { useActivity } from "../component/traceability/useActivity";
 import { Card, Empty, TraceHeader } from "../component/traceability/common";
 
@@ -106,7 +105,7 @@ const TraceabilityChanges = () => {
   const reloadRuns = runsApi.reload;
   const reloadUnlinked = unlinked.reload;
   const refresh = useCallback(() => { reloadRuns(); reloadUnlinked(); }, [reloadRuns, reloadUnlinked]);
-  const { activity, busy } = useActivity(refresh);
+  const { busy } = useActivity(refresh);
   const [sel, setSel] = useState(null);
   const [force, setForce] = useState(false);
   const [scanHint, setScanHint] = useState("");
@@ -144,7 +143,6 @@ const TraceabilityChanges = () => {
       <TraceHeader title="Code changes"
         subtitle="Track commits and review affected trace links."
         apiError={projectsError || runsApi.error || syncApi.error} />
-      <ActivityIndicator activity={activity} />
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
         <div className="min-w-0 space-y-5">
           <Card title="Connected repository">
