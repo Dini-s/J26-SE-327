@@ -6,30 +6,14 @@ from collections import defaultdict
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-
-SNAPSHOTS = [
-    {
-        "date": "2015-12-22",
-        "commit": "a768e877efa9d22c9b6a3173a9a92a3b3af8aa3d",
-    },
-    {
-        "date": "2018-12-17",
-        "commit": "ab567242851166983e5f0140ab7593fd04c7d365",
-    },
-    {
-        "date": "2021-12-23",
-        "commit": "778161f0183d44df8f58b6eaee64fc085b64b69c",
-    },
-    {
-        "date": "2024-12-15",
-        "commit": "6148ddd9671ccab86a3f0ae2dfa77d833b713ee8",
-    },
-]
+RAW_REPOSITORIES_DIR = PROJECT_ROOT / "data" / "raw"
+SNAPSHOT_COUNT = 4
 
 PACKAGE_RE = re.compile(
     r"^\s*package\s+([\w.]+)\s*;",
     re.MULTILINE,
 )
+
 IMPORT_RE = re.compile(
     r"^\s*import\s+(?:static\s+)?([\w.*]+)\s*;",
     re.MULTILINE,
@@ -47,6 +31,27 @@ EXCLUDED_DIRS = {
     "out",
 }
 
+ARCHITECTURE_COLUMNS = [
+    "repository",
+    "snapshot_date",
+    "commit_hash",
+    "package_path",
+    "java_files",
+    "nonempty_lines",
+    "fan_in",
+    "fan_out",
+    "total_coupling",
+    "instability",
+]
+
+DEPENDENCY_COLUMNS = [
+    "repository",
+    "snapshot_date",
+    "commit_hash",
+    "source_package",
+    "target_package",
+]
+
 
 def git(repo, *args):
     result = subprocess.run(
@@ -57,9 +62,173 @@ def git(repo, *args):
         errors="replace",
         check=False,
     )
+
     if result.returncode != 0:
-        raise RuntimeError(result.stderr.strip())
+        raise RuntimeError(result.stderr.strip() or "Git command failed.")
+
     return result.stdout
+
+
+def is_git_repository(path):
+    return path.is_dir() and ((path / ".git").exists() or (path / ".git").is_file())
+
+
+def discover_repositories():
+    if not RAW_REPOSITORIES_DIR.exists():
+        raise FileNotFoundError(
+            f"Raw repositories directory not found: {RAW_REPOSITORIES_DIR}"
+        )
+
+    return [
+        path.resolve()
+        for path in sorted(RAW_REPOSITORIES_DIR.iterdir())
+        if is_git_repository(path)
+    ]
+
+
+def snapshot_has_packages(repo, commit):
+    """Check whether a commit contains production Java package declarations."""
+
+    pattern = (
+        r"^[[:space:]]*package[[:space:]]+"
+        r"[[:alnum:]_.]+[[:space:]]*;"
+    )
+
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repo),
+            "grep",
+            "-I",
+            "-l",
+            "-E",
+            pattern,
+            commit,
+            "--",
+            "*.java",
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+
+    if result.returncode not in (0, 1):
+        raise RuntimeError(result.stderr.strip() or "Git grep failed.")
+
+    for line in result.stdout.splitlines():
+        path = line.split(":", 1)[-1]
+
+        if is_production_java(path):
+            return True
+
+    return False
+
+
+def select_snapshots(repo, snapshot_count=SNAPSHOT_COUNT):
+    """
+    Select up to four evenly distributed historical commits
+    that contain recognizable production Java packages.
+    """
+
+    output = git(
+        repo,
+        "log",
+        "--first-parent",
+        "--reverse",
+        "--format=%H%x09%cs",
+        "HEAD",
+    )
+
+    history = []
+
+    for line in output.splitlines():
+        parts = line.split("\t", maxsplit=1)
+
+        if len(parts) == 2:
+            history.append(
+                {
+                    "commit": parts[0],
+                    "date": parts[1],
+                }
+            )
+
+    if not history:
+        print(f"WARNING: No commits found for {repo.name}; skipping.")
+        return []
+
+    # Locate the first commit containing recognizable production
+    # Java packages without checking every historical commit.
+    first_valid = None
+    probe = 0
+
+    while probe < len(history):
+        if snapshot_has_packages(repo, history[probe]["commit"]):
+            first_valid = probe
+            break
+
+        probe = 1 if probe == 0 else probe * 2
+
+    if first_valid is None:
+        print(f"WARNING: No production Java packages found in {repo.name}; skipping.")
+        return []
+
+    # Refine the first eligible commit using binary search.
+    # This assumes package-bearing Java code remains present
+    # after it first appears in the repository history.
+    low = max(0, probe // 2)
+    high = probe
+
+    while low < high:
+        middle = (low + high) // 2
+
+        if snapshot_has_packages(repo, history[middle]["commit"]):
+            high = middle
+        else:
+            low = middle + 1
+
+    first_valid = low
+    eligible_history = history[first_valid:]
+
+    count = min(snapshot_count, len(eligible_history))
+
+    if count == 1:
+        indices = [len(eligible_history) - 1]
+    else:
+        indices = [
+            round(i * (len(eligible_history) - 1) / (count - 1)) for i in range(count)
+        ]
+
+    snapshots = []
+    seen_dates = set()
+
+    for index in indices:
+        snapshot = eligible_history[index]
+
+        # Confirm eligibility in case the repository's structure changed.
+        if not snapshot_has_packages(repo, snapshot["commit"]):
+            print(
+                f"WARNING: Skipping {snapshot['date']}: "
+                "no recognizable production Java packages."
+            )
+            continue
+
+        if snapshot["date"] in seen_dates:
+            continue
+
+        snapshots.append(snapshot)
+        seen_dates.add(snapshot["date"])
+
+    print(
+        f"{repo.name}: {len(history)} total commits; "
+        f"{len(eligible_history)} commits from the first "
+        f"Java-bearing commit onward; "
+        f"selected {len(snapshots)} snapshots."
+    )
+
+    return snapshots
 
 
 def is_production_java(path):
@@ -87,7 +256,13 @@ def is_production_java(path):
 def read_snapshot(repo, snapshot):
     commit = snapshot["commit"]
 
-    paths = git(repo, "ls-tree", "-r", "--name-only", commit).splitlines()
+    paths = git(
+        repo,
+        "ls-tree",
+        "-r",
+        "--name-only",
+        commit,
+    ).splitlines()
 
     package_files = defaultdict(list)
     package_imports = defaultdict(set)
@@ -98,9 +273,14 @@ def read_snapshot(repo, snapshot):
         if not is_production_java(path):
             continue
 
-        source = git(repo, "show", f"{commit}:{path}")
+        try:
+            source = git(repo, "show", f"{commit}:{path}")
+        except RuntimeError:
+            skipped += 1
+            continue
 
         package_match = PACKAGE_RE.search(source)
+
         if not package_match:
             skipped += 1
             continue
@@ -108,14 +288,11 @@ def read_snapshot(repo, snapshot):
         package = package_match.group(1)
         package_files[package].append(path)
 
-        # A reproducible proxy: count non-empty source lines.
-        # This is not a full Java LOC parser.
+        # Count non-empty source lines.
+        # This is a reproducible proxy, not a full Java LOC parser.
         package_loc[package] += sum(1 for line in source.splitlines() if line.strip())
 
         for imported in IMPORT_RE.findall(source):
-            imported = imported.removeprefix("static ")
-
-            # Resolve the import to a known internal package below.
             package_imports[package].add(imported)
 
     packages = set(package_files)
@@ -123,11 +300,11 @@ def read_snapshot(repo, snapshot):
 
     for source_package, imports in package_imports.items():
         for imported in imports:
-            # Resolve to the longest known package prefix.
+            # Resolve imports to the longest known internal package.
             candidates = [
                 package
                 for package in packages
-                if imported == package or imported.startswith(package + ".")
+                if (imported == package or imported.startswith(package + "."))
             ]
 
             if not candidates:
@@ -179,7 +356,7 @@ def read_snapshot(repo, snapshot):
     ]
 
     print(
-        f"{snapshot['date']}: "
+        f"  {snapshot['date']} ({commit[:10]}): "
         f"packages={len(packages)}, "
         f"Java files={sum(len(v) for v in package_files.values())}, "
         f"internal edges={len(edges)}, "
@@ -192,91 +369,116 @@ def read_snapshot(repo, snapshot):
 def write_csv(path, rows, columns):
     path.parent.mkdir(parents=True, exist_ok=True)
 
-    with path.open("w", newline="", encoding="utf-8") as file:
-        writer = csv.DictWriter(file, fieldnames=columns)
+    with path.open(
+        "w",
+        newline="",
+        encoding="utf-8",
+    ) as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=columns,
+        )
         writer.writeheader()
         writer.writerows(rows)
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--repo",
-        default="data/raw/R01_spring_petclinic",
-        help="Path to the Git repository",
-    )
-    args = parser.parse_args()
+def process_repository(repo):
+    if not is_git_repository(repo):
+        print(f"WARNING: Not a Git repository: {repo}; skipping.")
+        return
 
-    repo = Path(args.repo)
-    if not repo.is_absolute():
-        repo = PROJECT_ROOT / repo
-    repo = repo.resolve()
+    try:
+        snapshots = select_snapshots(repo)
+    except RuntimeError as error:
+        print(f"WARNING: Could not read history for {repo.name}: {error}")
+        return
 
-    if not (repo / ".git").exists() and not (repo / ".git").is_file():
-        raise ValueError(f"Not a Git repository: {repo}")
+    if not snapshots:
+        return
 
     output_dir = PROJECT_ROOT / "data" / "historical" / repo.name
 
     all_metrics = []
     all_edges = []
 
-    for snapshot in SNAPSHOTS:
-        # Confirm the selected commit exists.
-        git(repo, "cat-file", "-e", f"{snapshot['commit']}^{{commit}}")
+    for snapshot in snapshots:
+        try:
+            metrics, edges = read_snapshot(repo, snapshot)
+        except RuntimeError as error:
+            print(
+                f"WARNING: Failed snapshot {snapshot['date']} for {repo.name}: {error}"
+            )
+            continue
 
-        metrics, edges = read_snapshot(repo, snapshot)
         all_metrics.extend(metrics)
         all_edges.extend(edges)
 
         date = snapshot["date"]
+
         write_csv(
             output_dir / f"{date}_architecture.csv",
             metrics,
-            [
-                "repository",
-                "snapshot_date",
-                "commit_hash",
-                "package_path",
-                "java_files",
-                "nonempty_lines",
-                "fan_in",
-                "fan_out",
-                "total_coupling",
-                "instability",
-            ],
+            ARCHITECTURE_COLUMNS,
         )
+
         write_csv(
             output_dir / f"{date}_dependencies.csv",
             edges,
-            [
-                "repository",
-                "snapshot_date",
-                "commit_hash",
-                "source_package",
-                "target_package",
-            ],
+            DEPENDENCY_COLUMNS,
         )
 
     write_csv(
         output_dir / "all_snapshots_architecture.csv",
         all_metrics,
-        [
-            "repository",
-            "snapshot_date",
-            "commit_hash",
-            "package_path",
-            "java_files",
-            "nonempty_lines",
-            "fan_in",
-            "fan_out",
-            "total_coupling",
-            "instability",
-        ],
+        ARCHITECTURE_COLUMNS,
     )
 
-    print(f"\nOutput directory: {output_dir}")
-    print(f"Total package-snapshot records: {len(all_metrics)}")
-    print(f"Total package dependency edges: {len(all_edges)}")
+    print(f"  Output directory: {output_dir}")
+    print(f"  Package-snapshot records: {len(all_metrics)}")
+    print(f"  Package dependency edges: {len(all_edges)}")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description=("Extract historical architecture snapshots from Git repositories.")
+    )
+
+    parser.add_argument(
+        "--repo",
+        default=None,
+        help=(
+            "Optional path to one Git repository. "
+            "Omit to process all repositories in data/raw."
+        ),
+    )
+
+    args = parser.parse_args()
+
+    if args.repo:
+        repo = Path(args.repo)
+
+        if not repo.is_absolute():
+            repo = PROJECT_ROOT / repo
+
+        repositories = [repo.resolve()]
+    else:
+        repositories = discover_repositories()
+
+    if not repositories:
+        print(f"No Git repositories found in {RAW_REPOSITORIES_DIR}")
+        return
+
+    print(f"Repositories to process: {len(repositories)}")
+
+    for repo in repositories:
+        print(f"\nProcessing repository: {repo.name}")
+
+        try:
+            process_repository(repo)
+        except (OSError, ValueError, RuntimeError) as error:
+            print(f"ERROR processing {repo.name}: {error}; continuing.")
+
+    print("\nHistorical snapshot extraction finished.")
 
 
 if __name__ == "__main__":
