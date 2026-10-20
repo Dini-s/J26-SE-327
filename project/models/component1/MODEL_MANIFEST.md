@@ -89,3 +89,98 @@ What each file under `models/component1/` is, which one the requirement agent lo
 - FR/NFR: `tfidf_svm` and `tfidf_lr` beat `emb_lr` on the frozen test, but the agent uses `emb_lr` (it is the best under PROMISE leave-one-project-out, 0.798 vs 0.641-0.654).
 - The ambiguity detector is weak across sources (cross-source rows 0.37-0.49); treat `ambiguity_label` as a hint.
 - Cross-source ambiguity macro-F1 for the models the agent does not load is listed for reference only.
+
+## Accuracy and tree-model comparison (added for the viva)
+
+Nothing above changed and the agent still loads the same four models. This section adds (1) **accuracy** next to macro-F1 for every model on the frozen test split and (2) an experiment that tested **XGBoost, LightGBM, Random Forest and Extra Trees**, which the baselines did not include. Same train/val/test splits, seed 327, models fitted on train and tuned on validation only; the frozen test split was read once per task. Brackets are 95 % bootstrap CIs (1000 resamples). The same tables with more columns are in `evaluation/component1/results/MODEL_COMPARISON.md` (`.csv`, `.xlsx`); code in `evaluation/tree_models_eval.py` and `evaluation/model_comparison.py`; raw numbers in `tree_models_metrics.csv` / `tree_models_tuning.csv` in the same folder; tests in `tests/test_tree_models_eval.py`.
+
+**How to read it.** *Best* = highest validation macro-F1 (the majority baseline is excluded), never chosen from the test numbers. Accuracy is flattering on imbalanced tasks: for the security flag, always answering "not security" already scores 0.950 accuracy (macro-F1 0.487), so use macro-F1 there. A difference whose CIs overlap is not a proven difference.
+
+Leave-one-project-out (LOPO) is the macro-F1 when a whole PROMISE project is held out, a measure of how well a model carries over to a new project (FR/NFR only).
+
+### FR vs NFR (frozen test, n=935)
+
+| Model | Features | Accuracy [95% CI] | Macro-F1 [95% CI] | Validation macro-F1 | LOPO macro-F1 | Agent loads it | Best |
+|---|---|---|---|---|---|---|---|
+| Majority class | none (most common class) | 0.640 [0.606, 0.670] | 0.390 [0.377, 0.401] | 0.396 | 0.407 |  |  |
+| Keyword rules | hand-written keyword rules | 0.687 [0.657, 0.717] | 0.674 [0.642, 0.703] | 0.690 |  |  |  |
+| Logistic Regression | TF-IDF | 0.875 [0.852, 0.896] | 0.865 [0.839, 0.886] | 0.858 | 0.654 |  |  |
+| Linear SVM | TF-IDF | 0.874 [0.852, 0.894] | 0.864 [0.841, 0.885] | 0.859 | 0.641 |  |  |
+| Logistic Regression | MiniLM embeddings | 0.839 [0.814, 0.862] | 0.828 [0.802, 0.852] | 0.832 | 0.798 | yes |  |
+| XGBoost | MiniLM embeddings | 0.859 [0.836, 0.880] | 0.844 [0.818, 0.867] | 0.852 | 0.701 |  |  |
+| XGBoost | MiniLM embeddings + hand features | 0.861 [0.838, 0.881] | 0.846 [0.818, 0.868] | 0.851 | 0.699 |  |  |
+| XGBoost | TF-IDF | 0.821 [0.796, 0.845] | 0.807 [0.780, 0.832] | 0.829 | 0.552 |  |  |
+| XGBoost | TF-IDF + MiniLM embeddings | 0.867 [0.846, 0.888] | 0.854 [0.829, 0.876] | 0.864 | 0.750 |  |  |
+| LightGBM | MiniLM embeddings | 0.860 [0.837, 0.880] | 0.845 [0.820, 0.868] | 0.845 | 0.704 |  |  |
+| LightGBM | MiniLM embeddings + hand features | 0.872 [0.850, 0.891] | 0.857 [0.833, 0.878] | 0.861 | 0.711 |  |  |
+| LightGBM | TF-IDF | 0.843 [0.819, 0.865] | 0.828 [0.803, 0.853] | 0.842 | 0.566 |  |  |
+| **LightGBM** | TF-IDF + MiniLM embeddings | 0.879 [0.857, 0.898] | 0.866 [0.842, 0.887] | 0.870 | 0.661 |  | BEST |
+| Random Forest | MiniLM embeddings | 0.836 [0.813, 0.860] | 0.806 [0.779, 0.832] | 0.800 | 0.454 |  |  |
+| Random Forest | MiniLM embeddings + hand features | 0.832 [0.809, 0.855] | 0.800 [0.771, 0.827] | 0.818 | 0.438 |  |  |
+| Random Forest | TF-IDF | 0.839 [0.816, 0.860] | 0.819 [0.793, 0.843] | 0.834 | 0.457 |  |  |
+| Random Forest | TF-IDF + MiniLM embeddings | 0.828 [0.803, 0.851] | 0.793 [0.763, 0.821] | 0.805 | 0.406 |  |  |
+| Extra Trees | MiniLM embeddings | 0.834 [0.810, 0.857] | 0.804 [0.775, 0.831] | 0.810 | 0.440 |  |  |
+| Extra Trees | MiniLM embeddings + hand features | 0.833 [0.810, 0.857] | 0.802 [0.773, 0.830] | 0.818 | 0.423 |  |  |
+| Extra Trees | TF-IDF | 0.859 [0.836, 0.880] | 0.844 [0.820, 0.866] | 0.849 | 0.487 |  |  |
+| Extra Trees | TF-IDF + MiniLM embeddings | 0.849 [0.826, 0.871] | 0.823 [0.796, 0.848] | 0.845 | 0.455 |  |  |
+
+### Security flag (frozen test, n=1285)
+
+| Model | Features | Accuracy [95% CI] | Macro-F1 [95% CI] | Validation macro-F1 | LOPO macro-F1 | Agent loads it | Best |
+|---|---|---|---|---|---|---|---|
+| Majority class | none (most common class) | 0.950 [0.938, 0.961] | 0.487 [0.484, 0.490] | 0.461 |  |  |  |
+| Keyword rules | hand-written keyword rules | 0.931 [0.916, 0.943] | 0.721 [0.670, 0.767] | 0.724 |  | yes |  |
+| Logistic Regression | TF-IDF | 0.854 [0.834, 0.872] | 0.618 [0.583, 0.657] | 0.678 |  |  |  |
+| Linear SVM | TF-IDF | 0.839 [0.817, 0.859] | 0.623 [0.589, 0.658] | 0.666 |  |  |  |
+| Logistic Regression | MiniLM embeddings | 0.845 [0.825, 0.867] | 0.626 [0.589, 0.666] | 0.672 |  |  |  |
+| XGBoost | MiniLM embeddings | 0.946 [0.934, 0.958] | 0.769 [0.721, 0.816] | 0.757 |  |  |  |
+| XGBoost | MiniLM embeddings + hand features | 0.948 [0.936, 0.960] | 0.775 [0.727, 0.824] | 0.751 |  |  |  |
+| XGBoost | TF-IDF | 0.827 [0.806, 0.849] | 0.602 [0.568, 0.637] | 0.694 |  |  |  |
+| XGBoost | TF-IDF + MiniLM embeddings | 0.942 [0.929, 0.954] | 0.760 [0.710, 0.807] | 0.747 |  |  |  |
+| LightGBM | MiniLM embeddings | 0.949 [0.938, 0.961] | 0.780 [0.733, 0.827] | 0.748 |  |  |  |
+| LightGBM | MiniLM embeddings + hand features | 0.948 [0.935, 0.960] | 0.781 [0.731, 0.826] | 0.746 |  |  |  |
+| LightGBM | TF-IDF | 0.856 [0.837, 0.875] | 0.611 [0.575, 0.649] | 0.685 |  |  |  |
+| **LightGBM** | TF-IDF + MiniLM embeddings | 0.946 [0.933, 0.957] | 0.772 [0.725, 0.820] | 0.761 |  |  | BEST |
+| Random Forest | MiniLM embeddings | 0.958 [0.946, 0.968] | 0.689 [0.622, 0.755] | 0.611 |  |  |  |
+| Random Forest | MiniLM embeddings + hand features | 0.960 [0.949, 0.969] | 0.744 [0.684, 0.803] | 0.654 |  |  |  |
+| Random Forest | TF-IDF | 0.824 [0.803, 0.845] | 0.592 [0.559, 0.626] | 0.667 |  |  |  |
+| Random Forest | TF-IDF + MiniLM embeddings | 0.955 [0.943, 0.965] | 0.626 [0.557, 0.692] | 0.572 |  |  |  |
+| Extra Trees | MiniLM embeddings | 0.955 [0.943, 0.965] | 0.659 [0.594, 0.718] | 0.609 |  |  |  |
+| Extra Trees | MiniLM embeddings + hand features | 0.956 [0.945, 0.967] | 0.697 [0.629, 0.761] | 0.619 |  |  |  |
+| Extra Trees | TF-IDF | 0.837 [0.816, 0.857] | 0.609 [0.573, 0.645] | 0.699 |  |  |  |
+| Extra Trees | TF-IDF + MiniLM embeddings | 0.958 [0.947, 0.968] | 0.719 [0.659, 0.780] | 0.650 |  |  |  |
+
+### Ambiguity (ok / defect) (frozen test, n=652)
+
+| Model | Features | Accuracy [95% CI] | Macro-F1 [95% CI] | Validation macro-F1 | LOPO macro-F1 | Agent loads it | Best |
+|---|---|---|---|---|---|---|---|
+| Majority class | none (most common class) | 0.641 [0.604, 0.681] | 0.391 [0.377, 0.405] | 0.373 |  |  |  |
+| QuRE weak-word rule | QuRE weak-word list | 0.551 [0.514, 0.587] | 0.525 [0.486, 0.561] | 0.528 |  | yes |  |
+| Logistic Regression | TF-IDF | 0.702 [0.667, 0.738] | 0.685 [0.649, 0.722] | 0.735 |  | yes |  |
+| Logistic Regression | MiniLM embeddings | 0.621 [0.586, 0.658] | 0.607 [0.570, 0.644] | 0.579 |  |  |  |
+| XGBoost | MiniLM embeddings | 0.650 [0.615, 0.684] | 0.611 [0.572, 0.648] | 0.591 |  |  |  |
+| XGBoost | MiniLM embeddings + hand features | 0.666 [0.629, 0.701] | 0.614 [0.574, 0.651] | 0.628 |  |  |  |
+| XGBoost | TF-IDF | 0.715 [0.679, 0.752] | 0.673 [0.633, 0.712] | 0.712 |  |  |  |
+| XGBoost | TF-IDF + MiniLM embeddings | 0.681 [0.646, 0.719] | 0.642 [0.604, 0.680] | 0.667 |  |  |  |
+| LightGBM | MiniLM embeddings | 0.633 [0.595, 0.673] | 0.572 [0.531, 0.613] | 0.591 |  |  |  |
+| LightGBM | MiniLM embeddings + hand features | 0.686 [0.650, 0.721] | 0.641 [0.602, 0.681] | 0.628 |  |  |  |
+| LightGBM | TF-IDF | 0.695 [0.660, 0.730] | 0.661 [0.623, 0.700] | 0.693 |  |  |  |
+| LightGBM | TF-IDF + MiniLM embeddings | 0.660 [0.624, 0.696] | 0.616 [0.576, 0.655] | 0.647 |  |  |  |
+| Random Forest | MiniLM embeddings | 0.644 [0.609, 0.681] | 0.411 [0.389, 0.437] | 0.381 |  |  |  |
+| Random Forest | MiniLM embeddings + hand features | 0.646 [0.607, 0.684] | 0.416 [0.392, 0.440] | 0.399 |  |  |  |
+| Random Forest | TF-IDF | 0.721 [0.687, 0.756] | 0.663 [0.625, 0.699] | 0.694 |  |  |  |
+| Random Forest | TF-IDF + MiniLM embeddings | 0.643 [0.606, 0.683] | 0.395 [0.379, 0.413] | 0.379 |  |  |  |
+| Extra Trees | MiniLM embeddings | 0.644 [0.609, 0.683] | 0.404 [0.385, 0.426] | 0.379 |  |  |  |
+| Extra Trees | MiniLM embeddings + hand features | 0.647 [0.612, 0.686] | 0.413 [0.392, 0.439] | 0.396 |  |  |  |
+| **Extra Trees** | TF-IDF | 0.739 [0.707, 0.771] | 0.706 [0.670, 0.740] | 0.737 |  |  | BEST |
+| Extra Trees | TF-IDF + MiniLM embeddings | 0.661 [0.626, 0.701] | 0.482 [0.447, 0.521] | 0.546 |  |  |  |
+
+### What the tree models show
+
+- **XGBoost is not the best algorithm here.** Its best test macro-F1 is 0.854 on FR/NFR (TF-IDF + embeddings), 0.775 on security and 0.673 on ambiguity; the best model by validation is LightGBM for FR/NFR and security and Extra Trees for ambiguity, and in every task the gain over the model the agent uses is inside the CIs.
+- **FR/NFR:** the agent's embeddings + logistic regression is the best at carrying over to a new project (LOPO 0.798 against 0.750 for the best XGBoost and 0.661 for LightGBM), which is why it stays.
+- **Security:** trees on MiniLM embeddings reach macro-F1 0.76-0.78 against 0.721 for the rules, but the intervals overlap.
+- **Ambiguity:** no model gets past 0.75 macro-F1; the ARTA labels disagree between files (479 conflicts, see `processed/DATA_CARD.md`).
+- **90 %:** only accuracy comes near it (best accuracy per task: FR/NFR 0.879, security 0.960 which a constant guess of 0.950 nearly matches, ambiguity 0.739). The best macro-F1 per task is 0.866, 0.781 and 0.706. These are the measured numbers; none was tuned on the test split.
+- Not verified: a second run to check the numbers reproduce exactly, the larger `--full` grid, and any real SRS document. The tree models were not saved and are not loaded by the agent.
+
