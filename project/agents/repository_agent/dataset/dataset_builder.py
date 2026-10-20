@@ -207,8 +207,22 @@ def build_dataset():
             package_evolution_file, repository_id
         )
 
-        # Union ensures structural-only packages remain in the feature table.
-        all_packages = sorted(set(structural_by_package) | set(architecture_by_package))
+        # Exclude unresolved package placeholders consistently.
+        valid_structural_packages = {
+            package
+            for package in structural_by_package
+            if package not in AMBIGUOUS_PACKAGES
+        }
+
+        valid_architecture_packages = {
+            package
+            for package in architecture_by_package
+            if package not in AMBIGUOUS_PACKAGES
+        }
+
+        # Preserve valid packages from either source.
+        all_packages = sorted(valid_structural_packages | valid_architecture_packages)
+
         repository_package_rows = []
         evolution_matches = 0
         evolution_missing = 0
