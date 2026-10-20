@@ -1,3 +1,5 @@
+import { linkLabel } from "../traceability/linkStatus";
+import { useApi } from "../../api/c4";
 import StatusBadge from "../common/StatusBadge";
 import { shortName } from "../traceability/utils";
 import { KS } from "./layout";
@@ -16,7 +18,7 @@ function LinkRow({ edge, other }) {
     <div className="border-t border-slate-100 py-2">
       <div className="flex items-center justify-between gap-2">
         <span className="break-all font-mono text-[12px] text-slate-800">{other}</span>
-        {edge.category === "decayed" ? <StatusBadge type="danger">broken</StatusBadge> : <StatusBadge type="success">verified</StatusBadge>}
+        <StatusBadge type={edge.category === "verified" ? "success" : "warning"}>{linkLabel(edge.category)}</StatusBadge>
       </div>
       <p className="mt-0.5 text-[12px] text-slate-500">
         confidence {conf(edge.confidence)}
@@ -63,6 +65,19 @@ function Relations({ node, nodes, edges }) {
   );
 }
 
+function FullCode({ node }) {
+  const codeId = String(node.id).replace(/^c:/, "");
+  const { data, loading, error } = useApi(`/api/code-text?code=${encodeURIComponent(codeId)}&full=1`);
+  return (
+    <div className="mt-3">
+      <p className="mb-1 text-[12px] font-semibold text-slate-700">Full source code</p>
+      {loading && <p className="text-[12px] text-slate-500">Loading source code...</p>}
+      {error && <p role="alert" className="text-[12px] text-red-600">{error}</p>}
+      {data && <pre className="max-h-[480px] overflow-auto whitespace-pre rounded-lg bg-slate-50 p-3 font-mono text-[11px] leading-relaxed text-slate-700"><code>{data.text || "No source code stored for this file."}</code></pre>}
+    </div>
+  );
+}
+
 export default function Inspector({ selected, nodes, edges }) {
   if (!selected) {
     return (
@@ -94,7 +109,7 @@ export default function Inspector({ selected, nodes, edges }) {
         <Tag tone="indigo">VERIFIED_TRACE</Tag>
         <p className="break-all font-mono text-sm font-semibold text-slate-900">{String(e.from).slice(2)} to {shortName(String(e.to).slice(2))}</p>
         <p className="flex items-center gap-2">
-          {e.category === "decayed" ? <StatusBadge type="danger">broken</StatusBadge> : <StatusBadge type="success">verified</StatusBadge>}
+          <StatusBadge type={e.category === "verified" ? "success" : "warning"}>{linkLabel(e.category)}</StatusBadge>
           <span className="text-slate-500">confidence {conf(e.confidence)}</span>
         </p>
         {e.checked && <p className="text-[12px] text-slate-400">last checked {clock(e.checked)}</p>}
@@ -105,7 +120,7 @@ export default function Inspector({ selected, nodes, edges }) {
 
   const n = byId.get(selected.id);
   if (!n) return null;
-  const linkEdges = edges.filter((e) => (e.category === "verified" || e.category === "decayed") && (e.from === n.id || e.to === n.id));
+  const linkEdges = edges.filter((e) => (["verified", "decayed", "pending_review", "deferred", "rejected"].includes(e.category)) && (e.from === n.id || e.to === n.id));
 
   if (n.kind === "requirement") {
     return (
@@ -157,12 +172,7 @@ export default function Inspector({ selected, nodes, edges }) {
       {linkEdges.map((e, i) => (
         <LinkRow key={i} edge={e} other={String(e.from).slice(2)} />
       ))}
-      {n.text && (
-        <>
-          <p className="mb-1 mt-3 text-[12px] font-semibold text-slate-700">Preview</p>
-          <pre className="max-h-48 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-slate-50 p-2 font-mono text-[11px] leading-relaxed text-slate-600">{n.text.slice(0, 700)}</pre>
-        </>
-      )}
+      <FullCode key={n.id} node={n} />
       <Relations node={n} nodes={nodes} edges={edges} />
     </div>
   );

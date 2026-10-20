@@ -1,12 +1,12 @@
-"""Clean generated (LLM-written) traceability items and write train / valid files for the reranker.
+"""Clean LLM-written traceability items and write train / valid files for the reranker.
 
 Inputs (both are read if present):
-  data/generated_pairs/gemini/*.csv            columns: requirement_id,requirement_text,code_text,label,kind
-  data/generated_pairs/{user_domains,deepseek,claude}/*.json
+  data/training_pairs/corpus_c/*.csv            columns: requirement_id,requirement_text,code_text,label,kind
+  data/training_pairs/{user_domains,corpus_b,corpus_a}/*.json
                                           list of {"requirement", "code", "hard_negatives": [...]}
 Output:
-  data/generated_pairs_clean/train.jsonl, valid.jsonl   (reranker format: dataset, source_id, target_id, query, doc, label, kind)
-  data/generated_pairs_clean/clean_report.json
+  data/training_pairs_clean/train.jsonl, valid.jsonl   (reranker format: dataset, source_id, target_id, query, doc, label, kind)
+  data/training_pairs_clean/clean_report.json
 
 Cleaning, per item (a bad item is dropped whole):
   1. code: package / import / licence header removed with the pipeline's strip_boilerplate
@@ -16,7 +16,7 @@ Cleaning, per item (a bad item is dropped whole):
   5. duplicate requirement text or duplicate code is kept once
 Split: whole source files go to valid (about 10 %), so validation contains unseen domains.
 
-    python scripts/prepare_generated_pairs.py
+    python scripts/prepare_training_pairs.py
 """
 
 import csv
@@ -34,12 +34,12 @@ sys.path.insert(0, str(ROOT))
 from agents.traceability_agent.preprocess import strip_boilerplate  # noqa: E402
 from shared.schemas.traceability import Artifact  # noqa: E402
 
-SYN = ROOT / "data" / "generated_pairs"
-OUT = ROOT / "data" / "generated_pairs_clean"
+SYN = ROOT / "data" / "training_pairs"
+OUT = ROOT / "data" / "training_pairs_clean"
 FORBIDDEN = re.compile(r"\b(correct|wrong|fake|alternative|negative|decoy|variant|sample|test|dummy)\b", re.IGNORECASE)
 # requirements may legitimately say "negative balance", so only the shortcut-revealing words are checked there
 FORBIDDEN_REQ = re.compile(r"\b(correct|wrong|fake|alternative|decoy|variant|dummy)\b", re.IGNORECASE)
-JSON_FOLDERS = ("user_domains", "deepseek", "claude")
+JSON_FOLDERS = ("user_domains", "corpus_b", "corpus_a")
 VALID_FRACTION = 0.10
 SEED = 33
 csv.field_size_limit(sys.maxsize)
@@ -91,7 +91,7 @@ def load_json_items(report: Counter) -> list[dict]:
 
 def load_csv_items(report: Counter) -> list[dict]:
     grouped: dict[str, list[dict]] = {}
-    for f in sorted(glob.glob(str(SYN / "gemini" / "*.csv"))):
+    for f in sorted(glob.glob(str(SYN / "corpus_c" / "*.csv"))):
         with open(f, encoding="utf-8", newline="") as fh:
             for row in csv.DictReader(fh):
                 grouped.setdefault(row.get("requirement_id", ""), []).append(row)
@@ -102,7 +102,7 @@ def load_csv_items(report: Counter) -> list[dict]:
         if len(pos) != 1 or len(hard) != 2:
             report["csv_incomplete_item"] += 1
             continue
-        items.append({"group": "gemini", "id": rid, "requirement": pos[0]["requirement_text"],
+        items.append({"group": "corpus_c", "id": rid, "requirement": pos[0]["requirement_text"],
                       "code": pos[0]["code_text"], "hard": [h["code_text"] for h in hard]})
     return items
 
@@ -155,7 +155,7 @@ def main() -> None:
             rows = [(f"{k['id']}-pos", k["pos"], 1, "pos")] + [
                 (f"{k['id']}-hard{j}", n, 0, "hard") for j, n in enumerate(k["negs"])]
             for target_id, doc, label, kind in rows:
-                fh.write(json.dumps({"dataset": "synthetic", "source_id": k["id"], "target_id": target_id,
+                fh.write(json.dumps({"dataset": "pairs", "source_id": k["id"], "target_id": target_id,
                                      "query": k["req"], "doc": doc, "label": label, "kind": kind},
                                     ensure_ascii=False) + "\n")
                 counts[split][kind] += 1

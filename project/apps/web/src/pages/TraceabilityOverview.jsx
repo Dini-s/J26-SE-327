@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { Activity, Download, FileText, FolderGit2, GitBranch, ShieldAlert, TriangleAlert } from "lucide-react";
+import { useMemo, useState } from "react";
+import { AlertTriangle, ArrowRight, CheckCircle2, Download, Link2, Plus, ShieldAlert } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useApi, useProject } from "../api/c4";
-import { PageHeader, Ring, Metric, Tabs, Callout } from "../component/traceability/ui";
+import { Button, PageHeader, Tabs, Callout } from "../component/traceability/ui";
 import LinksTable from "../component/traceability/LinksTable";
 import { CompletenessPanel, DecayPanel, PipelineStrip, SelfCheckPanel } from "../component/traceability/Panels";
 import { EvaluationPanel, RerankerPanel } from "../component/traceability/EvaluationPanel";
@@ -18,60 +19,78 @@ const TraceabilityOverview = () => {
 
   const data = links.data;
   const all = data?.links ?? [];
-  const verified = all.filter((l) => l.status !== "decayed").length;
-  const decayed = all.length - verified;
+  const totals = data?.totals ?? {};
+  const verified = totals.verified ?? all.filter((l) => l.status === "verified").length;
+  const decayed = totals.decayed ?? all.filter((l) => l.status === "decayed").length;
   const loading = !data;
   const mean = completeness.data?.mean;
+  const pending = totals.pending_review ?? all.filter((l) => l.status === "pending_review").length;
+  const orphanCount = data?.orphans?.length ?? 0;
+  const primaryAction = useMemo(() => {
+    if (!data) return { label: "Loading workspace", to: "#", icon: Link2 };
+    if (orphanCount) return { label: "Add requirements", to: "/traceability/link", icon: Plus };
+    if (!all.length) return { label: "Create trace links", to: "/traceability/link", icon: Link2 };
+    if (pending) return { label: "Review candidates", to: "/traceability/labeling", icon: CheckCircle2 };
+    if (decayed) return { label: "Inspect broken links", to: "/traceability/changes", icon: ShieldAlert };
+    return { label: "Explore trace graph", to: "/traceability/graph", icon: Link2 };
+  }, [all.length, data, decayed, orphanCount, pending]);
+  const ActionIcon = primaryAction.icon;
 
   return (
-    <div className="mx-auto w-full max-w-[1400px] pb-8">
+    <div className="mx-auto w-full max-w-[1240px] pb-8">
       <PageHeader
         page="Overview"
-        title="Traceability Intelligence"
-        description="Links each requirement to the code that implements it, has an AI model check every link, and keeps re-checking as the project changes."
+        title="Traceability"
+        description="A simple answer to one question: can we prove each requirement is connected to the code?"
         apiError={projectsError || links.error}
       >
         {enc && (
-          <div className="flex items-center gap-2">
-            {[["matrix", "Matrix CSV"], ["links", "Links CSV"], ["report", "Report JSON"]].map(([kind, label]) => (
-              <a key={kind} href={`/api/export?project=${enc}&kind=${kind}`} download className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 text-[12px] font-medium text-slate-700 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600">
-                <Download size={13} /> {label}
-              </a>
-            ))}
-          </div>
+          <details className="trace-export-menu">
+            <summary><Download size={13} className="mr-1.5 inline" /> Export</summary>
+            <div className="trace-export-options">
+              {[["matrix", "Matrix CSV"], ["links", "Links CSV"], ["report", "Report JSON"]].map(([kind, label]) => <a key={kind} href={`/api/export?project=${enc}&kind=${kind}`} download><Download size={12} />{label}</a>)}
+            </div>
+          </details>
         )}
       </PageHeader>
 
-      <section className="flex flex-col gap-5 rounded-2xl border border-slate-200/80 bg-gradient-to-r from-indigo-50/60 via-white to-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] xl:flex-row xl:items-center">
-        <div className="flex items-center gap-4 xl:w-[290px] xl:shrink-0">
-          <Ring value={mean} loading={mean == null} label="of 100" size={96} stroke={9} />
-          <div>
-            <p className="text-[14px] font-semibold text-slate-900">Traceability score</p>
-            <p className="mt-1 text-[12px] leading-snug text-slate-500">Mean confidence of the verified links. A requirement with no link counts as 0.</p>
-          </div>
+      <section className="trace-hero" aria-label="Traceability workspace">
+        <div>
+          <p className="trace-eyebrow">CURRENT PROJECT</p>
+          <h2>{project || "Select a project"}</h2>
+          <p className="trace-hero-copy">Approved links count toward coverage. Candidates wait for review, while broken links are kept as history and sent to change inspection.</p>
         </div>
-        <div className="grid flex-1 grid-cols-2 gap-x-2 gap-y-4 border-slate-200 sm:grid-cols-3 xl:grid-cols-6 xl:border-l xl:pl-5">
-          <Metric label="Requirements" value={data?.requirements} icon={FileText} tone="green" loading={loading} />
-          <Metric label="Code files" value={data?.codeEntities} icon={FolderGit2} tone="indigo" loading={loading} />
-          <Metric label="Verified" value={verified} icon={GitBranch} tone="indigo" loading={loading} />
-          <Metric label="Broken" value={decayed} icon={TriangleAlert} tone={decayed ? "red" : "slate"} loading={loading} />
-          <Metric label="Orphans" value={data?.orphans.length} icon={ShieldAlert} tone={data?.orphans.length ? "amber" : "slate"} loading={loading} />
-          <Metric label="Avg confidence" value={all.length ? (all.reduce((a, l) => a + (l.confidence ?? 0), 0) / all.length).toFixed(2) : "-"} icon={Activity} tone="green" loading={loading} />
+        <div className="trace-hero-actions">
+          <Link to={primaryAction.to}><Button disabled={primaryAction.to === "#"}><ActionIcon size={15} />{primaryAction.label}<ArrowRight size={14} /></Button></Link>
+          <Link className="trace-secondary-action" to="/traceability/graph">View graph</Link>
         </div>
       </section>
+
+      <section className="trace-summary" aria-label="Project summary">
+        <div className="trace-summary-values">
+          {[["Requirements", data?.requirements, "neutral", "What the project must satisfy"], ["Approved", verified, "good", "Counted in coverage"], ["Needs review", pending, "warn", "Waiting for a decision"], ["Broken", decayed, "bad", "Needs change inspection"]].map(([label, value, tone, hint]) => <div key={label} className={`trace-summary-value ${tone}`}><p>{label}</p><p>{loading ? "—" : value}</p><small>{hint}</small></div>)}
+        </div>
+        <div className="trace-summary-note"><span>Score <b>{mean == null ? "—" : `${Math.round(mean)}/100`}</b></span><span>Deferred <b>{totals.deferred ?? 0}</b></span><span>Rejected <b>{totals.rejected ?? 0}</b></span><span>Unlinked requirements <b>{data?.orphans.length ?? "—"}</b></span></div>
+      </section>
+
+      <div className="trace-explain-row">
+        <div><span className="trace-explain-icon good"><CheckCircle2 size={16} /></span><div><b>Approved</b><p>Automatic or human-approved links.</p></div></div>
+        <div><span className="trace-explain-icon warn"><AlertTriangle size={16} /></span><div><b>Needs review</b><p>AI candidates without a decision.</p></div></div>
+        <div><span className="trace-explain-icon bad"><ShieldAlert size={16} /></span><div><b>Broken</b><p>Code changed; inspect the decay history.</p></div></div>
+      </div>
 
       <div className="mt-4">
         <Tabs
           value={tab}
           onChange={setTab}
           items={[
-            { id: "links", label: "Trace links", count: all.length },
+            { id: "links", label: "Links", count: all.length },
             { id: "health", label: "Health", count: decayed || undefined },
-            { id: "pipeline", label: "How it works" },
-            { id: "evidence", label: "Measured results" },
+            { id: "pipeline", label: "Pipeline" },
+            { id: "evidence", label: "Results" },
           ]}
         />
-        <div className="mt-4 max-h-[calc(100vh-330px)] min-h-[320px] space-y-5 overflow-auto pb-2 pr-1">
+        <div className="trace-page-content mt-5 min-h-[320px] space-y-5">
           {tab === "links" && <LinksTable links={all} />}
           {tab === "health" && (
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">

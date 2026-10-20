@@ -1,331 +1,149 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import { postJson, useApi, useProject } from "../api/c4";
 import StatusBadge from "../component/common/StatusBadge";
-import { ActivityBanner } from "../component/traceability/Activity";
+import { ActivityIndicator } from "../component/traceability/Activity";
 import { useActivity } from "../component/traceability/useActivity";
 import { Card, Empty, TraceHeader } from "../component/traceability/common";
-import { shortName } from "../component/traceability/utils";
+import RequirementText from "../component/traceability/RequirementText";
+import { codeLocation } from "../component/traceability/utils";
 
-const EXAMPLES = {
-  iTrust: ["For Login Failures, the IP Address of the machine, transaction type = 1, and timestamp are recorded."],
-  "CM-1": [
-    "The DPU-CCM shall check the length of a received DPU_CMD against an expected value from a lookup table indexed by FUNCTION code. If the received value does not match the expected, then the command will be discarded, and an error will be reported.",
-  ],
-  jbehave: ["MetaFilter is always using the PrintStreamEmbedderMonitor, even when the Embedder is using a different monitor. The Embedder should pass its own monitor to each MetaFilter it creates."],
-  eTour: ["Use case SearchSite: The user searches for a specific site on the computer. The system looks up sites matching the search criteria entered by the user and shows the results."],
-  "spring-petclinic": ["The system shall let a clinic employee delete a pet and all of its visits after a confirmation."],
+const clock = (iso) => iso ? new Date(iso).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
+const duration = (start, end) => {
+  const seconds = Math.max(0, Math.round(((end ? new Date(end) : new Date()) - new Date(start)) / 1000));
+  return seconds < 60 ? `${seconds}s` : `${Math.floor(seconds / 60)}m ${seconds % 60}s`;
 };
-
-const ago = (iso) => {
-  if (!iso) return "";
-  const s = Math.max(0, (Date.now() - new Date(iso)) / 1000);
-  if (s < 60) return "just now";
-  if (s < 3600) return `${Math.floor(s / 60)} min ago`;
-  if (s < 86400) return `${Math.floor(s / 3600)} h ago`;
-  return new Date(iso).toLocaleDateString([], { month: "short", day: "numeric" });
-};
-const clock = (iso) => (iso ? new Date(iso).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "");
-const dur = (a, b) => {
-  const s = Math.max(0, Math.round(((b ? new Date(b) : new Date()) - new Date(a)) / 1000));
-  return s < 60 ? `${s} s` : `${Math.floor(s / 60)} min ${s % 60} s`;
-};
-const dirOf = (id) => String(id).replace(/\\/g, "/").split("/").slice(0, -1).join("/");
-
-function runBadge(r) {
-  if (r.state === "running") return <StatusBadge type="info">checking {r.done}/{r.total}</StatusBadge>;
-  if (r.state === "stopped") return <StatusBadge type="warning">stopped</StatusBadge>;
-  return r.linked ? <StatusBadge type="success">{r.linked} linked</StatusBadge> : <StatusBadge type="info">no link</StatusBadge>;
+function RunBadge({ run }) {
+  const running = run.state === "running";
+  return <StatusBadge type={running ? "info" : run.state === "stopped" ? "warning" : run.linked ? "success" : "info"}>{running ? `Checking ${run.done}/${run.total}` : run.state === "stopped" ? "Stopped" : `${run.linked} saved`}</StatusBadge>;
+}
+function Candidate({ candidate, running }) {
+  const file = codeLocation(candidate.target);
+  const saved = candidate.decision === "linked";
+  const waiting = candidate.decision === "waiting";
+  const review = candidate.decision === "review";
+  const decision = review ? "Needs review" : saved ? "Approved" : waiting ? running ? "Checking" : "Not checked" : "Not selected";
+  return <details className="group border-b border-slate-100 last:border-0">
+    <summary className="flex cursor-pointer list-none flex-wrap items-center gap-3 py-3 text-xs [&::-webkit-details-marker]:hidden">
+      <span className="min-w-[120px] flex-1 break-all font-medium text-slate-700">{file.name}</span>
+      <span className="whitespace-nowrap tabular-nums text-slate-400">AI {candidate.confidence == null ? "—" : Number(candidate.confidence).toFixed(2)}</span>
+      <StatusBadge type={saved ? "success" : waiting ? "info" : "warning"}>{decision}</StatusBadge>
+      <ChevronDown size={13} className="text-slate-400 group-open:rotate-180" />
+    </summary>
+    <div className="space-y-2 rounded-lg bg-slate-50 p-3 text-xs leading-5 text-slate-500">
+      {file.project && <p className="break-all">Repository: {file.project}</p>}
+      <p className="break-all font-mono">{file.path}</p>
+      <p>{candidate.reason || (waiting ? "No AI verdict was recorded." : "No reasoning recorded.")}</p>
+      {candidate.seconds != null && <p className="text-[11px] text-slate-400">Checked in {Math.round(candidate.seconds)}s</p>}
+    </div>
+  </details>;
+}
+export function RunResult({ run, texts }) {
+  const running = run.state === "running";
+  return <Card title="Run results" subtitle={clock(run.started)}>
+    <p className="text-sm font-medium text-slate-700">{run.linked} approved · {run.pending || 0} need review · {run.done} {run.done === 1 ? "file" : "files"} checked · {run.state === "stopped" && !run.finished ? "Stopped" : duration(run.started, run.finished)}</p>
+    {running && <p role="status" className="mt-2 text-xs text-indigo-600">{run.total ? `Checking ${run.done} of ${run.total} candidates…` : "Preparing candidates…"}</p>}
+    {run.state === "stopped" && <p className="mt-2 text-xs text-amber-700">Stopped early. {Math.max(0, run.total - run.done)} candidates were not checked.</p>}
+    <p className="mt-2 text-[11px] text-slate-400">Results at run time. Later code changes may affect saved links.</p>
+    <details className="mt-3 text-xs text-slate-500"><summary className="cursor-pointer">Pipeline details</summary><ol className="mt-2 space-y-1 pl-4"><li>1. Shortlist code: {run.candidates.length} candidates</li><li>2. AI verification: {run.done} of {run.total} checked</li><li>3. Save connections: {run.linked} links</li></ol></details>
+    {run.requirements.slice(0, 20).map((id) => <section key={id} className="mt-5 border-t border-slate-100 pt-4">
+      <h3 className="text-xs font-semibold text-slate-800">{id}</h3>
+      <div className="mt-2 text-xs leading-6 text-slate-500"><RequirementText text={texts[id] || ""} /></div>
+      <div className="mt-3 flex justify-between border-b border-slate-100 pb-2 text-[10px] text-slate-400"><span>Candidate file</span><span>AI confidence / decision</span></div>
+      {run.candidates.filter((candidate) => candidate.requirement === id).map((candidate) => <Candidate key={candidate.target} candidate={candidate} running={running} />)}
+    </section>)}
+    {!!(run.linked || run.pending) && <div className="mt-4 flex flex-wrap gap-4 text-xs"><Link className="text-indigo-600 hover:underline" to="/traceability">View saved links</Link><Link className="text-slate-500 hover:text-indigo-600" to="/traceability/labeling">Review candidates</Link></div>}
+  </Card>;
 }
 
-const Notice = ({ tone, children }) => {
-  const style = { info: "border-blue-200 bg-blue-50 text-blue-900", ok: "border-emerald-200 bg-emerald-50 text-emerald-900", warn: "border-amber-200 bg-amber-50 text-amber-900", bad: "border-red-200 bg-red-50 text-red-900" }[tone];
-  return <div className={`rounded-lg border px-4 py-3 text-sm ${style}`}>{children}</div>;
-};
-
-function RunResult({ run, texts, open, onToggle }) {
-  const finished = run.state === "finished";
-  let banner;
-  if (run.state === "running") banner = <Notice tone="info">The AI is checking file {Math.min(run.done + 1, run.total)} of {run.total}. {dur(run.started)} so far.</Notice>;
-  else if (run.state === "stopped") banner = <Notice tone="warn">This run stopped early: {run.done} of {run.total} files were checked.</Notice>;
-  else if (run.linked) banner = <Notice tone="ok">Linked to {run.linked} code file{run.linked > 1 ? "s" : ""} in {dur(run.started, run.finished)}. Saved to the graph.</Notice>;
-  else banner = <Notice tone="warn">The AI confirmed none of the {run.total} candidates ({dur(run.started, run.finished)}). No link was saved.</Notice>;
-
-  const steps = [
-    ["Shortlist code", run.candidates.length ? `${run.total} candidates` : "searching...", run.candidates.length ? "done" : "active"],
-    ["AI checks each file", `${run.done} of ${run.total}`, finished || run.state === "stopped" ? "done" : run.state === "running" && run.candidates.length ? "active" : ""],
-    ["Save links", finished ? `${run.linked} saved` : "as each is confirmed", finished ? "done" : ""],
-  ];
-
-  return (
-    <Card title={`Result, ${clock(run.started)}`} action={runBadge(run)}>
-      <div className="space-y-3">
-        {banner}
-        <ol className="grid gap-2 sm:grid-cols-3">
-          {steps.map(([title, detail, state], i) => (
-            <li key={title} className={`rounded-lg border px-3 py-2 ${state === "done" ? "border-emerald-200" : state === "active" ? "border-blue-300" : "border-slate-200"}`}>
-              <p className="text-[11px] text-slate-500">Step {i + 1}{state === "done" ? " (done)" : state === "active" ? " (running)" : ""}</p>
-              <p className="text-[13px] font-medium text-slate-800">{title}</p>
-              <p className="text-[12px] text-slate-500">{detail}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      {run.requirements.slice(0, 20).map((req) => {
-        const cands = run.candidates.filter((c) => c.requirement === req);
-        return (
-          <div key={req} className="mt-4 border-t border-slate-100 pt-3">
-            <p className="text-[13px] font-semibold text-indigo-600">{req}</p>
-            <p className="mt-1 text-[13px] leading-relaxed text-slate-600">{texts[req] || ""}</p>
-            <table className="mt-3 w-full text-[13px]">
-              <tbody>
-                {cands.map((c) => {
-                  const key = `${run.id}|${req}|${c.target}`;
-                  const decision = c.decision === "linked" ? <StatusBadge type="success">linked</StatusBadge> : c.decision === "waiting" ? <StatusBadge type="info">checking</StatusBadge> : <StatusBadge type="warning">not linked</StatusBadge>;
-                  return (
-                    <FragmentCand key={key} c={c} decision={decision} expanded={open.has(key)} onToggle={() => onToggle(key)} />
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        );
-      })}
-    </Card>
-  );
-}
-
-function FragmentCand({ c, decision, expanded, onToggle }) {
-  return (
-    <>
-      <tr onClick={onToggle} className="cursor-pointer border-b border-slate-50 hover:bg-slate-50">
-        <td className="w-full py-2">
-          <p className="font-mono text-[12px] text-slate-800">{c.file || shortName(c.target)}</p>
-          <p className="text-[11px] text-slate-400">{dirOf(c.target)}</p>
-        </td>
-        <td className="whitespace-nowrap px-2 text-right tabular-nums text-slate-600">{c.confidence == null ? "" : `conf ${c.confidence.toFixed(2)}`}</td>
-        <td className="whitespace-nowrap px-2 text-right text-[11px] text-slate-400">{c.seconds ? `${Math.round(c.seconds)} s` : ""}</td>
-        <td className="text-right">{decision}</td>
-      </tr>
-      {expanded && c.reason && (
-        <tr>
-          <td colSpan={4} className="pb-3 text-[12px] leading-relaxed text-slate-600">{c.reason}</td>
-        </tr>
-      )}
-    </>
-  );
-}
-
-const TraceabilityLink = () => {
-  const { project, error: projectsError } = useProject();
+function LinkingWorkspace({ project, projectsError }) {
   const enc = project ? encodeURIComponent(project) : null;
   const unlinked = useApi(enc ? `/api/unlinked?project=${enc}` : null);
   const runsApi = useApi(enc ? `/api/link-runs?project=${enc}` : null, { pollMs: 3000 });
-  const reloadUnlinked = unlinked.reload;
-  const reloadRuns = runsApi.reload;
-
-  const refresh = useCallback(() => {
-    reloadUnlinked();
-    reloadRuns();
-  }, [reloadUnlinked, reloadRuns]);
+  const { reload: reloadUnlinked } = unlinked;
+  const { reload: reloadRuns } = runsApi;
+  const refresh = useCallback(() => { reloadUnlinked(); reloadRuns(); }, [reloadUnlinked, reloadRuns]);
   const { activity, busy } = useActivity(refresh);
-
-  const [exTopK, setExTopK] = useState(3);
+  const [mode, setMode] = useState("existing");
   const [topK, setTopK] = useState(3);
+  const [chosen, setChosen] = useState([]);
   const [text, setText] = useState("");
-  const [reqId, setReqId] = useState("");
-  const [exHint, setExHint] = useState("");
+  const [requirementId, setRequirementId] = useState("");
+  const [selection, setSelection] = useState(null);
   const [hint, setHint] = useState("");
-  const [sel, setSel] = useState(null);
-  const [open, setOpen] = useState(() => new Set());
-
+  const [starting, setStarting] = useState(false);
+  const mounted = useRef(false);
+  const submitting = useRef(false);
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   const runs = useMemo(() => runsApi.data?.runs ?? [], [runsApi.data]);
   const texts = runsApi.data?.texts ?? {};
-  const u = unlinked.data;
-
-  // a just-submitted requirement is "pending" until its run shows up in the history
-  const pendingId = sel && sel.startsWith("pending:") ? sel.slice(8) : null;
-  const pendingRun = pendingId ? runs.find((r) => r.requirements.includes(pendingId)) : null;
-  const pending = pendingId && !pendingRun ? pendingId : null;
-  const activeSel = pendingRun ? pendingRun.id : sel;
-  const selected = pending ? null : runs.find((r) => r.id === activeSel) || runs[0] || null;
-
-  let exText;
-  let canLink = false;
-  if (!project) exText = "Choose a project above.";
-  else if (!u) exText = "Reading this project from the knowledge graph...";
-  else if (!u.requirements) exText = "This project has no requirements yet. They appear here once C1 has written them, or type one below.";
-  else if (!u.codeFiles) exText = `${u.requirements} requirements, but no code files yet. They appear here once C2 has written them.`;
-  else if (!u.unlinked) exText = `All ${u.requirements} requirements already have a trace link. New requirements and new commits are handled below and in Code changes.`;
-  else {
-    canLink = true;
-    exText = `${u.unlinked} of ${u.requirements} requirements have no trace link yet. For each one, the ${exTopK} most likely of ${u.codeFiles} code files are checked by the AI; confirmed links are saved. About ${Math.max(1, Math.round((u.unlinked * exTopK * 52) / 60))} min.`;
-  }
-
-  const linkExisting = async () => {
-    setExHint("");
+  const data = unlinked.data;
+  const pendingId = selection?.startsWith("pending:") ? selection.slice(8) : null;
+  const selected = pendingId ? runs.find((run) => run.requirements.includes(pendingId)) : runs.find((run) => run.id === selection) || runs[0];
+  const pending = pendingId && !selected;
+  const complete = data?.requirements > 0 && data.unlinked === 0;
+  const canLink = !!project && data?.unlinked > 0 && data.codeFiles > 0;
+  const locked = busy || starting;
+  const start = async (event) => {
+    event.preventDefault();
+    if (submitting.current || busy || !project) return;
+    if (mode === "new" && text.trim().length < 15) { setHint("Error: write a requirement of at least 15 characters."); return; }
+    if (mode === "existing" && !canLink) return;
+    submitting.current = true; setStarting(true); setHint("");
+    const existing = mode === "existing";
     try {
-      const r = await postJson("/api/link-existing", { project, top_k: exTopK });
-      setSel(null);
-      setExHint(`Creating trace links for ${r.requirements} requirements. About ${r.minutes} min.`);
+      const result = await postJson(existing ? "/api/link-existing" : "/api/link", existing ? { project, top_k: topK, ...(chosen.length ? { requirement_ids: chosen } : {}) } : { project, text: text.trim(), id: requirementId.trim(), top_k: topK });
+      if (!mounted.current) return;
+      setChosen([]);
+      setSelection(existing ? null : `pending:${result.id}`);
+      if (!existing) { setText(""); setRequirementId(""); }
+      setHint(existing ? `Started linking ${result.requirements} requirements.` : `${result.id} added. Finding trace links.`);
       refresh();
-    } catch (error) {
-      setExHint(`Error: ${error.message}`);
-    }
+    } catch (error) { if (mounted.current) setHint(`Error: ${error.message}`); }
+    finally { if (mounted.current) { submitting.current = false; setStarting(false); } }
   };
-
-  const submit = async () => {
-    setHint("");
-    if (!project) return setHint("Error: choose a project first.");
-    if (text.trim().length < 15) return setHint("Error: write the requirement as a full sentence.");
-    try {
-      const r = await postJson("/api/link", { text: text.trim(), id: reqId.trim(), top_k: topK, project });
-      setText("");
-      setReqId("");
-      setSel(`pending:${r.id}`);
-      setHint(`${r.id} added. Checking about ${r.minutes || topK} min.`);
-      refresh();
-    } catch (error) {
-      setHint(`Error: ${error.message}`);
-    }
-  };
-
-  const examples = EXAMPLES[project] || [];
-  const toggle = (key) =>
-    setOpen((previous) => {
-      const next = new Set(previous);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-
-  return (
-    <div className="mx-auto w-full max-w-[1500px]">
-      <TraceHeader
-        title="Link requirements to code"
-        subtitle="Find the code that implements a requirement; the AI checks each candidate, and confirmed links are saved to the knowledge graph."
-        apiError={projectsError || runsApi.error}
-      />
-      <ActivityBanner activity={activity} />
-
-      <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-        <div className="min-w-0 space-y-5">
-          <Card title="Requirements already in the graph" subtitle="Written by C1">
-            <p className="text-[13px] text-slate-600">{exText}</p>
-            <div className="mt-3 flex flex-wrap items-center gap-3">
-              <label className="flex items-center gap-2 text-[12px] text-slate-600">
-                Code files per requirement
-                <select value={exTopK} onChange={(event) => setExTopK(Number(event.target.value))} className="rounded-md border border-slate-200 bg-white px-2 py-1 text-[13px] outline-none">
-                  {[3, 5, 10].map((k) => (
-                    <option key={k} value={k}>{k}</option>
-                  ))}
-                </select>
-              </label>
-              <button
-                type="button"
-                disabled={!canLink || busy}
-                onClick={linkExisting}
-                className="ml-auto rounded-lg bg-indigo-600 px-4 py-2.5 text-[13px] font-semibold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {canLink ? `Create trace links for ${u.unlinked} requirement${u.unlinked === 1 ? "" : "s"}` : "Create trace links"}
-              </button>
-            </div>
-            {exHint && <p className={`mt-2 text-[13px] ${exHint.startsWith("Error") ? "text-red-600" : "text-slate-500"}`}>{exHint}</p>}
-          </Card>
-
-          <Card title="New requirement" subtitle="Saved to the selected project">
-            <label className="text-[12px] font-medium text-slate-600" htmlFor="req-text">Requirement text</label>
-            <textarea
-              id="req-text"
-              rows={3}
-              value={text}
-              onChange={(event) => setText(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
-                  event.preventDefault();
-                  submit();
-                }
-              }}
-              placeholder="For login failures, the IP address of the machine and a timestamp are recorded."
-              className="mt-1.5 w-full rounded-lg border border-slate-200 px-3 py-2 text-[13px] outline-none focus:border-indigo-400"
-            />
-            <div className="mt-3 flex flex-wrap items-end gap-4">
-              <div>
-                <label className="text-[12px] font-medium text-slate-600" htmlFor="req-id">Id (optional)</label>
-                <input id="req-id" value={reqId} maxLength={40} onChange={(event) => setReqId(event.target.value)} placeholder="NEW-020" className="mt-1.5 block w-36 rounded-lg border border-slate-200 px-3 py-1.5 text-[13px] outline-none focus:border-indigo-400" />
-              </div>
-              <div>
-                <span className="text-[12px] font-medium text-slate-600">Code files to check</span>
-                <div className="mt-1.5 inline-flex rounded-lg border border-slate-200 p-0.5">
-                  {[3, 5, 10].map((k) => (
-                    <button key={k} type="button" onClick={() => setTopK(k)} className={`rounded-md px-3 py-1 text-[13px] font-medium ${topK === k ? "bg-slate-900 text-white" : "text-slate-600"}`}>{k}</button>
-                  ))}
-                </div>
-                <span className="ml-2 text-[12px] text-slate-500">about {topK} min</span>
-              </div>
-              <button type="button" disabled={busy} onClick={submit} className="ml-auto rounded-lg bg-indigo-600 px-4 py-2.5 text-[13px] font-semibold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-40">
-                Find trace links
-              </button>
-            </div>
-            {hint && <p className={`mt-2 text-[13px] ${hint.startsWith("Error") ? "text-red-600" : "text-slate-500"}`}>{hint}</p>}
-            {examples.length > 0 && (
-              <div className="mt-3 flex flex-wrap items-center gap-2 text-[12px]">
-                <span className="text-slate-500">Examples:</span>
-                {examples.map((e) => (
-                  <button key={e} type="button" onClick={() => setText(e)} className="max-w-xs truncate rounded border border-dashed border-slate-300 px-2 py-0.5 text-slate-600 hover:border-indigo-400 hover:text-indigo-600">
-                    {e.slice(0, 48)}...
-                  </button>
-                ))}
-              </div>
-            )}
-          </Card>
-
-        </div>
-
-        <div className="min-w-0 space-y-5">
-        <Card title="Run history" action={<span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600">{runs.length}</span>} className="self-start">
-          <div className="-m-2 max-h-[190px] space-y-1 overflow-auto">
-            {runs.length === 0 ? (
-              <p className="px-3 py-6 text-center text-[13px] text-slate-400">Linked requirements appear here.</p>
-            ) : (
-              runs.map((r) => (
-                <button
-                  key={r.id}
-                  type="button"
-                  onClick={() => {
-                    setSel(r.id);
-                    setOpen(new Set());
-                  }}
-                  className={`w-full rounded-lg border px-3 py-2 text-left transition ${selected && r.id === selected.id ? "border-indigo-300 bg-indigo-50/60" : "border-transparent hover:bg-slate-50"}`}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="truncate font-mono text-[12px] font-medium text-slate-800">
-                      {r.requirements.slice(0, 2).join(", ")}
-                      {r.requirements.length > 2 ? ` +${r.requirements.length - 2}` : ""}
-                    </span>
-                    {runBadge(r)}
-                  </div>
-                  <p className="mt-1 line-clamp-2 text-[12px] text-slate-500">{texts[r.requirements[0]] || ""}</p>
-                  <p className="mt-1 text-[11px] text-slate-400" title={clock(r.started)}>{ago(r.started)}</p>
-                </button>
-              ))
-            )}
+  return <div>
+    <TraceHeader title="Link requirements" subtitle="Find and save AI-verified connections to code." apiError={projectsError || unlinked.error || runsApi.error} />
+    <ActivityIndicator activity={activity} />
+    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_280px]">
+      <div className="min-w-0 space-y-5">
+        <Card>
+          <div className="mb-5 flex gap-5 border-b border-slate-100" role="tablist" aria-label="Requirement source">
+            {[["existing", "Existing requirements"], ["new", "New requirement"]].map(([value, label]) => <button key={value} role="tab" aria-selected={mode === value} type="button" disabled={starting} onClick={() => { setMode(value); setHint(""); }} className={`border-b-2 pb-3 text-xs font-medium ${mode === value ? "border-indigo-600 text-indigo-600" : "border-transparent text-slate-400"}`}>{label}</button>)}
           </div>
+          <form onSubmit={start}>
+            {mode === "existing" ? <>
+              <p className="text-xs leading-6 text-slate-500">{!project ? "Select a project first." : unlinked.error ? "Unable to load requirements." : !data ? "Loading requirements…" : !data.requirements ? "No requirements yet. Add one or import them into the graph." : complete && data.pendingReview ? `${data.pendingReview} candidates need human review.` : complete && data.awaitingApproval ? `${data.awaitingApproval} requirements have no approved link. Review their candidates.` : complete ? `${data.requirements} ${data.requirements === 1 ? "requirement" : "requirements"} already linked.` : !data.codeFiles ? "Add code files before creating links." : `${data.unlinked} of ${data.requirements} requirements need links.`}</p>
+              {canLink && data.ids?.length > 0 && <fieldset className="mt-3 max-h-40 overflow-auto rounded-lg border border-slate-100 p-3"><legend className="px-1 text-xs text-slate-500">Choose requirements (leave empty to scan all)</legend>{data.ids.map((id) => <label key={id} className="flex items-center gap-2 py-1.5 text-xs text-slate-600"><input type="checkbox" checked={chosen.includes(id)} disabled={locked || (!chosen.includes(id) && chosen.length >= 20)} onChange={(e) => setChosen((current) => e.target.checked ? [...current, id] : current.filter((rid) => rid !== id))} />{id}</label>)}</fieldset>}
+              {(data?.pendingReview > 0 || (complete && data?.awaitingApproval > 0)) && <Link className="mt-3 mr-4 inline-block text-xs font-medium text-indigo-600" to="/traceability/labeling">Review candidates →</Link>}
+              {complete && <Link className="mt-3 inline-block text-xs font-medium text-indigo-600" to="/traceability">View saved links →</Link>}
+            </> : <>
+              <label className="block text-xs font-medium text-slate-600" htmlFor="req-text">Requirement</label>
+              <textarea id="req-text" rows={4} value={text} onChange={(event) => setText(event.target.value)} disabled={starting} placeholder="Describe the behavior the system should provide…" required minLength={15} maxLength={2000} className="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs" />
+              <label className="mt-4 block text-xs text-slate-500" htmlFor="req-id">ID (optional)</label><input id="req-id" value={requirementId} disabled={starting} onChange={(event) => setRequirementId(event.target.value)} maxLength={40} placeholder="Assigned automatically" className="mt-2 w-44 rounded-lg border border-slate-200 px-3 py-2 text-xs" />
+            </>}
+            {(mode === "new" || canLink) && <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+              <label className="text-xs text-slate-500">Candidates per requirement<select value={topK} disabled={locked} onChange={(event) => setTopK(Number(event.target.value))} className="ml-2 rounded-md border border-slate-200 px-2 py-1.5">{[3, 5, 10].map((count) => <option key={count}>{count}</option>)}</select></label>
+              <button type="submit" disabled={locked || !project || (mode === "new" && text.trim().length < 15)} className="rounded-lg bg-indigo-600 px-4 py-2.5 text-xs font-medium text-white disabled:opacity-40">{starting ? "Starting…" : mode === "new" ? "Find trace links" : chosen.length ? `Link ${chosen.length} selected` : "Create trace links"}</button>
+            </div>}
+            {hint && <p role="status" className={`mt-3 text-xs ${hint.startsWith("Error:") ? "text-red-600" : "text-slate-500"}`}>{hint}</p>}
+          </form>
         </Card>
-          <div className="max-h-[calc(100vh-420px)] min-h-[260px] space-y-5 overflow-auto rounded-2xl">
-          {pending && (
-            <Notice tone="info">Starting. Shortlisting code for {pending}...</Notice>
-          )}
-          {selected ? (
-            <RunResult run={selected} texts={texts} open={open} onToggle={toggle} />
-          ) : (
-            !pending && <Card><Empty>No run selected. Create trace links above; the result appears here.</Empty></Card>
-          )}
-          </div>
-        </div>
+        {pending ? <Card><p role="status" className="text-xs text-slate-500">Preparing candidates for {pendingId}…</p></Card> : selected ? <RunResult run={selected} texts={texts} /> : <Card><Empty>No run results yet.</Empty></Card>}
       </div>
+      <aside className="min-w-0"><Card title="Run history" action={<span className="text-xs text-slate-400">{runs.length}</span>}>
+        {!runs.length && <p className="py-4 text-xs text-slate-400">Your runs will appear here.</p>}
+        <div className="max-h-[520px] space-y-2 overflow-auto">{runs.map((run) => <button type="button" key={run.id} onClick={() => setSelection(run.id)} aria-pressed={selected?.id === run.id} className={`w-full rounded-lg border p-3 text-left ${selected?.id === run.id ? "border-indigo-200 bg-indigo-50/50" : "border-transparent hover:bg-slate-50"}`}>
+          <p className="truncate text-xs font-medium text-slate-700">{run.requirements.slice(0, 2).join(", ") || "Batch run"}</p>
+          <div className="mt-2 line-clamp-2 text-[11px] leading-5 text-slate-400"><RequirementText text={texts[run.requirements[0]] || ""} /></div>
+          <div className="mt-3"><RunBadge run={run} /></div><p className="mt-2 text-[10px] text-slate-400">{clock(run.started)}</p>
+        </button>)}</div>
+      </Card></aside>
     </div>
-  );
-};
-
-export default TraceabilityLink;
+  </div>;
+}
+export default function TraceabilityLink() {
+  const { project, error } = useProject();
+  return <LinkingWorkspace key={project || "none"} project={project} projectsError={error} />;
+}

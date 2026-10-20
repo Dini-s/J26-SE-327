@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
+import { linkLabel, linkTone } from "./linkStatus";
 import { Fragment, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { Card, Chip, ConfBar, Disclosure, EmptyState, FileBadge, Segmented } from "./ui";
 import { shortName } from "./utils";
 
 const PAGE = 25;
-const TRUSTED = 0.85; // calibration: ~82% of 0.9 verdicts correct vs ~36% of 0.8, so below this a person should look
-const needsReview = (l) => l.status !== "decayed" && (l.confidence ?? 0) < TRUSTED;
+const needsReview = (l) => l.status === "pending_review";
+const originOf = (l) => l.review === "correct" || l.review === "wrong" || l.review === "unsure" ? "Human reviewed" : "Automatic";
 const timeOf = (value) => (value ? String(value).replace("T", " ").slice(0, 16) : "-");
 
 export default function LinksTable({ links }) {
@@ -17,22 +19,22 @@ export default function LinksTable({ links }) {
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
     return links
-      .filter((l) => status === "all" || (status === "trusted" ? l.status !== "decayed" && (l.confidence ?? 0) >= TRUSTED : status === "review" ? needsReview(l) : l.status === status))
+      .filter((l) => status === "all" || (status === "review" ? needsReview(l) : l.status === status))
       .filter((l) => !q || `${l.requirement} ${l.code} ${l.requirementText}`.toLowerCase().includes(q))
       .sort((a, b) => (a.status === b.status ? (b.confidence ?? 0) - (a.confidence ?? 0) : a.status === "decayed" ? -1 : 1));
   }, [links, status, query]);
 
   return (
     <Card
-      title="Verified trace links"
-      description="Each link was checked by the AI model. Trusted = confidence 0.85 or more (about 8 in 10 correct on labelled data). Below that the model is often wrong (about 1 in 3 correct), so those links are marked Needs review for a person to decide."
+      title="Trace links"
+      description="Approval follows the saved USKG decision. AI confidence is shown separately and never overrides it."
       flush
       action={
         <div className="flex flex-wrap items-center gap-3">
           <Segmented
             value={status}
             onChange={(v) => { setStatus(v); setShown(PAGE); }}
-            items={[{ id: "all", label: "All" }, { id: "trusted", label: "Trusted" }, { id: "review", label: `Needs review (${links.filter(needsReview).length})` }, { id: "verified", label: "Verified" }, { id: "decayed", label: "Broken" }]}
+            items={[{ id: "all", label: "All" }, { id: "review", label: `Needs review (${links.filter(needsReview).length})` }, { id: "deferred", label: "Deferred" }, { id: "verified", label: "Approved" }, { id: "rejected", label: "Rejected" }, { id: "decayed", label: "Broken" }]}
           />
           <label className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-slate-400 focus-within:border-indigo-300">
             <Search size={14} />
@@ -51,6 +53,7 @@ export default function LinksTable({ links }) {
                 <th className="px-5 py-2.5 font-medium">Requirement</th>
                 <th className="px-3 py-2.5 font-medium">Code</th>
                 <th className="px-3 py-2.5 font-medium">Confidence</th>
+                <th className="px-3 py-2.5 font-medium">Origin</th>
                 <th className="px-3 py-2.5 font-medium">Status</th>
                 <th className="px-3 py-2.5 font-medium">Checked</th>
                 <th className="w-10 px-3 py-2.5" />
@@ -75,24 +78,25 @@ export default function LinksTable({ links }) {
                         </div>
                       </td>
                       <td className="px-3 py-3"><ConfBar value={l.confidence} tone={decayed ? "red" : undefined} /></td>
-                      <td className="px-3 py-3"><Chip tone={decayed ? "red" : needsReview(l) ? "amber" : "green"} dot>{decayed ? "broken" : needsReview(l) ? "needs review" : "verified"}</Chip></td>
+                      <td className="px-3 py-3 text-[12px] text-slate-500">{originOf(l)}</td>
+                      <td className="px-3 py-3"><Chip tone={linkTone(l.status)} dot>{linkLabel(l.status)}</Chip></td>
                       <td className="whitespace-nowrap px-3 py-3 tabular-nums text-slate-500">{timeOf(l.lastCheckedAt)}</td>
                       <td className="px-3 py-3"><Disclosure open={expanded} /></td>
                     </tr>
                     {expanded && (
                       <tr className="border-b border-slate-100 bg-slate-50/80">
-                        <td colSpan={6} className="px-5 py-4">
+                        <td colSpan={7} className="px-5 py-4">
                           <div className="grid gap-4 text-[13px] leading-relaxed md:grid-cols-2">
                             <div>
                               <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Requirement</p>
                               <p className="mt-1 text-slate-700">{l.requirementText || "-"}</p>
                             </div>
                             <div>
-                              <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Why the AI linked it</p>
+                              <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">AI reasoning</p>
                               <p className="mt-1 text-slate-700">{l.reason || "-"}</p>
                             </div>
                           </div>
-                          <p className="mt-3 break-all text-[11px] text-slate-400">{l.code}</p>
+                          <p className="mt-3 break-all text-[11px] text-slate-400">{l.code}</p>{!decayed && <Link to={`/traceability/labeling?requirement=${encodeURIComponent(l.requirement)}&code=${encodeURIComponent(l.code)}`} className="mt-2 inline-block text-xs text-indigo-600">Review this link →</Link>}{decayed && <Link to={`/traceability/changes?code=${encodeURIComponent(l.code)}`} className="mt-2 inline-block text-xs text-indigo-600">Inspect change →</Link>}
                         </td>
                       </tr>
                     )}

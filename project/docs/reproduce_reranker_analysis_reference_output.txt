@@ -20,7 +20,7 @@ train  etour      58            116      308
 test   libest     52            14       204                             
 test   cm1        22            53       45                              
 test   ebt        41            50       98                              
-demo   petclinic  26            37       no gold (synthetic requirements)
+demo   petclinic  26            37       no gold (demo requirements)
 Pair files written by agents/traceability_agent/reranker/data.py (seed 13 , stage-1 = hybrid )
 rows: {'train': 4356, 'valid': 419, 'test_candidates': 1988} | train label balance: {'positive': 2124, 'negative': 2232}
 

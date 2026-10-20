@@ -27,7 +27,7 @@ export function Chip({ tone = "slate", dot = false, children, className = "" }) 
 /* ------------------------------------------------------------------ cards */
 export function Card({ title, description, action, children, className = "", bodyClassName = "p-5", flush = false }) {
   return (
-    <section className={cx("rounded-2xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)]", className)}>
+    <section data-trace-card className={cx("rounded-2xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)]", className)}>
       {(title || action) && (
         <header className="flex flex-wrap items-start justify-between gap-3 px-5 pt-4">
           <div className="min-w-0">
@@ -64,7 +64,7 @@ export function Stat({ label, value, hint, tone = "indigo", icon: Icon, loading,
     );
   }
   return (
-    <div className="flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+    <div data-trace-stat className="flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
       {Icon && (
         <div className={cx("flex h-12 w-12 shrink-0 items-center justify-center rounded-xl", statTones[tone])}>
           <Icon size={22} strokeWidth={1.8} />
@@ -165,7 +165,7 @@ export function SkeletonRows({ rows = 5 }) {
 
 export function EmptyState({ icon: Icon = Inbox, title, children }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50/50 px-6 py-10 text-center">
+    <div data-trace-empty className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50/50 px-6 py-10 text-center">
       <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-400 shadow-sm ring-1 ring-slate-200">
         <Icon size={20} strokeWidth={1.7} />
       </div>
@@ -188,7 +188,7 @@ export function Callout({ tone = "info", children, className = "" }) {
 /* ------------------------------------------------------------------ tabs */
 export function Tabs({ items, value, onChange }) {
   return (
-    <div role="tablist" className="flex gap-1 overflow-x-auto border-b border-slate-200">
+    <div data-trace-tabs role="tablist" className="flex gap-1 overflow-x-auto border-b border-slate-200">
       {items.map((item) => {
         const active = item.id === value;
         return (
@@ -243,14 +243,14 @@ export function Disclosure({ open }) {
 /* ------------------------------------------------------------------ page header */
 export function PageHeader({ page, title, description, apiError, children }) {
   return (
-    <div className="mb-4">
-      <div className="flex flex-wrap items-center gap-2 text-[12px] text-slate-500">
-        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white">4</span>
-        <span>Traceability Intelligence</span>
-        <span className="text-slate-300">/</span>
-        <span className="font-medium text-slate-700">{page}</span>
+    <div data-trace-header className="mb-6">
+      <div className="c4-page-kicker">
+        <span className="c4-page-kicker-mark">C4</span>
+        <span>Traceability intelligence</span>
+        <span className="c4-page-kicker-divider">/</span>
+        <span className="c4-page-kicker-current">{page}</span>
       </div>
-      <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
+      <div className="c4-page-heading">
         <div className="min-w-0">
           <h1 className="text-xl font-semibold tracking-tight text-slate-900">{title}</h1>
           {description && <p className="mt-1 max-w-3xl text-[13px] leading-relaxed text-slate-500">{description}</p>}
@@ -258,7 +258,7 @@ export function PageHeader({ page, title, description, apiError, children }) {
         {children}
       </div>
       {apiError && (
-        <div className="mt-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-3.5 text-[13px] text-amber-900">
+        <div className="c4-api-alert mt-4 flex items-start gap-3 rounded-xl border p-3.5 text-[13px]">
           <AlertTriangle size={17} className="mt-0.5 shrink-0" />
           <div>
             <p className="font-semibold">The C4 API is not reachable ({apiError}).</p>

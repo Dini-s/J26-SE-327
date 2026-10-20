@@ -43,10 +43,18 @@ def test_change_runs_count_broken_links_and_messages(tmp_path):
         {"type": "run_start", "ts": "2026-10-12T10:00:00+00:00", "project": "iTrust", "trigger": "code_changed", "changed": ["LoginFailureAction"]},
         {"type": "decay_event", "delivered": True, "event": {"event": "trace_decayed", "requirementId": "NEW-006"}},
         {"type": "recheck", "source_id": "NEW-006", "target_id": "LoginFailureAction", "previous_confidence": 0.9, "new_confidence": 0.0, "decayed": True, "reason": "empty"},
-        {"type": "recheck", "source_id": "NEW-007", "target_id": "LoginFailureAction", "previous_confidence": 0.8, "new_confidence": 0.8, "decayed": False, "reason": "ok"},
+        {"type": "recheck", "source_id": "NEW-007", "target_id": "LoginFailureAction", "previous_confidence": 0.8, "new_confidence": 0.8, "decayed": False, "restored": True, "reason": "ok"},
         {"type": "run_end", "ts": "2026-10-12T10:00:40+00:00"},
     ])
     (row,) = history.change_runs("iTrust", runs_dir=tmp_path)
+    assert row["rechecks"][1]["restored"] is True
+    assert row["rechecks"][0]["restored"] is False
     assert row["files"] == ["LoginFailureAction"] and row["broken"] == 1 and len(row["rechecks"]) == 2
     assert row["messages"][0]["delivered"] and row["state"] == "finished"
     assert history.elapsed(row["started"], row["finished"]) == "40 s"
+
+
+def test_namespaced_root_file_display_uses_only_basename():
+    from apps.api.history import _short
+    assert _short('aspire/bmi-calculator-health-indicator:BMICalculator.java') == 'BMICalculator.java'
+    assert _short('aspire/demo:src/main/App.java') == 'App.java'

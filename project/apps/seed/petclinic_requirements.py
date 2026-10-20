@@ -1,4 +1,4 @@
-"""Synthetic C1 data for the Spring PetClinic demo: a made-up SRS written the way C1's analysis would store it.
+"""Demo C1 data for the Spring PetClinic demo: a made-up SRS written the way C1's analysis would store it.
 
 Everything here is ASSUMED: PetClinic has no real requirements document, so these requirements describe what the
 application does (plus a few features it does NOT have, so that orphan detection has something to find).

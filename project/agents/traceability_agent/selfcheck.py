@@ -59,7 +59,7 @@ def run_selfcheck(
     """
     req_by_id = {a.id: a for a in requirements}
     tgt_by_id = {a.id: a for a in targets}
-    verified = [t for t in traces if t.status != "decayed"]
+    verified = [t for t in traces if t.status == "verified"]
     checks: list[dict[str, Any]] = []
 
     missing = [_pair(t) for t in traces if t.source_id not in req_by_id or t.target_id not in tgt_by_id]

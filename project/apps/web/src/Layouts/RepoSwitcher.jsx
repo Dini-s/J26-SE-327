@@ -1,12 +1,15 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Check, ChevronUp, Database } from "lucide-react";
+import { Check, ChevronUp, Database, Plus, Settings } from "lucide-react";
 import { useApi, useProject } from "../api/c4";
+import AddProjectDialog from "./AddProjectDialog";
 
 /** Repository picker at the bottom of the sidebar. The choice drives every C4 page. */
 const RepoSwitcher = () => {
   const { projects, project, setProject } = useProject();
   const health = useApi("/api/health", { pollMs: 15000 }).data;
   const [open, setOpen] = useState(false);
+  const [adding, setAdding] = useState(false);
   const current = projects.find((p) => p.project === project);
 
   const dot = (ok, label) => (
@@ -34,9 +37,20 @@ const RepoSwitcher = () => {
               {p.project === project && <Check size={14} className="shrink-0 text-blue-400" />}
             </button>
           ))}
+          <Link to="/settings" onClick={() => setOpen(false)} className="mt-1 flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-xs text-slate-300 hover:bg-white/10">
+            <Settings size={14} /> Manage projects
+          </Link>
           {projects.length === 0 && <p className="px-3 py-3 text-xs text-slate-400">No repositories found. Is the C4 API running?</p>}
+          <button
+            type="button"
+            onClick={() => { setOpen(false); setAdding(true); }}
+            className="mt-1 flex w-full items-center gap-2 rounded-lg border border-dashed border-white/15 px-2.5 py-2 text-left text-xs text-blue-300 transition hover:bg-white/10"
+          >
+            <Plus size={14} /> Add a project
+          </button>
         </div>
       )}
+      <AddProjectDialog open={adding} onClose={() => setAdding(false)} onAdded={(key) => { setProject(key); setOpen(false); }} />
 
       <div className="rounded-xl border border-blue-400/20 bg-blue-500/5 p-3">
         <p className="mb-2 text-[9px] font-medium uppercase tracking-wide text-slate-500">Active Repository</p>

@@ -1,7 +1,7 @@
-"""Merge and clean the Gemini batch CSVs into one training file.
+"""Merge and clean the CSV batches into one training file.
 
-Input : data/generated_pairs/gemini/*.csv  (columns: requirement_id,requirement_text,code_text,label,kind)
-Output: data/generated_pairs/final/synthetic_all.csv + clean_report.json
+Input : data/training_pairs/corpus_c/*.csv  (columns: requirement_id,requirement_text,code_text,label,kind)
+Output: data/training_pairs/final/pairs_all.csv + clean_report.json
 
 Checks, in order (a bad item is dropped as a whole, never half-kept):
   1. header and column count
@@ -12,8 +12,8 @@ Checks, in order (a bad item is dropped as a whole, never half-kept):
   6. the same requirement text is kept only once (first occurrence)
   7. the same code text is kept only once
 
-    python scripts/clean_generated_pairs.py                       # reads data/generated_pairs/gemini/
-    python scripts/clean_generated_pairs.py --input ~/Downloads   # reads the CSVs you downloaded
+    python scripts/clean_training_pairs.py                       # reads data/training_pairs/corpus_c/
+    python scripts/clean_training_pairs.py --input ~/Downloads   # reads the CSVs you downloaded
 """
 
 import csv
@@ -26,8 +26,8 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-IN_DIR = ROOT / "data" / "generated_pairs" / "gemini"
-OUT_DIR = ROOT / "data" / "generated_pairs" / "final"
+IN_DIR = ROOT / "data" / "training_pairs" / "corpus_c"
+OUT_DIR = ROOT / "data" / "training_pairs" / "final"
 COLUMNS = ["requirement_id", "requirement_text", "code_text", "label", "kind"]
 FORBIDDEN = re.compile(r"\b(correct|wrong|fake|alternative|negative|decoy|variant|sample|test|dummy)\b", re.IGNORECASE)
 csv.field_size_limit(sys.maxsize)
@@ -95,7 +95,7 @@ def check_item(rows: list[dict[str, str]], report: Counter) -> bool:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--input", default=str(IN_DIR), help="folder with the downloaded Gemini CSV files")
+    ap.add_argument("--input", default=str(IN_DIR), help="folder with the downloaded CSV batch files")
     args = ap.parse_args()
     report: Counter = Counter()
     files = sorted(glob.glob(str(Path(args.input).expanduser() / "*.csv")))
@@ -129,7 +129,7 @@ def main() -> None:
         report["items_kept"] += 1
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    with (OUT_DIR / "synthetic_all.csv").open("w", encoding="utf-8", newline="") as fh:
+    with (OUT_DIR / "pairs_all.csv").open("w", encoding="utf-8", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=COLUMNS)
         writer.writeheader()
         writer.writerows(kept)

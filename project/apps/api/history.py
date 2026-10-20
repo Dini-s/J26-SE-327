@@ -16,7 +16,7 @@ from apps.api.sources import RUNS_DIR, read_events
 
 def _short(target_id: str) -> str:
     """``jbehave-core/.../Embedder.java`` -> ``Embedder.java`` (ids without a path stay as they are)."""
-    return target_id.replace("\\", "/").rsplit("/", 1)[-1]
+    return target_id.replace("\\", "/").rsplit("/", 1)[-1].rsplit(":", 1)[-1]
 
 
 def _state(finished: bool, newest_unfinished: bool, busy: bool) -> str:
@@ -63,7 +63,7 @@ def link_runs(project: Optional[str] = None, busy: bool = False, runs_dir: Path 
                 v = verdicts.get((e["source_id"], t["id"]))
                 candidates.append({
                     "requirement": e["source_id"], "target": t["id"], "file": _short(t["id"]), "score": t["score"],
-                    "decision": "waiting" if v is None else ("linked" if v["kept"] else "not linked"),
+                    "decision": "waiting" if v is None else ("review" if v.get("approval_status") == "pending_review" else "linked" if v["kept"] else "not linked"),
                     "confidence": v["confidence"] if v else None, "reason": v["reasoning"] if v else "",
                     "seconds": v.get("latency") if v else None,
                 })
@@ -73,6 +73,7 @@ def link_runs(project: Optional[str] = None, busy: bool = False, runs_dir: Path 
             "project": start.get("project"), "requirements": list(start.get("sources", [])),
             "top_k": start.get("top_k"), "total": verify["total"] if verify else len(candidates),
             "done": len(verdicts), "linked": sum(1 for c in candidates if c["decision"] == "linked"),
+            "pending": sum(c["decision"] == "review" for c in candidates),
             "candidates": candidates,
         })
     return rows
@@ -97,7 +98,7 @@ def change_runs(project: Optional[str] = None, busy: bool = False, runs_dir: Pat
             continue
         rechecks = [
             {"requirement": e["source_id"], "target": e["target_id"], "file": _short(e["target_id"]),
-             "before": e["previous_confidence"], "after": e["new_confidence"], "broken": e["decayed"],
+             "before": e["previous_confidence"], "after": e["new_confidence"], "broken": e["decayed"], "restored": e.get("restored", False), "status": e.get("approval_status", "decayed" if e["decayed"] else "verified"),
              "reason": e["reason"]}
             for e in events if e["type"] == "recheck"
         ]
@@ -110,6 +111,26 @@ def change_runs(project: Optional[str] = None, busy: bool = False, runs_dir: Pat
             "rechecks": rechecks, "broken": sum(1 for r in rechecks if r["broken"]), "messages": messages,
         })
     return rows
+
+
+def notifications(limit: int = 40, runs_dir: Path = RUNS_DIR) -> list[dict[str, Any]]:
+    """Return recent decay notifications from durable run logs.
+
+    Redis is live transport; the run log is the durable fallback so a dashboard opened
+    after a decay still shows the event.
+    """
+    items: list[dict[str, Any]] = []
+    for directory in _run_dirs(runs_dir):
+        for event in read_events(directory):
+            if event["type"] != "decay_event":
+                continue
+            payload = dict(event.get("event") or {})
+            payload.setdefault("event", "trace_decayed")
+            payload["project"] = event.get("project")
+            payload["delivered"] = bool(event.get("delivered"))
+            payload["timestamp"] = payload.get("timestamp") or event.get("ts")
+            items.append(payload)
+    return sorted(items, key=lambda item: item.get("timestamp") or "", reverse=True)[:max(1, min(limit, 100))]
 
 
 def elapsed(since_iso: str, until_iso: Optional[str] = None) -> str:

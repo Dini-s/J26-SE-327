@@ -24,7 +24,7 @@ const DashboardLayout = () => {
       >
         <TopHeader onMenuClick={() => setCollapsed(!collapsed)} />
 
-        <main className="p-4 sm:p-6">
+        <main className="c4-main-canvas min-h-[calc(100vh-64px)] px-4 py-5 sm:px-7 sm:py-8">
           <Outlet />
         </main>
       </div>

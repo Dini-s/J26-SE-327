@@ -85,6 +85,47 @@ def get_health(_: dict) -> dict:
             "redis": sources.redis_status(), "demo": demo.allowed()}
 
 
+def stream_notifications(handler: BaseHTTPRequestHandler) -> None:
+    """Stream Redis trace notifications to connected dashboard clients."""
+    try:
+        import redis
+        from agents.traceability_agent.config import CHANGE_CHANNEL, DECAY_CHANNEL
+
+        client = redis.Redis.from_url(os.getenv("REDIS_URL", "redis://localhost:6379/0"), decode_responses=True)
+        pubsub = client.pubsub(ignore_subscribe_messages=True)
+        pubsub.subscribe(DECAY_CHANNEL, CHANGE_CHANNEL)
+        handler.send_response(200)
+        handler.send_header("Content-Type", "text/event-stream; charset=utf-8")
+        handler.send_header("Cache-Control", "no-cache")
+        handler.send_header("Connection", "keep-alive")
+        handler.send_header("X-Accel-Buffering", "no")
+        handler.end_headers()
+        handler.wfile.write(b": connected\n\n")
+        handler.wfile.flush()
+        while True:
+            message = pubsub.get_message(timeout=15)
+            if message and message.get("data"):
+                payload = message["data"]
+                try:
+                    json.loads(payload)
+                except (TypeError, ValueError):
+                    payload = json.dumps({"event": message["channel"], "message": str(payload)})
+                handler.wfile.write(f"event: {message['channel']}\ndata: {payload}\n\n".encode("utf-8"))
+            else:
+                handler.wfile.write(b": ping\n\n")
+            handler.wfile.flush()
+    except (BrokenPipeError, ConnectionResetError, OSError):
+        return
+    except Exception:
+        return
+    finally:
+        try:
+            pubsub.close()
+            client.close()
+        except (UnboundLocalError, AttributeError):
+            pass
+
+
 def get_projects(_: dict) -> list:
     if not sources.neo4j_status()["connected"]:
         return []
@@ -105,6 +146,14 @@ def get_activity(_: dict) -> dict:
         out.update(kind="change", trigger=change["trigger"], project=change["project"], files=change["files"],
                    checked=len(change["rechecks"]), started=change["started"])
     return out
+
+
+def get_notifications(q: dict) -> list[dict[str, Any]]:
+    try:
+        limit = int(q.get("limit", 40))
+    except (TypeError, ValueError):
+        limit = 40
+    return history.notifications(limit)
 
 
 def get_unlinked(q: dict) -> dict:
@@ -159,6 +208,22 @@ def get_links(q: dict) -> dict:
     return _cached(f"links:{project}", 3, lambda: sources.neo4j_links(project))
 
 
+def get_review_queue(q: dict) -> dict:
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+    try:
+        page, page_size = int(q.get("page", 1)), int(q.get("page_size", 40))
+    except ValueError:
+        raise ApiError(400, "page and page_size must be integers.")
+    try:
+        return sources.neo4j_review_queue(project, q.get("state", "needs_review"), page, page_size,
+                                          q.get("requirement"), q.get("code"))
+    except ValueError as exc:
+        raise ApiError(400, str(exc)) from exc
+
+
 def get_analytics(q: dict) -> dict:
     """Distributions, change hotspots, weakest links and a timeline for the project's trace links."""
     project = _project(q.get("project"))
@@ -182,13 +247,17 @@ def get_labeling(q: dict) -> dict:
         n = min(200, max(5, int(q.get("n", 40))))
     except ValueError:
         n = 40
-    sample = labeling.sample_links(sources.neo4j_links(project)["links"], n)
-    labels = labeling.load_labels(project)
-    items = [
-        {**{k: l[k] for k in ("requirement", "requirementText", "code", "confidence", "reason")}, "label": labels.get(f"{l['requirement']}||{l['code']}", {}).get("label")}
-        for l in sample
-    ]
-    return {"project": project, "items": items, "stats": labeling.stats(sample, labels)}
+    links = sources.neo4j_links(project)["links"]
+    sample = labeling.sample_links(links, n)
+    requested = next((link for link in links if link["requirement"] == q.get("requirement")
+                      and link["code"] == q.get("code") and link.get("status") != "decayed"), None)
+    if requested is not None and requested not in sample:
+        sample = sample[:max(0, n - 1)] + [requested]
+    labels = {f"{l['requirement']}||{l['code']}": {"label": l["review"]}
+              for l in sample if l.get("review") and l.get("reviewedHash") == l.get("textHash")}
+    items = [{**l, "label": labels.get(f"{l['requirement']}||{l['code']}", {}).get("label")} for l in sample]
+    return {"project": project, "items": items, "total": sum(link.get("status") != "decayed" for link in links),
+            "stats": labeling.stats(sample, labels)}
 
 
 def get_code_text(q: dict) -> dict:
@@ -197,24 +266,28 @@ def get_code_text(q: dict) -> dict:
     if not code or len(code) > 500:
         raise ApiError(400, "code is required.")
     _need_neo4j()
-    return {"code": code, "text": sources.neo4j_code_text(code)}
+    return {"code": code, "text": sources.neo4j_code_text(code, limit=None) if q.get("full") == "1" else sources.neo4j_code_text(code)}
 
 
 def post_label(body: dict) -> dict:
-    """Save one hand label (correct / wrong / unsure, or null to clear it)."""
+    """Apply a versioned human decision to the graph; preserve the AI confidence."""
     project = _project(body.get("project"))
     if not project:
         raise ApiError(400, "Choose a project first.")
     requirement, code, label = str(body.get("requirement", "")), str(body.get("code", "")), body.get("label")
     if not requirement or not code or len(requirement) > 200 or len(code) > 500:
         raise ApiError(400, "requirement and code are required.")
-    from apps.api import labeling
-
-    try:
-        labeling.set_label(project, requirement, code, label)
-    except ValueError as exc:
-        raise ApiError(400, str(exc)) from exc
-    return {"ok": True}
+    _need_neo4j()
+    from shared.uskg.client import USKGClient
+    with runner.RUN_LOCK:
+        _need_idle()
+        try:
+            with USKGClient() as uskg:
+                result = uskg.review_link(project, requirement, code, label, str(body.get("text_hash", "")))
+        except ValueError as exc:
+            raise ApiError(409, str(exc)) from exc
+    _forget()
+    return result
 
 
 def get_c3(q: dict) -> dict:
@@ -311,6 +384,69 @@ def get_results(_: dict) -> dict:
 
 
 # ------------------------------------------------------------------ POST handlers
+def post_delete_project(body: dict) -> dict:
+    from apps.api import project_admin
+    _need_neo4j()
+    try:
+        result = project_admin.delete_project(body.get('project'), body.get('confirmation'))
+    except (project_admin.ProjectError, project_admin.rc.ConnectorError) as exc:
+        raise ApiError(400, str(exc)) from exc
+    finally:
+        _forget()
+    return result
+
+
+def post_github(body: dict) -> dict:
+    from apps.api import github_app
+    try:
+        action = body.get('action', 'status')
+        if action == 'repositories':
+            return github_app.repositories()
+        if action == 'connect':
+            return github_app.connect(_project(body.get('project')))
+        if action == 'status':
+            return github_app.configuration()
+        raise ApiError(400, 'Unknown GitHub action.')
+    except github_app.GitHubError as exc:
+        raise ApiError(400, str(exc)) from exc
+
+
+def get_repo_sync(q: dict) -> dict:
+    from apps.api import repo_sync
+    return repo_sync.status(_project(q.get("project")))
+
+
+def post_browse_folders(body: dict) -> dict:
+    from apps.api import repo_import
+
+    try:
+        return repo_import.browse_folders(body.get("path"))
+    except repo_import.ImportError_ as exc:
+        raise ApiError(400, str(exc)) from exc
+
+
+def post_import(body: dict) -> dict:
+    """Add a project: a public GitHub URL, or a folder inside the home folder. Reads the graph, writes CodeEntity nodes."""
+    from apps.api import repo_import
+
+    _need_neo4j()
+    _need_idle()
+    state = demo.allowed()
+    if not state["allowed"]:
+        raise ApiError(403, f"Adding projects is switched off: {state['reason']}")
+    name = body.get("name") if isinstance(body.get("name"), str) else None
+    try:
+        if body.get("kind") == "folder":
+            result = repo_import.import_folder(body.get("path"), name)
+        else:
+            branch = body.get("branch") if isinstance(body.get("branch"), str) else None
+            result = repo_import.import_github(body.get("url"), name, branch, use_app=body.get("useApp") is True)
+    except repo_import.ImportError_ as exc:
+        raise ApiError(400, str(exc)) from exc
+    _forget()
+    return result
+
+
 def post_link(body: dict) -> dict:
     project = _project(body.get("project"))
     if not project:
@@ -344,13 +480,20 @@ def post_link_existing(body: dict) -> dict:
         raise ApiError(400, "Every requirement of this project already has a trace link.")
     try:
         top_k = int(body.get("top_k", 3))
-        started = runner.start({"kind": "link", "project": project, "top_k": top_k, "retrieval": "hybrid",
-                                "limit_sources": 0, "only_unlinked": True})
+        ids = body.get("requirement_ids")
+        if ids is not None and (not isinstance(ids, list) or not ids or len(ids) > 20
+                                or not all(isinstance(rid, str) and rid in info["ids"] for rid in ids)):
+            raise ApiError(400, "Select 1–20 unlinked requirements from this project.")
+        params = {"kind": "link", "project": project, "top_k": top_k, "retrieval": "hybrid",
+                  "limit_sources": 0}
+        params.update({"requirement_ids": list(dict.fromkeys(ids))} if ids is not None else {"only_unlinked": True})
+        started = runner.start(params)
     except (runner.RunnerError, ValueError, TypeError) as exc:
         raise ApiError(400, str(exc)) from exc
     _forget()
-    calls = info["unlinked"] * top_k
-    return {"requirements": info["unlinked"], "calls": calls, "minutes": round(calls * runner.SECONDS_PER_CALL / 60), "pid": started["pid"]}
+    count = len(set(ids)) if ids is not None else info["unlinked"]
+    calls = count * top_k
+    return {"requirements": count, "calls": calls, "minutes": round(calls * runner.SECONDS_PER_CALL / 60), "pid": started["pid"]}
 
 
 def post_scan(body: dict) -> dict:
@@ -439,18 +582,19 @@ def get_export(q: dict) -> Download:
 
 
 GET_ROUTES: dict[str, Callable[[dict], Any]] = {
-    "/api/health": get_health, "/api/projects": get_projects, "/api/activity": get_activity,
-    "/api/link-runs": get_link_runs, "/api/change-runs": get_change_runs, "/api/files": get_files,
+    "/api/repo-sync": get_repo_sync, "/api/health": get_health, "/api/projects": get_projects, "/api/activity": get_activity,
+    "/api/link-runs": get_link_runs, "/api/change-runs": get_change_runs, "/api/notifications/recent": get_notifications, "/api/files": get_files,
     "/api/graph": get_graph, "/api/unlinked": get_unlinked, "/api/results": get_results,
-    "/api/links": get_links, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics, "/api/c3": get_c3, "/api/selfcheck": get_selfcheck, "/api/pr-curve": get_pr_curve, "/api/labeling": get_labeling, "/api/code-text": get_code_text,
+    "/api/links": get_links, "/api/review-queue": get_review_queue, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics, "/api/c3": get_c3, "/api/selfcheck": get_selfcheck, "/api/pr-curve": get_pr_curve, "/api/labeling": get_labeling, "/api/code-text": get_code_text,
 }
 POST_ROUTES: dict[str, Callable[[dict], Any]] = {
-    "/api/link": post_link, "/api/link-existing": post_link_existing, "/api/scan": post_scan, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset, "/api/label": post_label,
+    "/api/projects/delete": post_delete_project, "/api/github": post_github, "/api/folders": post_browse_folders, "/api/import": post_import, "/api/link": post_link, "/api/link-existing": post_link_existing, "/api/scan": post_scan, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset, "/api/label": post_label,
 }
 
 
 class Handler(BaseHTTPRequestHandler):
     server_version = "C4Web"
+    protocol_version = "HTTP/1.1"
 
     def log_message(self, *args: Any) -> None:  # keep the console quiet; errors are returned as JSON
         pass
@@ -488,7 +632,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         url = urlparse(self.path)
-        if url.path in ("/", "/index.html", "/legacy"):
+        if url.path == "/api/notifications":
+            stream_notifications(self)
+        elif url.path in ("/", "/index.html", "/legacy"):
             self._send(200, (WEB_DIR / "index.html").read_bytes(), "text/html; charset=utf-8")
         elif url.path in GET_ROUTES:
             self._run(GET_ROUTES[url.path], {k: v[0] for k, v in parse_qs(url.query).items()})
@@ -517,12 +663,28 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> None:
     port = int(os.getenv("C4_WEB_PORT", "8000"))
     server = ThreadingHTTPServer((HOST, port), Handler)
+    from apps.api import repo_sync
+    from apps.api import github_app
+    receiver = github_app.start_receiver() if os.getenv("GITHUB_WEBHOOK_SECRET") else None
+    try:
+        from shared.uskg.client import USKGClient
+        with USKGClient() as graph:
+            from apps.api.approval import migrate_reviews
+            migrate_reviews(graph)
+            graph.migrate_approval_policy()
+    except Exception as exc:
+        print(f"Approval policy migration deferred: {type(exc).__name__}", flush=True)
+    watcher = repo_sync.start()
     print(f"C4 web app: http://{HOST}:{port}  (Ctrl+C to stop)", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         pass
     finally:
+        watcher.set()
+        if receiver:
+            receiver.shutdown()
+            receiver.server_close()
         server.server_close()
 
 

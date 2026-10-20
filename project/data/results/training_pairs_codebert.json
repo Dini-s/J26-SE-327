@@ -6,7 +6,7 @@
   "tau": "0.05",
   "base": "microsoft/codebert-base",
   "limit_train": "None",
-  "data": "/content/c4/data/synthetic_clean",
+  "data": "/content/c4/data/training_pairs_clean",
   "out": "/content/c4/out",
   "download": "False",
   "split_seed": 33,
@@ -95,7 +95,7 @@
     "MRR": 0.418
    }
   },
-  "CodeBERT (trained on synthetic)": {
+  "CodeBERT (trained on training pairs)": {
    "group pool": {
     "R@1": 0.803,
     "R@3": 0.97,

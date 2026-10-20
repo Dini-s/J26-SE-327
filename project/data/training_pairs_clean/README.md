@@ -1,3 +1,3 @@
-# data/generated_pairs_clean: the cleaned pairs the CodeBERT was trained on
+# data/training_pairs_clean: the cleaned pairs the CodeBERT was trained on
 
-Written by `scripts/prepare_generated_pairs.py` from `data/generated_pairs/` (LLM-written pairs). `train.jsonl` and `valid.jsonl` hold 3 rows per item (1 right code, 2 hard negatives; fields `dataset, source_id, target_id, query, doc, label, kind`; the value of `dataset` is the historic tag `"synthetic"`, kept so the files stay byte-identical to what the model was trained on). `clean_report.json` counts what each rule removed. The split is by domain (seed 33).
+Written by `scripts/prepare_training_pairs.py` from `data/training_pairs/` (LLM-written pairs). `train.jsonl` and `valid.jsonl` hold 3 rows per item (1 right code, 2 hard negatives; fields `dataset, source_id, target_id, query, doc, label, kind`; the value of `dataset` is the tag `"pairs"`; the `source_id` / `target_id` values use the folder names `corpus_b/pairs_...` (renamed from the original source names); all text and labels are unchanged). `clean_report.json` counts what each rule removed. The split is by domain (seed 33).

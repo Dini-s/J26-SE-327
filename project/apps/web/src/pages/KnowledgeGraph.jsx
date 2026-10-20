@@ -30,8 +30,8 @@ const KnowledgeGraph = () => {
 
   const { nodes, edges, stats } = useMemo(() => {
     if (!data) return { nodes: [], edges: [], stats: "-" };
-    const links = data.edges.filter((e) => e.category === "verified" || e.category === "decayed");
-    const linked = new Set(links.flatMap((e) => [e.from, e.to]));
+    const links = data.edges.filter((e) => ["verified", "decayed", "pending_review", "deferred", "rejected"].includes(e.category));
+    const linked = new Set(links.filter((e) => e.category === "verified").flatMap((e) => [e.from, e.to]));
     const kept = data.nodes
       .filter((n) => n.kind !== "decayflag" || flags)
       .map((n) => ({ ...n, orphan: n.kind === "requirement" && data.mode !== "requirements" && !linked.has(n.id) }));
@@ -39,7 +39,7 @@ const KnowledgeGraph = () => {
     return {
       nodes: kept,
       edges: data.edges.filter((e) => ids.has(e.from) && ids.has(e.to)),
-      stats: `${links.length} links, ${links.filter((e) => e.category === "decayed").length} broken`,
+      stats: `${links.filter((e) => e.category === "verified").length} approved · ${links.filter((e) => e.category === "pending_review").length} need review · ${links.filter((e) => e.category === "deferred").length} deferred · ${links.filter((e) => e.category === "rejected").length} rejected · ${links.filter((e) => e.category === "decayed").length} broken`,
     };
   }, [data, flags]);
 
@@ -59,7 +59,7 @@ const KnowledgeGraph = () => {
     <div className="mx-auto w-full max-w-[1500px]">
       <TraceHeader
         title="Unified Software Knowledge Graph"
-        subtitle="The shared graph the four components write to. Trace links (C4) are the verified and broken edges between requirements (C1) and code (C2). Select a node or an edge to inspect it."
+        subtitle="The shared graph the four components write to. Trace candidates (C4) show approved, pending, rejected and broken connections between requirements (C1) and code (C2). Select a node or an edge to inspect it."
         apiError={projectsError || graph.error}
       />
 

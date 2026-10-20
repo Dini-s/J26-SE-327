@@ -88,3 +88,37 @@ def test_project_filter_is_passed_to_the_queries():
     assert tx.run.call_args[1] == {"status": None, "project": "itrust"}
     client.list_projects()
     assert "MATCH (n)" in tx.run.call_args[0][0] and "CREATE" not in tx.run.call_args[0][0]
+
+
+def test_human_reviews_are_atomic_versioned_and_preserve_ai_confidence():
+    from agents.traceability_agent.utils import content_hash
+    from shared.schemas.traceability import Artifact
+    req = Artifact(id='R1',type='requirement',text='Calculate BMI.')
+    code = Artifact(id='C1',type='code',text='return weight / (height * height);')
+    version = content_hash(req, code)
+    for label, status in [('correct','verified'),('wrong','rejected'),('unsure','pending_review'),(None,'pending_review')]:
+        client, tx = make_client(single={'requirement':req.text,'code':code.text,
+                                        'props':{'textHash':version,'status':'pending_review','confidence':0.6}})
+        assert client.review_link('p',req.id,code.id,label,version)['status'] == status
+        query, params = tx.run.call_args[0][0], tx.run.call_args[1]
+        assert params['status'] == status and params['hash'] == version
+        assert 'SET v.confidence' not in query
+        assert 'v.humanReview=$label' in query
+
+
+def test_stale_or_wrong_project_review_cannot_change_status():
+    import pytest
+    client, tx = make_client(single={'requirement':'changed requirement','code':'new code',
+                                    'props':{'textHash':'old','status':'pending_review','confidence':.6}})
+    with pytest.raises(ValueError, match='changed'):
+        client.review_link('p','R1','C1','wrong','old')
+    assert tx.run.call_count == 1  # no decision write; transaction rolls back revision lock too
+    client, tx = make_client(single=None)
+    with pytest.raises(ValueError, match='no longer exists'):
+        client.review_link('other','R1','C1','wrong','old')
+
+
+def test_migration_preserves_current_human_approvals():
+    from shared.uskg.client import _APPROVAL_MIGRATION_QUERY, validate_write_query
+    validate_write_query(_APPROVAL_MIGRATION_QUERY)
+    assert "v.humanReview,'') = 'correct'" in _APPROVAL_MIGRATION_QUERY

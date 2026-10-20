@@ -101,3 +101,14 @@ def test_scan_for_drift_needs_links_and_starts_a_monitor_run(base, fake_graph):
     assert status == 200 and body["links"] == 12
     assert started == [{"kind": "monitor", "project": "spring-petclinic", "force": True}]
     assert _call(base, "/api/scan", {})[0] == 400
+
+
+def test_selected_requirements_only_are_sent_to_runner(fake_graph):
+    state, started = fake_graph
+    state["ids"] = ["R1", "R2"]
+    result = server.post_link_existing({"project": "spring-petclinic", "requirement_ids": ["R2"], "top_k": 3})
+    assert started[0]["requirement_ids"] == ["R2"]
+    assert "only_unlinked" not in started[0]
+    assert result["requirements"] == 1 and result["calls"] == 3
+    with pytest.raises(server.ApiError):
+        server.post_link_existing({"project": "spring-petclinic", "requirement_ids": ["OTHER-PROJECT"]})

@@ -19,7 +19,8 @@ function Inner({ children }) {
 
   const setProject = useCallback((name) => {
     try {
-      window.localStorage.setItem(KEY, name);
+      if (name) window.localStorage.setItem(KEY, name);
+      else window.localStorage.removeItem(KEY);
     } catch {
       /* storage unavailable */
     }

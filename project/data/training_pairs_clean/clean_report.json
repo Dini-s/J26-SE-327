@@ -5,8 +5,8 @@
  "items_kept": 2259,
  "groups": 59,
  "valid_groups": [
-  "deepseek/deepseek_json_20261017_5f16d4",
-  "deepseek/deepseek_json_20261017_8dd4ae",
+  "corpus_b/pairs_20261017_5f16d4",
+  "corpus_b/pairs_20261017_8dd4ae",
   "user_domains/08_school_administration",
   "user_domains/12_job_portal",
   "user_domains/24_e_learning_platform",

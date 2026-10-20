@@ -1,4 +1,4 @@
-"""Which PetClinic files implement which synthetic requirement (a hand-made answer key for testing stage 1).
+"""Which PetClinic files implement which demo requirement (a hand-made answer key for testing stage 1).
 
 HOW THIS WAS MADE: the requirements in ``petclinic_requirements.py`` were written from the PetClinic code, and this table
 was written by reading that code (controllers, validators, templates). It is NOT an expert-labelled gold set: one person

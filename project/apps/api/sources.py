@@ -117,7 +117,9 @@ def neo4j_unlinked(project: Optional[str]) -> dict[str, Any]:
     with _neo4j_driver() as driver:
         rows, _, _ = driver.execute_query(
             """MATCH (r:Requirement) WHERE coalesce(r.project, r.repo, r.dataset) = $project
-               RETURN r.id AS id, EXISTS { (r)-[:VERIFIED_TRACE]->() } AS linked ORDER BY r.id""", project=project)
+               RETURN r.id AS id, EXISTS { (r)-[:VERIFIED_TRACE]->() } AS linked,
+                      COUNT { (r)-[:VERIFIED_TRACE {status:'pending_review'}]->() } AS pending,
+                      EXISTS { MATCH (r)-[v:VERIFIED_TRACE]->() WHERE coalesce(v.status,'verified') = 'verified' } AS approved ORDER BY r.id""", project=project)
         code, _, _ = driver.execute_query(
             """MATCH (c:CodeEntity) WHERE coalesce(c.kind,'code') = 'code' AND coalesce(c.project, c.repo, c.dataset) = $project
                RETURN count(c) AS n""", project=project)
@@ -125,10 +127,20 @@ def neo4j_unlinked(project: Optional[str]) -> dict[str, Any]:
             """MATCH (r:Requirement)-[v:VERIFIED_TRACE]->() WHERE coalesce(r.project, r.repo, r.dataset) = $project
                RETURN count(v) AS n""", project=project)
     unlinked = [r["id"] for r in rows if not r["linked"]]
-    return {"requirements": len(rows), "unlinked": len(unlinked), "ids": unlinked[:200], "codeFiles": code[0]["n"], "links": links[0]["n"]}
+    return {"awaitingApproval": sum(not r.get("approved", False) for r in rows), "pendingReview": sum(r.get("pending", 0) for r in rows), "requirements": len(rows), "unlinked": len(unlinked), "ids": unlinked[:200], "codeFiles": code[0]["n"], "links": links[0]["n"]}
 
 
 # ---------------------------------------------------------------- trace links of one project (for the React dashboard)
+def _present_status(row: dict[str, Any]) -> str:
+    """Return the user-facing state without changing the authoritative USKG status."""
+    status = row.get("status") or "verified"
+    if status == "pending_review" and row.get("review") == "unsure" and row.get("reviewedHash") == row.get("textHash"):
+        return "deferred"
+    if status == "verified" and row.get("review") == "correct" and row.get("reviewedHash") == row.get("textHash"):
+        return "verified"
+    return status
+
+
 def neo4j_links(project: str, max_links: int = 2000) -> dict[str, Any]:
     """Every VERIFIED_TRACE of a project with its reason, the DecayFlags and the requirements that have no link (read-only)."""
     where = "coalesce(r.project, r.repo, r.dataset) = $project"
@@ -137,6 +149,7 @@ def neo4j_links(project: str, max_links: int = 2000) -> dict[str, Any]:
             f"""MATCH (r:Requirement)-[v:VERIFIED_TRACE]->(c:CodeEntity) WHERE {where}
                 RETURN r.id AS requirement, coalesce(r.text, '') AS requirementText, c.id AS code, coalesce(c.kind, 'code') AS codeKind,
                        coalesce(v.status, 'verified') AS status, v.confidence AS confidence, coalesce(v.justification, '') AS reason,
+                       v.textHash AS textHash, v.humanReview AS review, v.reviewedHash AS reviewedHash,
                        toString(v.verifiedAt) AS verifiedAt, toString(v.lastCheckedAt) AS lastCheckedAt
                 ORDER BY r.id, v.confidence DESC LIMIT $n""", project=project, n=max_links)
         flags, _, _ = driver.execute_query(
@@ -144,24 +157,84 @@ def neo4j_links(project: str, max_links: int = 2000) -> dict[str, Any]:
                 RETURN r.id AS requirement, d.codeEntityId AS code, d.previousConfidence AS previousConfidence,
                        coalesce(d.reason, '') AS reason, toString(d.flaggedAt) AS flaggedAt, toString(d.resolvedAt) AS resolvedAt ORDER BY d.flaggedAt DESC LIMIT 500""", project=project)
         orphans, _, _ = driver.execute_query(
-            f"""MATCH (r:Requirement) WHERE NOT (r)-[:VERIFIED_TRACE]->() AND {where}
+            f"""MATCH (r:Requirement) WHERE NOT EXISTS {{ MATCH (r)-[v:VERIFIED_TRACE]->() WHERE coalesce(v.status,'verified') = 'verified' }} AND {where}
                 RETURN r.id AS requirement, coalesce(r.text, '') AS requirementText ORDER BY r.id""", project=project)
         counts, _, _ = driver.execute_query(
             """MATCH (r:Requirement) WHERE coalesce(r.project, r.repo, r.dataset) = $project WITH count(r) AS requirements
                OPTIONAL MATCH (c:CodeEntity) WHERE coalesce(c.project, c.repo, c.dataset) = $project
                RETURN requirements, count(c) AS codeEntities""", project=project)
+        totals, _, _ = driver.execute_query(
+            """MATCH (r:Requirement)-[v:VERIFIED_TRACE]->(c:CodeEntity)
+               WHERE coalesce(r.project, r.repo, r.dataset) = $project
+               RETURN count(v) AS total,
+                      count(CASE WHEN coalesce(v.status,'verified') = 'verified' THEN 1 END) AS approved,
+                      count(CASE WHEN v.status = 'pending_review' AND v.humanReview = 'unsure' AND v.reviewedHash = v.textHash THEN 1 END) AS deferred,
+                      count(CASE WHEN v.status = 'pending_review' AND NOT (v.humanReview = 'unsure' AND v.reviewedHash = v.textHash) THEN 1 END) AS needsReview,
+                      count(CASE WHEN v.status = 'rejected' THEN 1 END) AS rejected,
+                      count(CASE WHEN v.status = 'decayed' THEN 1 END) AS broken""", project=project)
 
     def cut(text: Any, n: int) -> str:
         return (text or "")[:n]
 
+    presented = [{**dict(r), "status": _present_status(dict(r)), "requirementText": cut(r["requirementText"], 400), "reason": cut(r["reason"], 700)} for r in links]
+    total = dict(totals[0]) if totals else {}
     return {
         "project": project,
         "requirements": counts[0]["requirements"] if counts else 0,
         "codeEntities": counts[0]["codeEntities"] if counts else 0,
-        "links": [{**dict(r), "requirementText": cut(r["requirementText"], 400), "reason": cut(r["reason"], 700)} for r in links],
+        "links": presented,
+        "totals": {"all": total.get("total", 0), "verified": total.get("approved", 0), "deferred": total.get("deferred", 0),
+                   "pending_review": total.get("needsReview", 0), "rejected": total.get("rejected", 0), "decayed": total.get("broken", 0)},
         "decayFlags": [{**dict(r), "reason": cut(r["reason"], 700)} for r in flags],
         "orphans": [{**dict(r), "requirementText": cut(r["requirementText"], 400)} for r in orphans],
     }
+
+
+def neo4j_review_queue(project: str, state: str = "needs_review", page: int = 1, page_size: int = 40,
+                       requirement: Optional[str] = None, code: Optional[str] = None) -> dict[str, Any]:
+    """Read the complete review queue with server-side pagination."""
+    allowed = {"needs_review", "deferred", "verified", "rejected", "decayed", "all"}
+    if state not in allowed:
+        raise ValueError("state must be needs_review, deferred, verified, rejected, decayed or all")
+    page = max(1, page)
+    page_size = min(100, max(1, page_size))
+    predicates = {
+        "needs_review": "v.status = 'pending_review' AND NOT (v.humanReview = 'unsure' AND v.reviewedHash = v.textHash)",
+        "deferred": "v.status = 'pending_review' AND v.humanReview = 'unsure' AND v.reviewedHash = v.textHash",
+        "verified": "coalesce(v.status,'verified') = 'verified'",
+        "rejected": "v.status = 'rejected'",
+        "decayed": "v.status = 'decayed'",
+        "all": "true",
+    }
+    where = predicates[state]
+    if requirement:
+        where += " AND r.id = $requirement"
+    if code:
+        where += " AND c.id = $code"
+    with _neo4j_driver() as driver:
+        rows, _, _ = driver.execute_query(
+            f"""MATCH (r:Requirement)-[v:VERIFIED_TRACE]->(c:CodeEntity)
+                WHERE coalesce(r.project, r.repo, r.dataset) = $project AND {where}
+                RETURN r.id AS requirement, coalesce(r.text,'') AS requirementText, c.id AS code,
+                       coalesce(c.kind,'code') AS codeKind, coalesce(v.status,'verified') AS uskgStatus,
+                       v.confidence AS confidence, coalesce(v.justification,'') AS reason,
+                       v.textHash AS textHash, v.humanReview AS review, v.reviewedHash AS reviewedHash,
+                       toString(v.lastCheckedAt) AS lastCheckedAt
+                ORDER BY r.id, c.id SKIP $skip LIMIT $limit""",
+            project=project, requirement=requirement, code=code, skip=(page - 1) * page_size, limit=page_size)
+        count, _, _ = driver.execute_query(
+            f"""MATCH (r:Requirement)-[v:VERIFIED_TRACE]->(c:CodeEntity)
+                WHERE coalesce(r.project, r.repo, r.dataset) = $project AND {where}
+                RETURN count(v) AS total""", project=project, requirement=requirement, code=code)
+    items = []
+    for row in rows:
+        item = dict(row)
+        item["status"] = _present_status(item)
+        item["requirementText"] = item["requirementText"][:400]
+        item["reason"] = item["reason"][:700]
+        items.append(item)
+    return {"project": project, "state": state, "page": page, "pageSize": page_size,
+            "total": count[0]["total"] if count else 0, "items": items}
 
 
 def strip_license(text: str) -> str:
@@ -174,11 +247,12 @@ def strip_license(text: str) -> str:
     return text
 
 
-def neo4j_code_text(code_id: str, limit: int = 6000) -> str:
+def neo4j_code_text(code_id: str, limit: Optional[int] = 6000) -> str:
     """The stored text of one code entity (read-only), for the labelling page."""
     with _neo4j_driver() as driver:
         rows, _, _ = driver.execute_query("MATCH (c:CodeEntity {id: $id}) RETURN coalesce(c.text, '') AS text LIMIT 1", id=code_id)
-    return strip_license(rows[0]["text"] if rows else "")[:limit]
+    text = rows[0]["text"] if rows else ""
+    return text if limit is None else strip_license(text)[:limit]
 
 
 # ---------------------------------------------------------------- USKG graph (Neo4j)
@@ -268,18 +342,21 @@ def neo4j_uskg_graph(max_traces: int = 400, max_orphans: int = 40, project: Opti
             """MATCH (r:Requirement)-[v:VERIFIED_TRACE]->(c:CodeEntity)
                WHERE $project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project
                RETURN r.id AS s, coalesce(r.text,'') AS rtext, c.id AS t, coalesce(c.text,'') AS ctext,
-                      coalesce(c.kind,'code') AS ckind, v.status AS status, v.confidence AS confidence,
+                      coalesce(c.kind,'code') AS ckind,
+                      CASE WHEN v.status = 'pending_review' AND v.humanReview = 'unsure' AND v.reviewedHash = v.textHash
+                           THEN 'deferred' ELSE coalesce(v.status,'verified') END AS status,
+                      v.confidence AS confidence,
                       v.justification AS reasoning, toString(v.lastCheckedAt) AS checked
                LIMIT $n""", n=max_traces, project=project)
         flags, _, _ = driver.execute_query(
             """MATCH (r:Requirement)-[:HAS_DECAY]->(d:DecayFlag)
-               WHERE $project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project
+               WHERE d.resolvedAt IS NULL AND ($project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project)
                RETURN r.id AS rid, coalesce(r.text,'') AS rtext, toString(id(d)) AS did, d.codeEntityId AS cid,
                       d.previousConfidence AS prev, d.reason AS reason, toString(d.flaggedAt) AS at
                LIMIT 200""", project=project)
         orphans, _, _ = driver.execute_query(
             """MATCH (r:Requirement)
-               WHERE NOT (r)-[:VERIFIED_TRACE]->()
+               WHERE NOT EXISTS { MATCH (r)-[v:VERIFIED_TRACE]->() WHERE coalesce(v.status,'verified') = 'verified' }
                  AND ($project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project)
                RETURN r.id AS rid, coalesce(r.text,'') AS rtext LIMIT $n""", n=max_orphans, project=project)
 
@@ -287,7 +364,7 @@ def neo4j_uskg_graph(max_traces: int = 400, max_orphans: int = 40, project: Opti
         rn = req(t["s"], t["rtext"])
         cn = f"c:{t['t']}"
         nodes.setdefault(cn, {"id": cn, "label": t["t"], "kind": "code", "codeKind": t["ckind"], "text": _trim(t["ctext"])})
-        edges.append({"from": rn, "to": cn, "category": "decayed" if t["status"] == "decayed" else "verified",
+        edges.append({"from": rn, "to": cn, "category": t["status"] or "verified",
                       "confidence": t["confidence"], "reasoning": t["reasoning"], "checked": t["checked"]})
     for f in flags:
         rn = req(f["rid"], f["rtext"])

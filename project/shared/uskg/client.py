@@ -57,7 +57,7 @@ WITH coalesce(n.project, n.repo, n.dataset) AS project,
      sum(CASE WHEN n:CodeEntity THEN 1 ELSE 0 END) AS code_entities
 OPTIONAL MATCH (r:Requirement)-[v:VERIFIED_TRACE]->()
 WHERE coalesce(r.project, r.repo, r.dataset) = project
-RETURN project, requirements, code_entities, count(v) AS links,
+RETURN project, requirements, code_entities, sum(CASE WHEN coalesce(v.status,'verified') = 'verified' THEN 1 ELSE 0 END) AS links,
        sum(CASE WHEN v.status = 'decayed' THEN 1 ELSE 0 END) AS decayed
 ORDER BY project
 """
@@ -88,9 +88,19 @@ _WRITE_LINK_QUERY = """
 MATCH (r:Requirement {id: $source_id}), (c:CodeEntity {id: $target_id})
 MERGE (r)-[v:VERIFIED_TRACE]->(c)
 ON CREATE SET v.verifiedAt = datetime()
-SET v.confidence = $confidence, v.justification = $justification, v.status = $status,
-    v.linkType = $link_type, v.textHash = $text_hash, v.semFp = coalesce($sem_fp, v.semFp), v.lastCheckedAt = datetime()
-RETURN count(v) AS written
+WITH r, c, v, CASE WHEN v.reviewedHash = $text_hash AND v.humanReview = 'wrong' THEN 'rejected'
+    WHEN v.reviewedHash = $text_hash AND v.humanReview = 'correct' THEN 'verified'
+    WHEN v.reviewedHash = $text_hash AND v.humanReview = 'unsure' THEN 'pending_review'
+    ELSE $status END AS approval
+SET v.confidence = $confidence, v.justification = $justification, v.status = approval,
+    v.linkType = $link_type, v.textHash = $text_hash, v.semFp = coalesce($sem_fp, v.semFp), v.lastCheckedAt = datetime(),
+    v.verifiedTextHash = CASE WHEN approval = 'verified' THEN $text_hash ELSE v.verifiedTextHash END,
+    v.verifiedConfidence = CASE WHEN approval = 'verified' THEN $confidence ELSE v.verifiedConfidence END
+WITH r, c, v, approval
+OPTIONAL MATCH (r)-[:HAS_DECAY]->(d:DecayFlag {codeEntityId: $target_id})
+WHERE approval <> 'decayed' AND d.resolvedAt IS NULL
+SET d.resolvedAt = datetime()
+RETURN count(DISTINCT v) AS written
 """
 
 # The edge is kept (history is preserved); it is only marked decayed. A relationship
@@ -99,6 +109,8 @@ RETURN count(v) AS written
 _MARK_DECAYED_QUERY = """
 MATCH (r:Requirement {id: $source_id})-[v:VERIFIED_TRACE]->(c:CodeEntity {id: $target_id})
 WITH r, v, v.confidence AS previous
+SET v.verifiedTextHash = coalesce(v.verifiedTextHash, CASE WHEN v.status = 'verified' THEN v.textHash END),
+    v.verifiedConfidence = coalesce(v.verifiedConfidence, CASE WHEN v.status = 'verified' THEN v.confidence END)
 SET v.status = 'decayed', v.confidence = $new_confidence, v.lastCheckedAt = datetime(),
     v.textHash = coalesce($text_hash, v.textHash)
 CREATE (r)-[:HAS_DECAY]->(d:DecayFlag {
@@ -116,7 +128,36 @@ RETURN count(d) AS resolved
 """
 
 
-_WRITE_QUERIES = frozenset({_WRITE_LINK_QUERY, _MARK_DECAYED_QUERY, _RESOLVE_DECAY_QUERY})
+_APPROVAL_MIGRATION_QUERY = """
+MATCH ()-[v:VERIFIED_TRACE]->()
+WHERE coalesce(v.status,'verified') = 'verified' AND v.confidence < 0.85
+  AND NOT (coalesce(v.humanReview,'') = 'correct' AND coalesce(v.reviewedHash,'') = coalesce(v.textHash,'missing'))
+SET v.status = CASE WHEN v.confidence >= 0.5 THEN 'pending_review' ELSE 'rejected' END,
+    v.verifiedTextHash = null, v.verifiedConfidence = null
+RETURN count(v) AS written
+"""
+
+_REVIEW_READ_QUERY = """
+MATCH (r:Requirement {id:$source_id})-[v:VERIFIED_TRACE]->(c:CodeEntity {id:$target_id})
+WHERE coalesce(r.project,r.repo,r.dataset) = $project
+SET v.reviewRevision = coalesce(v.reviewRevision, 0) + 1
+RETURN coalesce(r.text,r.description,r.title,'') AS requirement,
+       coalesce(c.text,c.source,c.code,c.signature,'') AS code, properties(v) AS props
+"""
+_REVIEW_LINK_QUERY = """
+MATCH (r:Requirement {id:$source_id})-[v:VERIFIED_TRACE]->(c:CodeEntity {id:$target_id})
+SET v.humanReview=$label, v.reviewedHash=$hash, v.reviewedAt=datetime(), v.status=$status,
+    v.verifiedTextHash=CASE WHEN $status='verified' THEN $hash ELSE v.verifiedTextHash END,
+    v.verifiedConfidence=CASE WHEN $status='verified' THEN v.confidence ELSE v.verifiedConfidence END
+WITH r,v
+OPTIONAL MATCH (r)-[:HAS_DECAY]->(d:DecayFlag {codeEntityId:$target_id})
+WHERE $status='verified' AND d.resolvedAt IS NULL
+SET d.resolvedAt=datetime()
+RETURN count(DISTINCT v) AS written
+"""
+
+
+_WRITE_QUERIES = frozenset({_WRITE_LINK_QUERY, _MARK_DECAYED_QUERY, _RESOLVE_DECAY_QUERY, _REVIEW_READ_QUERY, _REVIEW_LINK_QUERY, _APPROVAL_MIGRATION_QUERY})
 
 # --- write ownership -------------------------------------------------------------------
 # C4 may only create/modify VERIFIED_TRACE edges, DecayFlag nodes and HAS_DECAY edges.
@@ -211,10 +252,10 @@ class USKGClient:
             return session.execute_read(work)
 
     def get_decay_flag_pairs(self, project: Optional[str] = None) -> list[tuple[str, str]]:
-        """(requirement id, code id) of every DecayFlag (read-only)."""
+        """Pairs with unresolved decay flags; resolved flags remain historical."""
         rows = self._read(
             """MATCH (r:Requirement)-[:HAS_DECAY]->(d:DecayFlag)
-               WHERE ($project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project)
+               WHERE d.resolvedAt IS NULL AND ($project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project)
                RETURN r.id AS requirement, d.codeEntityId AS code""",
             project=project,
         )
@@ -302,6 +343,10 @@ class USKGClient:
                     justification=p.get("justification", ""),
                     status=p.get("status", "verified"),
                     text_hash=p.get("textHash"),
+                    review_label=p.get("humanReview"),
+                    reviewed_hash=p.get("reviewedHash"),
+                    verified_text_hash=p.get("verifiedTextHash"),
+                    verified_confidence=p.get("verifiedConfidence"),
                     sem_fingerprint=p.get("semFp"),
                     verified_at=_to_datetime(p.get("verifiedAt")),
                     last_checked_at=_to_datetime(p.get("lastCheckedAt")),
@@ -330,6 +375,34 @@ class USKGClient:
             )
             > 0
         )
+
+    def migrate_approval_policy(self) -> int:
+        """Route legacy medium-confidence auto-links to review; leave human approvals untouched."""
+        return self._write_count(_APPROVAL_MIGRATION_QUERY, "written")
+
+    def review_link(self, project: str, source_id: str, target_id: str, label: Optional[str], expected_hash: str) -> dict:
+        """Review a current candidate atomically; preserve AI confidence and reject stale decisions."""
+        from agents.traceability_agent.utils import content_hash
+        from shared.schemas.link_policy import approval_status
+        if label not in ("correct", "wrong", "unsure", None):
+            raise ValueError("Invalid review decision.")
+        for query in (_REVIEW_READ_QUERY, _REVIEW_LINK_QUERY):
+            validate_write_query(query)
+        def work(tx):
+            row = tx.run(_REVIEW_READ_QUERY, project=project, source_id=source_id, target_id=target_id).single()
+            if row is None:
+                raise ValueError("Link no longer exists in this project. Reload the review list.")
+            props = row["props"]
+            current_hash = content_hash(Artifact(id=source_id,type="requirement",text=row["requirement"]),
+                                        Artifact(id=target_id,type="code",text=row["code"]))
+            if not expected_hash or current_hash != expected_hash or props.get("textHash") != expected_hash or props.get("status") == "decayed":
+                raise ValueError("Code or requirement changed. Reload and inspect the current version before reviewing.")
+            status = {"correct":"verified", "wrong":"rejected", "unsure":"pending_review"}.get(label,
+                        approval_status(props.get("confidence", 0)))
+            tx.run(_REVIEW_LINK_QUERY,source_id=source_id,target_id=target_id,label=label,hash=current_hash,status=status).consume()
+            return {"ok": True, "status": status, "label": label}
+        with self._driver.session() as session:
+            return session.execute_write(work)
 
     def mark_decayed(self, link: TraceabilityLink, new_confidence: float, reason: str, text_hash: Optional[str] = None) -> bool:
         """Mark an edge decayed and attach a ``DecayFlag``, without deleting the edge.

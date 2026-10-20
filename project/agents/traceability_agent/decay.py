@@ -84,8 +84,20 @@ class DecayDetector:
         Returns:
             What happened.
         """
+        current_hash = content_hash(requirement, target)
+        if link.reviewed_hash == current_hash and link.review_label in ("correct", "wrong", "unsure"):
+            desired = {"correct": "verified", "wrong": "rejected", "unsure": "pending_review"}[link.review_label]
+            if link.status != desired:
+                self.uskg.write_link(link.model_copy(update={"status": desired, "text_hash": current_hash,
+                    "confidence": link.verified_confidence if desired == "verified" and link.verified_confidence is not None else link.confidence}))
+            return DecayResult(link=link, rechecked=False, reason="Human decision retained for this version.")
         target_text = llm_text(target)
-        if len("".join(target_text.split())) < MIN_TARGET_CHARS:
+        if (link.status == "decayed" and link.verified_text_hash
+                and link.verified_confidence is not None
+                and content_hash(requirement, target) == link.verified_text_hash):
+            verdict = {"is_linked": True, "confidence": link.verified_confidence,
+                       "reasoning": "Requirement and code exactly match the last verified version. Link restored."}
+        elif len("".join(target_text.split())) < MIN_TARGET_CHARS:
             # nothing left to check: the link cannot hold, and no LLM call is spent on it
             verdict = {"is_linked": False, "confidence": 0.0, "reasoning": EMPTY_TARGET_REASON}
         elif semantic := pair_changes(link.sem_fingerprint, requirement, target, target_text):
@@ -117,22 +129,27 @@ class DecayDetector:
             return DecayResult(link=link, rechecked=False, reason=f"malformed LLM response: {exc}")
 
         if passed:
-            if link.status == "decayed":
-                self.uskg.resolve_decay(link)  # it holds again: close the open DecayFlag(s), keep them as history
+            from shared.schemas.link_policy import approval_status
+            status = "verified" if (link.status == "decayed" and link.verified_text_hash == current_hash) else approval_status(confidence)
             self.uskg.write_link(
                 link.model_copy(
                     update={
                         "confidence": confidence,
                         "justification": reasoning,
-                        "status": "verified",
+                        "status": status,
                         "text_hash": content_hash(requirement, target),
                         "sem_fingerprint": fingerprint_pair(requirement, target, target_text),
                     }
                 )
             )
-            self._log_recheck(link, confidence, decayed=False, published=False, reason=reasoning)
+            self._log_recheck(link, confidence, decayed=False, published=False, reason=reasoning, status=status)
             return DecayResult(link=link, rechecked=True, new_confidence=confidence, reason=reasoning)
 
+        if link.status in ("pending_review", "rejected"):
+            self.uskg.write_link(link.model_copy(update={"status": "rejected", "confidence": confidence,
+                                                        "text_hash": current_hash, "justification": reasoning}))
+            self._log_recheck(link, confidence, decayed=False, published=False, reason=reasoning, status="rejected")
+            return DecayResult(link=link, rechecked=True, new_confidence=confidence, reason=reasoning)
         self.uskg.mark_decayed(
             link, new_confidence=confidence, reason=reasoning, text_hash=content_hash(requirement, target)
         )
@@ -162,7 +179,7 @@ class DecayDetector:
             published=published,
         )
 
-    def _log_recheck(self, link: TraceabilityLink, new_confidence: float, decayed: bool, published: bool, reason: str) -> None:
+    def _log_recheck(self, link: TraceabilityLink, new_confidence: float, decayed: bool, published: bool, reason: str, status: Optional[str] = None) -> None:
         if self.run_logger:
             self.run_logger.emit(
                 "recheck",
@@ -171,6 +188,8 @@ class DecayDetector:
                 previous_confidence=link.confidence,
                 new_confidence=new_confidence,
                 decayed=decayed,
+                restored=link.status == "decayed" and not decayed and status == "verified",
+                approval_status=status or ("decayed" if decayed else "verified"),
                 published=published,
                 reason=reason,
             )

@@ -24,7 +24,7 @@
   ]
  },
  "petclinic_with_llm": {
-  "setup": "26 synthetic requirements, 37 code files, Llama 3.1 8B verdicts from earlier runs (expert prompt, kept = is_linked and confidence >= 0.5). All 142 candidate pairs of both methods had already been judged, so no new LLM calls were needed.",
+  "setup": "26 demo requirements, 37 code files, Llama 3.1 8B verdicts from earlier runs (expert prompt, kept = is_linked and confidence >= 0.5). All 142 candidate pairs of both methods had already been judged, so no new LLM calls were needed.",
   "top3": {
    "llm_calls": 78,
    "stage1_confirmed": 38,
@@ -48,7 +48,7 @@
   "rerank_time": "about 4.2 s for 26 requirements x 20 pairs (520 pairs) on an Apple GPU (MPS); LLM call is 25-50 s each",
   "caveats": [
    "no human gold labels: 'confirmed' means the 8B LLM said yes, and it is known to make false positives",
-   "requirements are synthetic and were written from the code",
+   "requirements are made up for the demo and were written from the code",
    "one project, one run, no significance test"
   ]
  },

@@ -35,14 +35,14 @@ def _risk(payload: dict[str, Any], links: list[dict[str, Any]], top: int) -> lis
 
     rows = []
     for rid, ls in by_req.items():
-        ok = [l for l in ls if l.get("status") != "decayed"]
-        broken = len(ls) - len(ok)
+        ok = [l for l in ls if l.get("status", "verified") == "verified"]
+        broken = sum(l.get("status") == "decayed" for l in ls)
         reasons, points = [], 0
         if not ls:
             reasons.append("never linked to any code")
             points += 3
         elif not ok:
-            reasons.append("every link is broken")
+            reasons.append("every link is broken" if broken == len(ls) else "no approved links; review pending or rejected candidates")
             points += 3
         else:
             if broken:
@@ -104,7 +104,8 @@ def build(payload: dict[str, Any], top: int = 10) -> dict[str, Any]:
     links = payload.get("links", [])
     flags = payload.get("decayFlags", [])
     total_req = payload.get("requirements", 0)
-    verified = [l for l in links if l.get("status") != "decayed"]
+    verified = [l for l in links if l.get("status", "verified") == "verified"]
+    pending = [l for l in links if l.get("status") == "pending_review"]
 
     linked_reqs = {l["requirement"] for l in verified}
     per_req = Counter(l["requirement"] for l in verified)
@@ -149,11 +150,14 @@ def build(payload: dict[str, Any], top: int = 10) -> dict[str, Any]:
         "linkedRequirements": len(linked_reqs),
         "coverage": round(len(linked_reqs) / total_req, 3) if total_req else 0.0,
         "verifiedLinks": len(verified),
-        "decayedLinks": len(links) - len(verified),
+        "decayedLinks": sum(1 for l in links if l.get("status") == "decayed"),
         "decayEvents": len(flags),
         "trustedThreshold": TRUSTED_THRESHOLD,
         "trustedLinks": sum(1 for c in confs if c >= TRUSTED_THRESHOLD),
-        "reviewLinks": sum(1 for c in confs if c < TRUSTED_THRESHOLD),
+        "reviewLinks": len(pending),
+        "pendingReviewLinks": len(pending),
+        "rejectedLinks": sum(1 for l in links if l.get("status") == "rejected"),
+        "deferredLinks": sum(1 for l in links if l.get("status") == "deferred"),
         "meanConfidence": round(sum(confs) / len(confs), 3) if confs else 0.0,
         "confidenceHistogram": confidence,
         "linksPerRequirement": links_per_req,

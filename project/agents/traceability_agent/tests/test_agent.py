@@ -277,3 +277,23 @@ def test_a_single_transient_llm_error_skips_only_that_candidate(req, targets):
     agent = make_agent(llm=llm)
     links = agent.verify_candidates(agent.find_candidates([req], targets))
     assert [l.target_id for l in links] == ["C2"]
+
+
+@pytest.mark.parametrize('confidence,linked,expected',[(.9,True,'verified'),(.85,True,'verified'),(.6,True,'pending_review'),(.5,True,'pending_review'),(.49,True,None),(.99,False,None)])
+def test_confidence_routes_candidates_to_approval_or_review(req,targets,confidence,linked,expected):
+    llm = MagicMock()
+    llm.verify_link.return_value = {'is_linked':linked,'confidence':confidence,'reasoning':'evidence'}
+    agent = make_agent(llm)
+    candidates = agent.find_candidates([req],targets,top_k=1)
+    result = agent.verify_candidates(candidates)
+    assert ([link.status for link in result] or [None]) == [expected]
+
+
+def test_empty_source_cannot_be_auto_approved(req):
+    # Use the agent's public shortlist to obtain its Candidate shape without embeddings for empty text.
+    target = art('C1','code','code login')
+    agent = make_agent()
+    candidate = agent.find_candidates([req],[target],top_k=1)[0]
+    candidate = candidate._replace(target=target.model_copy(update={'text':''}))
+    assert agent.verify_candidates([candidate]) == []
+    agent.llm.verify_link.assert_not_called()

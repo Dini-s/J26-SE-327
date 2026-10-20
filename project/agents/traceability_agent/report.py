@@ -28,7 +28,7 @@ def links_csv(requirements: Sequence[Artifact], traces: Sequence[TraceabilityLin
 def matrix_csv(requirements: Sequence[Artifact], traces: Sequence[TraceabilityLink]) -> str:
     """Requirement x code matrix. Cell = confidence of a verified link, ``x<confidence>`` for a decayed one, blank if none."""
     codes = sorted({t.target_id for t in traces})
-    cell = {(t.source_id, t.target_id): (f"{t.confidence:.2f}" if t.status == "verified" else f"x{t.confidence:.2f}") for t in traces}
+    cell = {(t.source_id, t.target_id): (f"{t.confidence:.2f}" if t.status == "verified" else f"{'x' if t.status == 'decayed' else t.status + ':'}{t.confidence:.2f}") for t in traces}
     rows: list[Sequence[object]] = [["requirement", *codes]]
     for req in sorted(requirements, key=lambda r: r.id):
         rows.append([req.id, *[cell.get((req.id, c), "") for c in codes]])

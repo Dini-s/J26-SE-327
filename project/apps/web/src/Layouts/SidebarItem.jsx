@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { pageRoutes } from "../routes/pageRoutes";
+import { useState } from "react";
 import {
   NavLink,
   useLocation,
@@ -30,6 +31,8 @@ const SidebarItem = ({
   const hasChildren =
     Array.isArray(item.children) &&
     item.children.length > 0;
+
+  const canNavigate = pageRoutes.some((page) => page.path === item.path);
 
   const Icon =
     item.icon;
@@ -109,30 +112,16 @@ const SidebarItem = ({
     );
 
  
-  const [
-    expanded,
-    setExpanded,
-  ] = useState(
-    itemActive ||
-      childActive
-  );
-
-  useEffect(() => {
-    /*
-      Automatically expand a section when
-      one of its pages is active.
-    */
-
-    if (
-      itemActive ||
-      childActive
-    ) {
-      setExpanded(true);
-    }
-  }, [
-    itemActive,
-    childActive,
-  ]);
+  const [expansion, setExpansion] = useState(null);
+  const expanded = expansion?.pathname === pathname
+    ? expansion.value
+    : itemActive || childActive;
+  const setExpanded = (update) => {
+    setExpansion((previous) => ({
+      pathname,
+      value: update(previous?.pathname === pathname ? previous.value : itemActive || childActive),
+    }));
+  };
 
   const showActiveBackground =
     itemActive &&
@@ -183,7 +172,14 @@ const SidebarItem = ({
        
         {item.path ? (
           <NavLink
-            to={item.path}
+            to={canNavigate ? item.path : `${location.pathname}${location.search}${location.hash}`}
+            onClick={(event) => {
+              if (!canNavigate) {
+                event.preventDefault();
+                if (hasChildren) setExpanded((previous) => !previous);
+              }
+            }}
+            aria-disabled={!canNavigate && !hasChildren ? true : undefined}
             end={
               !item.activePrefix
             }
@@ -330,20 +326,6 @@ const SidebarItem = ({
             )}
 
            
-            {showActiveBackground &&
-              level > 0 &&
-              !collapsed && (
-                <span
-                  className="
-                    ml-auto
-                    h-[8px]
-                    w-[8px]
-                    shrink-0
-                    rounded-full
-                    bg-white
-                  "
-                />
-              )}
           </NavLink>
         ) : (
          

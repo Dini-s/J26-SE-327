@@ -42,6 +42,7 @@ from agents.traceability_agent.retrieval import (
 from agents.traceability_agent.utils import content_hash
 from shared.embeddings.embedder import Embedder
 from shared.llm.client import LLMClient
+from shared.schemas.link_policy import approval_status
 from shared.schemas.traceability import Artifact, TraceabilityLink, TraceabilityResponse
 from shared.uskg.client import USKGClient
 
@@ -197,10 +198,12 @@ class TraceabilityAgent:
         for index, candidate in enumerate(candidates, start=1):
             try:
                 started = time.perf_counter()
-                result = self.llm.verify_link(
+                target_text = llm_text(candidate.target)
+                result = (self.llm.verify_link(
                     candidate.source.model_copy(update={"text": llm_text(candidate.source)}),
-                    candidate.target.model_copy(update={"text": llm_text(candidate.target)}),
-                )
+                    candidate.target.model_copy(update={"text": target_text}),
+                ) if target_text.strip() else {"is_linked": False, "confidence": 0.0,
+                                              "reasoning": "No implementation to verify."})
                 elapsed = time.perf_counter() - started
                 self.verification_latencies.append(elapsed)
                 if elapsed > MAX_VERIFY_SECONDS:
@@ -224,6 +227,7 @@ class TraceabilityAgent:
                         reasoning=str(result.get("reasoning", "")),
                         latency=round(elapsed, 2),
                         kept=kept,
+                        approval_status=approval_status(confidence, kept),
                     )
                 if not kept:
                     continue
@@ -236,6 +240,7 @@ class TraceabilityAgent:
                     text_hash=content_hash(candidate.source, candidate.target),
                     sem_fingerprint=fingerprint_pair(candidate.source, candidate.target, llm_text(candidate.target)),
                 )
+                link = link.model_copy(update={"status": approval_status(confidence)})
                 links.append(link)
                 if on_link is not None:
                     on_link(link)

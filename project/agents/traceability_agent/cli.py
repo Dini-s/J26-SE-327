@@ -272,7 +272,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p.add_argument("--requirement", action="append", help="link only this requirement id (repeatable)")
     p.add_argument("--project", help="only this project / repository")
     p.add_argument("--retrieval", choices=["hybrid", "embeddings", "tfidf"], default="hybrid")
-    p.add_argument("--prompt", choices=["expert", "generic", "evidence"], default="evidence",
+    p.add_argument("--prompt", choices=["expert", "generic", "evidence"], default="expert",
                    help="evidence (default): the model must quote code that satisfies the requirement; expert: persona prompt, more lenient; generic: ablation")
     p.add_argument("--dry-run", action="store_true", help="verify but do not write")
     p.set_defaults(func=cmd_link)

@@ -1,3 +1,4 @@
+import { linkLabel, linkColor } from "./linkStatus";
 import { useState } from "react";
 import { shortName } from "./utils";
 
@@ -65,9 +66,9 @@ export function GraphView({ data, selected, onSelect, requirementText }) {
               <path
                 key={`${l.requirement}||${l.code}`}
                 d={edgePath(X_REQ + 6, yReq.get(l.requirement), X_CODE - 6, yCode.get(l.code))}
-                stroke={decayed ? "#ef4444" : "#6366f1"}
+                stroke={linkColor(l.status)}
                 strokeWidth={on ? 2.4 : 1.2}
-                strokeDasharray={decayed ? "5 4" : undefined}
+                strokeDasharray={decayed || l.status !== "verified" ? "5 4" : undefined}
                 opacity={dim ? 0.06 : on ? 0.95 : base}
               />
             );
@@ -148,15 +149,15 @@ export function NodeDetails({ selected, links, orphans, requirementText }) {
         {selected.type === "code" && <p className="break-all text-[11px] text-slate-400">{selected.id}</p>}
         {selected.type === "req" && <p className="mt-1 leading-relaxed text-slate-600">{requirementText.get(selected.id) || "-"}</p>}
       </div>
-      {isOrphan && <p className="rounded-lg border border-red-100 bg-red-50 p-2 text-red-700">No verified link: the LLM found no code that implements this requirement.</p>}
+      {isOrphan && <p className="rounded-lg border border-red-100 bg-red-50 p-2 text-red-700">No approved link. Review candidates or create new trace links.</p>}
       <p className="font-semibold text-slate-700">{related.length} link{related.length === 1 ? "" : "s"}</p>
       <ul className="space-y-2">
         {related.map((l) => (
           <li key={`${l.requirement}||${l.code}`} className="rounded-lg border border-slate-100 p-2.5">
             <div className="flex items-center justify-between gap-2">
               <span className="truncate font-medium text-slate-800">{selected.type === "req" ? shortName(l.code) : l.requirement}</span>
-              <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${l.status === "decayed" ? "bg-red-50 text-red-600" : "bg-emerald-50 text-emerald-600"}`}>
-                {l.status} {(l.confidence ?? 0).toFixed(2)}
+              <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${l.status === "verified" ? "bg-emerald-50 text-emerald-600" : l.status === "deferred" ? "bg-slate-100 text-slate-600" : l.status === "decayed" || l.status === "rejected" ? "bg-red-50 text-red-700" : "bg-amber-50 text-amber-700"}`}>
+                {linkLabel(l.status)} {(l.confidence ?? 0).toFixed(2)}
               </span>
             </div>
             <p className="mt-1 leading-relaxed text-slate-500">{l.reason || "No reason stored."}</p>
@@ -209,7 +210,7 @@ export function MatrixView({ data, selected, onSelect, requirementText }) {
                   <td key={c} className="p-0.5" title={l ? `${r} to ${c}\n${l.status} ${(l.confidence ?? 0).toFixed(2)}` : undefined}>
                     <div
                       className={`h-4 w-4 rounded-sm ${l ? "" : "bg-slate-100/70"}`}
-                      style={l ? { background: l.status === "decayed" ? "#ef4444" : `rgba(79,70,229,${0.25 + 0.75 * (l.confidence ?? 0.5)})` } : undefined}
+                      style={l ? { background: linkColor(l.status) } : undefined}
                     />
                   </td>
                 );

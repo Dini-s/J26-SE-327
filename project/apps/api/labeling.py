@@ -7,12 +7,17 @@ The sample is deterministic, so labelling can be done over several sittings.
 import hashlib
 import json
 import math
+import os
+import tempfile
+from threading import RLock
 import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
 
 LABELS_DIR = Path(__file__).resolve().parents[2] / "data" / "labels"
+_LABEL_LOCK = RLock()
+
 VALID = ("correct", "wrong", "unsure")
 BUCKETS = [(0.0, 0.7, "< 0.7"), (0.7, 0.85, "0.7 - 0.85"), (0.85, 1.01, ">= 0.85")]
 
@@ -28,7 +33,7 @@ def _path(project: str, directory: Path) -> Path:
 def sample_links(links: list[dict[str, Any]], n: int = 40, seed: str = "c4") -> list[dict[str, Any]]:
     """A repeatable random sample of the verified links (hash order, so it does not change between visits)."""
     verified = [l for l in links if l.get("status") != "decayed"]
-    verified.sort(key=lambda l: hashlib.sha256(f"{seed}|{l['requirement']}|{l['code']}".encode()).hexdigest())
+    verified.sort(key=lambda l: (l.get("status") != "pending_review", hashlib.sha256(f"{seed}|{l['requirement']}|{l['code']}".encode()).hexdigest()))
     return verified[: max(1, n)]
 
 
@@ -43,14 +48,25 @@ def set_label(project: str, requirement: str, code: str, label: Optional[str], d
     """Save (or clear, with ``None``) one label and return all labels of the project."""
     if label is not None and label not in VALID:
         raise ValueError(f"label must be one of {VALID} or null")
-    labels = load_labels(project, directory)
-    if label is None:
-        labels.pop(_key(requirement, code), None)
-    else:
-        labels[_key(requirement, code)] = {"label": label, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
-    directory.mkdir(parents=True, exist_ok=True)
-    _path(project, directory).write_text(json.dumps({"project": project, "labels": labels}, indent=1), encoding="utf-8")
-    return labels
+    with _LABEL_LOCK:
+        labels = load_labels(project, directory)
+        if label is None:
+            labels.pop(_key(requirement, code), None)
+        else:
+            labels[_key(requirement, code)] = {"label": label, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+        directory.mkdir(parents=True, exist_ok=True)
+        temporary = None
+        try:
+            with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=directory, delete=False) as fh:
+                temporary = Path(fh.name)
+                json.dump({"project": project, "labels": labels}, fh, indent=1)
+                fh.flush()
+                os.fsync(fh.fileno())
+            os.replace(temporary, _path(project, directory))
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
+        return labels
 
 
 def wilson(correct: int, total: int, z: float = 1.96) -> tuple[float, float]:

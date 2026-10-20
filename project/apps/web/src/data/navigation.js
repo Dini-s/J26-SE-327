@@ -13,6 +13,10 @@ import {
   Bug,
   TestTube2,
   ChartNoAxesCombined,
+  LayoutDashboard,
+  Link2,
+  FileDiff,
+  ClipboardCheck,
 } from "lucide-react";
 
 export const navigation = [
@@ -155,16 +159,19 @@ export const navigation = [
       {
         label: "Overview",
         path: "/traceability",
+        icon: LayoutDashboard,
       },
 
       {
         label: "Link requirements",
         path: "/traceability/link",
+        icon: Link2,
       },
 
       {
         label: "Code changes",
         path: "/traceability/changes",
+        icon: FileDiff,
       },
 
       {
@@ -176,7 +183,7 @@ export const navigation = [
       {
         label: "Evaluate links",
         path: "/traceability/labeling",
-        icon: ShieldAlert,
+        icon: ClipboardCheck,
       },
 
       {

@@ -16,7 +16,7 @@ C1 side   (:Requirement)-[:FROM_DOCUMENT]->(:Document), HAS_STORY->(:UserStory),
 Every code file is ALSO labelled ``CodeEntity`` (id, text, kind, project), which is the type C4 reads, so C4 needs no
 change. Metrics are computed from the real source and git history (static, regex-based; the code is never run).
 Not seeded: C2's machine-learning outputs (embeddings, XGBoost risk, SHAP evidence, recommendations); they would be
-invented. The requirements are synthetic (see ``petclinic_requirements.py``). Nothing outside project
+invented. The requirements are made up for the demo (see ``petclinic_requirements.py``). Nothing outside project
 ``spring-petclinic`` is touched; writes only run against a local Neo4j.
 """
 
@@ -254,7 +254,7 @@ def derive_findings(text: str) -> list[dict[str, Any]]:
 
 
 def build_requirements() -> dict[str, Any]:
-    """The C1-style nodes for every synthetic requirement, plus TF-IDF similarity between requirements."""
+    """The C1-style nodes for every demo requirement, plus TF-IDF similarity between requirements."""
     items = []
     for suffix, rtype, section, text, story, criteria, task, status in data.REQUIREMENTS:
         rid = f"PC-REQ-{suffix}"

@@ -50,12 +50,21 @@ class InMemoryUSKG:
         """Upsert a link keyed by (source, target); preserves the original verified_at."""
         now = datetime.now(timezone.utc)
         existing = self.traces.get((link.source_id, link.target_id))
+        if existing and existing.reviewed_hash == link.text_hash:
+            status = {"correct": "verified", "wrong": "rejected", "unsure": "pending_review"}.get(existing.review_label)
+            if status:
+                link = link.model_copy(update={"status": status, "review_label": existing.review_label,
+                                               "reviewed_hash": existing.reviewed_hash})
         self.traces[(link.source_id, link.target_id)] = link.model_copy(
             update={
                 "verified_at": existing.verified_at if existing and existing.verified_at else now,
                 "last_checked_at": now,
+                "verified_text_hash": link.text_hash if link.status == "verified" else link.verified_text_hash,
+                "verified_confidence": link.confidence if link.status == "verified" else link.verified_confidence,
             }
         )
+        if link.status != "decayed":
+            self.resolve_decay(link)
         return True
 
     def resolve_decay(self, link: TraceabilityLink) -> int:
@@ -83,6 +92,8 @@ class InMemoryUSKG:
         )
         self.traces[key] = current.model_copy(
             update={
+                "verified_text_hash": current.verified_text_hash or (current.text_hash if current.status == "verified" else None),
+                "verified_confidence": current.verified_confidence if current.verified_confidence is not None else (current.confidence if current.status == "verified" else None),
                 "status": "decayed",
                 "confidence": new_confidence,
                 "text_hash": text_hash or current.text_hash,

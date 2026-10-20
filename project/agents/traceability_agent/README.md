@@ -99,7 +99,7 @@ python -m apps.seed.petclinic               # write project "spring-petclinic" t
 python -m apps.seed.petclinic --reset       # remove what the seed wrote, then write again
 ```
 
-It writes `Repository` → `Package` → `CodeFile` (each code file also carries the label `CodeEntity`, which C4 reads) with package metrics (fan-in/out, coupling, instability), file metrics (lines, complexity, maintainability), `DEPENDS_ON` edges and git-history evolution features; and 26 synthetic requirements in C1's shape (`Requirement` with `Document`, `UserStory`, `AcceptanceCriterion`, `TechnicalTask`, `AnalysisFinding`, `Risk`, `SIMILAR_TO`). Three requirements describe features PetClinic does not have, so orphan detection has something to find. C2's machine-learning outputs (embeddings, risk model, SHAP evidence) are not invented. The code is only read, never run. `--reset` also removes links C4 wrote for those seeded nodes.
+It writes `Repository` → `Package` → `CodeFile` (each code file also carries the label `CodeEntity`, which C4 reads) with package metrics (fan-in/out, coupling, instability), file metrics (lines, complexity, maintainability), `DEPENDS_ON` edges and git-history evolution features; and 26 demo requirements in C1's shape (`Requirement` with `Document`, `UserStory`, `AcceptanceCriterion`, `TechnicalTask`, `AnalysisFinding`, `Risk`, `SIMILAR_TO`). Three requirements describe features PetClinic does not have, so orphan detection has something to find. C2's machine-learning outputs (embeddings, risk model, SHAP evidence) are not invented. The code is only read, never run. `--reset` also removes links C4 wrote for those seeded nodes.
 
 ### Notebooks
 
@@ -113,8 +113,8 @@ These steps are notebooks, not scripts. Each notebook explains its own steps in 
 | `scripts/replay_repo.ipynb` | Replays a real repository's commits (the jbehave demo) | Optional demo |
 | `scripts/build_gold_pairs.ipynb` | Demo of the same build, cell by cell (inputs, one example before/after cleaning, what is removed, final counts). Writes only to a temporary folder | Showing the viva how the evaluation file is made |
 | `scripts/build_gold_pairs.py` | Builds `data/final/all_projects_clean.csv` (about 69,000 labelled requirement/code pairs of the seven real projects, 2,620 true links) from `data/processed/`, in two steps: all labelled pairs, then code cleaned with the pipeline's own boilerplate rules. `--check` rebuilds into a temporary folder and compares | Re-create the evaluation file, or prove that it is reproducible |
-| `scripts/data_preparation.ipynb` | How the CodeBERT training data is cleaned and prepared, step by step: the five cleaning rules, what each removes (with examples), the split by domain, and a SHA-256 proof that the result is exactly `data/generated_pairs_clean/`. Also explains the preparation of the seven real projects | Before the viva: the answer to "how did you clean your data" |
-| `scripts/prepare_generated_pairs.py`, `scripts/clean_generated_pairs.py` | The same cleaning as plain scripts (`python scripts/prepare_generated_pairs.py` rewrites `data/generated_pairs_clean/`; the output is identical) | Alternative to the notebook |
+| `scripts/data_preparation.ipynb` | How the CodeBERT training data is cleaned and prepared, step by step: the five cleaning rules, what each removes (with examples), the split by domain, and a SHA-256 proof that the result is exactly `data/training_pairs_clean/`. Also explains the preparation of the seven real projects | Before the viva: the answer to "how did you clean your data" |
+| `scripts/prepare_training_pairs.py`, `scripts/clean_training_pairs.py` | The same cleaning as plain scripts (`python scripts/prepare_training_pairs.py` rewrites `data/training_pairs_clean/`; the output is identical) | Alternative to the notebook |
 | `scripts/codebert_training.ipynb` | Fine-tunes CodeBERT for stage 1 and tests it on unseen domains: baselines, loss curve, graphs, a control test, saves the model | To rebuild or improve `models/c4-codebert` (best on a Colab GPU) |
 | `scripts/codebert_cross_validation.ipynb` | Leave-one-project-out cross-validation on the seven real labelled projects: trains one CodeBERT per fold, graphs, bootstrap check, verdict | Evidence about CodeBERT on real data (Colab GPU, 1 to 1.5 h; `QUICK = True` for a check) |
 | `scripts/codebert_stage1_test.ipynb` | Tests the CodeBERT in `models/` on the seven real projects and PetClinic: tables, recall curves, bootstrap graphs, verdict | Minutes, on the Mac; shows the three-signal pipeline against the old one |
@@ -199,3 +199,29 @@ python -m agents.traceability_agent selfcheck --project iTrust      # add --json
 ```
 
 No LLM. Checks that both ends of every link exist, no pair is linked twice, confidences are valid, verified links pass the threshold, linked files still contain code, a code quote a link relies on is still in its file, a method named in a reason still exists, every decayed link has its DecayFlag, and that orphans and scores agree with the links. For a ground-truth dataset (iTrust, eTour, CM-1, ...) it also prints precision and recall of the stored links against `data/processed/<name>/traces.json`; recall counts only the true links of requirements C4 has already processed. The same report is on the dashboard (Overview, Health tab). The exit code is 1 if any check fails.
+
+### Connected GitHub branches
+
+Projects added through **Add a project → GitHub repository** are monitored by the API
+server every 60 seconds. The selected branch (or the default branch at import time) is
+remembered in `data/repos/connections.json`, alongside its private local clone. These
+files are ignored by Git. Existing dashboard imports with matching local clones are
+recovered when the API starts.
+
+Push a source change to that branch after creating trace links. When the pipeline is idle,
+the watcher fetches the latest branch, updates the connector-owned `CodeEntity` nodes,
+and starts C4's `changed` pipeline. Modified and deleted files trigger checks of their
+existing links; new files are considered for new links. Deleted nodes retain their old
+text for inspection but expose empty current content so dependent links can decay.
+Renames are treated as a deletion and an addition. Non-source changes advance the commit
+checkpoint without calling the AI.
+
+**Code changes → Repository monitoring** shows the branch, latest commit messages,
+changed-file counts, last check, and errors. Drift results appear below. The former
+simulation controls are replaced by this live repository view. Manual drift scans remain
+available for local folders and seeded datasets.
+
+The API must remain running with network access. This is polling, so detection takes up
+to one polling interval when idle, followed by the AI's processing time. While another
+analysis is active, repository updates wait. A commit is checkpointed only after its C4
+process exits successfully; failed work is retried, including after an API restart.

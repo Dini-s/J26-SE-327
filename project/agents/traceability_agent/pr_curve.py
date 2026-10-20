@@ -23,7 +23,7 @@ def pr_curve(
     ``operating_point`` is the loosest threshold whose precision reaches ``target_precision`` (most links kept).
     """
     gold_set = set(gold)
-    verified = [t for t in traces if t.status != "decayed"]
+    verified = [t for t in traces if t.status == "verified"]
     processed = {t.source_id for t in traces}
     gold_processed = {g for g in gold_set if g[0] in processed}
     levels = sorted({round(t.confidence, 2) for t in verified})

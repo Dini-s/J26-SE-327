@@ -41,7 +41,7 @@ All datasets are public. SMOS and eANCI are Italian and were translated to Engli
 | test | libest | 52 | 14 | 204 |
 | test | cm1 | 22 | 53 | 45 |
 | test | ebt | 41 | 50 | 98 |
-| demo | petclinic | 26 | 37 | none (synthetic requirements) |
+| demo | petclinic | 26 | 37 | none (demo requirements) |
 
 Sources: SMOS, eANCI, EasyClinic from CoEST; iTrust, eTour, LibEST, EBT from the COMET replication package (SEMERU). EasyClinic was inspected but not used (its targets are class descriptions, not code). In eANCI only the 39 requirements that appear in the gold links were used.
 
@@ -258,7 +258,7 @@ Reading: the only robust effect is **more true links in the top 5** (hits@5, poo
 
 ### 5.5 Stage 1 versus stage 1 + reranker, with the LLM (PetClinic)
 
-26 synthetic requirements written from the code, 37 code files. Every candidate pair of both methods had already been judged by Llama 3.1 8B in earlier runs (expert prompt, temperature 0), so no new LLM calls were made. "Confirmed" = `is_linked` and confidence >= 0.5.
+26 demo requirements written from the code, 37 code files. Every candidate pair of both methods had already been judged by Llama 3.1 8B in earlier runs (expert prompt, temperature 0), so no new LLM calls were made. "Confirmed" = `is_linked` and confidence >= 0.5.
 
 | shortlist | LLM calls | stage 1 only: confirmed | stage 1 + reranker: confirmed |
 |---|---|---|---|
@@ -407,25 +407,25 @@ First 15 requirements of eTour, top-5 candidates each, 93 true links among them,
 
 The LLM step removes most wrong candidates (precision 49% to 82%) but also rejects many true ones (recall 40% to 24%), so F1 goes down. The same pattern as on iTrust (precision up, recall down) and the same lesson: the verification is precise but too strict, and recall is limited first by the shortlist and then by the LLM. 15 requirements only; the expert-prompt run on the same requirements was not done.
 
-### 5.u Fine-tuning MiniLM on synthetic data (stage-1 embedding model)
+### 5.u Fine-tuning MiniLM on training pairs (stage-1 embedding model)
 
-Question: does training the stage-1 embedding model (all-MiniLM-L6-v2) on synthetic requirement/code pairs raise stage-1 recall? Training data: 2,271 hand-made synthetic pairs in 4 languages (Java, JavaScript, C, SQL and JSP), 30+ domains, each with 2 hard negatives (similar-looking wrong code). Test data: LibEST, CM-1 and EBT, expert-labelled projects never used for training. Metric: recall of the true links in each requirement's top-k, averaged over the three test sets (macro). Colab T4, 3 seeds, 2 epochs, batch 16, in-batch negatives with the contrastive loss; the comparison arm trains on the same number of REAL expert-labelled pairs (iTrust, eTour, SMOS, eANCI). Raw numbers: `data/results/synthetic_minilm_colab_log.txt`.
+Question: does training the stage-1 embedding model (all-MiniLM-L6-v2) on LLM-written requirement/code pairs raise stage-1 recall? Training data: 2,271 hand-made training pairs in 4 languages (Java, JavaScript, C, SQL and JSP), 30+ domains, each with 2 hard negatives (similar-looking wrong code). Test data: LibEST, CM-1 and EBT, expert-labelled projects never used for training. Metric: recall of the true links in each requirement's top-k, averaged over the three test sets (macro). Colab T4, 3 seeds, 2 epochs, batch 16, in-batch negatives with the contrastive loss; the comparison arm trains on the same number of REAL expert-labelled pairs (iTrust, eTour, SMOS, eANCI). Raw numbers: `data/results/training_pairs_minilm_colab_log.txt`.
 
 | Training data | Embeddings only, recall@5 | @10 | Hybrid (the pipeline's stage 1), @5 | @10 |
 |---|---|---|---|---|
 | None (untrained MiniLM) | 0.584 | 0.846 | 0.572 | 0.853 |
-| Synthetic pairs | 0.590 (+0.006) | 0.838 (-0.007) | 0.576 (+0.005) | 0.841 (-0.012) |
-| Synthetic + hard negatives | 0.583 (-0.001) | 0.821 (-0.025) | 0.587 (+0.015) | 0.855 (+0.001) |
+| Training pairs only | 0.590 (+0.006) | 0.838 (-0.007) | 0.576 (+0.005) | 0.841 (-0.012) |
+| Training pairs + hard negatives | 0.583 (-0.001) | 0.821 (-0.025) | 0.587 (+0.015) | 0.855 (+0.001) |
 | **Real expert pairs (same number)** | **0.618 (+0.034)** | 0.856 (+0.010) | 0.579 (+0.007) | 0.857 (+0.003) |
-| Real + synthetic + hard negatives | 0.612 (+0.028) | 0.834 (-0.012) | 0.596 (+0.025) | 0.858 (+0.005) |
+| Real + training pairs + hard negatives | 0.612 (+0.028) | 0.834 (-0.012) | 0.596 (+0.025) | 0.858 (+0.005) |
 
 Seed-to-seed spread is about 0.005 to 0.009, so differences under about 0.02 are noise.
 
 Reading:
-* **Synthetic data did not help** (changes between -0.025 and +0.015, inside the noise), with or without hard negatives. Doubling the data (1,000 to 2,271 pairs) did not change this.
+* **The extra training pairs did not help** (changes between -0.025 and +0.015, inside the noise), with or without hard negatives. Doubling the data (1,000 to 2,271 pairs) did not change this.
 * **Real expert pairs give a small gain for the embedding alone** (+0.034 at recall@5) but almost nothing for the hybrid that C4 uses (+0.007 at recall@5, +0.003 at recall@10), because TF-IDF already supplies most of the signal.
 * Nothing here moves the pipeline's stage-1 recall materially. The shortlist bottleneck is not a lack of training data for MiniLM; further fine-tuning is not worth the effort. Larger gains would need a stronger retrieval model or a larger top-k.
-* Limits: three small test sets (LibEST has only 14 files, so recall@10 is nearly saturated there); one model; synthetic data written by LLMs in one style.
+* Limits: three small test sets (LibEST has only 14 files, so recall@10 is nearly saturated there); one model; training pairs written by LLMs in one style.
 
 ### 5.t Decay detection with the meaning-change check
 
@@ -458,14 +458,14 @@ Limits to say out loud:
 * **Hard negatives** are chosen by stage 1 and may contain true links missing from the gold standard.
 * **eTour code is Italian** (identifiers untranslated).
 * **Translations** were made by an LLM and not verified by a speaker of Italian.
-* **PetClinic** has no human gold: "confirmed" means an 8B LLM said yes, and it makes false positives (for example `vetList.html` for owner pagination). The requirements are synthetic.
+* **PetClinic** has no human gold: "confirmed" means an 8B LLM said yes, and it makes false positives (for example `vetList.html` for owner pagination). The requirements are made up for the demo.
 * **Colab results are replayed, not recomputed:** the Colab model folders and score files were not downloaded. Re-training locally on different hardware gives slightly different numbers.
 * **UniXcoder** was tested with plain mean pooling only; its recommended pooling mode was not tried.
 * Nothing here was run end to end with the LLM and the graph on the benchmark datasets; the PetClinic comparison replays earlier verdicts.
 
 ## 7. Reproducing the results
 
-> **Note (archived code).** The experiment code and bundles behind sections 5.3 to 5.u (the cross-encoder reranker, the learned ranker, the MiniLM fine-tuning on synthetic pairs, the Colab notebooks, and the training bundles in `data/reranker`, `data/codebert_run`, `data/generated_pairs` (earlier `data/synthetic`)) were moved out of the project into `J26-SE-327-removed-files/c4-experiments-*/` (same relative paths) and are no longer part of the pipeline. The result files in `data/results/` and the numbers in this document were not changed. The commands below that name those files only work after the archive is put back.
+> **Note (archived code).** The experiment code and bundles behind sections 5.3 to 5.u (the cross-encoder reranker, the learned ranker, the MiniLM fine-tuning on training pairs, the Colab notebooks, and the training bundles in `data/reranker`, `data/codebert_run`, `data/training_pairs`) were moved out of the project into `J26-SE-327-removed-files/c4-experiments-*/` (same relative paths) and are no longer part of the pipeline. The result files in `data/results/` and the numbers in this document were not changed. The commands below that name those files only work after the archive is put back.
 
 Open `scripts/reproduce_reranker_analysis.ipynb` with the project's `.venv` kernel (Python 3.9). It prints every table in this document that can be recomputed.
 

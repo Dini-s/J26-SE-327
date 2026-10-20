@@ -1,3 +1,4 @@
+import { linkLabel, linkTone } from "../component/traceability/linkStatus";
 import { useMemo, useState } from "react";
 import { Activity, FileWarning, Gauge, Percent, Search } from "lucide-react";
 import { useApi, useProject } from "../api/c4";
@@ -13,13 +14,14 @@ function Insights({ a }) {
       <section className="grid grid-cols-2 gap-5 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] lg:grid-cols-4">
         <Metric label="Requirement coverage" value={`${Math.round(a.coverage * 100)}%`} icon={Percent} tone="indigo" />
         <Metric label="Mean confidence" value={a.meanConfidence.toFixed(2)} icon={Gauge} tone="green" />
-        <Metric label={`Trusted (≥0.85) · ${a.reviewLinks ?? 0} need review`} value={`${a.trustedLinks} / ${a.verifiedLinks}`} icon={Activity} tone="indigo" />
+        <Metric label="Pending review" value={a.pendingReviewLinks ?? a.reviewLinks ?? 0} icon={Activity} tone="amber" />
         <Metric label="Decay events" value={a.decayEvents} icon={FileWarning} tone={a.decayEvents ? "red" : "slate"} />
       </section>
 
       <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xl:grid-cols-3">
         <Card title="Link confidence" description="How sure the AI was about each verified link.">
           <BarChart items={a.confidenceHistogram} tone="indigo" />
+          <p className="mt-3 text-[11px] text-slate-400">AI confidence distribution, not measured correctness.</p>
         </Card>
         <Card title="Links per requirement" description="Requirements with 0 links are orphans.">
           <BarChart items={a.linksPerRequirement} tone="green" />
@@ -204,7 +206,7 @@ function Impact({ links, c3 }) {
                     <Chip tone="violet" className="hidden md:inline-flex">{c3Of(l.requirement).validated}/{c3Of(l.requirement).rvus} RVUs validated</Chip>
                   )}
                   <ConfBar value={l.confidence} tone={l.status === "decayed" ? "red" : undefined} />
-                  <Chip tone={l.status === "decayed" ? "red" : "green"} dot>{l.status === "decayed" ? "broken" : "verified"}</Chip>
+                  <Chip tone={linkTone(l.status)} dot>{linkLabel(l.status)}</Chip>
                 </li>
               ))}
             </ul>
@@ -239,8 +241,8 @@ const TraceabilityAnalytics = () => {
     <div className="mx-auto w-full max-w-[1400px] pb-8">
       <PageHeader
         page="Analytics"
-        title="Traceability Analytics"
-        description="Where the links are strong or weak, which files are risky to change, and what a change would affect."
+        title="Analytics"
+        description="Coverage, confidence, and change impact."
         apiError={projectsError || analytics.error}
       />
       <Tabs value={tab} onChange={setTab} items={[{ id: "insights", label: "Insights" }, { id: "pr", label: "Precision vs recall" }, { id: "impact", label: "Impact analysis" }]} />

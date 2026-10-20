@@ -6,7 +6,7 @@ from typing import Any, Literal, Optional
 from pydantic import BaseModel, Field
 
 ArtifactType = Literal["requirement", "code", "test", "design"]
-LinkStatus = Literal["verified", "decayed"]
+LinkStatus = Literal["verified", "decayed", "pending_review", "rejected"]
 
 
 class Artifact(BaseModel):
@@ -39,7 +39,7 @@ class TraceabilityLink(BaseModel):
         link_type: Label such as ``"requirement_to_code"``.
         confidence: Verifier confidence in ``[0, 1]``.
         justification: Plain-language explanation of the verdict.
-        status: ``verified`` or ``decayed``.
+        status: approved (``verified``), ``pending_review``, ``rejected``, or ``decayed``.
         text_hash: Hash of both texts at verification time (for change detection).
         sem_fingerprint: JSON fingerprint (numbers, negations, flags, operators) of both texts at verification time.
         verified_at: When the link was first verified.
@@ -53,6 +53,10 @@ class TraceabilityLink(BaseModel):
     justification: str
     status: LinkStatus = "verified"
     text_hash: Optional[str] = None
+    review_label: Optional[str] = None
+    reviewed_hash: Optional[str] = None
+    verified_text_hash: Optional[str] = None
+    verified_confidence: Optional[float] = None
     sem_fingerprint: Optional[str] = None
     verified_at: Optional[datetime] = None
     last_checked_at: Optional[datetime] = None

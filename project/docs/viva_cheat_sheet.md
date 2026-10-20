@@ -101,12 +101,12 @@ Sidebar: repo switcher + service dots (Neo4j/Redis/Llama). Top bar: Refresh. C4 
 | **CodeBERT fine-tune** | தோல்வி | Training நிலையற்றது; stage 1-ஐ விட நல்லா வரல |
 | **MiniLM cross-encoder reranker** | gain இல்ல | Recall தடை shortlist-ல, rerank-ல இல்ல |
 | **Learning curve** (1→4 projects) | தட்டை | அதிக data உதவாது |
-| **Synthetic data (30 domains + DeepSeek)** | gain இல்ல | Real pairs +0.034 emb@5 ஆனா hybrid@5 +0.007 மட்டும் |
+| **Extra training pairs (30 domains + extra batches)** | gain இல்ல | Real pairs +0.034 emb@5 ஆனா hybrid@5 +0.007 மட்டும் |
 | **Hard-negative training** | gain இல்ல | அதே காரணம் |
 | **Learned Link Ranker** (gradient boosting, 16 features, leave-one-project-out) | **recall@10: 0.494 vs 0.578 hybrid** (மோசம்) | 7 சிறிய projects; features hybrid-ஐ மீண்டும் கற்கிறது |
 | **Query expansion** | gain இல்ல | `data/results/query_expansion_itrust.json` |
 
-**ஒரே வாக்கியத்தில்:** "Stage 1 recall தான் தடை; fine-tuning, synthetic data, learned ranking எதுவும் அதை தீர்க்கல – அளந்து காட்டியிருக்கேன்."
+**ஒரே வாக்கியத்தில்:** "Stage 1 recall தான் தடை; fine-tuning, extra training pairs, learned ranking எதுவும் அதை தீர்க்கல – அளந்து காட்டியிருக்கேன்."
 
 ## 8. என் புதுமை (Novelty) – "என்ன புதுசா செஞ்சீங்க?"
 
@@ -173,7 +173,7 @@ Models pre-trained தான். என் பங்களிப்பு: (ப�
 அளவு/வேகம்/இலவசம்/local (data வெளியே போகாது). மேலும் 3 models-ஐ ஒரே 60 pairs-ல அளந்தேன் → *(பகுதி 14-ல முடிவு)*.
 
 **Q3. Recall ஏன் குறைவு?**
-Llama சரிபார்க்கும் முன்பே shortlist-ல உண்மையான file இல்ல (top-10: 42–53%). Fine-tuning, synthetic data, learned ranker, reranker எல்லாம் முயற்சித்து அளந்தேன்; எதுவும் உதவல. Precision-ஐ முன்னுரிமையா வச்சேன்.
+Llama சரிபார்க்கும் முன்பே shortlist-ல உண்மையான file இல்ல (top-10: 42–53%). Fine-tuning, extra training pairs, learned ranker, reranker எல்லாம் முயற்சித்து அளந்தேன்; எதுவும் உதவல. Precision-ஐ முன்னுரிமையா வச்சேன்.
 
 **Q4. Precision எப்படி 92% ஆனது?**
 Confidence ≥0.9 மட்டும் எடுக்கும் "High-precision mode". விலை: recall 6.0%. இது operating-point தேர்வு, சூழலுக்கேற்ப மாற்றலாம்.

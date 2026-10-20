@@ -6,7 +6,7 @@ export function useVisible(links, orphans, filters) {
   return useMemo(() => {
     const q = filters.search.trim().toLowerCase();
     const visible = links.filter(
-      (l) => (l.status === "decayed" ? filters.decayed : filters.verified) && (l.confidence ?? 0) >= filters.minConfidence,
+      (l) => (filters[l.status || "verified"] ?? true) && (l.confidence ?? 0) >= filters.minConfidence,
     );
     const reqIds = new Set(visible.map((l) => l.requirement));
     if (filters.orphans) orphans.forEach((o) => reqIds.add(o.requirement));

@@ -11,15 +11,20 @@ import os
 import signal
 import subprocess
 import sys
+import threading
 from datetime import datetime
 from typing import Any, Optional
 
 from apps.api.sources import PROCESSED_DIR, PROJECT_ROOT, RUNS_DIR, load_dataset
 
+RUN_LOCK = threading.RLock()
+
 SECONDS_PER_CALL = 52  # measured mean on the CPU-only Ollama server; an estimate for the UI only
 import re
 
 ID_PATTERN = re.compile(r"[A-Za-z0-9._-]{1,60}")
+# Imported repositories use namespaced graph keys, e.g. aspire/bmi-calc.
+PROJECT_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*(?:/[A-Za-z0-9][A-Za-z0-9._-]*)*")
 RETRIEVALS = ("hybrid", "embeddings", "tfidf")
 KINDS = ("evaluate", "link", "monitor", "changed")
 LOGS_DIR = RUNS_DIR / "_logs"
@@ -52,8 +57,8 @@ def validate(params: dict[str, Any]) -> dict[str, Any]:
     if kind not in KINDS:
         raise RunnerError(f"kind must be one of {KINDS}")
     project = params.get("project") or None
-    if project is not None and not (isinstance(project, str) and ID_PATTERN.fullmatch(project)):
-        raise RunnerError("project must be a simple name (letters, digits, . _ -)")
+    if project is not None and not (isinstance(project, str) and len(project) <= 200 and PROJECT_PATTERN.fullmatch(project)):
+        raise RunnerError("project must be a project key (letters, digits, . _ - and / between name segments; max 200 characters)")
     if kind == "monitor":
         out: dict[str, Any] = {"kind": "monitor", "force": bool(params.get("force", False))}
         return {**out, "project": project} if project else out
@@ -124,7 +129,8 @@ def build_command(params: dict[str, Any]) -> list[str]:
                 cmd += [flag, value]
         return cmd
     if params["kind"] == "link":
-        cmd = base_cmd + ["agents.traceability_agent", "link", "--top-k", str(params["top_k"]), "--retrieval", params["retrieval"]] + project
+        cmd = base_cmd + ["agents.traceability_agent", "link", "--top-k", str(params["top_k"]), "--retrieval", params["retrieval"],
+                          "--prompt", "expert"] + project   # the dashboard always uses the expert prompt (the measured one)
         for rid in params["requirement_ids"]:
             cmd += ["--requirement", rid]
         if params.get("only_unlinked"):
@@ -160,7 +166,7 @@ def status() -> dict[str, Any]:
     return result
 
 
-def start(params: dict[str, Any], command: Optional[list[str]] = None) -> dict[str, Any]:
+def _start(params: dict[str, Any], command: Optional[list[str]] = None) -> dict[str, Any]:
     """Launch a run. ``command`` overrides the real command (used by tests).
 
     Raises:
@@ -182,6 +188,11 @@ def start(params: dict[str, Any], command: Optional[list[str]] = None) -> dict[s
         )
     _state.update(proc=proc, params=cleaned, started=datetime.now().isoformat(timespec="seconds"), log=log_path)
     return {"pid": proc.pid, "params": cleaned, **estimate(cleaned)}
+
+
+def start(params: dict[str, Any], command: Optional[list[str]] = None) -> dict[str, Any]:
+    with RUN_LOCK:
+        return _start(params, command)
 
 
 def stop() -> dict[str, Any]:

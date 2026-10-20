@@ -18,7 +18,7 @@ const TraceabilityGraph = () => {
 
   const [tab, setTab] = useState("graph");
   const [selected, setSelected] = useState(null);
-  const [filters, setFilters] = useState({ verified: true, decayed: true, orphans: true, minConfidence: 0, search: "" });
+  const [filters, setFilters] = useState({ verified: true, decayed: true, pending_review: true, deferred: true, rejected: true, orphans: true, minConfidence: 0, search: "" });
   const set = (patch) => setFilters((previous) => ({ ...previous, ...patch }));
 
   const all = useMemo(() => links.data?.links ?? [], [links.data]);
@@ -35,8 +35,8 @@ const TraceabilityGraph = () => {
   return (
     <div className="mx-auto w-full max-w-[1500px]">
       <TraceHeader
-        title="Traceability Graph"
-        subtitle="Requirements on the left, the code that implements them on the right. Every line is a link the LLM verified; red dashed lines have decayed."
+        title="Traceability graph"
+        subtitle="Explore requirements and their connections to code."
         apiError={projectsError || links.error}
       />
 
@@ -60,8 +60,11 @@ const TraceabilityGraph = () => {
           }
         >
           <div className="mb-4 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-lg bg-slate-50 px-3 py-2.5">
-            <Toggle checked={filters.verified} onChange={(v) => set({ verified: v })}>verified</Toggle>
-            <Toggle checked={filters.decayed} onChange={(v) => set({ decayed: v })}>decayed</Toggle>
+            <Toggle checked={filters.verified} onChange={(v) => set({ verified: v })}>Approved</Toggle>
+            <Toggle checked={filters.pending_review} onChange={(v) => set({ pending_review: v })}>Needs review</Toggle>
+            <Toggle checked={filters.deferred} onChange={(v) => set({ deferred: v })}>Deferred</Toggle>
+            <Toggle checked={filters.rejected} onChange={(v) => set({ rejected: v })}>Rejected</Toggle>
+            <Toggle checked={filters.decayed} onChange={(v) => set({ decayed: v })}>Broken</Toggle>
             <Toggle checked={filters.orphans} onChange={(v) => set({ orphans: v })}>orphan requirements</Toggle>
             <label className="flex items-center gap-2 text-[12px] text-slate-600">
               min confidence {filters.minConfidence.toFixed(2)}
@@ -82,9 +85,11 @@ const TraceabilityGraph = () => {
           )}
         </Card>
 
-        <Card title="Details" subtitle="Click a node in the graph or a requirement in the matrix">
-          <NodeDetails selected={selected} links={all} orphans={orphans} requirementText={requirementText} />
-        </Card>
+        <div className="min-w-0 self-start xl:sticky xl:top-24">
+          <Card title="Details" subtitle="Select a node to inspect.">
+            <NodeDetails selected={selected} links={all} orphans={orphans} requirementText={requirementText} />
+          </Card>
+        </div>
       </div>
     </div>
   );

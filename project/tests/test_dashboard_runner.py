@@ -112,3 +112,22 @@ def test_only_unlinked_links_all_requirements_without_a_link():
     named = runner.validate({"kind": "link", "requirement_ids": ["NEW-1"], "only_unlinked": True})
     assert "only_unlinked" not in named
     assert "--only-unlinked" not in runner.build_command(runner.validate({"kind": "link"}))
+
+
+@pytest.mark.parametrize("project", ["aspire/bmi-calc", "local/my-project", "owner/repo", "spring-petclinic"])
+@pytest.mark.parametrize("kind", ["link", "monitor", "changed"])
+def test_imported_project_keys_pass_validation_and_reach_cli(project, kind):
+    params = {"kind": kind, "project": project, "only_unlinked": True, "limit_sources": 0}
+    if kind == "changed":
+        params["code_changed"] = ["src/Main.java"]
+    cleaned = runner.validate(params)
+    command = runner.build_command(cleaned)
+    assert command[command.index("--project") + 1] == project
+    if kind == "link":
+        assert "--only-unlinked" in command
+
+
+@pytest.mark.parametrize("project", ["../repo", "/repo", "owner/../repo", "owner//repo", "owner/repo/", "owner repo", "repo;echo", "x" * 201])
+def test_invalid_project_keys_are_rejected(project):
+    with pytest.raises(runner.RunnerError, match="project"):
+        runner.validate({"kind": "link", "project": project})

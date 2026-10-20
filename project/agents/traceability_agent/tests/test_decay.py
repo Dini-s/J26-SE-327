@@ -188,7 +188,7 @@ def test_small_confidence_noise_under_the_threshold_does_not_decay():
     store = InMemoryUSKG([REQ, CODE.model_copy(update={"text": "TOKEN_TTL_SECONDS = 901"})], [link_for(confidence=0.55)])
     results = DecayDetector(store, llm_returning(0.49)).run()  # still "linked", dropped only 0.06
     assert len(results) == 1 and not results[0].decayed
-    assert store.get_traces()[0].status == "verified"
+    assert store.get_traces()[0].status == "rejected"
 
 
 def test_a_large_drop_under_the_threshold_still_decays():
@@ -261,3 +261,48 @@ def test_older_links_without_a_fingerprint_still_use_the_llm():
     llm = llm_returning(0.9)
     DecayDetector(store, llm).run()
     llm.verify_link.assert_called_once()
+
+
+def test_exact_revert_restores_verified_verdict_without_llm_noise():
+    store = InMemoryUSKG([REQ, CODE], [link_for()])
+    detector = DecayDetector(store, llm_returning(0.1, is_linked=False))
+    for _ in range(2):
+        store.artifacts[CODE.id] = CODE.model_copy(update={"text": "TOKEN_TTL_SECONDS = 90000"})
+        assert detector.run()[0].decayed
+        store.artifacts[CODE.id] = CODE
+        noisy_llm = llm_returning(0.1, is_linked=False)
+        result, = DecayDetector(store, noisy_llm).run()
+        assert not result.decayed
+        noisy_llm.verify_link.assert_not_called()
+        assert store.get_traces()[0].confidence == 0.9
+        assert all(flag.get("resolved") for flag in store.decay_flags)
+    assert len(store.decay_flags) == 2
+
+
+def test_relinking_a_decayed_pair_closes_flags_too():
+    store = InMemoryUSKG([REQ, CODE], [link_for()])
+    store.mark_decayed(link_for(), 0.0, "broken")
+    store.write_link(link_for())
+    assert store.get_traces()[0].status == "verified"
+    assert store.decay_flags[0]["resolved"]
+
+
+def test_rescan_cannot_override_human_rejection_for_same_version():
+    rejected = link_for(status='rejected',review_label='wrong',reviewed_hash=content_hash(REQ,CODE))
+    store = InMemoryUSKG([REQ,CODE],[rejected])
+    llm = llm_returning(.99)
+    DecayDetector(store,llm).run(force=True)
+    llm.verify_link.assert_not_called()
+    assert store.get_traces()[0].status == 'rejected'
+    store.write_link(link_for(confidence=.99))
+    assert store.get_traces()[0].status == 'rejected'
+
+
+def test_changed_rejected_code_gets_a_fresh_verdict():
+    rejected = link_for(status='rejected',review_label='wrong',reviewed_hash=content_hash(REQ,CODE))
+    changed = CODE.model_copy(update={'text':'TOKEN_TTL_SECONDS = 900 # implementation fixed'})
+    store = InMemoryUSKG([REQ,changed],[rejected])
+    llm = llm_returning(.6)
+    DecayDetector(store,llm).run()
+    llm.verify_link.assert_called_once()
+    assert store.get_traces()[0].status == 'pending_review'

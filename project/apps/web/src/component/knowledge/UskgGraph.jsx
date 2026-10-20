@@ -1,3 +1,4 @@
+import { linkColor, linkLabel } from "../traceability/linkStatus";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { KS, PALETTE, layoutGraph, radiusOf } from "./layout";
 import { shortName } from "../traceability/utils";
@@ -180,14 +181,14 @@ export default function UskgGraph({ nodes, edges, selected, onSelect, search, ar
             const decayed = e.category === "decayed";
             const flag = e.category === "has_decay";
             const rel = e.category === "rel";
-            const color = decayed ? c.bad : flag ? c.warn : rel ? c.faint : c.ok;
+            const color = flag ? c.warn : rel ? c.faint : linkColor(e.category);
             const { d, mx, my } = edgeGeometry(a, b, !flag);
             const touching = neighbours && neighbours.has(e.from) && neighbours.has(e.to) && (e.from === selected.id || e.to === selected.id);
             const dim = (neighbours && !touching) || (q && !(matches(a) || matches(b)));
             const isSelected = selected?.type === "edge" && selected.index === i;
             return (
               <g key={`${e.from}-${e.to}-${i}`} opacity={dim ? 0.12 : 1}>
-                <path d={d} fill="none" stroke={color} strokeWidth={isSelected || touching ? 2.6 : flag ? 1 : 1.5} vectorEffect="non-scaling-stroke" strokeDasharray={decayed ? "6 4" : flag ? "2 4" : undefined} markerEnd={`url(#arr-${decayed ? "bad" : flag || rel ? "warn" : "ok"})`} />
+                <path d={d} fill="none" stroke={color} strokeWidth={isSelected || touching ? 2.6 : flag ? 1 : 1.5} vectorEffect="non-scaling-stroke" strokeDasharray={decayed || e.category === "rejected" ? "6 4" : flag || e.category === "pending_review" ? "2 4" : undefined} markerEnd={`url(#arr-${decayed ? "bad" : flag || rel ? "warn" : "ok"})`} />
                 {!flag && (
                   <path
                     d={d}
@@ -202,7 +203,7 @@ export default function UskgGraph({ nodes, edges, selected, onSelect, search, ar
                 )}
                 {!flag && selected && view.k >= 0.7 && (
                   <text x={mx} y={my - 4} textAnchor="middle" fontSize={10 / k} fill={decayed ? c.bad : c.muted} fontFamily="ui-monospace, monospace" pointerEvents="none">
-                    {rel ? e.rel : decayed ? "VERIFIED_TRACE (decayed)" : "VERIFIED_TRACE"}
+                    {rel ? e.rel : `Trace: ${linkLabel(e.category)}`}
                   </text>
                 )}
               </g>

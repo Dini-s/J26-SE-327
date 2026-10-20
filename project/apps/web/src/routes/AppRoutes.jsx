@@ -1,21 +1,12 @@
-import React from "react";
-
+import MinimalTraceability from "../component/traceability/MinimalTraceability";
 import {
   BrowserRouter,
   Routes,
   Route,
   Navigate,
-  useParams,
 } from "react-router-dom";
 import DashboardLayout from "../Layouts/DashboardLayout";
-import DashboardOverview from "../pages/DashboardOverview";
-import TraceabilityOverview from "../pages/TraceabilityOverview";
-import TraceabilityGraph from "../pages/TraceabilityGraph";
-import TraceabilityLink from "../pages/TraceabilityLink";
-import TraceabilityChanges from "../pages/TraceabilityChanges";
-import TraceabilityAnalytics from "../pages/TraceabilityAnalytics";
-import TraceabilityLabeling from "../pages/TraceabilityLabeling";
-import KnowledgeGraph from "../pages/KnowledgeGraph";
+import { pageRoutes } from "./pageRoutes";
 
 const AppRoutes = () => {
   return (
@@ -23,14 +14,9 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<Navigate to="/overview" replace />} />
-          <Route path="overview" element={<DashboardOverview />} />
-          <Route path="traceability" element={<TraceabilityOverview />} />
-          <Route path="traceability/graph" element={<TraceabilityGraph />} />
-          <Route path="traceability/link" element={<TraceabilityLink />} />
-          <Route path="traceability/analytics" element={<TraceabilityAnalytics />} />
-          <Route path="traceability/labeling" element={<TraceabilityLabeling />} />
-          <Route path="traceability/changes" element={<TraceabilityChanges />} />
-          <Route path="knowledge-graph" element={<KnowledgeGraph />} />
+          {pageRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path.slice(1)} element={path.startsWith("/traceability") ? <MinimalTraceability><Component /></MinimalTraceability> : <Component />} />
+          ))}
 
         </Route>
       </Routes>

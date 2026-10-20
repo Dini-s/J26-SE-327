@@ -10,11 +10,17 @@ data/raw/
 data/runs/
 models/
 data/seed/
-data/synthetic_codebert/
-data/generated_pairs_clean_check/
+data/training_codebert/
+data/training_pairs_clean_check/
 
-# Generated merged dataset (keep local copies out of Git).
+# Merged dataset (keep local copies out of Git).
 data/final/all_projects_clean.csv
 data/final/all_projects_clean.csv.gz
 data/final/all_projects.csv
 data/final/all_projects.csv.gz
+
+# Local repository clones and branch sync checkpoints.
+data/repos/
+
+# GitHub App signing keys.
+*.pem
