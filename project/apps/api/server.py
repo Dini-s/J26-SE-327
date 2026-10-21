@@ -377,9 +377,12 @@ def get_analysis(_: dict) -> dict:
         path = results / name
         return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
+    from apps.api import evidence
+
     expansion = read("query_expansion_itrust.json")
     return {"reranker": read("reranker.json"), "stage1Embeddings": read("stage1_embeddings.json"),
-            "queryExpansion": {"model": expansion.get("model"), "requirements": len(expansion.get("answers", {}))} if expansion else None}
+            "queryExpansion": {"model": expansion.get("model"), "requirements": len(expansion.get("answers", {}))} if expansion else None,
+            "evidence": evidence.build(results)}
 
 
 def get_results(_: dict) -> dict:

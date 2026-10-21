@@ -1,0 +1,945 @@
+{
+ "config": {
+  "focus_chars": 1500,
+  "short_reasoning": true,
+  "model": "gemma2-8k"
+ },
+ "rows": [
+  {
+   "dataset": "etour",
+   "source": "UC10.txt",
+   "target": "Tourist.java",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 104.0
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC16",
+   "target": "/auth/hcp-uap/chronicDiseaseRisks",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 42.5
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC15S4",
+   "target": "/auth/hcp-uap/editOfficeVisit",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 51.7
+  },
+  {
+   "dataset": "etour",
+   "source": "UC17.txt",
+   "target": "IAdvertisementManager.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 50.3
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC17S3",
+   "target": "/util/blackbox/BlackBoxTestPlan",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 48.3
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.4.1",
+   "target": "DPUSDS5.12.1.1.1",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 38.3
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC15S2",
+   "target": "ICDCodesDAO",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 38.2
+  },
+  {
+   "dataset": "etour",
+   "source": "UC11.txt",
+   "target": "CardBC.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 45.9
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.3.1",
+   "target": "DPUSDS5.13.0.2",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 38.1
+  },
+  {
+   "dataset": "etour",
+   "source": "UC2.txt",
+   "target": "IDBCulturalHeritage.java",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 33.7
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.3.4",
+   "target": "DPUSDS5.12.1.5.4",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 29.6
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC33E2",
+   "target": "/auth/hcp/hcpConsultation",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 40.5
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.1.2",
+   "target": "DPUSDS5.13.1.1.1",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 28.2
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.3.3",
+   "target": "DPUSDS5.12.1.2.3",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 25.1
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC26E2",
+   "target": "LabProcHCPAction",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 107.3
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC11S2",
+   "target": "/util/blackbox/BlackBoxTestPlan",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.7,
+   "seconds": 36.4
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.3.1",
+   "target": "DPUSDS5.12.1.5.1",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 21.3
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.3.2",
+   "target": "DPUSDS5.13.1.6.4",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 20.6
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.4.1",
+   "target": "DPUSDS5.13.1.3.1",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 19.0
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC18S1",
+   "target": "UpdateHospitalListAction",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 29.8
+  },
+  {
+   "dataset": "etour",
+   "source": "UC22.txt",
+   "target": "IAdvertisementAgencyManager.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 26.8
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.3.2",
+   "target": "DPUSDS5.13.0.2",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 29.2
+  },
+  {
+   "dataset": "etour",
+   "source": "UC18.txt",
+   "target": "IAdvertisementManager.java",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 30.7
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC3S2",
+   "target": "ResetPasswordAction",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 28.4
+  },
+  {
+   "dataset": "etour",
+   "source": "UC22.txt",
+   "target": "ControllDataAdvertisement.java",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 30.3
+  },
+  {
+   "dataset": "etour",
+   "source": "UC14.txt",
+   "target": "DBAgencyOperator.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 31.4
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC35S2",
+   "target": "/util/blackbox/BlackBoxTestPlan",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 35.8
+  },
+  {
+   "dataset": "etour",
+   "source": "UC20.txt",
+   "target": "ControlData.java",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 37.9
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.3.7",
+   "target": "DPUSDS5.12.1.3.3",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 27.4
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.4.1",
+   "target": "DPUSDS5.13.1.1.1",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 23.0
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.2.1",
+   "target": "DPUSDS5.13.1.3.2",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 26.2
+  },
+  {
+   "dataset": "etour",
+   "source": "UC15.txt",
+   "target": "ITouristAgencyManager.java",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 31.2
+  },
+  {
+   "dataset": "etour",
+   "source": "UC10.txt",
+   "target": "IDBRefreshmentPointOperator.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 26.6
+  },
+  {
+   "dataset": "etour",
+   "source": "UC20.txt",
+   "target": "IDBBanner.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 36.5
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.4.1",
+   "target": "DPUSDS5.12.1.4.4",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 21.3
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC34S2",
+   "target": "RemoteMonitoringDAO",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 30.3
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.2.2",
+   "target": "DPUSDS5.13.2.3",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 24.6
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.3.7",
+   "target": "DPUSDS5.12.0.1",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 23.7
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC15S2",
+   "target": "UpdateICDCodeListAction",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 34.9
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.4.2",
+   "target": "DPUSDS5.12.1.5.1",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 17.9
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC40S4",
+   "target": "/auth/hcp/viewMyAppts",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 33.9
+  },
+  {
+   "dataset": "etour",
+   "source": "UC10.txt",
+   "target": "RefreshmentPointAgencyManager.java",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 31.4
+  },
+  {
+   "dataset": "etour",
+   "source": "UC16.txt",
+   "target": "IDBAgencyOperator.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 26.0
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC33S2",
+   "target": "ReferralManagementAction",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 31.7
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC15S3",
+   "target": "UpdateNDCodeListAction",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 31.9
+  },
+  {
+   "dataset": "etour",
+   "source": "UC14.txt",
+   "target": "ITouristClientManager.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 29.1
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC18E1",
+   "target": "HospitalBean",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 28.1
+  },
+  {
+   "dataset": "etour",
+   "source": "UC21.txt",
+   "target": "ControllDataAdvertisement.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.7,
+   "seconds": 32.3
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.12.3.3",
+   "target": "DPUSDS5.12.1.2.1",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 27.4
+  },
+  {
+   "dataset": "etour",
+   "source": "UC12.txt",
+   "target": "Tourist.java",
+   "label": 1,
+   "linked": null,
+   "confidence": null,
+   "seconds": 4.5
+  },
+  {
+   "dataset": "etour",
+   "source": "UC13.txt",
+   "target": "TouristAgencyManager.java",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 52.1
+  },
+  {
+   "dataset": "etour",
+   "source": "UC11.txt",
+   "target": "DBAgencyOperator.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 31.4
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC4S3",
+   "target": "/auth/hcp/menu",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 24.7
+  },
+  {
+   "dataset": "etour",
+   "source": "UC13.txt",
+   "target": "IDBAgencyOperator.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 25.8
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC3E1",
+   "target": "AuthDAO",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 31.3
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC34S3",
+   "target": "RemoteMonitoringDataBean",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 32.0
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.2.1",
+   "target": "DPUSDS5.13.2.9",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 21.4
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.1.2",
+   "target": "DPUSDS5.13.2.9",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 22.2
+  },
+  {
+   "dataset": "itrust",
+   "source": "UC23S3",
+   "target": "/auth/patient/viewMyRecords",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 42.8
+  },
+  {
+   "dataset": "cm1",
+   "source": "SRS5.13.3.3",
+   "target": "DPUSDS5.13.1.4.1",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 22.1
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-002",
+   "target": "spring-petclinic:src/main/resources/templates/owners/findOwners.html",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 36.2
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-010",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 29.5
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-006",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 20.5
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-018",
+   "target": "spring-petclinic:src/main/resources/templates/fragments/layout.html",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 37.3
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-014",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vet.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 28.5
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-012",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 28.4
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-017",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicRuntimeHints.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 24.2
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-002",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 27.2
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-006",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 30.3
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-007",
+   "target": "spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 32.2
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-007",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 27.6
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-014",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 31.8
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-021",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 30.0
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-016",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.1,
+   "seconds": 20.7
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-010",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 31.9
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-009",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 30.2
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-023",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "label": 1,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 31.6
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-001",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 33.3
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-005",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 28.9
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-003",
+   "target": "spring-petclinic:src/main/resources/templates/vets/vetList.html",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 63.5
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-020",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "label": 0,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 37.3
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-002",
+   "target": "spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 38.4
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-019",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vet.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 26.9
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-013",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 22.0
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-017",
+   "target": "spring-petclinic:src/main/resources/templates/owners/ownersList.html",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 34.8
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-008",
+   "target": "spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 35.2
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-003",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 34.8
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-008",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 22.5
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-013",
+   "target": "spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 31.5
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-003",
+   "target": "spring-petclinic:src/main/resources/templates/owners/ownersList.html",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 36.2
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-006",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 36.3
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-004",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/model/Person.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 22.6
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-008",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetType.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 17.7
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-006",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CrashController.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 19.2
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-013",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 28.6
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-012",
+   "target": "spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 34.9
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-004",
+   "target": "spring-petclinic:src/main/resources/templates/welcome.html",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 20.7
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-012",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 25.1
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-001",
+   "target": "spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 30.7
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-018",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 29.1
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-020",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 35.6
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-011",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.9,
+   "seconds": 35.1
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-012",
+   "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+   "label": 1,
+   "linked": true,
+   "confidence": 0.8,
+   "seconds": 36.6
+  },
+  {
+   "dataset": "petclinic",
+   "source": "PC-REQ-017",
+   "target": "spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+   "label": 0,
+   "linked": false,
+   "confidence": 0.0,
+   "seconds": 30.9
+  }
+ ]
+}

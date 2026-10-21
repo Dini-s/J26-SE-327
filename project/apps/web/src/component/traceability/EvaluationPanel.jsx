@@ -14,7 +14,11 @@ function Target({ label, measured, target, met, note }) {
   );
 }
 
-export function EvaluationPanel({ results }) {
+const pct = (x, d = 1) => (typeof x === "number" ? `${(x * 100).toFixed(d)}%` : "-");
+const formatValue = (t) => (t.format === "seconds" ? `${Math.round(t.value)} s` : pct(t.value));
+const formatTarget = (t) => `${t.higherIsBetter ? ">=" : "<="} ${t.format === "seconds" ? `${t.target} s` : `${Math.round(t.target * 100)}%`}`;
+
+export function EvaluationPanel({ results, targets = [], pending = [] }) {
   if (!results) return <Card title="Measured results"><Empty>Loading results...</Empty></Card>;
   const decay = results.decay_injection;
   const recallRows = Object.entries(results.stage1_recall ?? {}).flatMap(([dataset, byK]) =>
@@ -24,19 +28,13 @@ export function EvaluationPanel({ results }) {
   return (
     <Card
       title="Measured results against the targets"
-      subtitle="From data/results/summary.json and the decay-injection test. Samples are small; read the notes."
+      subtitle="Every number comes from a saved result file in data/results. Samples are small; read the notes."
     >
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Target label="LLM precision" measured="37.5%" target=">= 90%" met={false} note="iTrust, 10 requirements, top-5" />
-        <Target label="LLM time per link" measured="52 s" target="<= 5 s" met={false} note="CPU-only server, p95 80 s" />
-        <Target
-          label="Decay detection"
-          measured={decay ? `${(decay.decay_detection_accuracy * 100).toFixed(1)}%` : "-"}
-          target=">= 85%"
-          met={Boolean(decay) && decay.decay_detection_accuracy >= 0.85}
-          note={decay ? `${decay.links_used ?? decay.sample_links} links used${decay.baseline_skipped ? ` (${decay.baseline_skipped} skipped: the LLM rejected them anyway)` : ""}; false decay ${(decay.false_decay_rate * 100).toFixed(0)}%` : ""}
-        />
-        <Target label="Stage-1 recall (top-10)" measured="41.6%" target=">= 80%" met={false} note="iTrust; the LLM cannot recover a missed link" />
+        {targets.length === 0 && <Empty>Loading the measured targets...</Empty>}
+        {targets.map((t) => (
+          <Target key={t.key} label={t.label} measured={formatValue(t)} target={formatTarget(t)} met={t.met} note={t.note} />
+        ))}
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -72,9 +70,9 @@ export function EvaluationPanel({ results }) {
             <thead>
               <tr className="border-b border-slate-100 text-[11px] uppercase tracking-wide text-slate-400">
                 <th className="py-2 text-left font-medium">Set and method</th>
-                <th className="py-2 text-right font-medium">P</th>
-                <th className="py-2 text-right font-medium">R</th>
-                <th className="py-2 text-right font-medium">F1</th>
+                <th className="w-14 py-2 pl-3 text-right font-medium">P</th>
+                <th className="w-14 py-2 pl-3 text-right font-medium">R</th>
+                <th className="w-14 py-2 pl-3 text-right font-medium">F1</th>
               </tr>
             </thead>
             <tbody>
@@ -83,9 +81,9 @@ export function EvaluationPanel({ results }) {
                   <td className="py-2 pr-2 text-slate-700">
                     <span className="text-slate-400">{r.dataset}</span> {r.method}
                   </td>
-                  <td className="py-2 text-right tabular-nums text-slate-600">{num(r.precision)}</td>
-                  <td className="py-2 text-right tabular-nums text-slate-600">{num(r.recall)}</td>
-                  <td className="py-2 text-right font-semibold tabular-nums text-indigo-700">{num(r.f1)}</td>
+                  <td className="py-2 pl-3 text-right tabular-nums text-slate-600">{num(r.precision)}</td>
+                  <td className="py-2 pl-3 text-right tabular-nums text-slate-600">{num(r.recall)}</td>
+                  <td className="py-2 pl-3 text-right font-semibold tabular-nums text-indigo-700">{num(r.f1)}</td>
                 </tr>
               ))}
             </tbody>
@@ -119,8 +117,8 @@ export function EvaluationPanel({ results }) {
         </div>
       )}
 
-      {Array.isArray(results.pending) && results.pending.length > 0 && (
-        <p className="mt-4 text-[12px] text-slate-400">Still pending: {results.pending.join("; ")}.</p>
+      {Array.isArray(pending) && pending.length > 0 && (
+        <p className="mt-4 text-[12px] text-slate-400">Still pending: {pending.join("; ")}.</p>
       )}
     </Card>
   );
@@ -213,6 +211,95 @@ export function RerankerPanel({ analysis }) {
           </ul>
         </div>
       )}
+    </Card>
+  );
+}
+
+/** The comparisons behind the design choices (verifier LLM, prompt, decay check, CodeBERT), from data/results. */
+export function EvidencePanel({ evidence }) {
+  if (!evidence) return <Card title="Why these choices"><Empty>Loading...</Empty></Card>;
+  const { llmComparison, prompt, decay, codebert } = evidence;
+  const bestF1 = llmComparison ? Math.max(...llmComparison.map((m) => m.f1)) : 0;
+
+  return (
+    <Card
+      title="Why these choices: what was compared"
+      subtitle="Each design choice was compared with alternatives on the same data. The numbers are read from the saved result files; the limits are stated under each one."
+    >
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+        {codebert && (
+          <div className="rounded-xl border border-slate-200 p-4">
+            <p className="text-[12px] font-semibold text-slate-700">Adding a fine-tuned CodeBERT to stage 1 (7 real projects)</p>
+            <p className="mt-2 text-3xl font-semibold tracking-tight text-slate-700">
+              {pct(codebert.meanBefore)} <span className="text-slate-400">to</span> {pct(codebert.meanAfter)}
+            </p>
+            <p className="text-[12px] text-slate-500">average recall@10 before and after. Better in {codebert.better} projects, worse in {codebert.worse}.</p>
+            <ul className="mt-3 space-y-1.5">
+              {codebert.rows.map((r) => (
+                <li key={r.project} className="flex items-center gap-2 text-[12px]">
+                  <span className="w-14 shrink-0 text-slate-600">{r.project}</span>
+                  <div className="flex-1"><Bar value={r.after} tone={r.after >= r.before ? "green" : "red"} /></div>
+                  <span className="w-28 shrink-0 text-right tabular-nums text-slate-500">{num(r.before, 2)} to {num(r.after, 2)}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2 text-[11px] text-slate-400">No supported gain, so CodeBERT is kept only as an extra signal and not claimed as an improvement. The model was trained on LLM-written pairs; training on the real labelled projects is the open next step.</p>
+          </div>
+        )}
+
+        {llmComparison && (
+          <div className="rounded-xl border border-slate-200 p-4">
+            <p className="text-[12px] font-semibold text-slate-700">Which LLM verifies the links ({llmComparison[0].pairs} labelled pairs)</p>
+            <table className="mt-2 w-full text-[13px]">
+              <thead>
+                <tr className="border-b border-slate-100 text-[11px] uppercase tracking-wide text-slate-400">
+                  <th className="py-2 text-left font-medium">Model</th>
+                  <th className="py-2 text-right font-medium">P</th>
+                  <th className="py-2 text-right font-medium">R</th>
+                  <th className="py-2 text-right font-medium">F1</th>
+                  <th className="py-2 text-right font-medium">s</th>
+                </tr>
+              </thead>
+              <tbody>
+                {llmComparison.map((m) => (
+                  <tr key={m.model} className="border-b border-slate-50">
+                    <td className="py-2 text-slate-700">{m.model}{m.noAnswer ? <span className="text-[10px] text-slate-400"> ({m.noAnswer} empty)</span> : null}</td>
+                    <td className="py-2 text-right tabular-nums text-slate-600">{num(m.precision, 2)}</td>
+                    <td className="py-2 text-right tabular-nums text-slate-600">{num(m.recall, 2)}</td>
+                    <td className={`py-2 text-right tabular-nums ${m.f1 === bestF1 ? "font-semibold text-indigo-700" : "text-slate-600"}`}>{num(m.f1, 2)}</td>
+                    <td className="py-2 text-right tabular-nums text-slate-500">{m.seconds ?? "-"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="mt-2 text-[11px] text-slate-400">One model is strict (high precision, low recall), one lenient. Llama 3.1 8B sits between them and is the one the pipeline was built and measured with. Only 60 pairs: indicative, not strong.</p>
+          </div>
+        )}
+
+        {prompt && (
+          <div className="rounded-xl border border-slate-200 p-4">
+            <p className="text-[12px] font-semibold text-slate-700">Verification prompt: expert against evidence ({prompt.judged} labelled links, {prompt.project})</p>
+            <div className="mt-3 space-y-2 text-[13px]">
+              <div className="flex items-center gap-3"><span className="w-32 shrink-0 text-slate-700">expert prompt</span><div className="flex-1"><Bar value={prompt.expertPrecision} tone="orange" /></div><span className="w-12 text-right tabular-nums text-slate-600">{pct(prompt.expertPrecision, 0)}</span></div>
+              <div className="flex items-center gap-3"><span className="w-32 shrink-0 text-slate-700">evidence prompt</span><div className="flex-1"><Bar value={prompt.evidencePrecision} tone="green" /></div><span className="w-12 text-right tabular-nums text-slate-600">{pct(prompt.evidencePrecision, 0)}</span></div>
+            </div>
+            <p className="mt-2 text-[12px] text-slate-500">Precision of the kept links. The evidence prompt kept {prompt.correctKept} correct links and rejected {prompt.wrongRejected} wrong ones.</p>
+            <p className="mt-1 text-[11px] text-slate-400">A trade-off, not a free win: it also rejects correct links, and on a later project (a small BMI calculator) it rejected correct ones. The dashboard therefore uses the expert prompt. One project, labels by an AI reviewer.</p>
+          </div>
+        )}
+
+        {decay && (
+          <div className="rounded-xl border border-slate-200 p-4">
+            <p className="text-[12px] font-semibold text-slate-700">Detecting a decayed link: LLM alone against LLM + meaning-change check</p>
+            <div className="mt-3 space-y-2 text-[13px]">
+              <div className="flex items-center gap-3"><span className="w-32 shrink-0 text-slate-700">LLM only</span><div className="flex-1"><Bar value={decay.llmOnly} tone="orange" /></div><span className="w-12 text-right tabular-nums text-slate-600">{pct(decay.llmOnly, 0)}</span></div>
+              <div className="flex items-center gap-3"><span className="w-32 shrink-0 text-slate-700">+ meaning check</span><div className="flex-1"><Bar value={decay.withCheck} tone="green" /></div><span className="w-12 text-right tabular-nums text-slate-600">{pct(decay.withCheck, 0)}</span></div>
+            </div>
+            <p className="mt-2 text-[12px] text-slate-500">Share of deliberately broken links that were detected ({decay.links} links; the target is 85%). False alarms on harmless edits: {pct(decay.falseAlarms, 0)}.</p>
+            <p className="mt-1 text-[11px] text-slate-400">The check was designed around these kinds of edits (numbers, negations, operators), so the number is favourable; real edits are more varied and the sample is small.</p>
+          </div>
+        )}
+      </div>
     </Card>
   );
 }

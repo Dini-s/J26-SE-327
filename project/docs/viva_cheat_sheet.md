@@ -105,6 +105,7 @@ Sidebar: repo switcher + service dots (Neo4j/Redis/Llama). Top bar: Refresh. C4 
 | **Hard-negative training** | gain இல்ல | அதே காரணம் |
 | **Learned Link Ranker** (gradient boosting, 16 features, leave-one-project-out) | **recall@10: 0.494 vs 0.578 hybrid** (மோசம்) | 7 சிறிய projects; features hybrid-ஐ மீண்டும் கற்கிறது |
 | **Query expansion** | gain இல்ல | `data/results/query_expansion_itrust.json` |
+| **T-BERT** (traceability-க்கான CodeBERT; பொதுவில் கிடைத்த KIT கோப்பு, பயிற்சி இல்லாமல் கூடுதல் stage-1 signal) | **recall@10: 0.578 → 0.540** (7 projects சராசரி); T-BERT தனியா 0.24; 6/7 projects-ல் குறைவு, 4-ல் இழப்பு bootstrap-ல் உறுதி | அசல் weights Drive link 404; இந்தக் கோப்பு documentation↔code பணிக்கு; பயிற்சி இல்லாத முயற்சி மட்டும் (`data/results/tbert_stage1.json`, `scripts/tbert_stage1_test.ipynb`) |
 
 **ஒரே வாக்கியத்தில்:** "Stage 1 recall தான் தடை; fine-tuning, extra training pairs, learned ranking எதுவும் அதை தீர்க்கல – அளந்து காட்டியிருக்கேன்."
 
@@ -237,7 +238,7 @@ Recall. அதை மறைக்கவில்லை; ஏன் என்ற�
 **வாசிப்பு (நேர்மையா):** F1 intervals மூன்றும் பெருமளவு மேற்பொருந்துது → **மூன்றுக்கும் இடையே புள்ளியியல் ரீதியா வேறுபாடு நிரூபிக்கப்படல** (n=60). Qwen கண்டிப்பானது (precision அதிகம், recall குறைவு); Gemma தாராளம் (recall அதிகம், precision குறைவு, மெதுவு, server errors); Llama நடுவில், errors இல்ல. 56 பொதுவான pairs-ல மூன்றின் சரியான விகிதமும் 52–59% (Llama 31, Qwen 33, Gemma 29) – சமநிலையான கடினமான மாதிரியில் மூன்றும் தற்செயலை விட சற்று மேல் மட்டுமே. Gold labels-ல சத்தம் இருக்கலாம் (iTrust/eTour).
 **தேர்வு:** Llama 3.1 8B வைத்திருக்கிறேன் (errors இல்ல, நடுநிலை, ஏற்கனவே முழுமையா அளந்தது). Precision-முன்னுரிமை mode-க்கு Qwen ஒரு மாற்று.
 
-சோதனை: iTrust/eTour/CM-1-ல இருந்து 60 pairs (30 உண்மை, 30 shortlist-ல வந்த தவறு), evidence prompt, temperature 0, context 8192. கட்டளை: `python scripts/compare_llms.py --summary`. முடிவு: `data/results/llm_compare.json`.
+சோதனை: iTrust/eTour/CM-1-ல இருந்து 60 pairs (30 உண்மை, 30 shortlist-ல வந்த தவறு), evidence prompt, temperature 0, context 8192. கட்டளை (அட்டவணை அச்சிட): `python scripts/show_llm_results.py`; மீண்டும் ஓட்ட: `python scripts/llm_compare_projects.py petclinic`. முடிவு: `data/results/llm_compare.json`.
 
 ## 15. Demo மீள்பார்வை (8–10 நிமிடம்)
 

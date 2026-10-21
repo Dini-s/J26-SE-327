@@ -84,3 +84,12 @@ A requirement that names a class, constructor or method is satisfied by the TARG
 Respond ONLY with a JSON object of exactly this form:
 {"requirement_needs": "...", "evidence": "...", "coverage": "full" or "partial" or "none", "reasoning": "..."}
 """
+
+
+# Optional (env LLM_SHORT_REASONING): a CPU server writes about 7 tokens/s, so a shorter justification saves seconds per link.
+SHORT_REASONING_NOTE: str = '\nKeep "reasoning" to ONE short sentence (at most 25 words).\n'
+
+
+def with_short_reasoning(system_prompt: str) -> str:
+    """The same system prompt with the instruction to keep the justification to one short sentence."""
+    return system_prompt.rstrip("\n") + "\n" + SHORT_REASONING_NOTE

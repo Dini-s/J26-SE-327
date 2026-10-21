@@ -26,7 +26,7 @@ requirement --(stage 1: TF-IDF + MiniLM shortlist)--> candidate files --(LLM che
 
 ## Setup (once)
 
-1. Neo4j running, Redis running (only needed for the decay message to C3), an LLM server reachable (Ollama, model `llama3.1-8k`).
+1. Neo4j running, Redis running (only needed for the decay message to C3), an LLM server reachable (Ollama, model `gemma2-8k`, chosen by the comparison in `scripts/model_comparison_evidence.ipynb`).
 2. From this folder:
    ```bash
    python3 -m venv .venv && source .venv/bin/activate

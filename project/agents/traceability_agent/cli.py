@@ -15,6 +15,7 @@ Evaluation lives in ``python -m agents.traceability_agent.evaluate`` and
 """
 
 import argparse
+import os
 import json
 import logging
 import sys
@@ -29,13 +30,17 @@ RUNS_DIR = Path(__file__).resolve().parents[2] / "data" / "runs"
 
 def _build_llm(prompt: str):  # noqa: ANN202
     from agents.traceability_agent import prompts
+    from dotenv import load_dotenv
     from shared.llm.client import LLMClient
 
+    load_dotenv()
+    short = (os.getenv("LLM_SHORT_REASONING") or "").strip().lower() in ("1", "true", "yes")
+    shorten = prompts.with_short_reasoning if short else (lambda text: text)
     if prompt == "evidence":
-        return LLMClient(system_prompt=prompts.EVIDENCE_SYSTEM_PROMPT, response_mode="evidence")
+        return LLMClient(system_prompt=shorten(prompts.EVIDENCE_SYSTEM_PROMPT), response_mode="evidence")
     if prompt == "generic":
-        return LLMClient(system_prompt=prompts.GENERIC_SYSTEM_PROMPT, user_prompt_template=prompts.GENERIC_USER_PROMPT_TEMPLATE)
-    return LLMClient(system_prompt=prompts.SYSTEM_PROMPT, user_prompt_template=prompts.USER_PROMPT_TEMPLATE)
+        return LLMClient(system_prompt=shorten(prompts.GENERIC_SYSTEM_PROMPT), user_prompt_template=prompts.GENERIC_USER_PROMPT_TEMPLATE)
+    return LLMClient(system_prompt=shorten(prompts.SYSTEM_PROMPT), user_prompt_template=prompts.USER_PROMPT_TEMPLATE)
 
 
 def cmd_setup(args: argparse.Namespace) -> int:

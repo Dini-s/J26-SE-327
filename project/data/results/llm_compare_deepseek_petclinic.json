@@ -1,0 +1,546 @@
+{
+ "models": {
+  "deepseek-chat": [
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-002",
+    "target": "spring-petclinic:src/main/resources/templates/owners/findOwners.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 2.6
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-010",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-006",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-018",
+    "target": "spring-petclinic:src/main/resources/templates/fragments/layout.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.55,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-014",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vet.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.75,
+    "seconds": 1.7
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-012",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.75,
+    "seconds": 1.7
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-017",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicRuntimeHints.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.1
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-002",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-006",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-007",
+    "target": "spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-007",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.9,
+    "seconds": 1.2
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-014",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 1.7
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-021",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetValidator.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-016",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.9,
+    "seconds": 1.6
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-010",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-009",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-023",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.9,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-001",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.75,
+    "seconds": 1.6
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-005",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-003",
+    "target": "spring-petclinic:src/main/resources/templates/vets/vetList.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.9,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-020",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-002",
+    "target": "spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.2
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-019",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vet.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-013",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Vets.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-017",
+    "target": "spring-petclinic:src/main/resources/templates/owners/ownersList.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-008",
+    "target": "spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.95,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-003",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.95,
+    "seconds": 1.6
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-008",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeRepository.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.55,
+    "seconds": 1.2
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-013",
+    "target": "spring-petclinic:src/main/resources/templates/pets/createOrUpdatePetForm.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-003",
+    "target": "spring-petclinic:src/main/resources/templates/owners/ownersList.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-006",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.9
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-004",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/model/Person.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-008",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetType.java",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.85,
+    "seconds": 1.6
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-006",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CrashController.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.98,
+    "seconds": 1.2
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-013",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.6,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-012",
+    "target": "spring-petclinic:src/main/resources/templates/pets/createOrUpdateVisitForm.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.95,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-004",
+    "target": "spring-petclinic:src/main/resources/templates/welcome.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-012",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-001",
+    "target": "spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.95,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-018",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.9,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-020",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Owner.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-011",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetController.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.97,
+    "seconds": 1.0
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-012",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/VisitController.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.95,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-017",
+    "target": "spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-009",
+    "target": "spring-petclinic:src/main/resources/templates/owners/createOrUpdateOwnerForm.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.1
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-002",
+    "target": "spring-petclinic:src/main/resources/templates/owners/ownerDetails.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.6
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-017",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetType.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.2
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-002",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.95,
+    "seconds": 1.0
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-017",
+    "target": "spring-petclinic:src/main/resources/templates/welcome.html",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.9,
+    "seconds": 1.0
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-018",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CrashController.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.4
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-021",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.0
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-023",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.9,
+    "seconds": 1.2
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-002",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-006",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Pet.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.7,
+    "seconds": 1.1
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-016",
+    "target": "spring-petclinic:src/main/resources/templates/welcome.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.85,
+    "seconds": 1.0
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-021",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/PetTypeFormatter.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.3
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-004",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/vet/Specialty.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.97,
+    "seconds": 1.2
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-013",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/owner/Visit.java",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.7,
+    "seconds": 1.5
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-014",
+    "target": "spring-petclinic:src/main/resources/templates/vets/vetList.html",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.97,
+    "seconds": 1.2
+   },
+   {
+    "dataset": "petclinic",
+    "source": "PC-REQ-017",
+    "target": "spring-petclinic:src/main/java/org/springframework/samples/petclinic/system/WebConfiguration.java",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.95,
+    "seconds": 1.4
+   }
+  ]
+ }
+}

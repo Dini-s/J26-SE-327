@@ -1,6 +1,11 @@
 """Tunable defaults for the traceability agent."""
 
+import os
 from typing import Optional
+
+from dotenv import load_dotenv
+
+load_dotenv()  # so LLM_FOCUS_CHARS in .env is seen when this module is imported
 
 # Words per chunk when scoring long artifacts (a file scores as its best chunk). Embedding
 # models read only the first 128-256 tokens; on iTrust 60-word chunks lifted MiniLM recall@10
@@ -18,3 +23,6 @@ DECAY_CHANNEL: str = "trace_decayed"  # Redis Pub/Sub channel for decay alerts
 # Channel C2 is expected to publish repository changes on. ASSUMED name and message shape: confirm with C2.
 CHANGE_CHANNEL: str = "code_changed"
 MAX_VERIFY_SECONDS: float = 5.0  # NFR: one LLM verification should finish within this
+# Characters of code shown to the LLM per candidate: the blocks of the file that match the requirement (0 = the whole file,
+# as measured so far). Shorter prompts are faster on a CPU server; see agents/traceability_agent/focus.py.
+FOCUS_CHARS: int = int(os.getenv("LLM_FOCUS_CHARS") or 0)

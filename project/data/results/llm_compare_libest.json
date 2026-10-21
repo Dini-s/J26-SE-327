@@ -1,0 +1,105 @@
+{
+ "models": {
+  "llama3.1-8k:latest": [
+   {
+    "dataset": "libest",
+    "source": "RQ4.txt",
+    "target": "est_server.h",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.8,
+    "seconds": 287.1
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ13.txt",
+    "target": "est_server.c",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.8,
+    "seconds": 115.5
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ28.txt",
+    "target": "est_server_http.c",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.8,
+    "seconds": 72.1
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ34.txt",
+    "target": "est_proxy.c",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.8,
+    "seconds": 74.8
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ42.txt",
+    "target": "est_server_http.c",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.8,
+    "seconds": 80.8
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ50.txt",
+    "target": "est_ossl_util.c",
+    "label": 0,
+    "linked": true,
+    "confidence": 0.8,
+    "seconds": 71.8
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ26.txt",
+    "target": "est_ossl_util.h",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.8,
+    "seconds": 17.3
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ4.txt",
+    "target": "est_server_http.c",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.8,
+    "seconds": 102.8
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ51.txt",
+    "target": "est_proxy.c",
+    "label": 1,
+    "linked": true,
+    "confidence": 0.8,
+    "seconds": 104.1
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ37.txt",
+    "target": "est_server.c",
+    "label": 1,
+    "linked": false,
+    "confidence": 0.8,
+    "seconds": 73.2
+   },
+   {
+    "dataset": "libest",
+    "source": "RQ41.txt",
+    "target": "est_client_proxy.h",
+    "label": 0,
+    "linked": false,
+    "confidence": 0.8,
+    "seconds": 25.2
+   }
+  ]
+ }
+}

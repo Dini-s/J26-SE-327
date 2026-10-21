@@ -23,11 +23,13 @@ from openai import APIError
 
 from agents.traceability_agent.config import (
     CHUNK_WORDS,
+    FOCUS_CHARS,
     MAX_VERIFY_SECONDS,
     PASS_THRESHOLD,
     SIMILARITY_THRESHOLD,
     TOP_K,
 )
+from agents.traceability_agent.focus import focus_code
 from agents.traceability_agent.prompts import SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
 from agents.traceability_agent.preprocess import llm_text, retrieval_text
 from agents.traceability_agent.run_log import RunLogger
@@ -72,6 +74,7 @@ class TraceabilityAgent:
         run_logger: Optional[RunLogger] = None,
         project: Optional[str] = None,
         extra_embedders: Optional[Sequence[Any]] = None,
+        focus_chars: int = FOCUS_CHARS,
     ) -> None:
         """Wire up dependencies (injectable so tests can pass mocks).
 
@@ -89,6 +92,8 @@ class TraceabilityAgent:
             project: Only read and link artifacts of this project / repository (``None`` = whole graph).
             chunk_size: Score each target as its best chunk of this many words, so long files
                 aren't judged on their first few lines only; ``None`` embeds whole texts.
+            focus_chars: If above 0, the LLM sees only the parts of a long code file that match the requirement, up to
+                about this many characters (``agents/traceability_agent/focus.py``); 0 = the whole file (default).
             extra_embedders: Further embedding models fused into ``hybrid`` retrieval (none by default, so tests and
                 evaluations stay as measured; the CLI passes the configured ones, see ``configured_extra_embedders``).
         """
@@ -101,6 +106,7 @@ class TraceabilityAgent:
         self.run_logger = run_logger
         self.project = project
         self.extra_embedders = list(extra_embedders or [])
+        self.focus_chars = focus_chars
         self.uskg = uskg if uskg is not None else USKGClient()
         self.embedder = embedder if embedder is not None else Embedder()
         self.llm = (
@@ -169,6 +175,13 @@ class TraceabilityAgent:
                 )
         return candidates
 
+    def llm_inputs(self, source: Artifact, target: Artifact) -> tuple[Artifact, Artifact]:
+        """The two artifacts as the LLM sees them: boilerplate removed, and (if ``focus_chars``) the code cut to the matching parts."""
+        source_text, target_text = llm_text(source), llm_text(target)
+        if self.focus_chars:
+            target_text = focus_code(target_text, source_text, self.focus_chars)
+        return source.model_copy(update={"text": source_text}), target.model_copy(update={"text": target_text})
+
     def verify_candidates(
         self,
         candidates: list[Candidate],
@@ -198,11 +211,10 @@ class TraceabilityAgent:
         for index, candidate in enumerate(candidates, start=1):
             try:
                 started = time.perf_counter()
-                target_text = llm_text(candidate.target)
-                result = (self.llm.verify_link(
-                    candidate.source.model_copy(update={"text": llm_text(candidate.source)}),
-                    candidate.target.model_copy(update={"text": target_text}),
-                ) if target_text.strip() else {"is_linked": False, "confidence": 0.0,
+                source_art, target_art = self.llm_inputs(candidate.source, candidate.target)
+                target_text = target_art.text
+                result = (self.llm.verify_link(source_art, target_art)
+                          if target_text.strip() else {"is_linked": False, "confidence": 0.0,
                                               "reasoning": "No implementation to verify."})
                 elapsed = time.perf_counter() - started
                 self.verification_latencies.append(elapsed)

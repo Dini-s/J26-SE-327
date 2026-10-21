@@ -5,7 +5,7 @@ import { useApi, useProject } from "../api/c4";
 import { Button, PageHeader, Tabs, Callout } from "../component/traceability/ui";
 import LinksTable from "../component/traceability/LinksTable";
 import { CompletenessPanel, DecayPanel, PipelineStrip, SelfCheckPanel } from "../component/traceability/Panels";
-import { EvaluationPanel, RerankerPanel } from "../component/traceability/EvaluationPanel";
+import { EvaluationPanel, EvidencePanel, RerankerPanel } from "../component/traceability/EvaluationPanel";
 
 const TraceabilityOverview = () => {
   const { project, error: projectsError } = useProject();
@@ -103,7 +103,8 @@ const TraceabilityOverview = () => {
           {tab === "evidence" && (
             <>
               <Callout tone="warn">These are honest measurements on small samples. Several targets are not met yet; the notes under each number explain why.</Callout>
-              <EvaluationPanel results={results.data} />
+              <EvaluationPanel results={results.data} targets={analysis.data?.evidence?.targets} pending={analysis.data?.evidence?.pending} />
+              <EvidencePanel evidence={analysis.data?.evidence} />
               <RerankerPanel analysis={analysis.data} />
             </>
           )}
