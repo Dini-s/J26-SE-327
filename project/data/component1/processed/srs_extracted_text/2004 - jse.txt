@@ -1,0 +1,2550 @@
+﻿
+
+
+
+Business and Functional Requirements Specification Document
+
+ISIN Issuance for Money Market Instruments
+As NNA
+
+
+
+
+
+
+
+
+
+
+
+Created by:		Brett Kotze
+Reviewed by:	Money Market Forum, STRATE
+Quality Assured:	EPO
+Approved by:		Money Market Forum (MMF)/STRATE/NMPG/JSE (pending)
+Date:			18 March 2004
+Version:		2.14 Final
+
+
+
+Table of Contents
+
+
+1.	References	4
+2.	Version Control	4
+3.	Introduction and Scope	6
+4.	Objective	6
+5.	Business Requirements	7
+5.1	Current Business Environment	7
+5.2	MMF Business Requirements Definition	7
+5.3	JSE Requirements Definition	10
+6.	Cost Recovery	12
+7.	Distribution	12
+8.	Glossary	13
+9.	Sign-Off	14
+10.	Appendix A Sequence diagrams	15
+10.1	MMI ISIN Issue	15
+10.2	MMI ISIN Cancellation/De-issue	17
+10.3	MMI Cancellation on Maturity	19
+11.	Appendix B ISIN Request to NNA	21
+11.1	ISIN Request to NNA (MT598-150-NEWM)	21
+12.	Appendix C ISIN Request Rejection from NNA	24
+12.1	ISIN Request Rejection from NNA (MT598-901/598-902)	24
+12.2	Format Rejection – MT598-901	24
+12.3	Message Content Rejection – MT598-902	25
+13.	Appendix D Confirmation of ISIN by NNA	26
+13.1	ISIN Confirmation from NNA (MT598-151)	26
+14.	Appendix E ISIN Confirmation Rejection from STRATE	30
+14.1	ISIN Confirmation Rejection from STRATE	30
+14.2	Format Rejection – MT598-901	30
+14.3	Message Content Rejection – MT598-902	30
+15.	Appendix F Request for Cancellation/De-issue of ISIN	31
+15.1	ISIN Cancellation / De-Issue Request to NNA (MT598-150)	31
+16.	Appendix G ISIN Cancellation/De-issue Request Rejection from NNA	33
+16.1	ISIN Cancellation Request Rejection from NNA	33
+16.2	Format Rejection – MT598-901	33
+16.3	Message Content Rejection – MT598-902	33
+17.	Appendix H ISIN Cancellation/De-issue Confirmation from NNA	34
+17.1	ISIN Cancellation/De-issue Confirmation from NNA	34
+18.	Appendix I ISIN Cancellation/De-issue Confirmation Rejection	37
+from STRATE	37
+18.1	ISIN Cancellation Confirmation Rejection from STRATE	37
+18.2	Format Rejection – MT598-901	37
+18.3	Message Content Rejection – MT598-902	37
+19.	Appendix J Request for Cancellation of ISIN on Maturity	38
+19.1	ISIN Cancellation on Maturity to NNA (MT598-150)	38
+20.	Appendix K ISIN Cancellation on Maturity Rejection from NNA	39
+20.1	ISIN Cancellation on Maturity Rejection from NNA	39
+20.2	Format Rejection – MT598-901	39
+20.3	Message Content Rejection – MT598-902	40
+21.	Appendix L ISIN Front End Functionality	40
+21.1 BCP Requirements	40
+21.2 Manual Updates	40
+21.3 Rejections JSE to STRATE	40
+21.4 Rejections STRATE to JSE	40
+21.5 View and print issued/de-issued/matured ISINs	40
+
+References
+
+Document/Meeting
+Author
+Version
+Issue Date
+
+Money Market Dematerialisation Blueprint
+MMF
+1.0
+31 Dec 2002
+
+Meeting: Anne Clayton, Des Davidson, Brett Kotze, Arthur Cousins and Graham Lund
+N/A
+N/A
+19 March 2003
+
+E-mail message
+Arthur Cousins
+N/A
+17 April 2003
+
+E-mail message
+Arthur Cousins
+N/A
+10 May 2003
+
+MM Specifications Issuing Process
+STRATE
+1.0 Draft
+10 Sept 2003
+
+
+Version Control
+
+Version
+Author
+Date
+Reason for Changes
+
+0.1
+Anne Clayton
+9 April 2003
+First Draft
+
+0.2
+Anne Clayton
+23 April 2003
+Updated with comments: Des Davidson
+
+0.3
+Anne Clayton
+17 May 2003
+Update editing errors; and update with Brett Kotze's and Arthur Cousin's comments.
+
+1.0
+Anne Clayton
+19 May 2003
+Distributed version quality assurance provided by JSE EPO
+
+1.1a
+Anne Clayton
+26 May 2003
+Updated with further comments - Brett Kotze
+
+1.1b
+Anne Clayton
+27 May 2003
+Redrew Visio diagram to reduce size of document
+
+2.0
+Anne Clayton
+29 May 2003
+Distributed updated version
+
+2.1
+Brett Kotze
+14 September 2003
+Update document with message flows and content
+
+2.2
+Brett Kotze
+18 September 2003
+Updated with comments received from STRATE 
+
+2.3
+Brett Kotze
+22 September 2003
+Updated as per Brett’s comment on MMI Cancellation on Maturity. Added a new section on MMI Cancellation
+
+2.4
+Brett Kotze
+29 September 2003
+1) Update with MMF comments.
+2) Update with Brett’s comments.
+3) Include flows for Cancellation on maturity of instrument.
+4) Include MT 500 content for top-up/reduction.
+
+2.5
+Brett Kotze
+03 October 2003
+Change Appendixes from MT 500s to MT 598s and update contents of the document to refer to MT 598s
+
+2.6
+Brett Kotze
+07 October 2003
+Update issuance amount on table, remove flows for top-ups and reductions, correct formatting, etc.
+
+2.7
+Brett Kotze
+09 October 2003
+Update with comments from NMPG
+
+2.8
+Brett Kotze
+15 October 2003
+Update with comments received from Celest Botha (FNB)
+
+2.9
+Brett Kotze
+11 February 2004
+Update with comments received from Eileen & Ganesh (STRATE)
+
+2.10
+Brett Kotze
+19 February 2004
+Further update to STRATE Volume A, removal of the FIA Optional Block and including Front End details as an Annexure
+
+2.11
+Brett Kotze
+12 March 2004
+Further update with comments from IT
+
+2.12
+Brett Kotze
+16 March 2004
+Further update with comments received from STRATE and IT
+
+2.13
+Brett Kotze
+18 March 2004
+Further update with comments received from IT
+
+2.14
+Brett Kotze
+23 March 2004
+Changed accepted Final copy
+
+
+Introduction and Scope
+
+Des Davison, Brett Kotze and Anne Clayton, of the JSE Securities Exchange South Africa (JSE), met with Arthur Cousins and Graham Lund, of the Money Market Forum (MMF), on the 19 March 2003.
+
+The MMF launched a project to establish an electronic money market environment in South Africa.  UNEXcor and STRATE tendered for the dematerialisation and settlement of money market instruments and in September 2002, the MMF appointed UNEXcor as the service provider.
+
+Pursuant to the appointment of UNEXcor as the service provider of the dematerialisation and settlement of money market instruments an agreement to merge STRATE and UNEXcor has been reached effective from 01 August 2003.  The new entity, hereinafter referred to as STRATE, will provide the services as originally tendered by UNEXcor.
+
+The JSE is a paid-up member of the Association of National Numbering Agents (ANNA), i.e. an authorised National Numbering Agent (NNA) - an entity authorised to issue ISINs in accordance with ISO and ANNA rules and guidelines.  In terms of the requirements of ANNA, only one NNA may be authorised per country.
+
+The JSE issues and disseminates ISINs for equities when a new equity is loaded in the mainframe programme - EQUITY MASTER DATA (EMD).  All equity master data is managed and maintained by the JSE's Listings Division.  The JSE's Market Information Division also maintains and issues ISINs for bonds, as a service to BESA, in the mainframe programme GILT MASTER DATA (MDGL), which is a manual process.  
+
+The MMF and STRATE have approached the JSE with their key requirements - to enable dematerialisation, trading and electronic clearing and settlement of money market instruments on the same day that requires the issuing of an ISIN code.  The scope of this project is to provide an electronic method to enable the MMF participants via STRATE to create, amend and delete ISIN codes for money market instruments.  
+
+
+
+
+
+Objective
+
+This document sets out the business requirements for the issuing of money market instruments ISIN codes by the JSE. As STRATE will be paying for the development and monthly running costs of this service, this document will be forwarded to the JSE’s Application and Service Division (ASD) for an assessment and quote for costs of design, development, testing, implementation and monthly running costs of ISIN Issuance for Money Market Instruments.
+
+The costs will be forwarded to STRATE for their review and approval and only thereafter, subject to NMPG approval of the SWIFT messages to be used and message content, will design and development start taking place. (Note: -Due to unforeseen complications, the design and development has been completed prior to the costs being approved by STRATE.
+
+
+
+Business Requirements 
+
+
+Current Business Environment
+
+Money market instruments are normally traded and settled on the same business day (T+0).  Settlement is on a gross physical basis between seller and buyer.  The majority of activity in the money market is undertaken in the primary market (i.e. between issuer and buyer) and the typical participants in this market are registered banks. 
+
+The Objectives of the Electronic Money Market are as follows: -
+
+Reduce the identified risks associated with Money Market practices.
+
+Improve liquidity in the Money Market.
+
+Improve the tradability of the instruments in the secondary market.
+
+Reduce the inherent costs in Money Market processes.
+
+Improve the marketability of instruments, creating a competitive benefit for an institution trading in Money Market instruments.
+
+Align South African market practices and procedures with world best practices.
+
+Improve the integrity of the Money Market creating an environment that is safe, secure, structured, formalised and robust.
+
+MMF Business Requirements Definition
+
+To achieve an electronic clearing and settlement environment (DvP), all new instruments will be issued electronically (dematerialised/immobilised) before sale and delivery into the primary market.  As an ISIN is the key securities code identification, and used by STRATEs system, SAFIRES, for settlement purposes and CSDPs for recording purposes, the MMF requires an electronic methodology to create, amend and delete ISINs for electronically (dematerialised/immobilised) issued money market instruments.
+
+The MMF has approved SWIFT (ISO15022 standards) as the communication protocol and STRATE has recommended that the MT 598 User Defined SWIFT messages be used as the format for the messages, as detailed in Appendix B to K.  The content and format of the MT 598 User Defined SWIFT messages will require approval from the MMF and NMPG before finalisation and acceptance by the JSE.
+
+The MMF requires that the JSE provide ISINs automatically in response to an electronic request (SWIFT), as the immediacy of the issuance of an ISIN is essential for the trading, and electronic clearing and settlement of money market instruments.  The MMF estimates an issuance requirement of approximately 200 to 500 ISINs per day.  To distinguish money market instruments ISINs from equities (ZAE) and bonds (ZAG) the MMF has requested the use of an ISIN prefix of ZAM.
+
+Pursuant to the STRATE/UNEXcor merger, as noted above, it has been agreed that the SWIFT messages to create, amend or delete an ISIN for money market instruments would be routed via STRATE, and the interaction would therefore be limited, from the JSEs perspective, between STRATE and the JSE for the issuance of ISINs. 
+
+The automated ISIN Issuance for Money Market Instruments system will be implemented by the JSE in the 2nd quarter 2004.
+
+The Systems Component Model, set out in Figure 1 below, was sourced from the MMF document: "Money Market Dematerialisation Blueprint", December 2002 and is included in this document for illustrative purposes.
+
+Figure 1	Systems Component Model
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The Conceptual Model set out in Figure 2 below, is an adaptation of the Systems Component Model set out in Figure 1, to represent the participation of the JSE, in its capacity as a NNA, in providing the ISINs to STRATE as CSD/IOR. This is included in this document for illustrative purposes. The following assumptions have been made:
+
+The Custodian and Banker components are incorporated into one entity - CSDP;
+The Trading component refers to either a system (Trading or Reporting Engine) or the act of reaching a contractual agreement (i.e. a trade); and
+The MMF Participants communicate directly with the DvP Engine component or indirectly through the Trading/Reporting Engine;
+
+
+
+Figure 2	Conceptual Model
+
+JSE Requirements Definition
+
+Development
+
+The JSE’s ASD department will be required to develop a programme for the automatic issuance of ISINs for money market instruments. This will include a programme to "unstring" the MT 598 User Defined SWIFT messages and “string” the MT 598 User Defined SWIFT messages, as detailed in Appendix B to K, for the request and notification of ISINs by/to STRATE. To differentiate between the JSEs current SWIFT BIC codes and ensure correct routing and message identification the JSE will apply for a new branch code “ISN” as an extension of their current BIC address. (i.e. XJSEZAJJXISN)
+
+Market Rules
+
+ANNA and ISO determine the rules regarding issuing and deleting ISINs.  The rules and guidance notes are set out in the following documents (as amended from time to time):
+ANNA Guidelines for ISO 6166, Version 5, December 1988 (update: Oct. 2001)
+ISO 6166, Sixth edition, 2001-03-15
+
+Further market rules regarding issuing, amending and deleting ISINs required will be provided by the JSE.
+
+Service Level Agreement
+
+The JSE and STRATE will enter into a Service Level Agreement (SLA) that sets out all the arrangements pertaining to the service provided by the JSE and will include a Business Continuity Plan(BCP). This will be made available to money market participants for their perusal and reference.
+
+Field Specifications
+
+The MMF, in an effort to standardise money market instruments for the purposes of simplifying the management and processing of instruments, has identified four generic categories of money market instruments, as follows: -
+
+Category 1:	Discount based, fixed term, where the MMI is bought at a discount and the nominal value is repayable on maturity.
+
+Category 2:	Yield based, fixed coupon rate and fixed term, where the MMI is bought at nominal value, the coupon is payable at intervals (i.e. Coupon Interval) throughout the term, and the final coupon payment and the nominal value are repayable on maturity.
+
+Category 3:	Yield based, variable coupon rate and fixed term where the MMI is bought at nominal value, coupon is payable at intervals (i.e. Coupon Interval) throughout the term, and the final coupon payment and the nominal value are repayable on maturity.
+
+Category 4:	Yield based, variable coupon rate and variable term where the MMI is bought at nominal value, coupon is payable at intervals (i.e. Coupon Interval) throughout the term, the nominal value and coupon for the last interest period are repayable on maturity and the instrument matures on call.
+
+These generic characteristics together with the approved the MT 598 User Defined SWIFT messages formats and contents will determine the fields required in the Money Market ISIN Issuance programme.
+
+The table below sets out per generic money market instrument: -
+
+The data required to be held per MMI by the NNA; and
+The definitive characteristics (i.e. the unique combination of characteristics) required for the issuance of ISINs.:-
+
+
+Data Required
+Definitive Characteristics for ISIN Generation per
+Generic Category
+
+
+
+1
+2
+3
+4
+
+1
+Issuer:
+(
+(
+(
+(
+
+2
+MMI Type:
+(
+(
+(
+(
+
+3
+Short Description
+(
+(
+(
+(
+
+4
+MMI Generic Category
+(
+(
+(
+(
+
+5
+Issue Date:
+(
+(
+(
+(
+
+6
+Maturity Date:
+(
+(
+(
+
+
+7
+Coupon Rate:
+
+(
+(
+(
+
+8
+Coupon Interval:
+
+(
+(
+(
+
+
+In the interim the issued amount will not be required. However, the JSE’s systems will be developed to cater for the issued amount, which will be defaulted.
+
+Refer Appendix B to K, for fields and contents of the MT 598 User Defined SWIFT messages.
+
+SWIFT Message Types
+
+9 SWIFT message types must be provided for, as detailed in the below table:-
+
+
+Message
+Type
+Message
+Initiator
+Message
+Recipients
+Details
+
+1
+Request New
+STRATE
+JSE 
+Request for issuance of new ISIN
+
+2
+Reject New
+JSE 
+STRATE
+Reject request – duplication (DUPL) or invalid/incomplete (INVL) request
+
+3
+Accept New
+JSE 
+STRATE
+Accept request for new ISIN and include ISIN in message
+
+4
+Request Cancellation
+STRATE
+JSE 
+Request for cancellation of existing ISIN
+
+5
+Reject Cancellation
+JSE 
+STRATE
+Reject request – duplication (DUPL) or invalid/incomplete (INVL) request
+
+6
+Accept Cancellation
+JSE 
+STRATE
+Accept request for cancellation of ISIN and include confirmation of cancellation in message
+
+7
+Request Deregistration
+STRATE
+JSE
+Request to deregister an ISIN for an instrument that has matured.
+
+8
+Reject Deregistration
+JSE
+STRATE
+Deregistration request rejected.
+
+9
+Accept Deregistration
+JSE
+STRATE
+Accept request to deregister an ISIN for an instrument that has matured, and include confirmation of deregistration in message.
+
+
+Refer Appendix A for the process flows of the above messages.
+Refer Appendix B to K for fields and contents of the MT 598 User Defined SWIFT messages.
+
+
+Cost Recovery
+
+All costs for the design, development, testing and implementation of the automatic Money Market ISIN Issuance system will be recovered from STRATE.  In addition, a monthly running cost, covering the cost of administration and maintenance of the data and systems will be recovered from STRATE.  The monthly running costs and billing methodology will require definition, by the JSE, in the SLA.  Invoicing will be conducted by the JSE's Finance Division.
+
+
+Distribution 
+
+Participants
+Money Market Forum
+
+Iann Seymour-Smith
+STRATE
+
+Shah Ebrahim
+STRATE
+
+Maria Dalle Ave. 
+JSE ASD SCP
+
+Freda Evans
+JSE Finance
+
+Des Davidson
+JSE C&S
+
+Brett Kotze
+JSE C&S
+
+Marcelle White
+JSE EPO
+
+Nicky Newton-King
+JSE New Business
+
+Michael Thomson
+JSE Listings
+
+Clare Fraga
+Accenture AM
+
+
+
+Glossary
+
+AM
+Application Management
+
+ANNA
+Association of National Numbering Agencies
+
+BESA
+Bond Exchange of South Africa
+
+BCP
+Business Continuity Plan
+
+BIC
+Bank Identifier Code
+
+BKE
+Bilateral Key Exchange
+
+CREST
+United Kingdom CSD
+
+CSD
+Central Securities Depository
+
+CSDP
+Central Securities Depository Participant
+
+IOR
+Instrument Ownership Register
+
+ISIN
+International Securities Identification Number designed by the International Organisation for Standardization (ISO) and advocated by G30.
+
+ISO
+International Organisation for Standardization
+
+JSE
+JSE Securities Exchange South Africa
+
+MMF
+Money Market Forum, a body representing the participants in the South African money market.
+
+MMI
+Money Market Instrument
+
+NMPG
+National Market Practice Group
+
+NNA
+National Numbering Agent
+
+SAFIRES
+Southern Africa Financial Instrument Real-time Electronic Settlement system
+
+SLA
+Service Level Agreement
+
+STRATE
+STRATE LTD
+
+SWIFT
+Society for Worldwide Interbank Financial Telecommunication
+
+UNEXcor
+Universal Exchange Corporation
+
+
+
+Sign-Off
+
+All parties signing this document acknowledge that they have read, understood and are committed to this document, including all attached schedules and diagrams.
+
+
+
+Name:
+
+Des Davidson
+
+Name:
+
+Brett Kotze
+
+
+Designation:
+
+
+
+Designation:
+
+
+
+
+Project Role:
+
+Project Sponsor
+
+Project Role:
+
+Project Owner
+
+
+Signature:
+
+
+
+
+Signature:
+
+
+
+
+Date:
+
+
+
+Date:
+
+
+
+
+
+
+
+
+Name:
+
+Marcelle White
+
+Name:
+
+.
+
+
+Designation:
+
+
+
+Designation:
+
+
+
+
+Project Role:
+
+Project Manager
+
+Project Role:
+
+
+
+
+Signature:
+
+
+
+Signature:
+
+
+
+
+Date:
+
+
+Date:
+
+
+
+
+
+
+
+
+Appendix A Sequence diagrams
+
+MMI ISIN Issue
+
+
+
+
+
+
+
+	
+1.    	MMI Issue Request to NNA (MT598-150 – NEWM).
+1a.	MMI Issue Request Rejection from NNA (MT598-901/MT598-902). 
+2.	MMI Issue Confirmation from NNA (MT598-151 – NEWM). 
+2a.	MMI Issue Confirmation Rejection to NNA (MT598-901/MT598-902). 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ MMI ISIN Cancellation/De-issue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+1.         	MMI Cancellation/De-issue Request to NNA (MT598-150 – NEWM).
+1a.	MMI Cancellation/De-issue Request Rejection from NNA (MT598-901/MT598-902). 
+2.	MMI Cancellation/De-issue Confirmation from NNA (MT598-151 – NEWM). 
+2a.	MMI Cancellation/De-issue Confirmation Rejection to NNA (MT598-901/MT598-902). 
+
+
+MMI Cancellation on Maturity 
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+	1a
+	
+
+
+
+
+	
+1.	MMI Cancellation Request to NNA on maturity of instrument (MT598-150 – MATU).
+1a.	MMI Cancellation Request Rejection from NNA (MT598-901/MT598-902).	
+
+
+
+
+
+Appendix B ISIN Request to NNA
+
+ISIN Request to NNA (MT598-150-NEWM)
+
+The MMI Engine will forward the validated MMI Issue Request (MT598-150 – NEWM) to NNA. The layout of the MT598-150 is given below:
+
+Format Specifications
+
+Sl. No
+Tag
+Qualifier
+Name
+M/O
+Options 
+
+1.
+20
+
+Transaction Reference
+M
+16x
+
+2.
+12
+
+Sub-Message Type
+M
+3!n
+Valid Value is:
+150
+
+3.
+77E
+
+Proprietary Message
+M
+
+
+
+Mandatory Sequence A General Information
+4.
+16R
+
+Start of block
+- General
+M
+GENL
+
+5.
+23G
+
+Function of the message
+M
+4!c
+Values:
+NEWM – New message
+
+6.
+98C
+PREP
+Preparation date and time
+O
+//8!n6!n
+
+7.
+22F
+INST
+Type of instruction indicator
+M
+/STRA/4!c
+Values:
+ISSU – ISIN Issue Request
+
+
+8.
+16S
+
+End of block
+- General
+M
+GENL
+
+End of Sequence A General Information
+
+Mandatory Sequence B MMI Details 
+9.
+16R
+
+Start of block
+- MMI Details
+M
+MMID
+
+10.
+95R
+ ISSR
+Issuer's Participant Code
+(Issuer)
+M
+/STRA/2!a6!n
+(Issuer’s Participant Code)
+
+11.
+35B
+
+Identification of securities
+(ISIN)
+M
+[ISIN1!e12!c]
+[4*35x]
+Sub-field 1 should not be present
+Sub-field 2 is Mandatory
+
+12.
+36B
+ QISS
+Quantity Issued
+(Issued Amount)
+M
+//FAMT/15d(To be defaulted by STRATE) Down to 3 decimals
+
+
+Optional Subsequence B1 Financial Instrument Attributes 
+13.
+16R
+
+Start of block
+- Financial instrument attributes
+M
+FIA
+
+14.
+22F
+PFRE
+Coupon Payment Frequency
+(Mandatory for category 2/3/4)
+C
+/STRA/4!c
+See Field Descriptions
+
+15.
+13B
+CPYD
+Coupon Payment Day
+
+(Mandatory for category 2/3/4)
+C
+/STRA/2!n
+
+Valid Values:
+01-31
+
+16.
+12A
+CATG
+Generic Category
+M
+//1!n
+
+17.
+22H
+TYPE
+MMI Type
+M
+/STRA/4!c Note. The STRA is not a SWIFT standard. However, as the development has catered for this STRATE have agreed to include this code. 
+
+18.
+98A
+MATU
+Maturity date
+(Mandatory for Category 1, 2 & 3)
+
+C
+//8!n
+
+19.
+98A
+ISSU
+Issue Date
+(Mandatory for Category 1, 2, 3 & 4)
+
+M
+//8!n
+
+20.
+92A
+INTR
+Coupon Rate
+(Mandatory for Category 2, 3 & 4)
+
+C
+//[N]15d(7,7 Decimals) 
+
+21.
+16S
+
+End of block
+- Financial instrument attributes
+M
+FIA
+
+-----| End of Subsequence B1 Financial Instrument Attributes 
+
+22.
+16S
+
+End of block
+- MMI Details
+M
+MMID
+
+-----| End of Sequence B MMI Details 
+
+Field Descriptions
+
+1.	Transaction reference (M): This field identifies the transaction reference of the message.
+
+2.	Sub-message Type (M): This field identifies the sub-message type involved in the proprietary message. The valid value is:
+
+150 – ISIN Request.
+3.	Proprietary Message (M): This field identifies that this is a proprietary message. This should not have any contents.
+4.	Start of GENL block (M): This field identifies the start of General block and it should have a value of GENL.
+
+5.	Function of the message (M): This field identifies the function of the message. The valid value is:
+
+NEWM – For new message.
+
+6.	Preparation date and time (O): This field gives the preparation date and time of the message.
+
+7.	Type of instruction indicator (M): This field identifies the instruction indicator. The valid value is:
+
+ISSU –ISIN Issue Request.  
+
+8.	End of GENL block (M): This field identifies the end of General block and it should have a value of GENL.
+
+9.	Start of MMID block (M): This field identifies the start of the MMI Details block and it should have a value of MMID.
+
+10.	Issuer's Participant Code (M): This field identifies the Participant Code of the Issuer. 
+The valid value is ISSR – Issuer.
+
+11.	Identification of securities (M): This field identifies the ISIN information. 
+
+Sub-field 1 should not be present
+Sub-field 2 is Mandatory
+
+12.	Quantity Issued (M): This field identifies the Issued amount of a financial instrument. (To be defaulted by STRATE)
+
+13.	Start of FIA block (M): This field identifies the start of the Financial Instrument Attributes block and should have a value of FIA.
+
+14.	Coupon Payment Frequency (C):This field identifies the Payment Frequency of the MMI.The valid values are:
+
+ANNU – Annually Payment Cycle
+MNTH – Monthly Payment Cycle
+QUTR – Quarterly Payment Cycle
+SEMI – Half Yearly Payment Cycle
+TERM – On Maturity of the MMI
+
+15.	Coupon Payment Day (C):  This field identifies the Coupon Payment Day of the MMI.The valid values are 01-31
+
+
+
+16. Generic Category (M): This field identifies the Generic Category of the instrument. The valid values are:
+	1 – Generic Category 1
+	2 – Generic Category 2
+	3 – Generic Category 3
+	4 – Generic Category 4
+
+17. MMI Type (M): This field identifies the MMI Type. The valid values are:
+
+
+MMI Type Description
+MMI Type
+Category 1
+MMI Type
+Category 2
+MMI Type
+Category 3
+MMI Type
+Category 4
+
+Bankers Acceptances
+EBA
+
+
+
+
+Bills
+EBL
+
+
+
+
+Commercial Paper Bills/Capital Project Bills
+ECPB
+
+
+
+
+Promissory Notes
+EPN
+
+
+
+
+Treasury Bills
+ETB
+
+
+
+
+Notes
+ENOT
+NOT
+NOT
+
+
+Bridging Bonds
+
+BB
+
+
+
+Debentures
+
+DEB
+
+
+
+Negotiable Certificates of Deposit
+
+NCD
+NCD
+NCD
+
+Linked Negotiable Certificates of Deposit
+
+
+LNCD
+
+
+Credit Linked Notes
+
+
+CLN
+
+
+Floating Rate Notes
+
+
+FRN
+
+
+Call Bonds
+
+
+
+CB
+
+Zero Bonds
+
+ZB
+
+
+
+
+Note:	This field requires 4 alpha characters to be present. Where the MMI Type is less than 4 alpha characters, the spaces after the MMI Type must be filled with ‘X’s’. For example, NOT will be NOTX, ZB will be ZBXX, etc..
+
+18.	Maturity date (C): This field identifies the maturity date of a financial instrument.
+
+19.	Issue date (M): This field identifies the issue date of a financial instrument.
+
+20.	Coupon Rate (C): This field identifies the Coupon Rate of a financial instrument. It is optional for Category 1 but mandatory for Categories 2, 3 and 4, (7,7 Decimals)
+
+21.	End of FIA block (M): This field identifies the end of the Financial Instrument Attributes block and should have a value of FIA.
+22.	End of MMID block (M): This field identifies the end of the MMI Details block and should have a value of MMID.
+Appendix C ISIN Request Rejection from NNA
+
+ISIN Request Rejection from NNA (MT598-901/598-902)
+
+The rejection from NNA can be of two types:
+
+Format Rejection (MT598-901).
+Message Content Rejection (MT598-902).
+
+Format Rejection – MT598-901
+
+On receipt of the message (MT598-150-NEWM) from the MMI Engine, NNA will perform basic validations. If the format of the message is not as per the ‘Interface Specification – Volume A’, then NNA will generate a rejection message (MT598-901) to the MMI Engine. The layout of the MT598-901 is given below:
+
+Field Specifications	
+Sl. No
+Tag
+Name
+M/O
+Options 
+
+1.
+20
+Transaction reference
+M
+16x
+
+2.
+12
+Sub-message Type
+M
+3!n
+Value:
+901
+
+3.
+77E
+Proprietary Message
+M
+
+
+4.
+79
+Narrative
+M
+See Field Description
+
+5.
+13E
+Date / Time Indicator
+M
+8!n4!n
+
+6.
+21
+Related Reference
+M
+16x
+
+
+Field Description
+
+1.	Transaction reference (M): This field identifies the transaction reference of the message.
+
+2.	Sub-message Type (M): This field identifies the sub-message type involved in the proprietary message. The valid value is:
+
+901 – NOK Message.
+
+3.	Proprietary Message (M): This field identifies that this is a proprietary message. This should not have any contents.
+
+4.	Narrative (M): This field identifies the error code and the corresponding tag name. The format is:
+
+4!n/3c – Sub-field1 indicates the error code and sub-field 2 indicates the tag name.
+(This can be repeatable 5times)(The error codes are still to be defined between the IOR and the NNA)
+
+5.	Date and Time (M): This field gives the preparation date and time of the message.
+
+6.	Related Reference (M): This field identifies the Transaction reference (tag 20) of the original message.
+
+Message Content Rejection – MT598-902
+
+On receipt of the message (MT598-150-NEWM) from the MMI Engine, NNA will perform basic validations. If the validation is not successful, then NNA will generate a rejection message (MT598-902) to the MMI Engine. The layout of the MT598-902 is given below:
+
+Format Specifications
+Sl. No
+Tag
+Qualifier
+Name
+M/O
+Options 
+
+1.
+20
+
+Transaction Reference
+M
+16x
+
+2.
+12
+
+Sub-message Type
+M
+3!n
+Value:
+902
+
+3.
+77E
+
+Proprietary Message
+
+
+
+4.
+16R
+
+Start of block
+- General
+M
+GENL
+
+5.
+20C
+RELA
+Related reference
+M
+//16x
+
+6.
+98C
+PREP
+Preparation date and time
+M
+//8!n6!n
+
+6.
+70D
+EROR
+Error Details
+M
+//4!n/4!n/4!n/4!n/4!n
+
+7.
+16S
+
+End of Block 
+- General 
+M
+GENL
+
+
+Field Description
+
+1.	Transaction reference (M): This field identifies the transaction reference of the message.
+
+2.	Sub-message Type (M): This field identifies the sub-message type involved in the proprietary message. The valid value is:
+
+902 – Rejection Message.
+3.	Proprietary Message (M): This field identifies that this is a proprietary message. This should not have any contents.
+4.	Start of GENL block (M): This field identifies the start of the General block and it should have a value of GENL.
+
+5.	Related Reference (M): This field identifies the transaction reference of the original message.
+
+6.	Error Details (M): This field identifies the validation error details. The error code will be of the format 4!n and maximum of 5 error codes can be accommodated in the message. (The error codes are still to be defined between the IOR and the NNA)
+
+7.	End of GENL block (M): This field identifies the end of the General block and it should have a value of GENL.
+
+Appendix D Confirmation of ISIN by NNA
+
+ISIN Confirmation from NNA (MT598-151)
+
+Format Specifications
+Sl. No
+Tag
+Qualifier
+Name
+M/O
+Options 
+
+1.
+20
+
+Transaction Reference
+M
+16x
+
+2.
+12
+
+Sub-Message Type
+M
+3!n
+Valid Value is:
+151
+
+3.
+77E
+
+Proprietary Message
+M
+
+
+
+Mandatory Sequence A General Information
+4.
+16R
+
+Start of block
+- General
+M
+GENL
+
+5.
+23G
+
+Function of the message
+M
+4!c
+Values:
+NEWM – New message
+
+6.
+98C
+PREP
+Preparation date and time
+O
+//8!n6!n
+
+7.
+22F
+CONF
+Type of Confirmation Indicator
+M
+/STRA/4!c
+Values:
+ISSU – ISIN Issue Request
+
+
+Repetitive Mandatory Subsequence A1 Linkages 
+8.
+16R
+
+Start of block
+- Link Block
+M
+LINK
+
+9.
+13A
+LINK
+Number Identification
+M
+//3!c
+(Sub-message Type of the linked transaction; i.e. 150)
+
+10.
+20C
+RELA
+Related Reference
+M
+//16x
+(Tag 20 of the original MT598-150)
+
+11.
+16S
+
+End of block
+- Link Block
+M
+LINK
+
+-----| End of Mandatory Subsequence A1 Linkages
+
+12.
+16S
+
+End of block
+- General
+M
+GENL
+
+End of Sequence A General Information
+
+Mandatory Sequence B MMI Details 
+13.
+16R
+
+Start of block
+- MMI Details
+M
+MMID
+
+14.
+95R
+ISSR
+Issuer's Participant Code
+(Issuer)
+M
+/STRA/2!a6!n
+(Issuer’s Participant Code)
+
+15.
+35B
+
+Identification of securities
+(ISIN)
+M
+[ISIN1!e12!c]
+[4*35x]
+Sub-field 1 is Mandatory
+
+16.
+36B
+QISS
+Quantity Issued
+(Issued Amount)
+M
+//FAMT/15d(Down to 3 Decimals)
+
+
+Optional Subsequence B1 Financial Instrument Attributes 
+17.
+16R
+
+Start of block
+- Financial instrument attributes
+M
+FIA
+
+18.
+22F
+PFRE
+Coupon Payment Frequency
+(Mandatory for Category 2/3/4)
+C
+/STRA/4!c
+See Field Descriptions
+
+19.
+13B
+CPYD
+Coupon Payment Day
+
+(Mandatory for Category 2/3/4)
+C
+/STRA/2!n
+Valid Values:
+01-31 
+
+20.
+12A
+CATG
+Generic Category
+M
+//1!n
+
+21.
+22H
+TYPE
+MMI Type
+M
+/STRA/4!c Note. The STRA is not a SWIFT standard. However, as the development has catered for this STRATE have agreed to include this code.
+
+22.
+98A
+MATU
+Maturity date
+(Mandatory for Category 1, 2, & 3)
+C
+//8!n
+
+23.
+98A
+ISSU
+Issue Date
+(Mandatory for Category 1, 2, 3 & 4)
+M
+//8!n
+
+24.
+92A
+INTR
+Coupon Rate
+(Mandatory for Category 2, 3 & 4)
+C
+//[N]15d(7,7 Decimals) 
+
+25.
+16S
+
+End of block
+- Financial instrument attributes
+M
+FIA
+
+-----| End of Subsequence B1 Financial Instrument Attributes 
+
+26.
+16S
+
+End of block
+- MMI Details
+M
+MMID
+
+-----| End of Sequence B MMI Details 
+
+Field Descriptions
+
+1.	Transaction reference (M): This field identifies the transaction reference of the message.
+
+2.	Sub-message Type (M): This field identifies the sub-message type involved in the proprietary message. The valid value is:
+
+151 – ISIN Confirmation 
+
+3.	Proprietary Message (M): This field identifies that this is a proprietary message. This should not have any contents.
+4.	Start of GENL block (M): This field identifies the start of GENL block and it should have a value of GENL.
+
+5.	Function of the message (M): This field identifies the function of the message. The valid value is:
+
+NEWM – For new message.
+
+6.	Preparation date and time (O): This field gives the preparation date and time of the message.
+
+7.	Type of confirmation indicator (M): This field identifies the instruction indicator. The valid value is:
+
+ISSU –ISIN Issue Request.  
+8.	Start of link block (M): This field identifies the start of linkage block and it should have a value of LINK. This block is mandatory for ISIN Confirmation
+
+9.	Number Identification (M): This field identifies the Sub-Message Type of the linked transaction. The valid value is 150.
+
+10.	Related Reference (M): This field identifies the transaction reference of the original message. 
+
+11.	End of link block (M): This field identifies the end of linkage block and it should have a value of LINK.
+12.	End of GENL block (M): This field identifies the end of GENL block and it should have a value of GENL.
+
+13.	Start of MMID block (M): This field identifies the start of the MMI Details block and it should have a value of MMID.
+
+14.	Issuer's Participant Code (M): This field identifies the Participant Code of the Issuer. This should match with the original MT598-150 sent by STRATE.
+
+15.	Identification of securities (M): This field identifies the ISIN information. 
+
+Sub-field 1 is Mandatory, and will contain the newly assigned ISIN. 
+Sub-field 2, if present, must match with the original MT598-150.
+
+16.	Quantity Issued (M): This field identifies the Issued amount of a financial instrument. This should match with the original MT598-150 sent by STRATE. (Down to 3 Decimals)
+
+17.	Start of FIA block (M): This field identifies financial instrument attributes block and should have a value of FIA.
+
+18.	Coupon Payment Frequency (C): This field identifies the Payment Frequency of the MMI.The valid values are:
+ANNU – Annually Payment Cycle
+MNTH – Monthly Payment Cycle
+QUTR – Quarterly Payment Cycle
+SEMI – Half Yearly Payment Cycle
+TERM – on Maturity of the MMI
+(If present, this should match with the original MT598-150 sent by STRATE)(Mandatory for Category 2/3/4)
+
+19.	Coupon Payment Day (C): This field identifies the Coupon Payment Day of the MMI.The valid values are 01-31
+(Mandatory for Category 2/3/4)
+
+(If present, this should match with the original MT598-150 sent by STRATE)
+
+
+
+
+20. Generic Category (M): This field identifies the Generic Category of the instrument. The valid values are:
+	1 – Generic Category 1
+	2 – Generic Category 2
+	3 – Generic Category 3
+	4 – Generic Category 4
+
+
+
+
+
+
+
+
+
+
+
+
+21. MMI Type (M): This field identifies the MMI Type. The valid values are:
+
+
+MMI Type Description
+MMI Type
+Category 1
+MMI Type
+Category 2
+MMI Type
+Category 3
+MMI Type
+Category 4
+
+Bankers Acceptances
+EBA
+
+
+
+
+Bills
+EBL
+
+
+
+
+Commercial Paper Bills/Capital Project Bills
+ECPB
+
+
+
+
+Promissory Notes
+EPN
+
+
+
+
+Treasury Bills
+ETB
+
+
+
+
+Notes
+ENOT
+NOT
+NOT
+
+
+Bridging Bonds
+
+BB
+
+
+
+Debentures
+
+DEB
+
+
+
+Negotiable Certificates of Deposit
+
+NCD
+NCD
+NCD
+
+Linked Negotiable Certificates of Deposit
+
+
+LNCD
+
+
+Credit Linked Notes
+
+
+CLN
+
+
+Floating Rate Notes
+
+
+FRN
+
+
+Call Bonds
+
+
+
+CB
+
+Zero Bonds
+
+ZB
+
+
+
+
+Note:	This field requires 4 alpha characters to be present. Where the MMI Type is less than 4 alpha characters, the spaces after the MMI Type must be filled with ‘X’s’. For example, NOT will be NOTX, ZB will be ZBXX, etc..
+
+
+22.	Maturity date (C): This field identifies the maturity date of a financial instrument. If present, this should match with the original MT598-150 sent by STRATE.
+
+23.	Issue date (M): This field identifies the date of issue of a financial instrument. If present, this should match with the original MT598-150 sent by STRATE
+
+24.	Coupon Rate (C): This field identifies the Coupon Rate of a financial instrument. It is optional for Category 1 but mandatory for Categories 2, 3 and 4. If present, this should match with the original MT598-150 sent by STRATE. (7,7 Decimals)
+
+25.	End of FIA block (M): This field identifies the end of financial instrument attributes block and should have a value of FIA.
+
+26.	End of MMID block (M): This field identifies the end of the MMI Details block and should have a value of MMID.
+
+Appendix E ISIN Confirmation Rejection from STRATE
+
+ISIN Confirmation Rejection from STRATE
+
+The rejection from STRATE can be of two types:
+
+Format Rejection (MT598-901).
+Message Content Rejection (MT598-902).
+
+Format Rejection – MT598-901
+
+On receipt of the message (MT598-151) from NNA, STRATE will perform basic validations. If the format of the message is not as per ‘Interface Specification – Volume A’, then STRATE will generate a rejection message (MT598-901) to NNA. The layout of the MT598-901 is given in Appendix C.
+
+Message Content Rejection – MT598-902
+
+On receipt of the message (MT598-151) from NNA, STRATE will perform basic validations. If the validation is not successful, then STRATE will generate a rejection message (MT598-902) to NNA. The layout of the MT598-902 is given in Appendix C.
+
+Appendix F Request for Cancellation/De-issue of ISIN
+
+ISIN Cancellation / De-Issue Request to NNA (MT598-150)
+
+The MMI Engine will forward the validated MMI Cancellation / De-Issue Request (MT598-150) to NNA. The layout of the MT598-150 for MMI Cancellation / De-Issue is given below:
+
+Format Specifications
+
+Sl. No
+Tag
+Qualifier
+Name
+M/O
+Options 
+
+1.
+20
+
+Transaction Reference
+M
+16x
+
+2.
+12
+
+Sub-Message Type
+M
+3!n
+Valid Value is:
+150
+
+3.
+77E
+
+Proprietary Message
+M
+
+
+
+Mandatory Sequence A General Information
+4.
+16R
+
+Start of block
+- General
+M
+GENL
+
+5.
+23G
+
+Function of the message
+M
+4!c
+Values:
+NEWM – New Message
+
+6.
+98C
+PREP
+Preparation date and time
+O
+//8!n6!n
+
+7.
+22F
+INST
+Type of instruction indicator
+M
+/STRA/4!c
+Values:
+DISS – De-Issue
+
+
+8.
+16S
+
+End of block
+- General
+M
+GENL
+
+End of Sequence A General Information
+
+Mandatory Sequence B MMI Details 
+9.
+16R
+
+Start of block
+- MMI Details
+M
+MMID
+
+10.
+95R
+ISSR
+Issuer's Participant Code
+(Issuer)
+M
+/STRA/2!a6!n
+(Issuer’s Participant Code)
+
+11.
+35B
+
+Identification of securities
+(ISIN)
+M
+[ISIN1!e12!c]
+[4*35x]
+Sub-field 1 is Mandatory
+Sub-field 2 is Optional
+
+12.
+36B
+ QISS
+Quantity Issued 
+(Issued Amount)
+M
+//FAMT/15d(To match with the original default amount notified by STRATE)(Down to 3 Decimals)
+
+
+
+13.
+16S
+
+End of block
+- MMI Details
+M
+MMID
+
+-----| End of Sequence B MMI Details 
+
+Field Descriptions
+
+1.	Transaction reference (M): This field identifies the transaction reference of the message.
+
+2.	Sub-message Type (M): This field identifies the sub-message type involved in the proprietary message. The valid value is:
+
+150 – ISIN Cancellation / De-Issue Request
+
+3.	Proprietary Message (M): This field identifies that this is a proprietary message. This should not have any contents.
+4.	Start of GENL block (M): This field identifies the start of GENL block and it should have a value of GENL.
+
+5.	Function of the message (M): This field identifies the function of the message. The valid value is:
+
+NEWM – New Message.
+
+6.	Preparation date and time (O): This field gives the preparation date and time of the message.
+
+7.	Type of instruction indicator (M): This field identifies the instruction indicator. The valid value is:
+
+DISS –De-Issue of ISIN.
+
+8.	End of GENL block (M): This field identifies the end of GENL block and it should have a value of GENL.
+
+9.	Start of MMID block (M): This field identifies the start of the MMI Details block and it should have a value of MMID.
+
+10.	Issuer's Participant Code (M): This field identifies the Participant Code of the Issuer. 
+
+11.	Identification of securities (M): This field identifies the ISIN information. 
+
+Sub-Field 1 is Mandatory.
+Sub-Field 2 is Optional.
+
+12.	Quantity Cancelled / De-Issued (M): This field identifies the cancelled / De-Issued amount of a financial instrument. (To match with the original default amount notified by STRATE)(Down to 3 Decimals)
+
+13.	End of MMID block (M): This field identifies the end of the MMI Details block and should have a value of MMID.
+
+Appendix G ISIN Cancellation/De-issue Request Rejection from NNA
+
+ISIN Cancellation Request Rejection from NNA 
+
+The rejection from NNA can be of two types:
+
+Format Rejection (MT598-901).
+Message Content Rejection (MT598-902).
+
+Format Rejection – MT598-901
+
+On receipt of the message (MT598-150) from STRATE, NNA will perform basic validations. If the format of the message is not as per ‘Interface Specification – Volume A’, then NNA will generate a rejection message (MT598-901) to STRATE. The layout of the MT598-901 is given in Appendix C.
+
+Message Content Rejection – MT598-902
+
+On receipt of the message (MT598-150) from STRATE, NNA will perform basic validations. If the validation is not successful, then NNA will generate a rejection message (MT598-902) to STRATE. The layout of the MT598-902 is given in Appendix C.
+
+Appendix H ISIN Cancellation/De-issue Confirmation from NNA
+
+ISIN Cancellation/De-issue Confirmation from NNA
+
+On receipt of the message (MT598-150) from the MMI Engine, NNA will perform the basic validations. If the validation is successful, then NNA will cancel the ISIN in question and generate an ISIN Cancellation Confirmation message (MT598-151) to the MMI Engine. The layout of the MT598-151 is given below:
+
+Format Specifications
+Sl. No
+Tag
+Qualifier
+Name
+M/O
+Options 
+
+1.
+20
+
+Transaction Reference
+M
+16x
+
+2.
+12
+
+Sub-Message Type
+M
+3!n
+Valid Value is:
+151
+
+3.
+77E
+
+Proprietary Message
+M
+
+
+
+Mandatory Sequence A General Information
+4.
+16R
+
+Start of block
+- General
+M
+GENL
+
+5.
+23G
+
+Function of the message
+M
+4!c
+Values:
+NEWM – New Message 
+
+6.
+98C
+PREP
+Preparation date and time
+O
+//8!n6!n
+
+7.
+22F
+CONF
+Type of Confirmation Indicator
+M
+/STRA/4!c
+Values:
+DISS –De-Issue
+
+
+Repetitive Mandatory Subsequence A1 Linkages 
+8.
+16R
+
+Start of block
+- Link Block
+M
+LINK
+
+9.
+13A
+LINK
+Number Identification
+M
+//3!c
+(Sub-message Type of the linked transaction; i.e. 150)
+
+10.
+20C
+RELA
+Related Reference
+M
+//16x
+(Tag 20 of the original MT598-150)
+
+11.
+16S
+
+End of block
+- Link Block
+M
+LINK
+
+-----| End of Mandatory Subsequence A1 Linkages
+
+12.
+16S
+
+End of block
+- General
+M
+GENL
+
+End of Sequence A General Information
+
+Mandatory Sequence B MMI Details 
+13.
+16R
+
+Start of block
+- MMI Details
+M
+MMID
+
+14.
+95R
+ISSR
+Issuer's Participant Code
+(Issuer)
+M
+/STRA/2!a6!n
+(Issuer’s Participant Code)
+
+15.
+35B
+
+Identification of securities
+(ISIN)
+M
+[ISIN1!e12!c]
+[4*35x]
+Sub-field 1 is Mandatory
+Sub-field 2 is Optional
+
+16.
+36B
+
+QISS
+Quantity Issued
+(Issued Amount)
+M
+//FAMT/15d(Down to 3 Decimals)
+
+
+ 
+
+17.
+16S
+
+End of block
+- MMI Details
+M
+MMID
+
+-----| End of Sequence B MMI Details 
+
+Field Descriptions
+
+1.	Transaction reference (M): This field identifies the transaction reference of the message.
+
+2.	Sub-message Type (M): This field identifies the sub-message type involved in the proprietary message. The valid value is:
+
+151 – ISIN Cancellation Confirmation.
+3.	Proprietary Message (M): This field identifies that this is a proprietary message. This should not have any contents.
+4.	Start of GENL block (M): This field identifies the start of GENL block and it should have a value of GENL.
+
+5.	Function of the message (M): This field identifies the function of the message. The valid value is:
+
+NEWM – New Message.
+
+6.	Preparation date and time (O): This field gives the preparation date and time of the message.
+
+7.	Type of confirmation indicator (M): This field identifies the instruction indicator. The valid value is:
+
+DISS – De-Issue.
+
+8.	Start of link block (M): This field identifies the start of linkage block and it should have a value of LINK. This block is mandatory for ISIN Cancellation.
+
+9.	Number Identification (M): This field identifies the Sub-Message Type of the linked transaction. The valid value is 150.
+
+10.	Related Reference (M): This field identifies the transaction reference of the original message. 
+
+11.	End of link block (M): This field identifies the end of linkage block and it should have a value of LINK.
+
+12.	End of GENL block (M): This field identifies the end of GENL block and it should have a value of GENL.
+
+13.	Start of MMID block (M): This field identifies the start of the MMI Details block and it should have a value of MMID.
+
+14.	Issuer's Participant Code (M): This field identifies the Participant Code of the Issuer. This should match with the original MT598-150 sent by STRATE. 
+
+15.	Identification of securities (M): This field identifies the ISIN information. 
+
+Sub-field 1 is mandatory. 
+Sub-field 2 is optional.
+
+16.	Quantity Cancelled / De-Issued (M): This field identifies the Cancelled / De-Issued amount of a financial instrument. This should match with the original MT598-150 sent by STRATE.(Down to 3 Decimals)
+
+
+
+17.	End of MMID block (M): This field identifies the end of the MMI Details block and should have a value of MMID.
+Appendix I ISIN Cancellation/De-issue Confirmation Rejection 
+from STRATE
+
+ISIN Cancellation Confirmation Rejection from STRATE
+
+The rejection from STRATE can be of two types:
+
+Format Rejection (MT598-901).
+Message Content Rejection (MT598-902).
+
+Format Rejection – MT598-901
+
+On receipt of the message (MT598-151) from NNA, STRATE will perform basic validations. If the format of the message is not as per ‘Interface Specification – Volume A’, then STRATE will generate a rejection message (MT598-901) to NNA. The layout of the MT598-901 is given in Appendix C.
+
+Message Content Rejection – MT598-902
+
+On receipt of the message (MT598-151) from NNA, STRATE will perform basic validations. If the validation is not successful, then STRATE will generate a rejection message (MT598-902) to NNA. The layout of the MT598-902 is given in Appendix C.
+
+Appendix J Request for Cancellation of ISIN on Maturity
+
+ISIN Cancellation on Maturity to NNA (MT598-150)
+
+On Maturity Date, the MMI Engine will generate a MMI Cancellation Request (MT598-150) to NNA. The layout of the MT598-150 for MMI Cancellation on Maturity is given below:
+
+Format Specifications
+Sl. No
+Tag
+Qualifier
+Name
+M/O
+Options 
+
+1.
+20
+
+Transaction Reference
+M
+16x
+
+2.
+12
+
+Sub-Message Type
+M
+3!n
+Valid Value is:
+150
+
+3.
+77E
+
+Proprietary Message
+M
+
+
+
+Mandatory Sequence A General Information
+4.
+16R
+
+Start of block
+- General
+M
+GENL
+
+5.
+23G
+
+Function of the message
+M
+4!c
+Values:
+NEWM – New message 
+
+6.
+98C
+PREP
+Preparation date and time
+O
+//8!n6!n
+
+7.
+22F
+INST
+Type of instruction indicator
+M
+/STRA/4!c
+Values:
+MATU  – Maturity of ISIN
+
+
+8.
+16S
+
+End of block
+- General
+M
+GENL
+
+End of Sequence A General Information
+
+Mandatory Sequence B MMI Details 
+9.
+16R
+
+Start of block
+- MMI Details
+M
+MMID
+
+10.
+95R
+ISSR
+Issuer's Participant Code
+(Issuer)
+M
+/STRA/2!a6!n(Issuer’s Participant Code)
+
+11.
+35B
+
+Identification of securities
+(ISIN)
+M
+[ISIN1!e12!c]
+[4*35x]
+Sub-field 1 is Mandatory
+Sub-field 2 is Optional
+
+12.
+36B
+QISS
+Quantity Issued
+(Issued Amount)
+M
+//FAMT/15d(To match with the original default amount notified by STRATE)(Down to 3 Decimals)
+
+
+ 
+
+13.
+16S
+
+End of block
+- MMI Details
+M
+MMID
+
+-----| End of Sequence B MMI Details 
+
+Field Descriptions
+
+1.	Transaction reference (M): This field identifies the transaction reference of the message.
+
+2.	Sub-message Type (M): This field identifies the sub-message type involved in the proprietary message. The valid value is:
+
+150 – ISIN Cancellation Request on Maturity
+
+3.	Proprietary Message (M): This field identifies that this is a proprietary message. This should not have any contents.
+4.	Start of GENL block (M): This field identifies the start of GENL block and it should have a value of GENL.
+
+5.	Function of the message (M): This field identifies the function of the message. The valid value is:
+
+NEWM  – New Message.
+
+6.	Preparation date and time (O): This field gives the preparation date and time of the message.
+
+7.	Type of instruction indicator (M): This field identifies the instruction indicator. The valid value is:
+
+MATU – Maturity of ISIN.
+
+8.	End of GENL block (M): This field identifies the end of GENL block and it should have a value of GENL.
+
+9.	Start of MMID block (M): This field identifies the start of the MMI Details block and it should have a value of MMID.
+
+10.	Issuer's Participant Code (M): This field identifies the Participant Code of the Issuer. 
+
+11.	Identification of securities (M): This field identifies the ISIN information. 
+
+Sub-field 1is mandatory.
+Sub-field 2 is optional.
+
+12.	Quantity Issued (M): This field identifies the Issued amount of a financial instrument. (To match with the original default amount notified by STRATE)(Down to 3 Decimals)
+
+13.	End of MMID block (M): This field identifies the end of the MMI Details block and should have a value of MMID.
+
+
+Appendix K ISIN Cancellation on Maturity Rejection from NNA 
+
+ISIN Cancellation on Maturity Rejection from NNA
+
+The rejection from NNA can be of two types:
+
+Format Rejection (MT598-901).
+Message Content Rejection (MT598-902).
+
+Format Rejection – MT598-901
+
+On receipt of the message (MT598-150) from STRATE, NNA will perform basic validations. If the format of the message is not as per ‘Interface Specification – Volume A’, then NNA will generate a rejection message (MT598-901) to STRATE. The layout of the MT598-901 is given in Appendix C.
+
+
+
+
+
+Message Content Rejection – MT598-902
+
+On receipt of the message (MT598-150) from STRATE, NNA will perform basic validations. If the validation is not successful, then NNA will generate a rejection message (MT598-902) to STRATE. The layout of the MT598-902 is given in Appendix C.
+
+
+
+Appendix L ISIN Front End Functionality 
+
+The front end for the monitoring of the issuance of ISINs must cater for the following functionality:-
+
+21.1 BCP Requirements
+
+A screen that Clearing & Settlement may input manual ISINs on BCP
+
+21.2 Manual Updates
+
+A screen where issuers codes may be updated. Refer my previous e-mail to STRATE.
+
+21.3 Rejections JSE to STRATE
+
+A screen which reflects the rejections from the JSE to STRATE for the previous day. This must include:-
+
+Content error or Format error (MT 598-901 or MT 598-902)
+If it is a rejection of a ISIN request, ISIN cancellation, or ISIN de-registration
+TRN reference of STRATE message
+Message type (MT 598-150NEWM/ MT 598-150DISS/MT 598-150CANC)
+Error code and details
+
+At the time of rejection (real time) a e-mail must also be sent to Clearing & Settlement advising them of the rejection with the above details.
+
+21.4 Rejections STRATE to JSE
+
+A screen which reflects the rejections from STRATE to the JSE for the previous day. This must include:-
+
+Content error or Format error (MT 598-901 or MT 598-902)
+If it is a rejection of a ISIN confirmation, ISIN cancellation confirmation, or ISIN de-registration confirmation
+TRN reference of JSE message
+Message type (MT 598-150NEWM/ MT 598-150DISS/MT 598-150CANC)
+Error code and details
+
+At the time of rejection (real time) a e-mail must also be sent to Clearing & Settlement advising them of the rejection with the above details.
+
+21.5 View and print issued/de-issued/matured ISINs 
+
+A screen where we can look up per ISIN.i.e.put in the ISIN and it will give the details around the ISIN. This must include:-
+
+ISIN Active/Cancelled/Deregistered
+Date issued
+Issue or issuers participant code if this cannot be catered for. See my point 2 above and my e-mail to STRATE
+ISIN number issued
+Identification of securities. This would be the short code X20
+Quantity issued
+Coupon payment frequency
+Coupon payment date
+Instrument category
+Maturity date
+Coupon rate
+
+A screen where ISINs issued for the previous day may be viewed and printed. This must include:-
+
+Date issued
+Issue or issuers participant code if this cannot be catered for. See my point 2 above and my e-mail to STRATE
+ISIN number issued
+Identification of securities. This would be the short code X20
+Quantity issued
+Coupon payment frequency
+Coupon payment date
+Instrument category
+Maturity date
+Coupon rate
+
+A screen where ISINs cancelled for the previous day may be viewed and printed. This must include:-
+
+Date cancelled
+Issue or issuers participant code if this cannot be catered for. See my point 2 above and my e-mail to STRATE
+ISIN number issued
+Identification of securities. This would be the short code X20
+Quantity issued
+Instrument category
+Maturity date
+
+A screen where ISINs de-registered for the previous day may be viewed and printed. This must include:-
+
+Date de-registered
+Issue or issuers participant code if this cannot be catered for. See my point 2 above and my e-mail to STRATE
+ISIN number issued
+Identification of securities. This would be the short code X20
+Quantity issued
+Instrument category
+Maturity date
+ 
+A screen where all active ISINs can be viewed and printed. This must include:-
+
+Date issued
+Issue or issuers participant code if this cannot be catered for. See my point 2 above and my e-mail to STRATE
+ISIN number issued
+Identification of securities. This would be the short code X20
+Quantity issued
+Coupon payment frequency
+Coupon payment date
+Instrument category
+Maturity date
+Coupon rate
+
+This screen must also be parameter driven so that we may request information:-
+
+Per issuer
+Per instrument category
+Per issue date
+Per maturity date
+Per instrument category
+
+A screen where all cancelled ISINs can be viewed and printed. This will be for the last 12 months due to archiving. This must include:-
+
+Date cancelled
+Issue or issuers participant code if this cannot be catered for. See my point 2 above and my e-mail to STRATE
+ISIN number issued
+Identification of securities. This would be the short code X20
+Quantity issued
+Instrument category
+Maturity date
+
+This screen must also be parameter driven so that we may request information:-
+
+Per issuer
+Per instrument category
+Per cancelled date
+Per maturity date
+Per instrument category
+
+A screen where all de-registered ISINs can be viewed and printed. This will be for the last 12 months due to archiving. This must include:-
+
+Date de-registered
+Issue or issuers participant code if this cannot be catered for. See my point 2 above and my e-mail to STRATE
+ISIN number issued
+Identification of securities. This would be the short code X20
+Quantity issued
+Instrument category
+Maturity date
+
+This screen must also be parameter driven so that we may request information:-
+
+Per issuer
+Per instrument category
+Per de-registration date
+Per instrument category
+

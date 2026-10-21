@@ -1,0 +1,19 @@
+﻿dataset,current_tracker_suitability,proposed_suitability,proposed_use,rows_in_task_files,caveats
+promise.csv,CANDIDATE_PENDING_DUPLICATE_AND_LABEL_DISAGREEMENT_REVIEW,CANONICAL_TEXT_FOR_PROMISE_FR_NFR,"fr_nfr, nfr_subtype (via NICE flags), dependency joins",481,"commas intact; 26 PROMISE-vs-NICE label disagreements are excluded, not resolved"
+PROMISE-relabeled-NICE.csv,CANDIDATE_PENDING_LABEL_DISAGREEMENT_REVIEW,SECOND_LABEL_SET_FOR_PROMISE,"nfr_subtype labels, security flag; collapsed into promise.csv",481,Both-flag/no-flag rows leave requirement_type empty
+nfr_labeled.txt / test_labeled.txt,CANDIDATE_PENDING_PROVENANCE_AND_LABEL_SEMANTICS_REVIEW,DUPLICATE_COPY_OF_PROMISE,none (collapsed as provenance),1,commas stripped in the parsed copy; use promise.csv text
+software_requirements_extended.csv,CANDIDATE_PENDING_LABEL_MAPPING_REVIEW,PROVENANCE_UNCONFIRMED,none until provenance is confirmed,0,PROMISE copy plus rows of unknown origin
+FR_NFR_Dataset.xlsx,CANDIDATE_PENDING_MISSING_LABEL_REVIEW,CANDIDATE_FR_NFR_TRAINING_EVALUATION_SOURCE,fr_nfr,5675,no source-document column; 31 unlabeled rows kept empty; duplicates/conflicts removed
+pure_subset.csv,CANDIDATE_PENDING_LABEL_AND_CONFLICT_REVIEW,CANDIDATE_SECURITY_RELIABILITY_SOURCE,nfr_subtype (security); reliability kept but too sparse to evaluate,8422,mixed UTF-8/cp1252 bytes decoded; regulatory documents dominate; NFR_boolean=0 meaning unconfirmed so not used for FR/NFR
+security_requirements.csv,CANDIDATE_PENDING_LABEL_REVIEW,CANDIDATE_SECURITY_BINARY_SOURCE,nfr_subtype (security),440,one stray label value left unlabeled
+QuRE.csv,CANDIDATE_PENDING_LABEL_SEMANTICS_AND_PROVENANCE_REVIEW,CANDIDATE_AMBIGUITY_DEFECT_SOURCE,ambiguity,2039,defect definition differs from ARTA; reported by ambiguity_label_basis
+DS1.xlsx,CANDIDATE_PENDING_ANNOTATION_RELIABILITY_REVIEW,CANDIDATE_AMBIGUITY_SOURCE,ambiguity (defect = any smell term),505,label derived from smell columns; cross-DS disagreements excluded
+DS2.xlsx,CANDIDATE_PENDING_ANNOTATION_RELIABILITY_REVIEW,CANDIDATE_AMBIGUITY_SOURCE_TCS_ROWS_HELD,ambiguity,917,1999-tcs rows held out (tcs_hold)
+DS3.xlsx,CANDIDATE_PENDING_ANNOTATION_RELIABILITY_REVIEW,CANDIDATE_AMBIGUITY_SOURCE,ambiguity,702,overlaps PROMISE and DS1; cross-DS disagreements excluded
+DS4.xlsx,CANDIDATE_PENDING_ANNOTATION_RELIABILITY_REVIEW,CANDIDATE_AMBIGUITY_SOURCE_TCS_ROWS_HELD,ambiguity,683,1999-tcs rows held out (tcs_hold)
+"arta_evaluation/003,005",,TOOL_OUTPUT_NOT_GROUND_TRUTH,none,,"ARTA/Smella tool results, not human labels"
+user_stories.csv,SUPPORTING_DATA_PENDING_TASK_DEFINITION,REFERENCE_USER_STORIES,"generation_inputs (reference outputs, unpaired)",1671,no requirement-to-story pairing exists
+Cornelius dataset,,PIPELINE_TEST_ONLY,pipeline_test_cornelius.csv (200 rows),0,"templated, low diversity: never main training/evaluation data"
+basic/context/context_role.csv,,NEEDS_REVIEW_EXCLUDED,none,0,provenance and labels unconfirmed
+nfr_fr_trace P1-P10,,DEPENDENCY_PAIRS_SEMANTICS_UNCONFIRMED,dependency_pairs (relation semantics unconfirmed; text join inferred),,0/1 meaning not confirmed; CC BY-SA 3.0
+SRS documents (76 txt + 3 html),,CANDIDATE_REQUIREMENT_EXTRACTION_SOURCE_AUTO_UNVERIFIED,srs_requirements_extracted.csv only; no splits,,boundaries unverified; TCS manual review on hold

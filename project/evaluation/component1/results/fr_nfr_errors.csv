@@ -1,0 +1,31 @@
+﻿subtask,model,record_id,source_dataset,group_id,text,true,predicted,pattern_note
+fr_nfr,tfidf_svm,PROMISE:3a48d06444,PROMISE,PROMISE_P10,The product shall make inactive players unavailable for selection from the list of players.,FR,NFR,14 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:f6924bdbd0,FR_NFR,FR_NFR:ungrouped,User shall have a registered phone number for software registration.,NFR,FR,10 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:12eabf4dbe,FR_NFR,FR_NFR:ungrouped,Interface will be compatible with major web browsers.,FR,NFR,very short (<10 words); no shall/must
+fr_nfr,tfidf_svm,FR_NFR:34a5494413,FR_NFR,FR_NFR:ungrouped,Communication between the Java application and the SQL database shall be established.,NFR,FR,12 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:cdca0b102d,FR_NFR,FR_NFR:ungrouped,System shall enable users to track submitted defect or enhancement requests.,NFR,FR,11 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:669ad4828e,FR_NFR,FR_NFR:ungrouped,Crafty kids corner shall offer user management features in the admin panel for managing accounts and permissions.,FR,NFR,17 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:a0c2c60a70,FR_NFR,FR_NFR:ungrouped,Each user shall have a set of system access properties that defines the user's privileges within the system.,NFR,FR,18 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:68f5a07530,FR_NFR,FR_NFR:ungrouped,User shall/will be able to request one or more consultation requests linked back to a specialty.,NFR,FR,16 words; no shall/must
+fr_nfr,tfidf_svm,FR_NFR:41aae90ff9,FR_NFR,FR_NFR:ungrouped,The system shall require customer registration for making purchases.,FR,NFR,very short (<10 words); has shall/must
+fr_nfr,tfidf_svm,PROMISE:bd41a5294a,PROMISE,PROMISE_P14,A new user shall be able to navigate through the league and team pages within 30 seconds of reaching the start-up page.',NFR,FR,22 words; has shall/must; contains digits; compound
+fr_nfr,tfidf_svm,FR_NFR:41e9f80ede,FR_NFR,FR_NFR:ungrouped,"The system shall integrate with analysis tools like Elasticsearch, SPSS, EPrints, Mongo, and DAT.",FR,NFR,14 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:4e232ae2b3,FR_NFR,FR_NFR:ungrouped,System shall help the user understand how the application works and how to approach its various functions.,FR,NFR,17 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:dd585d6967,FR_NFR,FR_NFR:ungrouped,System shall be able to display the problem statement and coding environment based on the user's selection of problem category and difficulty level.,FR,NFR,23 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:dc951b34ec,FR_NFR,FR_NFR:ungrouped,The user research plan shall test the user research plan.,NFR,FR,10 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:eb857c0c42,FR_NFR,FR_NFR:ungrouped,The system shall outline the step-by-step process for completing tasks within the system.,FR,NFR,13 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:3133ed7e08,FR_NFR,FR_NFR:ungrouped,The system shall support the use of key signatures in scores.,FR,NFR,11 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:2e31cb566e,FR_NFR,FR_NFR:ungrouped,The system shall be able to add product to shopping cart in less than 2ms.,NFR,FR,15 words; has shall/must; contains digits
+fr_nfr,tfidf_svm,FR_NFR:12bf02878e,FR_NFR,FR_NFR:ungrouped,"System shall facilitate connections between agricultural product wholesalers and retailers, and farmers and other customers, allowing users to be redirected to the admin dashboard with a success message.",FR,NFR,28 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:0cac61085c,FR_NFR,FR_NFR:ungrouped,The system shall provide a high-quality display with accurate color reproduction and high resolution.,NFR,FR,14 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:9c416643f7,FR_NFR,FR_NFR:ungrouped,"Users shall specify a timeframe (e.g., one day, one week, one month) for forecasts.",FR,NFR,14 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:03244c99fd,FR_NFR,FR_NFR:ungrouped,User shall have customization options including homepage selection and privacy settings.,FR,NFR,11 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:203212c37a,FR_NFR,FR_NFR:ungrouped,The hardware and operating system shall be capable of supporting a screen resolution no greater than 320 x 240 pixels due to the small form factor.,FR,NFR,26 words; has shall/must; contains digits; compound; negation
+fr_nfr,tfidf_svm,FR_NFR:2b094ea91a,FR_NFR,FR_NFR:ungrouped,The system shall support content delivery networks (CDNs) to distribute content efficiently across different geographic locations.,NFR,FR,16 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:1766749348,FR_NFR,FR_NFR:ungrouped,"System shall be able to provide submission status (Accepted, Wrong Answer, Time Limit Exceeded, etc.) for user's code solutions.",FR,NFR,19 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:a75c250d00,FR_NFR,FR_NFR:ungrouped,"Passwords can include digits, hyphens, and underscores.",NFR,FR,very short (<10 words); no shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:a04462fc79,FR_NFR,FR_NFR:ungrouped,System shall provide robust search functionality for retrieving experimental protocols and files.,NFR,FR,12 words; has shall/must; compound
+fr_nfr,tfidf_svm,FR_NFR:ed2efd3914,FR_NFR,FR_NFR:ungrouped,System shall automate tasks related to investigation after initial entries are made during registration.,FR,NFR,14 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:e889c9ac67,FR_NFR,FR_NFR:ungrouped,System shall be able to provide general recommendations based on recent trends.,NFR,FR,12 words; has shall/must
+fr_nfr,tfidf_svm,PROMISE:74999c876e,PROMISE,PROMISE_P10,The product shall display each type of ship in a grid using an image of the specific type of ship.',NFR,FR,20 words; has shall/must
+fr_nfr,tfidf_svm,FR_NFR:21fa927a09,FR_NFR,FR_NFR:ungrouped,Temporary password shall be mailed to the user in case of forgotten password.,FR,NFR,13 words; has shall/must

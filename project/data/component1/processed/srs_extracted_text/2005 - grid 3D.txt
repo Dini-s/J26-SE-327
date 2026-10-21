@@ -1,0 +1,326 @@
+﻿Software Requirements Engineering for Grid 3D Application
+Software Requirements
+Specification
+for 
+Grid 3D Application
+Version 1.0 To Be Approved
+Prepared by Ben Tagger
+National Institute for Medical Research
+Mill Hill, LONDON, NW7 1AA
+Created on: 4th March 2005
+Page 1 of 15
+Software Requirements Engineering for Grid 3D Application
+Table of Contents
+Document Introduction.........................................................................................................................3
+PRODUCT CONSTRAINTS............................................................................................................... 4
+1.1 Purpose of the the Product......................................................................................................... 4
+1.1.1 Background to the Project Effort....................................................................................... 4
+1.1.2 Goals of the Product...........................................................................................................4
+1.2 Client, Customer and other Stakeholders.................................................................................. 5
+1.2.1 The Client...........................................................................................................................5
+1.2.2 The Customer.....................................................................................................................5
+1.2.3 Other Stakeholders............................................................................................................. 5
+1.3 The Users of the Product............................................................................................................6
+1.4 Requirements Constraints.......................................................................................................... 7
+1.4.1 Solution Constraints...........................................................................................................7
+1.4.2 Implementation Environment.............................................................................................7
+1.4.3 Partner Applications...........................................................................................................7
+1.4.4 How Long to Develop?...................................................................................................... 7
+1.5 Naming Conventions and Definitions........................................................................................8
+1.6 Assumptions...............................................................................................................................8
+FUNCTIONAL REQUIREMENTS..................................................................................................... 9
+2.1 The Scope of the Product...........................................................................................................9
+2.1.1 The Context of the Work................................................................................................... 9
+2.1.1.1 Initialisation................................................................................................................9
+2.1.1.2 Running.................................................................................................................... 10
+2.1.2 Work Partitioning.............................................................................................................11
+2.1.3 Product Boundary.............................................................................................................12
+2.2 Functional and Data Requirements..........................................................................................14
+2.2.1 Functional Requirements................................................................................................. 14
+2.2.2 Data Requirements........................................................................................................... 14
+NON-FUNCTIONAL REQUIREMENTS......................................................................................... 15
+3.1 Look and Feel Requirements................................................................................................... 15
+3.2 Performance Requirements......................................................................................................15
+Page 2 of 15
+Software Requirements Engineering for Grid 3D Application
+Document Introduction
+This document uses the Volere template for writing and designing requirements specifications. The
+template itself is copyright. We hereby acknowledge this copyright. Details can be found at the
+Atlantic Systems Guild web site at www.atlsysguild.com. 
+Page 3 of 15
+Software Requirements Engineering for Grid 3D Application
+PRODUCT CONSTRAINTS
+1.1 Purpose of the the Product
+1.1.1 Background to the Project Effort
+The need for a method of visualisation of biological data has been identified. Currently, there are
+many groups offering many different tools for visualising data. These visualisation tools provide a
+range from tabular to three-dimensional graphical views. However, a need has been identified for a
+tool that can display data in a three dimensional environment, which allows the user to investigate
+the data and easily see various attributes of the data at a glance.
+A need for the above-mentioned tool  has been identified and, there being no applicable tool
+available, a project to create such a tool was conceptualised.
+The primary stakeholder (see 1.2.1) has made the case that the tool to be created is of relevance use
+and there is a real need for it. This need is established through continual use of other similar tools
+and a continued identification of their shortfalls.
+1.1.2 Goals of the Product
+We want to give the user the ability to visualise and investigate their data in a three dimensional
+environment. The user should have the ability to see (at a glance) the differences of various selected
+attributes of their data.
+The overall goal of this product is to provide the users with something that has previously been
+unavailable.
+Page 4 of 15
+Software Requirements Engineering for Grid 3D Application
+1.2 Client, Customer and other Stakeholders
+1.2.1 The Client
+The client for this product is Dr Delmiro Fernandez-Reyes, a supervisor at the NIMR. Eventually,
+the client would like to present and make available the product for the benefit of research merit. The
+client has said that he is solely responsible for approving changes in the scope of the project.
+1.2.2 The Customer
+The customer for this product is anyone from the parasitology department at the NIMR, represented
+here by Dr Delmiro Fernandez-Reyes. Potential customers may include anyone who works in the
+field of research and would find this product useful.
+1.2.3 Other Stakeholders
+Other stakeholders include:
+ Ben Tagger – designer, developer, tester and maintainer.
+ Anthony Finkelstein – UCL supervisor of Ben Tagger
+ Everyone in the parasitology department at NIMR.
+Page 5 of 15
+Software Requirements Engineering for Grid 3D Application
+1.3 The Users of the Product
+People who may use this product;
+ Anyone investigating proteins. 
+ Research Scientists 
+ Data-mining Scientists 
+ Research Students 
+ Organisations in this field 
+Some attributes the product might cater for;
+ Non-English speakers 
+ People wanting differing degrees of detail 
+ People who want to analyse their data (in their preferred format) 
+For each User, describe as fully as possible all the known attributes, such as;
+ Subject matter experience 
+ Technological experience 
+ Intellectual abilities 
+ Attitude to job 
+ Attitude to technology 
+ Education 
+ Linguistic skills 
+Page 6 of 15
+Software Requirements Engineering for Grid 3D Application
+1.4 Requirements Constraints
+1.4.1 Solution Constraints
+The following specifies constraints on the way that the problem must be solved
+ The product must be available on both Windows and Linux operating platforms
+ The execution of the application must be kept on the server side.
+ The solution must be produced in a timely manner – see time restrictions.
+1.4.2 Implementation Environment
+This section will describe the technological and physical environment that the product will be
+installed.
+ The product should run on a minimum of a mid-range personal computer.
+ The product shall run with the minimum input tools of mouse and keyboard.
+ The user must have a capability for creating tab-delimited text files.
+1.4.3 Partner Applications
+This section will describe some of the applications that are not part of the product, but with which
+the product will, or may, collaborate.
+ Microsoft Windows 98, 2000, NT and XP Operating Systems
+ Linux and Solaris Operating Systems
+ Matlab – used for some of the pre-product data generations. Matlab can also be used for
+manipulating the format of the product's required data.
+ Tomcat/Apache/Ant – possibly to be used for product deployment
+1.4.4 How Long to Develop?
+The Grid 3D application was originally developed to be included for a scientific paper to be
+published at some point in March 2005. It was, therefore, essential that the application be ready by
+then. The motivation for developing the application within this short time frame was to, firstly,
+included it in the paper, but also to produce an original product in a constantly advancing genre.
+Page 7 of 15
+Software Requirements Engineering for Grid 3D Application
+1.5 Naming Conventions and Definitions
+This section shall provide a dictionary containing the meaning of all the name used within this
+requirements specification document.
+ Biological data – data of a biological scientific nature generated by some product or process
+(external to the Grid 3D application). To use the biological data with the Grid 3D
+application, it must be formatted in the specified manner (see         ).
+ Demonstrator – refers to a user of the Grid 3D application. The demonstrator uses the three
+dimensional view generated by the application to demonstrate one or more properties of the
+data to any other person.
+ Grid 3D – the application for which this document contains the requirements. For a detailed
+representation of the Grid 3D application, please refer to the Design document.
+ Identifier – refers to a user of the Grid 3D application. The identifier use the application to
+identify different “points of interest”. For example, a point that is not close to any other point
+may be of interest. An identifier may become an investigator.
+ Investigator – refers to a user of the Grid 3D application. The investigator uses the
+application in order to find detailed information about specific points. An investigator may
+originate as an identifier.
+1.6 Assumptions
+This section contains a list of assumptions that are to be made by the developers.
+ The users have the computing skill for basic operation of one of the operating systems
+documented in 1.4.3. Basic operation entails:
+• starting and terminating an operating system session
+• use of a Java-enabled internet browser
+• competent use of keyboard and mouse
+• basic file handling
+• command line input skills
+ The users have access to a minimum specification work station on which to run the product.
+See 3.3 for minimum requirements for the work station.
+Page 8 of 15
+Software Requirements Engineering for Grid 3D Application
+FUNCTIONAL REQUIREMENTS
+2.1 The Scope of the Product
+2.1.1 The Context of the Work
+The following diagram represents a context diagram for the Grid 3D application. For a description
+of any of the below-mentioned names, please refer to 1.5.
+2.1.1.1 Initialisation
+The following diagram refers to the initiation phase of the Grid 3D application.
+Page 9 of 15
+Biological 
+Data
+Identifier Investigator Demonstrator
+Various 
+Processes/Products
+Gets Data Gets Data Gets Data
+Grid 3D 
+Application
+Supplies data
+Supplies data
+Supplies dataReturns point view/info
+Returns 
+information
+Returns 3D 
+view
+Software Requirements Engineering for Grid 3D Application
+2.1.1.2 Running
+The context diagram above represents the Grid 3D application during the initialisation stages. It is
+important to differentiate this with the work context for the application in a state of running. The
+following diagram aims to describe the work context for the application when it is being run by the
+users (identified above). In the following diagram, the users are grouped as one entity. This is for
+convenience only and should be thought of as separate entities. However, the work context applies
+to each of them in the same manner and, therefore, have been grouped to further the simplicity and
+understandability of the diagram.
+Page 10 of 15
+- Identifier
+- Investigator
+- Demonstrator
+Grid 3D 
+Application
+Rotate Grid
+Move Grid
+Zoom Grid
+Select Point(s)
+Retrieve Point Info
+Return desired Graphical 
+Representation
+Software Requirements Engineering for Grid 3D Application
+2.1.2 Work Partitioning
+The purpose of this section is to identify all the business events to which the product responds. This
+is to identify the logical parts of work that can be used as the basis for discovering the detailed
+requirements.
+Event List:
+# Event Name Input and Output Flows
+1 Identifier supplies data Data (in)
+2 Application returns view/info to identifier Graphical view (out)
+3 Investigator supplies data Data (in)
+4 Application returns details to investigator Textual info (out)
+5 Demonstrator supplies data Data (in)
+6 Application provides 3D view Graphical view (out)
+7 User requests change of grid orientation Mouse movement (in)
+8 User selects multiple points Mouse and Keyboard (in)
+Page 11 of 15
+Software Requirements Engineering for Grid 3D Application
+2.1.3 Product Boundary
+This section aims to generate some use cases for the Grid 3D application. These shall be generated
+from the events list contained in 2.1.2. It is hoped that use cases can be given that cover all the
+events listed in 2.1.2. With this in mind, the use cases will cover more than one event as more than
+one event can be captured with a single use-case.
+Use case for events
+1,2,6,7.
+Use case
+3,4,6,7
+Page 12 of 15
+Identifier
+Grid 3D 
+Application
+Supplies data
+Returns initial 
+view
+Request change 
+of orientation
+Reflect change of 
+orientation
+Investigator
+Grid 3D 
+Application
+Supplies data
+Returns point 
+details
+Request change 
+of orientation
+Reflect change of 
+orientation
+Software Requirements Engineering for Grid 3D Application
+Use case
+5,6,7
+Page 13 of 15
+Demonstrator
+Grid 3D 
+Application
+Supplies data
+Returns point 
+details
+Request change 
+of orientation
+Reflect change of 
+orientation
+Software Requirements Engineering for Grid 3D Application
+2.2 Functional and Data Requirements
+2.2.1 Functional Requirements
+This section describes the functional requirements for the Grid 3D application. Each functional
+requirement should have a fit criterion in order to make it possible to test whether the requirement is
+implemented as specified in the delivered product.
+ The product shall plot the data points in a scientifically correct manner.
+ The grid axis should be labelled correctly according to the input from the data file.
+ Data points should be coloured in accordance to the cluster number (contained in the data
+file)
+ The product should be able to handle up to 2000 data points.
+ A single click of the mouse over a data point should bring up the name of the data point.
+ A double-click of the mouse over the data point should cause the application to display all
+the data point's details.
+ The product should allow multiple points to clicked so that multiple names can be displayed.
+ The product should allow the grid to be oriented by the user. Rotation, zoom and move
+functions should be employed.
+2.2.2 Data Requirements
+The use of the Grid 3D application involves the user supplying a data file. This data file contains all
+the information of the points that are to be plotted.
+The data file should contain:
+ A name for the data point
+ 3 parameters from which the data point is to be plotted
+ A single parameter to designate the colour of the point. This is the attribute that is to be used
+as the comparison.
+ A description for the data point.
+In order for the grid to reflect the nature of the user's data, the system should allow for the user to
+specify their own axis. With this in mind, the first row of the data file should contain the column
+headings. The following table proposes the format for the data file.
+Name X_Title Y_Title Z_Title Cluster_Title Description
+Point_Name X_Value Y_Value Z_Value <number> <description>
+Page 14 of 15
+Software Requirements Engineering for Grid 3D Application
+NON-FUNCTIONAL REQUIREMENTS
+3.1 Look and Feel Requirements
+The product is to be used primarily by research scientists and therefore must have a look and feel
+appropriate for this use.
+These requirements are:
+ The points should be large enough to see and select
+ The points should not be too big, so as to distort the overall pattern of the point spread.
+ The axis should be clearly labelled and easily recognised after the grid has been oriented into
+a different position.
+ The application should be coloured so that the screen shots can be printed out clearly (i.e.,
+black on white background).
+ The application should be intuitive and not require any specialist training.
+3.2 Performance Requirements
+This section aims to specify some of the timing and performance constraints to which the product
+will aim to adhere.
+ The program should start within 30 seconds
+• This depends on the number of data points that are to be plotted.
+ The interaction with the data points should have a delay of no longer than 2 seconds.
+ The response to a change in the orientation should be fast enough to avoid interrupting the
+user's flow of thought.
+Page 15 of 15
