@@ -1,4 +1,5 @@
-import { AlertTriangle, ChevronDown, Inbox } from "lucide-react";
+import { AlertTriangle, ChartColumn, ChevronDown, ClipboardCheck, GitCommitHorizontal, Inbox, LayoutDashboard, Link2, Network, Sparkles } from "lucide-react";
+import { NavLink } from "react-router-dom";
 import { cx } from "./utils";
 
 /* ------------------------------------------------------------------ small helpers */
@@ -82,7 +83,7 @@ export function Stat({ label, value, hint, tone = "indigo", icon: Icon, loading,
 /** Compact number with a small icon, used inside the summary band. */
 export function Metric({ label, value, icon: Icon, tone = "indigo", loading }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div data-trace-metric data-tone={tone} className="flex flex-col gap-2">
       <div className="flex items-center gap-2 whitespace-nowrap text-[12px] font-medium text-slate-500">
         {Icon && <span className={cx("flex h-6 w-6 items-center justify-center rounded-md", statTones[tone])}><Icon size={14} strokeWidth={2} /></span>}
         {label}
@@ -241,22 +242,46 @@ export function Disclosure({ open }) {
 }
 
 /* ------------------------------------------------------------------ page header */
+const SECTIONS = [
+  { to: "/traceability", label: "Overview", icon: LayoutDashboard, end: true },
+  { to: "/traceability/link", label: "Link requirements", icon: Link2 },
+  { to: "/traceability/changes", label: "Code changes", icon: GitCommitHorizontal },
+  { to: "/traceability/analytics", label: "Analytics", icon: ChartColumn },
+  { to: "/traceability/labeling", label: "Evaluate links", icon: ClipboardCheck },
+  { to: "/traceability/graph", label: "Graph", icon: Network },
+];
+const PAGE_ICONS = { Overview: LayoutDashboard, "Link requirements": Link2, "Code changes": GitCommitHorizontal, Analytics: ChartColumn, Evaluate: ClipboardCheck, "Traceability graph": Network };
+
+/** C4 page header: a dark hero band with the page title, and a section bar to move between the C4 pages. */
 export function PageHeader({ page, title, description, apiError, children }) {
+  const Icon = PAGE_ICONS[page] || PAGE_ICONS[title] || Sparkles;
   return (
-    <div data-trace-header className="mb-6">
-      <div className="c4-page-kicker">
-        <span className="c4-page-kicker-mark">C4</span>
-        <span>Traceability intelligence</span>
-        <span className="c4-page-kicker-divider">/</span>
-        <span className="c4-page-kicker-current">{page}</span>
-      </div>
-      <div className="c4-page-heading">
-        <div className="min-w-0">
-          <h1 className="text-xl font-semibold tracking-tight text-slate-900">{title}</h1>
-          {description && <p className="mt-1 max-w-3xl text-[13px] leading-relaxed text-slate-500">{description}</p>}
+    <div data-trace-header className="c4-head">
+      <div className="c4-hero">
+        <div className="c4-hero-glow" aria-hidden="true" />
+        <div className="c4-hero-kicker">
+          <span className="c4-hero-badge">C4</span>
+          <span>Traceability intelligence</span>
+          <span className="c4-hero-kicker-sep">/</span>
+          <span className="c4-hero-kicker-page">{page}</span>
         </div>
-        {children}
+        <div className="c4-hero-main">
+          <span className="c4-hero-icon"><Icon size={22} strokeWidth={1.8} /></span>
+          <div className="min-w-0 flex-1">
+            <h1>{title}</h1>
+            {description && <p>{description}</p>}
+          </div>
+          {children && <div className="c4-hero-actions">{children}</div>}
+        </div>
       </div>
+      <nav className="c4-subnav" aria-label="C4 sections">
+        {SECTIONS.map(({ to, label, icon: SectionIcon, end }) => (
+          <NavLink key={to} to={to} end={end} className={({ isActive }) => cx("c4-subnav-item", isActive && "is-active")}>
+            <SectionIcon size={15} strokeWidth={1.9} />
+            <span>{label}</span>
+          </NavLink>
+        ))}
+      </nav>
       {apiError && (
         <div className="c4-api-alert mt-4 flex items-start gap-3 rounded-xl border p-3.5 text-[13px]">
           <AlertTriangle size={17} className="mt-0.5 shrink-0" />

@@ -16,13 +16,19 @@ def pr_curve(
     traces: Sequence[TraceabilityLink],
     gold: Iterable[tuple[str, str]],
     target_precision: float = TARGET_PRECISION,
+    known_requirements: Optional[Iterable[str]] = None,
 ) -> dict[str, Any]:
     """Precision / recall of the verified links kept at each distinct confidence level.
 
     Returns ``{"rows": [...], "operating_point": row | None, "gold_links": n, "processed_requirements": n}``;
     ``operating_point`` is the loosest threshold whose precision reaches ``target_precision`` (most links kept).
+    ``known_requirements`` (the requirement ids of the labelled dataset) keeps requirements someone added to the graph
+    afterwards (demo or test entries) out of the numbers: they have no answer key, so their links would count as wrong.
     """
     gold_set = set(gold)
+    if known_requirements is not None:
+        known = set(known_requirements)
+        traces = [t for t in traces if t.source_id in known]
     verified = [t for t in traces if t.status == "verified"]
     processed = {t.source_id for t in traces}
     gold_processed = {g for g in gold_set if g[0] in processed}
@@ -57,7 +63,10 @@ def pr_curve_project(uskg: Any, project: Optional[str]) -> Optional[dict[str, An
     if path is None:
         return None
     gold = [(g["source_id"], g["target_id"]) for g in json.loads(path.read_text(encoding="utf-8"))]
+    artifacts = path.parent / "artifacts.json"
+    known = ({a["id"] for a in json.loads(artifacts.read_text(encoding="utf-8")) if a.get("type") == "requirement"}
+             if artifacts.exists() else None)
     scope = {"project": project} if project else {}
-    out = pr_curve(uskg.get_traces(**scope), gold)
+    out = pr_curve(uskg.get_traces(**scope), gold, known_requirements=known)
     out["project"] = project
     return out

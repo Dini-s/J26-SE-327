@@ -443,3 +443,274 @@
   .minimal-traceability .c4-picker-text { grid-column: 2; }
   .minimal-traceability .c4-slider input { width: 120px; }
 }
+
+/* ================================================================ v2 look (C4 pages only)
+   A dark hero header with a section bar, flatter cards, navy active states. Later rules override the ones above. */
+.minimal-traceability {
+  --c4-navy: #0b1f3a;
+  --c4-navy-2: #12305a;
+  --c4-teal: #2ec4b6;
+  --c4-line: #e4e8f1;
+  --c4-line-soft: #eef1f6;
+  --c4-shadow: 0 1px 2px rgba(15, 23, 42, .05), 0 8px 24px -16px rgba(15, 23, 42, .25);
+  max-width: 1320px;
+}
+
+/* ---------- hero header */
+.minimal-traceability .c4-head { margin-bottom: 26px; }
+.minimal-traceability .c4-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 30px 46px;
+  border-radius: 22px;
+  color: #dbe6f5;
+  background:
+    radial-gradient(36rem 14rem at 100% 0%, rgba(46, 196, 182, .22), transparent 70%),
+    radial-gradient(30rem 16rem at 0% 120%, rgba(99, 102, 241, .35), transparent 70%),
+    linear-gradient(120deg, var(--c4-navy) 0%, var(--c4-navy-2) 60%, #1b3f73 100%);
+  box-shadow: 0 18px 40px -24px rgba(11, 31, 58, .8);
+}
+.minimal-traceability .c4-hero-glow {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(90deg, transparent 30%, #000 100%);
+  pointer-events: none;
+}
+.minimal-traceability .c4-hero > * { position: relative; }
+.minimal-traceability .c4-hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #93a8c6;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.minimal-traceability .c4-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  min-width: 32px;
+  border-radius: 7px;
+  color: var(--c4-navy);
+  background: linear-gradient(135deg, #7ff0e2, var(--c4-teal));
+  font-size: 10.5px;
+  letter-spacing: .04em;
+}
+.minimal-traceability .c4-hero-kicker-sep { color: #4d6488; }
+.minimal-traceability .c4-hero-kicker-page { color: #e6eefb; }
+.minimal-traceability .c4-hero-main { display: flex; align-items: center; gap: 18px; margin-top: 16px; }
+.minimal-traceability .c4-hero-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 16px;
+  color: #7ff0e2;
+  background: rgba(255, 255, 255, .07);
+  backdrop-filter: blur(4px);
+}
+.minimal-traceability .c4-hero h1 {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.15;
+}
+.minimal-traceability .c4-hero-main p { max-width: 720px; margin-top: 6px; color: #a9bbd6; font-size: 13.5px; line-height: 1.6; }
+.minimal-traceability .c4-hero-actions { display: flex; flex-shrink: 0; align-items: center; gap: 10px; }
+.minimal-traceability .c4-hero-actions .trace-export-menu summary { color: #fff; border-color: rgba(255, 255, 255, .25); background: rgba(255, 255, 255, .08); }
+
+/* ---------- section bar (floats over the hero's lower edge) */
+.minimal-traceability .c4-subnav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+  margin: -26px 18px 0;
+  padding: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--c4-line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .96);
+  box-shadow: 0 10px 30px -18px rgba(15, 23, 42, .45);
+  scrollbar-width: none;
+}
+.minimal-traceability .c4-subnav-item {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 11px;
+  color: #5b6b86;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background .15s ease, color .15s ease;
+}
+.minimal-traceability .c4-subnav-item:hover { color: var(--c4-navy); background: #f2f5fa; }
+.minimal-traceability .c4-subnav-item.is-active { color: #fff; background: linear-gradient(135deg, var(--c4-navy), #1d4ed8); box-shadow: 0 6px 14px -8px rgba(29, 78, 216, .8); }
+.minimal-traceability .c4-subnav-item.is-active svg { color: #7ff0e2; }
+
+/* ---------- cards: flat white, a small dot instead of the gradient strip */
+.minimal-traceability [data-trace-card] { border-radius: 18px; border-color: var(--c4-line); box-shadow: var(--c4-shadow); }
+.minimal-traceability [data-trace-card] > header { padding: 18px 22px 14px; border-bottom: 1px solid var(--c4-line-soft); background: #fff; }
+.minimal-traceability [data-trace-card] > header h2 { font-size: 15px; font-weight: 650; color: var(--c4-navy); }
+.minimal-traceability [data-trace-card] > header h2::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c4-teal);
+  box-shadow: 0 0 0 4px rgba(46, 196, 182, .15);
+}
+.minimal-traceability [data-trace-card] > header p { padding-left: 18px; }
+
+/* ---------- tabs: navy active chip */
+.minimal-traceability [role="tablist"] { padding: 5px; border: 1px solid var(--c4-line); border-radius: 14px; background: #fff; box-shadow: var(--c4-shadow); }
+.minimal-traceability [role="tablist"] button { color: #5b6b86; }
+.minimal-traceability [role="tablist"] button:hover { color: var(--c4-navy); background: #f2f5fa; }
+.minimal-traceability [role="tablist"] button[aria-selected="true"] { color: #fff; background: var(--c4-navy); box-shadow: 0 6px 14px -8px rgba(11, 31, 58, .7); }
+.minimal-traceability [role="tablist"] button[aria-selected="true"] span { color: var(--c4-navy); background: #7ff0e2; }
+
+/* ---------- primary buttons */
+.minimal-traceability .bg-indigo-600 { background: linear-gradient(135deg, #1d4ed8, var(--c4-navy)); box-shadow: 0 8px 18px -10px rgba(29, 78, 216, .9); }
+
+/* ---------- overview: project band and summary tiles */
+.minimal-traceability .trace-hero {
+  border: 1px solid var(--c4-line);
+  background:
+    radial-gradient(22rem 10rem at 100% 100%, rgba(46, 196, 182, .12), transparent 70%),
+    #fff;
+}
+.minimal-traceability .trace-hero::after { display: none; }
+.minimal-traceability .trace-eyebrow { color: #0f766e; background: #e7faf7; box-shadow: inset 0 0 0 1px rgba(46, 196, 182, .35); }
+.minimal-traceability .trace-hero h2 { color: var(--c4-navy); }
+.minimal-traceability .trace-summary-value { border-radius: 18px; padding: 18px 20px 16px 24px; }
+.minimal-traceability .trace-summary-value::before { inset: 14px auto 14px 0; width: 4px; height: auto; border-radius: 0 4px 4px 0; }
+.minimal-traceability .trace-summary-value::after { top: auto; right: -40px; bottom: -60px; width: 140px; height: 140px; opacity: .7; }
+.minimal-traceability .trace-summary-value.neutral { --tile: var(--c4-navy); --tile-soft: #eef2f8; }
+.minimal-traceability .trace-summary-note { border-radius: 14px; }
+.minimal-traceability .trace-explain-row > div { border-radius: 16px; box-shadow: var(--c4-shadow); }
+
+/* ---------- tables */
+.minimal-traceability [data-trace-card] thead tr { background: #f7f9fc; color: #64748b; }
+.minimal-traceability table tbody tr:hover { background: #f4f8ff; }
+
+@media (max-width: 760px) {
+  .minimal-traceability .c4-hero { padding: 18px 18px 44px; border-radius: 18px; }
+  .minimal-traceability .c4-hero-main { align-items: flex-start; }
+  .minimal-traceability .c4-hero-icon { width: 42px; height: 42px; border-radius: 12px; }
+  .minimal-traceability .c4-hero h1 { font-size: 22px; }
+  .minimal-traceability .c4-subnav { margin: -24px 10px 0; }
+  .minimal-traceability .trace-summary-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ================================================================ v3 content (C4 pages only) */
+/* ---------- overview bento: coverage card + four tiles */
+.minimal-traceability .c4-bento { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; margin-bottom: 22px; }
+.minimal-traceability .c4-bento-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 24px;
+  overflow: hidden;
+  border: 1px solid var(--c4-line);
+  border-radius: 20px;
+  background: radial-gradient(26rem 12rem at 100% 100%, rgba(46, 196, 182, .12), transparent 70%), #fff;
+  box-shadow: var(--c4-shadow);
+}
+.minimal-traceability .c4-bento-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.minimal-traceability .c4-bento-head h2 { color: var(--c4-navy); font-size: 22px; font-weight: 700; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.minimal-traceability .c4-bento-actions { display: flex; align-items: center; gap: 14px; }
+.minimal-traceability .c4-coverage { display: flex; align-items: center; gap: 24px; padding: 16px 18px; border-radius: 16px; background: #f6f8fc; }
+.minimal-traceability .c4-coverage-copy { min-width: 0; flex: 1; }
+.minimal-traceability .c4-coverage-title { color: var(--c4-navy); font-size: 14px; font-weight: 650; }
+.minimal-traceability .c4-coverage-text { margin-top: 4px; color: #64748b; font-size: 12.5px; line-height: 1.55; }
+.minimal-traceability .c4-coverage-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.minimal-traceability .c4-coverage-facts > div { padding: 8px 10px; border: 1px solid var(--c4-line); border-radius: 12px; background: #fff; }
+.minimal-traceability .c4-coverage-facts dt { color: #8793a8; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.minimal-traceability .c4-coverage-facts dd { margin-top: 2px; color: var(--c4-navy); font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.minimal-traceability .c4-bento-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.minimal-traceability .c4-tile {
+  --tile: var(--c4-navy);
+  --tile-soft: #eef2f8;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 18px 16px;
+  border: 1px solid var(--c4-line);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fff 55%, var(--tile-soft) 160%);
+  box-shadow: var(--c4-shadow);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.minimal-traceability .c4-tile:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -18px rgba(15, 23, 42, .4); }
+.minimal-traceability .c4-tile.good { --tile: #059669; --tile-soft: #e6f7f0; }
+.minimal-traceability .c4-tile.warn { --tile: #d97706; --tile-soft: #fdf3e2; }
+.minimal-traceability .c4-tile.bad { --tile: #dc2626; --tile-soft: #fdecec; }
+.minimal-traceability .c4-tile-top { display: flex; align-items: center; gap: 10px; }
+.minimal-traceability .c4-tile-top p { color: #5b6b86; font-size: 12px; font-weight: 650; letter-spacing: .05em; text-transform: uppercase; }
+.minimal-traceability .c4-tile-icon { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 10px; color: var(--tile); background: var(--tile-soft); }
+.minimal-traceability .c4-tile-value { margin-top: 12px; color: var(--tile); font-size: 36px; font-weight: 750; line-height: 1; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
+.minimal-traceability .c4-tile small { margin-top: 6px; color: #8793a8; font-size: 12px; }
+.minimal-traceability .c4-tile-bar { height: 5px; margin-top: auto; padding-top: 0; overflow: hidden; border-radius: 99px; background: rgba(15, 23, 42, .06); }
+.minimal-traceability .c4-tile small + .c4-tile-bar { margin-top: 12px; }
+.minimal-traceability .c4-tile-bar span { display: block; height: 100%; border-radius: inherit; background: var(--tile); }
+
+/* ---------- trace links table: status stripe, id pills */
+.minimal-traceability .c4-link-row td:first-child { box-shadow: inset 3px 0 0 transparent; }
+.minimal-traceability .c4-link-row[data-status="verified"] td:first-child { box-shadow: inset 3px 0 0 #10b981; }
+.minimal-traceability .c4-link-row[data-status="pending_review"] td:first-child { box-shadow: inset 3px 0 0 #f59e0b; }
+.minimal-traceability .c4-link-row[data-status="decayed"] td:first-child,
+.minimal-traceability .c4-link-row[data-status="rejected"] td:first-child { box-shadow: inset 3px 0 0 #ef4444; }
+.minimal-traceability .c4-req-id {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 7px;
+  color: var(--c4-navy);
+  background: #eef2f8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  font-weight: 650;
+}
+.minimal-traceability [data-trace-card] thead th { font-weight: 650; letter-spacing: .06em; }
+
+/* ---------- analytics numbers as tiles */
+.minimal-traceability [data-trace-metric] {
+  padding: 16px 18px;
+  border: 1px solid var(--c4-line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff, #f8fafd);
+}
+.minimal-traceability [data-trace-metric] p { color: var(--c4-navy); }
+
+/* ---------- inner controls: segmented, chips, callouts, empty states, disclosures */
+.minimal-traceability .bg-slate-100.p-0\.5 { padding: 4px; border-radius: 12px; background: #eef2f8; }
+.minimal-traceability .bg-slate-100.p-0\.5 > button { padding: 6px 12px; border-radius: 9px; font-weight: 600; }
+.minimal-traceability .bg-slate-100.p-0\.5 > button.bg-white { color: #fff; background: var(--c4-navy); box-shadow: none; }
+.minimal-traceability [data-trace-empty] { border-radius: 16px; border-color: #d6dcea; background: repeating-linear-gradient(135deg, #fbfcfe 0 10px, #f6f8fc 10px 20px); }
+.minimal-traceability [data-trace-card] details > summary { cursor: pointer; color: var(--c4-navy); font-weight: 600; }
+.minimal-traceability .rounded-xl.border.px-4.py-3 { border-radius: 14px; }
+
+/* ---------- side lists (run history, review queue) */
+.minimal-traceability aside [data-trace-card] button[aria-pressed],
+.minimal-traceability aside [data-trace-card] > div > div > div { border-radius: 14px; }
+.minimal-traceability aside [data-trace-card] button[aria-pressed="true"] { border-color: transparent; background: linear-gradient(135deg, #0b1f3a, #1d4ed8); }
+.minimal-traceability aside [data-trace-card] button[aria-pressed="true"] p { color: #fff !important; }
+.minimal-traceability aside [data-trace-card] button[aria-pressed="true"] p:last-child { color: #7ff0e2 !important; }
+
+@media (max-width: 1100px) {
+  .minimal-traceability .c4-bento { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .minimal-traceability .c4-coverage { flex-direction: column; align-items: flex-start; }
+  .minimal-traceability .c4-coverage-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

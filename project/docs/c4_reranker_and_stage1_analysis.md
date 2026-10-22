@@ -347,7 +347,7 @@ Reading:
 * **Decision:** the evidence does not justify collecting much more data for CodeBERT. For MiniLM, extra data might add a few points, but it is not shown. Keep stage 1 + (optional) MiniLM fusion; the bigger lever remains stage-1 recall.
 * Limits: 4 points, one seed; data size and diversity grow together; the tiny validation sets make "valid AUC" unreliable.
 
-### 5.y Hand-checking the links, and the evidence prompt (default for linking)
+### 5.y Hand-checking the links, and the evidence prompt (optional: `--prompt evidence`)
 
 **How the links were checked.** 40 verified PetClinic links (a fixed random sample) were labelled correct / wrong / unsure by an **AI reviewer (Claude), not by a human**, reading the requirement and the code. Labels: `data/labels/spring-petclinic_claude.json`. A human should spot-check some of them (the dashboard page "Evaluate links" is for that).
 
@@ -355,7 +355,7 @@ Reading:
 |---|---|---|---|
 | Expert prompt (old default, accepts all) | 36 | 58% (21/36) | 100% |
 | Only confidence >= 0.85 ("trusted") | 11 | 91% (10/11) | 48% |
-| **Evidence prompt (new default)** | 17 | **82% (14/17)** | 67% |
+| **Evidence prompt (optional)** | 17 | **82% (14/17)** | 67% |
 | Evidence prompt, full coverage only | 12 | 75% (9/12) | 43% |
 | Evidence AND confidence >= 0.85 | 8 | 88% (7/8) | 33% |
 
@@ -363,7 +363,7 @@ Expert prompt precision by confidence: 0.85 and above 91% (10/11), 0.7 to 0.85 o
 
 The evidence prompt makes the model quote code that satisfies the requirement, and the quote is checked against the code. It rejected 12 of the 15 wrong links, at the cost of 7 of the 21 correct ones (mostly requirements about validation rules in entities and templates). It was also faster (about 40 s per call against about 52 s). Script: `scripts/ab_evidence_mode.py`, raw rows: `data/results/evidence_ab_spring-petclinic.json`.
 
-**Trade-off and decision.** Precision rises from 58% to 82% and recall falls to about two thirds: fewer wrong links, more missed ones. `link` now uses the evidence prompt by default (`--prompt expert` restores the old behaviour). Re-checking existing links (monitor, commit handling) still uses the expert prompt on purpose: it is more lenient, so links made earlier do not decay by accident, and the decay-injection results (69.6%) were measured with it.
+**Trade-off and decision.** Precision rises from 58% to 82% and recall falls to about two thirds: fewer wrong links, more missed ones. `--prompt evidence` selects it; **the default is `expert`**, because on the small BMI project the evidence prompt rejected correct links (the default was switched back after that check). Re-checking existing links (monitor, commit handling) still uses the expert prompt on purpose: it is more lenient, so links made earlier do not decay by accident, and the decay-injection results (69.6%) were measured with it.
 
 Limits: 36 judged links, one project, one reviewer who is an AI; the 95% interval for 82% is roughly 59% to 94%. The 0.85 and 0.7-0.85 figures rest on 11 and 25 links.
 

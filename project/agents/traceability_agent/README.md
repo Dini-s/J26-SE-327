@@ -180,7 +180,7 @@ Writes `trace_matrix.csv` (requirement x code; `x0.30` = decayed link), `trace_l
 
 ## Which prompt is used
 
-`link` uses `--prompt evidence` by default: the model must quote code that satisfies the requirement and the quote is checked, which gave 82% precision against 58% for `--prompt expert` on 36 hand-checked PetClinic links, at the cost of missing about a third of the correct links (see `docs/c4_reranker_and_stage1_analysis.md`, section 5.y). Re-checking existing links (`monitor`, `changed`) keeps the more lenient expert prompt so older links do not decay by accident.
+`link` uses `--prompt expert` by default. `--prompt evidence` makes the model quote code that satisfies the requirement and checks the quote: it gave 82% precision against 58% for `expert` on 36 hand-checked PetClinic links, at the cost of missing about a third of the correct links (see `docs/c4_reranker_and_stage1_analysis.md`, section 5.y). It is not the default because on a small project (BMI) it rejected correct links, so the lenient expert prompt is used for linking and for re-checking (`monitor`, `changed`), which also keeps older links from decaying by accident.
 
 ## Connection with Component 3 (RVUs and evidence)
 

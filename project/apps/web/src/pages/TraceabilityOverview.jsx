@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { AlertTriangle, ArrowRight, CheckCircle2, Download, Link2, Plus, ShieldAlert } from "lucide-react";
+import { AlertTriangle, ArrowRight, CheckCircle2, Download, FileText, Link2, Plus, ShieldAlert } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useApi, useProject } from "../api/c4";
-import { Button, PageHeader, Tabs, Callout } from "../component/traceability/ui";
+import { Button, PageHeader, Ring, Tabs, Callout } from "../component/traceability/ui";
 import LinksTable from "../component/traceability/LinksTable";
 import { CompletenessPanel, DecayPanel, PipelineStrip, SelfCheckPanel } from "../component/traceability/Panels";
 import { EvaluationPanel, EvidencePanel, RerankerPanel } from "../component/traceability/EvaluationPanel";
@@ -26,6 +26,8 @@ const TraceabilityOverview = () => {
   const mean = completeness.data?.mean;
   const pending = totals.pending_review ?? all.filter((l) => l.status === "pending_review").length;
   const orphanCount = data?.orphans?.length ?? 0;
+  const covered = Math.max(0, (data?.requirements ?? 0) - orphanCount);
+  const coverage = data?.requirements ? Math.round((covered / data.requirements) * 100) : null;
   const primaryAction = useMemo(() => {
     if (!data) return { label: "Loading workspace", to: "#", icon: Link2 };
     if (orphanCount) return { label: "Add requirements", to: "/traceability/link", icon: Plus };
@@ -54,30 +56,48 @@ const TraceabilityOverview = () => {
         )}
       </PageHeader>
 
-      <section className="trace-hero" aria-label="Traceability workspace">
-        <div>
-          <p className="trace-eyebrow">CURRENT PROJECT</p>
-          <h2>{project || "Select a project"}</h2>
-          <p className="trace-hero-copy">Approved links count toward coverage. Candidates wait for review, while broken links are kept as history and sent to change inspection.</p>
+      <section className="c4-bento" aria-label="Project summary">
+        <div className="c4-bento-main">
+          <div className="c4-bento-head">
+            <div className="min-w-0">
+              <p className="trace-eyebrow">CURRENT PROJECT</p>
+              <h2>{project || "Select a project"}</h2>
+            </div>
+            <div className="c4-bento-actions">
+              <Link to={primaryAction.to}><Button disabled={primaryAction.to === "#"}><ActionIcon size={15} />{primaryAction.label}<ArrowRight size={14} /></Button></Link>
+              <Link className="trace-secondary-action" to="/traceability/graph">View graph</Link>
+            </div>
+          </div>
+          <div className="c4-coverage">
+            <Ring value={coverage ?? 0} loading={loading} label="coverage %" size={128} stroke={11} />
+            <div className="c4-coverage-copy">
+              <p className="c4-coverage-title">Requirement coverage</p>
+              <p className="c4-coverage-text">{loading ? "Loading…" : `${covered} of ${data?.requirements ?? 0} requirements have at least one approved link to code.`}</p>
+              <dl className="c4-coverage-facts">
+                <div><dt>Score</dt><dd>{mean == null ? "—" : `${Math.round(mean)}/100`}</dd></div>
+                <div><dt>Unlinked</dt><dd>{loading ? "—" : orphanCount}</dd></div>
+                <div><dt>Deferred</dt><dd>{totals.deferred ?? 0}</dd></div>
+                <div><dt>Rejected</dt><dd>{totals.rejected ?? 0}</dd></div>
+              </dl>
+            </div>
+          </div>
         </div>
-        <div className="trace-hero-actions">
-          <Link to={primaryAction.to}><Button disabled={primaryAction.to === "#"}><ActionIcon size={15} />{primaryAction.label}<ArrowRight size={14} /></Button></Link>
-          <Link className="trace-secondary-action" to="/traceability/graph">View graph</Link>
+        <div className="c4-bento-tiles">
+          {[
+            ["Requirements", data?.requirements, "neutral", "What the project must satisfy", FileText, null],
+            ["Approved", verified, "good", "Automatic or human-approved", CheckCircle2, verified],
+            ["Needs review", pending, "warn", "AI candidates without a decision", AlertTriangle, pending],
+            ["Broken", decayed, "bad", "Code changed; inspect the history", ShieldAlert, decayed],
+          ].map(([label, value, tone, hint, Icon, share]) => (
+            <div key={label} className={`c4-tile ${tone}`}>
+              <div className="c4-tile-top"><span className="c4-tile-icon"><Icon size={16} strokeWidth={2} /></span><p>{label}</p></div>
+              <p className="c4-tile-value">{loading ? "—" : value ?? 0}</p>
+              <small>{hint}</small>
+              {share != null && <div className="c4-tile-bar" title={`${share} of ${all.length} links`}><span style={{ width: `${all.length ? Math.round((share / all.length) * 100) : 0}%` }} /></div>}
+            </div>
+          ))}
         </div>
       </section>
-
-      <section className="trace-summary" aria-label="Project summary">
-        <div className="trace-summary-values">
-          {[["Requirements", data?.requirements, "neutral", "What the project must satisfy"], ["Approved", verified, "good", "Counted in coverage"], ["Needs review", pending, "warn", "Waiting for a decision"], ["Broken", decayed, "bad", "Needs change inspection"]].map(([label, value, tone, hint]) => <div key={label} className={`trace-summary-value ${tone}`}><p>{label}</p><p>{loading ? "—" : value}</p><small>{hint}</small></div>)}
-        </div>
-        <div className="trace-summary-note"><span>Score <b>{mean == null ? "—" : `${Math.round(mean)}/100`}</b></span><span>Deferred <b>{totals.deferred ?? 0}</b></span><span>Rejected <b>{totals.rejected ?? 0}</b></span><span>Unlinked requirements <b>{data?.orphans.length ?? "—"}</b></span></div>
-      </section>
-
-      <div className="trace-explain-row">
-        <div><span className="trace-explain-icon good"><CheckCircle2 size={16} /></span><div><b>Approved</b><p>Automatic or human-approved links.</p></div></div>
-        <div><span className="trace-explain-icon warn"><AlertTriangle size={16} /></span><div><b>Needs review</b><p>AI candidates without a decision.</p></div></div>
-        <div><span className="trace-explain-icon bad"><ShieldAlert size={16} /></span><div><b>Broken</b><p>Code changed; inspect the decay history.</p></div></div>
-      </div>
 
       <div className="mt-4">
         <Tabs

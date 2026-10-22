@@ -112,3 +112,15 @@ def test_selected_requirements_only_are_sent_to_runner(fake_graph):
     assert result["requirements"] == 1 and result["calls"] == 3
     with pytest.raises(server.ApiError):
         server.post_link_existing({"project": "spring-petclinic", "requirement_ids": ["OTHER-PROJECT"]})
+
+
+def test_a_client_that_disconnects_does_not_print_a_traceback(capsys):
+    from apps.api.server import QuietServer
+
+    server = QuietServer.__new__(QuietServer)
+    for exc in (BrokenPipeError(), ConnectionResetError()):
+        try:
+            raise exc
+        except OSError:
+            server.handle_error(None, ("127.0.0.1", 1))
+    assert capsys.readouterr().err == ""

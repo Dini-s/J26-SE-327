@@ -168,8 +168,8 @@ def neo4j_links(project: str, max_links: int = 2000) -> dict[str, Any]:
                WHERE coalesce(r.project, r.repo, r.dataset) = $project
                RETURN count(v) AS total,
                       count(CASE WHEN coalesce(v.status,'verified') = 'verified' THEN 1 END) AS approved,
-                      count(CASE WHEN v.status = 'pending_review' AND v.humanReview = 'unsure' AND v.reviewedHash = v.textHash THEN 1 END) AS deferred,
-                      count(CASE WHEN v.status = 'pending_review' AND NOT (v.humanReview = 'unsure' AND v.reviewedHash = v.textHash) THEN 1 END) AS needsReview,
+                      count(CASE WHEN v.status = 'pending_review' AND coalesce(v.humanReview,'') = 'unsure' AND v.reviewedHash IS NOT NULL AND v.reviewedHash = v.textHash THEN 1 END) AS deferred,
+                      count(CASE WHEN v.status = 'pending_review' AND NOT (coalesce(v.humanReview,'') = 'unsure' AND v.reviewedHash IS NOT NULL AND v.reviewedHash = v.textHash) THEN 1 END) AS needsReview,
                       count(CASE WHEN v.status = 'rejected' THEN 1 END) AS rejected,
                       count(CASE WHEN v.status = 'decayed' THEN 1 END) AS broken""", project=project)
 
@@ -199,8 +199,8 @@ def neo4j_review_queue(project: str, state: str = "needs_review", page: int = 1,
     page = max(1, page)
     page_size = min(100, max(1, page_size))
     predicates = {
-        "needs_review": "v.status = 'pending_review' AND NOT (v.humanReview = 'unsure' AND v.reviewedHash = v.textHash)",
-        "deferred": "v.status = 'pending_review' AND v.humanReview = 'unsure' AND v.reviewedHash = v.textHash",
+        "needs_review": "v.status = 'pending_review' AND NOT (coalesce(v.humanReview,'') = 'unsure' AND v.reviewedHash IS NOT NULL AND v.reviewedHash = v.textHash)",
+        "deferred": "v.status = 'pending_review' AND (coalesce(v.humanReview,'') = 'unsure' AND v.reviewedHash IS NOT NULL AND v.reviewedHash = v.textHash)",
         "verified": "coalesce(v.status,'verified') = 'verified'",
         "rejected": "v.status = 'rejected'",
         "decayed": "v.status = 'decayed'",
@@ -229,7 +229,8 @@ def neo4j_review_queue(project: str, state: str = "needs_review", page: int = 1,
     items = []
     for row in rows:
         item = dict(row)
-        item["status"] = _present_status(item)
+        # the query names the stored status `uskgStatus`; without it every queue item fell back to "verified" and showed as Approved
+        item["status"] = _present_status({**item, "status": item.get("uskgStatus")})
         item["requirementText"] = item["requirementText"][:400]
         item["reason"] = item["reason"][:700]
         items.append(item)
@@ -343,7 +344,7 @@ def neo4j_uskg_graph(max_traces: int = 400, max_orphans: int = 40, project: Opti
                WHERE $project IS NULL OR coalesce(r.project, r.repo, r.dataset) = $project
                RETURN r.id AS s, coalesce(r.text,'') AS rtext, c.id AS t, coalesce(c.text,'') AS ctext,
                       coalesce(c.kind,'code') AS ckind,
-                      CASE WHEN v.status = 'pending_review' AND v.humanReview = 'unsure' AND v.reviewedHash = v.textHash
+                      CASE WHEN v.status = 'pending_review' AND (coalesce(v.humanReview,'') = 'unsure' AND v.reviewedHash IS NOT NULL AND v.reviewedHash = v.textHash)
                            THEN 'deferred' ELSE coalesce(v.status,'verified') END AS status,
                       v.confidence AS confidence,
                       v.justification AS reasoning, toString(v.lastCheckedAt) AS checked

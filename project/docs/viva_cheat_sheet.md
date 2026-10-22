@@ -40,7 +40,7 @@ Pre-trained models-ஐ பயன்படுத்தினேன்; என் 
    - **Hybrid:** இரண்டின் scores-ஐ **z-score** (ஒவ்வொரு requirement-க்கும் mean 0, std 1) ஆக்கி கூட்டுறோம். காரணம்: scales வேறு.
    - **Chunking (60 words):** நீளமான file-ஐ துண்டுகளாக்கி, சிறந்த துண்டின் score எடுக்கிறோம். MiniLM முதல் ~256 tokens தான் பார்க்கும்.
    - **Preprocessing:** `import/package`, license comment நீக்கம்; `addPatientRecord` → "add patient record".
-2. **Stage 2 – LLM verification (Llama 3.1 8B, Ollama):** ஒவ்வொரு (requirement, code) pair-க்கும் "இது உண்மையில் இணைப்பா?" என்று கேட்கிறோம்; `is_linked`, `confidence` தரும். Remote CPU server, ~35–50 வினாடி/call.
+2. **Stage 2 – LLM verification (Gemma 2 9B, Ollama; ஆரம்பத்தில் Llama 3.1 8B):** ஒவ்வொரு (requirement, code) pair-க்கும் "இது உண்மையில் இணைப்பா?" என்று கேட்கிறோம்; `is_linked`, `confidence` தரும். Remote CPU server, ~35–50 வினாடி/call.
 3. **Evidence prompt (என் புது முறை):** LLM code-ல இருந்து **ஒரு வரியை மேற்கோள்** காட்டணும்; அது file-ல உண்மையிலேயே இருக்கான்னு **நாங்க சரிபார்ப்போம்**; இல்லன்னா link நிராகரிப்பு. இது hallucination-ஐ குறைக்கும்.
 4. **எழுதுதல்:** `VERIFIED_TRACE` edge (Neo4j), confidence, text hash, semantic fingerprint.
 
@@ -81,7 +81,7 @@ Confusion matrix (யூகிச்ச links vs உண்மையான gold l
 | TF-IDF + cosine | Stage 1 | இல்ல (classical) |
 | MiniLM sentence embeddings | Stage 1 | இல்ல (pre-trained); fine-tune முயன்றோம் (பகுதி 7) |
 | z-score fusion | Stage 1 | இல்ல (கணித சூத்திரம்) |
-| **Llama 3.1 8B (LLM)** | Verification | இல்ல; **prompt engineering** மட்டும் |
+| **Gemma 2 9B (LLM)** | Verification | இல்ல; **prompt engineering** மட்டும் |
 | Rule-based fingerprint | Decay | இல்ல; என் வடிவமைப்பு |
 | Isotonic regression | Calibration | ஆமா (சிறிய, 525 verdicts) |
 | Gradient boosting, logistic regression | Learned ranker சோதனை | ஆமா (தோற்றது) |
@@ -92,7 +92,7 @@ Confusion matrix (யூகிச்ச links vs உண்மையான gold l
 
 ## 6. Dashboard (demo-க்கு)
 
-Sidebar: repo switcher + service dots (Neo4j/Redis/Llama). Top bar: Refresh. C4 பக்கங்கள்: **Overview** (completeness வட்டம், Trace links / Health / How it works / Measured results), **Link requirements**, **Code changes** (decay), **Analytics** (Insights, Precision vs recall, Impact analysis), **Evaluate links** (கையால் label), **Traceability Graph**. Links filters: All / Trusted (≥0.85) / **Needs review** / Verified / Broken.
+Sidebar: repo switcher + service dots (Neo4j/Redis/LLM). Top bar: Refresh. C4 பக்கங்கள்: **Overview** (completeness வட்டம், Trace links / Health / How it works / Measured results), **Link requirements**, **Code changes** (decay), **Analytics** (Insights, Precision vs recall, Impact analysis), **Evaluate links** (கையால் label), **Traceability Graph**. Links filters: All / Trusted (≥0.85) / **Needs review** / Verified / Broken.
 
 ## 7. நாங்க முயற்சிச்சு தோற்றவை (இது பலம் – ஆய்வு ஆழம்)
 
@@ -145,7 +145,7 @@ Sidebar: repo switcher + service dots (Neo4j/Redis/Llama). Top bar: Refresh. C4 
 ## 10. நேர்மையான வரம்புகள் (Limitations) – கேட்கும் முன்பே சொல்லுங்க
 
 1. **Recall 15–24%** – 85% இல்ல. காரணம்: shortlist-ல உண்மையான file வராதது + 8B CPU LLM.
-2. Llama மெதுவு (35–50 வினாடி/call); remote CPU server.
+2. LLM மெதுவு (~31 வினாடி/call focus mode-உடன்; முன்பு 35–50); remote CPU server. Model-ஐ memory-ல் நிரந்தரமா வைத்தா (OLLAMA_KEEP_ALIVE=-1) முதல் call-ன் 4–5 நிமிட தாமதம் போகும்.
 3. Ground-truth datasets-ல dependency graph இல்ல.
 4. Decay test பகுதி செயற்கை; 11 gold links.
 5. C3 தரவு Neo4j-ல இன்னும் இல்ல; C2 `code_changed` message வடிவம் "assumed"; C1-க்கு decay அறிவிப்பு இல்ல.
@@ -170,11 +170,11 @@ Sidebar: repo switcher + service dots (Neo4j/Redis/Llama). Top bar: Refresh. C4 
 **Q1. நீங்க என்ன புதுசா செஞ்சீங்க? Models-ஐ எடுத்து பயன்படுத்தினீங்களா?**
 Models pre-trained தான். என் பங்களிப்பு: (பகுதி 8) decay lifecycle, fingerprint, evidence verification, calibration, அளவீடு. எந்த பகுதி எவ்வளவு உதவியது என்று எண்களோட நிரூபிச்சிருக்கேன்.
 
-**Q2. Llama 3.1 8B ஏன்?**
-அளவு/வேகம்/இலவசம்/local (data வெளியே போகாது). மேலும் 3 models-ஐ ஒரே 60 pairs-ல அளந்தேன் → *(பகுதி 14-ல முடிவு)*.
+**Q2. Gemma 2 9B ஏன்?**
+local (data வெளியே போகாது), இலவசம். Llama, Qwen, Gemma-வை 120 labelled pairs-ல (2 test sets) அளந்தேன்: pooled F1 Gemma 0.70, Llama 0.63, Qwen 0.61; focus mode-உடன் Gemma 0.75. வரிசை dataset-ஐப் பொறுத்து மாறியது (n சிறியது) → *(பகுதி 14)*.
 
 **Q3. Recall ஏன் குறைவு?**
-Llama சரிபார்க்கும் முன்பே shortlist-ல உண்மையான file இல்ல (top-10: 42–53%). Fine-tuning, extra training pairs, learned ranker, reranker எல்லாம் முயற்சித்து அளந்தேன்; எதுவும் உதவல. Precision-ஐ முன்னுரிமையா வச்சேன்.
+LLM சரிபார்க்கும் முன்பே shortlist-ல உண்மையான file இல்ல (top-10: 42–53%). Fine-tuning, extra training pairs, learned ranker, reranker எல்லாம் முயற்சித்து அளந்தேன்; எதுவும் உதவல. Precision-ஐ முன்னுரிமையா வச்சேன்.
 
 **Q4. Precision எப்படி 92% ஆனது?**
 Confidence ≥0.9 மட்டும் எடுக்கும் "High-precision mode". விலை: recall 6.0%. இது operating-point தேர்வு, சூழலுக்கேற்ப மாற்றலாம்.
@@ -213,7 +213,7 @@ Pre-trained models production-ல; Learned ranker சோதனை leave-one-proj
 Stage 1 கணித (வினாடிகள்); LLM தடை. Hash gate + top-k கட்டுப்பாடு + hosted/GPU LLM மூலம் அளவிடலாம்.
 
 **Q16. தனியுரிமை?**
-Llama local/remote சொந்த server; code வெளி API-க்கு போகாது.
+LLM (Gemma) local/remote சொந்த server; code வெளி API-க்கு போகாது.
 
 **Q17. Hallucination?**
 Evidence மேற்கோள் சரிபார்ப்பு + Needs-review band.
@@ -227,7 +227,7 @@ Evidence மேற்கோள் சரிபார்ப்பு + Needs-revi
 **Q20. உங்க பெரிய தோல்வி என்ன?**
 Recall. அதை மறைக்கவில்லை; ஏன் என்று அளந்து காட்டினேன்.
 
-## 14. LLM ஒப்பீடு (முடிவு வந்ததும் நிரப்புங்க)
+## 14. LLM ஒப்பீடு
 
 | Model | Precision | Recall | F1 (95% CI) | வினாடி/call |
 |---|---|---|---|---|
@@ -236,7 +236,16 @@ Recall. அதை மறைக்கவில்லை; ஏன் என்ற�
 | Gemma 2 9B (4 server errors, 56 pairs scored) | 52.9% | **62.1%** | **0.57** (0.42–0.70) | 43.9 |
 
 **வாசிப்பு (நேர்மையா):** F1 intervals மூன்றும் பெருமளவு மேற்பொருந்துது → **மூன்றுக்கும் இடையே புள்ளியியல் ரீதியா வேறுபாடு நிரூபிக்கப்படல** (n=60). Qwen கண்டிப்பானது (precision அதிகம், recall குறைவு); Gemma தாராளம் (recall அதிகம், precision குறைவு, மெதுவு, server errors); Llama நடுவில், errors இல்ல. 56 பொதுவான pairs-ல மூன்றின் சரியான விகிதமும் 52–59% (Llama 31, Qwen 33, Gemma 29) – சமநிலையான கடினமான மாதிரியில் மூன்றும் தற்செயலை விட சற்று மேல் மட்டுமே. Gold labels-ல சத்தம் இருக்கலாம் (iTrust/eTour).
-**தேர்வு:** Llama 3.1 8B வைத்திருக்கிறேன் (errors இல்ல, நடுநிலை, ஏற்கனவே முழுமையா அளந்தது). Precision-முன்னுரிமை mode-க்கு Qwen ஒரு மாற்று.
+**2-வது test set (PetClinic, 60 pairs; labels நானே கையால் எழுதியவை) + இணைந்த 120 pairs:**
+
+| Model | PetClinic P / R / F1 | 120 pairs pooled P / R / F1 | வினாடி/call |
+|---|---|---|---|
+| Llama 3.1 8B | 0.90 / 0.63 / 0.75 | 0.76 / 0.53 / 0.63 | 34 |
+| Qwen 2.5 Coder 7B | 1.00 / 0.60 / 0.75 | 0.93 / 0.45 / 0.61 | 34 |
+| Gemma 2 9B | 0.92 / 0.80 / 0.86 | 0.70 / 0.70 / 0.70 | 51 |
+| **Gemma + focus mode + குறுகிய reason** | — | **0.70 / 0.82 / 0.75** | **31** |
+
+**தேர்வு (இப்போதைய):** Gemma 2 9B + focus mode (`LLM_FOCUS_CHARS=1500`, `LLM_SHORT_REASONING=1`). காரணம்: pooled F1 அதிகம், வேகம் ~1.6× அதிகம். **எச்சரிக்கை:** (1) வரிசை dataset-ஐப் பொறுத்து மாறியது, (2) focus mode-ல recall உயர்வின் ஒரு பகுதி காலி பதில்கள் 5→1 ஆனதால், (3) prompt/confidence/decay அளவீடுகள் Llama-வுடன் எடுத்தவை. DeepSeek (hosted) PetClinic-ல் F1 0.95, ஆனா code வெளியே போகும். Precision-முன்னுரிமை mode-க்கு Qwen ஒரு மாற்று.
 
 சோதனை: iTrust/eTour/CM-1-ல இருந்து 60 pairs (30 உண்மை, 30 shortlist-ல வந்த தவறு), evidence prompt, temperature 0, context 8192. கட்டளை (அட்டவணை அச்சிட): `python scripts/show_llm_results.py`; மீண்டும் ஓட்ட: `python scripts/llm_compare_projects.py petclinic`. முடிவு: `data/results/llm_compare.json`.
 
@@ -248,7 +257,7 @@ Overview → Link requirements (முன்னாடி செய்ததை �
 ## 16. செய்ய வேண்டிய மீதி (உங்க பக்கம்)
 
 - [ ] Evaluate links-ல ~10 links கையால் label.
-- [ ] Slides: CodeBERT/ChromaDB → TF-IDF + MiniLM + Llama; புது எண்கள்.
+- [ ] Slides: CodeBERT/ChromaDB → TF-IDF + MiniLM + Gemma; புது எண்கள்.
 - [ ] LLM ஒப்பீடு முடிவை பகுதி 14-ல நிரப்பு.
 - [ ] C3 holder-கிட்ட assumptions உறுதி செய்.
 - [ ] Demo rehearsal (கடிகாரம் வச்சு).

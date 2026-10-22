@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -29,6 +30,10 @@ load_dotenv(PROJECT_ROOT / ".env")
 from apps.api import demo, history, runner, sources  # noqa: E402
 
 WEB_DIR = PROJECT_ROOT / "apps" / "web_legacy"   # the old demo page; the React app lives in apps/web
+FALLBACK_PAGE = (b"<!doctype html><meta charset=utf-8><title>C4 Traceability API</title>"
+                 b"<body style='font-family:system-ui;margin:3rem'><h1>C4 Traceability API</h1>"
+                 b"<p>The API is running. The dashboard is the React app in <code>apps/web</code>: "
+                 b"start it with <code>npm run dev</code> and open the address it prints (for example http://localhost:5173).</p></body>")
 HOST = "127.0.0.1"
 MAX_BODY = 20_000
 _cache: dict[str, tuple[float, Any]] = {}
@@ -460,7 +465,7 @@ def post_link(body: dict) -> dict:
     _need_neo4j()
     _need_idle()
     try:
-        top_k = int(body.get("top_k", 3))
+        top_k = int(body.get("top_k") or _suggested_top_k(project))
         added = demo.add_requirement(str(body.get("text", "")), str(body.get("id", "")), project)
         started = runner.start({"kind": "link", "requirement_ids": [added["id"]], "top_k": top_k,
                                 "retrieval": "hybrid", "project": project})
@@ -468,6 +473,27 @@ def post_link(body: dict) -> dict:
         raise ApiError(400, str(exc)) from exc
     _forget()
     return {**added, "minutes": started.get("minutes")}
+
+
+def _suggested_top_k(project: str) -> int:
+    from agents.traceability_agent import candidates
+    return candidates.suggest_top_k(sources.neo4j_unlinked(project)["codeFiles"])
+
+
+def get_candidates(q: dict) -> dict:
+    """Suggested candidates per requirement for a project, from its size (see agents/traceability_agent/candidates.py)."""
+    project = _project(q.get("project"))
+    if not project:
+        raise ApiError(400, "Choose a project first.")
+    _need_neo4j()
+    from agents.traceability_agent import candidates
+    info = sources.neo4j_unlinked(project)
+    files, reqs = info["codeFiles"], info["requirements"]
+    suggested = candidates.suggest_top_k(files)
+    return {"project": project, "codeFiles": files, "requirements": reqs, "unlinked": info["unlinked"],
+            "suggested": suggested, "options": candidates.options_for(files),
+            "minutes": {str(k): candidates.estimate_minutes(info["unlinked"] or reqs, k, runner.SECONDS_PER_CALL)
+                        for k in candidates.options_for(files)}}
 
 
 def post_link_existing(body: dict) -> dict:
@@ -485,7 +511,7 @@ def post_link_existing(body: dict) -> dict:
     if not info["unlinked"]:
         raise ApiError(400, "Every requirement of this project already has a trace link.")
     try:
-        top_k = int(body.get("top_k", 3))
+        top_k = int(body.get("top_k") or _suggested_top_k(project))
         ids = body.get("requirement_ids")
         if ids is not None and (not isinstance(ids, list) or not ids or len(ids) > 20
                                 or not all(isinstance(rid, str) and rid in info["ids"] for rid in ids)):
@@ -591,7 +617,7 @@ GET_ROUTES: dict[str, Callable[[dict], Any]] = {
     "/api/repo-sync": get_repo_sync, "/api/health": get_health, "/api/projects": get_projects, "/api/activity": get_activity,
     "/api/link-runs": get_link_runs, "/api/change-runs": get_change_runs, "/api/notifications/recent": get_notifications, "/api/files": get_files,
     "/api/graph": get_graph, "/api/unlinked": get_unlinked, "/api/results": get_results,
-    "/api/links": get_links, "/api/review-queue": get_review_queue, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics, "/api/c3": get_c3, "/api/selfcheck": get_selfcheck, "/api/pr-curve": get_pr_curve, "/api/labeling": get_labeling, "/api/code-text": get_code_text,
+    "/api/links": get_links, "/api/candidates": get_candidates, "/api/review-queue": get_review_queue, "/api/completeness": get_completeness, "/api/analysis": get_analysis, "/api/export": get_export, "/api/analytics": get_analytics, "/api/c3": get_c3, "/api/selfcheck": get_selfcheck, "/api/pr-curve": get_pr_curve, "/api/labeling": get_labeling, "/api/code-text": get_code_text,
 }
 POST_ROUTES: dict[str, Callable[[dict], Any]] = {
     "/api/projects/delete": post_delete_project, "/api/github": post_github, "/api/folders": post_browse_folders, "/api/import": post_import, "/api/link": post_link, "/api/link-existing": post_link_existing, "/api/scan": post_scan, "/api/commit": post_commit, "/api/undo": post_undo, "/api/reset": post_reset, "/api/label": post_label,
@@ -641,7 +667,11 @@ class Handler(BaseHTTPRequestHandler):
         if url.path == "/api/notifications":
             stream_notifications(self)
         elif url.path in ("/", "/index.html", "/legacy"):
-            self._send(200, (WEB_DIR / "index.html").read_bytes(), "text/html; charset=utf-8")
+            try:
+                page = (WEB_DIR / "index.html").read_bytes()
+            except FileNotFoundError:  # the legacy page was removed: say where the dashboard is instead of a 500 traceback
+                page = FALLBACK_PAGE
+            self._send(200, page, "text/html; charset=utf-8")
         elif url.path in GET_ROUTES:
             self._run(GET_ROUTES[url.path], {k: v[0] for k, v in parse_qs(url.query).items()})
         elif url.path == "/favicon.ico":
@@ -666,9 +696,18 @@ class Handler(BaseHTTPRequestHandler):
         self._run(POST_ROUTES[url.path], body if isinstance(body, dict) else {})
 
 
+class QuietServer(ThreadingHTTPServer):
+    """A browser that closes a tab or cancels a request mid-response is normal; do not print a traceback for it."""
+
+    def handle_error(self, request, client_address) -> None:  # noqa: ANN001
+        if isinstance(sys.exc_info()[1], (BrokenPipeError, ConnectionResetError)):
+            return
+        super().handle_error(request, client_address)
+
+
 def main() -> None:
     port = int(os.getenv("C4_WEB_PORT", "8000"))
-    server = ThreadingHTTPServer((HOST, port), Handler)
+    server = QuietServer((HOST, port), Handler)
     from apps.api import repo_sync
     from apps.api import github_app
     receiver = github_app.start_receiver() if os.getenv("GITHUB_WEBHOOK_SECRET") else None

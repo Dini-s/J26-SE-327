@@ -25,3 +25,13 @@ def test_operating_point_is_the_loosest_threshold_that_meets_the_target():
     assert c["operating_point"]["threshold"] == 0.9
     assert pr_curve(TRACES, GOLD, target_precision=0.4)["operating_point"]["threshold"] == 0.8
     assert pr_curve(TRACES, [("R9", "Q")], target_precision=0.9)["operating_point"] is None
+
+
+def test_requirements_added_after_the_dataset_stay_out_of_the_numbers():
+    # NEW-1 was typed into the dashboard later: it has no answer key, so its links must not count as wrong
+    traces = TRACES + [link("NEW-1", "Q", 0.9), link("NEW-1", "W", 0.9)]
+    with_extra = pr_curve(traces, GOLD)
+    clean = pr_curve(traces, GOLD, known_requirements={"R1", "R2", "R3"})
+    assert with_extra["rows"][-1]["kept"] == 3 and with_extra["processed_requirements"] == 3
+    assert clean["rows"][-1]["kept"] == 1 and clean["processed_requirements"] == 2
+    assert clean["rows"] == pr_curve(TRACES, GOLD)["rows"]

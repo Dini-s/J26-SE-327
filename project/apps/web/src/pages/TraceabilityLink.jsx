@@ -67,7 +67,12 @@ function LinkingWorkspace({ project, projectsError }) {
   const refresh = useCallback(() => { reloadUnlinked(); reloadRuns(); }, [reloadUnlinked, reloadRuns]);
   const { busy, reload: reloadActivity } = useActivity(refresh);
   const [mode, setMode] = useState("existing");
-  const [topK, setTopK] = useState(3);
+  const candidatesApi = useApi(enc ? `/api/candidates?project=${enc}` : null);
+  const [topK, setTopK] = useState(null);
+  const [topKTouched, setTopKTouched] = useState(false);
+  const suggestion = candidatesApi.data;
+  // Follow the suggestion for the project until the user picks a value themselves.
+  const shownK = topKTouched && topK != null ? topK : suggestion?.suggested ?? topK ?? 10;
   const [chosen, setChosen] = useState([]);
   const [text, setText] = useState("");
   const [requirementId, setRequirementId] = useState("");
@@ -103,7 +108,7 @@ function LinkingWorkspace({ project, projectsError }) {
     announceActivity({ kind: "link", project });
     setLaunchedAt(Date.now());
     try {
-      const result = await postJson(existing ? "/api/link-existing" : "/api/link", existing ? { project, top_k: topK, ...(chosen.length ? { requirement_ids: chosen } : {}) } : { project, text: text.trim(), id: requirementId.trim(), top_k: topK });
+      const result = await postJson(existing ? "/api/link-existing" : "/api/link", existing ? { project, top_k: shownK, ...(chosen.length ? { requirement_ids: chosen } : {}) } : { project, text: text.trim(), id: requirementId.trim(), top_k: topK });
       if (!mounted.current) return;
       setChosen([]);
       setSelection(existing ? null : `pending:${result.id}`);
@@ -134,7 +139,16 @@ function LinkingWorkspace({ project, projectsError }) {
               <label className="mt-4 block text-xs text-slate-500" htmlFor="req-id">ID (optional)</label><input id="req-id" value={requirementId} disabled={starting} onChange={(event) => setRequirementId(event.target.value)} maxLength={40} placeholder="Assigned automatically" className="mt-2 w-44 rounded-lg border border-slate-200 px-3 py-2 text-xs" />
             </>}
             {(mode === "new" || canLink) && <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
-              <label className="text-xs text-slate-500">Candidates per requirement<select value={topK} disabled={locked} onChange={(event) => setTopK(Number(event.target.value))} className="ml-2 rounded-md border border-slate-200 px-2 py-1.5">{[3, 5, 10].map((count) => <option key={count}>{count}</option>)}</select></label>
+              <div className="text-xs text-slate-500">
+                <label>Candidates per requirement
+                  <select value={shownK} disabled={locked} onChange={(event) => { setTopK(Number(event.target.value)); setTopKTouched(true); }} className="ml-2 rounded-md border border-slate-200 bg-white px-2 py-1.5">
+                    {(suggestion?.options ?? [1, 3, 5, 10, 20, 50, 100]).map((count) => <option key={count} value={count}>{count}{count === suggestion?.suggested ? " (suggested)" : ""}</option>)}
+                  </select>
+                </label>
+                {suggestion && <p className="mt-1 max-w-md text-[11px] leading-5 text-slate-400">
+                  {suggestion.codeFiles} code files. About {suggestion.minutes?.[String(shownK)] ?? "—"} min of LLM time for {suggestion.unlinked || suggestion.requirements} requirements at {shownK} candidates each. More candidates find more links but take longer.
+                </p>}
+              </div>
               <button type="submit" disabled={locked || !project || (mode === "new" && text.trim().length < 15)} className="rounded-lg bg-indigo-600 px-4 py-2.5 text-xs font-medium text-white disabled:opacity-40">{starting || launching ? "Starting…" : mode === "new" ? "Find trace links" : chosen.length ? `Link ${chosen.length} selected` : "Create trace links"}</button>
             </div>}
             {hint && <p role="status" className={`mt-3 text-xs ${hint.startsWith("Error:") ? "text-red-600" : "text-slate-500"}`}>{hint}</p>}
@@ -155,5 +169,6 @@ function LinkingWorkspace({ project, projectsError }) {
 }
 export default function TraceabilityLink() {
   const { project, error } = useProject();
+  useEffect(() => { setTopK(null); setTopKTouched(false); }, [project]);
   return <LinkingWorkspace key={project || "none"} project={project} projectsError={error} />;
 }

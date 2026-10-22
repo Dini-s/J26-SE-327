@@ -56,7 +56,7 @@ python -m pytest -q                                                             
 ## What was measured (honest summary)
 
 * Stage-1 recall is the bottleneck (iTrust top-10 about 42%): the LLM cannot recover a link the shortlist misses.
-* Hand check of 40 PetClinic links (labelled by an AI reviewer, not a human): the evidence prompt, now the default, gives 82% precision against 58% for the older prompt, at the cost of missing about a third of the correct links.
+* Hand check of 40 PetClinic links (labelled by an AI reviewer, not a human): the optional evidence prompt (`--prompt evidence`) gives 82% precision against 58% for the default expert prompt, at the cost of missing about a third of the correct links; it is not the default because it rejected correct links on the small BMI project.
 * A fine-tuned CodeBERT cross-encoder did not generalise; MiniLM fusion adds a small gain that fine-tuning does not improve; more training data did not help CodeBERT.
 * Decay detection (deliberately breaking known links): the LLM alone flagged 76% of 46 edits; with the added meaning-change check (numbers, negations, flags, operators) 96% (interval 86% to 99%), no harmless edit flagged. Only 11 of 30 ground-truth links were usable, and the check was built for these kinds of edits, so the number is favourable.
 

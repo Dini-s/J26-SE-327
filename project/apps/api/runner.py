@@ -84,8 +84,8 @@ def validate(params: dict[str, Any]) -> dict[str, Any]:
         limit = None if limit in (None, "", 0) else int(limit)
     except (TypeError, ValueError) as exc:
         raise RunnerError("top_k and limit_sources must be integers") from exc
-    if not 1 <= top_k <= 50:
-        raise RunnerError("top_k must be between 1 and 50")
+    if not 1 <= top_k <= 100:
+        raise RunnerError("top_k must be between 1 and 100")
     if limit is not None and not 1 <= limit <= 500:
         raise RunnerError("limit_sources must be between 1 and 500")
     ids = params.get("requirement_ids") or []

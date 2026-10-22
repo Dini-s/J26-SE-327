@@ -7,6 +7,8 @@ import { shortName } from "./utils";
 
 const PAGE = 25;
 const needsReview = (l) => l.status === "pending_review";
+// Broken links first, then those waiting for a decision, then approved ones; a consistent order (the old comparator returned 1 both ways).
+const STATUS_RANK = { decayed: 0, pending_review: 1, deferred: 2, verified: 3, rejected: 4 };
 const originOf = (l) => l.review === "correct" || l.review === "wrong" || l.review === "unsure" ? "Human reviewed" : "Automatic";
 const timeOf = (value) => (value ? String(value).replace("T", " ").slice(0, 16) : "-");
 
@@ -21,7 +23,7 @@ export default function LinksTable({ links }) {
     return links
       .filter((l) => status === "all" || (status === "review" ? needsReview(l) : l.status === status))
       .filter((l) => !q || `${l.requirement} ${l.code} ${l.requirementText}`.toLowerCase().includes(q))
-      .sort((a, b) => (a.status === b.status ? (b.confidence ?? 0) - (a.confidence ?? 0) : a.status === "decayed" ? -1 : 1));
+      .sort((a, b) => (STATUS_RANK[a.status] ?? 3) - (STATUS_RANK[b.status] ?? 3) || (b.confidence ?? 0) - (a.confidence ?? 0) || String(a.requirement).localeCompare(String(b.requirement)));
   }, [links, status, query]);
 
   return (
@@ -66,9 +68,9 @@ export default function LinksTable({ links }) {
                 const decayed = l.status === "decayed";
                 return (
                   <Fragment key={key}>
-                    <tr onClick={() => setOpen(expanded ? null : key)} className="cursor-pointer border-b border-slate-100 align-middle transition hover:bg-indigo-50/40">
+                    <tr data-status={l.status} onClick={() => setOpen(expanded ? null : key)} className="c4-link-row cursor-pointer border-b border-slate-100 align-middle transition hover:bg-indigo-50/40">
                       <td className="px-5 py-3" title={l.requirementText}>
-                        <span className="font-semibold text-slate-900">{l.requirement}</span>
+                        <span className="c4-req-id">{l.requirement}</span>
                         <span className="mt-0.5 block max-w-[300px] truncate text-[12px] text-slate-500">{l.requirementText}</span>
                       </td>
                       <td className="px-3 py-3" title={l.code}>
