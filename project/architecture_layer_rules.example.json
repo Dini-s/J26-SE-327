@@ -1,0 +1,10 @@
+{
+  "package_layers": {},
+  "allowed_dependencies": {
+    "presentation": ["service"],
+    "service": ["domain", "repository", "infrastructure"],
+    "repository": ["domain", "infrastructure"],
+    "domain": [],
+    "infrastructure": ["domain"]
+  }
+}

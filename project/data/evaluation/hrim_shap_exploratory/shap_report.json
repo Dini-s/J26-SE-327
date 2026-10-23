@@ -1,0 +1,111 @@
+{
+  "model": "XGBoost A4 exploratory HRIM",
+  "input_dataset": "data\\processed\\hrim_exploratory_multimodal_candidate.csv",
+  "samples_in_dataset": 929,
+  "samples_explained": 500,
+  "repositories": 7,
+  "feature_count": 787,
+  "target": "architecture_change_proxy_label",
+  "target_interpretation": "Structural-change proxy; not verified architecture drift.",
+  "training_scope": "Model fitted on the complete exploratory subset for explanation; these are not held-out explanations.",
+  "temporal_alignment_verified": false,
+  "warning": "Exploratory explanations only. Semantic embeddings have not been verified against the exact historical commits used for labels.",
+  "top_features": [
+    {
+      "feature": "graph_total_degree",
+      "mean_absolute_shap": 0.4352259337902069,
+      "mean_signed_shap": -0.00876164436340332,
+      "feature_group": "graph"
+    },
+    {
+      "feature": "graph_out_degree",
+      "mean_absolute_shap": 0.29180026054382324,
+      "mean_signed_shap": 0.011141441762447357,
+      "feature_group": "graph"
+    },
+    {
+      "feature": "semantic_emb_679",
+      "mean_absolute_shap": 0.15498954057693481,
+      "mean_signed_shap": 0.020146768540143967,
+      "feature_group": "semantic"
+    },
+    {
+      "feature": "contributor_count",
+      "mean_absolute_shap": 0.1337667554616928,
+      "mean_signed_shap": 0.024181386455893517,
+      "feature_group": "evolution"
+    },
+    {
+      "feature": "semantic_emb_633",
+      "mean_absolute_shap": 0.12526710331439972,
+      "mean_signed_shap": -0.010601608082652092,
+      "feature_group": "semantic"
+    },
+    {
+      "feature": "fan_out",
+      "mean_absolute_shap": 0.0800757184624672,
+      "mean_signed_shap": 0.029234347864985466,
+      "feature_group": "structural"
+    },
+    {
+      "feature": "graph_pagerank",
+      "mean_absolute_shap": 0.055647604167461395,
+      "mean_signed_shap": -0.0047844890505075455,
+      "feature_group": "graph"
+    },
+    {
+      "feature": "semantic_emb_222",
+      "mean_absolute_shap": 0.05389423668384552,
+      "mean_signed_shap": -0.005298931617289782,
+      "feature_group": "semantic"
+    },
+    {
+      "feature": "graph_betweenness",
+      "mean_absolute_shap": 0.05164407938718796,
+      "mean_signed_shap": 0.004677203483879566,
+      "feature_group": "graph"
+    },
+    {
+      "feature": "semantic_emb_169",
+      "mean_absolute_shap": 0.04980391263961792,
+      "mean_signed_shap": 0.006874111481010914,
+      "feature_group": "semantic"
+    }
+  ],
+  "feature_groups": [
+    {
+      "feature_group": "semantic",
+      "feature_count": 768,
+      "mean_absolute_shap_sum_per_sample": 2.759722948074341,
+      "mean_signed_shap_sum_per_sample": 0.03843627870082855
+    },
+    {
+      "feature_group": "graph",
+      "feature_count": 5,
+      "mean_absolute_shap_sum_per_sample": 0.8389669060707092,
+      "mean_signed_shap_sum_per_sample": 0.0024461899884045124
+    },
+    {
+      "feature_group": "evolution",
+      "feature_count": 6,
+      "mean_absolute_shap_sum_per_sample": 0.28860369324684143,
+      "mean_signed_shap_sum_per_sample": 0.03790745884180069
+    },
+    {
+      "feature_group": "structural",
+      "feature_count": 8,
+      "mean_absolute_shap_sum_per_sample": 0.16434788703918457,
+      "mean_signed_shap_sum_per_sample": 0.0758928507566452
+    }
+  ],
+  "outputs": [
+    "hrim_a4_exploratory_model.json",
+    "hrim_a4_exploratory_imputer.joblib",
+    "global_shap_importance.csv",
+    "top_shap_features.csv",
+    "shap_feature_group_summary.csv",
+    "package_shap_explanations.csv",
+    "shap_summary.png",
+    "shap_global_importance.png"
+  ]
+}

@@ -1,0 +1,3 @@
+model,samples,repositories,features,accuracy,precision,recall,f1,roc_auc,pr_auc,validation,target,temporal_alignment_verified
+structural_only_same_semantic_subset,929,7,21,0.6490850376749193,0.6693121693121693,0.5572687224669604,0.6081730769230769,0.7083468583352655,0.7030003607873772,5-fold GroupKFold by repository,architecture_change_proxy_label,False
+exploratory_multimodal_unverified_alignment,929,7,789,0.6663078579117331,0.6865284974093264,0.5837004405286343,0.6309523809523809,0.7173313239044747,0.7158132873337608,5-fold GroupKFold by repository,architecture_change_proxy_label,False

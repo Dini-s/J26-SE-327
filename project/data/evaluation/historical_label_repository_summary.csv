@@ -1,0 +1,12 @@
+repository,samples,positive_labels,unique_packages,feature_snapshots,positive_rate_percent
+R01_spring_petclinic,14,11,13,2,78.57
+R02_common_lang,31,9,18,2,29.03
+R03_jabref,436,330,317,3,75.69
+R04_argouml,189,131,121,3,69.31
+R05_lucene,606,329,379,3,54.29
+R06_hadoop,1139,413,713,3,36.26
+R07_junit,112,55,72,2,49.11
+R08_apache_maven,192,125,154,2,65.1
+R09_kafca,349,167,234,3,47.85
+R10_teammates,43,38,32,2,88.37
+R11_key_cloak,1061,439,685,3,41.38

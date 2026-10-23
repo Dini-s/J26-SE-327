@@ -1,0 +1,44 @@
+[
+    {
+        "experiment": "full_baseline",
+        "feature_count": 8,
+        "features": [
+            "java_files",
+            "nonempty_lines",
+            "fan_in",
+            "fan_out",
+            "total_coupling",
+            "instability",
+            "outgoing_dependency_count",
+            "incoming_dependency_count"
+        ],
+        "samples": 4172,
+        "repositories": 11,
+        "accuracy": 0.5376318312559923,
+        "precision": 0.5318918918918919,
+        "recall": 0.48070346849047385,
+        "f1": 0.5050038491147036,
+        "roc_auc": 0.5463222506393862,
+        "pr_auc": 0.5641929100692841
+    },
+    {
+        "experiment": "without_top_two",
+        "feature_count": 6,
+        "features": [
+            "java_files",
+            "nonempty_lines",
+            "fan_in",
+            "total_coupling",
+            "instability",
+            "incoming_dependency_count"
+        ],
+        "samples": 4172,
+        "repositories": 11,
+        "accuracy": 0.5321188878235859,
+        "precision": 0.524986849026828,
+        "recall": 0.487542745481192,
+        "f1": 0.5055724417426545,
+        "roc_auc": 0.5435697577516595,
+        "pr_auc": 0.5640503486485726
+    }
+]

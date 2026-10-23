@@ -1,0 +1,13 @@
+{
+    "features": [
+        "java_files",
+        "nonempty_lines",
+        "fan_in",
+        "fan_out",
+        "total_coupling",
+        "instability",
+        "outgoing_dependency_count",
+        "incoming_dependency_count"
+    ],
+    "target": "architecture_change_proxy_label"
+}
