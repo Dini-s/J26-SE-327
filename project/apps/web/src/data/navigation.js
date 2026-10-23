@@ -59,13 +59,13 @@ export const navigation = [
 
       {
         label: "Repositories",
-        path: "/repository/repositories",
+        path: "/repository-agent/repository",
         icon: FolderGit2,
       },
 
       {
         label: "Evalution & Metrics",
-        path: "/repository/evalution",
+        path: "/repository-agent/evolution",
         icon: ChartNoAxesCombined,
       },
 
@@ -77,7 +77,7 @@ export const navigation = [
         children: [
           {
             label: "Risk Models",
-            path: "/repository/risk-models",
+            path: "repository-agent/riskModule",
             icon: ShieldAlert,
           },
 
