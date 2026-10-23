@@ -1,222 +1,373 @@
+import {
+  AlertTriangle,
+  CheckCircle2,
+  CircleAlert,
+  FileCode2,
+  Info,
+  Layers3,
+  Link2,
+  ShieldCheck,
+} from "lucide-react";
 import { useMemo, useState } from "react";
-import { issues, issueSummary } from "../../data/architectureIssuesData";
-import { AlertTriangle } from "lucide-react";
-import IssueSummaryCard from "../../component/RepositoryIntelligent_Agent/architecture/architectureIssues/IssueSummaryCard";
-import IssueTabs from "../../component/RepositoryIntelligent_Agent/architecture/architectureIssues/IssueTabs";
-import IssueFilters from "../../component/RepositoryIntelligent_Agent/architecture/architectureIssues/IssueFilters";
-import IssueCard from "../../component/RepositoryIntelligent_Agent/architecture/architectureIssues/IssueCard";
-import IssueDetails from "../../component/RepositoryIntelligent_Agent/architecture/architectureIssues/IssueDetails";
+import { useRepository } from "../../context/RepositoryContext";
+
+const TYPE_LABELS = {
+  CIRCULAR_DEPENDENCY: "Circular dependency",
+  HIGH_COUPLING: "High coupling",
+  LAYER_VIOLATION: "Layer violation",
+};
+
+const TYPE_ICONS = {
+  CIRCULAR_DEPENDENCY: Link2,
+  HIGH_COUPLING: CircleAlert,
+  LAYER_VIOLATION: Layers3,
+};
 
 const ArchitectureIssues = () => {
-  const [activeTab, setActiveTab] = useState("all");
+  const { analysisResults, selectedRepository } = useRepository();
+  const [typeFilter, setTypeFilter] = useState("ALL");
+  const [statusFilter, setStatusFilter] = useState("ALL");
 
-  const [selectedIssue, setSelectedIssue] = useState(issues[0]);
+  const architecture = Array.isArray(analysisResults?.architecture)
+    ? analysisResults.architecture
+    : [];
+  const findings = Array.isArray(analysisResults?.architecture_findings)
+    ? analysisResults.architecture_findings
+    : [];
+  const predictions = Array.isArray(
+    analysisResults?.multimodal_proxy_predictions?.predictions
+  )
+    ? analysisResults.multimodal_proxy_predictions.predictions
+    : [];
+  const hasAnalysis = Boolean(analysisResults);
 
-  const [search, setSearch] = useState("");
+  const filteredFindings = useMemo(
+    () =>
+      findings.filter((finding) => {
+        const matchesType =
+          typeFilter === "ALL" || finding.finding_type === typeFilter;
+        const matchesStatus =
+          statusFilter === "ALL" ||
+          (finding.status || "Candidate").toUpperCase() === statusFilter;
+        return matchesType && matchesStatus;
+      }),
+    [findings, typeFilter, statusFilter]
+  );
 
-  const [severity, setSeverity] = useState("All");
-
-  const [type, setType] = useState("All");
-
-  const [layer, setLayer] = useState("All");
-
-  const [resolvedIds, setResolvedIds] = useState([]);
-
-  const filteredIssues = useMemo(() => {
-    return issues.filter((issue) => {
-      if (
-        activeTab !== "all" &&
-        activeTab !== "Resolved" &&
-        issue.severity !== activeTab
-      ) {
-        return false;
-      }
-
-      if (activeTab === "Resolved" && !resolvedIds.includes(issue.id)) {
-        return false;
-      }
-
-      if (severity !== "All" && issue.severity !== severity) {
-        return false;
-      }
-
-      if (type !== "All" && issue.type !== type) {
-        return false;
-      }
-
-      if (layer !== "All" && issue.layer !== layer) {
-        return false;
-      }
-
-      if (search.trim()) {
-        const query = search.toLowerCase();
-
-        const searchable = `
-          ${issue.title}
-          ${issue.subtitle}
-          ${issue.description}
-          ${issue.type}
-          ${issue.layer}
-        `.toLowerCase();
-
-        if (!searchable.includes(query)) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-  }, [activeTab, severity, type, layer, search, resolvedIds]);
-
-  const handleResolve = (id) => {
-    setResolvedIds((current) => [...current, id]);
-  };
+  const confirmedCount = findings.filter(
+    (item) => (item.status || "").toLowerCase() === "confirmed"
+  ).length;
+  const candidateCount = findings.filter(
+    (item) => (item.status || "").toLowerCase() === "candidate"
+  ).length;
+  const cycleCount = findings.filter(
+    (item) => item.finding_type === "CIRCULAR_DEPENDENCY"
+  ).length;
 
   return (
-    <div className="w-full">
-      <header className="mb-3">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-          <div className="flex items-start gap-3">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-500">
-              <AlertTriangle size={27} />
-            </div>
-
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-                Architecture Issues
-              </h1>
-
-              <p className="mt-1 text-[10px] text-slate-500">
-                Identify and resolve architectural violations and design
-                problems
-              </p>
-            </div>
+    <div className="w-full space-y-5">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-3">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+            <AlertTriangle size={25} />
           </div>
-
-          <div className="grid grid-cols-3 gap-2">
-            <IssueSummaryCard
-              type="total"
-              title="Total Issues"
-              value={issueSummary.total}
-              subtitle="Architecture issues"
-              change="↑ 2 since last scan"
-            />
-
-            <IssueSummaryCard
-              type="high"
-              title="High Severity"
-              value={issueSummary.high}
-              subtitle="33% of total"
-            />
-
-            <IssueSummaryCard
-              type="health"
-              title="Architecture Health"
-              value={issueSummary.architectureHealth}
-              subtitle="/ 100"
-              change="+6 from last scan"
-            />
-          </div>
-        </div>
-      </header>
-
-      <section className="border-b border-slate-200">
-        <div className="flex flex-col gap-2 xl:flex-row xl:items-end xl:justify-between">
-          <IssueTabs activeTab={activeTab} onChange={setActiveTab} />
-
-          <IssueFilters
-            search={search}
-            setSearch={setSearch}
-            severity={severity}
-            setSeverity={setSeverity}
-            type={type}
-            setType={setType}
-            layer={layer}
-            setLayer={setLayer}
-          />
-        </div>
-      </section>
-
-      <main
-        className="
-          mt-3
-          grid
-          grid-cols-1
-          gap-3
-          xl:grid-cols-[0.95fr_1fr]
-        "
-      >
-        {/* LEFT */}
-        <section
-          className="
-            rounded-xl
-            border border-slate-200
-            bg-white
-            p-3
-            shadow-sm
-          "
-        >
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-bold text-slate-900">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
               Architecture Issues
-            </h2>
-
-            <select
-              className="
-                rounded-md
-                border border-slate-200
-                bg-white
-                px-2 py-1.5
-                text-[8px]
-                font-medium
-                text-slate-600
-                outline-none
-              "
-            >
-              <option>Sort by: Severity</option>
-
-              <option>Sort by: Confidence</option>
-
-              <option>Sort by: Date</option>
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            {filteredIssues.length > 0 ? (
-              filteredIssues.map((issue) => (
-                <IssueCard
-                  key={issue.id}
-                  issue={issue}
-                  selected={selectedIssue?.id === issue.id}
-                  onClick={setSelectedIssue}
-                />
-              ))
-            ) : (
-              <div className="flex h-40 items-center justify-center">
-                <p className="text-xs text-slate-400">
-                  No architecture issues found.
-                </p>
-              </div>
+            </h1>
+            <p className="mt-1 text-sm text-slate-500">
+              Inspect analyzer-generated candidates and trace them to evidence.
+            </p>
+            {selectedRepository && (
+              <p className="mt-1 text-xs text-slate-500">
+                Repository:{" "}
+                {selectedRepository.name ||
+                  selectedRepository.repository_name ||
+                  selectedRepository.repository_id ||
+                  "Selected repository"}
+              </p>
             )}
           </div>
+        </div>
+        {hasAnalysis && (
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600">
+            <CheckCircle2 size={14} className="text-emerald-600" />
+            Analysis data loaded
+          </span>
+        )}
+      </header>
 
-          {/* Pagination */}
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <button className="pagination-button">‹</button>
+      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <SummaryCard
+          title="Finding candidates"
+          value={hasAnalysis ? findings.length : "—"}
+          description="Generated by architecture analyzer"
+          icon={<AlertTriangle size={18} />}
+        />
+        <SummaryCard
+          title="Confirmed issues"
+          value={hasAnalysis ? confirmedCount : "—"}
+          description="Explicitly marked confirmed"
+          icon={<ShieldCheck size={18} />}
+        />
+        <SummaryCard
+          title="Packages analyzed"
+          value={hasAnalysis ? architecture.length : "—"}
+          description="Architecture metric records"
+          icon={<Layers3 size={18} />}
+        />
+        <SummaryCard
+          title="Cycle candidates"
+          value={hasAnalysis ? cycleCount : "—"}
+          description="Detected in package dependency graph"
+          icon={<Link2 size={18} />}
+        />
+      </section>
 
-            <button className="pagination-button active">1</button>
-
-            <button className="pagination-button">2</button>
-
-            <button className="pagination-button">Next →</button>
+      {hasAnalysis && predictions.length > 0 && (
+        <div className="flex items-start gap-3 rounded-xl border border-indigo-100 bg-indigo-50 p-4">
+          <Info size={18} className="mt-0.5 shrink-0 text-indigo-700" />
+          <div>
+            <p className="text-sm font-semibold text-indigo-950">
+              Exploratory HRIM predictions are separate from findings
+            </p>
+            <p className="mt-1 text-sm leading-5 text-indigo-900">
+              {predictions.length} proxy prediction(s) are available. They are
+              not counted as confirmed architecture violations because their
+              target and historical alignment have not been validated.
+            </p>
           </div>
-        </section>
+        </div>
+      )}
 
-        {/* RIGHT */}
-        <IssueDetails issue={selectedIssue} onResolve={handleResolve} />
-      </main>
+      <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <div className="flex flex-col gap-3 border-b border-slate-200 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+          <div>
+            <h2 className="text-base font-semibold text-slate-900">
+              Analyzer findings
+            </h2>
+            <p className="mt-1 text-xs text-slate-500">
+              {findings.length} record(s) · candidates require review before
+              being treated as confirmed violations.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <select
+              value={typeFilter}
+              onChange={(event) => setTypeFilter(event.target.value)}
+              className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+              aria-label="Filter by finding type"
+            >
+              <option value="ALL">All finding types</option>
+              <option value="CIRCULAR_DEPENDENCY">Circular dependency</option>
+              <option value="HIGH_COUPLING">High coupling</option>
+              <option value="LAYER_VIOLATION">Layer violation</option>
+            </select>
+            <select
+              value={statusFilter}
+              onChange={(event) => setStatusFilter(event.target.value)}
+              className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+              aria-label="Filter by finding status"
+            >
+              <option value="ALL">All statuses</option>
+              <option value="CANDIDATE">Candidate</option>
+              <option value="CONFIRMED">Confirmed</option>
+            </select>
+          </div>
+        </div>
+
+        {!hasAnalysis ? (
+          <EmptyState
+            title="Run repository analysis first"
+            description="Select a repository and run analysis. Findings will appear here when the analyzer returns its findings records."
+          />
+        ) : filteredFindings.length === 0 ? (
+          <EmptyState
+            title={
+              findings.length === 0
+                ? "No architecture candidates detected"
+                : "No findings match these filters"
+            }
+            description={
+              findings.length === 0
+                ? "The latest analyzer run produced no circular-dependency, high-coupling, or configured layer-violation candidates. This does not mean every architectural property has been verified."
+                : "Change the filters to view the available analyzer records."
+            }
+          />
+        ) : (
+          <div className="divide-y divide-slate-100">
+            {filteredFindings.map((finding, index) => (
+              <FindingCard
+                key={
+                  finding.finding_id ||
+                  `${finding.finding_type}-${finding.source_package}-${index}`
+                }
+                finding={finding}
+              />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {hasAnalysis && candidateCount > 0 && (
+        <p className="text-xs leading-5 text-slate-500">
+          Candidate findings are rule- or metric-based signals. Review the
+          dependency graph, configured thresholds, and source evidence before
+          confirming an architectural violation.
+        </p>
+      )}
     </div>
   );
 };
+
+const FindingCard = ({ finding }) => {
+  const [expanded, setExpanded] = useState(false);
+  const Icon = TYPE_ICONS[finding.finding_type] || CircleAlert;
+  const status = finding.status || "Candidate";
+  const evidenceItems = (finding.evidence_details || "")
+    .split(" || ")
+    .filter(Boolean);
+  const evidenceText = finding.code_evidence || finding.evidence_details || "";
+
+  return (
+    <article className="p-4 sm:p-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
+          <Icon size={19} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-sm font-semibold text-slate-900">
+              {TYPE_LABELS[finding.finding_type] || finding.finding_type || "Architecture finding"}
+            </h3>
+            <StatusPill status={status} />
+            {finding.severity && <SeverityPill severity={finding.severity} />}
+          </div>
+          <p className="mt-1 break-words text-sm text-slate-700">
+            {finding.source_package || "Unknown source"}
+            {finding.target_package ? ` → ${finding.target_package}` : ""}
+          </p>
+          <p className="mt-2 text-sm leading-5 text-slate-600">
+            {finding.evidence || finding.notes || "No additional description was provided."}
+          </p>
+
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500">
+            {finding.finding_id && <span>ID: {finding.finding_id}</span>}
+            {finding.metric_value !== undefined && finding.metric_value !== "" && (
+              <span>Metric: {finding.metric_value}</span>
+            )}
+            {finding.threshold !== undefined && finding.threshold !== "" && (
+              <span>Rule/threshold: {finding.threshold}</span>
+            )}
+          </div>
+
+          {(finding.evidence_files || evidenceText || finding.notes) && (
+            <button
+              type="button"
+              onClick={() => setExpanded((value) => !value)}
+              className="mt-3 inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
+              aria-expanded={expanded}
+            >
+              <FileCode2 size={15} />
+              {expanded ? "Hide evidence and notes" : "View evidence and notes"}
+            </button>
+          )}
+
+          {expanded && (
+            <div className="mt-3 space-y-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              {finding.evidence_files && (
+                <div>
+                  <p className="text-xs font-semibold text-slate-700">Source files</p>
+                  <p className="mt-1 break-all font-mono text-xs text-slate-600">
+                    {finding.evidence_files}
+                  </p>
+                </div>
+              )}
+              {finding.evidence_lines && (
+                <div>
+                  <p className="text-xs font-semibold text-slate-700">Line numbers</p>
+                  <p className="mt-1 font-mono text-xs text-slate-600">
+                    {finding.evidence_lines}
+                  </p>
+                </div>
+              )}
+              {evidenceText && (
+                <div>
+                  <p className="text-xs font-semibold text-slate-700">Code / graph evidence</p>
+                  <pre className="mt-1 overflow-x-auto whitespace-pre-wrap break-words rounded-md bg-slate-900 p-3 text-xs leading-5 text-slate-100">
+                    {evidenceText}
+                  </pre>
+                </div>
+              )}
+              {finding.notes && (
+                <div>
+                  <p className="text-xs font-semibold text-slate-700">Review note</p>
+                  <p className="mt-1 text-xs leading-5 text-slate-600">{finding.notes}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </article>
+  );
+};
+
+const StatusPill = ({ status }) => {
+  const confirmed = String(status).toLowerCase() === "confirmed";
+  return (
+    <span
+      className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+        confirmed
+          ? "bg-emerald-50 text-emerald-700"
+          : "bg-amber-50 text-amber-700"
+      }`}
+    >
+      {confirmed ? "Confirmed" : status}
+    </span>
+  );
+};
+
+const SeverityPill = ({ severity }) => {
+  const styles = {
+    high: "bg-rose-50 text-rose-700",
+    medium: "bg-orange-50 text-orange-700",
+    low: "bg-slate-100 text-slate-600",
+  };
+  return (
+    <span
+      className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+        styles[String(severity).toLowerCase()] || "bg-slate-100 text-slate-600"
+      }`}
+    >
+      {severity} severity
+    </span>
+  );
+};
+
+const EmptyState = ({ title, description }) => (
+  <div className="flex flex-col items-center px-6 py-12 text-center">
+    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-slate-100 text-slate-500">
+      <Info size={20} />
+    </div>
+    <h3 className="mt-3 text-sm font-semibold text-slate-900">{title}</h3>
+    <p className="mt-1 max-w-xl text-sm leading-6 text-slate-500">{description}</p>
+  </div>
+);
+
+const SummaryCard = ({ title, value, description, icon }) => (
+  <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="flex items-start gap-3">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
+        {icon}
+      </div>
+      <div className="min-w-0">
+        <p className="text-xs font-medium text-slate-500">{title}</p>
+        <p className="mt-1 text-2xl font-bold tabular-nums text-slate-900">{value}</p>
+        <p className="mt-1 text-xs leading-5 text-slate-500">{description}</p>
+      </div>
+    </div>
+  </article>
+);
 
 export default ArchitectureIssues;
