@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 
 out = Path("data/processed/semantic")
-repo_id = "R04_argouml"
+repo_id = "R05_lucene"
 
 base_vectors_path = out / f"{repo_id}_embeddings.npy"
 base_metadata_path = out / f"{repo_id}_metadata.csv"
