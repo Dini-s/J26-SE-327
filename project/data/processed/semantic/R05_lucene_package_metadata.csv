@@ -7,7 +7,7 @@ R05_lucene,org.apache.lucene.analysis.bn,8,4,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.boost,3,5,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.br,5,6,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.ca,2,7,microsoft/graphcodebert-base
-R05_lucene,org.apache.lucene.analysis.charfilter,6,8,microsoft/graphcodebert-base
+R05_lucene,org.apache.lucene.analysis.charfilter,7,8,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.cjk,8,9,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.ckb,8,10,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.classic,7,11,microsoft/graphcodebert-base
@@ -22,7 +22,7 @@ R05_lucene,org.apache.lucene.analysis.cz,5,19,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.da,2,20,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.de,13,21,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.el,7,22,microsoft/graphcodebert-base
-R05_lucene,org.apache.lucene.analysis.email,4,23,microsoft/graphcodebert-base
+R05_lucene,org.apache.lucene.analysis.email,5,23,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.en,22,24,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.es,11,25,microsoft/graphcodebert-base
 R05_lucene,org.apache.lucene.analysis.et,2,26,microsoft/graphcodebert-base
