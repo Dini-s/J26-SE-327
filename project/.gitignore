@@ -1,33 +1,29 @@
-# Environment / secrets
-.env
-.env.*
-!.env.example
-
 # Python
-.venv/
-venv/
 __pycache__/
 *.py[cod]
-
-# Tests / coverage
 .pytest_cache/
 .coverage
-.coverage.*
 htmlcov/
 
-# Node / Vite
+# Virtual environments
+.env
+.venv/
+venv/
+
+# Frontend
 node_modules/
 dist/
-.vite/
 
-# IDE / OS
+# IDE
 .vscode/
 .idea/
+
+# OS
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
+# Local PetClinic clone
+spring-petclinic-c3/
 
 # Notebook cache
 .ipynb_checkpoints/
@@ -36,3 +32,9 @@ data/raw/
 # Component 1 baseline models and embedding cache (large, regenerable)
 models/component1/*.joblib
 models/component1/embedding_cache/
+# Temporary
+*.tmp
+*.log
+
+.env.*
+!.env.example
