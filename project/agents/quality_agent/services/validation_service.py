@@ -12,24 +12,28 @@ from agents.quality_agent.schemas import (
     ValidationEvidence,
 )
 
+from agents.quality_agent.services.execution_provenance import (
+    ExecutionProvenanceService,
+)
+
 
 class ValidationService:
     """
-    Converts evidence adequacy and execution
-    results into RVU-level and requirement-level
-    validation intelligence.
+    Requirement-centric validation service.
 
-    RVC measures adequate evidence coverage
-    across all RVUs.
+    Core research rules:
 
-    Execution-confirmed validation is maintained
-    separately and contributes to RVES and the
-    final validation status.
+        relevance != adequacy
+        adequacy != execution
+        synthetic PASS != observed PASS
 
-    Controlled execution fixtures may appear in
-    the evidence grid for evaluation and
-    demonstration, but they are not treated as
-    observed execution confirmation.
+    An RVU is validated only when:
+
+        evidence is ADEQUATE
+        +
+        execution is OBSERVED
+        +
+        execution result satisfies the requirement
     """
 
     def evaluate_rvus(
@@ -50,20 +54,28 @@ class ValidationService:
     ) -> list[
         RVUValidationResult
     ]:
-
         profile_map = {
-            item.rvu_id: item
-            for item in profiles
+            item.rvu_id:
+                item
+
+            for item
+            in profiles
         }
 
         summary_map = {
-            item.rvu_id: item
-            for item in summaries
+            item.rvu_id:
+                item
+
+            for item
+            in summaries
         }
 
         evidence_map = {
-            item.evidence_id: item
-            for item in evidence
+            item.evidence_id:
+                item
+
+            for item
+            in evidence
         }
 
         results: list[
@@ -71,13 +83,17 @@ class ValidationService:
         ] = []
 
         for rvu in rvus:
-            profile = profile_map[
-                rvu.rvu_id
-            ]
+            profile = (
+                profile_map[
+                    rvu.rvu_id
+                ]
+            )
 
-            summary = summary_map[
-                rvu.rvu_id
-            ]
+            summary = (
+                summary_map[
+                    rvu.rvu_id
+                ]
+            )
 
             if (
                 summary.adequacy_status
@@ -97,56 +113,45 @@ class ValidationService:
                         ),
 
                         evidence_found=(
-                            summary
-                            .evidence_found
+                            summary.evidence_found
                         ),
 
                         adequacy_status=(
-                            summary
-                            .adequacy_status
+                            summary.adequacy_status
                         ),
 
-                        execution_satisfied=False,
+                        execution_satisfied=(
+                            False
+                        ),
 
                         validation_status=(
                             "NOT_ASSESSED"
                         ),
 
                         best_evidence_id=(
-                            summary
-                            .best_evidence_id
+                            summary.best_evidence_id
                         ),
 
-                        reason_codes=sorted(
-                            set(
-                                summary
-                                .reason_codes
-                            )
+                        reason_codes=(
+                            summary.reason_codes
                         ),
                     )
                 )
 
                 continue
 
-            candidate_ids = (
-                summary
-                .adequate_evidence_ids
-            )
-
             successful_id: (
                 str | None
             ) = None
 
-            candidate_execution_reasons: (
-                list[str]
-            ) = []
-
+            # Execution is checked only against evidence that
+            # C3 already considers technically adequate.
             if (
                 summary.adequacy_status
                 == "ADEQUATE"
             ):
                 for evidence_id in (
-                    candidate_ids
+                    summary.adequate_evidence_ids
                 ):
                     item = (
                         evidence_map.get(
@@ -158,8 +163,7 @@ class ValidationService:
                         continue
 
                     if (
-                        self
-                        ._execution_satisfied(
+                        self._execution_satisfied(
                             profile,
                             item,
                         )
@@ -169,13 +173,6 @@ class ValidationService:
                         )
 
                         break
-
-                    candidate_execution_reasons.extend(
-                        self
-                        ._execution_reason_codes(
-                            item
-                        )
-                    )
 
             execution_satisfied = (
                 successful_id
@@ -191,7 +188,7 @@ class ValidationService:
                 == "ADEQUATE"
                 and execution_satisfied
             ):
-                status = (
+                validation_status = (
                     "VALIDATED"
                 )
 
@@ -202,7 +199,7 @@ class ValidationService:
                     "PARTIAL",
                 }
             ):
-                status = (
+                validation_status = (
                     "PARTIAL"
                 )
 
@@ -210,15 +207,14 @@ class ValidationService:
                     execution_satisfied
                 ):
                     reasons.append(
-                        "EXECUTION_NOT_SATISFIED"
-                    )
-
-                    reasons.extend(
-                        candidate_execution_reasons
+                        (
+                            "EXECUTION_"
+                            "NOT_CONFIRMED"
+                        )
                     )
 
             else:
-                status = (
+                validation_status = (
                     "UNSATISFIED"
                 )
 
@@ -233,13 +229,11 @@ class ValidationService:
                     ),
 
                     evidence_found=(
-                        summary
-                        .evidence_found
+                        summary.evidence_found
                     ),
 
                     adequacy_status=(
-                        summary
-                        .adequacy_status
+                        summary.adequacy_status
                     ),
 
                     execution_satisfied=(
@@ -247,17 +241,18 @@ class ValidationService:
                     ),
 
                     validation_status=(
-                        status
+                        validation_status
                     ),
 
                     best_evidence_id=(
                         successful_id
-                        or summary
-                        .best_evidence_id
+                        or summary.best_evidence_id
                     ),
 
                     reason_codes=sorted(
-                        set(reasons)
+                        set(
+                            reasons
+                        )
                     ),
                 )
             )
@@ -282,9 +277,10 @@ class ValidationService:
     ) -> list[
         RequirementIntelligence
     ]:
-
         rvus_by_requirement = (
-            defaultdict(list)
+            defaultdict(
+                list
+            )
         )
 
         for rvu in rvus:
@@ -295,24 +291,31 @@ class ValidationService:
             )
 
         summary_map = {
-            item.rvu_id: item
-            for item in summaries
+            item.rvu_id:
+                item
+
+            for item
+            in summaries
         }
 
         validation_map = {
-            item.rvu_id: item
-            for item in validations
+            item.rvu_id:
+                item
+
+            for item
+            in validations
         }
 
         output: list[
             RequirementIntelligence
         ] = []
 
-        for requirement in requirements:
+        for requirement in (
+            requirements
+        ):
             requirement_rvus = (
                 rvus_by_requirement[
-                    requirement
-                    .requirement_id
+                    requirement.requirement_id
                 ]
             )
 
@@ -324,20 +327,14 @@ class ValidationService:
                 output.append(
                     RequirementIntelligence(
                         requirement_id=(
-                            requirement
-                            .requirement_id
+                            requirement.requirement_id
                         ),
 
                         total_rvus=0,
-
                         supported_rvus=0,
-
                         not_assessed_rvus=0,
-
                         evidence_found_rvus=0,
-
                         adequate_rvus=0,
-
                         validated_rvus=0,
 
                         evidence_found_percent=0.0,
@@ -385,9 +382,7 @@ class ValidationService:
                 if (
                     summary_map[
                         rvu.rvu_id
-                    ]
-                    .adequacy_status
-
+                    ].adequacy_status
                     not in {
                         "UNSUPPORTED",
                         "NOT_ASSESSED",
@@ -413,11 +408,11 @@ class ValidationService:
                 if (
                     validation_map[
                         rvu.rvu_id
-                    ]
-                    .evidence_found
+                    ].evidence_found
                 )
             )
 
+            # RVC = adequate evidence coverage.
             adequate = sum(
                 1
 
@@ -427,12 +422,12 @@ class ValidationService:
                 if (
                     summary_map[
                         rvu.rvu_id
-                    ]
-                    .adequacy_status
+                    ].adequacy_status
                     == "ADEQUATE"
                 )
             )
 
+            # Validation requires confirmed execution.
             validated = sum(
                 1
 
@@ -442,8 +437,7 @@ class ValidationService:
                 if (
                     validation_map[
                         rvu.rvu_id
-                    ]
-                    .validation_status
+                    ].validation_status
                     == "VALIDATED"
                 )
             )
@@ -456,12 +450,12 @@ class ValidationService:
                 else 0.0
             )
 
-            # RVC measures adequate
-            # validation evidence coverage
-            # across all requirement RVUs.
             rvc_ratio = (
                 adequate
                 / total
+
+                if total
+                else 0.0
             )
 
             assessable_adequacy_ratio = (
@@ -485,8 +479,7 @@ class ValidationService:
                     sum(
                         summary_map[
                             rvu.rvu_id
-                        ]
-                        .best_relevance_score
+                        ].best_relevance_score
 
                         for rvu
                         in supported
@@ -498,8 +491,7 @@ class ValidationService:
                     sum(
                         summary_map[
                             rvu.rvu_id
-                        ]
-                        .best_adequacy_score
+                        ].best_adequacy_score
 
                         for rvu
                         in supported
@@ -508,13 +500,8 @@ class ValidationService:
                 )
 
             else:
-                relevance_factor = (
-                    0.0
-                )
-
-                adequacy_factor = (
-                    0.0
-                )
+                relevance_factor = 0.0
+                adequacy_factor = 0.0
 
             completeness_factor = (
                 rvc_ratio
@@ -525,10 +512,6 @@ class ValidationService:
             )
 
             # Experimental RVES baseline.
-            #
-            # Equal transparent weights are
-            # intentionally retained until
-            # evaluation/sensitivity analysis.
             rves = (
                 0.25
                 * relevance_factor
@@ -543,20 +526,14 @@ class ValidationService:
                 * execution_factor
             )
 
-            if (
-                supported_count
-                == 0
-            ):
+            if supported_count == 0:
                 requirement_status = (
                     "NOT_ASSESSED"
                 )
 
             elif (
-                not_assessed_count
-                == 0
-
-                and validated
-                == total
+                not_assessed_count == 0
+                and validated == total
             ):
                 requirement_status = (
                     "ADEQUATE"
@@ -564,9 +541,7 @@ class ValidationService:
 
             elif (
                 validated > 0
-
                 or adequate > 0
-
                 or evidence_found > 0
             ):
                 requirement_status = (
@@ -581,8 +556,7 @@ class ValidationService:
             output.append(
                 RequirementIntelligence(
                     requirement_id=(
-                        requirement
-                        .requirement_id
+                        requirement.requirement_id
                     ),
 
                     total_rvus=(
@@ -688,264 +662,37 @@ class ValidationService:
         evidence:
         ValidationEvidence,
     ) -> bool:
-        """
-        Determine whether execution can be used
-        as observed validation confirmation.
-
-        Displayed execution status and validation
-        confirmation are deliberately separate.
-
-        A controlled manual fixture may therefore
-        display PASS in the UI while still not
-        counting as execution-confirmed evidence.
-        """
+        # Synthetic or controlled results can never
+        # execution-confirm validation.
+        if not (
+            ExecutionProvenanceService
+            .is_observed(
+                evidence
+            )
+        ):
+            return False
 
         if (
             profile.requirement_type
             == "NON_FUNCTIONAL"
-
             and (
-                profile
-                .requirement_subtype
+                profile.requirement_subtype
                 == "PERFORMANCE"
             )
         ):
             return (
-                self
-                ._performance_satisfied(
+                self._performance_satisfied(
                     profile,
                     evidence,
                 )
             )
 
-        if (
-            evidence.evidence_type
-            == "MANUAL_TEST"
-        ):
-            manual_execution = (
-                evidence.metadata.get(
-                    "manual_execution"
-                )
-            )
-
-            if not isinstance(
-                manual_execution,
-                dict,
-            ):
-                return False
-
-            if (
-                evidence.execution_status
-                != "PASS"
-            ):
-                return False
-
-            # A deliberately synthetic manual
-            # test definition must never become
-            # observed validation evidence.
-            if evidence.synthetic:
-                return False
-
-            # Controlled execution fixtures are
-            # useful for pipeline evaluation but
-            # are not real observed executions.
-            if (
-                manual_execution.get(
-                    "synthetic",
-                    True,
-                )
-            ):
-                return False
-
-            # Real observed manual execution
-            # should have minimum provenance.
-            if not (
-                manual_execution.get(
-                    "executed_at"
-                )
-            ):
-                return False
-
-            if not (
-                manual_execution.get(
-                    "executed_by"
-                )
-            ):
-                return False
-
-            if not (
-                manual_execution.get(
-                    "actual_result"
-                )
-            ):
-                return False
-
-            return True
-
         return (
-            evidence.execution_status
+            str(
+                evidence.execution_status
+                or ""
+            ).upper()
             == "PASS"
-        )
-
-    def _execution_reason_codes(
-        self,
-        evidence:
-        ValidationEvidence,
-    ) -> list[str]:
-        """
-        Produce explainable execution-state
-        reasons for an adequate evidence item
-        whose execution is not sufficient for
-        validation confirmation.
-        """
-
-        reasons: list[str] = []
-
-        status = (
-            evidence.execution_status
-            or "NOT_EXECUTED"
-        )
-
-        if (
-            evidence.evidence_type
-            == "MANUAL_TEST"
-        ):
-            manual_execution = (
-                evidence.metadata.get(
-                    "manual_execution"
-                )
-            )
-
-            if (
-                isinstance(
-                    manual_execution,
-                    dict,
-                )
-                and manual_execution.get(
-                    "synthetic",
-                    True,
-                )
-            ):
-                reasons.append(
-                    "CONTROLLED_EXECUTION_NOT_OBSERVED"
-                )
-
-            if (
-                status
-                == "NOT_EXECUTED"
-            ):
-                reasons.append(
-                    "MANUAL_EXECUTION_NOT_EXECUTED"
-                )
-
-            elif (
-                status
-                == "BLOCKED"
-            ):
-                reasons.append(
-                    "MANUAL_EXECUTION_BLOCKED"
-                )
-
-            elif (
-                status
-                == "SKIPPED"
-            ):
-                reasons.append(
-                    "MANUAL_EXECUTION_SKIPPED"
-                )
-
-            elif (
-                status
-                == "FAIL"
-            ):
-                reasons.append(
-                    "MANUAL_EXECUTION_FAILED"
-                )
-
-            elif (
-                status
-                == "PASS"
-
-                and not self
-                ._execution_satisfied_manual(
-                    evidence
-                )
-            ):
-                reasons.append(
-                    "MANUAL_PASS_NOT_OBSERVED"
-                )
-
-            return reasons
-
-        if status == "FAIL":
-            reasons.append(
-                "EXECUTION_FAILED"
-            )
-
-        elif status == "SKIPPED":
-            reasons.append(
-                "EXECUTION_SKIPPED"
-            )
-
-        elif status in {
-            "NOT_EXECUTED",
-            "UNKNOWN",
-        }:
-            reasons.append(
-                "EXECUTION_NOT_AVAILABLE"
-            )
-
-        return reasons
-
-    def _execution_satisfied_manual(
-        self,
-        evidence:
-        ValidationEvidence,
-    ) -> bool:
-        """
-        Manual-only helper used for reason-code
-        generation.
-        """
-
-        if (
-            evidence.execution_status
-            != "PASS"
-        ):
-            return False
-
-        if evidence.synthetic:
-            return False
-
-        manual_execution = (
-            evidence.metadata.get(
-                "manual_execution"
-            )
-        )
-
-        if not isinstance(
-            manual_execution,
-            dict,
-        ):
-            return False
-
-        if (
-            manual_execution.get(
-                "synthetic",
-                True,
-            )
-        ):
-            return False
-
-        return bool(
-            manual_execution.get(
-                "executed_at"
-            )
-            and manual_execution.get(
-                "executed_by"
-            )
-            and manual_execution.get(
-                "actual_result"
-            )
         )
 
     def _performance_satisfied(
@@ -956,9 +703,19 @@ class ValidationService:
         evidence:
         ValidationEvidence,
     ) -> bool:
+        if not (
+            ExecutionProvenanceService
+            .is_observed(
+                evidence
+            )
+        ):
+            return False
 
         if (
-            evidence.execution_status
+            str(
+                evidence.execution_status
+                or ""
+            ).upper()
             != "PASS"
         ):
             return False
@@ -966,7 +723,6 @@ class ValidationService:
         if (
             evidence.measured_value
             is None
-
             or profile.threshold
             is None
         ):
@@ -982,10 +738,10 @@ class ValidationService:
             profile.unit,
         )
 
-        operator = (
+        operator = str(
             profile.operator
             or ""
-        )
+        ).strip()
 
         if operator == "<":
             return (
@@ -1027,7 +783,6 @@ class ValidationService:
         value: float,
         unit: str | None,
     ) -> float:
-
         value = float(
             value
         )
@@ -1036,7 +791,9 @@ class ValidationService:
             return value
 
         lower = (
-            unit.lower()
+            unit
+            .lower()
+            .strip()
         )
 
         if lower in {
@@ -1046,36 +803,32 @@ class ValidationService:
         }:
             return value
 
-        if (
-            lower.startswith(
-                "second"
-            )
-
-            or lower in {
-                "s",
-                "sec",
-            }
-        ):
+        if lower in {
+            "s",
+            "sec",
+            "second",
+            "seconds",
+        }:
             return (
                 value
                 * 1000.0
             )
 
-        if (
-            lower.startswith(
-                "minute"
-            )
-        ):
+        if lower in {
+            "minute",
+            "minutes",
+            "min",
+        }:
             return (
                 value
                 * 60_000.0
             )
 
-        if (
-            lower.startswith(
-                "hour"
-            )
-        ):
+        if lower in {
+            "hour",
+            "hours",
+            "hr",
+        }:
             return (
                 value
                 * 3_600_000.0
