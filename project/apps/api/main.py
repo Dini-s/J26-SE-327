@@ -4,22 +4,24 @@ from fastapi.middleware.cors import (
     CORSMiddleware,
 )
 
-from apps.api.routes.quality import (
-    router as quality_router,
+from apps.api.routes import (
+    integration,
+    quality,
 )
 
 
 app = FastAPI(
     title=(
-        "ASPIRE Quality & Testing "
-        "Intelligence API"
+        "ASPIRE Quality & "
+        "Testing Intelligence API"
     ),
-    version="0.1.0",
     description=(
-        "Requirement-centric QA evidence "
-        "and test intelligence API "
-        "for Component 3."
+        "Component 3 API for "
+        "requirement-centric QA evidence, "
+        "test adequacy, validation intelligence, "
+        "revalidation and USKG integration."
     ),
+    version="1.0.0",
 )
 
 
@@ -34,31 +36,37 @@ app.add_middleware(
     allow_credentials=True,
 
     allow_methods=[
-        "*"
+        "*",
     ],
 
     allow_headers=[
-        "*"
+        "*",
     ],
+)
+
+
+app.include_router(
+    quality.router
+)
+
+app.include_router(
+    integration.router
 )
 
 
 @app.get(
-    "/health"
+    "/health",
+    tags=[
+        "System"
+    ],
 )
 def health():
     return {
-        "status":
-        "ok",
+        "status": "ok",
 
-        "component":
-        "Quality & Testing Intelligence",
+        "component": (
+            "quality-testing-intelligence"
+        ),
 
-        "component_id":
-        "C3",
+        "component_id": "C3",
     }
-
-
-app.include_router(
-    quality_router
-)
