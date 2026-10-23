@@ -9,11 +9,15 @@ import SidebarItem from "./SidebarItem";
 import SidebarSection from "./SidebarSection";
 import { navigation } from "../data/navigation";
 import ASPIRE_logo from "../assets/ASPIRE_logo.png"
+import { useRepository } from "../context/RepositoryContext";
 
 const Sidebar = ({
   collapsed,
   onToggle,
 }) => {
+
+  const { selectedRepository, analysisResults } = useRepository();
+
   return (
     <aside
       className={`
@@ -123,7 +127,7 @@ const Sidebar = ({
                 </div>
 
                 <span className="truncate text-xs font-medium text-slate-200">
-                  Spring PetClinic
+                  {selectedRepository?.name || "No repository selected"}
                 </span>
 
               </div>
@@ -144,11 +148,16 @@ const Sidebar = ({
             <div className="mt-1 flex items-center justify-between">
 
               <span className="text-[10px] text-slate-300">
-                May 12, 2026 • 09:45 AM
+                {analysisResults
+                  ? "Analysis complete"
+                  : "Not analyzed yet"}
               </span>
 
-              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50" />
-
+              <span
+                className={`h-2 w-2 rounded-full ${
+                  analysisResults ? "bg-emerald-400" : "bg-slate-500"
+                }`}
+              />
             </div>
 
           </div>
