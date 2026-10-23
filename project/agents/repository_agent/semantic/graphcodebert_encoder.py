@@ -2,9 +2,11 @@ import argparse
 import csv
 import time
 from pathlib import Path
+
 import numpy as np
 import torch
 from transformers import AutoModel, AutoTokenizer
+
 
 MODEL_NAME = "microsoft/graphcodebert-base"
 MAX_LENGTH = 512
@@ -23,17 +25,8 @@ SKIP_DIRS = {
 
 
 def find_java_files(repository_path: Path, production_only: bool = False):
-    """
-    Discover Java files using common and legacy source layouts.
+    """Discover Java files using common and legacy source layouts."""
 
-    Supported production layouts:
-      - **/src/main/java/**
-      - **/src/java/**
-      - src/<module>/src/**
-      - modules/<module>/src/**
-
-    Test, fixture, build, and generated directories are excluded.
-    """
     files = []
 
     skip_dirs = {part.lower() for part in SKIP_DIRS | {"test", "tests"}}
@@ -60,24 +53,20 @@ def find_java_files(repository_path: Path, production_only: bool = False):
         lower_parts = tuple(part.lower() for part in relative_parts)
         directory_parts = lower_parts[:-1]
 
-        # Exclude known non-source and tool directories.
         if any(part in skip_dirs for part in directory_parts):
             continue
 
         if production_only:
-            # Maven/Gradle: module/src/main/java/package/Class.java
             is_standard_production = any(
                 lower_parts[i : i + 3] == ("src", "main", "java")
                 for i in range(len(lower_parts) - 2)
             )
 
-            # Lucene-style: module/src/java/package/Class.java
             is_src_java = any(
                 lower_parts[i : i + 2] == ("src", "java")
                 for i in range(len(lower_parts) - 1)
             )
 
-            # Legacy: src/<module>/src/package/Class.java
             is_legacy_src = (
                 len(lower_parts) >= 5
                 and lower_parts[0] == "src"
@@ -85,7 +74,6 @@ def find_java_files(repository_path: Path, production_only: bool = False):
                 and lower_parts[2] == "src"
             )
 
-            # Legacy: modules/<module>/src/package/Class.java
             is_legacy_modules = (
                 len(lower_parts) >= 5
                 and lower_parts[0] == "modules"
@@ -99,7 +87,6 @@ def find_java_files(repository_path: Path, production_only: bool = False):
                 or is_legacy_modules
             )
 
-            # Exclude test modules, fixtures, generated code and benchmarks.
             is_excluded_source = any(
                 part in excluded_source_parts
                 or part.startswith("test-")
@@ -126,63 +113,115 @@ def find_java_files(repository_path: Path, production_only: bool = False):
 
 def mean_pool(last_hidden_state, attention_mask):
     """Calculate a masked mean embedding for a token sequence."""
+
     mask = attention_mask.unsqueeze(-1).to(last_hidden_state.dtype)
     summed = (last_hidden_state * mask).sum(dim=1)
     counts = mask.sum(dim=1).clamp(min=1)
+
     return summed / counts
 
 
 def embed_file(source, tokenizer, model, device):
-    """Generate one normalized embedding per Java file using overlapping chunks."""
+    """Generate one normalized 768-dimensional embedding per Java file."""
 
-    encoded = tokenizer(
-        source,
-        add_special_tokens=True,
-        truncation=True,
-        max_length=MAX_LENGTH,
-        stride=STRIDE,
-        return_overflowing_tokens=True,
-        return_attention_mask=True,
-        return_special_tokens_mask=True,
-        padding=True,
-        return_tensors="pt",
-    )
+    # Split source into subword tokens without creating a full-file tensor.
+    tokens = tokenizer.tokenize(source)
 
-    input_ids = encoded["input_ids"].to(device)
-    attention_mask = encoded["attention_mask"].to(device)
-    special_tokens_mask = encoded["special_tokens_mask"].to(device)
+    if not tokens:
+        raise ValueError("Source contains no tokens.")
 
+    token_ids = tokenizer.convert_tokens_to_ids(tokens)
+
+    cls_id = tokenizer.cls_token_id
+    sep_id = tokenizer.sep_token_id
+    pad_id = tokenizer.pad_token_id
+
+    if cls_id is None or sep_id is None or pad_id is None:
+        raise ValueError("Tokenizer is missing required special-token IDs.")
+
+    # Reserve space for the CLS and SEP tokens.
+    chunk_length = MAX_LENGTH - 2
+    step = chunk_length - STRIDE
+
+    if step <= 0:
+        raise ValueError("STRIDE must be smaller than the chunk length.")
+
+    chunk_vectors = []
     model.eval()
-    with torch.no_grad():
-        outputs = model(
-            input_ids=input_ids,
-            attention_mask=attention_mask,
-        )
 
-        # Exclude padding and special tokens from mean pooling.
-        content_mask = (
-            (attention_mask * (1 - special_tokens_mask))
-            .unsqueeze(-1)
-            .to(outputs.last_hidden_state.dtype)
-        )
+    with torch.inference_mode():
+        for start in range(0, len(token_ids), step):
+            content_ids = token_ids[start : start + chunk_length]
 
-        token_counts = content_mask.sum(dim=1).clamp(min=1)
+            if not content_ids:
+                break
 
-        chunk_vectors = (outputs.last_hidden_state * content_mask).sum(
-            dim=1
-        ) / token_counts
+            # Build one sequence manually: CLS + content + SEP.
+            sequence = [cls_id] + content_ids + [sep_id]
+            actual_length = len(sequence)
+            padding_length = MAX_LENGTH - actual_length
 
-    # Average the chunk vectors to obtain one vector per Java file.
-    embedding = chunk_vectors.mean(dim=0).cpu().numpy()
+            if padding_length < 0:
+                raise ValueError("Chunk exceeds MAX_LENGTH.")
+
+            padded_ids = sequence + [pad_id] * padding_length
+            attention_values = [1] * actual_length + [0] * padding_length
+
+            # RoBERTa uses <s> and </s> as special tokens.
+            # Exclude them and padding from mean pooling.
+            special_values = [1] + [0] * len(content_ids) + [1] + [1] * padding_length
+
+            input_ids = torch.tensor([padded_ids], dtype=torch.long, device=device)
+            attention_mask = torch.tensor(
+                [attention_values], dtype=torch.long, device=device
+            )
+            special_mask = torch.tensor(
+                [special_values], dtype=torch.long, device=device
+            )
+
+            outputs = model(
+                input_ids=input_ids,
+                attention_mask=attention_mask,
+            )
+
+            content_mask = (
+                (attention_mask * (1 - special_mask))
+                .unsqueeze(-1)
+                .to(outputs.last_hidden_state.dtype)
+            )
+
+            counts = content_mask.sum(dim=1).clamp(min=1)
+
+            vector = (outputs.last_hidden_state * content_mask).sum(dim=1) / counts
+
+            chunk_vectors.append(vector.squeeze(0).cpu())
+
+            del (
+                outputs,
+                input_ids,
+                attention_mask,
+                special_mask,
+                content_mask,
+                counts,
+                vector,
+            )
+
+            if start + chunk_length >= len(token_ids):
+                break
+
+    if not chunk_vectors:
+        raise ValueError("No chunk embeddings were generated.")
+
+    embedding = torch.stack(chunk_vectors).mean(dim=0).numpy()
 
     norm = np.linalg.norm(embedding)
     if norm > 0:
         embedding = embedding / norm
 
-    total_tokens = int(attention_mask.sum().item())
-    number_of_chunks = int(input_ids.shape[0])
+    if embedding.shape != (768,):
+        raise ValueError(f"Expected 768 dimensions, got {embedding.shape}.")
 
-    return embedding.astype(np.float32), total_tokens, number_of_chunks
+    return embedding.astype(np.float32), len(token_ids), len(chunk_vectors)
 
 
 def main():
@@ -241,8 +280,7 @@ def main():
     print(f"Loading model: {MODEL_NAME}")
 
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-    model = AutoModel.from_pretrained(MODEL_NAME)
-    model.to(device)
+    model = AutoModel.from_pretrained(MODEL_NAME).to(device)
     model.eval()
 
     embeddings = []
@@ -253,14 +291,20 @@ def main():
 
     for index, path in enumerate(java_files, start=1):
         try:
-            source = path.read_text(encoding="utf-8", errors="replace")
+            source = path.read_text(
+                encoding="utf-8",
+                errors="replace",
+            )
 
             if not source.strip():
                 print(f"[{index}/{len(java_files)}] Empty file: {path.name}")
                 continue
 
             vector, token_count, chunk_count = embed_file(
-                source, tokenizer, model, device
+                source,
+                tokenizer,
+                model,
+                device,
             )
 
             embedding_index = len(embeddings)
@@ -285,27 +329,50 @@ def main():
 
         except Exception as exc:
             failed.append(
-                {"file_path": str(path.relative_to(repo_path)), "error": str(exc)}
+                {
+                    "file_path": path.relative_to(repo_path).as_posix(),
+                    "error": str(exc),
+                }
             )
+
             print(f"[{index}/{len(java_files)}] FAILED: {path.name}: {exc}")
 
+    # Save embeddings and metadata if any files succeeded.
     if embeddings:
-        np.save(output_path / f"{args.repo_id}_embeddings.npy", np.stack(embeddings))
+        vectors_path = output_path / f"{args.repo_id}_embeddings.npy"
+        metadata_path = output_path / f"{args.repo_id}_metadata.csv"
 
-        with (output_path / f"{args.repo_id}_metadata.csv").open(
-            "w", newline="", encoding="utf-8-sig"
+        np.save(vectors_path, np.stack(embeddings))
+
+        with metadata_path.open(
+            "w",
+            newline="",
+            encoding="utf-8-sig",
         ) as file:
-            writer = csv.DictWriter(file, fieldnames=list(metadata[0].keys()))
+            writer = csv.DictWriter(
+                file,
+                fieldnames=list(metadata[0].keys()),
+            )
             writer.writeheader()
             writer.writerows(metadata)
 
-    if failed:
-        with (output_path / f"{args.repo_id}_failed.csv").open(
-            "w", newline="", encoding="utf-8-sig"
-        ) as file:
-            writer = csv.DictWriter(file, fieldnames=["file_path", "error"])
-            writer.writeheader()
-            writer.writerows(failed)
+        print(f"Embeddings saved: {vectors_path}")
+        print(f"Metadata saved: {metadata_path}")
+
+    # Save the failed-file report, including an empty report if all succeeded.
+    failed_path = output_path / f"{args.repo_id}_failed.csv"
+
+    with failed_path.open(
+        "w",
+        newline="",
+        encoding="utf-8-sig",
+    ) as file:
+        writer = csv.DictWriter(
+            file,
+            fieldnames=["file_path", "error"],
+        )
+        writer.writeheader()
+        writer.writerows(failed)
 
     print("\n--- Semantic Analysis Summary ---")
     print(f"Files discovered: {len(java_files)}")
