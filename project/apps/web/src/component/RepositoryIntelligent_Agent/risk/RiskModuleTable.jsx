@@ -1,156 +1,71 @@
 
 const riskStyles = {
-  HIGH: "bg-red-50 text-red-500",
-  MEDIUM: "bg-orange-50 text-orange-500",
+  HIGH: "bg-red-50 text-red-600",
+  MEDIUM: "bg-orange-50 text-orange-600",
   LOW: "bg-emerald-50 text-emerald-600",
+  "—": "bg-slate-100 text-slate-500",
 };
 
-const levelStyles = {
-  High: "text-red-500",
-  Medium: "text-orange-500",
-  Low: "text-emerald-600",
-};
-
-const RiskModuleTable = ({ modules, selectedModule, onSelect }) => {
+const RiskModuleTable = ({ modules = [], selectedModule, onSelect }) => {
   return (
     <div className="overflow-x-auto">
-      <div
-        className="
-          grid min-w-[900px]
-          grid-cols-[1.5fr_1fr_0.8fr_0.7fr_0.8fr_0.8fr_0.7fr_0.8fr]
-          bg-slate-50
-          px-4 py-3
-          text-[10px]
-          font-semibold
-          text-slate-500
-        "
-      >
-        <span>Module</span>
+      <div className="grid min-w-[780px] grid-cols-[1.6fr_1.2fr_0.8fr_1fr_0.7fr_0.7fr] bg-slate-50 px-4 py-3 text-[10px] font-semibold text-slate-500">
         <span>Package</span>
-        <span>Risk Level</span>
-        <span>Drift Probability</span>
-        <span>Trend (30d)</span>
-        <span>Complexity</span>
-        <span>Coupling</span>
-        <span>Churn</span>
+        <span>Package Path</span>
+        <span>Risk Band</span>
+        <span>Proxy Score</span>
+        <span>Fan-in</span>
+        <span>Fan-out</span>
       </div>
 
-      {modules.map((module) => (
-        <div
-          key={module.id}
-          onClick={() => onSelect(module)}
-          className={`
-            grid min-w-[900px]
-            cursor-pointer
-            grid-cols-[1.5fr_1fr_0.8fr_0.7fr_0.8fr_0.8fr_0.7fr_0.8fr]
-            items-center
-            border-b
-            border-slate-100
-            px-4 py-3
-            transition
-            ${
-              selectedModule?.id === module.id
-                ? "bg-blue-50/60"
-                : "hover:bg-slate-50"
-            }
-          `}
-        >
-          {/* Module */}
-          <div className="flex items-center gap-2">
-            <div
-              className={`
-                flex h-7 w-7
-                items-center justify-center
-                rounded-md
-                ${
-                  module.risk === "HIGH"
-                    ? "bg-red-50 text-red-500"
-                    : module.risk === "MEDIUM"
-                      ? "bg-orange-50 text-orange-500"
-                      : "bg-emerald-50 text-emerald-600"
-                }
-              `}
-            >
-              ◇
-            </div>
-
-            <div>
-              <p className="text-[9px] font-semibold text-slate-800">
-                {module.name}
-              </p>
-
-              <p className="text-[10px] text-slate-400">{module.package}</p>
-            </div>
-          </div>
-
-          {/* Package */}
-          <span className="text-[10px] text-slate-500">com.petclinic</span>
-
-          {/* Risk */}
-          <span
-            className={`
-              w-fit rounded-md
-              px-2 py-1
-              text-[10px]
-              font-semibold
-              ${riskStyles[module.risk]}
-            `}
-          >
-            {module.risk}
-          </span>
-
-          {/* Drift */}
-          <strong
-            className={`
-              text-[10px]
-              ${
-                module.drift >= 60
-                  ? "text-red-500"
-                  : module.drift >= 40
-                    ? "text-orange-500"
-                    : "text-slate-700"
-              }
-            `}
-          >
-            {module.drift}%
-          </strong>
-
-          {/* Trend */}
-          <div className="h-7 w-14">
-            <svg viewBox="0 0 70 30" className="h-full w-full">
-              <polyline
-                points={module.trend
-                  .map((value, index) => `${index * 11},${30 - value * 0.25}`)
-                  .join(" ")}
-                fill="none"
-                stroke={
-                  module.risk === "HIGH"
-                    ? "#EF4444"
-                    : module.risk === "MEDIUM"
-                      ? "#F97316"
-                      : "#10B981"
-                }
-                strokeWidth="1.5"
-              />
-            </svg>
-          </div>
-
-          {/* Complexity */}
-          <span className={`text-[10px] ${levelStyles[module.complexity]}`}>
-            {module.complexity}
-          </span>
-
-          {/* Coupling */}
-          <span className={`text-[10px] ${levelStyles[module.coupling]}`}>
-            {module.coupling}
-          </span>
-
-          {/* Churn */}
-          <span className={`text-[10px] ${levelStyles[module.churn]}`}>
-            {module.churn}
-          </span>
+      {modules.length === 0 ? (
+        <div className="p-8 text-center text-xs text-slate-500">
+          No package results available. Run repository analysis first.
         </div>
-      ))}
+      ) : (
+        modules.map((module) => (
+          <button
+            type="button"
+            key={module.id}
+            onClick={() => onSelect(module)}
+            className={`grid w-full min-w-[780px] grid-cols-[1.6fr_1.2fr_0.8fr_1fr_0.7fr_0.7fr] items-center border-b border-slate-100 px-4 py-3 text-left transition ${
+              selectedModule?.id === module.id
+                ? "bg-blue-50/70"
+                : "hover:bg-slate-50"
+            }`}
+          >
+            <span className="pr-3 text-xs font-semibold text-slate-800">
+              {module.name}
+            </span>
+
+            <span className="break-all pr-3 text-[10px] text-slate-500">
+              {module.package}
+            </span>
+
+            <span
+              className={`w-fit rounded-md px-2 py-1 text-[10px] font-semibold ${
+                riskStyles[module.risk] || riskStyles["—"]
+              }`}
+            >
+              {module.risk}
+            </span>
+
+            <span className="text-xs font-semibold text-slate-700">
+              {module.proxyProbability == null
+                ? "—"
+                : `${(module.proxyProbability * 100).toFixed(2)}%`}
+            </span>
+
+            <span className="text-xs text-slate-600">
+              {module.fanIn ?? "—"}
+            </span>
+
+            <span className="text-xs text-slate-600">
+              {module.fanOut ?? "—"}
+            </span>
+          </button>
+        ))
+      )}
     </div>
   );
 };
