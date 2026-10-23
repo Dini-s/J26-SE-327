@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "status": "AWAITING_EXPERT_REVIEW",
+  "instructions": [
+    "Final labels must come from reviewer or expert assessment.",
+    "Do not copy the system prediction into the gold label.",
+    "Prefer two independent reviewers for categorical labels.",
+    "Record disagreements and use the adjudicated decision as the final gold label.",
+    "Examples below are format examples only and are not included in evaluation."
+  ],
+  "reviewers": [],
+  "rvu_extraction": [],
+  "evidence_profiles": [],
+  "normalization": [],
+  "retrieval": [],
+  "adequacy": [],
+  "rvc": [],
+  "rves": [],
+  "gap_reviews": [],
+  "revalidation": [],
+  "examples": {
+    "rvu_extraction": {
+      "ac_id": "AC-EXAMPLE",
+      "expected_rvu_count": 2,
+      "expected_behavior_types": ["NEGATIVE", "BOUNDARY"]
+    },
+    "evidence_profile": {
+      "rvu_id": "REQ-EXAMPLE-RVU-01",
+      "expected": {
+        "evidence_type": "FUNCTIONAL_TEST",
+        "required_scenarios": ["NEGATIVE"],
+        "preconditions": ["Example precondition"],
+        "inputs": ["Example input"],
+        "expected_outcomes": ["Example outcome"],
+        "required_assertions": ["Example assertion"]
+      }
+    },
+    "normalization": {
+      "evidence_id": "EXAMPLE-EVIDENCE",
+      "expected": {
+        "evidence_type": "AUTOMATED_TEST",
+        "execution_status": "PASS",
+        "source_tool": "JUNIT"
+      }
+    },
+    "retrieval": {
+      "rvu_id": "REQ-EXAMPLE-RVU-01",
+      "relevant_evidence_ids": ["EVIDENCE-001", "EVIDENCE-002"],
+      "k": 5
+    },
+    "adequacy": {
+      "rvu_id": "REQ-EXAMPLE-RVU-01",
+      "evidence_id": "EVIDENCE-001",
+      "gold_label": "ADEQUATE_OR_PARTIAL_OR_INADEQUATE",
+      "reviewer_labels": [
+        {
+          "reviewer": "Reviewer-A",
+          "label": "REPLACE_WITH_REAL_LABEL"
+        },
+        {
+          "reviewer": "Reviewer-B",
+          "label": "REPLACE_WITH_REAL_LABEL"
+        }
+      ]
+    },
+    "rvc": {
+      "requirement_id": "REQ-EXAMPLE",
+      "expert_rvc_percent": 0,
+      "expert_status": "REPLACE_WITH_REAL_STATUS"
+    },
+    "rves": {
+      "requirement_id": "REQ-EXAMPLE",
+      "expert_strength": 0.0
+    },
+    "gap_review": {
+      "gap_id": "GAP-EXAMPLE",
+      "recommendation_id": "REC-EXAMPLE",
+      "correctness": 1,
+      "groundedness": 1,
+      "actionability": 1,
+      "hallucination": false,
+      "reviewer": "Reviewer-A"
+    },
+    "revalidation": {
+      "change_id": "CHG-EXAMPLE",
+      "evidence_name": "exampleTest()",
+      "gold_class": "REUSABLE_OR_MODIFICATION_REQUIRED_OR_OUTDATED_OR_NEW_EVIDENCE_REQUIRED",
+      "reviewer_labels": []
+    }
+  }
+}
