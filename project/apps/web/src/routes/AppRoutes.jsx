@@ -1,14 +1,16 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 
 import {
   BrowserRouter,
   Routes,
   Route,
   Navigate,
-  useParams,
 } from "react-router-dom";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import QualityLayout from "../Layouts/QualityLayout.jsx";
 import DashboardOverview from "../pages/DashboardOverview";
+
+const QualityApp = lazy(() => import("../component/quality/QualityApp.jsx"));
 
 const AppRoutes = () => {
   return (
@@ -17,6 +19,13 @@ const AppRoutes = () => {
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<Navigate to="/overview" replace />} />
           <Route path="overview" element={<DashboardOverview />} />
+          <Route path="quality/*" element={
+            <QualityLayout>
+              <Suspense fallback={<p role="status">Loading quality intelligence...</p>}>
+                <QualityApp />
+              </Suspense>
+            </QualityLayout>
+          } />
 
         </Route>
       </Routes>

@@ -113,14 +113,14 @@ export const navigation = [
     label: "Quality & Testing Intelligence",
     number: "3",
     numberColor: "purple",
-    path: "/quality",
+    path: "/quality/overview",
     icon: TestTube2,
     expandable: true,
 
     children: [
       {
         label: "Overview",
-        path: "/quality",
+        path: "/quality/overview",
       },
 
       {
@@ -130,11 +130,11 @@ export const navigation = [
 
       {
         label: "Requirement Details",
-        path: "/quality/requirement-details/REQ-014",
+        path: "/quality/requirements/REQ-PET-001",
 
         // Makes Requirement Details remain selected
         // for REQ-014, REQ-021 and future requirements.
-        activePrefix: "/quality/requirement-details/",
+        activePrefix: "/quality/requirements/",
       },
     ],
   },
@@ -186,7 +186,7 @@ export const navigation = [
     children: [
       {
         label: "QA Reports and Analytics",
-        path: "/reports/quality",
+        path: "/quality/reports",
       },
     ],
   },

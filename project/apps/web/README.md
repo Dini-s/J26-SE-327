@@ -1,16 +1,23 @@
-# React + Vite
+# ASPIRE frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React with JavaScript/JSX, Vite, Tailwind CSS, and React Router.
 
-Currently, two official plugins are available:
+```sh
+npm install
+npm run dev
+npm run build
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+`src/main.jsx` mounts `App.jsx`. Routes are defined in `src/routes/AppRoutes.jsx`.
+The shared dashboard is at `/overview`; Quality & Testing Intelligence is at
+`/quality/overview`, `/quality/requirements`, `/quality/requirements/:requirementId`,
+and `/quality/reports`.
 
-## React Compiler
+- `src/pages/`: dashboard and quality pages (`.jsx`).
+- `src/Layouts/`: dashboard and quality layouts (`.jsx`).
+- `src/component/common/`: reusable UI components.
+- `src/component/quality/QualityApp.jsx`: quality initialization and page selection.
+- `src/services/qualityApi.js`: quality API client.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Vite proxies `/api` and `/health` to `http://127.0.0.1:8000`.
+Set `VITE_API_BASE_URL` to override the default `/api/quality` endpoint.
