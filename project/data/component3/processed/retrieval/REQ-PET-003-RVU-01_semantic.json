@@ -13,7 +13,7 @@
     "source_tool": "C3_MANUAL_CURATED",
     "execution_status": "NOT_EXECUTED",
     "synthetic": false,
-    "created_at": "2026-10-09T16:52:46.436571Z"
+    "created_at": "2026-10-22T22:33:06.761002Z"
   },
   {
     "rvu_id": "REQ-PET-003-RVU-01",
@@ -29,7 +29,7 @@
     "source_tool": "C3_MANUAL_CURATED",
     "execution_status": "NOT_EXECUTED",
     "synthetic": false,
-    "created_at": "2026-10-09T16:52:46.436571Z"
+    "created_at": "2026-10-22T22:33:06.761002Z"
   },
   {
     "rvu_id": "REQ-PET-003-RVU-01",
@@ -45,7 +45,7 @@
     "source_tool": "C3_MANUAL_CURATED",
     "execution_status": "NOT_EXECUTED",
     "synthetic": false,
-    "created_at": "2026-10-09T16:52:46.436571Z"
+    "created_at": "2026-10-22T22:33:06.761002Z"
   },
   {
     "rvu_id": "REQ-PET-003-RVU-01",
@@ -61,7 +61,7 @@
     "source_tool": "C3_MANUAL_CURATED",
     "execution_status": "NOT_EXECUTED",
     "synthetic": false,
-    "created_at": "2026-10-09T16:52:46.436571Z"
+    "created_at": "2026-10-22T22:33:06.761002Z"
   },
   {
     "rvu_id": "REQ-PET-003-RVU-01",
@@ -77,6 +77,6 @@
     "source_tool": "C3_MANUAL_CURATED",
     "execution_status": "NOT_EXECUTED",
     "synthetic": false,
-    "created_at": "2026-10-09T16:52:46.436571Z"
+    "created_at": "2026-10-22T22:33:06.761002Z"
   }
 ]

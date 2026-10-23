@@ -13,7 +13,7 @@
     "source_tool": "C3_CONTROLLED_PERFORMANCE_FIXTURE",
     "execution_status": "PASS",
     "synthetic": true,
-    "created_at": "2026-10-09T17:34:55.975171Z"
+    "created_at": "2026-10-22T22:35:09.183082Z"
   },
   {
     "rvu_id": "REQ-C3-NFR-021-RVU-01",
@@ -29,7 +29,7 @@
     "source_tool": "C3_CONTROLLED_PERFORMANCE_FIXTURE",
     "execution_status": "PASS",
     "synthetic": true,
-    "created_at": "2026-10-09T17:34:55.975171Z"
+    "created_at": "2026-10-22T22:35:09.183082Z"
   },
   {
     "rvu_id": "REQ-C3-NFR-021-RVU-01",
@@ -45,7 +45,7 @@
     "source_tool": "C3_CONTROLLED_PERFORMANCE_FIXTURE",
     "execution_status": "PASS",
     "synthetic": true,
-    "created_at": "2026-10-09T17:34:55.975171Z"
+    "created_at": "2026-10-22T22:35:09.183082Z"
   },
   {
     "rvu_id": "REQ-C3-NFR-021-RVU-01",
@@ -61,7 +61,7 @@
     "source_tool": "C3_CONTROLLED_PERFORMANCE_FIXTURE",
     "execution_status": "FAIL",
     "synthetic": true,
-    "created_at": "2026-10-09T17:34:55.975171Z"
+    "created_at": "2026-10-22T22:35:09.183082Z"
   },
   {
     "rvu_id": "REQ-C3-NFR-021-RVU-01",
@@ -77,6 +77,6 @@
     "source_tool": "C3_CONTROLLED_PERFORMANCE_FIXTURE",
     "execution_status": "PASS",
     "synthetic": true,
-    "created_at": "2026-10-09T17:34:55.975171Z"
+    "created_at": "2026-10-22T22:35:09.184082Z"
   }
 ]

@@ -33,7 +33,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.MySqlIntegrationTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-MySqlIntegrationTests-ownerDetails",
@@ -71,7 +71,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.MySqlIntegrationTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetClinicConcurrencyTests-testDuplicatePetNameRaceConditionIsBlocked",
@@ -116,7 +116,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.PetClinicConcurrencyTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetClinicIntegrationTests-findAll",
@@ -152,7 +152,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.PetClinicIntegrationTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetClinicIntegrationTests-ownerDetails",
@@ -190,7 +190,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.PetClinicIntegrationTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetClinicIntegrationTests-ownerList",
@@ -228,7 +228,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.PetClinicIntegrationTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PostgresIntegrationTests-findAll",
@@ -263,7 +263,7 @@
       "normalization_source": "TestArtifact",
       "execution_mapping": "UNRESOLVED"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PostgresIntegrationTests-ownerDetails",
@@ -300,7 +300,7 @@
       "normalization_source": "TestArtifact",
       "execution_mapping": "UNRESOLVED"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ValidatorTests-shouldNotValidateWhenFirstNameEmpty",
@@ -339,7 +339,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.model.ValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ValidatorTests-shouldNotValidateWhenLastNameEmpty",
@@ -378,7 +378,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.model.ValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-initCreationForm",
@@ -418,7 +418,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processCreationFormSuccess",
@@ -456,7 +456,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processCreationFormHasErrors",
@@ -498,7 +498,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processCreationFormRejectsCityLongerThanColumn",
@@ -540,7 +540,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processCreationFormRejectsAddressLongerThanColumn",
@@ -582,7 +582,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-initFindForm",
@@ -622,7 +622,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processFindFormSuccess",
@@ -660,7 +660,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processFindFormRedirectsOutOfBoundsPageToFirstPage",
@@ -699,7 +699,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processFindFormByLastName",
@@ -738,7 +738,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processFindFormIgnoresSurroundingWhitespace",
@@ -778,7 +778,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processFindFormWithWhitespaceOnlyLastNameReturnsAllOwners",
@@ -818,7 +818,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processFindFormNoOwnersFound",
@@ -859,7 +859,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-initUpdateOwnerForm",
@@ -904,7 +904,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processUpdateOwnerFormSuccess",
@@ -943,7 +943,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processUpdateOwnerFormUnchangedSuccess",
@@ -982,7 +982,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processUpdateOwnerFormHasErrors",
@@ -1024,7 +1024,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-showOwner",
@@ -1070,7 +1070,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerControllerTests-processUpdateOwnerFormWithIdMismatch",
@@ -1110,7 +1110,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerTests-addPetAddsPersistedPet",
@@ -1149,7 +1149,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-OwnerTests-addPetDoesNotAddDuplicatePet",
@@ -1187,7 +1187,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.OwnerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests-initCreationForm",
@@ -1227,7 +1227,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests-processCreationFormSuccess",
@@ -1266,7 +1266,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessCreationFormHasErrors-processCreationFormWithBlankName",
@@ -1309,7 +1309,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessCreationFormHasErrors-processCreationFormWithDuplicateName",
@@ -1352,7 +1352,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessCreationFormHasErrors-processCreationFormWithMissingPetType",
@@ -1395,7 +1395,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessCreationFormHasErrors-processCreationFormWithInvalidBirthDate",
@@ -1438,7 +1438,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessCreationFormHasErrors-processCreationFormWithDataIntegrityViolation",
@@ -1481,7 +1481,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessCreationFormHasErrors-initUpdateForm",
@@ -1521,7 +1521,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests-processUpdateFormSuccess",
@@ -1560,7 +1560,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests-processUpdateFormWithSameName",
@@ -1599,7 +1599,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessUpdateFormHasErrors-processUpdateFormWithDuplicateName",
@@ -1642,7 +1642,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessUpdateFormHasErrors-processUpdateFormWithInvalidBirthDate",
@@ -1684,7 +1684,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessUpdateFormHasErrors-processUpdateFormWithBlankName",
@@ -1726,7 +1726,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetControllerTests$ProcessUpdateFormHasErrors-processUpdateFormWithDataIntegrityViolation",
@@ -1769,7 +1769,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetTypeFormatterTests-testPrint",
@@ -1807,7 +1807,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetTypeFormatterTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetTypeFormatterTests-shouldParse",
@@ -1845,7 +1845,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetTypeFormatterTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetTypeFormatterTests-shouldThrowParseException",
@@ -1883,7 +1883,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetTypeFormatterTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetValidatorTests-supportsPetClass",
@@ -1921,7 +1921,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetValidatorTests-doesNotSupportNonPetClass",
@@ -1959,7 +1959,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetValidatorTests-validate",
@@ -1997,7 +1997,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetValidatorTests$ValidateHasErrors-validateWithInvalidPetName",
@@ -2035,7 +2035,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetValidatorTests$ValidateHasErrors-validateWithInvalidPetType",
@@ -2073,7 +2073,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetValidatorTests$ValidateHasErrors-validateWithInvalidBirthDate",
@@ -2111,7 +2111,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-PetValidatorTests$ValidateHasErrors-validateWithLongPetName",
@@ -2149,7 +2149,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.PetValidatorTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VisitControllerTests-initNewVisitForm",
@@ -2188,7 +2188,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.VisitControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VisitControllerTests-processNewVisitFormSuccess",
@@ -2227,7 +2227,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.VisitControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VisitControllerTests-processNewVisitFormHasErrors",
@@ -2267,7 +2267,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.VisitControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VisitControllerTests-processNewVisitFormHasErrorsWhenVisitDateIsNotInFuture",
@@ -2308,7 +2308,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.VisitControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VisitControllerTests-processNewVisitFormHasErrorsWhenDescriptionIsTooLong",
@@ -2348,7 +2348,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.owner.VisitControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldFindOwnersByLastName",
@@ -2387,7 +2387,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldFindSingleOwnerWithPet",
@@ -2429,7 +2429,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldInsertOwner",
@@ -2468,7 +2468,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldUpdateOwner",
@@ -2508,7 +2508,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldFindAllPetTypes",
@@ -2547,7 +2547,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldInsertPetIntoDatabaseAndGenerateId",
@@ -2589,7 +2589,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldUpdatePetName",
@@ -2629,7 +2629,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldFindVets",
@@ -2670,7 +2670,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldAddNewVisitForPet",
@@ -2709,7 +2709,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldFindVisitsByPetId",
@@ -2748,7 +2748,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldFailToInsertDuplicatePetNameForSameOwner",
@@ -2787,7 +2787,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-ClinicServiceTests-shouldAllowSamePetNameForDifferentOwners",
@@ -2829,7 +2829,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.service.ClinicServiceTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-CrashControllerIntegrationTests-triggerExceptionJson",
@@ -2873,7 +2873,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.system.CrashControllerIntegrationTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-CrashControllerIntegrationTests-triggerExceptionHtml",
@@ -2915,7 +2915,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.system.CrashControllerIntegrationTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-CrashControllerTests-triggerException",
@@ -2953,7 +2953,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.system.CrashControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-I18nPropertiesSyncTest-checkNonInternationalizedStrings",
@@ -2989,7 +2989,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.system.I18nPropertiesSyncTest.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-I18nPropertiesSyncTest-checkI18nPropertyFilesAreInSync",
@@ -3025,7 +3025,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.system.I18nPropertiesSyncTest.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-WelcomeControllerTests-welcome",
@@ -3063,7 +3063,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.system.WelcomeControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VetControllerTests-showVetListHtml",
@@ -3103,7 +3103,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.vet.VetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VetControllerTests-showVetListRedirectsOutOfBoundsPageToFirstPage",
@@ -3142,7 +3142,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.vet.VetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VetControllerTests-showResourcesVetList",
@@ -3182,7 +3182,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.vet.VetControllerTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "JUNIT-VetTests-serialization",
@@ -3222,7 +3222,7 @@
       "execution_mapping": "MATCHED",
       "surefire_source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\surefire\\petclinic\\TEST-org.springframework.samples.petclinic.vet.VetTests.xml"
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "MT-001",
@@ -3260,8 +3260,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-001",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-001",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent matching owner records being returned for an existing last name."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-002",
@@ -3299,8 +3306,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-002",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-002",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent the no-match owner-search behavior."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-003",
@@ -3342,8 +3356,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-003",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-003",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent successful owner creation using valid information."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-004",
@@ -3381,8 +3402,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-004",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-004",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent rejection of owner registration with missing mandatory information."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-005",
@@ -3420,8 +3448,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-005",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-005",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent successful persistence of updated owner information."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-006",
@@ -3457,8 +3492,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-006",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-006",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent owner details and associated pet information being displayed."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-007",
@@ -3499,8 +3541,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-007",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-007",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent successful pet registration under the selected owner."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-008",
@@ -3538,8 +3587,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-008",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-008",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent rejection of invalid pet registration."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-009",
@@ -3577,8 +3633,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-009",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-009",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent successful pet update while preserving owner association."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-010",
@@ -3618,8 +3681,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-010",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-010",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent creation of a valid veterinary visit and display in visit history."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-011",
@@ -3657,8 +3727,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-011",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-011",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent rejection of an invalid veterinary visit."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-012",
@@ -3692,8 +3769,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-012",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "PASS",
+      "controlled_execution_id": "MANRUN-012",
+      "controlled_actual_result": "Controlled fixture outcome configured to represent veterinarian records and specialties being displayed."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-013",
@@ -3729,8 +3813,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-013",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "BLOCKED",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "original_execution_status": "BLOCKED",
+      "blocked_reason": null,
+      "actual_result": "The standalone PetClinic corpus does not provide the controlled authentication-lockout feature required to execute this scenario."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-014",
@@ -3766,8 +3857,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-014",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "BLOCKED",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "original_execution_status": "BLOCKED",
+      "blocked_reason": null,
+      "actual_result": "Execution is blocked because account-lock authentication behavior is not available in the baseline PetClinic corpus."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-015",
@@ -3803,8 +3901,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-015",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "BLOCKED",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "original_execution_status": "BLOCKED",
+      "blocked_reason": null,
+      "actual_result": "Password-reset token expiration behavior is not available in the baseline PetClinic corpus."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-016",
@@ -3840,8 +3945,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-016",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "BLOCKED",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "original_execution_status": "BLOCKED",
+      "blocked_reason": null,
+      "actual_result": "Single-use password-reset token behavior is not available in the baseline PetClinic corpus."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-017",
@@ -3877,8 +3989,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-017",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "BLOCKED",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "original_execution_status": "BLOCKED",
+      "blocked_reason": null,
+      "actual_result": "The controlled administrative authorization feature is not implemented by the baseline PetClinic corpus."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-018",
@@ -3914,8 +4033,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-018",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "BLOCKED",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "original_execution_status": "BLOCKED",
+      "blocked_reason": null,
+      "actual_result": "The controlled administrative authorization feature is not implemented by the baseline PetClinic corpus."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-019",
@@ -3951,8 +4077,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-019",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "BLOCKED",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "original_execution_status": "BLOCKED",
+      "blocked_reason": null,
+      "actual_result": "The controlled 5 MB upload-boundary functionality is not available in the baseline PetClinic corpus."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-020",
@@ -3988,8 +4121,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-020",
     "synthetic": false,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "BLOCKED",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "original_execution_status": "BLOCKED",
+      "blocked_reason": null,
+      "actual_result": "The controlled upload-size rejection behavior is not available in the baseline PetClinic corpus."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-021",
@@ -4021,8 +4161,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-021",
     "synthetic": true,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "SKIPPED",
+      "controlled_execution_id": "MANRUN-021",
+      "controlled_actual_result": "Execution intentionally skipped because this artifact is a deliberately weak evidence fixture."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "MT-022",
@@ -4056,8 +4203,15 @@
     "source_version": "1.0",
     "raw_reference": "MT-022",
     "synthetic": true,
-    "metadata": {},
-    "timestamp": "2026-10-09T16:49:11.159489Z"
+    "metadata": {
+      "execution_observed": false,
+      "execution_kind": "CONTROLLED_FIXTURE",
+      "execution_source": "C3_MANUAL_EXECUTION_RECORD",
+      "controlled_outcome": "SKIPPED",
+      "controlled_execution_id": "MANRUN-022",
+      "controlled_actual_result": "Execution intentionally skipped because this artifact is a deliberately irrelevant retrieval fixture."
+    },
+    "timestamp": "2026-10-22T22:32:43.528154Z"
   },
   {
     "evidence_id": "PERF-001",
@@ -4094,7 +4248,7 @@
         "target": "Owner Search"
       }
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "PERF-002",
@@ -4131,7 +4285,7 @@
         "target": "Owner Search"
       }
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "PERF-003",
@@ -4168,7 +4322,7 @@
         "target": "Veterinarian Listing"
       }
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "PERF-004",
@@ -4205,7 +4359,7 @@
         "target": "Veterinarian Listing"
       }
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "PERF-005",
@@ -4242,7 +4396,7 @@
         "target": "Visit Registration"
       }
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   },
   {
     "evidence_id": "PERF-006",
@@ -4279,6 +4433,6 @@
         "target": "Visit Registration"
       }
     },
-    "timestamp": "2026-10-09T16:49:11.172996Z"
+    "timestamp": "2026-10-22T22:32:43.544632Z"
   }
 ]

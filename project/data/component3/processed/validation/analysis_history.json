@@ -1,0 +1,66 @@
+[
+  {
+    "generated_at": "2026-10-13T06:45:23.032550+00:00",
+    "overall_rvc": 58.24,
+    "avg_rves": 0.5995,
+    "adequate_rvus": 53,
+    "validated_rvus": 5,
+    "execution_confirmed_percent": 7.25
+  },
+  {
+    "generated_at": "2026-10-13T06:49:53.955290+00:00",
+    "overall_rvc": 58.24,
+    "avg_rves": 0.5995,
+    "adequate_rvus": 53,
+    "validated_rvus": 5,
+    "execution_confirmed_percent": 7.25
+  },
+  {
+    "generated_at": "2026-10-13T08:07:35.203789+00:00",
+    "overall_rvc": 58.24,
+    "avg_rves": 0.5995,
+    "adequate_rvus": 53,
+    "validated_rvus": 5,
+    "execution_confirmed_percent": 7.25
+  },
+  {
+    "generated_at": "2026-10-22T02:18:57.392181+00:00",
+    "overall_rvc": 58.24,
+    "avg_rves": 0.5995,
+    "adequate_rvus": 53,
+    "validated_rvus": 5,
+    "execution_confirmed_percent": 7.25
+  },
+  {
+    "generated_at": "2026-10-22T02:50:28.150895+00:00",
+    "overall_rvc": 58.24,
+    "avg_rves": 0.5995,
+    "adequate_rvus": 53,
+    "validated_rvus": 5,
+    "execution_confirmed_percent": 7.25
+  },
+  {
+    "generated_at": "2026-10-22T03:04:36.253866+00:00",
+    "overall_rvc": 58.24,
+    "avg_rves": 0.5995,
+    "adequate_rvus": 53,
+    "validated_rvus": 5,
+    "execution_confirmed_percent": 7.25
+  },
+  {
+    "generated_at": "2026-10-22T06:20:04.220260+00:00",
+    "overall_rvc": 58.24,
+    "avg_rves": 0.5995,
+    "adequate_rvus": 53,
+    "validated_rvus": 5,
+    "execution_confirmed_percent": 7.25
+  },
+  {
+    "generated_at": "2026-10-22T22:35:25.045219+00:00",
+    "overall_rvc": 58.24,
+    "avg_rves": 0.5832,
+    "adequate_rvus": 53,
+    "validated_rvus": 1,
+    "execution_confirmed_percent": 1.45
+  }
+]

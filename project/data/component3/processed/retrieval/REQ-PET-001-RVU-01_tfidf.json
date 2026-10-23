@@ -11,9 +11,9 @@
     "model_version": "1.9.1",
     "source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\manual_tests\\manual_tests.json",
     "source_tool": "C3_MANUAL_CURATED",
-    "execution_status": "NOT_EXECUTED",
+    "execution_status": "PASS",
     "synthetic": false,
-    "created_at": "2026-10-09T16:49:11.232790Z"
+    "created_at": "2026-10-13T06:45:45.638385Z"
   },
   {
     "rvu_id": "REQ-PET-001-RVU-01",
@@ -27,9 +27,9 @@
     "model_version": "1.9.1",
     "source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\manual_tests\\manual_tests.json",
     "source_tool": "C3_MANUAL_CURATED",
-    "execution_status": "NOT_EXECUTED",
+    "execution_status": "PASS",
     "synthetic": false,
-    "created_at": "2026-10-09T16:49:11.232790Z"
+    "created_at": "2026-10-13T06:45:45.638385Z"
   },
   {
     "rvu_id": "REQ-PET-001-RVU-01",
@@ -43,9 +43,9 @@
     "model_version": "1.9.1",
     "source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\manual_tests\\manual_tests.json",
     "source_tool": "C3_MANUAL_CURATED",
-    "execution_status": "NOT_EXECUTED",
+    "execution_status": "PASS",
     "synthetic": false,
-    "created_at": "2026-10-09T16:49:11.232790Z"
+    "created_at": "2026-10-13T06:45:45.638385Z"
   },
   {
     "rvu_id": "REQ-PET-001-RVU-01",
@@ -59,9 +59,9 @@
     "model_version": "1.9.1",
     "source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\manual_tests\\manual_tests.json",
     "source_tool": "C3_MANUAL_CURATED",
-    "execution_status": "NOT_EXECUTED",
+    "execution_status": "PASS",
     "synthetic": false,
-    "created_at": "2026-10-09T16:49:11.232790Z"
+    "created_at": "2026-10-13T06:45:45.638385Z"
   },
   {
     "rvu_id": "REQ-PET-001-RVU-01",
@@ -75,8 +75,8 @@
     "model_version": "1.9.1",
     "source_path": "C:\\Users\\USER\\Desktop\\Research\\J26-SE-327\\project\\data\\component3\\raw\\manual_tests\\manual_tests.json",
     "source_tool": "C3_MANUAL_CURATED",
-    "execution_status": "NOT_EXECUTED",
+    "execution_status": "PASS",
     "synthetic": false,
-    "created_at": "2026-10-09T16:49:11.232790Z"
+    "created_at": "2026-10-13T06:45:45.638385Z"
   }
 ]

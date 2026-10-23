@@ -1,0 +1,1331 @@
+[
+  {
+    "recommendation_id": "REC-0001",
+    "gap_id": "GAP-0001",
+    "requirement_id": "REQ-PET-001",
+    "rvu_id": "REQ-PET-001-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0001",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0002",
+    "gap_id": "GAP-0002",
+    "requirement_id": "REQ-PET-001",
+    "rvu_id": "REQ-PET-001-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0002",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0003",
+    "gap_id": "GAP-0003",
+    "requirement_id": "REQ-PET-001",
+    "rvu_id": "REQ-PET-001-RVU-03",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Strengthen the test so that its condition directly proves the required behaviour.",
+    "grounded_in": [
+      "GAP-0003",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0004",
+    "gap_id": "GAP-0004",
+    "requirement_id": "REQ-PET-002",
+    "rvu_id": "REQ-PET-002-RVU-01",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Update the test setup to represent the required preconditions.",
+    "grounded_in": [
+      "GAP-0004",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0005",
+    "gap_id": "GAP-0005",
+    "requirement_id": "REQ-PET-002",
+    "rvu_id": "REQ-PET-002-RVU-02",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Strengthen the test so that its condition directly proves the required behaviour.",
+    "grounded_in": [
+      "GAP-0005",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0006",
+    "gap_id": "GAP-0006",
+    "requirement_id": "REQ-PET-002",
+    "rvu_id": "REQ-PET-002-RVU-03",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Add the required positive, negative, boundary or state validation scenario.",
+    "grounded_in": [
+      "GAP-0006",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0007",
+    "gap_id": "GAP-0007",
+    "requirement_id": "REQ-PET-003",
+    "rvu_id": "REQ-PET-003-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0007",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0008",
+    "gap_id": "GAP-0008",
+    "requirement_id": "REQ-PET-003",
+    "rvu_id": "REQ-PET-003-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0008",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0009",
+    "gap_id": "GAP-0009",
+    "requirement_id": "REQ-PET-003",
+    "rvu_id": "REQ-PET-003-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0009",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0010",
+    "gap_id": "GAP-0010",
+    "requirement_id": "REQ-PET-004",
+    "rvu_id": "REQ-PET-004-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0010",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0011",
+    "gap_id": "GAP-0011",
+    "requirement_id": "REQ-PET-004",
+    "rvu_id": "REQ-PET-004-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0011",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0012",
+    "gap_id": "GAP-0012",
+    "requirement_id": "REQ-PET-004",
+    "rvu_id": "REQ-PET-004-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0012",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0013",
+    "gap_id": "GAP-0013",
+    "requirement_id": "REQ-PET-005",
+    "rvu_id": "REQ-PET-005-RVU-01",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Strengthen the test so that its condition directly proves the required behaviour.",
+    "grounded_in": [
+      "GAP-0013",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0014",
+    "gap_id": "GAP-0014",
+    "requirement_id": "REQ-PET-005",
+    "rvu_id": "REQ-PET-005-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0014",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0015",
+    "gap_id": "GAP-0015",
+    "requirement_id": "REQ-PET-005",
+    "rvu_id": "REQ-PET-005-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0015",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0016",
+    "gap_id": "GAP-0016",
+    "requirement_id": "REQ-PET-006",
+    "rvu_id": "REQ-PET-006-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0016",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0017",
+    "gap_id": "GAP-0017",
+    "requirement_id": "REQ-PET-006",
+    "rvu_id": "REQ-PET-006-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0017",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0018",
+    "gap_id": "GAP-0018",
+    "requirement_id": "REQ-PET-006",
+    "rvu_id": "REQ-PET-006-RVU-03",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Add the required positive, negative, boundary or state validation scenario.",
+    "grounded_in": [
+      "GAP-0018",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0019",
+    "gap_id": "GAP-0019",
+    "requirement_id": "REQ-PET-007",
+    "rvu_id": "REQ-PET-007-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0019",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0020",
+    "gap_id": "GAP-0020",
+    "requirement_id": "REQ-PET-007",
+    "rvu_id": "REQ-PET-007-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0020",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0021",
+    "gap_id": "GAP-0021",
+    "requirement_id": "REQ-PET-007",
+    "rvu_id": "REQ-PET-007-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0021",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0022",
+    "gap_id": "GAP-0022",
+    "requirement_id": "REQ-PET-008",
+    "rvu_id": "REQ-PET-008-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0022",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0023",
+    "gap_id": "GAP-0023",
+    "requirement_id": "REQ-PET-008",
+    "rvu_id": "REQ-PET-008-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0023",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0024",
+    "gap_id": "GAP-0024",
+    "requirement_id": "REQ-PET-008",
+    "rvu_id": "REQ-PET-008-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0024",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0025",
+    "gap_id": "GAP-0025",
+    "requirement_id": "REQ-PET-009",
+    "rvu_id": "REQ-PET-009-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0025",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0026",
+    "gap_id": "GAP-0026",
+    "requirement_id": "REQ-PET-009",
+    "rvu_id": "REQ-PET-009-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0026",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0027",
+    "gap_id": "GAP-0027",
+    "requirement_id": "REQ-PET-010",
+    "rvu_id": "REQ-PET-010-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0027",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0028",
+    "gap_id": "GAP-0028",
+    "requirement_id": "REQ-PET-010",
+    "rvu_id": "REQ-PET-010-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0028",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0029",
+    "gap_id": "GAP-0029",
+    "requirement_id": "REQ-PET-010",
+    "rvu_id": "REQ-PET-010-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0029",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0030",
+    "gap_id": "GAP-0030",
+    "requirement_id": "REQ-PET-011",
+    "rvu_id": "REQ-PET-011-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0030",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0031",
+    "gap_id": "GAP-0031",
+    "requirement_id": "REQ-PET-011",
+    "rvu_id": "REQ-PET-011-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0031",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0032",
+    "gap_id": "GAP-0032",
+    "requirement_id": "REQ-PET-011",
+    "rvu_id": "REQ-PET-011-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0032",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0033",
+    "gap_id": "GAP-0033",
+    "requirement_id": "REQ-PET-012",
+    "rvu_id": "REQ-PET-012-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0033",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0034",
+    "gap_id": "GAP-0034",
+    "requirement_id": "REQ-PET-012",
+    "rvu_id": "REQ-PET-012-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0034",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0035",
+    "gap_id": "GAP-0035",
+    "requirement_id": "REQ-PET-012",
+    "rvu_id": "REQ-PET-012-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0035",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0036",
+    "gap_id": "GAP-0036",
+    "requirement_id": "REQ-PET-013",
+    "rvu_id": "REQ-PET-013-RVU-01",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Add the required positive, negative, boundary or state validation scenario.",
+    "grounded_in": [
+      "GAP-0036",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0037",
+    "gap_id": "GAP-0037",
+    "requirement_id": "REQ-PET-013",
+    "rvu_id": "REQ-PET-013-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0037",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0038",
+    "gap_id": "GAP-0038",
+    "requirement_id": "REQ-PET-013",
+    "rvu_id": "REQ-PET-013-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0038",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0039",
+    "gap_id": "GAP-0039",
+    "requirement_id": "REQ-PET-014",
+    "rvu_id": "REQ-PET-014-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0039",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0040",
+    "gap_id": "GAP-0040",
+    "requirement_id": "REQ-PET-014",
+    "rvu_id": "REQ-PET-014-RVU-02",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Strengthen the test so that its condition directly proves the required behaviour.",
+    "grounded_in": [
+      "GAP-0040",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0041",
+    "gap_id": "GAP-0041",
+    "requirement_id": "REQ-PET-014",
+    "rvu_id": "REQ-PET-014-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0041",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0042",
+    "gap_id": "GAP-0042",
+    "requirement_id": "REQ-PET-015",
+    "rvu_id": "REQ-PET-015-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0042",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0043",
+    "gap_id": "GAP-0043",
+    "requirement_id": "REQ-PET-015",
+    "rvu_id": "REQ-PET-015-RVU-02",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Add the required positive, negative, boundary or state validation scenario.",
+    "grounded_in": [
+      "GAP-0043",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0044",
+    "gap_id": "GAP-0044",
+    "requirement_id": "REQ-PET-015",
+    "rvu_id": "REQ-PET-015-RVU-03",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Add inputs that directly exercise the required RVU.",
+    "grounded_in": [
+      "GAP-0044",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0045",
+    "gap_id": "GAP-0045",
+    "requirement_id": "REQ-C3-F-016",
+    "rvu_id": "REQ-C3-F-016-RVU-01",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Add the required positive, negative, boundary or state validation scenario.",
+    "grounded_in": [
+      "GAP-0045",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0046",
+    "gap_id": "GAP-0046",
+    "requirement_id": "REQ-C3-F-016",
+    "rvu_id": "REQ-C3-F-016-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0046",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0047",
+    "gap_id": "GAP-0047",
+    "requirement_id": "REQ-C3-F-016",
+    "rvu_id": "REQ-C3-F-016-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0047",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0048",
+    "gap_id": "GAP-0048",
+    "requirement_id": "REQ-C3-F-016",
+    "rvu_id": "REQ-C3-F-016-RVU-04",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0048",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0049",
+    "gap_id": "GAP-0049",
+    "requirement_id": "REQ-C3-F-017",
+    "rvu_id": "REQ-C3-F-017-RVU-01",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Add the required positive, negative, boundary or state validation scenario.",
+    "grounded_in": [
+      "GAP-0049",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0050",
+    "gap_id": "GAP-0050",
+    "requirement_id": "REQ-C3-F-017",
+    "rvu_id": "REQ-C3-F-017-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0050",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0051",
+    "gap_id": "GAP-0051",
+    "requirement_id": "REQ-C3-F-017",
+    "rvu_id": "REQ-C3-F-017-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0051",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0052",
+    "gap_id": "GAP-0052",
+    "requirement_id": "REQ-C3-F-018",
+    "rvu_id": "REQ-C3-F-018-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0052",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0053",
+    "gap_id": "GAP-0053",
+    "requirement_id": "REQ-C3-F-018",
+    "rvu_id": "REQ-C3-F-018-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0053",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0054",
+    "gap_id": "GAP-0054",
+    "requirement_id": "REQ-C3-F-018",
+    "rvu_id": "REQ-C3-F-018-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0054",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0055",
+    "gap_id": "GAP-0055",
+    "requirement_id": "REQ-C3-F-019",
+    "rvu_id": "REQ-C3-F-019-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0055",
+      "EXECUTION_NOT_CONFIRMED"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0056",
+    "gap_id": "GAP-0056",
+    "requirement_id": "REQ-C3-F-019",
+    "rvu_id": "REQ-C3-F-019-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0056",
+      "EXECUTION_NOT_CONFIRMED",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0057",
+    "gap_id": "GAP-0057",
+    "requirement_id": "REQ-C3-F-019",
+    "rvu_id": "REQ-C3-F-019-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0057",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0058",
+    "gap_id": "GAP-0058",
+    "requirement_id": "REQ-C3-F-020",
+    "rvu_id": "REQ-C3-F-020-RVU-01",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Add the required positive, negative, boundary or state validation scenario.",
+    "grounded_in": [
+      "GAP-0058",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0059",
+    "gap_id": "GAP-0059",
+    "requirement_id": "REQ-C3-F-020",
+    "rvu_id": "REQ-C3-F-020-RVU-02",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Strengthen the available evidence to cover the missing validation conditions.",
+    "grounded_in": [
+      "GAP-0059",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0060",
+    "gap_id": "GAP-0060",
+    "requirement_id": "REQ-C3-F-020",
+    "rvu_id": "REQ-C3-F-020-RVU-03",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Strengthen the test so that its condition directly proves the required behaviour.",
+    "grounded_in": [
+      "GAP-0060",
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0061",
+    "gap_id": "GAP-0061",
+    "requirement_id": "REQ-C3-NFR-021",
+    "rvu_id": "REQ-C3-NFR-021-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0061",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0062",
+    "gap_id": "GAP-0062",
+    "requirement_id": "REQ-C3-NFR-021",
+    "rvu_id": "REQ-C3-NFR-021-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0062",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0063",
+    "gap_id": "GAP-0063",
+    "requirement_id": "REQ-C3-NFR-021",
+    "rvu_id": "REQ-C3-NFR-021-RVU-03",
+    "action_type": "IMPROVE_TEST",
+    "recommendation": "Align the performance metric, percentile, threshold, load, duration and scope with the Expected Evidence Profile.",
+    "grounded_in": [
+      "GAP-0063",
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_METRIC_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0064",
+    "gap_id": "GAP-0064",
+    "requirement_id": "REQ-C3-NFR-022",
+    "rvu_id": "REQ-C3-NFR-022-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0064",
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0065",
+    "gap_id": "GAP-0065",
+    "requirement_id": "REQ-C3-NFR-022",
+    "rvu_id": "REQ-C3-NFR-022-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0065",
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_METRIC_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0066",
+    "gap_id": "GAP-0066",
+    "requirement_id": "REQ-C3-NFR-022",
+    "rvu_id": "REQ-C3-NFR-022-RVU-03",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0066",
+      "HUMAN_REVIEW_REQUIRED"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0067",
+    "gap_id": "GAP-0067",
+    "requirement_id": "REQ-C3-NFR-023",
+    "rvu_id": "REQ-C3-NFR-023-RVU-01",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0067",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0068",
+    "gap_id": "GAP-0068",
+    "requirement_id": "REQ-C3-NFR-023",
+    "rvu_id": "REQ-C3-NFR-023-RVU-02",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0068",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0069",
+    "gap_id": "GAP-0069",
+    "requirement_id": "REQ-C3-NFR-023",
+    "rvu_id": "REQ-C3-NFR-023-RVU-03",
+    "action_type": "EXECUTE_OR_FIX",
+    "recommendation": "Execute the adequate evidence successfully or investigate the failed execution result.",
+    "grounded_in": [
+      "GAP-0069",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0070",
+    "gap_id": "GAP-0070",
+    "requirement_id": "REQ-C3-NFR-024",
+    "rvu_id": "REQ-C3-NFR-024-RVU-01",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0070",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0071",
+    "gap_id": "GAP-0071",
+    "requirement_id": "REQ-C3-NFR-024",
+    "rvu_id": "REQ-C3-NFR-024-RVU-02",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0071",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0072",
+    "gap_id": "GAP-0072",
+    "requirement_id": "REQ-C3-NFR-024",
+    "rvu_id": "REQ-C3-NFR-024-RVU-03",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0072",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0073",
+    "gap_id": "GAP-0073",
+    "requirement_id": "REQ-C3-NFR-025",
+    "rvu_id": "REQ-C3-NFR-025-RVU-01",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0073",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0074",
+    "gap_id": "GAP-0074",
+    "requirement_id": "REQ-C3-NFR-025",
+    "rvu_id": "REQ-C3-NFR-025-RVU-02",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0074",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0075",
+    "gap_id": "GAP-0075",
+    "requirement_id": "REQ-C3-NFR-025",
+    "rvu_id": "REQ-C3-NFR-025-RVU-03",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0075",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0076",
+    "gap_id": "GAP-0076",
+    "requirement_id": "REQ-C3-NFR-026",
+    "rvu_id": "REQ-C3-NFR-026-RVU-01",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0076",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0077",
+    "gap_id": "GAP-0077",
+    "requirement_id": "REQ-C3-NFR-026",
+    "rvu_id": "REQ-C3-NFR-026-RVU-02",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0077",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0078",
+    "gap_id": "GAP-0078",
+    "requirement_id": "REQ-C3-NFR-026",
+    "rvu_id": "REQ-C3-NFR-026-RVU-03",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0078",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0079",
+    "gap_id": "GAP-0079",
+    "requirement_id": "REQ-C3-NFR-027",
+    "rvu_id": "REQ-C3-NFR-027-RVU-01",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0079",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0080",
+    "gap_id": "GAP-0080",
+    "requirement_id": "REQ-C3-NFR-027",
+    "rvu_id": "REQ-C3-NFR-027-RVU-02",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0080",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0081",
+    "gap_id": "GAP-0081",
+    "requirement_id": "REQ-C3-NFR-027",
+    "rvu_id": "REQ-C3-NFR-027-RVU-03",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0081",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0082",
+    "gap_id": "GAP-0082",
+    "requirement_id": "REQ-C3-NFR-028",
+    "rvu_id": "REQ-C3-NFR-028-RVU-01",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0082",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0083",
+    "gap_id": "GAP-0083",
+    "requirement_id": "REQ-C3-NFR-028",
+    "rvu_id": "REQ-C3-NFR-028-RVU-02",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0083",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0084",
+    "gap_id": "GAP-0084",
+    "requirement_id": "REQ-C3-NFR-028",
+    "rvu_id": "REQ-C3-NFR-028-RVU-03",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0084",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0085",
+    "gap_id": "GAP-0085",
+    "requirement_id": "REQ-C3-NFR-029",
+    "rvu_id": "REQ-C3-NFR-029-RVU-01",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0085",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0086",
+    "gap_id": "GAP-0086",
+    "requirement_id": "REQ-C3-NFR-029",
+    "rvu_id": "REQ-C3-NFR-029-RVU-02",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0086",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0087",
+    "gap_id": "GAP-0087",
+    "requirement_id": "REQ-C3-NFR-029",
+    "rvu_id": "REQ-C3-NFR-029-RVU-03",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0087",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0088",
+    "gap_id": "GAP-0088",
+    "requirement_id": "REQ-C3-NFR-030",
+    "rvu_id": "REQ-C3-NFR-030-RVU-01",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0088",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0089",
+    "gap_id": "GAP-0089",
+    "requirement_id": "REQ-C3-NFR-030",
+    "rvu_id": "REQ-C3-NFR-030-RVU-02",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0089",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "recommendation_id": "REC-0090",
+    "gap_id": "GAP-0090",
+    "requirement_id": "REQ-C3-NFR-030",
+    "rvu_id": "REQ-C3-NFR-030-RVU-03",
+    "action_type": "REVIEW_SPECIALIZED_EVIDENCE",
+    "recommendation": "Collect or review the specialized QA evidence defined for this non-functional requirement.",
+    "grounded_in": [
+      "GAP-0090",
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  }
+]

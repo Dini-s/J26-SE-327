@@ -1,0 +1,405 @@
+[
+  {
+    "change_id": "CHG-C3-001",
+    "source": "C3_CONTROLLED_REVALIDATION_FIXTURE",
+    "requirement_id": "REQ-C3-F-016",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "affected_rvu_ids": [
+      "REQ-C3-F-016-RVU-02"
+    ],
+    "change_type": "ACCEPTANCE_CRITERION_UPDATE",
+    "previous_text": "The account shall remain locked for 30 minutes.",
+    "current_text": "The account shall remain locked for 45 minutes.",
+    "reusable_count": 1,
+    "modification_required_count": 1,
+    "outdated_count": 1,
+    "new_evidence_required_count": 1,
+    "decisions": [
+      {
+        "evidence_id": "CTRL-REVAL-001-A",
+        "evidence_name": "lockAccountAfterFiveFailures()",
+        "previous_validation_purpose": "Validate account lock after five failed authentication attempts.",
+        "current_validation_purpose": "Validate account lock after five failed authentication attempts.",
+        "classification": "REUSABLE",
+        "reason": "The validation purpose is unchanged by the requirement update.",
+        "action": "KEEP"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-001-B",
+        "evidence_name": "accountRemainsLockedFor30Minutes()",
+        "previous_validation_purpose": "Validate that the account remains locked for 30 minutes.",
+        "current_validation_purpose": "Validate that the account remains locked for 45 minutes.",
+        "classification": "OUTDATED",
+        "reason": "The evidence explicitly validates the previous requirement constraint.",
+        "action": "REPLACE"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-001-C",
+        "evidence_name": "lockBoundaryAt30Minutes()",
+        "previous_validation_purpose": "Validate the lock boundary at exactly 30 minutes.",
+        "current_validation_purpose": "Validate the lock boundary at exactly 45 minutes.",
+        "classification": "MODIFICATION_REQUIRED",
+        "reason": "The evidence validates a boundary or threshold that changed in the updated requirement.",
+        "action": "UPDATE"
+      },
+      {
+        "evidence_id": null,
+        "evidence_name": "unlockAfter45Minutes()",
+        "previous_validation_purpose": "Not applicable.",
+        "current_validation_purpose": "Validate that authentication is permitted after the new 45-minute lock period.",
+        "classification": "NEW_EVIDENCE_REQUIRED",
+        "reason": "No existing evidence artifact covers the updated validation purpose.",
+        "action": "CREATE"
+      }
+    ],
+    "summary": [
+      "1 existing validation asset(s) remain reusable.",
+      "1 existing validation asset(s) require updates.",
+      "1 existing validation asset(s) are outdated and should be replaced.",
+      "1 new validation asset(s) are required.",
+      "Revalidation scope is limited to the affected RVUs and connected validation evidence."
+    ],
+    "recommended_actions": [
+      "Replace accountRemainsLockedFor30Minutes() with evidence aligned to the updated requirement.",
+      "Update lockBoundaryAt30Minutes() to validate the current requirement conditions.",
+      "Create unlockAfter45Minutes() to provide the newly required validation proof."
+    ]
+  },
+  {
+    "change_id": "CHG-C3-002",
+    "source": "C3_CONTROLLED_REVALIDATION_FIXTURE",
+    "requirement_id": "REQ-C3-F-017",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "SECURITY_BEHAVIOR",
+    "affected_rvu_ids": [
+      "REQ-C3-F-017-RVU-02"
+    ],
+    "change_type": "ACCEPTANCE_CRITERION_UPDATE",
+    "previous_text": "A reset token shall expire 30 minutes after it is issued.",
+    "current_text": "A reset token shall expire 20 minutes after it is issued.",
+    "reusable_count": 1,
+    "modification_required_count": 1,
+    "outdated_count": 1,
+    "new_evidence_required_count": 1,
+    "decisions": [
+      {
+        "evidence_id": "CTRL-REVAL-002-A",
+        "evidence_name": "validUnusedTokenResetsPassword()",
+        "previous_validation_purpose": "Validate password reset using a valid unused reset token.",
+        "current_validation_purpose": "Validate password reset using a valid unused reset token.",
+        "classification": "REUSABLE",
+        "reason": "The validation purpose is unchanged by the requirement update.",
+        "action": "KEEP"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-002-B",
+        "evidence_name": "tokenExpiresAfter30Minutes()",
+        "previous_validation_purpose": "Validate reset-token expiration after 30 minutes.",
+        "current_validation_purpose": "Validate reset-token expiration after 20 minutes.",
+        "classification": "OUTDATED",
+        "reason": "The evidence explicitly validates the previous requirement constraint.",
+        "action": "REPLACE"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-002-C",
+        "evidence_name": "tokenExpiryBoundaryAt30Minutes()",
+        "previous_validation_purpose": "Validate the expiry boundary at exactly 30 minutes.",
+        "current_validation_purpose": "Validate the expiry boundary at exactly 20 minutes.",
+        "classification": "MODIFICATION_REQUIRED",
+        "reason": "The evidence validates a boundary or threshold that changed in the updated requirement.",
+        "action": "UPDATE"
+      },
+      {
+        "evidence_id": null,
+        "evidence_name": "expiredTokenRejectedAfter20Minutes()",
+        "previous_validation_purpose": "Not applicable.",
+        "current_validation_purpose": "Provide explicit rejection proof for a reset token after the updated 20-minute expiry period.",
+        "classification": "NEW_EVIDENCE_REQUIRED",
+        "reason": "No existing evidence artifact covers the updated validation purpose.",
+        "action": "CREATE"
+      }
+    ],
+    "summary": [
+      "1 existing validation asset(s) remain reusable.",
+      "1 existing validation asset(s) require updates.",
+      "1 existing validation asset(s) are outdated and should be replaced.",
+      "1 new validation asset(s) are required.",
+      "Revalidation scope is limited to the affected RVUs and connected validation evidence."
+    ],
+    "recommended_actions": [
+      "Replace tokenExpiresAfter30Minutes() with evidence aligned to the updated requirement.",
+      "Update tokenExpiryBoundaryAt30Minutes() to validate the current requirement conditions.",
+      "Create expiredTokenRejectedAfter20Minutes() to provide the newly required validation proof."
+    ]
+  },
+  {
+    "change_id": "CHG-C3-003",
+    "source": "C3_CONTROLLED_REVALIDATION_FIXTURE",
+    "requirement_id": "REQ-C3-F-019",
+    "requirement_type": "FUNCTIONAL",
+    "requirement_subtype": "BOUNDARY_VALIDATION",
+    "affected_rvu_ids": [
+      "REQ-C3-F-019-RVU-01",
+      "REQ-C3-F-019-RVU-02"
+    ],
+    "change_type": "ACCEPTANCE_CRITERION_UPDATE",
+    "previous_text": "Allowed uploaded files may be up to 5 MB and files greater than 5 MB shall be rejected.",
+    "current_text": "Allowed uploaded files may be up to 10 MB and files greater than 10 MB shall be rejected.",
+    "reusable_count": 1,
+    "modification_required_count": 2,
+    "outdated_count": 0,
+    "new_evidence_required_count": 1,
+    "decisions": [
+      {
+        "evidence_id": "CTRL-REVAL-003-A",
+        "evidence_name": "rejectExecutableUpload()",
+        "previous_validation_purpose": "Validate rejection of executable file types.",
+        "current_validation_purpose": "Validate rejection of executable file types.",
+        "classification": "REUSABLE",
+        "reason": "The validation purpose is unchanged by the requirement update.",
+        "action": "KEEP"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-003-B",
+        "evidence_name": "acceptAllowedFileAt5MB()",
+        "previous_validation_purpose": "Validate acceptance at exactly 5 MB.",
+        "current_validation_purpose": "Validate acceptance at exactly 10 MB.",
+        "classification": "MODIFICATION_REQUIRED",
+        "reason": "The evidence validates a boundary or threshold that changed in the updated requirement.",
+        "action": "UPDATE"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-003-C",
+        "evidence_name": "uploadSizeBoundaryAt5MB()",
+        "previous_validation_purpose": "Validate the upload-size boundary at 5 MB.",
+        "current_validation_purpose": "Validate the upload-size boundary at 10 MB.",
+        "classification": "MODIFICATION_REQUIRED",
+        "reason": "The evidence validates a boundary or threshold that changed in the updated requirement.",
+        "action": "UPDATE"
+      },
+      {
+        "evidence_id": null,
+        "evidence_name": "rejectUploadGreaterThan10MB()",
+        "previous_validation_purpose": "Not applicable.",
+        "current_validation_purpose": "Validate rejection of uploaded files greater than the new 10 MB limit.",
+        "classification": "NEW_EVIDENCE_REQUIRED",
+        "reason": "No existing evidence artifact covers the updated validation purpose.",
+        "action": "CREATE"
+      }
+    ],
+    "summary": [
+      "1 existing validation asset(s) remain reusable.",
+      "2 existing validation asset(s) require updates.",
+      "1 new validation asset(s) are required.",
+      "Revalidation scope is limited to the affected RVUs and connected validation evidence."
+    ],
+    "recommended_actions": [
+      "Update acceptAllowedFileAt5MB() to validate the current requirement conditions.",
+      "Update uploadSizeBoundaryAt5MB() to validate the current requirement conditions.",
+      "Create rejectUploadGreaterThan10MB() to provide the newly required validation proof."
+    ]
+  },
+  {
+    "change_id": "CHG-C3-004",
+    "source": "C3_CONTROLLED_REVALIDATION_FIXTURE",
+    "requirement_id": "REQ-C3-NFR-021",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "PERFORMANCE",
+    "affected_rvu_ids": [
+      "REQ-C3-NFR-021-RVU-01"
+    ],
+    "change_type": "NFR_THRESHOLD_UPDATE",
+    "previous_text": "The owner search operation shall maintain a p95 response time below 2 seconds with 100 concurrent users for 10 minutes.",
+    "current_text": "The owner search operation shall maintain a p95 response time below 1.5 seconds with 100 concurrent users for 10 minutes.",
+    "reusable_count": 1,
+    "modification_required_count": 1,
+    "outdated_count": 1,
+    "new_evidence_required_count": 1,
+    "decisions": [
+      {
+        "evidence_id": "CTRL-REVAL-004-A",
+        "evidence_name": "ownerSearchFailureRateBelowOnePercent()",
+        "previous_validation_purpose": "Validate owner-search failed-request rate below 1 percent.",
+        "current_validation_purpose": "Validate owner-search failed-request rate below 1 percent.",
+        "classification": "REUSABLE",
+        "reason": "The validation purpose is unchanged by the requirement update.",
+        "action": "KEEP"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-004-B",
+        "evidence_name": "ownerSearchP95Below2Seconds()",
+        "previous_validation_purpose": "Validate p95 response time below 2 seconds with 100 concurrent users for 10 minutes.",
+        "current_validation_purpose": "Validate p95 response time below 1.5 seconds with 100 concurrent users for 10 minutes.",
+        "classification": "OUTDATED",
+        "reason": "The evidence explicitly validates the previous requirement constraint.",
+        "action": "REPLACE"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-004-C",
+        "evidence_name": "ownerSearchP95BoundaryAt2Seconds()",
+        "previous_validation_purpose": "Validate the p95 boundary at 2 seconds.",
+        "current_validation_purpose": "Validate the p95 boundary at 1.5 seconds.",
+        "classification": "MODIFICATION_REQUIRED",
+        "reason": "The evidence validates a boundary or threshold that changed in the updated requirement.",
+        "action": "UPDATE"
+      },
+      {
+        "evidence_id": null,
+        "evidence_name": "ownerSearchP95Below1Point5Seconds()",
+        "previous_validation_purpose": "Not applicable.",
+        "current_validation_purpose": "Provide performance proof for p95 below 1.5 seconds with 100 concurrent users for 10 minutes.",
+        "classification": "NEW_EVIDENCE_REQUIRED",
+        "reason": "No existing evidence artifact covers the updated validation purpose.",
+        "action": "CREATE"
+      }
+    ],
+    "summary": [
+      "1 existing validation asset(s) remain reusable.",
+      "1 existing validation asset(s) require updates.",
+      "1 existing validation asset(s) are outdated and should be replaced.",
+      "1 new validation asset(s) are required.",
+      "Revalidation scope is limited to the affected RVUs and connected validation evidence."
+    ],
+    "recommended_actions": [
+      "Replace ownerSearchP95Below2Seconds() with evidence aligned to the updated requirement.",
+      "Update ownerSearchP95BoundaryAt2Seconds() to validate the current requirement conditions.",
+      "Create ownerSearchP95Below1Point5Seconds() to provide the newly required validation proof."
+    ]
+  },
+  {
+    "change_id": "CHG-C3-005",
+    "source": "C3_CONTROLLED_REVALIDATION_FIXTURE",
+    "requirement_id": "REQ-C3-NFR-024",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "RELIABILITY",
+    "affected_rvu_ids": [
+      "REQ-C3-NFR-024-RVU-01",
+      "REQ-C3-NFR-024-RVU-02",
+      "REQ-C3-NFR-024-RVU-03"
+    ],
+    "change_type": "NFR_DURATION_UPDATE",
+    "previous_text": "The application shall complete a 30-minute sustained workload test while remaining reliable.",
+    "current_text": "The application shall complete a 45-minute sustained workload test while remaining reliable.",
+    "reusable_count": 1,
+    "modification_required_count": 2,
+    "outdated_count": 0,
+    "new_evidence_required_count": 1,
+    "decisions": [
+      {
+        "evidence_id": "CTRL-REVAL-005-A",
+        "evidence_name": "responsiveAtEndOfSustainedWorkload()",
+        "previous_validation_purpose": "Validate that the application remains responsive at the end of the sustained workload.",
+        "current_validation_purpose": "Validate that the application remains responsive at the end of the sustained workload.",
+        "classification": "REUSABLE",
+        "reason": "The validation purpose is unchanged by the requirement update.",
+        "action": "KEEP"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-005-B",
+        "evidence_name": "sustainedWorkload30MinutesNoFailure()",
+        "previous_validation_purpose": "Validate reliability over a 30-minute sustained workload.",
+        "current_validation_purpose": "Validate reliability over a 45-minute sustained workload.",
+        "classification": "MODIFICATION_REQUIRED",
+        "reason": "The validation purpose changed and the existing evidence must be updated before reuse.",
+        "action": "UPDATE"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-005-C",
+        "evidence_name": "sustainedDurationBoundary30Minutes()",
+        "previous_validation_purpose": "Validate the sustained-workload duration boundary at 30 minutes.",
+        "current_validation_purpose": "Validate the sustained-workload duration boundary at 45 minutes.",
+        "classification": "MODIFICATION_REQUIRED",
+        "reason": "The validation purpose changed and the existing evidence must be updated before reuse.",
+        "action": "UPDATE"
+      },
+      {
+        "evidence_id": null,
+        "evidence_name": "sustainedWorkload45MinutesNoFailure()",
+        "previous_validation_purpose": "Not applicable.",
+        "current_validation_purpose": "Provide reliability evidence for a complete 45-minute sustained workload with no unhandled application failure.",
+        "classification": "NEW_EVIDENCE_REQUIRED",
+        "reason": "No existing evidence artifact covers the updated validation purpose.",
+        "action": "CREATE"
+      }
+    ],
+    "summary": [
+      "1 existing validation asset(s) remain reusable.",
+      "2 existing validation asset(s) require updates.",
+      "1 new validation asset(s) are required.",
+      "Revalidation scope is limited to the affected RVUs and connected validation evidence."
+    ],
+    "recommended_actions": [
+      "Update sustainedWorkload30MinutesNoFailure() to validate the current requirement conditions.",
+      "Update sustainedDurationBoundary30Minutes() to validate the current requirement conditions.",
+      "Create sustainedWorkload45MinutesNoFailure() to provide the newly required validation proof."
+    ]
+  },
+  {
+    "change_id": "CHG-C3-006",
+    "source": "C3_CONTROLLED_REVALIDATION_FIXTURE",
+    "requirement_id": "REQ-C3-NFR-026",
+    "requirement_type": "NON_FUNCTIONAL",
+    "requirement_subtype": "SCALABILITY",
+    "affected_rvu_ids": [
+      "REQ-C3-NFR-026-RVU-02"
+    ],
+    "change_type": "NFR_THRESHOLD_UPDATE",
+    "previous_text": "The application shall maintain a p95 response time below 3 seconds while serving 100 concurrent users for 10 minutes.",
+    "current_text": "The application shall maintain a p95 response time below 2.5 seconds while serving 100 concurrent users for 10 minutes.",
+    "reusable_count": 1,
+    "modification_required_count": 1,
+    "outdated_count": 1,
+    "new_evidence_required_count": 1,
+    "decisions": [
+      {
+        "evidence_id": "CTRL-REVAL-006-A",
+        "evidence_name": "support100UsersWithoutUnhandledFailure()",
+        "previous_validation_purpose": "Validate 100 concurrent users without an unhandled application failure.",
+        "current_validation_purpose": "Validate 100 concurrent users without an unhandled application failure.",
+        "classification": "REUSABLE",
+        "reason": "The validation purpose is unchanged by the requirement update.",
+        "action": "KEEP"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-006-B",
+        "evidence_name": "p95Below3SecondsAt100Users()",
+        "previous_validation_purpose": "Validate p95 below 3 seconds at 100 concurrent users.",
+        "current_validation_purpose": "Validate p95 below 2.5 seconds at 100 concurrent users.",
+        "classification": "OUTDATED",
+        "reason": "The evidence explicitly validates the previous requirement constraint.",
+        "action": "REPLACE"
+      },
+      {
+        "evidence_id": "CTRL-REVAL-006-C",
+        "evidence_name": "scalabilityP95BoundaryAt3Seconds()",
+        "previous_validation_purpose": "Validate the p95 boundary at 3 seconds.",
+        "current_validation_purpose": "Validate the p95 boundary at 2.5 seconds.",
+        "classification": "MODIFICATION_REQUIRED",
+        "reason": "The evidence validates a boundary or threshold that changed in the updated requirement.",
+        "action": "UPDATE"
+      },
+      {
+        "evidence_id": null,
+        "evidence_name": "p95Below2Point5SecondsAt100Users()",
+        "previous_validation_purpose": "Not applicable.",
+        "current_validation_purpose": "Provide scalability evidence for p95 below 2.5 seconds while serving 100 concurrent users.",
+        "classification": "NEW_EVIDENCE_REQUIRED",
+        "reason": "No existing evidence artifact covers the updated validation purpose.",
+        "action": "CREATE"
+      }
+    ],
+    "summary": [
+      "1 existing validation asset(s) remain reusable.",
+      "1 existing validation asset(s) require updates.",
+      "1 existing validation asset(s) are outdated and should be replaced.",
+      "1 new validation asset(s) are required.",
+      "Revalidation scope is limited to the affected RVUs and connected validation evidence."
+    ],
+    "recommended_actions": [
+      "Replace p95Below3SecondsAt100Users() with evidence aligned to the updated requirement.",
+      "Update scalabilityP95BoundaryAt3Seconds() to validate the current requirement conditions.",
+      "Create p95Below2Point5SecondsAt100Users() to provide the newly required validation proof."
+    ]
+  }
+]
