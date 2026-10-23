@@ -112,6 +112,16 @@ def neo4j_projects() -> list[dict[str, Any]]:
     return [dict(r) for r in records]
 
 
+def neo4j_candidate_targets(project: Optional[str]) -> int:
+    """How many things the pipeline can shortlist for a project: code, test and design elements (the same kinds as stage 1)."""
+    with _neo4j_driver() as driver:
+        rows, _, _ = driver.execute_query(
+            """MATCH (c:CodeEntity) WHERE coalesce(c.kind,'code') IN ['code','test','design']
+                 AND coalesce(c.project, c.repo, c.dataset) = $project
+               RETURN count(c) AS n""", project=project)
+    return int(rows[0]["n"]) if rows else 0
+
+
 def neo4j_unlinked(project: Optional[str]) -> dict[str, Any]:
     """Requirements of a project that no VERIFIED_TRACE starts from yet, plus how many requirements / code files it has."""
     with _neo4j_driver() as driver:

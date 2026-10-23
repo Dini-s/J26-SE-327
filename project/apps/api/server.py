@@ -477,7 +477,7 @@ def post_link(body: dict) -> dict:
 
 def _suggested_top_k(project: str) -> int:
     from agents.traceability_agent import candidates
-    return candidates.suggest_top_k(sources.neo4j_unlinked(project)["codeFiles"])
+    return candidates.suggest_top_k(sources.neo4j_candidate_targets(project))
 
 
 def get_candidates(q: dict) -> dict:
@@ -488,7 +488,7 @@ def get_candidates(q: dict) -> dict:
     _need_neo4j()
     from agents.traceability_agent import candidates
     info = sources.neo4j_unlinked(project)
-    files, reqs = info["codeFiles"], info["requirements"]
+    files, reqs = sources.neo4j_candidate_targets(project), info["requirements"]
     suggested = candidates.suggest_top_k(files)
     return {"project": project, "codeFiles": files, "requirements": reqs, "unlinked": info["unlinked"],
             "suggested": suggested, "options": candidates.options_for(files),

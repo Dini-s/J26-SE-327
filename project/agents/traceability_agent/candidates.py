@@ -13,20 +13,17 @@ MAX_K = LADDER[-1]
 
 
 def suggest_top_k(code_files: int) -> int:
-    """Default candidates per requirement for a project with ``code_files`` code files.
+    """Default candidates per requirement for a project with ``code_files`` code, test or design elements.
 
-    Up to 5 files: check every file. Then grow with the project: 10 up to 30 files, 20 up to 100,
-    50 up to 300, and 100 beyond that.
+    Up to 5 elements: check every one (cheap). Up to 30: 10. Larger projects get 20, not more: with the current
+    CPU LLM server each candidate costs about a minute per 2 requirements, so a larger default would take days.
+    The user can still pick 50 or 100 from the list, and the page shows the estimated time for the choice.
     """
     if code_files <= 5:
         return max(1, code_files)
     if code_files <= 30:
         return 10
-    if code_files <= 100:
-        return 20
-    if code_files <= 300:
-        return 50
-    return MAX_K
+    return 20
 
 
 def options_for(code_files: int) -> list[int]:

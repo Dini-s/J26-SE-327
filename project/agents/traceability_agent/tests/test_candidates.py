@@ -5,10 +5,10 @@ def test_small_projects_check_every_file():
     assert [suggest_top_k(n) for n in (1, 3, 5)] == [1, 3, 5]
 
 
-def test_suggestion_grows_with_the_project_and_stays_on_the_ladder():
-    values = [suggest_top_k(n) for n in (6, 30, 31, 100, 101, 300, 301, 5000)]
-    assert values == [10, 10, 20, 20, 50, 50, 100, 100]
-    assert all(v in LADDER for v in values if v > 5)
+def test_suggestion_is_capped_so_the_default_stays_affordable():
+    values = [suggest_top_k(n) for n in (6, 30, 31, 392, 5000)]
+    assert values == [10, 10, 20, 20, 20]
+    assert all(v in LADDER for v in values)
 
 
 def test_options_never_offer_more_candidates_than_files():

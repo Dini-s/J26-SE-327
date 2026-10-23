@@ -71,6 +71,7 @@ function LinkingWorkspace({ project, projectsError }) {
   const [topK, setTopK] = useState(null);
   const [topKTouched, setTopKTouched] = useState(false);
   const suggestion = candidatesApi.data;
+  useEffect(() => { setTopK(null); setTopKTouched(false); }, [project]);
   // Follow the suggestion for the project until the user picks a value themselves.
   const shownK = topKTouched && topK != null ? topK : suggestion?.suggested ?? topK ?? 10;
   const [chosen, setChosen] = useState([]);
@@ -169,6 +170,5 @@ function LinkingWorkspace({ project, projectsError }) {
 }
 export default function TraceabilityLink() {
   const { project, error } = useProject();
-  useEffect(() => { setTopK(null); setTopKTouched(false); }, [project]);
   return <LinkingWorkspace key={project || "none"} project={project} projectsError={error} />;
 }
