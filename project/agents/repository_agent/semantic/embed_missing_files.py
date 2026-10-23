@@ -15,14 +15,13 @@ from agents.repository_agent.semantic.graphcodebert_encoder import (
 )
 
 
-REPO = Path("data/raw/R04_argouml").resolve()
+REPO = Path("data/raw/R05_lucene").resolve()
 OUTPUT = Path("data/processed/semantic")
-REPO_ID = "R04_argouml"
+REPO_ID = "R05_lucene"
 
 TARGETS = (
-    "org/argouml/dev/",
-    "org/argouml/dev/figinspector/",
-    "org/argouml/tools/ui/",
+    "lucene/analysis/common/src/java/org/apache/lucene/analysis/charfilter/HTMLStripCharFilter.java",
+    "lucene/analysis/common/src/java/org/apache/lucene/analysis/email/UAX29URLEmailTokenizerImpl.java",
 )
 
 
