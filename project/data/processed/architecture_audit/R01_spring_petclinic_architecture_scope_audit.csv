@@ -1,0 +1,2 @@
+repository,structural_packages,accepted_dependency_edges,excluded_dependency_edges,blank_dependency_rows,self_dependency_rows,circular_dependency_groups,edges_with_source_evidence,edges_without_source_evidence,layer_violation_candidates,layer_rules_configured
+R01_spring_petclinic,5,4,0,0,0,0,4,0,0,1

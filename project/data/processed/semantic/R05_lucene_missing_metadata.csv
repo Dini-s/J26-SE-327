@@ -1,0 +1,3 @@
+﻿embedding_index,repository_id,file_path,token_count,chunk_count,model_name
+0,R05_lucene,lucene/analysis/common/src/java/org/apache/lucene/analysis/charfilter/HTMLStripCharFilter.java,319585,717,microsoft/graphcodebert-base
+1,R05_lucene,lucene/analysis/common/src/java/org/apache/lucene/analysis/email/UAX29URLEmailTokenizerImpl.java,1452026,3256,microsoft/graphcodebert-base

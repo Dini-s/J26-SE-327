@@ -1,0 +1,13 @@
+repository,snapshot_date,commit_hash,source_package,target_package
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene,demo.HTMLParser
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.analysis.standard,org.apache.lucene.analysis
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.index,org.apache.lucene.analysis
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.index,org.apache.lucene.document
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.index,org.apache.lucene.search
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.index,org.apache.lucene.store
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.index,org.apache.lucene.util
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.search,org.apache.lucene.document
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.search,org.apache.lucene.index
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.search,org.apache.lucene.store
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.search,org.apache.lucene.util
+R05_lucene,2001-09-18,bd3948c539ec1065db8b05b433ea55dbf844ff27,org.apache.lucene.util,org.apache.lucene.store

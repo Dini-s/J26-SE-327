@@ -1,0 +1,5 @@
+experiment,samples,repositories,features,accuracy,precision,recall,f1,roc_auc,pr_auc,validation,target,temporal_alignment_verified
+A1_structural,929,7,8,0.5479009687836384,0.542713567839196,0.47577092511013214,0.5070422535211268,0.5898771156967308,0.6194324338202559,5-fold GroupKFold by repository,architecture_change_proxy_label,False
+A2_structural_semantic,929,7,776,0.6372443487621098,0.6527415143603134,0.5506607929515418,0.5973715651135006,0.6647507535358219,0.6491988929870876,5-fold GroupKFold by repository,architecture_change_proxy_label,False
+A3_structural_evolution_graph,929,7,19,0.6372443487621098,0.6511627906976745,0.5550660792951542,0.5992865636147443,0.6940551820078832,0.6880301039597683,5-fold GroupKFold by repository,architecture_change_proxy_label,False
+A4_full_exploratory_hrim,929,7,787,0.6867599569429494,0.7150395778364116,0.5969162995594713,0.6506602641056423,0.720547182935312,0.7155445802434002,5-fold GroupKFold by repository,architecture_change_proxy_label,False

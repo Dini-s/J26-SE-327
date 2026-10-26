@@ -1,0 +1,3 @@
+experiment,feature_count,features,samples,repositories,accuracy,precision,recall,f1,roc_auc,pr_auc
+full_baseline,8,"['java_files', 'nonempty_lines', 'fan_in', 'fan_out', 'total_coupling', 'instability', 'outgoing_dependency_count', 'incoming_dependency_count']",4172,11,0.5376318312559923,0.5318918918918919,0.48070346849047385,0.5050038491147036,0.5463222506393862,0.5641929100692841
+without_top_two,6,"['java_files', 'nonempty_lines', 'fan_in', 'total_coupling', 'instability', 'incoming_dependency_count']",4172,11,0.5321188878235859,0.524986849026828,0.487542745481192,0.5055724417426545,0.5435697577516595,0.5640503486485726

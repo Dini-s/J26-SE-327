@@ -1,0 +1,13 @@
+{
+    "samples": 4172,
+    "repositories": 11,
+    "positive_rate": 0.4906519654841803,
+    "accuracy": 0.5376318312559923,
+    "precision": 0.5318918918918919,
+    "recall": 0.48070346849047385,
+    "f1": 0.5050038491147036,
+    "roc_auc": 0.5463222506393862,
+    "pr_auc": 0.5641929100692841,
+    "validation": "5-fold GroupKFold grouped by repository",
+    "target": "architecture_change_proxy_label"
+}

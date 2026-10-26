@@ -1,0 +1,6 @@
+repository,snapshot_date,commit_hash,package_path,java_files,nonempty_lines,fan_in,fan_out,total_coupling,instability
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.beans.editors,4,592,0,0,0,0.0
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.gef,109,12163,2,2,4,0.5
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.gef.demo,18,1449,0,2,2,1.0
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.ui,16,1847,1,2,3,0.6666666666666666
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.util,15,983,3,0,3,0.0

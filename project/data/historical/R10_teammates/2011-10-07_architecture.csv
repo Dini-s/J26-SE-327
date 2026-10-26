@@ -1,0 +1,4 @@
+repository,snapshot_date,commit_hash,package_path,java_files,nonempty_lines,fan_in,fan_out,total_coupling,instability
+R10_teammates,2011-10-07,eeb1035f5634ddbb34efaf5670a56bf9ff4846a8,teammates,12,4131,0,2,2,1.0
+R10_teammates,2011-10-07,eeb1035f5634ddbb34efaf5670a56bf9ff4846a8,teammates.exception,7,63,1,0,1,0.0
+R10_teammates,2011-10-07,eeb1035f5634ddbb34efaf5670a56bf9ff4846a8,teammates.jdo,16,1273,1,0,1,0.0

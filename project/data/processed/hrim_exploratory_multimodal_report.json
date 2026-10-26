@@ -1,0 +1,15 @@
+{
+  "dataset_type": "exploratory package-level join; NOT historically aligned",
+  "source_fused_file": "hrim_semantic_fused_features.csv",
+  "source_historical_file": "hrim_historical_training_table_v1.csv",
+  "candidate_rows": 4172,
+  "historical_repositories": 11,
+  "fused_package_match_rows": 3143,
+  "unmatched_historical_rows": 1029,
+  "semantic_available_rows": 929,
+  "semantic_available_and_package_matched_rows": 929,
+  "semantic_embedding_dimensions": 768,
+  "target": "architecture_change_proxy_label",
+  "temporal_alignment_verified": false,
+  "warning": "Do not report this candidate as a temporally validated multimodal experiment. Fused semantic embeddings lack verified historical commit/snapshot provenance. A repository/package join is not proof of snapshot alignment."
+}

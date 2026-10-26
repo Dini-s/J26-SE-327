@@ -1,0 +1,9 @@
+feature,importance
+outgoing_dependency_count,0.22416762
+fan_out,0.19147736
+nonempty_lines,0.116743445
+total_coupling,0.11193481
+instability,0.09772828
+java_files,0.09563499
+incoming_dependency_count,0.08562748
+fan_in,0.07668605

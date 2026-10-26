@@ -1,0 +1,10 @@
+repository,snapshot_date,commit_hash,source_package,target_package
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.bridge.examples,kafka.bridge.hadoop
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.bridge.pig,kafka.bridge.hadoop
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.etl,kafka.javaapi.consumer
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.etl.impl,kafka.etl
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.examples,kafka.javaapi.consumer
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.perf,kafka.perf.consumer
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.perf,kafka.perf.jmx
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.perf,kafka.perf.producer
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.perf.consumer,kafka.javaapi.consumer

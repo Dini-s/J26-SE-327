@@ -1,0 +1,13 @@
+repository,snapshot_date,commit_hash,package_path,java_files,nonempty_lines,fan_in,fan_out,total_coupling,instability
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.bridge.examples,1,57,0,1,1,1.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.bridge.hadoop,2,161,2,0,2,0.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.bridge.pig,1,101,0,1,1,1.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.etl,9,1310,1,1,2,0.5
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.etl.impl,3,270,0,1,1,1.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.examples,6,253,0,1,1,1.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.javaapi.consumer,1,37,3,0,3,0.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.javaapi.producer.async,2,109,0,0,0,0.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.perf,3,466,0,3,3,1.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.perf.consumer,1,95,1,1,2,0.5
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.perf.jmx,1,42,1,0,1,0.0
+R09_kafca,2011-08-01,642da2f28c9bc6e373603d6d9119ce33684090f5,kafka.perf.producer,1,91,1,0,1,0.0

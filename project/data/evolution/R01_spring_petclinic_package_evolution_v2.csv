@@ -1,0 +1,7 @@
+repository,package_path,period_start,period_end,commit_count,contributor_count,files_changed,total_insertions,total_deletions,total_churn
+R01_spring_petclinic,org.springframework.samples.petclinic,2020-01-01T00:00:00Z,2021-01-01T00:00:00Z,1,1,1,3,3,6
+R01_spring_petclinic,org.springframework.samples.petclinic.model,2020-01-01T00:00:00Z,2021-01-01T00:00:00Z,1,1,4,45,46,91
+R01_spring_petclinic,org.springframework.samples.petclinic.owner,2020-01-01T00:00:00Z,2021-01-01T00:00:00Z,1,1,10,487,484,971
+R01_spring_petclinic,org.springframework.samples.petclinic.system,2020-01-01T00:00:00Z,2021-01-01T00:00:00Z,1,1,3,28,28,56
+R01_spring_petclinic,org.springframework.samples.petclinic.vet,2020-01-01T00:00:00Z,2021-01-01T00:00:00Z,1,1,4,70,71,141
+R01_spring_petclinic,org.springframework.samples.petclinic.visit,2020-01-01T00:00:00Z,2021-01-01T00:00:00Z,1,1,2,43,43,86

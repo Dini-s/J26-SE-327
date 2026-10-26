@@ -1,0 +1,21 @@
+{
+  "dataset": "data\\processed\\hrim_semantic_fused_features.csv",
+  "rows": 2707,
+  "columns": 793,
+  "repositories": 11,
+  "duplicate_package_keys": 0,
+  "semantic_dimensions": 768,
+  "packages_with_semantic_embeddings": 880,
+  "packages_without_semantic_embeddings": 1827,
+  "missing_semantic_values": 1403136,
+  "missing_nonsemantic_columns": {
+    "graph_in_degree": 59,
+    "graph_out_degree": 59,
+    "graph_total_degree": 59,
+    "graph_pagerank": 59,
+    "graph_betweenness": 59,
+    "graph_component_id": 59
+  },
+  "target_columns_found": [],
+  "validation_passed": true
+}

@@ -1,0 +1,9 @@
+repository,examples,positive_examples,negative_examples
+R03_jabref,329,37,292
+R04_argouml,143,24,119
+R05_lucene,401,33,368
+R06_hadoop,1006,43,963
+R07_junit,106,16,90
+R08_apache_maven,84,7,77
+R09_kafca,327,39,288
+R11_key_cloak,870,37,833

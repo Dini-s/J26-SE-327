@@ -1,0 +1,7 @@
+repository,snapshot_date,commit_hash,source_package,target_package
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.gef,uci.ui
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.gef,uci.util
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.gef.demo,uci.gef
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.gef.demo,uci.util
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.ui,uci.gef
+R04_argouml,1998-01-26,6ef818a48b453627fd282971f3f9a28e28f54390,uci.ui,uci.util

@@ -1,125 +1,117 @@
-import React, { useState } from "react";
-import {
-  CalendarDays,
-  ChevronDown,
-  Database,
-  Play,
-  RefreshCw,
-} from "lucide-react";
+import { CalendarDays, Database, Play, RefreshCw } from "lucide-react";
+import { useState, useEffect } from "react";
 
-const ContentHeader = ({ title, subtitle }) => {
+import { useRepository } from "../../context/RepositoryContext";
+
+const ContentHeader = ({ title, subtitle, onRefresh }) => {
   const [refreshing, setRefreshing] = useState(false);
 
-  const handleRefresh = () => {
-    setRefreshing(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-    setTimeout(() => {
-      setRefreshing(false);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
     }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const formattedDateTime = new Intl.DateTimeFormat("en-LK", {
+    timeZone: "Asia/Colombo",
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  }).format(currentTime);
+
+  const {
+    selectedRepository,
+    setAnalysisResults,
+    analyzing,
+    setAnalyzing,
+    setAnalysisError,
+    analysisError,
+    analyzeRepository,
+  } = useRepository();
+
+  const handleRefresh = async () => {
+    if (!selectedRepository?.id) {
+      setAnalysisError("Please select a repository before refreshing.");
+      return;
+    }
+
+    try {
+      setRefreshing(true);
+      await analyzeRepository(selectedRepository.id);
+    } catch (error) {
+      console.error("Failed to refresh repository:", error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  const handleAnalyze = async () => {
+    if (!selectedRepository?.id) {
+      setAnalysisError("Please select a repository before analyzing.");
+      return;
+    }
+
+    setAnalyzing(true);
+    setAnalysisError("");
+
+    try {
+      const result = await analyzeRepository(selectedRepository.id);
+      setAnalysisResults(result);
+    } catch (error) {
+      setAnalysisError(error.message || "Repository analysis failed.");
+    } finally {
+      setAnalyzing(false);
+    }
   };
 
   return (
     <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-      {/* Left */}
       <div className="min-w-0">
         <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
           {title}
         </h1>
-
         <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
       </div>
 
-      {/* Right */}
       <div className="flex flex-wrap items-center gap-2">
-        {/* Repository */}
-        <button
-          type="button"
-          className="
-            flex h-9
-            items-center gap-2
-            rounded-lg
-            border border-slate-200
-            bg-white
-            px-3
-            text-[10px]
-            font-medium
-            text-slate-700
-            shadow-sm
-            transition
-            hover:border-indigo-200
-            hover:bg-indigo-50
-          "
-        >
+        <div className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-[10px] font-medium text-slate-700 shadow-sm">
           <Database size={14} className="text-indigo-600" />
-          Spring PetClinic
-          <ChevronDown size={13} />
-        </button>
-
-        {/* Date */}
-        <div
-          className="
-            flex h-9
-            items-center gap-2
-            rounded-lg
-            border border-slate-200
-            bg-white
-            px-3
-            text-[10px]
-            text-slate-600
-            shadow-sm
-          "
-        >
-          <CalendarDays size={14} className="text-slate-500" />
-          May 12, 2025&nbsp; 09:45 AM
+          <span>{selectedRepository?.name || "No repository selected"}</span>
         </div>
 
-        {/* Refresh */}
+        <CalendarDays size={14} className="text-slate-500" />
+        {formattedDateTime}
+
         <button
           type="button"
           onClick={handleRefresh}
-          className="
-            flex h-9
-            items-center gap-2
-            rounded-lg
-            border border-slate-200
-            bg-white
-            px-3
-            text-[10px]
-            font-medium
-            text-slate-700
-            shadow-sm
-            transition
-            hover:border-indigo-200
-            hover:text-indigo-600
-          "
+          disabled={refreshing}
+          className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-[10px] font-medium text-slate-700 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600 disabled:opacity-50"
         >
           <RefreshCw size={14} className={refreshing ? "animate-spin" : ""} />
           Refresh
         </button>
 
-        {/* Analyze */}
         <button
           type="button"
-          className="
-            flex h-9
-            items-center gap-2
-            rounded-lg
-            bg-indigo-600
-            px-4
-            text-[10px]
-            font-semibold
-            text-white
-            shadow-sm
-            shadow-indigo-600/20
-            transition
-            hover:bg-indigo-700
-            hover:shadow-md
-          "
+          onClick={handleAnalyze}
+          disabled={analyzing || !selectedRepository?.id}
+          className="flex h-9 items-center gap-2 rounded-lg bg-indigo-600 px-4 text-[10px] font-semibold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <Play size={13} fill="currentColor" />
-          Analyze Repository
+          {analyzing ? "Analyzing..." : "Analyze Repository"}
         </button>
       </div>
+
+      {analysisError && <p className="text-xs text-red-600">{analysisError}</p>}
     </div>
   );
 };

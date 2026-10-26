@@ -1,0 +1,3 @@
+repository,snapshot_date,commit_hash,source_package,target_package
+R10_teammates,2011-10-07,eeb1035f5634ddbb34efaf5670a56bf9ff4846a8,teammates,teammates.exception
+R10_teammates,2011-10-07,eeb1035f5634ddbb34efaf5670a56bf9ff4846a8,teammates,teammates.jdo

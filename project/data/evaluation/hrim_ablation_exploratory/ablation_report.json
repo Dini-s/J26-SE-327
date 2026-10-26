@@ -1,0 +1,99 @@
+{
+  "dataset": "data\\processed\\hrim_exploratory_multimodal_candidate.csv",
+  "rows": 929,
+  "repositories": 7,
+  "folds": 5,
+  "feature_groups": {
+    "structural": [
+      "java_files",
+      "nonempty_lines",
+      "fan_in",
+      "fan_out",
+      "total_coupling",
+      "instability",
+      "outgoing_dependency_count",
+      "incoming_dependency_count"
+    ],
+    "evolution": [
+      "commit_count",
+      "contributor_count",
+      "files_changed",
+      "total_insertions",
+      "total_deletions",
+      "total_churn"
+    ],
+    "graph": [
+      "graph_in_degree",
+      "graph_out_degree",
+      "graph_total_degree",
+      "graph_pagerank",
+      "graph_betweenness"
+    ],
+    "semantic_dimensions": 768
+  },
+  "results": [
+    {
+      "experiment": "A1_structural",
+      "samples": 929,
+      "repositories": 7,
+      "features": 8,
+      "accuracy": 0.5479009687836384,
+      "precision": 0.542713567839196,
+      "recall": 0.47577092511013214,
+      "f1": 0.5070422535211268,
+      "roc_auc": 0.5898771156967308,
+      "pr_auc": 0.6194324338202559,
+      "validation": "5-fold GroupKFold by repository",
+      "target": "architecture_change_proxy_label",
+      "temporal_alignment_verified": false
+    },
+    {
+      "experiment": "A2_structural_semantic",
+      "samples": 929,
+      "repositories": 7,
+      "features": 776,
+      "accuracy": 0.6372443487621098,
+      "precision": 0.6527415143603134,
+      "recall": 0.5506607929515418,
+      "f1": 0.5973715651135006,
+      "roc_auc": 0.6647507535358219,
+      "pr_auc": 0.6491988929870876,
+      "validation": "5-fold GroupKFold by repository",
+      "target": "architecture_change_proxy_label",
+      "temporal_alignment_verified": false
+    },
+    {
+      "experiment": "A3_structural_evolution_graph",
+      "samples": 929,
+      "repositories": 7,
+      "features": 19,
+      "accuracy": 0.6372443487621098,
+      "precision": 0.6511627906976745,
+      "recall": 0.5550660792951542,
+      "f1": 0.5992865636147443,
+      "roc_auc": 0.6940551820078832,
+      "pr_auc": 0.6880301039597683,
+      "validation": "5-fold GroupKFold by repository",
+      "target": "architecture_change_proxy_label",
+      "temporal_alignment_verified": false
+    },
+    {
+      "experiment": "A4_full_exploratory_hrim",
+      "samples": 929,
+      "repositories": 7,
+      "features": 787,
+      "accuracy": 0.6867599569429494,
+      "precision": 0.7150395778364116,
+      "recall": 0.5969162995594713,
+      "f1": 0.6506602641056423,
+      "roc_auc": 0.720547182935312,
+      "pr_auc": 0.7155445802434002,
+      "validation": "5-fold GroupKFold by repository",
+      "target": "architecture_change_proxy_label",
+      "temporal_alignment_verified": false
+    }
+  ],
+  "temporal_alignment_verified": false,
+  "target_interpretation": "architecture-change proxy, not verified architecture drift",
+  "warning": "Exploratory results: semantic embedding alignment to historical commits has not been verified."
+}

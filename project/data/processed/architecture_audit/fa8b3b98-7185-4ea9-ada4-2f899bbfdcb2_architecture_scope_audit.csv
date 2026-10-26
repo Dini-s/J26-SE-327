@@ -1,0 +1,2 @@
+repository,structural_packages,accepted_dependency_edges,excluded_dependency_edges,blank_dependency_rows,self_dependency_rows,circular_dependency_groups,edges_with_source_evidence,edges_without_source_evidence,layer_violation_candidates,layer_rules_configured
+fa8b3b98-7185-4ea9-ada4-2f899bbfdcb2,82,377,0,0,0,5,377,0,0,0

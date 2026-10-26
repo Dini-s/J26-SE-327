@@ -1,0 +1,6 @@
+repository,package_path,period_start,period_end,commit_count,contributor_count,files_changed,total_insertions,total_deletions,total_churn
+R01_spring_petclinic,org.springframework.samples.petclinic,2025-01-01T00:00:00Z,2026-01-01T00:00:00Z,4,3,3,25,10,35
+R01_spring_petclinic,org.springframework.samples.petclinic.model,2025-01-01T00:00:00Z,2026-01-01T00:00:00Z,4,4,4,39,38,77
+R01_spring_petclinic,org.springframework.samples.petclinic.owner,2025-01-01T00:00:00Z,2026-01-01T00:00:00Z,13,7,12,193,120,313
+R01_spring_petclinic,org.springframework.samples.petclinic.system,2025-01-01T00:00:00Z,2026-01-01T00:00:00Z,5,4,5,83,7,90
+R01_spring_petclinic,org.springframework.samples.petclinic.vet,2025-01-01T00:00:00Z,2026-01-01T00:00:00Z,4,4,6,36,21,57

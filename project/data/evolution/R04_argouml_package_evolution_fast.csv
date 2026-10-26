@@ -1,0 +1,16 @@
+repository,package_path,period_start,period_end,commit_count,contributor_count,files_changed,total_insertions,total_deletions,total_churn
+R04_argouml,jdepend.framework,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,12,0,2189,2189
+R04_argouml,jdepend.swingui,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,8,0,1370,1370
+R04_argouml,jdepend.textui,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,1,0,527,527
+R04_argouml,jdepend.xmlui,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,1,0,193,193
+R04_argouml,org.argouml.cognitive,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,1,28,22,50
+R04_argouml,org.argouml.core.propertypanels.ui,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,1,1,1,2
+R04_argouml,org.argouml.i18n,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,1,0,269,269
+R04_argouml,org.argouml.model,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,2,0,763,763
+R04_argouml,org.argouml.model.mdr,2015-01-01T00:00:00,2026-10-12T23:59:59,2,2,2,71,4,75
+R04_argouml,org.argouml.moduleloader,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,2,13,6,19
+R04_argouml,org.argouml.notation,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,1,5,2,7
+R04_argouml,org.argouml.profile.internal,2015-01-01T00:00:00,2026-10-12T23:59:59,2,1,1,13,2,15
+R04_argouml,org.argouml.uml.diagram.static_structure.ui,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,1,8,1,9
+R04_argouml,org.argouml.uml.ui,2015-01-01T00:00:00,2026-10-12T23:59:59,1,1,2,2,2,4
+R04_argouml,org.argouml.uml.util,2015-01-01T00:00:00,2026-10-12T23:59:59,2,1,1,100,16,116

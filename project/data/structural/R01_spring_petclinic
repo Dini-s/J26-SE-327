@@ -1,0 +1,6 @@
+package_path,java_files,lines_of_code
+org\springframework\samples\petclinic,3,90
+org\springframework\samples\petclinic\model,4,179
+org\springframework\samples\petclinic\owner,12,1130
+org\springframework\samples\petclinic\system,5,196
+org\springframework\samples\petclinic\vet,6,304

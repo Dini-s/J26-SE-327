@@ -1,0 +1,4 @@
+repository,previous_snapshot,current_snapshot,previous_package_count,current_package_count,packages_added,packages_removed,previous_dependency_edges,current_dependency_edges,dependency_edges_added,dependency_edges_removed,common_packages,common_packages_with_coupling_change,package_jaccard_similarity,dependency_jaccard_similarity,architecture_change_score
+R01_spring_petclinic,2015-12-22,2018-12-17,8,6,5,7,13,4,4,13,1,1,0.07692307692307693,0.0,0.9615384615384616
+R01_spring_petclinic,2018-12-17,2021-12-23,6,6,0,0,4,4,0,0,6,0,1.0,1.0,0.0
+R01_spring_petclinic,2021-12-23,2024-12-15,6,5,0,1,4,4,2,2,5,3,0.8333333333333334,0.3333333333333333,0.4166666666666667

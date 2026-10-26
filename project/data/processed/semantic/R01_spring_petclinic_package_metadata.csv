@@ -1,0 +1,6 @@
+repository_id,package_path,java_file_count,semantic_embedding_index,model_name
+R01_spring_petclinic,org.springframework.samples.petclinic,3,0,microsoft/graphcodebert-base
+R01_spring_petclinic,org.springframework.samples.petclinic.model,4,1,microsoft/graphcodebert-base
+R01_spring_petclinic,org.springframework.samples.petclinic.owner,12,2,microsoft/graphcodebert-base
+R01_spring_petclinic,org.springframework.samples.petclinic.system,5,3,microsoft/graphcodebert-base
+R01_spring_petclinic,org.springframework.samples.petclinic.vet,6,4,microsoft/graphcodebert-base
