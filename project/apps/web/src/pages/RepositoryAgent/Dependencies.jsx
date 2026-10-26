@@ -13,7 +13,8 @@ import {
   Workflow,
   X,
 } from "lucide-react";
-import ReactFlow, {
+import {
+  ReactFlow,
   Background,
   Controls,
   MiniMap,

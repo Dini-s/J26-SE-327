@@ -1,14 +1,7 @@
-
-import {
-  CalendarDays,
-  Database,
-  Play,
-  RefreshCw,
-} from "lucide-react";
-import { useState,useEffect } from "react";
+import { CalendarDays, Database, Play, RefreshCw } from "lucide-react";
+import { useState, useEffect } from "react";
 
 import { useRepository } from "../../context/RepositoryContext";
-import { analyzeRepository } from "../../services/repositoryApi";
 
 const ContentHeader = ({ title, subtitle, onRefresh }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -36,28 +29,28 @@ const ContentHeader = ({ title, subtitle, onRefresh }) => {
 
   const {
     selectedRepository,
-    analysisResults,
     setAnalysisResults,
     analyzing,
     setAnalyzing,
     setAnalysisError,
     analysisError,
+    analyzeRepository,
   } = useRepository();
 
   const handleRefresh = async () => {
-    if (onRefresh) {
-      setRefreshing(true);
-      try {
-        await onRefresh();
-      } finally {
-        setRefreshing(false);
-      }
+    if (!selectedRepository?.id) {
+      setAnalysisError("Please select a repository before refreshing.");
       return;
     }
 
-    // Refresh the current page's displayed state.
-    setRefreshing(true);
-    window.setTimeout(() => setRefreshing(false), 500);
+    try {
+      setRefreshing(true);
+      await analyzeRepository(selectedRepository.id);
+    } catch (error) {
+      console.error("Failed to refresh repository:", error);
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   const handleAnalyze = async () => {
@@ -91,9 +84,7 @@ const ContentHeader = ({ title, subtitle, onRefresh }) => {
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-[10px] font-medium text-slate-700 shadow-sm">
           <Database size={14} className="text-indigo-600" />
-          <span>
-            {selectedRepository?.name || "No repository selected"}
-          </span>
+          <span>{selectedRepository?.name || "No repository selected"}</span>
         </div>
 
         <CalendarDays size={14} className="text-slate-500" />
@@ -105,10 +96,7 @@ const ContentHeader = ({ title, subtitle, onRefresh }) => {
           disabled={refreshing}
           className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-[10px] font-medium text-slate-700 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600 disabled:opacity-50"
         >
-          <RefreshCw
-            size={14}
-            className={refreshing ? "animate-spin" : ""}
-          />
+          <RefreshCw size={14} className={refreshing ? "animate-spin" : ""} />
           Refresh
         </button>
 
@@ -123,9 +111,7 @@ const ContentHeader = ({ title, subtitle, onRefresh }) => {
         </button>
       </div>
 
-      {analysisError && (
-        <p className="text-xs text-red-600">{analysisError}</p>
-      )}
+      {analysisError && <p className="text-xs text-red-600">{analysisError}</p>}
     </div>
   );
 };

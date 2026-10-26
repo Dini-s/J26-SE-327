@@ -1,4 +1,3 @@
-
 import {
   Activity,
   AlertCircle,
@@ -64,19 +63,14 @@ const formatNumber = (value) => {
 };
 
 const HRIMModelSummary = () => {
-  const {
-    selectedRepository,
-    analysisResults,
-    analyzing,
-    analysisError,
-  } = useRepository();
+  const { selectedRepository, analysisResults, analyzing, analysisError } =
+    useRepository();
 
   // Values returned by the backend API.
   const results = analysisResults ?? {};
   const summary = results.summary ?? {};
 
-  const multimodalData =
-    results.multimodal_proxy_predictions ?? {};
+  const multimodalData = results.multimodal_proxy_predictions ?? {};
 
   const predictions = Array.isArray(multimodalData.predictions)
     ? multimodalData.predictions
@@ -91,29 +85,24 @@ const HRIMModelSummary = () => {
 
   const dependencyCount = summary.dependency_edges ?? null;
 
-  const architecturePackages =
-    summary.architecture_packages ?? null;
+  const architecturePackages = summary.architecture_packages ?? null;
 
   const evolutionFileCount =
-    summary.files_with_evolution ??
-    results.file_evolution_count ??
-    null;
+    summary.files_with_evolution ?? results.file_evolution_count ?? null;
 
   // Model configuration.
-  const modelName =
-    multimodalData.model_type ?? "Multimodal HRIM";
+  const modelName = multimodalData.model_type ?? "Multimodal HRIM";
 
   const featureGroups =
-    predictions.find((item) => item.feature_groups)?.feature_groups ??
-    {};
+    predictions.find((item) => item.feature_groups)?.feature_groups ?? {};
 
   const featureDimensions =
     multimodalData.feature_dimensions ??
-    predictions.find((item => item.feature_dimensions != null))
+    predictions.find((item) => item.feature_dimensions != null)
       ?.feature_dimensions ??
     Object.values(featureGroups).reduce(
       (total, count) => total + (Number(count) || 0),
-      0
+      0,
     );
 
   const temporalAlignmentVerified =
@@ -122,8 +111,7 @@ const HRIMModelSummary = () => {
   const isExploratory =
     multimodalData.status === "exploratory" ||
     predictions.some(
-      (item) =>
-        item.target === "architecture_change_proxy_label"
+      (item) => item.target === "architecture_change_proxy_label",
     );
 
   // Prefer the backend status, but show the live UI state
@@ -163,7 +151,6 @@ const HRIMModelSummary = () => {
 
   return (
     <section className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
-
       {/* Header */}
       <header className="relative overflow-hidden border-b border-slate-100 bg-gradient-to-br from-white via-white to-indigo-50/70 px-5 py-6 sm:px-7">
         <div className="pointer-events-none absolute -right-12 -top-16 h-48 w-48 rounded-full bg-indigo-100/50 blur-3xl" />
@@ -193,8 +180,7 @@ const HRIMModelSummary = () => {
               <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
                 <span className="text-slate-400">Repository</span>
                 <span className="max-w-full break-all rounded-md border border-slate-200 bg-white/80 px-2 py-1 font-medium text-slate-700">
-                  {selectedRepository?.name ||
-                    "No repository selected"}
+                  {selectedRepository?.name || "No repository selected"}
                 </span>
               </div>
 
@@ -231,7 +217,6 @@ const HRIMModelSummary = () => {
       </header>
 
       <div className="space-y-8 p-5 sm:p-7">
-
         {/* Repository metrics */}
         <section>
           <SectionHeading
@@ -241,37 +226,35 @@ const HRIMModelSummary = () => {
           />
 
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {metrics.map(
-              ({ label, value, description, icon: Icon }) => (
-                <article
-                  key={label}
-                  className="group min-w-0 rounded-xl border border-slate-200/80 bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-100/40 sm:p-5"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-colors group-hover:bg-indigo-100">
-                      <Icon size={19} strokeWidth={1.8} />
-                    </div>
-
-                    <ArrowUpRight
-                      size={15}
-                      className="text-slate-300 transition-colors group-hover:text-indigo-500"
-                    />
+            {metrics.map(({ label, value, description, icon: Icon }) => (
+              <article
+                key={label}
+                className="group min-w-0 rounded-xl border border-slate-200/80 bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-100/40 sm:p-5"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-colors group-hover:bg-indigo-100">
+                    <Icon size={19} strokeWidth={1.8} />
                   </div>
 
-                  <p className="mt-5 break-words text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                    {value}
-                  </p>
+                  <ArrowUpRight
+                    size={15}
+                    className="text-slate-300 transition-colors group-hover:text-indigo-500"
+                  />
+                </div>
 
-                  <p className="mt-2 text-xs font-semibold text-slate-700">
-                    {label}
-                  </p>
+                <p className="mt-5 break-words text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                  {value}
+                </p>
 
-                  <p className="mt-1 text-xs leading-5 text-slate-400">
-                    {description}
-                  </p>
-                </article>
-              )
-            )}
+                <p className="mt-2 text-xs font-semibold text-slate-700">
+                  {label}
+                </p>
+
+                <p className="mt-1 text-xs leading-5 text-slate-400">
+                  {description}
+                </p>
+              </article>
+            ))}
           </div>
 
           {architecturePackages !== null && (
@@ -329,15 +312,8 @@ const HRIMModelSummary = () => {
 
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {FEATURE_GROUPS.map(
-              ({
-                key,
-                label,
-                technology,
-                description,
-                icon: Icon,
-              }) => {
-                const dimensions =
-                  Number(featureGroups[key]) || 0;
+              ({ key, label, technology, description, icon: Icon }) => {
+                const dimensions = Number(featureGroups[key]) || 0;
 
                 const percentage =
                   Number(featureDimensions) > 0
@@ -394,78 +370,10 @@ const HRIMModelSummary = () => {
                     </div>
                   </article>
                 );
-              }
+              },
             )}
           </div>
         </section>
-
-        {/* Model validation notice */}
-        {isExploratory && (
-          <section className="overflow-hidden rounded-xl border border-amber-200/80 bg-amber-50/50">
-            <div className="flex items-start gap-3.5 p-4 sm:p-5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
-                <ShieldAlert size={20} />
-              </div>
-
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="text-sm font-semibold text-amber-950">
-                    Exploratory Model
-                  </h3>
-
-                  <span className="rounded-full border border-amber-200 bg-white/80 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-800">
-                    Validation Pending
-                  </span>
-                </div>
-
-                <p className="mt-2 text-xs leading-5 text-amber-900/80">
-                  {multimodalData?.caveat ??
-                    "Predictions use an exploratory architecture-change proxy target and should not be interpreted as validated architecture-drift detections."}
-                </p>
-
-                <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  <ValidationItem
-                    label="Temporal Alignment"
-                    value={
-                      temporalAlignmentVerified
-                        ? "Verified"
-                        : "Not Verified"
-                    }
-                    verified={temporalAlignmentVerified}
-                  />
-
-                  <ValidationItem
-                    label="Prediction Target"
-                    value="Exploratory Proxy"
-                    verified={false}
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Loading and error states */}
-        {analyzing && (
-          <FeedbackMessage
-            type="loading"
-            message="Analyzing repository data. Results will update when processing finishes."
-          />
-        )}
-
-        {analysisResults && !analysisError && !analyzing && (
-          <FeedbackMessage
-            type="success"
-            message="Repository analysis results received successfully."
-          />
-        )}
-
-        {analysisError && (
-          <FeedbackMessage
-            type="error"
-            message={analysisError}
-          />
-        )}
       </div>
     </section>
   );
@@ -481,9 +389,7 @@ const SectionHeading = ({ eyebrow, title, description }) => (
       {title}
     </h3>
 
-    <p className="mt-1.5 text-xs leading-5 text-slate-500">
-      {description}
-    </p>
+    <p className="mt-1.5 text-xs leading-5 text-slate-500">{description}</p>
   </div>
 );
 
@@ -502,12 +408,7 @@ const InfoTile = ({ icon: Icon, label, value }) => (
   </div>
 );
 
-const StatusBadge = ({
-  analyzing,
-  error,
-  hasResults,
-  status,
-}) => {
+const StatusBadge = ({ analyzing, error, hasResults, status }) => {
   const styles = analyzing
     ? "border-indigo-200 bg-indigo-50 text-indigo-700"
     : error
@@ -529,10 +430,7 @@ const StatusBadge = ({
       role="status"
       className={`inline-flex w-fit shrink-0 items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium ${styles}`}
     >
-      <Icon
-        size={14}
-        className={analyzing ? "animate-spin" : ""}
-      />
+      <Icon size={14} className={analyzing ? "animate-spin" : ""} />
       {status}
     </span>
   );

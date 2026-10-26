@@ -260,9 +260,7 @@ def calculate_architecture_metrics(repo_name, repo_path):
             continue
         edges.add((source, target))
 
-    # Build source-level evidence from the repository itself. The package-level
-    # dependency CSV remains unchanged for compatibility with HRIM processing.
-    edge_evidence = collect_import_evidence(repo_path, structural_package_names)
+        edge_evidence = collect_import_evidence(repo_path, structural_package_names)
 
     graph = nx.DiGraph()
     graph.add_nodes_from(structural_package_names)

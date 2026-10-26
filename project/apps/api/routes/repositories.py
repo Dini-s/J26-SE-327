@@ -1,4 +1,6 @@
+import json
 import re
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 import httpx
@@ -32,14 +34,58 @@ from agents.repository_agent.services.recommendation_service import (
     get_package_recommendations,
 )
 
-from services.llama_recommendation_service import (
-    generate_recommendations,
-)
 
 router = APIRouter()
-#router = APIRouter(prefix="/api/ai", tags=["AI recommendations"])
+# router = APIRouter(prefix="/api/ai", tags=["AI recommendations"])
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 SEMANTIC_DIR = PROJECT_ROOT / "data" / "processed" / "semantic"
+ANALYSIS_CACHE_DIR = PROJECT_ROOT / "data" / "analysis_cache"
+
+
+def _cache_path(repository_id: str) -> Path:
+    # IDs are validated by the analysis service before any analysis runs.
+    if not repository_id or any(
+        char not in "0123456789abcdef-" for char in repository_id.lower()
+    ):
+        raise HTTPException(status_code=400, detail="Invalid repository ID.")
+    return ANALYSIS_CACHE_DIR / f"{repository_id}.json"
+
+
+def _read_analysis_cache(repository_id: str) -> dict | None:
+    path = _cache_path(repository_id)
+    if not path.is_file():
+        return None
+    try:
+        cached = json.loads(path.read_text(encoding="utf-8"))
+        result = cached.get("result")
+        if isinstance(result, dict) and result.get("repository_id") == repository_id:
+            result["cache"] = {
+                "hit": True,
+                "analyzed_at": cached.get("analyzed_at"),
+                "source": "backend_json_cache",
+            }
+            return result
+    except (OSError, json.JSONDecodeError, AttributeError):
+        # Ignore a malformed cache and rebuild it with a fresh analysis.
+        return None
+    return None
+
+
+def _write_analysis_cache(repository_id: str, result: dict) -> str:
+    ANALYSIS_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    analyzed_at = datetime.now(timezone.utc).isoformat()
+    cache_payload = {
+        "repository_id": repository_id,
+        "analyzed_at": analyzed_at,
+        "result": result,
+    }
+    destination = _cache_path(repository_id)
+    temporary = destination.with_suffix(".json.tmp")
+    temporary.write_text(
+        json.dumps(cache_payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    temporary.replace(destination)
+    return analyzed_at
 
 
 def _normalize_repository_key(value: str) -> str:
@@ -148,8 +194,29 @@ def get_repository_file_evolution(repository_id: str, limit: int = 500):
 
 
 @router.post("/{repository_id}/analyze")
-def analyze_repository_endpoint(repository_id: str):
+def analyze_repository_endpoint(repository_id: str, force: bool = False):
+    """Return cached analysis by default; use ?force=true to rerun analysis."""
     try:
+        # Ensure this ID belongs to a registered repository before serving cache.
+        registered_repository = next(
+            (
+                item.model_dump(mode="json")
+                for item in list_repositories()
+                if item.id == repository_id
+            ),
+            None,
+        )
+        if registered_repository is None:
+            raise HTTPException(
+                status_code=404, detail="Registered repository not found."
+            )
+
+        if not force:
+            cached_result = _read_analysis_cache(repository_id)
+            if cached_result is not None:
+                update_repository_status(repository_id, "Analysis Complete")
+                return cached_result
+
         result = analyze_registered_repository(repository_id)
 
         repository_path = PROJECT_ROOT / "data" / "user_repositories" / repository_id
@@ -168,15 +235,6 @@ def analyze_repository_endpoint(repository_id: str):
         )
 
         # Multimodal HRIM: run only when matching precomputed embeddings exist.
-        registered_repository = next(
-            (
-                item.model_dump(mode="json")
-                for item in list_repositories()
-                if item.id == repository_id
-            ),
-            None,
-        )
-
         semantic_csv = (
             _find_semantic_csv(registered_repository) if registered_repository else None
         )
@@ -220,6 +278,12 @@ def analyze_repository_endpoint(repository_id: str):
                 }
 
         update_repository_status(repository_id, "Analysis Complete")
+        analyzed_at = _write_analysis_cache(repository_id, result)
+        result["cache"] = {
+            "hit": False,
+            "analyzed_at": analyzed_at,
+            "source": "fresh_analysis",
+        }
         return result
 
     except LookupError as exc:
@@ -254,6 +318,7 @@ def get_repository_package_recommendations(
         ) from exc
 
 
+"""
 @router.post("/{repository_id}/llama-recommendations")
 async def create_package_llama_recommendations(
     repository_id: str,
@@ -288,3 +353,4 @@ async def create_package_llama_recommendations(
             status_code=502,
             detail="The local Llama service could not be reached.",
         ) from exc
+"""

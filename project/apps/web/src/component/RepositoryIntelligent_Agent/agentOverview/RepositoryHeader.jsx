@@ -1,129 +1,86 @@
-import{ useState } from "react";
-import {
-  CalendarDays,
-  ChevronDown,
-  Database,
-  Play,
-  RefreshCw,
-} from "lucide-react";
+import { RefreshCw, Play, Database, ChevronDown } from "lucide-react";
+import { useRepository } from "../../../context/RepositoryContext";
 
 const RepositoryHeader = () => {
-  const [refreshing, setRefreshing] = useState(false);
-
-  const handleRefresh = () => {
-    setRefreshing(true);
-
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 1000);
-  };
-
+  const {
+    repositories = [],
+    selectedRepository,
+    selectRepository,
+    analyzeRepository,
+    refreshRepositories,
+    analyzing,
+    loadingRepositories,
+    analysisError,
+  } = useRepository();
+  const handleAnalyze = () => analyzeRepository().catch(() => {});
+  const handleRefresh = () => refreshRepositories().catch(() => {});
   return (
     <div className="mb-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-      {/* Left */}
-      <div className="min-w-0">
+      <div>
         <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
           Repository Intelligence Dashboard
         </h1>
-
         <p className="mt-1 text-xs text-slate-500">
           AI-powered semantic repository and architecture intelligence
         </p>
       </div>
-
-      {/* Right */}
       <div className="flex flex-wrap items-center gap-2">
-        {/* Repository */}
-        <button
-          type="button"
-          className="
-            flex h-9
-            items-center gap-2
-            rounded-lg
-            border border-slate-200
-            bg-white
-            px-3
-            text-[10px]
-            font-medium
-            text-slate-700
-            shadow-sm
-            transition
-            hover:border-indigo-200
-            hover:bg-indigo-50
-          "
-        >
+        <label className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-[11px] text-slate-700 shadow-sm">
           <Database size={14} className="text-indigo-600" />
-          Spring PetClinic
+          <select
+            aria-label="Select repository"
+            className="max-w-[210px] bg-transparent outline-none"
+            value={selectedRepository?.id || ""}
+            onChange={(e) =>
+              selectRepository(
+                repositories.find((r) => r.id === e.target.value) || null,
+              )
+            }
+            disabled={loadingRepositories || repositories.length === 0}
+          >
+            {repositories.length === 0 && (
+              <option value="">
+                {loadingRepositories
+                  ? "Loading repositories…"
+                  : "No repositories found"}
+              </option>
+            )}
+            {repositories.map((repo) => (
+              <option key={repo.id} value={repo.id}>
+                {repo.name || repo.url || repo.id}
+              </option>
+            ))}
+          </select>
           <ChevronDown size={13} />
-        </button>
-
-        {/* Date */}
-        <div
-          className="
-            flex h-9
-            items-center gap-2
-            rounded-lg
-            border border-slate-200
-            bg-white
-            px-3
-            text-[10px]
-            text-slate-600
-            shadow-sm
-          "
-        >
-          <CalendarDays size={14} className="text-slate-500" />
-          May 12, 2025&nbsp; 09:45 AM
-        </div>
-
-        {/* Refresh */}
+        </label>
         <button
           type="button"
           onClick={handleRefresh}
-          className="
-            flex h-9
-            items-center gap-2
-            rounded-lg
-            border border-slate-200
-            bg-white
-            px-3
-            text-[10px]
-            font-medium
-            text-slate-700
-            shadow-sm
-            transition
-            hover:border-indigo-200
-            hover:text-indigo-600
-          "
+          disabled={loadingRepositories}
+          className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-[10px] font-medium text-slate-700 shadow-sm hover:border-indigo-200 disabled:opacity-50"
         >
-          <RefreshCw size={14} className={refreshing ? "animate-spin" : ""} />
-          Refresh
+          <RefreshCw
+            size={14}
+            className={loadingRepositories ? "animate-spin" : ""}
+          />
+          {loadingRepositories ? "Refreshing…" : "Refresh"}
         </button>
-
-        {/* Analyze */}
         <button
           type="button"
-          className="
-            flex h-9
-            items-center gap-2
-            rounded-lg
-            bg-indigo-600
-            px-4
-            text-[10px]
-            font-semibold
-            text-white
-            shadow-sm
-            shadow-indigo-600/20
-            transition
-            hover:bg-indigo-700
-            hover:shadow-md
-          "
+          onClick={handleAnalyze}
+          disabled={!selectedRepository?.id || analyzing}
+          className="flex h-9 items-center gap-2 rounded-lg bg-indigo-600 px-4 text-[10px] font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           <Play size={13} fill="currentColor" />
-          Analyze Repository
+          {analyzing ? "Analyzing…" : "Analyze Repository"}
         </button>
       </div>
+      {analysisError && (
+        <p role="alert" className="basis-full text-xs text-red-600">
+          {analysisError}
+        </p>
+      )}
     </div>
   );
 };
-
 export default RepositoryHeader;
