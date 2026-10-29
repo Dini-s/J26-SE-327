@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traceability Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js"></script>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1c2430;--muted:#667085;--line:#e3e6eb;--accent:#2f6fed;--ok:#1a9e5c;--warn:#e8890c;--bad:#d64545;--idle:#98a2b3;--chip:#eef1f6}
+@media (prefers-color-scheme:dark){:root{--bg:#10141b;--card:#1a2029;--text:#e6e9ef;--muted:#8d97a8;--line:#2a323e;--accent:#6b9bff;--ok:#38c07a;--warn:#f0a23a;--bad:#ef6b6b;--idle:#6b7686;--chip:#232b37}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 24px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:5}
+h1{font-size:18px;margin:0 14px 0 0}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button,.subnav button{background:none;border:0;padding:7px 14px;border-radius:7px;color:var(--muted);font:inherit;cursor:pointer}
+nav button.on,.subnav button.on{background:var(--chip);color:var(--text);font-weight:600}
+.pill{display:inline-flex;gap:6px;align-items:center;padding:3px 10px;border-radius:99px;background:var(--chip);font-size:12.5px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--idle)}
+.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}.dot.warn{background:var(--warn)}
+main{padding:20px 24px;max-width:1300px;margin:auto}
+.page,.sub{display:none;gap:16px;flex-direction:column}.page.on,.sub.on{display:flex}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.panel h2{font-size:15px;margin:0;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.body{padding:14px 16px}
+.lead{color:var(--muted);margin:0 0 10px}
+textarea,select,input,button.b{font:inherit;color:var(--text);background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:8px 11px}
+textarea{width:100%;resize:vertical}
+button.b{cursor:pointer}button.b:disabled{opacity:.45;cursor:not-allowed}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;padding:9px 18px}
+button.danger{background:var(--bad);color:#fff;border-color:var(--bad);font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:10px}
+.row label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}
+.msg{color:var(--muted);font-size:13px;white-space:pre-wrap;margin-top:10px}.msg.err{color:var(--bad)}
+.steps{display:flex;gap:10px;flex-wrap:wrap}
+.step{flex:1 1 200px;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--card)}
+.step .n{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--idle)}
+.step .t{font-weight:600}.step .d{color:var(--muted);font-size:13px;margin-top:2px}
+.step.done{border-color:var(--ok)}.step.done .n{color:var(--ok)}
+.step.active{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 22%,transparent)}.step.active .n{color:var(--accent)}
+.step.interrupted{border-color:var(--bad)}.step.interrupted .n{color:var(--bad)}
+.banner{padding:12px 16px;border-radius:10px;border:1px solid var(--line);font-weight:600}
+.banner.ok{border-color:var(--ok);color:var(--ok)}.banner.bad{border-color:var(--bad);color:var(--bad)}.banner.info{border-color:var(--accent);color:var(--accent)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+.graph{height:440px}.graph.big{height:600px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;padding:8px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.legend label{display:inline-flex;gap:5px;align-items:center;cursor:pointer}
+.sw{width:18px;height:0;border-top:3px solid}
+.detail{padding:12px 16px;white-space:pre-wrap;font-size:13px;max-height:260px;overflow:auto;color:var(--muted);border-top:1px solid var(--line)}
+.detail b{color:var(--text)}
+.card{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:var(--card)}
+.card .t{display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:600}
+.card .r{color:var(--muted);font-size:13px;margin-top:4px;white-space:pre-wrap}
+.badge{font-size:11px;padding:2px 9px;border-radius:99px;color:#fff;white-space:nowrap}
+.badge.yes{background:var(--ok)}.badge.no{background:var(--idle)}.badge.err{background:var(--bad)}.badge.warn{background:var(--warn)}
+.scroll{max-height:540px;overflow:auto}
+.empty{padding:16px;color:var(--muted)}
+table{border-collapse:collapse;width:100%}td,th{padding:6px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:500;font-size:12px}
+.diff{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.diff pre{margin:0;padding:8px;border-radius:8px;background:var(--chip);font-size:12px;white-space:pre-wrap;max-height:180px;overflow:auto}
+.diff .bef{border-left:3px solid var(--ok)}.diff .aft{border-left:3px solid var(--bad)}
+details{margin-top:6px}summary{cursor:pointer;color:var(--muted);padding:8px 16px}
+.subnav{display:flex;gap:4px;flex-wrap:wrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px}
+.cardm{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.cardm .k{color:var(--muted);font-size:12px}.cardm .v{font-size:22px;font-weight:600;margin-top:2px}.cardm .s{color:var(--muted);font-size:12px;margin-top:2px}
+.bar{height:6px;border-radius:4px;background:var(--chip);margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);width:0}
+.stages{display:flex;gap:8px;flex-wrap:wrap}
+.stage{flex:1 1 150px;min-width:150px;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stage .t{font-weight:600;font-size:13px}.stage .d{color:var(--muted);font-size:12px;margin-top:4px}.stage .st{font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;color:var(--idle)}
+.stage.done{border-color:var(--ok)}.stage.done .st{color:var(--ok)}.stage.active{border-color:var(--accent)}.stage.active .st{color:var(--accent)}.stage.interrupted{border-color:var(--bad)}.stage.interrupted .st{color:var(--bad)}.stage.skipped{opacity:.6}
+.bars{display:flex;flex-direction:column;gap:14px}.bgroup .lab{font-size:12px;color:var(--muted);margin-bottom:3px}
+.brow{display:flex;align-items:center;gap:8px;margin:2px 0;font-size:12px}.brow .n{width:90px;color:var(--muted)}.brow .track{flex:1;background:var(--chip);border-radius:4px;height:14px;overflow:hidden}.brow .fill{height:100%;border-radius:4px}.brow .p{width:46px;text-align:right}
+code{background:var(--chip);padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Traceability dashboard</h1>
+  <nav id="nav"></nav>
+  <span style="flex:1"></span>
+  <label class="pill" title="Each project (repository) has its own graph, links and decay records">Project <select id="proj" style="padding:2px 6px;border-radius:6px"><option value="">All projects</option></select></label>
+  <span class="pill" id="p-neo"><span class="dot"></span><span>Neo4j</span></span>
+  <span class="pill" id="p-llm"><span class="dot"></span><span>AI model</span></span>
+</header>
+<main>
+
+<!-- ============ 1. LINK A REQUIREMENT ============ -->
+<section class="page" id="page-link">
+  <div class="panel">
+    <h2>Step 1 · C4 links a new requirement to code <span class="pill">choose the project at the top</span></h2>
+    <div class="body">
+      <p class="lead">Type a requirement. The system finds the code that implements it, the AI checks each candidate, and the confirmed links are saved to the graph.</p>
+      <textarea id="n-text" rows="3" placeholder="e.g. The system shall record an error code in non-volatile memory when an unrecoverable software error occurs."></textarea>
+      <div class="row">
+        <label>Id (optional)<input id="n-id" placeholder="NEW-001" style="width:130px"></label>
+        <label>Candidates to check<select id="n-topk"><option value="3" selected>3 (about 3 min)</option><option value="5">5 (about 5 min)</option><option value="10">10 (about 10 min)</option></select></label>
+        <button class="b primary" id="n-go">Find code for this requirement</button>
+      </div>
+      <div class="msg" id="n-msg"></div>
+    </div>
+  </div>
+  <div id="n-progress" style="display:none;flex-direction:column;gap:16px">
+    <div class="panel"><h2>What the system is doing <span class="pill" id="n-id-pill"></span></h2><div class="body"><div class="steps" id="n-steps"></div></div></div>
+    <div class="banner" id="n-banner" style="display:none"></div>
+    <div class="grid2">
+      <div class="panel"><h2>The AI's decision for each candidate <span class="pill" id="n-count">0</span></h2><div class="body scroll" id="n-cards"><div class="empty">Waiting for the first decision...</div></div></div>
+      <div class="panel"><h2>Requirement and candidate code <span class="pill" id="n-gmeta">–</span></h2><div id="lgraph" class="graph"></div><div class="legend" id="llegend"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. GRAPH ============ -->
+<section class="page" id="page-graph">
+  <div class="panel">
+    <h2><span>The knowledge graph (USKG)</span>
+      <span class="row" style="margin:0;align-items:center">
+        <input id="u-search" placeholder="find a requirement or code id..." style="width:230px">
+        <button class="b" id="u-refresh">Refresh</button><span class="pill" id="u-meta">–</span>
+      </span>
+    </h2>
+    <div id="ugraph" class="graph big"></div>
+    <div class="legend" id="ulegend"></div>
+    <div class="detail" id="udetail">Click a requirement, a code file, a link or a DecayFlag to see the details.</div>
+  </div>
+</section>
+
+<!-- ============ 3. CODE CHANGES ============ -->
+<section class="page" id="page-changes">
+  <div class="panel">
+    <h2>Step 2 · A commit changes code: C4 detects the decay and notifies C3</h2>
+    <div class="body">
+      <p class="lead">In the real system, the repository component (C2) watches the repository and tells C4 which files a commit changed. Here you make the commit yourself. C4 then re-checks only the links that depend on those files, not the whole project.</p>
+      <div class="row">
+        <label>1. A code file that has a link<select id="d-code" style="min-width:230px;max-width:340px"></select></label>
+        <label>2. What changed?<select id="d-mut" style="min-width:260px"></select></label>
+        <button class="b primary" id="d-go">3. Commit the change</button>
+        <button class="b" id="d-undo">Undo my commits</button>
+      </div>
+      <div class="msg" id="d-msg"></div>
+      <div class="diff" id="d-diff" style="display:none"><div><b>Before</b><pre class="bef" id="d-before"></pre></div><div><b>After</b><pre class="aft" id="d-after"></pre></div></div>
+    </div>
+  </div>
+  <div class="banner info" id="d-banner" style="display:none"></div>
+  <div class="panel"><h2>What the system did <span class="pill" id="ev-meta">–</span></h2><div id="events" class="scroll"><div class="empty">Nothing yet. Make a change above.</div></div>
+    <details><summary>Decayed links and DecayFlag history (details)</summary><div id="decayed" style="padding:0 16px 8px"></div><div id="flags" style="padding:0 16px 12px"></div></details>
+  </div>
+</section>
+
+<!-- ============ ADVANCED ============ -->
+<section class="page" id="page-advanced">
+  <div class="subnav" id="subnav"></div>
+
+  <div class="sub" id="sub-overview">
+    <div class="panel"><h2>Pipeline stages <span class="pill" id="p-redis"><span class="dot"></span><span>Redis</span></span></h2><div class="body"><div class="stages" id="stages"></div></div></div>
+    <div class="grid2">
+      <div class="panel"><h2>USKG contents</h2><div id="neo"><div class="empty">Checking...</div></div></div>
+      <div class="panel"><h2>Traceability completeness <span class="pill" id="comp-meta">–</span></h2><div id="comp" class="scroll"><div class="empty">Needs Neo4j.</div></div></div>
+    </div>
+  </div>
+
+  <div class="sub" id="sub-run">
+    <div class="panel"><h2>Run controls <span class="pill" id="r-state">checking...</span></h2><div class="body">
+      <div class="row" style="margin-top:0">
+        <label>What<select id="r-kind"><option value="link">link: find links and write them to Neo4j</option><option value="evaluate">evaluate: score against gold labels</option><option value="monitor">monitor: one decay pass</option></select></label>
+        <label id="l-dataset">Dataset<select id="r-dataset"></select></label>
+        <label id="l-limit">Requirements (blank = all)<input id="r-limit" type="number" min="1" max="500" value="5" style="width:90px"></label>
+        <label id="l-topk">Top-k<input id="r-topk" type="number" min="1" max="50" value="3" style="width:70px"></label>
+        <label id="l-retr">Retrieval<select id="r-retrieval"></select></label>
+        <label id="l-force" style="flex-direction:row;align-items:center;gap:6px"><input type="checkbox" id="r-force" style="width:auto"> re-check unchanged links</label>
+        <button class="b primary" id="r-start">Start</button><button class="b danger" id="r-stop" disabled>Stop</button><span class="pill" id="r-est"></span>
+      </div><div class="msg" id="r-msg"></div></div></div>
+    <div class="cards" id="run-cards"></div>
+    <div class="grid2">
+      <div class="panel"><h2>Latest run <span class="pill" id="rg-meta">–</span></h2><div id="rgraph" class="graph"></div><div class="legend" id="rlegend"></div><div class="detail" id="rdetail">Click a node or edge.</div></div>
+      <div class="panel"><h2>Live verdicts <span class="pill" id="feed-count">0</span></h2><div id="feed" class="scroll body"><div class="empty">Waiting for a run.</div></div></div>
+    </div>
+  </div>
+
+  <div class="sub" id="sub-results">
+    <div class="grid2">
+      <div class="panel"><h2>Stage-1 recall <select id="res-ds"></select></h2><div class="body"><div class="bars" id="res-bars"></div><div class="msg" id="res-note"></div></div></div>
+      <div class="panel"><h2>Precision, recall, F1</h2><div class="scroll" id="res-prf"></div></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h2>Targets from the spec</h2><div id="res-nfr"></div></div>
+      <div class="panel"><h2>Decay-injection test</h2><div class="body" id="res-decay"></div></div>
+    </div>
+    <div class="panel"><h2>Recorded runs <span class="pill" id="runs-meta">–</span></h2><div class="scroll" id="res-runs"></div></div>
+  </div>
+
+  <div class="sub" id="sub-setup">
+    <div class="grid2">
+      <div class="panel"><h2>Load demo data into Neo4j</h2><div class="body"><p class="lead">Writes <code>Requirement</code> and <code>CodeEntity</code> nodes (marked with a <code>dataset</code> property). Local Neo4j only. Stands in for the C1 and C2 components.</p>
+        <div class="row" style="margin-top:0"><label>Dataset<select id="s-dataset"></select></label><button class="b primary" id="s-load">Load</button></div><div class="msg" id="s-msg"></div></div></div>
+      <div class="panel"><h2>Reset C4 results</h2><div class="body"><p class="lead">Deletes the <code>VERIFIED_TRACE</code> edges and <code>DecayFlag</code> nodes of the project chosen at the top (every project if “All projects” is chosen), removes requirements typed into this dashboard, and undoes code edits. Loaded datasets are kept.</p>
+        <div class="row" style="margin-top:0"><button class="b danger" id="s-reset">Reset results</button></div><div class="msg" id="s-rmsg"></div></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const pct = x => x == null ? "–" : (x * 100).toFixed(1) + "%";
+const sec = x => x == null ? "–" : x.toFixed(1) + "s";
+const HDR = {"Content-Type":"application/json","X-Requested-With":"dashboard"};
+async function j(url){ const r = await fetch(url); if (!r.ok){ let d = {}; try { d = await r.json(); } catch(e){} throw new Error(d.detail || (url + " " + r.status)); } return r.json(); }
+async function post(url, body){ const r = await fetch(url, {method:"POST", headers:HDR, body: body ? JSON.stringify(body) : undefined}); const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.detail || r.status); return d; }
+let PROJECT = "";
+try { PROJECT = localStorage.getItem("project") || ""; } catch(e){}
+const pq = () => PROJECT ? "project=" + encodeURIComponent(PROJECT) : "";
+async function loadProjects(select){
+  try { const list = await j("/api/projects"), sel = $("proj");
+    if (select !== undefined) PROJECT = select;
+    if (PROJECT && !list.some(p => p.project === PROJECT)) PROJECT = "";
+    sel.replaceChildren(new Option("All projects", ""), ...list.map(p => new Option(`${p.project} · ${p.requirements} req · ${p.code_entities} code · ${p.links} links${p.decayed ? " · " + p.decayed + " decayed" : ""}`, p.project)));
+    sel.value = PROJECT; } catch(e){} }
+function refreshProject(){ loadGraph(); loadDecay(); loadDemoState(); pollCompleteness(); }
+$("proj").onchange = () => { PROJECT = $("proj").value; try { localStorage.setItem("project", PROJECT); } catch(e){} refreshProject(); };
+function msg(id, text, err){ const m = $(id); m.textContent = text; m.className = "msg" + (err ? " err" : ""); }
+function setPill(id, cls, text){ const p = $(id); p.firstElementChild.className = "dot " + cls; p.lastElementChild.textContent = text; }
+function table(headers, rows){ const t = document.createElement("table"); const h = t.createTHead().insertRow(); headers.forEach(x => { const c = document.createElement("th"); c.textContent = x; h.append(c); }); rows.forEach(r => { const tr = t.insertRow(); r.forEach(c => { const td = tr.insertCell(); if (c instanceof Node) td.append(c); else td.textContent = c == null ? "–" : c; }); }); return t; }
+const dark = () => matchMedia("(prefers-color-scheme: dark)").matches;
+
+/* ---------- graph helper ---------- */
+const CATS = {
+  verified:{label:"Link (verified)",color:"#1a9e5c",dashes:false,width:3}, decayed:{label:"Link (decayed)",color:"#d64545",dashes:false,width:3},
+  has_decay:{label:"Decay record",color:"#e8890c",dashes:[4,3],width:2}, truth:{label:"Ground-truth link (file preview)",color:"#7a5af8",dashes:false,width:2},
+  verified_correct:{label:"Verified, correct",color:"#1a9e5c",dashes:false,width:3}, verified_wrong:{label:"Verified, not in gold",color:"#e8890c",dashes:false,width:3},
+  rejected_true:{label:"Rejected but true",color:"#9b5de5",dashes:[6,4],width:2}, rejected:{label:"Checked, not linked",color:"#98a2b3",dashes:[3,5],width:1.5},
+  pending:{label:"Candidate, not checked yet",color:"#2f6fed",dashes:[6,4],width:1.5}, missed:{label:"True link not shortlisted",color:"#d64545",dashes:[2,6],width:1.5}};
+function nodeStyle(n){ const fc = dark() ? "#e6e9ef" : "#1c2430";
+  if (n.kind === "requirement") return n.orphan ? {shape:"box",color:{background:dark()?"#232b37":"#eef1f6",border:"#d64545"},borderWidth:2,shapeProperties:{borderDashes:[4,3]},font:{color:fc,size:13}} : {shape:"box",color:{background:"#2f6fed",border:"#2f6fed"},font:{color:"#fff",size:13}};
+  if (n.kind === "decayflag") return {shape:"diamond",size:14,color:{background:"#e8890c",border:"#e8890c"},font:{color:fc,size:11}};
+  return {shape:n.codeKind === "design" ? "square" : "dot",size:9,color:{background:"#8b97ab",border:"#8b97ab"},font:{color:fc,size:11}}; }
+function makeGraph(containerId, legendId, onClick, hiddenSet){
+  const nodes = new vis.DataSet(), edges = new vis.DataSet(); let net = null, lastSig = "";
+  const api = {nodes, edges,
+    render(g){ const sig = JSON.stringify([g.source, g.nodes.map(n => n.id + (n.orphan ? "o" : "")), g.edges.map(e => e.from + e.to + e.category)]); if (sig === lastSig) return false; lastSig = sig;
+      nodes.clear(); edges.clear(); nodes.add(g.nodes.map(n => ({id:n.id,label:n.label,raw:n,...nodeStyle(n)})));
+      edges.add(g.edges.map((e,i) => { const c = CATS[e.category] || CATS.rejected; return {id:i,from:e.from,to:e.to,category:e.category,color:{color:c.color,highlight:c.color},dashes:c.dashes,width:c.width,hidden:hiddenSet.has(e.category),arrows:"to",raw:e}; }));
+      const l = $(legendId); l.replaceChildren();
+      [...new Set(g.edges.map(e => e.category))].forEach(c => { const spec = CATS[c]; if (!spec) return; const lab = el("label"), cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = !hiddenSet.has(c);
+        cb.onchange = () => { cb.checked ? hiddenSet.delete(c) : hiddenSet.add(c); edges.update(edges.get().map(e => ({id:e.id, hidden: hiddenSet.has(e.category)}))); };
+        const sw = el("span","sw"); sw.style.borderColor = spec.color; if (spec.dashes) sw.style.borderTopStyle = "dashed"; lab.append(cb, sw, document.createTextNode(spec.label)); l.append(lab); });
+      if (g.nodes.length) l.append(el("span","", "blue box = requirement · dot/square = code · diamond = decay record · dashed red box = no link yet"));
+      if (!net){ net = new vis.Network($(containerId), {nodes, edges}, {physics:{solver:"forceAtlas2Based",forceAtlas2Based:{gravitationalConstant:-45,springLength:110},stabilization:{iterations:150}},interaction:{hover:true,tooltipDelay:150},edges:{smooth:false}}); net.on("click", p => onClick(p, nodes, edges)); api.net = net; }
+      return true; },
+    fit(){ if (net) { net.redraw(); net.fit({animation:false}); } },
+    focus(text){ const q = text.trim().toLowerCase(); if (!q || !net) return false; const hit = nodes.get().find(n => n.label.toLowerCase().includes(q)); if (!hit) return false; net.selectNodes([hit.id]); net.focus(hit.id,{scale:1.3,animation:true}); return hit; }};
+  return api; }
+
+/* ---------- navigation ---------- */
+const TOP = [["demo","C4 demo"],["graph","Graph"],["advanced","Advanced"]];
+const PAGE_IDS = ["link","changes","graph","advanced"], SHOWN = {demo:["link","changes"], graph:["graph"], advanced:["advanced"]};
+const SUB = [["overview","Pipeline"],["run","Live run"],["results","Results"],["setup","Demo setup"]];
+let current = "demo", currentSub = "overview";
+function show(name, sub){
+  current = name; PAGE_IDS.forEach(k => $("page-" + k).classList.toggle("on", SHOWN[name].includes(k)));
+  [...$("nav").children].forEach((b,i) => b.classList.toggle("on", TOP[i][0] === name));
+  history.replaceState(null, "", "#" + name);
+  if (name === "graph") { loadGraph(); setTimeout(() => uskgG.fit(), 150); }
+  if (name === "demo") { loadDemoState(); loadDecay(); setTimeout(() => linkG.fit(), 150); }
+  if (name === "advanced") showSub(sub || currentSub);
+}
+function showSub(name){
+  currentSub = name; SUB.forEach(([k]) => $("sub-" + k).classList.toggle("on", k === name)); [...$("subnav").children].forEach((b,i) => b.classList.toggle("on", SUB[i][0] === name));
+  if (name === "results") loadResults(); if (name === "setup") loadDemoState(); if (name === "run") setTimeout(() => runG.fit(), 150);
+}
+TOP.forEach(([k,l]) => { const b = el("button","",l); b.onclick = () => show(k); $("nav").append(b); });
+SUB.forEach(([k,l]) => { const b = el("button","",l); b.onclick = () => showSub(k); $("subnav").append(b); });
+
+/* ---------- 1. link a requirement ---------- */
+const linkHidden = new Set();
+const linkG = makeGraph("lgraph", "llegend", () => {}, linkHidden);
+let mine = {prev: null, id: null, reqId: null, active: false};
+async function currentRunId(){ try { return (await j("/api/run?after=0")).id; } catch(e){ return null; } }
+$("n-go").onclick = async () => {
+  const text = $("n-text").value.trim(); if (text.length < 15) return msg("n-msg","Write the requirement as a full sentence.", true);
+  $("n-go").disabled = true; msg("n-msg","Adding the requirement and starting...");
+  try { const prev = await currentRunId(); const r = await post("/api/requirements/link", {text, id:$("n-id").value.trim(), top_k:+$("n-topk").value, project:PROJECT});
+    mine = {prev, id: null, reqId: r.id, active: true}; $("n-progress").style.display = "flex"; $("n-id-pill").textContent = r.id; $("n-banner").style.display = "none";
+    $("n-cards").replaceChildren(el("div","empty","Waiting for the first decision...")); msg("n-msg", `Requirement ${r.id} added. The system is working on it (about ${r.minutes} minutes on the CPU server).`); renderSteps(null); }
+  catch(e){ msg("n-msg", e.message, true); $("n-go").disabled = false; } };
+function renderSteps(s){
+  const box = $("n-steps"); box.replaceChildren();
+  const st = !s ? "starting" : s.state, total = s && s.total != null ? s.total : "?";
+  const defs = [
+    ["Find candidate code", st === "starting" || st === "shortlisting" ? "active" : "done", st === "starting" ? "loading the model..." : st === "shortlisting" ? "comparing the text with every code file" : `${s.shortlisted} candidates shortlisted`],
+    ["AI checks each one", st === "verifying" ? "active" : st === "finished" ? "done" : st === "interrupted" ? "interrupted" : "pending", s && s.total != null ? `${s.done} of ${total} checked` : "waiting"],
+    ["Save links to the graph", st === "finished" ? "done" : st === "verifying" ? "active" : st === "interrupted" ? "interrupted" : "pending", s ? `${s.kept} link(s) saved` : "waiting"]];
+  defs.forEach(([t, state, d], i) => { const c = el("div","step " + state); c.append(el("div","n", state), el("div","t",(i+1) + ". " + t), el("div","d", d)); box.append(c); });
+}
+async function pollMine(){
+  if (!mine.active) return;
+  try {
+    const r = await j("/api/run?after=0");
+    if (!mine.id) { if (r.id && r.id !== mine.prev) mine.id = r.id; else return; }
+    if (r.id !== mine.id) return;
+    renderSteps(r.summary);
+    const cards = $("n-cards"); const items = r.feed.filter(e => e.type === "verdict" || e.type === "malformed");
+    $("n-count").textContent = items.length; if (items.length) cards.replaceChildren();
+    items.forEach(e => { const c = el("div","card"), t = el("div","t"); t.append(el("span","", e.target_id));
+      if (e.type === "malformed") t.append(el("span","badge err","unreadable reply")); else t.append(el("span","badge " + (e.kept ? "yes" : "no"), e.kept ? "LINKED" : "NOT LINKED"));
+      c.append(t); c.append(el("div","r", e.type === "malformed" ? e.error : (e.kept ? "AI confidence " + e.confidence.toFixed(2) : "AI is " + Math.round(e.confidence*100) + "% sure this is unrelated") + " · " + e.latency + "s\n" + e.reasoning)); cards.append(c); });
+    const g = await j("/api/graph?source=run"); if (linkG.render(g)) { $("n-gmeta").textContent = `${g.nodes.length} nodes`; setTimeout(() => linkG.fit(), 100); }
+    const b = $("n-banner");
+    if (r.summary.state === "finished") { mine.active = false; $("n-go").disabled = false; b.style.display = ""; b.className = "banner " + (r.summary.kept ? "ok" : "info");
+      b.replaceChildren(document.createTextNode(r.summary.kept ? `Done: ${mine.reqId} is linked to ${r.summary.kept} code file(s). ` : `Done: no candidate was confirmed for ${mine.reqId}. `));
+      const btn = el("button","b primary","See it in the graph"); btn.style.marginLeft = "10px"; btn.onclick = () => { show("graph"); setTimeout(() => { $("u-search").value = mine.reqId; focusSearch(); }, 500); }; b.append(btn); }
+    else if (r.summary.state === "interrupted") { mine.active = false; $("n-go").disabled = false; b.style.display = ""; b.className = "banner bad"; b.textContent = "The run was interrupted (the AI server may be unreachable). Try again."; }
+  } catch(e){}
+}
+
+/* ---------- 2. graph ---------- */
+const uskgHidden = new Set();
+const uskgG = makeGraph("ugraph", "ulegend", (p, nodes, edges) => { const d = $("udetail");
+  if (p.nodes.length){ const n = nodes.get(p.nodes[0]).raw;
+    if (n.kind === "requirement") showRequirement(n.label);
+    else if (n.kind === "decayflag") d.textContent = `DECAY RECORD\nCode file: ${n.codeEntityId}\nPrevious confidence: ${n.previousConfidence}\nWhen: ${n.flaggedAt}\n\nWhy:\n${n.text}`;
+    else d.textContent = `CODE  ${n.label}${n.codeKind ? " (" + n.codeKind + ")" : ""}\n\n${n.text || "(no text)"}`; }
+  else if (p.edges.length){ const e = edges.get(p.edges[0]).raw, c = CATS[e.category];
+    d.textContent = `${c ? c.label : e.category}\n${e.from.slice(2)} → ${e.to.slice(2)}\n` + (e.confidence != null ? `Confidence: ${e.confidence}\n` : "") + (e.checked ? `Last checked: ${e.checked}\n` : "") + (e.reasoning ? `\nWhy the AI linked them:\n${e.reasoning}` : ""); } }, uskgHidden);
+async function loadGraph(){
+  try { const g = await j("/api/uskg?" + pq()); const changed = uskgG.render(g); $("u-meta").textContent = `${g.nodes.length} nodes · ${g.edges.length} links`;
+    const hint = "Click a requirement, a code file, a link or a DecayFlag to see the details.";
+    if (g.edges.length && $("udetail").textContent.startsWith("Neo4j is connected but")) $("udetail").textContent = hint;
+    if (!g.edges.length) $("udetail").textContent = "Neo4j is connected but holds no links yet. Requirements with a dashed red border have no link. Use “Link a requirement” to create some.";
+    if (changed && current === "graph") setTimeout(() => uskgG.fit(), 120);
+  } catch(e){ $("udetail").textContent = "Could not load the graph: " + e.message; }
+}
+async function showRequirement(id){ const d = $("udetail");
+  try { const r = await j("/api/uskg/requirement/" + encodeURIComponent(id)); d.replaceChildren();
+    d.append(el("b","","REQUIREMENT " + r.id), document.createTextNode("\n" + r.text + "\n\n"));
+    d.append(el("b","", r.score.is_orphan ? "No verified link yet" : `Completeness ${r.score.score}%  (mean confidence ${(r.score.trace_confidence ?? 0).toFixed(2)})`), document.createTextNode("\n"));
+    r.links.forEach(l => d.append(document.createTextNode(`\n• ${l.code_id}  [${l.status}]  confidence ${l.confidence != null ? l.confidence.toFixed(2) : "–"}\n   ${l.justification || ""}\n`)));
+    if (r.decay_history.length){ d.append(el("b","","\nDecay history\n")); r.decay_history.forEach(f => d.append(document.createTextNode(`• ${f.code_id}: was ${f.previous}  ${f.at}\n   ${f.reason}\n`))); }
+  } catch(e){ d.textContent = "REQUIREMENT " + id + "\n(details need a connected Neo4j: " + e.message + ")"; } }
+function focusSearch(){ const hit = uskgG.focus($("u-search").value); if (hit && hit.raw.kind === "requirement") showRequirement(hit.raw.label); }
+$("u-search").onkeydown = e => { if (e.key === "Enter") focusSearch(); };
+$("u-refresh").onclick = loadGraph;
+
+/* ---------- 3. code changes ---------- */
+const MUT_LABEL = {unrelated_replacement:"Replace it with unrelated text (should break the link)", negate_behavior:"Reverse the meaning: shall becomes shall not", change_numbers:"Change the numbers (limits, sizes)", strip_to_first_sentence:"Delete everything except the first sentence", cosmetic_control:"Harmless formatting note (should NOT break the link)"};
+let chg = {startedAt: 0, codeId: null, watching: false};
+async function loadDemoState(){
+  try { const d = await j("/api/demo?" + pq());
+    $("d-mut").replaceChildren(...d.mutations.map(m => new Option(MUT_LABEL[m] || m.replace(/_/g," "), m)));
+    $("s-dataset").replaceChildren(...d.datasets.map(x => new Option(x, x)));
+    const sel = $("d-code"), prev = sel.value; sel.replaceChildren(...d.code_entities.map(c => new Option(`${c.id}${c.modified ? " (changed)" : ""} · ${c.status}`, c.id))); if (prev) sel.value = prev;
+    $("d-go").disabled = !d.allowed || !d.code_entities.length; $("d-undo").disabled = !d.allowed; $("s-load").disabled = $("s-reset").disabled = !d.allowed;
+    if (!d.allowed) { msg("d-msg", d.reason, true); msg("s-msg", d.reason, true); }
+    else if (!d.code_entities.length) msg("d-msg","No code file has a link yet. Link a requirement first (first tab); then you can change a file it links to.");
+    else if ($("d-msg").textContent.startsWith("No code file")) msg("d-msg","");
+  } catch(e){} }
+$("d-go").onclick = async () => {
+  const codeId = $("d-code").value; if (!codeId) return; $("d-go").disabled = true;
+  try { const r = await post("/api/demo/commit", {code_id:codeId, mutation:$("d-mut").value, project:PROJECT});
+    $("d-diff").style.display = ""; $("d-before").textContent = r.before; $("d-after").textContent = r.after;
+    chg = {startedAt: Date.now() - 3000, codeId, watching: true}; msg("d-msg", "Commit made. The repository component would now tell C4 which file changed; C4 re-checks only the links that depend on it (about a minute)...");
+    const b = $("d-banner"); b.style.display = ""; b.className = "banner info"; b.textContent = "Re-checking the links...";
+  }
+  catch(e){ msg("d-msg", e.message, true); chg.watching = false; $("d-banner").style.display = "none"; }
+  $("d-go").disabled = false; loadDemoState(); };
+$("d-undo").onclick = async () => { try { const r = await post("/api/demo/undo", {project:PROJECT}); msg("d-msg", `Undone: ${r.restored_texts} file(s) restored, ${r.flags_removed} decay record(s) removed. Links are verified again.`); $("d-diff").style.display = "none"; $("d-banner").style.display = "none"; chg.watching = false; loadDemoState(); loadDecay(); loadGraph(); } catch(e){ msg("d-msg", e.message, true); } };
+async function loadDecay(){
+  try { const d = await j("/api/decay?" + pq()); const ev = $("events"); ev.replaceChildren();
+    const items = d.events.filter(e => e.type === "decay_event" || e.type === "recheck");
+    if (!items.length) ev.append(el("div","empty","Nothing yet. Make a change above."));
+    items.slice().reverse().forEach(e => { const c = el("div","card"), t = el("div","t");
+      if (e.type === "decay_event"){ t.append(el("span","", `Message for the testing component (C3): ${e.event.requirementId} → ${e.event.codeEntityId}`), el("span","badge " + (e.delivered ? "yes" : "warn"), e.delivered ? "delivered" : "recorded (Redis not running)")); c.append(t);
+        const pre = el("div","r"); pre.textContent = JSON.stringify(e.event, null, 1); c.append(pre); }
+      else { t.append(el("span","", `Re-checked ${e.source_id} → ${e.target_id}`), el("span","badge " + (e.decayed ? "err" : "yes"), e.decayed ? "LINK BROKEN" : "link still holds")); c.append(t); c.append(el("div","r", `Confidence ${e.previous_confidence.toFixed(2)} → ${e.new_confidence.toFixed(2)}\n${e.reason}`)); }
+      ev.append(c); });
+    $("ev-meta").textContent = `${items.length} events`;
+    $("decayed").replaceChildren(d.decayed.length ? table(["Requirement","Code","Confidence","Checked"], d.decayed.map(r => [r.requirement, r.code, r.confidence != null ? r.confidence.toFixed(2) : "–", r.checked])) : el("div","empty","No decayed links."));
+    $("flags").replaceChildren(d.flags.length ? table(["Requirement","Code","Was","When","Reason"], d.flags.map(r => [r.requirement, r.code, r.previous != null ? r.previous.toFixed(2) : "–", r.at, r.reason])) : el("div","empty","No decay records."));
+    if (chg.watching){ const start = d.events.find(e => e.type === "run_start"), end = d.events.find(e => e.type === "run_end");
+      if (start && new Date(start.ts).getTime() >= chg.startedAt && end){ chg.watching = false; const re = d.events.filter(e => e.type === "recheck"), b = $("d-banner"), broken = re.filter(e => e.decayed);
+        b.style.display = ""; b.className = "banner " + (broken.length ? "bad" : "ok");
+        b.textContent = !re.length ? "Nothing was re-checked: the changed file has no link, or its text did not change." : broken.length ? `${broken.length} link(s) broken by this change. They are marked in the graph and C3 was notified.` : "The change did not break any link: the AI still considers the file related."; msg("d-msg",""); loadGraph(); } } } catch(e){} }
+
+/* ---------- advanced: status, pipeline, overview ---------- */
+async function pollStatus(){ try { const s = await j("/api/status");
+  setPill("p-neo", s.neo4j.connected ? "ok" : "bad", s.neo4j.connected ? "Neo4j connected" : "Neo4j offline");
+  const l = s.llm; setPill("p-llm", !l.configured ? "" : l.reachable ? "ok" : "bad", !l.configured ? "AI: default" : l.reachable ? "AI model ready" : "AI model unreachable");
+  const r = s.redis; setPill("p-redis", r.reachable ? "ok" : "warn", r.reachable ? "Redis connected" : r.installed ? "Redis offline" : "Redis not installed"); renderNeo(s.neo4j); } catch(e){} }
+function renderNeo(n){ const box = $("neo"); box.replaceChildren(); if (!n.connected){ box.append(el("div","empty","Not connected to " + n.uri + (n.error ? "\n" + n.error : ""))); return; }
+  const c = n.counts; box.append(table(["Node or edge","Count"],[["Requirement",c.requirements],["CodeEntity",c.code_entities],["VERIFIED_TRACE",c.verified_traces],["  of which decayed",c.decayed],["DecayFlag",c.decay_flags]])); }
+async function pollPipeline(){ try { const p = await j("/api/pipeline"); const box = $("stages"); box.replaceChildren();
+  p.stages.forEach((s,i) => { const d = el("div","stage " + s.state); d.append(el("div","st", s.state), el("div","t", (i+1) + ". " + s.title), el("div","d", s.detail)); box.append(d); }); } catch(e){} }
+async function pollCompleteness(){ const box = $("comp"); try { const c = await j("/api/completeness?" + pq());
+  $("comp-meta").textContent = `${c.requirements} requirements · ${c.orphans.length} without a link · mean ${c.mean_score.toFixed(1)}%`; const t = document.createElement("table");
+  c.rows.slice(0, 60).forEach(r => { const row = t.insertRow(); const a = row.insertCell(); a.textContent = r.requirement_id; const bar = row.insertCell(); bar.style.width = "45%"; const b = el("div","bar"), i = el("i"); i.style.width = r.score + "%"; i.style.background = r.is_orphan ? "var(--bad)" : "var(--ok)"; b.append(i); bar.append(b); row.insertCell().textContent = r.is_orphan ? "no link" : r.score.toFixed(1) + "%"; });
+  box.replaceChildren(t); } catch(e){ $("comp-meta").textContent = "–"; box.replaceChildren(el("div","empty","Needs a connected Neo4j with requirements loaded.")); } }
+
+/* ---------- advanced: live run + runner ---------- */
+function renderCards(box, s){ box.replaceChildren(); const add = (k, v, sub, bar) => { const d = el("div","cardm"); d.append(el("div","k",k), el("div","v",v)); if (sub) d.append(el("div","s",sub)); if (bar != null){ const b = el("div","bar"), i = el("i"); i.style.width = Math.min(100, bar*100) + "%"; b.append(i); d.append(b);} box.append(d); };
+  if (s.state === "none"){ add("Run","No run yet",""); return; }
+  add("Progress", `${s.done} / ${s.total ?? "?"}`, `${s.state} · ${s.sources} requirements x top-${s.top_k}`, s.total ? s.done/s.total : 0); add("Links kept", s.kept, `${s.malformed} unreadable replies`);
+  if (s.true_links) { add("Precision (live)", pct(s.precision), `TP ${s.tp} · FP ${s.fp}`); add("Recall (so far)", pct(s.recall), `FN ${s.fn} of ${s.true_links} true links`); add("F1 (live)", pct(s.f1), s.state === "finished" ? "final" : "provisional"); add("Stage-1 recall ceiling", pct(s.shortlisted_true / s.true_links), `${s.shortlisted_true} of ${s.true_links} true links shortlisted`); } else add("Scoring", "n/a", "no gold labels for this run");
+  add("AI latency", sec(s.mean_latency), `p95 ${sec(s.p95_latency)}`); }
+const runHidden = new Set();
+const runG = makeGraph("rgraph", "rlegend", (p, nodes, edges) => { const d = $("rdetail");
+  if (p.nodes.length){ const n = nodes.get(p.nodes[0]).raw; d.textContent = `${n.kind.toUpperCase()}  ${n.label}\n\n${n.text || "(no text)"}`; }
+  else if (p.edges.length){ const e = edges.get(p.edges[0]).raw, c = CATS[e.category]; d.textContent = `${c ? c.label : e.category}\n${e.from.slice(2)} → ${e.to.slice(2)}\n` + (e.truth === true ? "In ground truth\n" : e.truth === false ? "Not in ground truth\n" : "") + (e.similarity != null ? `Stage-1 score: ${e.similarity}\n` : "") + (e.confidence != null ? `AI confidence: ${e.confidence}\n` : "") + (e.reasoning ? `\n${e.reasoning}` : ""); } }, runHidden);
+let feedAfter = 0, feedN = 0, runId = null;
+async function pollRun(){ try { const r = await j("/api/run?after=" + feedAfter);
+  if (r.id && r.id !== runId){ runId = r.id; feedAfter = 0; feedN = 0; $("feed").replaceChildren(el("div","empty","Loading run...")); return pollRun(); }
+  feedAfter = r.next; const f = $("feed"); if (feedN === 0 && r.feed.length) f.replaceChildren();
+  r.feed.forEach(e => { const c = el("div","card"), t = el("div","t"); t.append(el("span","", `${e.source_id} → ${e.target_id}`)); if (e.type === "malformed") t.append(el("span","badge err","unreadable")); else t.append(el("span","badge " + (e.kept ? "yes" : "no"), (e.kept ? "linked " : "not linked ") + e.confidence.toFixed(2))); c.append(t);
+    if (e.type === "verdict"){ const rr = el("div","r"); rr.textContent = (e.truth === true ? "in gold · " : e.truth === false ? "not in gold · " : "") + `${e.latency}s · ${e.reasoning}`; c.append(rr); } else c.append(el("div","r",e.error)); f.prepend(c); feedN++; });
+  $("feed-count").textContent = feedN; renderCards($("run-cards"), r.summary);
+  if (current === "advanced" && currentSub === "run"){ const g = await j("/api/graph?source=run"); if (runG.render(g)) { $("rg-meta").textContent = `${g.nodes.length} nodes · ${g.edges.length} edges`; setTimeout(() => runG.fit(), 100); } } } catch(e){} }
+let runnerInit = false, est = null;
+const runnerParams = () => { const k = $("r-kind").value; return k === "monitor" ? {kind:k, force:$("r-force").checked, project:PROJECT} : {kind:k, project:PROJECT, dataset:$("r-dataset").value, retrieval:$("r-retrieval").value, top_k:+$("r-topk").value, limit_sources:$("r-limit").value === "" ? null : +$("r-limit").value}; };
+function kindUi(){ const k = $("r-kind").value; $("l-dataset").style.display = k === "evaluate" ? "" : "none"; $("l-limit").style.display = $("l-topk").style.display = $("l-retr").style.display = k === "monitor" ? "none" : ""; $("l-force").style.display = k === "monitor" ? "" : "none"; refreshEstimate(); }
+async function refreshEstimate(){ try { est = await post("/api/runner/estimate", runnerParams()); $("r-est").textContent = est.calls != null ? `≈ ${est.calls} AI calls · ~${est.minutes} min` : (est.note || ""); } catch(e){ est = null; $("r-est").textContent = e.message; } }
+async function pollRunner(){ try { const s = await j("/api/runner");
+  if (!runnerInit){ runnerInit = true; $("r-dataset").replaceChildren(...s.datasets.map(d => new Option(d, d, d === "itrust", d === "itrust"))); $("r-retrieval").replaceChildren(...s.retrievals.map(d => new Option(d, d))); ["r-kind","r-dataset","r-limit","r-topk","r-retrieval","r-force"].forEach(id => $(id).oninput = kindUi); kindUi(); }
+  const busy = s.state !== "idle"; $("r-state").textContent = {idle:"idle", running:"running (started here)", external:"a run started elsewhere is active"}[s.state];
+  $("r-start").disabled = busy || !s.allowed; $("r-stop").disabled = s.state !== "running";
+  if (!s.allowed) msg("r-msg","Starting runs is disabled (DASHBOARD_ALLOW_RUN=0).", true); else if (s.state === "external") msg("r-msg",`A run started outside this dashboard is active (pid ${s.external_pids[0]}).`);
+  else if (s.state === "idle" && s.last_exit_code != null && s.last_exit_code !== 0) msg("r-msg",`Last run exited with code ${s.last_exit_code}.\n${s.log}`, true); } catch(e){ $("r-state").textContent = "API unreachable"; } }
+$("r-start").onclick = async () => { if (!est) return; const k = $("r-kind").value; const what = k === "link" ? "This writes links to Neo4j." : k === "monitor" ? "This re-verifies changed links." : "Nothing is written to Neo4j.";
+  if (!confirm(`Start a ${k} run?\n\n${est.calls != null ? est.calls + " AI calls, about " + est.minutes + " minutes.\n" : ""}${what}`)) return;
+  try { const r = await post("/api/runner/start", runnerParams()); msg("r-msg", `Started (pid ${r.pid}).`); } catch(err){ msg("r-msg", err.message, true); } pollRunner(); };
+$("r-stop").onclick = async () => { if (!confirm("Stop the running process?")) return; try { await post("/api/runner/stop"); msg("r-msg","Stop signal sent."); } catch(err){ msg("r-msg", err.message, true); } pollRunner(); };
+
+/* ---------- advanced: setup + results ---------- */
+$("s-load").onclick = async () => { msg("s-msg","Loading..."); try { const r = await post("/api/demo/load", {dataset:$("s-dataset").value}); msg("s-msg", r.message + " It now appears in the Project list."); await loadProjects(); pollStatus(); } catch(e){ msg("s-msg", e.message, true); } };
+$("s-reset").onclick = async () => { if (!confirm("Delete all links, decay records and requirements typed into this dashboard, and undo code edits?")) return;
+  try { const r = await post("/api/demo/reset", {project:PROJECT}); msg("s-rmsg", `Deleted ${r.deleted_links} links and ${r.deleted_flags} decay records; restored ${r.restored_texts} edited files.`); pollStatus(); loadGraph(); } catch(e){ msg("s-rmsg", e.message, true); } };
+let RES = null; const METHOD_COL = {tfidf:"#98a2b3", embeddings:"#7a5af8", hybrid:"#2f6fed"};
+function drawBars(){ const ds = $("res-ds").value, box = $("res-bars"); box.replaceChildren(); const data = RES.stage1_recall[ds];
+  Object.keys(data).sort((a,b) => a - b).forEach(k => { const g = el("div","bgroup"); g.append(el("div","lab", `top-${k} per requirement`)); ["tfidf","embeddings","hybrid"].forEach(m => { const row = el("div","brow"); row.append(el("span","n", m)); const tr = el("div","track"), f = el("div","fill"); f.style.width = (data[k][m]*100) + "%"; f.style.background = METHOD_COL[m]; tr.append(f); row.append(tr, el("span","p", (data[k][m]*100).toFixed(1) + "%")); g.append(row); }); box.append(g); });
+  const info = RES.datasets[ds]; $("res-note").textContent = `${ds}: ${info.requirements} requirements, ${info.targets} targets, ${info.true_links} true links (${info.language}). Random guessing would give precision ${(info.base_rate*100).toFixed(1)}%.` + (RES.stage1_recall_notes[ds] ? "\n" + RES.stage1_recall_notes[ds] : ""); }
+async function loadResults(){ try { RES = await j("/api/results");
+  if (!$("res-ds").children.length) { $("res-ds").replaceChildren(...Object.keys(RES.stage1_recall).map(d => new Option(d, d))); $("res-ds").onchange = drawBars; } drawBars();
+  $("res-prf").replaceChildren(table(["Dataset","Method","P","R","F1"], RES.prf.map(r => [r.dataset, r.method, r.precision.toFixed(3), r.recall.toFixed(3), r.f1.toFixed(3)])));
+  $("res-nfr").replaceChildren(table(["Target","Spec","Measured","Met"], RES.nfr.map(r => [r.name, r.target, r.measured, el("span","badge " + (r.met ? "yes" : "err"), r.met ? "met" : "not met")])));
+  const dc = $("res-decay"); dc.replaceChildren();
+  if (RES.decay_injection){ const d = RES.decay_injection; dc.append(el("div","", `Decay detection accuracy ${pct(d.decay_detection_accuracy)} · false decay rate ${pct(d.false_decay_rate)}`), table(["Edit","Injected","Detected"], Object.entries(d.per_mutation).map(([k,v]) => [k, v.injected, v.detected]))); }
+  else { dc.append(el("div","","Not measured yet (target: at least 85% of broken links flagged)."), el("div","msg","Run: python -m agents.traceability_agent.decay_injection --neo4j --sample 8")); }
+  if (RES.pending && RES.pending.length) dc.append(el("div","msg","Still pending:\n- " + RES.pending.join("\n- ")));
+  const runs = await j("/api/runs/summary"); $("runs-meta").textContent = runs.length;
+  $("res-runs").replaceChildren(runs.length ? table(["Run","Kind","State","Done","Kept","P","R","F1","Latency"], runs.map(r => [r.id.slice(0,24), r.kind + (r.prompt ? " · " + r.prompt : ""), r.state, r.kind === "monitor" ? `${r.rechecked} re-checked` : `${r.done ?? "–"}/${r.total ?? "–"}`, r.kind === "monitor" ? `${r.decayed} decayed` : r.kept, r.scored ? pct(r.precision) : "–", r.scored ? pct(r.recall) : "–", r.scored ? pct(r.f1) : "–", sec(r.mean_latency)])) : el("div","empty","No recorded runs.")); } catch(e){} }
+
+/* ---------- start ---------- */
+const hashPage = () => { const n = location.hash.slice(1); return TOP.some(([k]) => k === n) ? n : "demo"; };
+window.addEventListener("hashchange", () => { const n = hashPage(); if (n !== current) show(n); });
+show(hashPage());
+loadProjects(); pollStatus(); pollPipeline(); pollRun(); pollRunner(); pollCompleteness(); loadDemoState();
+setInterval(() => { if (document.activeElement !== $("proj")) loadProjects(); }, 15000); setInterval(pollStatus, 5000); setInterval(pollPipeline, 3000); setInterval(pollRun, 2500); setInterval(pollRunner, 3000); setInterval(pollCompleteness, 10000); setInterval(pollMine, 2500);
+setInterval(() => { if (current === "graph") loadGraph(); if (current === "demo") loadDecay(); }, 4000);
+</script>
+</body>
+</html>

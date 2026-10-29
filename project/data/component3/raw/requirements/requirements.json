@@ -1,0 +1,722 @@
+[
+  {
+    "requirement_id": "REQ-PET-001",
+    "title": "Search Registered Owners",
+    "text": "The system shall allow users to search for registered pet owners.",
+    "type": "FUNCTIONAL",
+    "subtype": "SEARCH",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-001-01",
+        "text": "The system shall return matching owner records when a valid owner last name is supplied."
+      },
+      {
+        "ac_id": "AC-PET-001-02",
+        "text": "The system shall handle an owner search when no registered owner matches the supplied last name."
+      },
+      {
+        "ac_id": "AC-PET-001-03",
+        "text": "The system shall allow a matching owner record to be selected for detailed viewing."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-002",
+    "title": "Handle Owner Search Results",
+    "text": "The system shall present owner search results according to the number of matching owners.",
+    "type": "FUNCTIONAL",
+    "subtype": "SEARCH_RESULT_HANDLING",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-002-01",
+        "text": "The system shall display owner search results when multiple owners satisfy the supplied search criterion."
+      },
+      {
+        "ac_id": "AC-PET-002-02",
+        "text": "The system shall allow the details of a uniquely matched owner to be viewed."
+      },
+      {
+        "ac_id": "AC-PET-002-03",
+        "text": "The system shall provide an observable no-match outcome when an owner search returns no records."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-003",
+    "title": "Register New Owner",
+    "text": "The system shall allow a new owner to be registered using valid owner information.",
+    "type": "FUNCTIONAL",
+    "subtype": "CREATE",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-003-01",
+        "text": "The system shall create a new owner when all mandatory owner information is valid."
+      },
+      {
+        "ac_id": "AC-PET-003-02",
+        "text": "The newly created owner shall receive a persistent owner identifier."
+      },
+      {
+        "ac_id": "AC-PET-003-03",
+        "text": "The newly created owner shall be available through the owner workflow after successful registration."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-004",
+    "title": "Update Owner Information",
+    "text": "The system shall allow stored information of an existing owner to be updated.",
+    "type": "FUNCTIONAL",
+    "subtype": "UPDATE",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-004-01",
+        "text": "The system shall persist valid changes made to an existing owner's information."
+      },
+      {
+        "ac_id": "AC-PET-004-02",
+        "text": "The system shall preserve the owner identifier when owner information is updated."
+      },
+      {
+        "ac_id": "AC-PET-004-03",
+        "text": "The system shall display the updated owner information after a successful update."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-005",
+    "title": "View Owner Details",
+    "text": "The system shall provide detailed information for a selected registered owner.",
+    "type": "FUNCTIONAL",
+    "subtype": "READ",
+    "risk": "LOW",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-005-01",
+        "text": "The system shall display the stored information of the selected owner."
+      },
+      {
+        "ac_id": "AC-PET-005-02",
+        "text": "The system shall display pets associated with the selected owner."
+      },
+      {
+        "ac_id": "AC-PET-005-03",
+        "text": "The system shall display available visit information associated with the selected owner's pets."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-006",
+    "title": "Validate Owner Information",
+    "text": "The system shall validate owner information before creating or updating an owner record.",
+    "type": "FUNCTIONAL",
+    "subtype": "VALIDATION",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-006-01",
+        "text": "The system shall reject an owner submission when mandatory owner information is missing."
+      },
+      {
+        "ac_id": "AC-PET-006-02",
+        "text": "The system shall provide validation feedback when invalid owner information is submitted."
+      },
+      {
+        "ac_id": "AC-PET-006-03",
+        "text": "An invalid owner submission shall not create or persist a valid owner record."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-007",
+    "title": "Register New Pet",
+    "text": "The system shall allow a new pet to be registered under an existing owner.",
+    "type": "FUNCTIONAL",
+    "subtype": "CREATE",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-007-01",
+        "text": "The system shall create a pet record when valid pet information is submitted for an existing owner."
+      },
+      {
+        "ac_id": "AC-PET-007-02",
+        "text": "The created pet shall remain associated with the owner under whom it was registered."
+      },
+      {
+        "ac_id": "AC-PET-007-03",
+        "text": "The newly registered pet shall be visible in the selected owner's information."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-008",
+    "title": "Update Pet Information",
+    "text": "The system shall allow information of an existing pet to be updated.",
+    "type": "FUNCTIONAL",
+    "subtype": "UPDATE",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-008-01",
+        "text": "The system shall persist valid changes made to an existing pet's information."
+      },
+      {
+        "ac_id": "AC-PET-008-02",
+        "text": "The pet shall remain associated with the same owner after its information is updated."
+      },
+      {
+        "ac_id": "AC-PET-008-03",
+        "text": "The system shall display the updated pet information after a successful update."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-009",
+    "title": "Validate Pet Information",
+    "text": "The system shall validate pet information before creating or updating a pet record.",
+    "type": "FUNCTIONAL",
+    "subtype": "VALIDATION",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-009-01",
+        "text": "The system shall reject a pet submission when mandatory pet information is missing."
+      },
+      {
+        "ac_id": "AC-PET-009-02",
+        "text": "The system shall provide validation feedback when invalid pet information is submitted."
+      },
+      {
+        "ac_id": "AC-PET-009-03",
+        "text": "An invalid pet submission shall not create or persist a valid pet record."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-010",
+    "title": "Preserve Owner-Pet Association",
+    "text": "The system shall preserve the relationship between a pet and its registered owner.",
+    "type": "FUNCTIONAL",
+    "subtype": "DATA_INTEGRITY",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-010-01",
+        "text": "A newly registered pet shall reference the owner under whom the pet was created."
+      },
+      {
+        "ac_id": "AC-PET-010-02",
+        "text": "Updating pet information shall not silently change the pet's owner association."
+      },
+      {
+        "ac_id": "AC-PET-010-03",
+        "text": "The associated pet shall remain visible from the corresponding owner details."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-011",
+    "title": "Register Veterinary Visit",
+    "text": "The system shall allow a veterinary visit to be recorded for an existing pet.",
+    "type": "FUNCTIONAL",
+    "subtype": "CREATE",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-011-01",
+        "text": "The system shall create a visit when valid visit information is supplied for an existing pet."
+      },
+      {
+        "ac_id": "AC-PET-011-02",
+        "text": "The newly created visit shall remain associated with the selected pet."
+      },
+      {
+        "ac_id": "AC-PET-011-03",
+        "text": "The newly created visit shall become visible in the selected pet's visit history."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-012",
+    "title": "Validate Veterinary Visit Information",
+    "text": "The system shall validate visit information before a veterinary visit is recorded.",
+    "type": "FUNCTIONAL",
+    "subtype": "VALIDATION",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-012-01",
+        "text": "The system shall reject visit creation when mandatory visit information is missing."
+      },
+      {
+        "ac_id": "AC-PET-012-02",
+        "text": "The system shall provide validation feedback when invalid visit information is submitted."
+      },
+      {
+        "ac_id": "AC-PET-012-03",
+        "text": "An invalid visit submission shall not create a valid visit record."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-013",
+    "title": "View Pet Visit History",
+    "text": "The system shall provide historical visit information for a registered pet.",
+    "type": "FUNCTIONAL",
+    "subtype": "READ",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-013-01",
+        "text": "The system shall display recorded visits associated with the selected pet."
+      },
+      {
+        "ac_id": "AC-PET-013-02",
+        "text": "Each displayed visit shall remain associated with the correct pet."
+      },
+      {
+        "ac_id": "AC-PET-013-03",
+        "text": "A newly created valid visit shall be included in the pet's subsequent visit history."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-014",
+    "title": "List Veterinarians",
+    "text": "The system shall provide users with information about veterinarians available in the application.",
+    "type": "FUNCTIONAL",
+    "subtype": "READ",
+    "risk": "LOW",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-014-01",
+        "text": "The system shall return the available veterinarian records."
+      },
+      {
+        "ac_id": "AC-PET-014-02",
+        "text": "Each veterinarian record shall expose the veterinarian's name."
+      },
+      {
+        "ac_id": "AC-PET-014-03",
+        "text": "The veterinarian listing shall be available through the supported veterinarian listing workflow."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-PET-015",
+    "title": "Display Veterinarian Specialties",
+    "text": "The system shall expose specialty information associated with veterinarians.",
+    "type": "FUNCTIONAL",
+    "subtype": "READ",
+    "risk": "LOW",
+    "version": 1,
+    "source": "PETCLINIC_CURATED",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-PET-015-01",
+        "text": "The system shall display specialty information when specialty information exists for a veterinarian."
+      },
+      {
+        "ac_id": "AC-PET-015-02",
+        "text": "Specialty information shall remain associated with the correct veterinarian."
+      },
+      {
+        "ac_id": "AC-PET-015-03",
+        "text": "A veterinarian without a recorded specialty shall remain valid in the veterinarian listing."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-F-016",
+    "title": "Repeated Authentication Failure Protection",
+    "text": "The system shall protect user accounts from repeated unsuccessful authentication attempts.",
+    "type": "FUNCTIONAL",
+    "subtype": "SECURITY_BEHAVIOR",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-F-016-01",
+        "text": "The account shall become locked after five consecutive failed authentication attempts and remain locked for 30 minutes."
+      },
+      {
+        "ac_id": "AC-C3-F-016-02",
+        "text": "A successful authentication before the lockout threshold is reached shall reset the failed-attempt counter."
+      },
+      {
+        "ac_id": "AC-C3-F-016-03",
+        "text": "Authentication shall be rejected while the account remains locked."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-F-017",
+    "title": "Password Reset Token Validation",
+    "text": "The system shall allow a password to be reset using a secure single-use reset token.",
+    "type": "FUNCTIONAL",
+    "subtype": "SECURITY_BEHAVIOR",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-F-017-01",
+        "text": "A valid unused reset token shall allow the user to set a new password."
+      },
+      {
+        "ac_id": "AC-C3-F-017-02",
+        "text": "A reset token shall expire 30 minutes after it is issued."
+      },
+      {
+        "ac_id": "AC-C3-F-017-03",
+        "text": "The system shall reject an expired or previously consumed reset token."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-F-018",
+    "title": "Administrative Authorization",
+    "text": "The system shall restrict administrative account actions to authorized administrative users.",
+    "type": "FUNCTIONAL",
+    "subtype": "AUTHORIZATION",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-F-018-01",
+        "text": "An authenticated administrator shall be allowed to perform an administrative account action."
+      },
+      {
+        "ac_id": "AC-C3-F-018-02",
+        "text": "A non-administrator shall be denied access to administrative account actions."
+      },
+      {
+        "ac_id": "AC-C3-F-018-03",
+        "text": "A denied administrative action shall not modify the target account."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-F-019",
+    "title": "File Upload Validation",
+    "text": "The system shall validate uploaded files before accepting them for processing.",
+    "type": "FUNCTIONAL",
+    "subtype": "BOUNDARY_VALIDATION",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-F-019-01",
+        "text": "The system shall accept an allowed file type when the file size is exactly 5 MB."
+      },
+      {
+        "ac_id": "AC-C3-F-019-02",
+        "text": "The system shall reject an uploaded file when its size is greater than 5 MB."
+      },
+      {
+        "ac_id": "AC-C3-F-019-03",
+        "text": "The system shall reject an uploaded executable file type."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-F-020",
+    "title": "Audit Administrative Account Actions",
+    "text": "The system shall create an auditable record of sensitive administrative account actions.",
+    "type": "FUNCTIONAL",
+    "subtype": "AUDIT",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-F-020-01",
+        "text": "The system shall record an audit event when an administrator changes the state of a user account."
+      },
+      {
+        "ac_id": "AC-C3-F-020-02",
+        "text": "The audit event shall identify the administrator, target account, performed action, and event timestamp."
+      },
+      {
+        "ac_id": "AC-C3-F-020-03",
+        "text": "A successful administrative account action shall have a corresponding audit record."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-021",
+    "title": "Owner Search Response Performance",
+    "text": "The owner search operation shall remain responsive under concurrent workload.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "PERFORMANCE",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-021-01",
+        "text": "The owner search operation shall maintain a p95 response time below 2 seconds with 100 concurrent users for 10 minutes."
+      },
+      {
+        "ac_id": "AC-C3-NFR-021-02",
+        "text": "The owner search operation shall maintain a failed-request rate below 1 percent with 100 concurrent users for 10 minutes."
+      },
+      {
+        "ac_id": "AC-C3-NFR-021-03",
+        "text": "The owner search workload shall complete without an unhandled application failure during the 10-minute test period."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-022",
+    "title": "Veterinarian Listing Performance",
+    "text": "The veterinarian listing operation shall provide predictable response performance under load.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "PERFORMANCE",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-022-01",
+        "text": "The veterinarian listing operation shall maintain a p95 response time below 1500 milliseconds with 100 concurrent users for 10 minutes."
+      },
+      {
+        "ac_id": "AC-C3-NFR-022-02",
+        "text": "The veterinarian listing operation shall maintain a failed-request rate below 1 percent during the defined workload."
+      },
+      {
+        "ac_id": "AC-C3-NFR-022-03",
+        "text": "The veterinarian listing workload shall run for 10 minutes at the specified load before its performance evidence is considered complete."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-023",
+    "title": "Visit Registration Performance",
+    "text": "The visit registration operation shall complete within an acceptable response time under concurrent usage.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "PERFORMANCE",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-023-01",
+        "text": "The visit registration operation shall maintain a p95 response time below 2 seconds with 50 concurrent users for 10 minutes."
+      },
+      {
+        "ac_id": "AC-C3-NFR-023-02",
+        "text": "The visit registration operation shall maintain a failed-request rate below 1 percent during the defined workload."
+      },
+      {
+        "ac_id": "AC-C3-NFR-023-03",
+        "text": "Successful visit registrations completed during the performance test shall remain persistently available after the test run."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-024",
+    "title": "Reliability Under Sustained Workload",
+    "text": "The application shall continue operating reliably during sustained workload.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "RELIABILITY",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-024-01",
+        "text": "The application shall complete a 30-minute sustained workload test without an unhandled application failure."
+      },
+      {
+        "ac_id": "AC-C3-NFR-024-02",
+        "text": "The application shall maintain a failed-request rate below 1 percent during the 30-minute sustained workload test."
+      },
+      {
+        "ac_id": "AC-C3-NFR-024-03",
+        "text": "The application shall remain responsive at the end of the sustained workload test."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-025",
+    "title": "Monthly Service Availability",
+    "text": "The deployed application shall maintain a high level of operational availability.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "AVAILABILITY",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-025-01",
+        "text": "The deployed application shall achieve at least 99.9 percent availability during each calendar month."
+      },
+      {
+        "ac_id": "AC-C3-NFR-025-02",
+        "text": "Availability evidence shall distinguish scheduled maintenance from unexpected service unavailability."
+      },
+      {
+        "ac_id": "AC-C3-NFR-025-03",
+        "text": "Availability evidence shall identify the measurement period used to calculate monthly availability."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-026",
+    "title": "Concurrent User Capacity",
+    "text": "The application shall support concurrent user activity without unacceptable service degradation.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "SCALABILITY",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-026-01",
+        "text": "The application shall support 100 concurrent users for 10 minutes without an unhandled application failure."
+      },
+      {
+        "ac_id": "AC-C3-NFR-026-02",
+        "text": "The application shall maintain a p95 response time below 3 seconds while serving 100 concurrent users for 10 minutes."
+      },
+      {
+        "ac_id": "AC-C3-NFR-026-03",
+        "text": "The application shall maintain a failed-request rate below 1 percent while serving 100 concurrent users for 10 minutes."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-027",
+    "title": "Form Validation Usability",
+    "text": "The application shall provide understandable feedback when a user submits invalid form information.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "USABILITY",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-027-01",
+        "text": "The application shall display validation feedback when a mandatory form field contains invalid information."
+      },
+      {
+        "ac_id": "AC-C3-NFR-027-02",
+        "text": "Validation feedback shall identify the field or input condition that requires correction."
+      },
+      {
+        "ac_id": "AC-C3-NFR-027-03",
+        "text": "Valid information already entered by the user shall remain available when the form is returned for correction where technically applicable."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-028",
+    "title": "Keyboard Accessible Form Interaction",
+    "text": "Core data-entry workflows shall support keyboard-based interaction.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "ACCESSIBILITY",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-028-01",
+        "text": "A user shall be able to reach interactive controls in the core owner form using keyboard navigation."
+      },
+      {
+        "ac_id": "AC-C3-NFR-028-02",
+        "text": "A user shall be able to submit the core owner form without requiring a pointing device."
+      },
+      {
+        "ac_id": "AC-C3-NFR-028-03",
+        "text": "Validation feedback for the core owner form shall be programmatically associated with the corresponding invalid input where supported by the interface technology."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-029",
+    "title": "Protection of Sensitive Operational Information",
+    "text": "The application shall avoid exposing sensitive operational information through ordinary error responses and logs.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "SECURITY",
+    "risk": "HIGH",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-029-01",
+        "text": "Ordinary client-facing error responses shall not expose application credentials."
+      },
+      {
+        "ac_id": "AC-C3-NFR-029-02",
+        "text": "Ordinary client-facing error responses shall not expose database connection secrets."
+      },
+      {
+        "ac_id": "AC-C3-NFR-029-03",
+        "text": "Application logs used for QA evidence shall not intentionally record plaintext authentication credentials."
+      }
+    ]
+  },
+  {
+    "requirement_id": "REQ-C3-NFR-030",
+    "title": "Maintainability of Validation Logic",
+    "text": "Core validation and business-rule logic shall remain testable and maintainable.",
+    "type": "NON_FUNCTIONAL",
+    "subtype": "MAINTAINABILITY",
+    "risk": "MEDIUM",
+    "version": 1,
+    "source": "C3_CONTROLLED_FIXTURE",
+    "acceptance_criteria": [
+      {
+        "ac_id": "AC-C3-NFR-030-01",
+        "text": "The selected core validation and business-rule package shall achieve at least 80 percent line coverage in the configured coverage report."
+      },
+      {
+        "ac_id": "AC-C3-NFR-030-02",
+        "text": "The selected core validation and business-rule package shall have no unresolved critical-severity static-analysis finding in the configured analysis run."
+      },
+      {
+        "ac_id": "AC-C3-NFR-030-03",
+        "text": "The evidence used to evaluate maintainability shall record the analysis tool and tool version."
+      }
+    ]
+  }
+]

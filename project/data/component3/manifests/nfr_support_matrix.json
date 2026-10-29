@@ -1,0 +1,103 @@
+{
+  "version": "1.0",
+  "component": "C3",
+  "policy": "Automatic adequacy decisions are produced only where a measurable rule and evidence adapter exist. Other NFR categories remain review-required and must never be falsely reported as automatically adequate.",
+  "subtypes": {
+    "PERFORMANCE": {
+      "adequacy_status": "SUPPORTED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "metric",
+        "percentile",
+        "threshold",
+        "load",
+        "duration",
+        "scope",
+        "measured result"
+      ]
+    },
+    "RELIABILITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "sustained workload",
+        "failure-rate telemetry",
+        "recovery evidence"
+      ]
+    },
+    "AVAILABILITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "uptime telemetry",
+        "health monitoring",
+        "measurement period"
+      ]
+    },
+    "SCALABILITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "load results",
+        "throughput",
+        "response time",
+        "resource utilization"
+      ]
+    },
+    "SECURITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": ["security tests", "SAST", "DAST", "OWASP ZAP"]
+    },
+    "ACCESSIBILITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "axe-core",
+        "WCAG review",
+        "keyboard accessibility review"
+      ]
+    },
+    "MAINTAINABILITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": ["coverage", "static analysis", "complexity metrics"]
+    },
+    "USABILITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "expert review",
+        "usability study",
+        "task completion evidence"
+      ]
+    },
+    "AUDIT": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "audit event records",
+        "event completeness",
+        "timestamp and actor evidence"
+      ]
+    },
+    "AUDITABILITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "audit event records",
+        "event completeness",
+        "timestamp and actor evidence"
+      ]
+    },
+    "INTEROPERABILITY": {
+      "adequacy_status": "REVIEW_REQUIRED",
+      "revalidation_status": "SUPPORTED",
+      "expected_evidence": [
+        "integration tests",
+        "protocol compatibility",
+        "schema validation"
+      ]
+    }
+  }
+}

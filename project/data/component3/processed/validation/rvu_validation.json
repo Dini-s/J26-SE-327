@@ -1,0 +1,1346 @@
+[
+  {
+    "rvu_id": "REQ-PET-001-RVU-01",
+    "requirement_id": "REQ-PET-001",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-003",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-001-RVU-02",
+    "requirement_id": "REQ-PET-001",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-001",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-001-RVU-03",
+    "requirement_id": "REQ-PET-001",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-002",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-01",
+    "requirement_id": "REQ-PET-002",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-001",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-02",
+    "requirement_id": "REQ-PET-002",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-003",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-03",
+    "requirement_id": "REQ-PET-002",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-002",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-01",
+    "requirement_id": "REQ-PET-003",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-003",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-02",
+    "requirement_id": "REQ-PET-003",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-003",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-03",
+    "requirement_id": "REQ-PET-003",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-003",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-01",
+    "requirement_id": "REQ-PET-004",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-005",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-02",
+    "requirement_id": "REQ-PET-004",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-005",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-03",
+    "requirement_id": "REQ-PET-004",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-005",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-01",
+    "requirement_id": "REQ-PET-005",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-003",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-02",
+    "requirement_id": "REQ-PET-005",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-006",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-03",
+    "requirement_id": "REQ-PET-005",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-006",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-01",
+    "requirement_id": "REQ-PET-006",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-004",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-02",
+    "requirement_id": "REQ-PET-006",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-008",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-03",
+    "requirement_id": "REQ-PET-006",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-008",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-01",
+    "requirement_id": "REQ-PET-007",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-007",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-02",
+    "requirement_id": "REQ-PET-007",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-007",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-03",
+    "requirement_id": "REQ-PET-007",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-007",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-01",
+    "requirement_id": "REQ-PET-008",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-009",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-02",
+    "requirement_id": "REQ-PET-008",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-009",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-03",
+    "requirement_id": "REQ-PET-008",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-009",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-01",
+    "requirement_id": "REQ-PET-009",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-008",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-02",
+    "requirement_id": "REQ-PET-009",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-008",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-03",
+    "requirement_id": "REQ-PET-009",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": true,
+    "validation_status": "VALIDATED",
+    "best_evidence_id": "JUNIT-PetValidatorTests$ValidateHasErrors-validateWithInvalidPetType",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-01",
+    "requirement_id": "REQ-PET-010",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-007",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-02",
+    "requirement_id": "REQ-PET-010",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-009",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-03",
+    "requirement_id": "REQ-PET-010",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-006",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-01",
+    "requirement_id": "REQ-PET-011",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-010",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-02",
+    "requirement_id": "REQ-PET-011",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-010",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-03",
+    "requirement_id": "REQ-PET-011",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-010",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-01",
+    "requirement_id": "REQ-PET-012",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-011",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-02",
+    "requirement_id": "REQ-PET-012",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-008",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-03",
+    "requirement_id": "REQ-PET-012",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-008",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-01",
+    "requirement_id": "REQ-PET-013",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-006",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-02",
+    "requirement_id": "REQ-PET-013",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-006",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-03",
+    "requirement_id": "REQ-PET-013",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-010",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-01",
+    "requirement_id": "REQ-PET-014",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-012",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-02",
+    "requirement_id": "REQ-PET-014",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-012",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-03",
+    "requirement_id": "REQ-PET-014",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-012",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-01",
+    "requirement_id": "REQ-PET-015",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-012",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-02",
+    "requirement_id": "REQ-PET-015",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-012",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-03",
+    "requirement_id": "REQ-PET-015",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-010",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-01",
+    "requirement_id": "REQ-C3-F-016",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-013",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-02",
+    "requirement_id": "REQ-C3-F-016",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-014",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-03",
+    "requirement_id": "REQ-C3-F-016",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-013",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-04",
+    "requirement_id": "REQ-C3-F-016",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-014",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-01",
+    "requirement_id": "REQ-C3-F-017",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-014",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-02",
+    "requirement_id": "REQ-C3-F-017",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-015",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-03",
+    "requirement_id": "REQ-C3-F-017",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-015",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-01",
+    "requirement_id": "REQ-C3-F-018",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-018",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-02",
+    "requirement_id": "REQ-C3-F-018",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-017",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-03",
+    "requirement_id": "REQ-C3-F-018",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-017",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-01",
+    "requirement_id": "REQ-C3-F-019",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-019",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-02",
+    "requirement_id": "REQ-C3-F-019",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-020",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-03",
+    "requirement_id": "REQ-C3-F-019",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-020",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-01",
+    "requirement_id": "REQ-C3-F-020",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-017",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-02",
+    "requirement_id": "REQ-C3-F-020",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-017",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-03",
+    "requirement_id": "REQ-C3-F-020",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "MT-018",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-01",
+    "requirement_id": "REQ-C3-NFR-021",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "PERF-001",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-02",
+    "requirement_id": "REQ-C3-NFR-021",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "PERF-002",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-03",
+    "requirement_id": "REQ-C3-NFR-021",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "PERF-002",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_METRIC_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-01",
+    "requirement_id": "REQ-C3-NFR-022",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "PERF-003",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-02",
+    "requirement_id": "REQ-C3-NFR-022",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "PERF-004",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_METRIC_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-03",
+    "requirement_id": "REQ-C3-NFR-022",
+    "evidence_found": false,
+    "adequacy_status": "NOT_ASSESSED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "HUMAN_REVIEW_REQUIRED"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-01",
+    "requirement_id": "REQ-C3-NFR-023",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "PERF-005",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-02",
+    "requirement_id": "REQ-C3-NFR-023",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "PERF-005",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-03",
+    "requirement_id": "REQ-C3-NFR-023",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "execution_satisfied": false,
+    "validation_status": "PARTIAL",
+    "best_evidence_id": "PERF-005",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-01",
+    "requirement_id": "REQ-C3-NFR-024",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-02",
+    "requirement_id": "REQ-C3-NFR-024",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-03",
+    "requirement_id": "REQ-C3-NFR-024",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-01",
+    "requirement_id": "REQ-C3-NFR-025",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-02",
+    "requirement_id": "REQ-C3-NFR-025",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-03",
+    "requirement_id": "REQ-C3-NFR-025",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-01",
+    "requirement_id": "REQ-C3-NFR-026",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-02",
+    "requirement_id": "REQ-C3-NFR-026",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-03",
+    "requirement_id": "REQ-C3-NFR-026",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-01",
+    "requirement_id": "REQ-C3-NFR-027",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-02",
+    "requirement_id": "REQ-C3-NFR-027",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-03",
+    "requirement_id": "REQ-C3-NFR-027",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-01",
+    "requirement_id": "REQ-C3-NFR-028",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-02",
+    "requirement_id": "REQ-C3-NFR-028",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-03",
+    "requirement_id": "REQ-C3-NFR-028",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-01",
+    "requirement_id": "REQ-C3-NFR-029",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-02",
+    "requirement_id": "REQ-C3-NFR-029",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-03",
+    "requirement_id": "REQ-C3-NFR-029",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-01",
+    "requirement_id": "REQ-C3-NFR-030",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-02",
+    "requirement_id": "REQ-C3-NFR-030",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-03",
+    "requirement_id": "REQ-C3-NFR-030",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "execution_satisfied": false,
+    "validation_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  }
+]

@@ -1,0 +1,441 @@
+[
+  {
+    "evidence_id": "MT-001",
+    "title": "Search owner using an existing last name",
+    "description": "Positive owner-search scenario.",
+    "preconditions": [
+      "A registered owner exists."
+    ],
+    "inputs": [
+      "Existing owner last name"
+    ],
+    "steps": [
+      "Open owner search.",
+      "Enter an existing last name.",
+      "Submit the search."
+    ],
+    "expected_result": "Matching owner records are displayed.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-002",
+    "title": "Search owner with no matching record",
+    "description": "Negative owner-search scenario.",
+    "preconditions": [
+      "The application is available."
+    ],
+    "inputs": [
+      "Unknown owner last name"
+    ],
+    "steps": [
+      "Open owner search.",
+      "Enter a non-existing last name.",
+      "Submit the search."
+    ],
+    "expected_result": "A no-match outcome is displayed and no unrelated owner is returned.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-003",
+    "title": "Register owner using valid information",
+    "description": "Positive owner-registration scenario.",
+    "preconditions": [
+      "Owner creation workflow is available."
+    ],
+    "inputs": [
+      "Valid first name",
+      "Valid last name",
+      "Valid address",
+      "Valid city",
+      "Valid telephone"
+    ],
+    "steps": [
+      "Open the new owner form.",
+      "Enter valid owner details.",
+      "Submit the form."
+    ],
+    "expected_result": "A persistent owner record is created and can be opened afterwards.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-004",
+    "title": "Reject owner registration with missing mandatory information",
+    "description": "Negative owner-validation scenario.",
+    "preconditions": [
+      "Owner creation workflow is available."
+    ],
+    "inputs": [
+      "Owner submission missing a mandatory field"
+    ],
+    "steps": [
+      "Open the new owner form.",
+      "Leave a mandatory field empty.",
+      "Submit the form."
+    ],
+    "expected_result": "Registration is rejected and validation feedback is displayed.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-005",
+    "title": "Update existing owner information",
+    "description": "Owner-update scenario.",
+    "preconditions": [
+      "An owner already exists."
+    ],
+    "inputs": [
+      "Valid updated owner information"
+    ],
+    "steps": [
+      "Open owner details.",
+      "Edit the owner.",
+      "Save valid changes."
+    ],
+    "expected_result": "Updated values are persisted while the owner identity remains unchanged.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-006",
+    "title": "View owner details with associated pets",
+    "description": "Owner-details read scenario.",
+    "preconditions": [
+      "An owner with a registered pet exists."
+    ],
+    "inputs": [
+      "Existing owner"
+    ],
+    "steps": [
+      "Open the owner details page."
+    ],
+    "expected_result": "Owner information and associated pet information are displayed.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-007",
+    "title": "Register pet under an existing owner",
+    "description": "Positive pet-registration scenario.",
+    "preconditions": [
+      "A valid owner exists."
+    ],
+    "inputs": [
+      "Valid pet name",
+      "Valid birth date",
+      "Valid pet type"
+    ],
+    "steps": [
+      "Open owner details.",
+      "Choose add pet.",
+      "Enter valid pet information.",
+      "Submit."
+    ],
+    "expected_result": "The pet is created and remains associated with the selected owner.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-008",
+    "title": "Reject invalid pet registration",
+    "description": "Negative pet-validation scenario.",
+    "preconditions": [
+      "A valid owner exists."
+    ],
+    "inputs": [
+      "Pet submission missing mandatory information"
+    ],
+    "steps": [
+      "Open add-pet workflow.",
+      "Omit mandatory information.",
+      "Submit."
+    ],
+    "expected_result": "Pet creation is rejected and validation feedback is displayed.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-009",
+    "title": "Update existing pet information",
+    "description": "Pet-update scenario.",
+    "preconditions": [
+      "An owner and pet exist."
+    ],
+    "inputs": [
+      "Valid updated pet information"
+    ],
+    "steps": [
+      "Open pet details.",
+      "Edit the pet.",
+      "Save the changes."
+    ],
+    "expected_result": "Pet information is updated while the owner association is preserved.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-010",
+    "title": "Register valid veterinary visit",
+    "description": "Positive visit-creation scenario.",
+    "preconditions": [
+      "An existing pet is available."
+    ],
+    "inputs": [
+      "Valid visit date",
+      "Valid visit description"
+    ],
+    "steps": [
+      "Open pet details.",
+      "Choose add visit.",
+      "Enter valid visit information.",
+      "Submit."
+    ],
+    "expected_result": "The visit is created and becomes visible in the pet visit history.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-011",
+    "title": "Reject invalid veterinary visit",
+    "description": "Negative visit-validation scenario.",
+    "preconditions": [
+      "An existing pet is available."
+    ],
+    "inputs": [
+      "Visit submission missing mandatory information"
+    ],
+    "steps": [
+      "Open add-visit workflow.",
+      "Omit mandatory information.",
+      "Submit."
+    ],
+    "expected_result": "Visit creation is rejected and validation feedback is displayed.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-012",
+    "title": "Display veterinarian listing and specialties",
+    "description": "Veterinarian read scenario.",
+    "preconditions": [
+      "Veterinarian records exist."
+    ],
+    "inputs": [],
+    "steps": [
+      "Open the veterinarian listing."
+    ],
+    "expected_result": "Veterinarian records are displayed and specialty information is shown when available.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-013",
+    "title": "Lock account on fifth failed authentication attempt",
+    "description": "Controlled security boundary scenario.",
+    "preconditions": [
+      "Account is active and the failed-attempt counter is zero."
+    ],
+    "inputs": [
+      "Five consecutive invalid authentication attempts"
+    ],
+    "steps": [
+      "Submit invalid credentials five consecutive times."
+    ],
+    "expected_result": "The account becomes locked after the fifth failed attempt.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-014",
+    "title": "Reject authentication while account is locked",
+    "description": "Controlled locked-state scenario.",
+    "preconditions": [
+      "Account is currently locked."
+    ],
+    "inputs": [
+      "Valid credentials"
+    ],
+    "steps": [
+      "Attempt authentication while the account remains locked."
+    ],
+    "expected_result": "Authentication is rejected until the lock condition expires or is cleared.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-015",
+    "title": "Reject expired password-reset token",
+    "description": "Controlled token-expiry scenario.",
+    "preconditions": [
+      "A reset token was issued more than 30 minutes ago."
+    ],
+    "inputs": [
+      "Expired reset token"
+    ],
+    "steps": [
+      "Attempt password reset using the expired token."
+    ],
+    "expected_result": "The reset request is rejected.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-016",
+    "title": "Reject reused password-reset token",
+    "description": "Controlled single-use-token scenario.",
+    "preconditions": [
+      "A reset token has already been consumed."
+    ],
+    "inputs": [
+      "Previously consumed reset token"
+    ],
+    "steps": [
+      "Attempt another reset using the same token."
+    ],
+    "expected_result": "Token reuse is rejected.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-017",
+    "title": "Deny administrative action for non-administrator",
+    "description": "Controlled authorization-negative scenario.",
+    "preconditions": [
+      "User is authenticated without administrator privileges."
+    ],
+    "inputs": [
+      "Administrative account action"
+    ],
+    "steps": [
+      "Attempt the administrative action."
+    ],
+    "expected_result": "Access is denied and the target account remains unchanged.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-018",
+    "title": "Allow administrative action for administrator",
+    "description": "Controlled authorization-positive scenario.",
+    "preconditions": [
+      "User is authenticated as an administrator."
+    ],
+    "inputs": [
+      "Administrative account action"
+    ],
+    "steps": [
+      "Perform the administrative action."
+    ],
+    "expected_result": "The authorized administrative action succeeds.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-019",
+    "title": "Accept allowed file exactly at 5 MB",
+    "description": "Controlled upload boundary scenario.",
+    "preconditions": [
+      "Upload functionality is available."
+    ],
+    "inputs": [
+      "Allowed file type exactly 5 MB"
+    ],
+    "steps": [
+      "Upload the file."
+    ],
+    "expected_result": "The file is accepted.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-020",
+    "title": "Reject file larger than 5 MB",
+    "description": "Controlled upload negative-boundary scenario.",
+    "preconditions": [
+      "Upload functionality is available."
+    ],
+    "inputs": [
+      "Allowed file type larger than 5 MB"
+    ],
+    "steps": [
+      "Upload the file."
+    ],
+    "expected_result": "The file is rejected.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_MANUAL_CURATED",
+    "source_version": "1.0",
+    "synthetic": false
+  },
+  {
+    "evidence_id": "MT-021",
+    "title": "Owner page looks correct",
+    "description": "Deliberately weak evidence fixture for later adequacy evaluation.",
+    "preconditions": [],
+    "inputs": [],
+    "steps": [
+      "Open an owner page."
+    ],
+    "expected_result": "The page looks correct.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_CONTROLLED_WEAK_EVIDENCE",
+    "source_version": "1.0",
+    "synthetic": true
+  },
+  {
+    "evidence_id": "MT-022",
+    "title": "Change application theme",
+    "description": "Deliberately irrelevant evidence fixture for retrieval evaluation.",
+    "preconditions": [],
+    "inputs": [
+      "Theme selection"
+    ],
+    "steps": [
+      "Change the application theme."
+    ],
+    "expected_result": "The visual theme changes.",
+    "execution_status": "NOT_EXECUTED",
+    "source_tool": "C3_CONTROLLED_IRRELEVANT_EVIDENCE",
+    "source_version": "1.0",
+    "synthetic": true
+  }
+]

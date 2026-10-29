@@ -1,0 +1,1 @@
+"""Cross-component contracts for Quality Intelligence."""

@@ -1,0 +1,32 @@
+{
+  "project": "ASPIRE Component 3",
+  "mode": "standalone-development",
+
+  "python_version": "3.12.10",
+
+  "java_version": "17.0.18",
+  "java_vendor": "Eclipse Adoptium",
+  "java_runtime": "C:\\Program Files\\Java\\jdk-17.0.18+8",
+
+  "maven_version": "3.9.16",
+
+  "petclinic_commit": "500158f732419217507c7656904b8e6aa1bcc0d6",
+
+  "petclinic_test_results": {
+    "tests_run": 79,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 2,
+    "build_status": "SUCCESS"
+  },
+
+  "test_framework": "JUnit",
+  "execution_engine": "Maven Surefire",
+
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+
+  "os": "Windows 11",
+  "architecture": "amd64",
+
+  "dataset_stage": "development"
+}

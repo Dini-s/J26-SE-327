@@ -328,4 +328,28 @@ def runner_stop() -> dict[str, Any]:
         raise HTTPException(409, str(exc))
 
 
+# Register C3 routes before the static fallback.
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from apps.api.routes import integration, quality
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+app.include_router(quality.router)
+app.include_router(integration.router)
+
+@app.get("/health", tags=["System"])
+def health():
+    return {"status": "ok", "component": "quality-testing-intelligence", "component_id": "C3"}
+
+@app.get("/", include_in_schema=False)
+@app.get("/traceability", include_in_schema=False)
+def traceability_dashboard():
+    return FileResponse(Path(__file__).resolve().parents[1] / "web" / "traceability.html")
+
 app.mount("/", StaticFiles(directory=Path(__file__).resolve().parents[1] / "web", html=True), name="web")

@@ -1,0 +1,178 @@
+{
+  "schema_version": "1.0",
+  "component": "C3",
+  "generated_at": "2026-10-22T22:35:25.256432+00:00",
+  "repository": {
+    "branch": "feature/quality-testing-intelligence",
+    "commit": "08fb0078647877f0ff6f7dbfaed5d77161653524",
+    "dirty": true,
+    "petclinic_commit": "500158f732419217507c7656904b8e6aa1bcc0d6"
+  },
+  "runtime": {
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0"
+  },
+  "component_configuration": {
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "top_k": 5,
+    "semantic_threshold": 0.35,
+    "adequacy_rule_version": "c3-adequacy-v1",
+    "rves": {
+      "status": "EXPERIMENTAL",
+      "weights": {
+        "R_relevance": 0.25,
+        "A_adequacy": 0.25,
+        "C_completeness": 0.25,
+        "E_execution": 0.25
+      }
+    }
+  },
+  "packages": {
+    "fastapi": "0.143.0",
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.1",
+    "sentence-transformers": "5.7.0",
+    "torch": "2.14.1",
+    "pytest": "8.4.2"
+  },
+  "input_fingerprints": {
+    "requirements": {
+      "exists": true,
+      "type": "file",
+      "sha256": "55b9f5350e81477d66e17a6b3aeec018e7e470d342553e16b87f904304998c22",
+      "size_bytes": 26175
+    },
+    "manual_tests": {
+      "exists": true,
+      "type": "file",
+      "sha256": "93d8cff2ad823c5a35002b742e95cd3b32b1df4406f306955c0c6ae6ae9cd9cc",
+      "size_bytes": 13302
+    },
+    "manual_executions": {
+      "exists": true,
+      "type": "file",
+      "sha256": "2b38869ef7ae63df98d4639fcf5ddccb9dc7f9946d915feb03a8f91d48c76559",
+      "size_bytes": 13060
+    },
+    "junit": {
+      "exists": true,
+      "type": "directory",
+      "file_count": 20,
+      "size_bytes": 81355,
+      "sha256": "6315d4e59d0ada9e2be8cdbc196fe4e6105d6c7d8a042c272b491a70315563bf"
+    },
+    "surefire": {
+      "exists": true,
+      "type": "directory",
+      "file_count": 18,
+      "size_bytes": 901412,
+      "sha256": "a2a6426c9d21324369d027d4d0690653cc3f521daef4a4c479cd23bf1a8e2649"
+    },
+    "performance": {
+      "exists": true,
+      "type": "file",
+      "sha256": "6879add8f77b699a6fc018db4850cbf31df494f20e4d6207488357abbd5d31db",
+      "size_bytes": 4057
+    },
+    "revalidation": {
+      "exists": true,
+      "type": "file",
+      "sha256": "54ec50bb3a4752a0d070e77485fb168a1c5f9d31582f17c107a35a0822a93ce8",
+      "size_bytes": 14326
+    },
+    "nfr_support": {
+      "exists": true,
+      "type": "file",
+      "sha256": "b7bc61a94e549ea049e6e57da3bc770af06d8977c1ee16a8cdf320c320c9f3a9",
+      "size_bytes": 3007
+    }
+  },
+  "output_fingerprints": {
+    "rvus": {
+      "exists": true,
+      "type": "file",
+      "sha256": "89cdb7d6142a6375cba7c1801f1cb95718e34a8589490a2c5989e363ef6e1cdb",
+      "size_bytes": 69583
+    },
+    "evidence_profiles": {
+      "exists": true,
+      "type": "file",
+      "sha256": "a4675047832d3c56167a2870a55394d378c6e8896ef5299aa0ea9a2209f4baca",
+      "size_bytes": 97716
+    },
+    "normalized_evidence": {
+      "exists": true,
+      "type": "file",
+      "sha256": "0018b0de3c45df460722f4dee186ba34087ddd87f1e318227827e53d7e289dd2",
+      "size_bytes": 226043
+    },
+    "adequacy_assessments": {
+      "exists": true,
+      "type": "file",
+      "sha256": "b9ee5acdf2c847876cab6e9118909ad8f0603ed8f88538fab448cf6b49fafcb4",
+      "size_bytes": 387726
+    },
+    "rvu_adequacy": {
+      "exists": true,
+      "type": "file",
+      "sha256": "51a10e284c509cf3155d163bc6a7afb6a671d0f132177d2bba237205340b0ecf",
+      "size_bytes": 56547
+    },
+    "rvu_validation": {
+      "exists": true,
+      "type": "file",
+      "sha256": "772263b84ed95b941537b1bdd8e02380e282f3797946023e34f2dd38d483cf1c",
+      "size_bytes": 36737
+    },
+    "requirement_intelligence": {
+      "exists": true,
+      "type": "file",
+      "sha256": "95dadc09df4b5116e5c7a5d72937af306698c8ee222bd53746faff9816e96c08",
+      "size_bytes": 18957
+    },
+    "analytics": {
+      "exists": true,
+      "type": "file",
+      "sha256": "c587612bd2b202133fc5f299586d632865319435ae35de770b195191d475609c",
+      "size_bytes": 57328
+    },
+    "gaps": {
+      "exists": true,
+      "type": "file",
+      "sha256": "b289e9d7c8e3053f93d1a8cf0604febb4d9d77fcbbcb9913171bd5ea1e8068e9",
+      "size_bytes": 41155
+    },
+    "recommendations": {
+      "exists": true,
+      "type": "file",
+      "sha256": "f5207e9075fbb540435d1df6295f17c82516614ca27144b37336a055a4399093",
+      "size_bytes": 41946
+    },
+    "revalidation_results": {
+      "exists": true,
+      "type": "file",
+      "sha256": "76602826b669dddff7e001aed4ffcb9cb9d948c387c3c27dcd62b284d919cdd7",
+      "size_bytes": 20129
+    },
+    "uskg_export": {
+      "exists": true,
+      "type": "file",
+      "sha256": "b668049ee3730d25396a24a562c29445dcfd67df3dcd1e0b568eb101b1fcf774",
+      "size_bytes": 1048705
+    },
+    "evaluation_results": {
+      "exists": true,
+      "type": "file",
+      "sha256": "53e877d816c34b2f13add21e1f162342bce517a8fd43638a229cb5da50d4832c",
+      "size_bytes": 1123
+    }
+  },
+  "provenance_policy": {
+    "controlled_fixtures_are_labelled": true,
+    "synthetic_manual_execution_is_not_observed_validation": true,
+    "unresolved_execution_is_not_fabricated": true,
+    "relevance_adequacy_execution_are_separate": true
+  }
+}
