@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   NavLink,
   useLocation,
@@ -109,30 +109,16 @@ const SidebarItem = ({
     );
 
  
-  const [
-    expanded,
-    setExpanded,
-  ] = useState(
-    itemActive ||
-      childActive
-  );
-
-  useEffect(() => {
-    /*
-      Automatically expand a section when
-      one of its pages is active.
-    */
-
-    if (
-      itemActive ||
-      childActive
-    ) {
-      setExpanded(true);
-    }
-  }, [
-    itemActive,
-    childActive,
-  ]);
+  const [expansion, setExpansion] = useState({
+    pathname,
+    expanded: itemActive || childActive,
+  });
+  const expanded = expansion.pathname === pathname
+    ? expansion.expanded
+    : itemActive || childActive;
+  const toggleExpanded = () => {
+    setExpansion({ pathname, expanded: !expanded });
+  };
 
   const showActiveBackground =
     itemActive &&
@@ -145,10 +131,7 @@ const SidebarItem = ({
     event.preventDefault();
     event.stopPropagation();
 
-    setExpanded(
-      (previous) =>
-        !previous
-    );
+    toggleExpanded();
   };
 
   if (
@@ -350,10 +333,7 @@ const SidebarItem = ({
           <button
             type="button"
             onClick={() =>
-              setExpanded(
-                (previous) =>
-                  !previous
-              )
+              toggleExpanded()
             }
             className={`
               flex

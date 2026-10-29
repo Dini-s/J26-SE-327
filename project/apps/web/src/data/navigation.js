@@ -1,217 +1,433 @@
 import {
+
   Home,
+
   Network,
+
   BarChart3,
+
   FileText,
+
   Activity,
+
   Settings,
+
   Info,
+
   FolderGit2,
+
   ShieldAlert,
+
   Boxes,
+
   GitBranch,
+
   Bug,
+
   TestTube2,
+
   ChartNoAxesCombined,
+
 } from "lucide-react";
 
+
+
 export const navigation = [
-  {
-    type: "item",
-    label: "Research Overview",
-    path: "/overview",
-    icon: Home,
-  },
 
   {
-    type: "section",
-    label: "INTELLIGENCE COMPONENTS",
+
+    type: "item",
+
+    label: "Research Overview",
+
+    path: "/overview",
+
+    icon: Home,
+
   },
+
+
+
+  {
+
+    type: "section",
+
+    label: "INTELLIGENCE COMPONENTS",
+
+  },
+
+
+
 
 
   // COMPONENT 1
+
   {
+
     type: "item",
+
     label: "Requirement Intelligence",
+
     number: "1",
+
     numberColor: "green",
+
     path: "/requirement",
+
     icon: FileText,
+
   },
+
+
+
 
 
   // COMPONENT 2
 
+
+
   {
+
     type: "item",
+
     label: "Repository Intelligence",
+
     number: "2",
+
     numberColor: "blue",
+
     path: "/repository",
+
     icon: FolderGit2,
+
     expandable: true,
 
+
+
     children: [
+
       {
+
         label: "Overview",
+
         path: "/repository",
+
       },
 
+
+
       {
+
         label: "Repositories",
+
         path: "/repository-agent/repository",
+
         icon: FolderGit2,
+
       },
 
+
+
       {
+
         label: "Evalution & Metrics",
+
         path: "/repository-agent/evolution",
+
         icon: ChartNoAxesCombined,
+
       },
 
+
+
       {
+
         label: "Risk & Architecture",
+
         expandable: true,
+
         icon: ShieldAlert,
 
+
+
         children: [
+
           {
+
             label: "Risk Models",
+
             path: "repository-agent/riskModule",
+
             icon: ShieldAlert,
+
           },
 
+
+
           {
+
             label: "Architecture Visualization",
+
             path: "/repository-agent/architecture",
+
             icon: Boxes,
+
           },
 
+
+
           {
+
             label: "Architecture Issues",
+
             path: "/repository-agent/architecture/issues",
+
             icon: Bug,
+
           },
 
+
+
           {
+
             label: "Dependencies",
+
             path: "/repository-agent/dependencies",
+
             icon: GitBranch,
+
           },
+
         ],
+
       },
+
     ],
+
   },
+
+
+
 
 
   // COMPONENT 3
+
   // QUALITY & TESTING INTELLIGENCE
 
+
+
   {
+
     type: "item",
+
     label: "Quality & Testing Intelligence",
+
     number: "3",
+
     numberColor: "purple",
-    path: "/quality",
+
+    path: "/quality/overview",
+
     icon: TestTube2,
+
     expandable: true,
 
+
+
     children: [
+
       {
+
         label: "Overview",
-        path: "/quality",
+
+        path: "/quality/overview",
+
       },
 
+
+
       {
+
         label: "Requirements",
+
         path: "/quality/requirements",
+
       },
 
+
+
       {
+
         label: "Requirement Details",
-        path: "/quality/requirement-details/REQ-014",
+
+        path: "/quality/requirements/REQ-PET-001",
+
+
 
         // Makes Requirement Details remain selected
+
         // for REQ-014, REQ-021 and future requirements.
-        activePrefix: "/quality/requirement-details/",
+
+        activePrefix: "/quality/requirements/",
+
       },
+
     ],
+
   },
+
+
+
 
 
   // COMPONENT 4
+
   {
+
     type: "item",
+
     label: "Traceability Intelligence",
+
     number: "4",
+
     numberColor: "orange",
+
     path: "/traceability",
+
     icon: GitBranch,
+
   },
+
+
+
 
 
   // SHARED LAYER
 
+
+
   {
+
     type: "section",
+
     label: "SHARED LAYER",
+
   },
 
+
+
   {
+
     type: "item",
+
     label: "Unified Software Knowledge Graph",
+
     path: "/knowledge-graph",
+
     icon: Network,
+
   },
 
+
+
   {
+
     type: "item",
+
     label: "Cross-Component Insights",
+
     path: "/insights",
+
     icon: BarChart3,
+
   },
 
+
+
   // =========================================================
+
   // SHARED REPORTS
+
   // =========================================================
+
   {
+
     type: "item",
+
     label: "Reports & Analytics",
+
     path: "/reports",
+
     icon: FileText,
+
     expandable: true,
 
+
+
     children: [
+
       {
+
         label: "QA Reports and Analytics",
-        path: "/reports/quality",
+
+        path: "/quality/reports",
+
       },
+
     ],
+
   },
 
+
+
   {
+
     type: "item",
+
     label: "Activity Monitor",
+
     path: "/activity",
+
     icon: Activity,
+
   },
 
+
+
   {
+
     type: "section",
+
     label: "SYSTEM",
+
   },
 
+
+
   {
+
     type: "item",
+
     label: "Settings",
+
     path: "/settings",
+
     icon: Settings,
+
   },
 
+
+
   {
+
     type: "item",
+
     label: "About ASPIRE",
+
     path: "/about",
+
     icon: Info,
+
   },
+
 ];

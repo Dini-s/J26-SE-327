@@ -1,0 +1,6 @@
+UserStories US id summary status
+Task TS id detail status
+AcceptanceTest AT id given when then
+DeveloperTest DT id content severity
+Design DS id filename
+SourceCode SC id filename

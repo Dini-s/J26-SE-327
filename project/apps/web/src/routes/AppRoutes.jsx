@@ -1,4 +1,4 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import DashboardLayout from "../Layouts/DashboardLayout";
@@ -11,6 +11,9 @@ import Repositories from "../pages/RepositoryAgent/Repositories";
 import RiskModules from "../pages/RepositoryAgent/RiskModels";
 import EvolutionOverview from "../pages/RepositoryAgent/EvolutionOverview";
 
+import QualityLayout from "../Layouts/QualityLayout.jsx";
+const QualityApp = lazy(() => import("../component/quality/QualityApp.jsx"));
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -18,6 +21,7 @@ const AppRoutes = () => {
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<Navigate to="/overview" replace />} />
           <Route path="overview" element={<DashboardOverview />} />
+          <Route path="quality/*" element={<QualityLayout><Suspense fallback={<p role="status">Loading quality intelligence...</p>}><QualityApp /></Suspense></QualityLayout>} />
           <Route path="repository" element={<RepositoryAgentOverView />} />
           <Route
             path="repository-agent/architecture"

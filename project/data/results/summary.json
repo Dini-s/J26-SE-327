@@ -1,0 +1,34 @@
+{
+  "note": "Every number was measured in this repository (see docs/traceability_report_draft.md). Stage 1 = retrieval only, no LLM.",
+  "datasets": {
+    "iTrust":  {"requirements": 131, "targets": 392, "true_links": 399, "language": "Java/JSP", "base_rate": 0.008},
+    "eTour":   {"requirements": 58,  "targets": 116, "true_links": 308, "language": "Java",     "base_rate": 0.046},
+    "LibEST":  {"requirements": 52,  "targets": 14,  "true_links": 204, "language": "C",        "base_rate": 0.280},
+    "CM-1":    {"requirements": 22,  "targets": 53,  "true_links": 45,  "language": "text (design)", "base_rate": 0.039}
+  },
+  "stage1_recall": {
+    "iTrust": {"10": {"tfidf": 0.373, "embeddings": 0.331, "hybrid": 0.416}, "20": {"tfidf": 0.521, "embeddings": 0.436, "hybrid": 0.556}, "50": {"tfidf": 0.659, "embeddings": 0.617, "hybrid": 0.684}},
+    "eTour":  {"5": {"tfidf": 0.312, "embeddings": 0.344, "hybrid": 0.360}, "10": {"tfidf": 0.468, "embeddings": 0.510, "hybrid": 0.532}, "20": {"tfidf": 0.685, "embeddings": 0.672, "hybrid": 0.692}, "50": {"tfidf": 0.873, "embeddings": 0.877, "hybrid": 0.909}},
+    "LibEST": {"3": {"tfidf": 0.407, "embeddings": 0.461, "hybrid": 0.422}, "5": {"tfidf": 0.578, "embeddings": 0.613, "hybrid": 0.588}, "10": {"tfidf": 0.951, "embeddings": 0.966, "hybrid": 0.961}}
+  },
+  "stage1_recall_notes": {"LibEST": "only 14 code files, so large top-k saturates; 28% of all pairs are true links"},
+  "prf": [
+    {"dataset": "iTrust (10 requirements, top-5)", "method": "Embeddings only", "precision": 0.060, "recall": 0.086, "f1": 0.071},
+    {"dataset": "iTrust (10 requirements, top-5)", "method": "TF-IDF only", "precision": 0.120, "recall": 0.171, "f1": 0.141},
+    {"dataset": "iTrust (10 requirements, top-5)", "method": "Hybrid, no LLM", "precision": 0.140, "recall": 0.200, "f1": 0.165},
+    {"dataset": "iTrust (10 requirements, top-5)", "method": "Full pipeline (hybrid + Llama 3.1 8B)", "precision": 0.375, "recall": 0.171, "f1": 0.235},
+    {"dataset": "eTour (top-10)", "method": "TF-IDF only", "precision": 0.248, "recall": 0.468, "f1": 0.324},
+    {"dataset": "eTour (top-10)", "method": "Embeddings only", "precision": 0.271, "recall": 0.510, "f1": 0.354},
+    {"dataset": "eTour (top-10)", "method": "Hybrid, no LLM", "precision": 0.283, "recall": 0.532, "f1": 0.369},
+    {"dataset": "LibEST (top-5)", "method": "TF-IDF only", "precision": 0.454, "recall": 0.578, "f1": 0.509},
+    {"dataset": "LibEST (top-5)", "method": "Embeddings only", "precision": 0.481, "recall": 0.613, "f1": 0.539},
+    {"dataset": "LibEST (top-5)", "method": "Hybrid, no LLM", "precision": 0.462, "recall": 0.588, "f1": 0.517}
+  ],
+  "nfr": [
+    {"name": "Scale: 10,000 nodes, queries under 2 s", "target": "< 2 s", "measured": "write 8 ms, read traces 4 ms, read all code entities 0.48 s", "met": true},
+    {"name": "LLM verification latency", "target": "<= 5 s", "measured": "typical 52 s, p95 80 s (CPU-only server, no GPU)", "met": false},
+    {"name": "Precision", "target": ">= 90%", "measured": "37.5% (iTrust sample, full pipeline)", "met": false},
+    {"name": "Recall", "target": ">= 80%", "measured": "stage 1: 41.6% at top-10 on iTrust, 91% at top-50 on eTour", "met": false}
+  ],
+  "pending": ["Persona ablation (expert vs generic prompt)", "Full pipeline on eTour with the LLM", "Decay-injection detection rate (target >= 85%)"]
+}

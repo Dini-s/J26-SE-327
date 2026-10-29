@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-22T22:35:25.254446+00:00",
+  "readiness": {
+    "status": "INCOMPLETE",
+    "missing_sections": [
+      "rvu_extraction",
+      "evidence_profiles",
+      "normalization",
+      "retrieval",
+      "adequacy",
+      "rvc",
+      "rves",
+      "gap_reviews",
+      "revalidation"
+    ],
+    "label_counts": {
+      "rvu_extraction": 0,
+      "evidence_profiles": 0,
+      "normalization": 0,
+      "retrieval": 0,
+      "adequacy": 0,
+      "rvc": 0,
+      "rves": 0,
+      "gap_reviews": 0,
+      "revalidation": 0
+    }
+  },
+  "rvu_extraction": {
+    "status": "NO_GOLD_LABELS"
+  },
+  "evidence_profiles": {
+    "status": "NO_GOLD_LABELS"
+  },
+  "normalization": {
+    "status": "NO_GOLD_LABELS"
+  },
+  "retrieval": {
+    "status": "NO_GOLD_LABELS"
+  },
+  "adequacy": {
+    "status": "NO_GOLD_LABELS"
+  },
+  "rvc": {
+    "status": "NO_GOLD_LABELS"
+  },
+  "rves": {
+    "status": "NO_GOLD_LABELS"
+  },
+  "gap_reviews": {
+    "status": "NO_GOLD_LABELS"
+  },
+  "revalidation": {
+    "status": "NO_GOLD_LABELS"
+  }
+}

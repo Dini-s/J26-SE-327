@@ -1,0 +1,2253 @@
+[
+  {
+    "rvu_id": "REQ-PET-001-RVU-01",
+    "requirement_id": "REQ-PET-001",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-003",
+    "best_relevance_score": 0.654831,
+    "best_adequacy_score": 0.912262,
+    "adequate_evidence_ids": [
+      "MT-001",
+      "MT-002",
+      "MT-003"
+    ],
+    "partial_evidence_ids": [
+      "MT-004",
+      "MT-007"
+    ],
+    "contributing_evidence_ids": [
+      "MT-001",
+      "MT-002",
+      "MT-003"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-001-RVU-02",
+    "requirement_id": "REQ-PET-001",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-001",
+    "best_relevance_score": 0.809486,
+    "best_adequacy_score": 0.946897,
+    "adequate_evidence_ids": [
+      "MT-001",
+      "MT-002",
+      "MT-003"
+    ],
+    "partial_evidence_ids": [
+      "MT-004"
+    ],
+    "contributing_evidence_ids": [
+      "MT-001",
+      "MT-002",
+      "MT-003"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-001-RVU-03",
+    "requirement_id": "REQ-PET-001",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-002",
+    "best_relevance_score": 0.46871,
+    "best_adequacy_score": 0.828742,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-001",
+      "MT-003",
+      "MT-002",
+      "MT-006"
+    ],
+    "contributing_evidence_ids": [
+      "MT-001",
+      "MT-003",
+      "MT-002",
+      "MT-006"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-01",
+    "requirement_id": "REQ-PET-002",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-001",
+    "best_relevance_score": 0.621478,
+    "best_adequacy_score": 0.679666,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-001",
+      "MT-002",
+      "MT-003"
+    ],
+    "contributing_evidence_ids": [
+      "MT-001",
+      "MT-002",
+      "MT-003"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-02",
+    "requirement_id": "REQ-PET-002",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-003",
+    "best_relevance_score": 0.478215,
+    "best_adequacy_score": 0.771119,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-001",
+      "MT-003",
+      "MT-002",
+      "MT-006"
+    ],
+    "contributing_evidence_ids": [
+      "MT-001",
+      "MT-003",
+      "MT-002",
+      "MT-006"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-03",
+    "requirement_id": "REQ-PET-002",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-002",
+    "best_relevance_score": 0.724749,
+    "best_adequacy_score": 0.81745,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-002",
+      "MT-001",
+      "MT-004"
+    ],
+    "contributing_evidence_ids": [
+      "MT-002",
+      "MT-001",
+      "MT-004"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-01",
+    "requirement_id": "REQ-PET-003",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-003",
+    "best_relevance_score": 0.682064,
+    "best_adequacy_score": 0.921413,
+    "adequate_evidence_ids": [
+      "MT-003",
+      "MT-004"
+    ],
+    "partial_evidence_ids": [
+      "MT-001",
+      "MT-005",
+      "MT-007"
+    ],
+    "contributing_evidence_ids": [
+      "MT-003",
+      "MT-004"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-02",
+    "requirement_id": "REQ-PET-003",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-003",
+    "best_relevance_score": 0.60605,
+    "best_adequacy_score": 0.90621,
+    "adequate_evidence_ids": [
+      "MT-003"
+    ],
+    "partial_evidence_ids": [
+      "MT-005",
+      "MT-001",
+      "JUNIT-ClinicServiceTests-shouldUpdateOwner",
+      "MT-007"
+    ],
+    "contributing_evidence_ids": [
+      "MT-003"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-03",
+    "requirement_id": "REQ-PET-003",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-003",
+    "best_relevance_score": 0.748737,
+    "best_adequacy_score": 0.934747,
+    "adequate_evidence_ids": [
+      "MT-003",
+      "MT-007",
+      "MT-004"
+    ],
+    "partial_evidence_ids": [
+      "MT-005",
+      "MT-001"
+    ],
+    "contributing_evidence_ids": [
+      "MT-003",
+      "MT-007",
+      "MT-004"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-01",
+    "requirement_id": "REQ-PET-004",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-005",
+    "best_relevance_score": 0.699762,
+    "best_adequacy_score": 0.924952,
+    "adequate_evidence_ids": [
+      "MT-005",
+      "MT-009"
+    ],
+    "partial_evidence_ids": [
+      "MT-003",
+      "MT-001",
+      "MT-004"
+    ],
+    "contributing_evidence_ids": [
+      "MT-005",
+      "MT-009"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-02",
+    "requirement_id": "REQ-PET-004",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-005",
+    "best_relevance_score": 0.698768,
+    "best_adequacy_score": 0.924754,
+    "adequate_evidence_ids": [
+      "MT-005",
+      "MT-003"
+    ],
+    "partial_evidence_ids": [
+      "MT-001",
+      "MT-009",
+      "JUNIT-ClinicServiceTests-shouldUpdateOwner"
+    ],
+    "contributing_evidence_ids": [
+      "MT-005",
+      "MT-003"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-03",
+    "requirement_id": "REQ-PET-004",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-005",
+    "best_relevance_score": 0.630869,
+    "best_adequacy_score": 0.911174,
+    "adequate_evidence_ids": [
+      "MT-005"
+    ],
+    "partial_evidence_ids": [
+      "MT-009",
+      "MT-001",
+      "MT-003",
+      "MT-002"
+    ],
+    "contributing_evidence_ids": [
+      "MT-005"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-01",
+    "requirement_id": "REQ-PET-005",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-003",
+    "best_relevance_score": 0.481449,
+    "best_adequacy_score": 0.803512,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-001",
+      "MT-003",
+      "MT-006",
+      "MT-002"
+    ],
+    "contributing_evidence_ids": [
+      "MT-001",
+      "MT-003",
+      "MT-006",
+      "MT-002"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-02",
+    "requirement_id": "REQ-PET-005",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-006",
+    "best_relevance_score": 0.655497,
+    "best_adequacy_score": 0.916099,
+    "adequate_evidence_ids": [
+      "MT-006",
+      "MT-007"
+    ],
+    "partial_evidence_ids": [
+      "MT-009",
+      "JUNIT-OwnerTests-addPetAddsPersistedPet",
+      "MT-010"
+    ],
+    "contributing_evidence_ids": [
+      "MT-006",
+      "MT-007"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-03",
+    "requirement_id": "REQ-PET-005",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-006",
+    "best_relevance_score": 0.591628,
+    "best_adequacy_score": 0.869992,
+    "adequate_evidence_ids": [
+      "MT-006",
+      "MT-010"
+    ],
+    "partial_evidence_ids": [
+      "MT-009",
+      "MT-007",
+      "MT-011"
+    ],
+    "contributing_evidence_ids": [
+      "MT-006",
+      "MT-010"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-01",
+    "requirement_id": "REQ-PET-006",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-004",
+    "best_relevance_score": 0.770941,
+    "best_adequacy_score": 0.939188,
+    "adequate_evidence_ids": [
+      "MT-004"
+    ],
+    "partial_evidence_ids": [
+      "MT-008",
+      "MT-003"
+    ],
+    "contributing_evidence_ids": [
+      "MT-004"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-02",
+    "requirement_id": "REQ-PET-006",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-008",
+    "best_relevance_score": 0.587206,
+    "best_adequacy_score": 0.902441,
+    "adequate_evidence_ids": [
+      "MT-004",
+      "MT-008"
+    ],
+    "partial_evidence_ids": [
+      "MT-003",
+      "MT-005"
+    ],
+    "contributing_evidence_ids": [
+      "MT-004",
+      "MT-008"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-03",
+    "requirement_id": "REQ-PET-006",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-008",
+    "best_relevance_score": 0.543471,
+    "best_adequacy_score": 0.893694,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-004",
+      "MT-003",
+      "MT-005",
+      "MT-002",
+      "MT-008"
+    ],
+    "contributing_evidence_ids": [
+      "MT-004",
+      "MT-003",
+      "MT-005",
+      "MT-002",
+      "MT-008"
+    ],
+    "reason_codes": [
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-01",
+    "requirement_id": "REQ-PET-007",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-007",
+    "best_relevance_score": 0.775989,
+    "best_adequacy_score": 0.940198,
+    "adequate_evidence_ids": [
+      "MT-007",
+      "MT-008",
+      "MT-010",
+      "MT-009"
+    ],
+    "partial_evidence_ids": [
+      "MT-003"
+    ],
+    "contributing_evidence_ids": [
+      "MT-007",
+      "MT-008",
+      "MT-010",
+      "MT-009"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-02",
+    "requirement_id": "REQ-PET-007",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-007",
+    "best_relevance_score": 0.70549,
+    "best_adequacy_score": 0.926098,
+    "adequate_evidence_ids": [
+      "MT-007",
+      "MT-006"
+    ],
+    "partial_evidence_ids": [
+      "MT-009",
+      "MT-008",
+      "JUNIT-ClinicServiceTests-shouldInsertPetIntoDatabaseAndGenerateId"
+    ],
+    "contributing_evidence_ids": [
+      "MT-007",
+      "MT-006"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-03",
+    "requirement_id": "REQ-PET-007",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-007",
+    "best_relevance_score": 0.737299,
+    "best_adequacy_score": 0.928756,
+    "adequate_evidence_ids": [
+      "MT-007",
+      "MT-010",
+      "MT-008",
+      "MT-006"
+    ],
+    "partial_evidence_ids": [
+      "MT-009"
+    ],
+    "contributing_evidence_ids": [
+      "MT-007",
+      "MT-010",
+      "MT-008",
+      "MT-006"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-01",
+    "requirement_id": "REQ-PET-008",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-009",
+    "best_relevance_score": 0.691809,
+    "best_adequacy_score": 0.923362,
+    "adequate_evidence_ids": [
+      "MT-009"
+    ],
+    "partial_evidence_ids": [
+      "MT-007",
+      "MT-008",
+      "MT-010",
+      "JUNIT-OwnerTests-addPetAddsPersistedPet"
+    ],
+    "contributing_evidence_ids": [
+      "MT-009"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-02",
+    "requirement_id": "REQ-PET-008",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-009",
+    "best_relevance_score": 0.767536,
+    "best_adequacy_score": 0.934803,
+    "adequate_evidence_ids": [
+      "MT-009",
+      "MT-006",
+      "MT-007"
+    ],
+    "partial_evidence_ids": [
+      "MT-005",
+      "JUNIT-OwnerTests-addPetAddsPersistedPet"
+    ],
+    "contributing_evidence_ids": [
+      "MT-009",
+      "MT-006",
+      "MT-007"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-03",
+    "requirement_id": "REQ-PET-008",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-009",
+    "best_relevance_score": 0.595771,
+    "best_adequacy_score": 0.904154,
+    "adequate_evidence_ids": [
+      "MT-009"
+    ],
+    "partial_evidence_ids": [
+      "MT-010",
+      "MT-008"
+    ],
+    "contributing_evidence_ids": [
+      "MT-009"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-01",
+    "requirement_id": "REQ-PET-009",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-008",
+    "best_relevance_score": 0.740783,
+    "best_adequacy_score": 0.933157,
+    "adequate_evidence_ids": [
+      "MT-008",
+      "MT-011"
+    ],
+    "partial_evidence_ids": [
+      "MT-007",
+      "MT-010",
+      "MT-004"
+    ],
+    "contributing_evidence_ids": [
+      "MT-008",
+      "MT-011"
+    ],
+    "reason_codes": [
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-02",
+    "requirement_id": "REQ-PET-009",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-008",
+    "best_relevance_score": 0.79732,
+    "best_adequacy_score": 0.944464,
+    "adequate_evidence_ids": [
+      "MT-008",
+      "MT-011"
+    ],
+    "partial_evidence_ids": [
+      "JUNIT-PetValidatorTests$ValidateHasErrors-validateWithInvalidPetType",
+      "MT-010",
+      "MT-007"
+    ],
+    "contributing_evidence_ids": [
+      "MT-008",
+      "MT-011"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-03",
+    "requirement_id": "REQ-PET-009",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-008",
+    "best_relevance_score": 0.798673,
+    "best_adequacy_score": 0.944735,
+    "adequate_evidence_ids": [
+      "MT-008",
+      "MT-011",
+      "JUNIT-PetValidatorTests$ValidateHasErrors-validateWithInvalidPetType"
+    ],
+    "partial_evidence_ids": [
+      "MT-007",
+      "JUNIT-PetControllerTests$ProcessCreationFormHasErrors-processCreationFormWithDataIntegrityViolation"
+    ],
+    "contributing_evidence_ids": [
+      "MT-008",
+      "MT-011",
+      "JUNIT-PetValidatorTests$ValidateHasErrors-validateWithInvalidPetType"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-01",
+    "requirement_id": "REQ-PET-010",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-007",
+    "best_relevance_score": 0.739495,
+    "best_adequacy_score": 0.929195,
+    "adequate_evidence_ids": [
+      "MT-007",
+      "MT-006"
+    ],
+    "partial_evidence_ids": [
+      "MT-008",
+      "MT-010",
+      "MT-009"
+    ],
+    "contributing_evidence_ids": [
+      "MT-007",
+      "MT-006"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-02",
+    "requirement_id": "REQ-PET-010",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-009",
+    "best_relevance_score": 0.757198,
+    "best_adequacy_score": 0.932736,
+    "adequate_evidence_ids": [
+      "MT-009",
+      "MT-007",
+      "MT-006"
+    ],
+    "partial_evidence_ids": [
+      "MT-005",
+      "MT-008"
+    ],
+    "contributing_evidence_ids": [
+      "MT-009",
+      "MT-007",
+      "MT-006"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-03",
+    "requirement_id": "REQ-PET-010",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-006",
+    "best_relevance_score": 0.636009,
+    "best_adequacy_score": 0.912202,
+    "adequate_evidence_ids": [
+      "MT-006",
+      "MT-009",
+      "MT-007"
+    ],
+    "partial_evidence_ids": [
+      "MT-008",
+      "JUNIT-OwnerTests-addPetAddsPersistedPet"
+    ],
+    "contributing_evidence_ids": [
+      "MT-006",
+      "MT-009",
+      "MT-007"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-01",
+    "requirement_id": "REQ-PET-011",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-010",
+    "best_relevance_score": 0.820567,
+    "best_adequacy_score": 0.949113,
+    "adequate_evidence_ids": [
+      "MT-010",
+      "MT-011",
+      "MT-007"
+    ],
+    "partial_evidence_ids": [
+      "MT-008",
+      "JUNIT-ClinicServiceTests-shouldAddNewVisitForPet"
+    ],
+    "contributing_evidence_ids": [
+      "MT-010",
+      "MT-011",
+      "MT-007"
+    ],
+    "reason_codes": [
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-02",
+    "requirement_id": "REQ-PET-011",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-010",
+    "best_relevance_score": 0.642705,
+    "best_adequacy_score": 0.899255,
+    "adequate_evidence_ids": [
+      "MT-010"
+    ],
+    "partial_evidence_ids": [
+      "MT-011",
+      "MT-007",
+      "MT-009",
+      "JUNIT-VisitControllerTests-initNewVisitForm"
+    ],
+    "contributing_evidence_ids": [
+      "MT-010"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-03",
+    "requirement_id": "REQ-PET-011",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-010",
+    "best_relevance_score": 0.72687,
+    "best_adequacy_score": 0.930374,
+    "adequate_evidence_ids": [
+      "MT-010"
+    ],
+    "partial_evidence_ids": [
+      "MT-011",
+      "MT-007",
+      "JUNIT-ClinicServiceTests-shouldFindVisitsByPetId",
+      "JUNIT-VisitControllerTests-processNewVisitFormSuccess"
+    ],
+    "contributing_evidence_ids": [
+      "MT-010"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-01",
+    "requirement_id": "REQ-PET-012",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-011",
+    "best_relevance_score": 0.600043,
+    "best_adequacy_score": 0.905009,
+    "adequate_evidence_ids": [
+      "MT-011"
+    ],
+    "partial_evidence_ids": [
+      "MT-010",
+      "MT-004"
+    ],
+    "contributing_evidence_ids": [
+      "MT-011"
+    ],
+    "reason_codes": [
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-02",
+    "requirement_id": "REQ-PET-012",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-008",
+    "best_relevance_score": 0.495386,
+    "best_adequacy_score": 0.884077,
+    "adequate_evidence_ids": [
+      "MT-011"
+    ],
+    "partial_evidence_ids": [
+      "MT-010",
+      "MT-008",
+      "MT-004"
+    ],
+    "contributing_evidence_ids": [
+      "MT-011"
+    ],
+    "reason_codes": [
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-03",
+    "requirement_id": "REQ-PET-012",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-008",
+    "best_relevance_score": 0.49867,
+    "best_adequacy_score": 0.870448,
+    "adequate_evidence_ids": [
+      "MT-011"
+    ],
+    "partial_evidence_ids": [
+      "MT-010",
+      "MT-008",
+      "JUNIT-VisitControllerTests-processNewVisitFormHasErrorsWhenVisitDateIsNotInFuture"
+    ],
+    "contributing_evidence_ids": [
+      "MT-011"
+    ],
+    "reason_codes": [
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-01",
+    "requirement_id": "REQ-PET-013",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-006",
+    "best_relevance_score": 0.444472,
+    "best_adequacy_score": 0.764371,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-010",
+      "MT-011",
+      "MT-006"
+    ],
+    "contributing_evidence_ids": [
+      "MT-010",
+      "MT-011",
+      "MT-006"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-02",
+    "requirement_id": "REQ-PET-013",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-006",
+    "best_relevance_score": 0.466606,
+    "best_adequacy_score": 0.864035,
+    "adequate_evidence_ids": [
+      "MT-010"
+    ],
+    "partial_evidence_ids": [
+      "MT-011",
+      "JUNIT-ClinicServiceTests-shouldFindVisitsByPetId",
+      "MT-009",
+      "MT-006"
+    ],
+    "contributing_evidence_ids": [
+      "MT-010"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-03",
+    "requirement_id": "REQ-PET-013",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-010",
+    "best_relevance_score": 0.786166,
+    "best_adequacy_score": 0.942233,
+    "adequate_evidence_ids": [
+      "MT-010"
+    ],
+    "partial_evidence_ids": [
+      "MT-011",
+      "MT-007",
+      "MT-008",
+      "JUNIT-VisitControllerTests-processNewVisitFormHasErrorsWhenVisitDateIsNotInFuture"
+    ],
+    "contributing_evidence_ids": [
+      "MT-010"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-01",
+    "requirement_id": "REQ-PET-014",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-012",
+    "best_relevance_score": 0.569478,
+    "best_adequacy_score": 0.898896,
+    "adequate_evidence_ids": [
+      "MT-012"
+    ],
+    "partial_evidence_ids": [
+      "MT-010",
+      "MT-011"
+    ],
+    "contributing_evidence_ids": [
+      "MT-012"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-02",
+    "requirement_id": "REQ-PET-014",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-012",
+    "best_relevance_score": 0.60637,
+    "best_adequacy_score": 0.717385,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-012",
+      "MT-010",
+      "MT-007",
+      "JUNIT-ClinicServiceTests-shouldFindVets"
+    ],
+    "contributing_evidence_ids": [
+      "MT-012",
+      "MT-010",
+      "MT-007",
+      "JUNIT-ClinicServiceTests-shouldFindVets"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-03",
+    "requirement_id": "REQ-PET-014",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-012",
+    "best_relevance_score": 0.616471,
+    "best_adequacy_score": 0.908294,
+    "adequate_evidence_ids": [
+      "MT-012"
+    ],
+    "partial_evidence_ids": [
+      "MT-010",
+      "MT-011",
+      "MT-007"
+    ],
+    "contributing_evidence_ids": [
+      "MT-012"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-01",
+    "requirement_id": "REQ-PET-015",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-012",
+    "best_relevance_score": 0.654521,
+    "best_adequacy_score": 0.915904,
+    "adequate_evidence_ids": [
+      "MT-012"
+    ],
+    "partial_evidence_ids": [
+      "MT-010",
+      "JUNIT-ClinicServiceTests-shouldFindVets"
+    ],
+    "contributing_evidence_ids": [
+      "MT-012"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-02",
+    "requirement_id": "REQ-PET-015",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-012",
+    "best_relevance_score": 0.613403,
+    "best_adequacy_score": 0.817681,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-012",
+      "MT-009",
+      "MT-010",
+      "MT-006"
+    ],
+    "contributing_evidence_ids": [
+      "MT-012",
+      "MT-009",
+      "MT-010",
+      "MT-006"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-03",
+    "requirement_id": "REQ-PET-015",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-010",
+    "best_relevance_score": 0.474581,
+    "best_adequacy_score": 0.746583,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-012",
+      "MT-010",
+      "MT-011",
+      "MT-008"
+    ],
+    "contributing_evidence_ids": [
+      "MT-012",
+      "MT-010",
+      "MT-011",
+      "MT-008"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-01",
+    "requirement_id": "REQ-C3-F-016",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-013",
+    "best_relevance_score": 0.898503,
+    "best_adequacy_score": 0.814701,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-013",
+      "MT-014"
+    ],
+    "contributing_evidence_ids": [
+      "MT-013",
+      "MT-014"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-02",
+    "requirement_id": "REQ-C3-F-016",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-014",
+    "best_relevance_score": 0.640677,
+    "best_adequacy_score": 0.879802,
+    "adequate_evidence_ids": [
+      "MT-014",
+      "MT-013"
+    ],
+    "partial_evidence_ids": [
+      "MT-015"
+    ],
+    "contributing_evidence_ids": [
+      "MT-014",
+      "MT-013"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-03",
+    "requirement_id": "REQ-C3-F-016",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-013",
+    "best_relevance_score": 0.67819,
+    "best_adequacy_score": 0.812305,
+    "adequate_evidence_ids": [
+      "MT-013"
+    ],
+    "partial_evidence_ids": [
+      "MT-014",
+      "MT-015",
+      "MT-016"
+    ],
+    "contributing_evidence_ids": [
+      "MT-013"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-04",
+    "requirement_id": "REQ-C3-F-016",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-014",
+    "best_relevance_score": 0.853805,
+    "best_adequacy_score": 0.955761,
+    "adequate_evidence_ids": [
+      "MT-014",
+      "MT-013"
+    ],
+    "partial_evidence_ids": [
+      "MT-017",
+      "MT-015",
+      "MT-018"
+    ],
+    "contributing_evidence_ids": [
+      "MT-014",
+      "MT-013"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-01",
+    "requirement_id": "REQ-C3-F-017",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-014",
+    "best_relevance_score": 0.565358,
+    "best_adequacy_score": 0.672146,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-016",
+      "MT-015",
+      "MT-014",
+      "MT-013",
+      "MT-018"
+    ],
+    "contributing_evidence_ids": [
+      "MT-016",
+      "MT-015",
+      "MT-014",
+      "MT-013",
+      "MT-018"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-02",
+    "requirement_id": "REQ-C3-F-017",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-015",
+    "best_relevance_score": 0.669037,
+    "best_adequacy_score": 0.873807,
+    "adequate_evidence_ids": [
+      "MT-015"
+    ],
+    "partial_evidence_ids": [
+      "MT-016"
+    ],
+    "contributing_evidence_ids": [
+      "MT-015"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-03",
+    "requirement_id": "REQ-C3-F-017",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-015",
+    "best_relevance_score": 0.686499,
+    "best_adequacy_score": 0.8773,
+    "adequate_evidence_ids": [
+      "MT-015",
+      "MT-016"
+    ],
+    "partial_evidence_ids": [
+      "MT-014",
+      "MT-017"
+    ],
+    "contributing_evidence_ids": [
+      "MT-015",
+      "MT-016"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-01",
+    "requirement_id": "REQ-C3-F-018",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-018",
+    "best_relevance_score": 0.805609,
+    "best_adequacy_score": 0.946122,
+    "adequate_evidence_ids": [
+      "MT-018",
+      "MT-017"
+    ],
+    "partial_evidence_ids": [
+      "MT-014",
+      "MT-013",
+      "MT-015"
+    ],
+    "contributing_evidence_ids": [
+      "MT-018",
+      "MT-017"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-02",
+    "requirement_id": "REQ-C3-F-018",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-017",
+    "best_relevance_score": 0.807636,
+    "best_adequacy_score": 0.946527,
+    "adequate_evidence_ids": [
+      "MT-017"
+    ],
+    "partial_evidence_ids": [
+      "MT-018",
+      "MT-014"
+    ],
+    "contributing_evidence_ids": [
+      "MT-017"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-03",
+    "requirement_id": "REQ-C3-F-018",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-017",
+    "best_relevance_score": 0.77543,
+    "best_adequacy_score": 0.940086,
+    "adequate_evidence_ids": [
+      "MT-017"
+    ],
+    "partial_evidence_ids": [
+      "MT-018",
+      "MT-014",
+      "MT-015",
+      "MT-004"
+    ],
+    "contributing_evidence_ids": [
+      "MT-017"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-01",
+    "requirement_id": "REQ-C3-F-019",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-019",
+    "best_relevance_score": 0.839831,
+    "best_adequacy_score": 0.907966,
+    "adequate_evidence_ids": [
+      "MT-019",
+      "MT-020"
+    ],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [
+      "MT-019",
+      "MT-020"
+    ],
+    "reason_codes": []
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-02",
+    "requirement_id": "REQ-C3-F-019",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-020",
+    "best_relevance_score": 0.861415,
+    "best_adequacy_score": 0.912283,
+    "adequate_evidence_ids": [
+      "MT-020"
+    ],
+    "partial_evidence_ids": [
+      "MT-019"
+    ],
+    "contributing_evidence_ids": [
+      "MT-020"
+    ],
+    "reason_codes": [
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-03",
+    "requirement_id": "REQ-C3-F-019",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "MT-020",
+    "best_relevance_score": 0.669635,
+    "best_adequacy_score": 0.873927,
+    "adequate_evidence_ids": [
+      "MT-020"
+    ],
+    "partial_evidence_ids": [
+      "MT-019"
+    ],
+    "contributing_evidence_ids": [
+      "MT-020"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-01",
+    "requirement_id": "REQ-C3-F-020",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-017",
+    "best_relevance_score": 0.377873,
+    "best_adequacy_score": 0.782797,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-018",
+      "MT-017"
+    ],
+    "contributing_evidence_ids": [
+      "MT-018",
+      "MT-017"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-02",
+    "requirement_id": "REQ-C3-F-020",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-017",
+    "best_relevance_score": 0.433969,
+    "best_adequacy_score": 0.86809,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-018",
+      "MT-017"
+    ],
+    "contributing_evidence_ids": [
+      "MT-018",
+      "MT-017"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-03",
+    "requirement_id": "REQ-C3-F-020",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "MT-018",
+    "best_relevance_score": 0.497246,
+    "best_adequacy_score": 0.834449,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "MT-018",
+      "MT-017",
+      "MT-003"
+    ],
+    "contributing_evidence_ids": [
+      "MT-018",
+      "MT-017",
+      "MT-003"
+    ],
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-01",
+    "requirement_id": "REQ-C3-NFR-021",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "PERF-001",
+    "best_relevance_score": 0.856033,
+    "best_adequacy_score": 0.978405,
+    "adequate_evidence_ids": [
+      "PERF-001"
+    ],
+    "partial_evidence_ids": [
+      "PERF-002",
+      "PERF-005",
+      "PERF-003"
+    ],
+    "contributing_evidence_ids": [
+      "PERF-001"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-02",
+    "requirement_id": "REQ-C3-NFR-021",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "PERF-002",
+    "best_relevance_score": 0.774602,
+    "best_adequacy_score": 0.96619,
+    "adequate_evidence_ids": [
+      "PERF-002"
+    ],
+    "partial_evidence_ids": [
+      "PERF-001",
+      "PERF-006",
+      "PERF-004"
+    ],
+    "contributing_evidence_ids": [
+      "PERF-002"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-03",
+    "requirement_id": "REQ-C3-NFR-021",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "PARTIAL",
+    "best_evidence_id": "PERF-002",
+    "best_relevance_score": 0.661189,
+    "best_adequacy_score": 0.749178,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [
+      "PERF-002",
+      "PERF-001"
+    ],
+    "contributing_evidence_ids": [
+      "PERF-002",
+      "PERF-001"
+    ],
+    "reason_codes": [
+      "NFR_METRIC_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-01",
+    "requirement_id": "REQ-C3-NFR-022",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "PERF-003",
+    "best_relevance_score": 0.805825,
+    "best_adequacy_score": 0.970874,
+    "adequate_evidence_ids": [
+      "PERF-003"
+    ],
+    "partial_evidence_ids": [
+      "PERF-005",
+      "PERF-004",
+      "PERF-001"
+    ],
+    "contributing_evidence_ids": [
+      "PERF-003"
+    ],
+    "reason_codes": [
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-02",
+    "requirement_id": "REQ-C3-NFR-022",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "PERF-004",
+    "best_relevance_score": 0.715501,
+    "best_adequacy_score": 0.957325,
+    "adequate_evidence_ids": [
+      "PERF-004"
+    ],
+    "partial_evidence_ids": [
+      "PERF-003"
+    ],
+    "contributing_evidence_ids": [
+      "PERF-004"
+    ],
+    "reason_codes": [
+      "NFR_METRIC_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-03",
+    "requirement_id": "REQ-C3-NFR-022",
+    "support_status": "REVIEW_REQUIRED",
+    "evidence_found": false,
+    "adequacy_status": "NOT_ASSESSED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "HUMAN_REVIEW_REQUIRED"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-01",
+    "requirement_id": "REQ-C3-NFR-023",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "PERF-005",
+    "best_relevance_score": 0.865128,
+    "best_adequacy_score": 0.979769,
+    "adequate_evidence_ids": [
+      "PERF-005",
+      "PERF-001",
+      "PERF-003"
+    ],
+    "partial_evidence_ids": [
+      "PERF-006",
+      "PERF-002"
+    ],
+    "contributing_evidence_ids": [
+      "PERF-005",
+      "PERF-001",
+      "PERF-003"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-02",
+    "requirement_id": "REQ-C3-NFR-023",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "PERF-005",
+    "best_relevance_score": 0.673654,
+    "best_adequacy_score": 0.951048,
+    "adequate_evidence_ids": [
+      "PERF-005"
+    ],
+    "partial_evidence_ids": [
+      "PERF-006",
+      "PERF-004",
+      "PERF-002"
+    ],
+    "contributing_evidence_ids": [
+      "PERF-005"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-03",
+    "requirement_id": "REQ-C3-NFR-023",
+    "support_status": "SUPPORTED",
+    "evidence_found": true,
+    "adequacy_status": "ADEQUATE",
+    "best_evidence_id": "PERF-005",
+    "best_relevance_score": 0.616855,
+    "best_adequacy_score": 0.942528,
+    "adequate_evidence_ids": [
+      "PERF-005"
+    ],
+    "partial_evidence_ids": [
+      "PERF-006"
+    ],
+    "contributing_evidence_ids": [
+      "PERF-005"
+    ],
+    "reason_codes": [
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-01",
+    "requirement_id": "REQ-C3-NFR-024",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-02",
+    "requirement_id": "REQ-C3-NFR-024",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-03",
+    "requirement_id": "REQ-C3-NFR-024",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-01",
+    "requirement_id": "REQ-C3-NFR-025",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-02",
+    "requirement_id": "REQ-C3-NFR-025",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-03",
+    "requirement_id": "REQ-C3-NFR-025",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-01",
+    "requirement_id": "REQ-C3-NFR-026",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-02",
+    "requirement_id": "REQ-C3-NFR-026",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-03",
+    "requirement_id": "REQ-C3-NFR-026",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-01",
+    "requirement_id": "REQ-C3-NFR-027",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-02",
+    "requirement_id": "REQ-C3-NFR-027",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-03",
+    "requirement_id": "REQ-C3-NFR-027",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-01",
+    "requirement_id": "REQ-C3-NFR-028",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-02",
+    "requirement_id": "REQ-C3-NFR-028",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-03",
+    "requirement_id": "REQ-C3-NFR-028",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-01",
+    "requirement_id": "REQ-C3-NFR-029",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-02",
+    "requirement_id": "REQ-C3-NFR-029",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-03",
+    "requirement_id": "REQ-C3-NFR-029",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-01",
+    "requirement_id": "REQ-C3-NFR-030",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-02",
+    "requirement_id": "REQ-C3-NFR-030",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-03",
+    "requirement_id": "REQ-C3-NFR-030",
+    "support_status": "UNSUPPORTED",
+    "evidence_found": false,
+    "adequacy_status": "UNSUPPORTED",
+    "best_evidence_id": null,
+    "best_relevance_score": 0.0,
+    "best_adequacy_score": 0.0,
+    "adequate_evidence_ids": [],
+    "partial_evidence_ids": [],
+    "contributing_evidence_ids": [],
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ]
+  }
+]

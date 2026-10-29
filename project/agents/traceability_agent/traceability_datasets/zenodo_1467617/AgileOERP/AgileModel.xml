@@ -1,0 +1,47 @@
+<artifacts Model="Agile">
+	<artifact>
+		<type>UserStories</type> 
+		<abbreviation>US</abbreviation>
+		<p1>id</p1>
+		<p2>summary</p2>
+		<p3>status</p3> 
+	</artifact>
+	<artifact> 
+		<type>Task</type>
+		<abbreviation>TS</abbreviation>
+		<p1>id</p1>
+		<p2>detail</p2>
+		<p3>status</p3>
+	</artifact>
+	<artifact> 
+		<type>AcceptanceTest</type> 
+		<abbreviation>AT</abbreviation>
+		<p1>id</p1>
+		<p2>given</p2>
+		<p3>when</p3>
+		<p4>then</p4> 
+	</artifact>	
+	<artifact> 
+		<type>DeveloperTest</type> 
+		<abbreviation>DT</abbreviation>
+		<p1>id</p1>
+		<p2>content</p2>
+		<p3>severity</p3>
+		<p4/> 
+	</artifact>	
+	<artifact>
+		<type>Design</type>
+		<abbreviation>DS</abbreviation>
+		<p1>id</p1>
+		<p2>filename</p2><p3/> 
+		<p4/>  
+	</artifact>
+	<artifact>
+		<type>SourceCode</type>
+		<abbreviation>SC</abbreviation>
+		<p1>id</p1>
+		<p2>filename</p2> <p3/> 
+		<p4/>  
+	</artifact>
+</artifacts>
+

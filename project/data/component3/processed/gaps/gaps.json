@@ -1,0 +1,1331 @@
+[
+  {
+    "gap_id": "GAP-0001",
+    "requirement_id": "REQ-PET-001",
+    "rvu_id": "REQ-PET-001-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-003"
+  },
+  {
+    "gap_id": "GAP-0002",
+    "requirement_id": "REQ-PET-001",
+    "rvu_id": "REQ-PET-001-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-001"
+  },
+  {
+    "gap_id": "GAP-0003",
+    "requirement_id": "REQ-PET-001",
+    "rvu_id": "REQ-PET-001-RVU-03",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-002"
+  },
+  {
+    "gap_id": "GAP-0004",
+    "requirement_id": "REQ-PET-002",
+    "rvu_id": "REQ-PET-002-RVU-01",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-001"
+  },
+  {
+    "gap_id": "GAP-0005",
+    "requirement_id": "REQ-PET-002",
+    "rvu_id": "REQ-PET-002-RVU-02",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-003"
+  },
+  {
+    "gap_id": "GAP-0006",
+    "requirement_id": "REQ-PET-002",
+    "rvu_id": "REQ-PET-002-RVU-03",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-002"
+  },
+  {
+    "gap_id": "GAP-0007",
+    "requirement_id": "REQ-PET-003",
+    "rvu_id": "REQ-PET-003-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-003"
+  },
+  {
+    "gap_id": "GAP-0008",
+    "requirement_id": "REQ-PET-003",
+    "rvu_id": "REQ-PET-003-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-003"
+  },
+  {
+    "gap_id": "GAP-0009",
+    "requirement_id": "REQ-PET-003",
+    "rvu_id": "REQ-PET-003-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ],
+    "evidence_id": "MT-003"
+  },
+  {
+    "gap_id": "GAP-0010",
+    "requirement_id": "REQ-PET-004",
+    "rvu_id": "REQ-PET-004-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-005"
+  },
+  {
+    "gap_id": "GAP-0011",
+    "requirement_id": "REQ-PET-004",
+    "rvu_id": "REQ-PET-004-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-005"
+  },
+  {
+    "gap_id": "GAP-0012",
+    "requirement_id": "REQ-PET-004",
+    "rvu_id": "REQ-PET-004-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ],
+    "evidence_id": "MT-005"
+  },
+  {
+    "gap_id": "GAP-0013",
+    "requirement_id": "REQ-PET-005",
+    "rvu_id": "REQ-PET-005-RVU-01",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-003"
+  },
+  {
+    "gap_id": "GAP-0014",
+    "requirement_id": "REQ-PET-005",
+    "rvu_id": "REQ-PET-005-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-006"
+  },
+  {
+    "gap_id": "GAP-0015",
+    "requirement_id": "REQ-PET-005",
+    "rvu_id": "REQ-PET-005-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-006"
+  },
+  {
+    "gap_id": "GAP-0016",
+    "requirement_id": "REQ-PET-006",
+    "rvu_id": "REQ-PET-006-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-004"
+  },
+  {
+    "gap_id": "GAP-0017",
+    "requirement_id": "REQ-PET-006",
+    "rvu_id": "REQ-PET-006-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-008"
+  },
+  {
+    "gap_id": "GAP-0018",
+    "requirement_id": "REQ-PET-006",
+    "rvu_id": "REQ-PET-006-RVU-03",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-008"
+  },
+  {
+    "gap_id": "GAP-0019",
+    "requirement_id": "REQ-PET-007",
+    "rvu_id": "REQ-PET-007-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ],
+    "evidence_id": "MT-007"
+  },
+  {
+    "gap_id": "GAP-0020",
+    "requirement_id": "REQ-PET-007",
+    "rvu_id": "REQ-PET-007-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-007"
+  },
+  {
+    "gap_id": "GAP-0021",
+    "requirement_id": "REQ-PET-007",
+    "rvu_id": "REQ-PET-007-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ],
+    "evidence_id": "MT-007"
+  },
+  {
+    "gap_id": "GAP-0022",
+    "requirement_id": "REQ-PET-008",
+    "rvu_id": "REQ-PET-008-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-009"
+  },
+  {
+    "gap_id": "GAP-0023",
+    "requirement_id": "REQ-PET-008",
+    "rvu_id": "REQ-PET-008-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH"
+    ],
+    "evidence_id": "MT-009"
+  },
+  {
+    "gap_id": "GAP-0024",
+    "requirement_id": "REQ-PET-008",
+    "rvu_id": "REQ-PET-008-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-009"
+  },
+  {
+    "gap_id": "GAP-0025",
+    "requirement_id": "REQ-PET-009",
+    "rvu_id": "REQ-PET-009-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-008"
+  },
+  {
+    "gap_id": "GAP-0026",
+    "requirement_id": "REQ-PET-009",
+    "rvu_id": "REQ-PET-009-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-008"
+  },
+  {
+    "gap_id": "GAP-0027",
+    "requirement_id": "REQ-PET-010",
+    "rvu_id": "REQ-PET-010-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-007"
+  },
+  {
+    "gap_id": "GAP-0028",
+    "requirement_id": "REQ-PET-010",
+    "rvu_id": "REQ-PET-010-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-009"
+  },
+  {
+    "gap_id": "GAP-0029",
+    "requirement_id": "REQ-PET-010",
+    "rvu_id": "REQ-PET-010-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-006"
+  },
+  {
+    "gap_id": "GAP-0030",
+    "requirement_id": "REQ-PET-011",
+    "rvu_id": "REQ-PET-011-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE"
+    ],
+    "evidence_id": "MT-010"
+  },
+  {
+    "gap_id": "GAP-0031",
+    "requirement_id": "REQ-PET-011",
+    "rvu_id": "REQ-PET-011-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-010"
+  },
+  {
+    "gap_id": "GAP-0032",
+    "requirement_id": "REQ-PET-011",
+    "rvu_id": "REQ-PET-011-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-010"
+  },
+  {
+    "gap_id": "GAP-0033",
+    "requirement_id": "REQ-PET-012",
+    "rvu_id": "REQ-PET-012-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-011"
+  },
+  {
+    "gap_id": "GAP-0034",
+    "requirement_id": "REQ-PET-012",
+    "rvu_id": "REQ-PET-012-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-008"
+  },
+  {
+    "gap_id": "GAP-0035",
+    "requirement_id": "REQ-PET-012",
+    "rvu_id": "REQ-PET-012-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-008"
+  },
+  {
+    "gap_id": "GAP-0036",
+    "requirement_id": "REQ-PET-013",
+    "rvu_id": "REQ-PET-013-RVU-01",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-006"
+  },
+  {
+    "gap_id": "GAP-0037",
+    "requirement_id": "REQ-PET-013",
+    "rvu_id": "REQ-PET-013-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-006"
+  },
+  {
+    "gap_id": "GAP-0038",
+    "requirement_id": "REQ-PET-013",
+    "rvu_id": "REQ-PET-013-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-010"
+  },
+  {
+    "gap_id": "GAP-0039",
+    "requirement_id": "REQ-PET-014",
+    "rvu_id": "REQ-PET-014-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-012"
+  },
+  {
+    "gap_id": "GAP-0040",
+    "requirement_id": "REQ-PET-014",
+    "rvu_id": "REQ-PET-014-RVU-02",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-012"
+  },
+  {
+    "gap_id": "GAP-0041",
+    "requirement_id": "REQ-PET-014",
+    "rvu_id": "REQ-PET-014-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-012"
+  },
+  {
+    "gap_id": "GAP-0042",
+    "requirement_id": "REQ-PET-015",
+    "rvu_id": "REQ-PET-015-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-012"
+  },
+  {
+    "gap_id": "GAP-0043",
+    "requirement_id": "REQ-PET-015",
+    "rvu_id": "REQ-PET-015-RVU-02",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-012"
+  },
+  {
+    "gap_id": "GAP-0044",
+    "requirement_id": "REQ-PET-015",
+    "rvu_id": "REQ-PET-015-RVU-03",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-010"
+  },
+  {
+    "gap_id": "GAP-0045",
+    "requirement_id": "REQ-C3-F-016",
+    "rvu_id": "REQ-C3-F-016-RVU-01",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-013"
+  },
+  {
+    "gap_id": "GAP-0046",
+    "requirement_id": "REQ-C3-F-016",
+    "rvu_id": "REQ-C3-F-016-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-014"
+  },
+  {
+    "gap_id": "GAP-0047",
+    "requirement_id": "REQ-C3-F-016",
+    "rvu_id": "REQ-C3-F-016-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "MT-013"
+  },
+  {
+    "gap_id": "GAP-0048",
+    "requirement_id": "REQ-C3-F-016",
+    "rvu_id": "REQ-C3-F-016-RVU-04",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-014"
+  },
+  {
+    "gap_id": "GAP-0049",
+    "requirement_id": "REQ-C3-F-017",
+    "rvu_id": "REQ-C3-F-017-RVU-01",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "INPUT_MISMATCH",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-014"
+  },
+  {
+    "gap_id": "GAP-0050",
+    "requirement_id": "REQ-C3-F-017",
+    "rvu_id": "REQ-C3-F-017-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "PRECONDITION_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-015"
+  },
+  {
+    "gap_id": "GAP-0051",
+    "requirement_id": "REQ-C3-F-017",
+    "rvu_id": "REQ-C3-F-017-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-015"
+  },
+  {
+    "gap_id": "GAP-0052",
+    "requirement_id": "REQ-C3-F-018",
+    "rvu_id": "REQ-C3-F-018-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-018"
+  },
+  {
+    "gap_id": "GAP-0053",
+    "requirement_id": "REQ-C3-F-018",
+    "rvu_id": "REQ-C3-F-018-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-017"
+  },
+  {
+    "gap_id": "GAP-0054",
+    "requirement_id": "REQ-C3-F-018",
+    "rvu_id": "REQ-C3-F-018-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-017"
+  },
+  {
+    "gap_id": "GAP-0055",
+    "requirement_id": "REQ-C3-F-019",
+    "rvu_id": "REQ-C3-F-019-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED"
+    ],
+    "evidence_id": "MT-019"
+  },
+  {
+    "gap_id": "GAP-0056",
+    "requirement_id": "REQ-C3-F-019",
+    "rvu_id": "REQ-C3-F-019-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-020"
+  },
+  {
+    "gap_id": "GAP-0057",
+    "requirement_id": "REQ-C3-F-019",
+    "rvu_id": "REQ-C3-F-019-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-020"
+  },
+  {
+    "gap_id": "GAP-0058",
+    "requirement_id": "REQ-C3-F-020",
+    "rvu_id": "REQ-C3-F-020-RVU-01",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "SCENARIO_MISMATCH"
+    ],
+    "evidence_id": "MT-017"
+  },
+  {
+    "gap_id": "GAP-0059",
+    "requirement_id": "REQ-C3-F-020",
+    "rvu_id": "REQ-C3-F-020-RVU-02",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE"
+    ],
+    "evidence_id": "MT-017"
+  },
+  {
+    "gap_id": "GAP-0060",
+    "requirement_id": "REQ-C3-F-020",
+    "rvu_id": "REQ-C3-F-020-RVU-03",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "CONDITION_MISMATCH",
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "OUTCOME_MISMATCH"
+    ],
+    "evidence_id": "MT-018"
+  },
+  {
+    "gap_id": "GAP-0061",
+    "requirement_id": "REQ-C3-NFR-021",
+    "rvu_id": "REQ-C3-NFR-021-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH"
+    ],
+    "evidence_id": "PERF-001"
+  },
+  {
+    "gap_id": "GAP-0062",
+    "requirement_id": "REQ-C3-NFR-021",
+    "rvu_id": "REQ-C3-NFR-021-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH"
+    ],
+    "evidence_id": "PERF-002"
+  },
+  {
+    "gap_id": "GAP-0063",
+    "requirement_id": "REQ-C3-NFR-021",
+    "rvu_id": "REQ-C3-NFR-021-RVU-03",
+    "gap_type": "PARTIAL_EVIDENCE",
+    "severity": "MEDIUM",
+    "description": "Evidence partially covers the expected validation conditions.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_METRIC_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "PERF-002"
+  },
+  {
+    "gap_id": "GAP-0064",
+    "requirement_id": "REQ-C3-NFR-022",
+    "rvu_id": "REQ-C3-NFR-022-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_LOAD_MISMATCH",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH"
+    ],
+    "evidence_id": "PERF-003"
+  },
+  {
+    "gap_id": "GAP-0065",
+    "requirement_id": "REQ-C3-NFR-022",
+    "rvu_id": "REQ-C3-NFR-022-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "NFR_METRIC_MISMATCH",
+      "NFR_THRESHOLD_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "PERF-004"
+  },
+  {
+    "gap_id": "GAP-0066",
+    "requirement_id": "REQ-C3-NFR-022",
+    "rvu_id": "REQ-C3-NFR-022-RVU-03",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "HUMAN_REVIEW_REQUIRED"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0067",
+    "requirement_id": "REQ-C3-NFR-023",
+    "rvu_id": "REQ-C3-NFR-023-RVU-01",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "NFR_PERCENTILE_MISMATCH",
+      "NFR_SCOPE_MISMATCH"
+    ],
+    "evidence_id": "PERF-005"
+  },
+  {
+    "gap_id": "GAP-0068",
+    "requirement_id": "REQ-C3-NFR-023",
+    "rvu_id": "REQ-C3-NFR-023-RVU-02",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "NFR_SCOPE_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "PERF-005"
+  },
+  {
+    "gap_id": "GAP-0069",
+    "requirement_id": "REQ-C3-NFR-023",
+    "rvu_id": "REQ-C3-NFR-023-RVU-03",
+    "gap_type": "FAILED_OR_UNEXECUTED",
+    "severity": "HIGH",
+    "description": "Technically adequate evidence exists, but successful execution has not been demonstrated.",
+    "reason_codes": [
+      "EXECUTION_NOT_CONFIRMED",
+      "MODERATE_RELEVANCE",
+      "NFR_METRIC_MISMATCH",
+      "WRONG_EVIDENCE_TYPE"
+    ],
+    "evidence_id": "PERF-005"
+  },
+  {
+    "gap_id": "GAP-0070",
+    "requirement_id": "REQ-C3-NFR-024",
+    "rvu_id": "REQ-C3-NFR-024-RVU-01",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0071",
+    "requirement_id": "REQ-C3-NFR-024",
+    "rvu_id": "REQ-C3-NFR-024-RVU-02",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0072",
+    "requirement_id": "REQ-C3-NFR-024",
+    "rvu_id": "REQ-C3-NFR-024-RVU-03",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0073",
+    "requirement_id": "REQ-C3-NFR-025",
+    "rvu_id": "REQ-C3-NFR-025-RVU-01",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0074",
+    "requirement_id": "REQ-C3-NFR-025",
+    "rvu_id": "REQ-C3-NFR-025-RVU-02",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0075",
+    "requirement_id": "REQ-C3-NFR-025",
+    "rvu_id": "REQ-C3-NFR-025-RVU-03",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0076",
+    "requirement_id": "REQ-C3-NFR-026",
+    "rvu_id": "REQ-C3-NFR-026-RVU-01",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0077",
+    "requirement_id": "REQ-C3-NFR-026",
+    "rvu_id": "REQ-C3-NFR-026-RVU-02",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0078",
+    "requirement_id": "REQ-C3-NFR-026",
+    "rvu_id": "REQ-C3-NFR-026-RVU-03",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0079",
+    "requirement_id": "REQ-C3-NFR-027",
+    "rvu_id": "REQ-C3-NFR-027-RVU-01",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0080",
+    "requirement_id": "REQ-C3-NFR-027",
+    "rvu_id": "REQ-C3-NFR-027-RVU-02",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0081",
+    "requirement_id": "REQ-C3-NFR-027",
+    "rvu_id": "REQ-C3-NFR-027-RVU-03",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0082",
+    "requirement_id": "REQ-C3-NFR-028",
+    "rvu_id": "REQ-C3-NFR-028-RVU-01",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0083",
+    "requirement_id": "REQ-C3-NFR-028",
+    "rvu_id": "REQ-C3-NFR-028-RVU-02",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0084",
+    "requirement_id": "REQ-C3-NFR-028",
+    "rvu_id": "REQ-C3-NFR-028-RVU-03",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0085",
+    "requirement_id": "REQ-C3-NFR-029",
+    "rvu_id": "REQ-C3-NFR-029-RVU-01",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0086",
+    "requirement_id": "REQ-C3-NFR-029",
+    "rvu_id": "REQ-C3-NFR-029-RVU-02",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0087",
+    "requirement_id": "REQ-C3-NFR-029",
+    "rvu_id": "REQ-C3-NFR-029-RVU-03",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0088",
+    "requirement_id": "REQ-C3-NFR-030",
+    "rvu_id": "REQ-C3-NFR-030-RVU-01",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0089",
+    "requirement_id": "REQ-C3-NFR-030",
+    "rvu_id": "REQ-C3-NFR-030-RVU-02",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  },
+  {
+    "gap_id": "GAP-0090",
+    "requirement_id": "REQ-C3-NFR-030",
+    "rvu_id": "REQ-C3-NFR-030-RVU-03",
+    "gap_type": "SPECIALIZED_REVIEW_REQUIRED",
+    "severity": "MEDIUM",
+    "description": "Automatic adequacy assessment is not supported for this evidence type.",
+    "reason_codes": [
+      "UNSUPPORTED_NFR_TYPE"
+    ],
+    "evidence_id": null
+  }
+]

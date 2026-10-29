@@ -1,0 +1,36 @@
+<artifacts Model="Traditional">
+	<artifact>
+		<id>RequirementsSpecification</id>
+		<abbreviation>SRS</abbreviation>  
+		<p1>Content</p1>
+
+	</artifact>
+	<artifact>
+		<id>UserLevelRequirements</id>
+		<abbreviation>ULR</abbreviation>  
+		<p1>Content</p1>
+	</artifact>
+	<artifact>
+		<id>UseCase</id>
+		<abbreviation>UC</abbreviation>  
+		<p1>Content</p1>
+	</artifact>
+	<artifact>
+		<id>DetailedDesign </id>
+		<abbreviation>DD</abbreviation>  
+		<p1>Content</p1>
+		<p2>syntax</p2>
+		<p3>Pre</p3>
+		<p4>post</p4>
+	</artifact>	
+	<artifact>
+		<id>softwareArchitecture</id>
+		<abbreviation>SArch</abbreviation>  
+		<p1>Content</p1>
+		<p2>syntax</p2>
+		<p3>Pre</p3>
+		<p4>post</p4>
+	</artifact>
+	
+</artifacts>
+

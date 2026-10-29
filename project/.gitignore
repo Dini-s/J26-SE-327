@@ -6,7 +6,31 @@ node_modules/
 .ipynb_checkpoints/
 .DS_Store
 data/raw/
+.pytest_cache/
+data/runs/
+models/
 
 # Component 1 baseline models and embedding cache (large, regenerable)
 models/component1/*.joblib
 models/component1/embedding_cache/
+# Python
+*.py[cod]
+.coverage
+htmlcov/
+# Virtual environments
+venv/
+# Frontend
+dist/
+# IDE
+.vscode/
+.idea/
+# OS
+Thumbs.db
+# Local PetClinic clone
+spring-petclinic-c3/
+# Notebook cache
+# Temporary
+*.tmp
+*.log
+.env.*
+!.env.example

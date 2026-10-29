@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-10-23T01:27:37.582493+00:00",
+  "status": "IMPLEMENTATION_READY_EVALUATION_PENDING",
+  "summary": {
+    "requirements": 30,
+    "rvus": 91,
+    "profiles": 91,
+    "evidence": 109,
+    "adequacy_assessments": 345,
+    "gaps": 90,
+    "recommendations": 90,
+    "revalidation_reports": 6,
+    "uskg_nodes": 809,
+    "uskg_relationships": 1115,
+    "evaluation_status": "INCOMPLETE"
+  },
+  "errors": [],
+  "warnings": [
+    "Empirical evaluation gold labels are incomplete."
+  ]
+}

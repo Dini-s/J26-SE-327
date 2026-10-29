@@ -1,0 +1,1784 @@
+[
+  {
+    "rvu_id": "REQ-PET-001-RVU-01",
+    "requirement_id": "REQ-PET-001",
+    "ac_id": "AC-PET-001-01",
+    "atomic_text": "The system shall return matching owner records when a valid owner last name is supplied.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall return matching owner records when a valid owner last name is supplied.",
+    "source_fragment": "The system shall return matching owner records when a valid owner last name is supplied.",
+    "source_span": {
+      "start": 0,
+      "end": 88
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-001-RVU-02",
+    "requirement_id": "REQ-PET-001",
+    "ac_id": "AC-PET-001-02",
+    "atomic_text": "The system shall handle an owner search when no registered owner matches the supplied last name.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall handle an owner search when no registered owner matches the supplied last name.",
+    "source_fragment": "The system shall handle an owner search when no registered owner matches the supplied last name.",
+    "source_span": {
+      "start": 0,
+      "end": 96
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-001-RVU-03",
+    "requirement_id": "REQ-PET-001",
+    "ac_id": "AC-PET-001-03",
+    "atomic_text": "The system shall allow a matching owner record to be selected for detailed viewing.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall allow a matching owner record to be selected for detailed viewing.",
+    "source_fragment": "The system shall allow a matching owner record to be selected for detailed viewing.",
+    "source_span": {
+      "start": 0,
+      "end": 83
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-01",
+    "requirement_id": "REQ-PET-002",
+    "ac_id": "AC-PET-002-01",
+    "atomic_text": "The system shall display owner search results when multiple owners satisfy the supplied search criterion.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall display owner search results when multiple owners satisfy the supplied search criterion.",
+    "source_fragment": "The system shall display owner search results when multiple owners satisfy the supplied search criterion.",
+    "source_span": {
+      "start": 0,
+      "end": 105
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-02",
+    "requirement_id": "REQ-PET-002",
+    "ac_id": "AC-PET-002-02",
+    "atomic_text": "The system shall allow the details of a uniquely matched owner to be viewed.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall allow the details of a uniquely matched owner to be viewed.",
+    "source_fragment": "The system shall allow the details of a uniquely matched owner to be viewed.",
+    "source_span": {
+      "start": 0,
+      "end": 76
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-002-RVU-03",
+    "requirement_id": "REQ-PET-002",
+    "ac_id": "AC-PET-002-03",
+    "atomic_text": "The system shall provide an observable no-match outcome when an owner search returns no records.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall provide an observable no-match outcome when an owner search returns no records.",
+    "source_fragment": "The system shall provide an observable no-match outcome when an owner search returns no records.",
+    "source_span": {
+      "start": 0,
+      "end": 96
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-01",
+    "requirement_id": "REQ-PET-003",
+    "ac_id": "AC-PET-003-01",
+    "atomic_text": "The system shall create a new owner when all mandatory owner information is valid.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall create a new owner when all mandatory owner information is valid.",
+    "source_fragment": "The system shall create a new owner when all mandatory owner information is valid.",
+    "source_span": {
+      "start": 0,
+      "end": 82
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-02",
+    "requirement_id": "REQ-PET-003",
+    "ac_id": "AC-PET-003-02",
+    "atomic_text": "The newly created owner shall receive a persistent owner identifier.",
+    "behavior_type": "STATE",
+    "source_text": "The newly created owner shall receive a persistent owner identifier.",
+    "source_fragment": "The newly created owner shall receive a persistent owner identifier.",
+    "source_span": {
+      "start": 0,
+      "end": 68
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-003-RVU-03",
+    "requirement_id": "REQ-PET-003",
+    "ac_id": "AC-PET-003-03",
+    "atomic_text": "The newly created owner shall be available through the owner workflow after successful registration.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The newly created owner shall be available through the owner workflow after successful registration.",
+    "source_fragment": "The newly created owner shall be available through the owner workflow after successful registration.",
+    "source_span": {
+      "start": 0,
+      "end": 100
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-01",
+    "requirement_id": "REQ-PET-004",
+    "ac_id": "AC-PET-004-01",
+    "atomic_text": "The system shall persist valid changes made to an existing owner's information.",
+    "behavior_type": "STATE",
+    "source_text": "The system shall persist valid changes made to an existing owner's information.",
+    "source_fragment": "The system shall persist valid changes made to an existing owner's information.",
+    "source_span": {
+      "start": 0,
+      "end": 79
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-02",
+    "requirement_id": "REQ-PET-004",
+    "ac_id": "AC-PET-004-02",
+    "atomic_text": "The system shall preserve the owner identifier when owner information is updated.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall preserve the owner identifier when owner information is updated.",
+    "source_fragment": "The system shall preserve the owner identifier when owner information is updated.",
+    "source_span": {
+      "start": 0,
+      "end": 81
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-004-RVU-03",
+    "requirement_id": "REQ-PET-004",
+    "ac_id": "AC-PET-004-03",
+    "atomic_text": "The system shall display the updated owner information after a successful update.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall display the updated owner information after a successful update.",
+    "source_fragment": "The system shall display the updated owner information after a successful update.",
+    "source_span": {
+      "start": 0,
+      "end": 81
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-01",
+    "requirement_id": "REQ-PET-005",
+    "ac_id": "AC-PET-005-01",
+    "atomic_text": "The system shall display the stored information of the selected owner.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall display the stored information of the selected owner.",
+    "source_fragment": "The system shall display the stored information of the selected owner.",
+    "source_span": {
+      "start": 0,
+      "end": 70
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-02",
+    "requirement_id": "REQ-PET-005",
+    "ac_id": "AC-PET-005-02",
+    "atomic_text": "The system shall display pets associated with the selected owner.",
+    "behavior_type": "STATE",
+    "source_text": "The system shall display pets associated with the selected owner.",
+    "source_fragment": "The system shall display pets associated with the selected owner.",
+    "source_span": {
+      "start": 0,
+      "end": 65
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-005-RVU-03",
+    "requirement_id": "REQ-PET-005",
+    "ac_id": "AC-PET-005-03",
+    "atomic_text": "The system shall display available visit information associated with the selected owner's pets.",
+    "behavior_type": "STATE",
+    "source_text": "The system shall display available visit information associated with the selected owner's pets.",
+    "source_fragment": "The system shall display available visit information associated with the selected owner's pets.",
+    "source_span": {
+      "start": 0,
+      "end": 95
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-01",
+    "requirement_id": "REQ-PET-006",
+    "ac_id": "AC-PET-006-01",
+    "atomic_text": "The system shall reject an owner submission when mandatory owner information is missing.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall reject an owner submission when mandatory owner information is missing.",
+    "source_fragment": "The system shall reject an owner submission when mandatory owner information is missing.",
+    "source_span": {
+      "start": 0,
+      "end": 88
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-02",
+    "requirement_id": "REQ-PET-006",
+    "ac_id": "AC-PET-006-02",
+    "atomic_text": "The system shall provide validation feedback when invalid owner information is submitted.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall provide validation feedback when invalid owner information is submitted.",
+    "source_fragment": "The system shall provide validation feedback when invalid owner information is submitted.",
+    "source_span": {
+      "start": 0,
+      "end": 89
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-006-RVU-03",
+    "requirement_id": "REQ-PET-006",
+    "ac_id": "AC-PET-006-03",
+    "atomic_text": "An invalid owner submission shall not create or persist a valid owner record.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "An invalid owner submission shall not create or persist a valid owner record.",
+    "source_fragment": "An invalid owner submission shall not create or persist a valid owner record.",
+    "source_span": {
+      "start": 0,
+      "end": 77
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": true,
+    "review_reason": "Potential compound behavior remains; human atomicity review is recommended.",
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-01",
+    "requirement_id": "REQ-PET-007",
+    "ac_id": "AC-PET-007-01",
+    "atomic_text": "The system shall create a pet record when valid pet information is submitted for an existing owner.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall create a pet record when valid pet information is submitted for an existing owner.",
+    "source_fragment": "The system shall create a pet record when valid pet information is submitted for an existing owner.",
+    "source_span": {
+      "start": 0,
+      "end": 99
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-02",
+    "requirement_id": "REQ-PET-007",
+    "ac_id": "AC-PET-007-02",
+    "atomic_text": "The created pet shall remain associated with the owner under whom it was registered.",
+    "behavior_type": "STATE",
+    "source_text": "The created pet shall remain associated with the owner under whom it was registered.",
+    "source_fragment": "The created pet shall remain associated with the owner under whom it was registered.",
+    "source_span": {
+      "start": 0,
+      "end": 84
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-007-RVU-03",
+    "requirement_id": "REQ-PET-007",
+    "ac_id": "AC-PET-007-03",
+    "atomic_text": "The newly registered pet shall be visible in the selected owner's information.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The newly registered pet shall be visible in the selected owner's information.",
+    "source_fragment": "The newly registered pet shall be visible in the selected owner's information.",
+    "source_span": {
+      "start": 0,
+      "end": 78
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-01",
+    "requirement_id": "REQ-PET-008",
+    "ac_id": "AC-PET-008-01",
+    "atomic_text": "The system shall persist valid changes made to an existing pet's information.",
+    "behavior_type": "STATE",
+    "source_text": "The system shall persist valid changes made to an existing pet's information.",
+    "source_fragment": "The system shall persist valid changes made to an existing pet's information.",
+    "source_span": {
+      "start": 0,
+      "end": 77
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-02",
+    "requirement_id": "REQ-PET-008",
+    "ac_id": "AC-PET-008-02",
+    "atomic_text": "The pet shall remain associated with the same owner after its information is updated.",
+    "behavior_type": "STATE",
+    "source_text": "The pet shall remain associated with the same owner after its information is updated.",
+    "source_fragment": "The pet shall remain associated with the same owner after its information is updated.",
+    "source_span": {
+      "start": 0,
+      "end": 85
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-008-RVU-03",
+    "requirement_id": "REQ-PET-008",
+    "ac_id": "AC-PET-008-03",
+    "atomic_text": "The system shall display the updated pet information after a successful update.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall display the updated pet information after a successful update.",
+    "source_fragment": "The system shall display the updated pet information after a successful update.",
+    "source_span": {
+      "start": 0,
+      "end": 79
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-01",
+    "requirement_id": "REQ-PET-009",
+    "ac_id": "AC-PET-009-01",
+    "atomic_text": "The system shall reject a pet submission when mandatory pet information is missing.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall reject a pet submission when mandatory pet information is missing.",
+    "source_fragment": "The system shall reject a pet submission when mandatory pet information is missing.",
+    "source_span": {
+      "start": 0,
+      "end": 83
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-02",
+    "requirement_id": "REQ-PET-009",
+    "ac_id": "AC-PET-009-02",
+    "atomic_text": "The system shall provide validation feedback when invalid pet information is submitted.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall provide validation feedback when invalid pet information is submitted.",
+    "source_fragment": "The system shall provide validation feedback when invalid pet information is submitted.",
+    "source_span": {
+      "start": 0,
+      "end": 87
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-009-RVU-03",
+    "requirement_id": "REQ-PET-009",
+    "ac_id": "AC-PET-009-03",
+    "atomic_text": "An invalid pet submission shall not create or persist a valid pet record.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "An invalid pet submission shall not create or persist a valid pet record.",
+    "source_fragment": "An invalid pet submission shall not create or persist a valid pet record.",
+    "source_span": {
+      "start": 0,
+      "end": 73
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": true,
+    "review_reason": "Potential compound behavior remains; human atomicity review is recommended.",
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-01",
+    "requirement_id": "REQ-PET-010",
+    "ac_id": "AC-PET-010-01",
+    "atomic_text": "A newly registered pet shall reference the owner under whom the pet was created.",
+    "behavior_type": "POSITIVE",
+    "source_text": "A newly registered pet shall reference the owner under whom the pet was created.",
+    "source_fragment": "A newly registered pet shall reference the owner under whom the pet was created.",
+    "source_span": {
+      "start": 0,
+      "end": 80
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-02",
+    "requirement_id": "REQ-PET-010",
+    "ac_id": "AC-PET-010-02",
+    "atomic_text": "Updating pet information shall not silently change the pet's owner association.",
+    "behavior_type": "POSITIVE",
+    "source_text": "Updating pet information shall not silently change the pet's owner association.",
+    "source_fragment": "Updating pet information shall not silently change the pet's owner association.",
+    "source_span": {
+      "start": 0,
+      "end": 79
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-010-RVU-03",
+    "requirement_id": "REQ-PET-010",
+    "ac_id": "AC-PET-010-03",
+    "atomic_text": "The associated pet shall remain visible from the corresponding owner details.",
+    "behavior_type": "STATE",
+    "source_text": "The associated pet shall remain visible from the corresponding owner details.",
+    "source_fragment": "The associated pet shall remain visible from the corresponding owner details.",
+    "source_span": {
+      "start": 0,
+      "end": 77
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-01",
+    "requirement_id": "REQ-PET-011",
+    "ac_id": "AC-PET-011-01",
+    "atomic_text": "The system shall create a visit when valid visit information is supplied for an existing pet.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall create a visit when valid visit information is supplied for an existing pet.",
+    "source_fragment": "The system shall create a visit when valid visit information is supplied for an existing pet.",
+    "source_span": {
+      "start": 0,
+      "end": 93
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-02",
+    "requirement_id": "REQ-PET-011",
+    "ac_id": "AC-PET-011-02",
+    "atomic_text": "The newly created visit shall remain associated with the selected pet.",
+    "behavior_type": "STATE",
+    "source_text": "The newly created visit shall remain associated with the selected pet.",
+    "source_fragment": "The newly created visit shall remain associated with the selected pet.",
+    "source_span": {
+      "start": 0,
+      "end": 70
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-011-RVU-03",
+    "requirement_id": "REQ-PET-011",
+    "ac_id": "AC-PET-011-03",
+    "atomic_text": "The newly created visit shall become visible in the selected pet's visit history.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The newly created visit shall become visible in the selected pet's visit history.",
+    "source_fragment": "The newly created visit shall become visible in the selected pet's visit history.",
+    "source_span": {
+      "start": 0,
+      "end": 81
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-01",
+    "requirement_id": "REQ-PET-012",
+    "ac_id": "AC-PET-012-01",
+    "atomic_text": "The system shall reject visit creation when mandatory visit information is missing.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall reject visit creation when mandatory visit information is missing.",
+    "source_fragment": "The system shall reject visit creation when mandatory visit information is missing.",
+    "source_span": {
+      "start": 0,
+      "end": 83
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-02",
+    "requirement_id": "REQ-PET-012",
+    "ac_id": "AC-PET-012-02",
+    "atomic_text": "The system shall provide validation feedback when invalid visit information is submitted.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall provide validation feedback when invalid visit information is submitted.",
+    "source_fragment": "The system shall provide validation feedback when invalid visit information is submitted.",
+    "source_span": {
+      "start": 0,
+      "end": 89
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-012-RVU-03",
+    "requirement_id": "REQ-PET-012",
+    "ac_id": "AC-PET-012-03",
+    "atomic_text": "An invalid visit submission shall not create a valid visit record.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "An invalid visit submission shall not create a valid visit record.",
+    "source_fragment": "An invalid visit submission shall not create a valid visit record.",
+    "source_span": {
+      "start": 0,
+      "end": 66
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-01",
+    "requirement_id": "REQ-PET-013",
+    "ac_id": "AC-PET-013-01",
+    "atomic_text": "The system shall display recorded visits associated with the selected pet.",
+    "behavior_type": "STATE",
+    "source_text": "The system shall display recorded visits associated with the selected pet.",
+    "source_fragment": "The system shall display recorded visits associated with the selected pet.",
+    "source_span": {
+      "start": 0,
+      "end": 74
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-02",
+    "requirement_id": "REQ-PET-013",
+    "ac_id": "AC-PET-013-02",
+    "atomic_text": "Each displayed visit shall remain associated with the correct pet.",
+    "behavior_type": "STATE",
+    "source_text": "Each displayed visit shall remain associated with the correct pet.",
+    "source_fragment": "Each displayed visit shall remain associated with the correct pet.",
+    "source_span": {
+      "start": 0,
+      "end": 66
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-013-RVU-03",
+    "requirement_id": "REQ-PET-013",
+    "ac_id": "AC-PET-013-03",
+    "atomic_text": "A newly created valid visit shall be included in the pet's subsequent visit history.",
+    "behavior_type": "POSITIVE",
+    "source_text": "A newly created valid visit shall be included in the pet's subsequent visit history.",
+    "source_fragment": "A newly created valid visit shall be included in the pet's subsequent visit history.",
+    "source_span": {
+      "start": 0,
+      "end": 84
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-01",
+    "requirement_id": "REQ-PET-014",
+    "ac_id": "AC-PET-014-01",
+    "atomic_text": "The system shall return the available veterinarian records.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall return the available veterinarian records.",
+    "source_fragment": "The system shall return the available veterinarian records.",
+    "source_span": {
+      "start": 0,
+      "end": 59
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-02",
+    "requirement_id": "REQ-PET-014",
+    "ac_id": "AC-PET-014-02",
+    "atomic_text": "Each veterinarian record shall expose the veterinarian's name.",
+    "behavior_type": "POSITIVE",
+    "source_text": "Each veterinarian record shall expose the veterinarian's name.",
+    "source_fragment": "Each veterinarian record shall expose the veterinarian's name.",
+    "source_span": {
+      "start": 0,
+      "end": 62
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-014-RVU-03",
+    "requirement_id": "REQ-PET-014",
+    "ac_id": "AC-PET-014-03",
+    "atomic_text": "The veterinarian listing shall be available through the supported veterinarian listing workflow.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The veterinarian listing shall be available through the supported veterinarian listing workflow.",
+    "source_fragment": "The veterinarian listing shall be available through the supported veterinarian listing workflow.",
+    "source_span": {
+      "start": 0,
+      "end": 96
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-01",
+    "requirement_id": "REQ-PET-015",
+    "ac_id": "AC-PET-015-01",
+    "atomic_text": "The system shall display specialty information when specialty information exists for a veterinarian.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The system shall display specialty information when specialty information exists for a veterinarian.",
+    "source_fragment": "The system shall display specialty information when specialty information exists for a veterinarian.",
+    "source_span": {
+      "start": 0,
+      "end": 100
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-02",
+    "requirement_id": "REQ-PET-015",
+    "ac_id": "AC-PET-015-02",
+    "atomic_text": "Specialty information shall remain associated with the correct veterinarian.",
+    "behavior_type": "STATE",
+    "source_text": "Specialty information shall remain associated with the correct veterinarian.",
+    "source_fragment": "Specialty information shall remain associated with the correct veterinarian.",
+    "source_span": {
+      "start": 0,
+      "end": 76
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-PET-015-RVU-03",
+    "requirement_id": "REQ-PET-015",
+    "ac_id": "AC-PET-015-03",
+    "atomic_text": "A veterinarian without a recorded specialty shall remain valid in the veterinarian listing.",
+    "behavior_type": "POSITIVE",
+    "source_text": "A veterinarian without a recorded specialty shall remain valid in the veterinarian listing.",
+    "source_fragment": "A veterinarian without a recorded specialty shall remain valid in the veterinarian listing.",
+    "source_span": {
+      "start": 0,
+      "end": 91
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-01",
+    "requirement_id": "REQ-C3-F-016",
+    "ac_id": "AC-C3-F-016-01",
+    "atomic_text": "The account shall become locked after five consecutive failed authentication attempts.",
+    "behavior_type": "BOUNDARY",
+    "source_text": "The account shall become locked after five consecutive failed authentication attempts and remain locked for 30 minutes.",
+    "source_fragment": "The account shall become locked after five consecutive failed authentication attempts",
+    "source_span": {
+      "start": 0,
+      "end": 85
+    },
+    "constraints": [
+      "five consecutive failed authentication attempts"
+    ],
+    "confidence": 0.92,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-02",
+    "requirement_id": "REQ-C3-F-016",
+    "ac_id": "AC-C3-F-016-01",
+    "atomic_text": "The account shall remain locked for 30 minutes.",
+    "behavior_type": "STATE",
+    "source_text": "The account shall become locked after five consecutive failed authentication attempts and remain locked for 30 minutes.",
+    "source_fragment": "remain locked for 30 minutes.",
+    "source_span": {
+      "start": 90,
+      "end": 119
+    },
+    "constraints": [
+      "30 minutes"
+    ],
+    "confidence": 0.88,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-03",
+    "requirement_id": "REQ-C3-F-016",
+    "ac_id": "AC-C3-F-016-02",
+    "atomic_text": "A successful authentication before the lockout threshold is reached shall reset the failed-attempt counter.",
+    "behavior_type": "BOUNDARY",
+    "source_text": "A successful authentication before the lockout threshold is reached shall reset the failed-attempt counter.",
+    "source_fragment": "A successful authentication before the lockout threshold is reached shall reset the failed-attempt counter.",
+    "source_span": {
+      "start": 0,
+      "end": 107
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-016-RVU-04",
+    "requirement_id": "REQ-C3-F-016",
+    "ac_id": "AC-C3-F-016-03",
+    "atomic_text": "Authentication shall be rejected while the account remains locked.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "Authentication shall be rejected while the account remains locked.",
+    "source_fragment": "Authentication shall be rejected while the account remains locked.",
+    "source_span": {
+      "start": 0,
+      "end": 66
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-01",
+    "requirement_id": "REQ-C3-F-017",
+    "ac_id": "AC-C3-F-017-01",
+    "atomic_text": "A valid unused reset token shall allow the user to set a new password.",
+    "behavior_type": "STATE",
+    "source_text": "A valid unused reset token shall allow the user to set a new password.",
+    "source_fragment": "A valid unused reset token shall allow the user to set a new password.",
+    "source_span": {
+      "start": 0,
+      "end": 70
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-02",
+    "requirement_id": "REQ-C3-F-017",
+    "ac_id": "AC-C3-F-017-02",
+    "atomic_text": "A reset token shall expire 30 minutes after it is issued.",
+    "behavior_type": "BOUNDARY",
+    "source_text": "A reset token shall expire 30 minutes after it is issued.",
+    "source_fragment": "A reset token shall expire 30 minutes after it is issued.",
+    "source_span": {
+      "start": 0,
+      "end": 57
+    },
+    "constraints": [
+      "30 minutes"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-017-RVU-03",
+    "requirement_id": "REQ-C3-F-017",
+    "ac_id": "AC-C3-F-017-03",
+    "atomic_text": "The system shall reject an expired or previously consumed reset token.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall reject an expired or previously consumed reset token.",
+    "source_fragment": "The system shall reject an expired or previously consumed reset token.",
+    "source_span": {
+      "start": 0,
+      "end": 70
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": true,
+    "review_reason": "Potential compound behavior remains; human atomicity review is recommended.",
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-01",
+    "requirement_id": "REQ-C3-F-018",
+    "ac_id": "AC-C3-F-018-01",
+    "atomic_text": "An authenticated administrator shall be allowed to perform an administrative account action.",
+    "behavior_type": "POSITIVE",
+    "source_text": "An authenticated administrator shall be allowed to perform an administrative account action.",
+    "source_fragment": "An authenticated administrator shall be allowed to perform an administrative account action.",
+    "source_span": {
+      "start": 0,
+      "end": 92
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-02",
+    "requirement_id": "REQ-C3-F-018",
+    "ac_id": "AC-C3-F-018-02",
+    "atomic_text": "A non-administrator shall be denied access to administrative account actions.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "A non-administrator shall be denied access to administrative account actions.",
+    "source_fragment": "A non-administrator shall be denied access to administrative account actions.",
+    "source_span": {
+      "start": 0,
+      "end": 77
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-018-RVU-03",
+    "requirement_id": "REQ-C3-F-018",
+    "ac_id": "AC-C3-F-018-03",
+    "atomic_text": "A denied administrative action shall not modify the target account.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "A denied administrative action shall not modify the target account.",
+    "source_fragment": "A denied administrative action shall not modify the target account.",
+    "source_span": {
+      "start": 0,
+      "end": 67
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-01",
+    "requirement_id": "REQ-C3-F-019",
+    "ac_id": "AC-C3-F-019-01",
+    "atomic_text": "The system shall accept an allowed file type when the file size is exactly 5 MB.",
+    "behavior_type": "BOUNDARY",
+    "source_text": "The system shall accept an allowed file type when the file size is exactly 5 MB.",
+    "source_fragment": "The system shall accept an allowed file type when the file size is exactly 5 MB.",
+    "source_span": {
+      "start": 0,
+      "end": 80
+    },
+    "constraints": [
+      "5 MB"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-02",
+    "requirement_id": "REQ-C3-F-019",
+    "ac_id": "AC-C3-F-019-02",
+    "atomic_text": "The system shall reject an uploaded file when its size is greater than 5 MB.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall reject an uploaded file when its size is greater than 5 MB.",
+    "source_fragment": "The system shall reject an uploaded file when its size is greater than 5 MB.",
+    "source_span": {
+      "start": 0,
+      "end": 76
+    },
+    "constraints": [
+      "5 MB"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-019-RVU-03",
+    "requirement_id": "REQ-C3-F-019",
+    "ac_id": "AC-C3-F-019-03",
+    "atomic_text": "The system shall reject an uploaded executable file type.",
+    "behavior_type": "NEGATIVE",
+    "source_text": "The system shall reject an uploaded executable file type.",
+    "source_fragment": "The system shall reject an uploaded executable file type.",
+    "source_span": {
+      "start": 0,
+      "end": 57
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-01",
+    "requirement_id": "REQ-C3-F-020",
+    "ac_id": "AC-C3-F-020-01",
+    "atomic_text": "The system shall record an audit event when an administrator changes the state of a user account.",
+    "behavior_type": "STATE",
+    "source_text": "The system shall record an audit event when an administrator changes the state of a user account.",
+    "source_fragment": "The system shall record an audit event when an administrator changes the state of a user account.",
+    "source_span": {
+      "start": 0,
+      "end": 97
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-02",
+    "requirement_id": "REQ-C3-F-020",
+    "ac_id": "AC-C3-F-020-02",
+    "atomic_text": "The audit event shall identify the administrator, target account, performed action, and event timestamp.",
+    "behavior_type": "POSITIVE",
+    "source_text": "The audit event shall identify the administrator, target account, performed action, and event timestamp.",
+    "source_fragment": "The audit event shall identify the administrator, target account, performed action, and event timestamp.",
+    "source_span": {
+      "start": 0,
+      "end": 104
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": true,
+    "review_reason": "Potential compound behavior remains; human atomicity review is recommended.",
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-F-020-RVU-03",
+    "requirement_id": "REQ-C3-F-020",
+    "ac_id": "AC-C3-F-020-03",
+    "atomic_text": "A successful administrative account action shall have a corresponding audit record.",
+    "behavior_type": "POSITIVE",
+    "source_text": "A successful administrative account action shall have a corresponding audit record.",
+    "source_fragment": "A successful administrative account action shall have a corresponding audit record.",
+    "source_span": {
+      "start": 0,
+      "end": 83
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-01",
+    "requirement_id": "REQ-C3-NFR-021",
+    "ac_id": "AC-C3-NFR-021-01",
+    "atomic_text": "The owner search operation shall maintain a p95 response time below 2 seconds with 100 concurrent users for 10 minutes.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "The owner search operation shall maintain a p95 response time below 2 seconds with 100 concurrent users for 10 minutes.",
+    "source_fragment": "The owner search operation shall maintain a p95 response time below 2 seconds with 100 concurrent users for 10 minutes.",
+    "source_span": {
+      "start": 0,
+      "end": 119
+    },
+    "constraints": [
+      "p95",
+      "2 seconds",
+      "10 minutes",
+      "100 concurrent users"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-02",
+    "requirement_id": "REQ-C3-NFR-021",
+    "ac_id": "AC-C3-NFR-021-02",
+    "atomic_text": "The owner search operation shall maintain a failed-request rate below 1 percent with 100 concurrent users for 10 minutes.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "The owner search operation shall maintain a failed-request rate below 1 percent with 100 concurrent users for 10 minutes.",
+    "source_fragment": "The owner search operation shall maintain a failed-request rate below 1 percent with 100 concurrent users for 10 minutes.",
+    "source_span": {
+      "start": 0,
+      "end": 121
+    },
+    "constraints": [
+      "1 percent",
+      "10 minutes",
+      "100 concurrent users"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-021-RVU-03",
+    "requirement_id": "REQ-C3-NFR-021",
+    "ac_id": "AC-C3-NFR-021-03",
+    "atomic_text": "The owner search workload shall complete without an unhandled application failure during the 10-minute test period.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "The owner search workload shall complete without an unhandled application failure during the 10-minute test period.",
+    "source_fragment": "The owner search workload shall complete without an unhandled application failure during the 10-minute test period.",
+    "source_span": {
+      "start": 0,
+      "end": 115
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-01",
+    "requirement_id": "REQ-C3-NFR-022",
+    "ac_id": "AC-C3-NFR-022-01",
+    "atomic_text": "The veterinarian listing operation shall maintain a p95 response time below 1500 milliseconds with 100 concurrent users for 10 minutes.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "The veterinarian listing operation shall maintain a p95 response time below 1500 milliseconds with 100 concurrent users for 10 minutes.",
+    "source_fragment": "The veterinarian listing operation shall maintain a p95 response time below 1500 milliseconds with 100 concurrent users for 10 minutes.",
+    "source_span": {
+      "start": 0,
+      "end": 135
+    },
+    "constraints": [
+      "p95",
+      "1500 milliseconds",
+      "10 minutes",
+      "100 concurrent users"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-02",
+    "requirement_id": "REQ-C3-NFR-022",
+    "ac_id": "AC-C3-NFR-022-02",
+    "atomic_text": "The veterinarian listing operation shall maintain a failed-request rate below 1 percent during the defined workload.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "The veterinarian listing operation shall maintain a failed-request rate below 1 percent during the defined workload.",
+    "source_fragment": "The veterinarian listing operation shall maintain a failed-request rate below 1 percent during the defined workload.",
+    "source_span": {
+      "start": 0,
+      "end": 116
+    },
+    "constraints": [
+      "1 percent"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-022-RVU-03",
+    "requirement_id": "REQ-C3-NFR-022",
+    "ac_id": "AC-C3-NFR-022-03",
+    "atomic_text": "The veterinarian listing workload shall run for 10 minutes at the specified load before its performance evidence is considered complete.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "The veterinarian listing workload shall run for 10 minutes at the specified load before its performance evidence is considered complete.",
+    "source_fragment": "The veterinarian listing workload shall run for 10 minutes at the specified load before its performance evidence is considered complete.",
+    "source_span": {
+      "start": 0,
+      "end": 136
+    },
+    "constraints": [
+      "10 minutes"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-01",
+    "requirement_id": "REQ-C3-NFR-023",
+    "ac_id": "AC-C3-NFR-023-01",
+    "atomic_text": "The visit registration operation shall maintain a p95 response time below 2 seconds with 50 concurrent users for 10 minutes.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "The visit registration operation shall maintain a p95 response time below 2 seconds with 50 concurrent users for 10 minutes.",
+    "source_fragment": "The visit registration operation shall maintain a p95 response time below 2 seconds with 50 concurrent users for 10 minutes.",
+    "source_span": {
+      "start": 0,
+      "end": 124
+    },
+    "constraints": [
+      "p95",
+      "2 seconds",
+      "10 minutes",
+      "50 concurrent users"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-02",
+    "requirement_id": "REQ-C3-NFR-023",
+    "ac_id": "AC-C3-NFR-023-02",
+    "atomic_text": "The visit registration operation shall maintain a failed-request rate below 1 percent during the defined workload.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "The visit registration operation shall maintain a failed-request rate below 1 percent during the defined workload.",
+    "source_fragment": "The visit registration operation shall maintain a failed-request rate below 1 percent during the defined workload.",
+    "source_span": {
+      "start": 0,
+      "end": 114
+    },
+    "constraints": [
+      "1 percent"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-023-RVU-03",
+    "requirement_id": "REQ-C3-NFR-023",
+    "ac_id": "AC-C3-NFR-023-03",
+    "atomic_text": "Successful visit registrations completed during the performance test shall remain persistently available after the test run.",
+    "behavior_type": "PERFORMANCE",
+    "source_text": "Successful visit registrations completed during the performance test shall remain persistently available after the test run.",
+    "source_fragment": "Successful visit registrations completed during the performance test shall remain persistently available after the test run.",
+    "source_span": {
+      "start": 0,
+      "end": 124
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-01",
+    "requirement_id": "REQ-C3-NFR-024",
+    "ac_id": "AC-C3-NFR-024-01",
+    "atomic_text": "The application shall complete a 30-minute sustained workload test without an unhandled application failure.",
+    "behavior_type": "RELIABILITY",
+    "source_text": "The application shall complete a 30-minute sustained workload test without an unhandled application failure.",
+    "source_fragment": "The application shall complete a 30-minute sustained workload test without an unhandled application failure.",
+    "source_span": {
+      "start": 0,
+      "end": 108
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-02",
+    "requirement_id": "REQ-C3-NFR-024",
+    "ac_id": "AC-C3-NFR-024-02",
+    "atomic_text": "The application shall maintain a failed-request rate below 1 percent during the 30-minute sustained workload test.",
+    "behavior_type": "RELIABILITY",
+    "source_text": "The application shall maintain a failed-request rate below 1 percent during the 30-minute sustained workload test.",
+    "source_fragment": "The application shall maintain a failed-request rate below 1 percent during the 30-minute sustained workload test.",
+    "source_span": {
+      "start": 0,
+      "end": 114
+    },
+    "constraints": [
+      "1 percent"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-024-RVU-03",
+    "requirement_id": "REQ-C3-NFR-024",
+    "ac_id": "AC-C3-NFR-024-03",
+    "atomic_text": "The application shall remain responsive at the end of the sustained workload test.",
+    "behavior_type": "RELIABILITY",
+    "source_text": "The application shall remain responsive at the end of the sustained workload test.",
+    "source_fragment": "The application shall remain responsive at the end of the sustained workload test.",
+    "source_span": {
+      "start": 0,
+      "end": 82
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-01",
+    "requirement_id": "REQ-C3-NFR-025",
+    "ac_id": "AC-C3-NFR-025-01",
+    "atomic_text": "The deployed application shall achieve at least 99.9 percent availability during each calendar month.",
+    "behavior_type": "AVAILABILITY",
+    "source_text": "The deployed application shall achieve at least 99.9 percent availability during each calendar month.",
+    "source_fragment": "The deployed application shall achieve at least 99.9 percent availability during each calendar month.",
+    "source_span": {
+      "start": 0,
+      "end": 101
+    },
+    "constraints": [
+      "99.9 percent"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-02",
+    "requirement_id": "REQ-C3-NFR-025",
+    "ac_id": "AC-C3-NFR-025-02",
+    "atomic_text": "Availability evidence shall distinguish scheduled maintenance from unexpected service unavailability.",
+    "behavior_type": "AVAILABILITY",
+    "source_text": "Availability evidence shall distinguish scheduled maintenance from unexpected service unavailability.",
+    "source_fragment": "Availability evidence shall distinguish scheduled maintenance from unexpected service unavailability.",
+    "source_span": {
+      "start": 0,
+      "end": 101
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-025-RVU-03",
+    "requirement_id": "REQ-C3-NFR-025",
+    "ac_id": "AC-C3-NFR-025-03",
+    "atomic_text": "Availability evidence shall identify the measurement period used to calculate monthly availability.",
+    "behavior_type": "AVAILABILITY",
+    "source_text": "Availability evidence shall identify the measurement period used to calculate monthly availability.",
+    "source_fragment": "Availability evidence shall identify the measurement period used to calculate monthly availability.",
+    "source_span": {
+      "start": 0,
+      "end": 99
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-01",
+    "requirement_id": "REQ-C3-NFR-026",
+    "ac_id": "AC-C3-NFR-026-01",
+    "atomic_text": "The application shall support 100 concurrent users for 10 minutes without an unhandled application failure.",
+    "behavior_type": "SCALABILITY",
+    "source_text": "The application shall support 100 concurrent users for 10 minutes without an unhandled application failure.",
+    "source_fragment": "The application shall support 100 concurrent users for 10 minutes without an unhandled application failure.",
+    "source_span": {
+      "start": 0,
+      "end": 107
+    },
+    "constraints": [
+      "10 minutes",
+      "100 concurrent users"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-02",
+    "requirement_id": "REQ-C3-NFR-026",
+    "ac_id": "AC-C3-NFR-026-02",
+    "atomic_text": "The application shall maintain a p95 response time below 3 seconds while serving 100 concurrent users for 10 minutes.",
+    "behavior_type": "SCALABILITY",
+    "source_text": "The application shall maintain a p95 response time below 3 seconds while serving 100 concurrent users for 10 minutes.",
+    "source_fragment": "The application shall maintain a p95 response time below 3 seconds while serving 100 concurrent users for 10 minutes.",
+    "source_span": {
+      "start": 0,
+      "end": 117
+    },
+    "constraints": [
+      "p95",
+      "3 seconds",
+      "10 minutes",
+      "100 concurrent users"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-026-RVU-03",
+    "requirement_id": "REQ-C3-NFR-026",
+    "ac_id": "AC-C3-NFR-026-03",
+    "atomic_text": "The application shall maintain a failed-request rate below 1 percent while serving 100 concurrent users for 10 minutes.",
+    "behavior_type": "SCALABILITY",
+    "source_text": "The application shall maintain a failed-request rate below 1 percent while serving 100 concurrent users for 10 minutes.",
+    "source_fragment": "The application shall maintain a failed-request rate below 1 percent while serving 100 concurrent users for 10 minutes.",
+    "source_span": {
+      "start": 0,
+      "end": 119
+    },
+    "constraints": [
+      "1 percent",
+      "10 minutes",
+      "100 concurrent users"
+    ],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-01",
+    "requirement_id": "REQ-C3-NFR-027",
+    "ac_id": "AC-C3-NFR-027-01",
+    "atomic_text": "The application shall display validation feedback when a mandatory form field contains invalid information.",
+    "behavior_type": "USABILITY",
+    "source_text": "The application shall display validation feedback when a mandatory form field contains invalid information.",
+    "source_fragment": "The application shall display validation feedback when a mandatory form field contains invalid information.",
+    "source_span": {
+      "start": 0,
+      "end": 107
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-02",
+    "requirement_id": "REQ-C3-NFR-027",
+    "ac_id": "AC-C3-NFR-027-02",
+    "atomic_text": "Validation feedback shall identify the field or input condition that requires correction.",
+    "behavior_type": "USABILITY",
+    "source_text": "Validation feedback shall identify the field or input condition that requires correction.",
+    "source_fragment": "Validation feedback shall identify the field or input condition that requires correction.",
+    "source_span": {
+      "start": 0,
+      "end": 89
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": true,
+    "review_reason": "Potential compound behavior remains; human atomicity review is recommended.",
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-027-RVU-03",
+    "requirement_id": "REQ-C3-NFR-027",
+    "ac_id": "AC-C3-NFR-027-03",
+    "atomic_text": "Valid information already entered by the user shall remain available when the form is returned for correction where technically applicable.",
+    "behavior_type": "USABILITY",
+    "source_text": "Valid information already entered by the user shall remain available when the form is returned for correction where technically applicable.",
+    "source_fragment": "Valid information already entered by the user shall remain available when the form is returned for correction where technically applicable.",
+    "source_span": {
+      "start": 0,
+      "end": 139
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-01",
+    "requirement_id": "REQ-C3-NFR-028",
+    "ac_id": "AC-C3-NFR-028-01",
+    "atomic_text": "A user shall be able to reach interactive controls in the core owner form using keyboard navigation.",
+    "behavior_type": "ACCESSIBILITY",
+    "source_text": "A user shall be able to reach interactive controls in the core owner form using keyboard navigation.",
+    "source_fragment": "A user shall be able to reach interactive controls in the core owner form using keyboard navigation.",
+    "source_span": {
+      "start": 0,
+      "end": 100
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-02",
+    "requirement_id": "REQ-C3-NFR-028",
+    "ac_id": "AC-C3-NFR-028-02",
+    "atomic_text": "A user shall be able to submit the core owner form without requiring a pointing device.",
+    "behavior_type": "ACCESSIBILITY",
+    "source_text": "A user shall be able to submit the core owner form without requiring a pointing device.",
+    "source_fragment": "A user shall be able to submit the core owner form without requiring a pointing device.",
+    "source_span": {
+      "start": 0,
+      "end": 87
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-028-RVU-03",
+    "requirement_id": "REQ-C3-NFR-028",
+    "ac_id": "AC-C3-NFR-028-03",
+    "atomic_text": "Validation feedback for the core owner form shall be programmatically associated with the corresponding invalid input where supported by the interface technology.",
+    "behavior_type": "ACCESSIBILITY",
+    "source_text": "Validation feedback for the core owner form shall be programmatically associated with the corresponding invalid input where supported by the interface technology.",
+    "source_fragment": "Validation feedback for the core owner form shall be programmatically associated with the corresponding invalid input where supported by the interface technology.",
+    "source_span": {
+      "start": 0,
+      "end": 162
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-01",
+    "requirement_id": "REQ-C3-NFR-029",
+    "ac_id": "AC-C3-NFR-029-01",
+    "atomic_text": "Ordinary client-facing error responses shall not expose application credentials.",
+    "behavior_type": "SECURITY",
+    "source_text": "Ordinary client-facing error responses shall not expose application credentials.",
+    "source_fragment": "Ordinary client-facing error responses shall not expose application credentials.",
+    "source_span": {
+      "start": 0,
+      "end": 80
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-02",
+    "requirement_id": "REQ-C3-NFR-029",
+    "ac_id": "AC-C3-NFR-029-02",
+    "atomic_text": "Ordinary client-facing error responses shall not expose database connection secrets.",
+    "behavior_type": "SECURITY",
+    "source_text": "Ordinary client-facing error responses shall not expose database connection secrets.",
+    "source_fragment": "Ordinary client-facing error responses shall not expose database connection secrets.",
+    "source_span": {
+      "start": 0,
+      "end": 84
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-029-RVU-03",
+    "requirement_id": "REQ-C3-NFR-029",
+    "ac_id": "AC-C3-NFR-029-03",
+    "atomic_text": "Application logs used for QA evidence shall not intentionally record plaintext authentication credentials.",
+    "behavior_type": "SECURITY",
+    "source_text": "Application logs used for QA evidence shall not intentionally record plaintext authentication credentials.",
+    "source_fragment": "Application logs used for QA evidence shall not intentionally record plaintext authentication credentials.",
+    "source_span": {
+      "start": 0,
+      "end": 106
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": false,
+    "review_reason": null,
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-01",
+    "requirement_id": "REQ-C3-NFR-030",
+    "ac_id": "AC-C3-NFR-030-01",
+    "atomic_text": "The selected core validation and business-rule package shall achieve at least 80 percent line coverage in the configured coverage report.",
+    "behavior_type": "MAINTAINABILITY",
+    "source_text": "The selected core validation and business-rule package shall achieve at least 80 percent line coverage in the configured coverage report.",
+    "source_fragment": "The selected core validation and business-rule package shall achieve at least 80 percent line coverage in the configured coverage report.",
+    "source_span": {
+      "start": 0,
+      "end": 137
+    },
+    "constraints": [
+      "80 percent"
+    ],
+    "confidence": 0.96,
+    "requires_review": true,
+    "review_reason": "Potential compound behavior remains; human atomicity review is recommended.",
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-02",
+    "requirement_id": "REQ-C3-NFR-030",
+    "ac_id": "AC-C3-NFR-030-02",
+    "atomic_text": "The selected core validation and business-rule package shall have no unresolved critical-severity static-analysis finding in the configured analysis run.",
+    "behavior_type": "MAINTAINABILITY",
+    "source_text": "The selected core validation and business-rule package shall have no unresolved critical-severity static-analysis finding in the configured analysis run.",
+    "source_fragment": "The selected core validation and business-rule package shall have no unresolved critical-severity static-analysis finding in the configured analysis run.",
+    "source_span": {
+      "start": 0,
+      "end": 153
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": true,
+    "review_reason": "Potential compound behavior remains; human atomicity review is recommended.",
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  },
+  {
+    "rvu_id": "REQ-C3-NFR-030-RVU-03",
+    "requirement_id": "REQ-C3-NFR-030",
+    "ac_id": "AC-C3-NFR-030-03",
+    "atomic_text": "The evidence used to evaluate maintainability shall record the analysis tool and tool version.",
+    "behavior_type": "MAINTAINABILITY",
+    "source_text": "The evidence used to evaluate maintainability shall record the analysis tool and tool version.",
+    "source_fragment": "The evidence used to evaluate maintainability shall record the analysis tool and tool version.",
+    "source_span": {
+      "start": 0,
+      "end": 94
+    },
+    "constraints": [],
+    "confidence": 0.96,
+    "requires_review": true,
+    "review_reason": "Potential compound behavior remains; human atomicity review is recommended.",
+    "version": 1,
+    "extraction_method": "DETERMINISTIC_RVU_V2"
+  }
+]

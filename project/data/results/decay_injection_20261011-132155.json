@@ -1,0 +1,30 @@
+{
+ "per_mutation": {
+  "unrelated_replacement": {
+   "injected": 9,
+   "detected": 9
+  },
+  "negate_behavior": {
+   "injected": 0,
+   "detected": 0
+  },
+  "change_numbers": {
+   "injected": 5,
+   "detected": 1
+  },
+  "strip_to_first_sentence": {
+   "injected": 9,
+   "detected": 6
+  },
+  "cosmetic_control": {
+   "injected": 9,
+   "detected": 1
+  }
+ },
+ "decay_detection_accuracy": 0.6956521739130435,
+ "false_decay_rate": 0.1111111111111111,
+ "sample_links": 9,
+ "source": "neo4j",
+ "model": "llama3.1-8k",
+ "finished": "2026-10-11T07:51:55+00:00"
+}

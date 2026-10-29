@@ -4,7 +4,7 @@ C3 provides requirement-centric QA decision support: it identifies what must be 
 
 ## Implementation availability
 
-This guide describes `feature/quality-testing-intelligence`. The documentation-only update to `main` does not install the implementation. Use a checkout containing the C3 code, scripts, dataset, and frontend for the commands below. Integration of that implementation requires separate review.
+The C3 implementation is integrated into `main` through the `develop` merge. This checkout includes the C3 code, scripts, dataset, and frontend, alongside repository and traceability intelligence. Run the commands below from this integrated checkout.
 
 C3 is a research prototype. Its outputs support QA review and do not certify product correctness. See [Limitations and research boundaries](LIMITATIONS.md).
 
@@ -45,7 +45,7 @@ PetClinic source is pinned to `500158f732419217507c7656904b8e6aa1bcc0d6`. Consul
 
 The recorded backend environment uses Python 3.12.10. Use a Node.js version compatible with the Vite version recorded in `apps/web/package.json` and its lockfile.
 
-From the repository root, on the implementation branch:
+From the repository root, in this checkout:
 
 ```powershell
 cd project
@@ -93,7 +93,7 @@ Vite proxies `/api` and `/health` to port 8000. `VITE_API_BASE_URL` overrides th
 
 ## Rebuild and verify
 
-Run from `project/` on the implementation branch:
+Run from `project/` in this checkout:
 
 ```powershell
 # Processing, normalization, analysis, revalidation, export, evaluation, release checks
